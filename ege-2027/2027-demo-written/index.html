@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЕГЭ 2026. Английский язык — Демонстрационный вариант (письменная речь)</title>
+<title>ЕГЭ 2027. Английский язык — Демонстрационный вариант (письменная речь)</title>
 
 <meta name="ws:type"      content="worksheet">
-<meta name="ws:course"    content="ЕГЭ 2026">
-<meta name="ws:course-id" content="ege">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Демо">
-<meta name="ws:title"     content="ЕГЭ 2026 — письменная речь (демо)">
+<meta name="ws:title"     content="ЕГЭ 2027 — письменная речь (демо)">
 <meta name="ws:emoji"     content="✍️">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
@@ -152,7 +152,7 @@ textarea.essay:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0
   <div class="topbar-inner">
     <div class="brand-row">
       <div>
-        <div class="lesson-title">ЕГЭ 2026 · Английский язык · 11 класс</div>
+        <div class="lesson-title">ЕГЭ 2027 · Английский язык · 11 класс</div>
         <div class="lesson-sub">Демонстрационный вариант ФИПИ — письменная речь: задания 37–38 (часть 2 из 2)</div>
       </div>
       <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required></div>
@@ -439,7 +439,7 @@ function downloadAnswers(){
   const t37 = document.getElementById('essay37').value;
   const t38 = document.getElementById('essay38').value;
   const choice = document.querySelector('input[name="task38choice"]:checked').value;
-  const content = 'ЕГЭ 2026 — Письменная речь\nИмя: '+name+'\n\n=== Задание 37 (email, '+countWords(t37)+' слов) ===\n'+t37+'\n\n=== Задание '+choice+' (эссе, '+countWords(t38)+' слов) ===\n'+t38+'\n';
+  const content = 'ЕГЭ 2027 — Письменная речь\nИмя: '+name+'\n\n=== Задание 37 (email, '+countWords(t37)+' слов) ===\n'+t37+'\n\n=== Задание '+choice+' (эссе, '+countWords(t38)+' слов) ===\n'+t38+'\n';
   const blob = new Blob([content], {type:'text/plain;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -471,7 +471,7 @@ async function sendToTeacher(){
   status.style.color = 'var(--muted)';
   try{
     const fd = new FormData();
-    fd.append('Файл', 'ЕГЭ 2026 — письменная речь');
+    fd.append('Файл', 'ЕГЭ 2027 — письменная речь');
     fd.append('Имя', name);
     fd.append('Дата', new Date().toLocaleString('ru-RU'));
     fd.append('Задание 37 (email, '+countWords(t37)+' слов)', t37);

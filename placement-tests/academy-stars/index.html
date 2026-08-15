@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Academy Stars — Placement Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Placement tests">
+<meta name="ws:course-id" content="placement-tests">
+<meta name="ws:unit"      content="Academy Stars">
+<meta name="ws:title"     content="Academy Stars — Placement Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="maewykro">
+<meta name="ws:tags"      content="placement test, academy stars">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+      :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:120px;
+    height:auto;
+    padding:14px;
+    z-index:1000;
+    filter:drop-shadow(0 4px 10px rgba(20,14,25,0.35));
+    -webkit-mask-image:radial-gradient(ellipse at center, black 55%, transparent 88%);
+    mask-image:radial-gradient(ellipse at center, black 55%, transparent 88%);
+  }
+  .angle-badge{
+    position:fixed;
+    left:28px;
+    bottom:24px;
+    z-index:9999;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    opacity:0.9;
+    color:var(--yellow);
+  }
+  .angle-badge .wordmark{
+    width:150px;
+    height:auto;
+    display:block;
+  }
+  .angle-badge .credit{
+    margin-top:4px;
+    margin-left:3px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.3px;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .quiz-page{display:none;}
+  .quiz-page.active{display:block;}
+  .bg-photo{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:url('img/bg-photo.png');
+    background-size:cover;
+    background-position:center;
+    opacity:0.3;
+  }
+  .bg-wash{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(180deg, rgba(20,14,25,.30) 0%, rgba(69,52,88,.55) 45%, rgba(20,14,25,.88) 100%);
+  }
+  .page-indicator{
+    text-align:center;
+    margin:22px 0 8px;
+    font-family:'Apercu Pro',sans-serif;
+    color:#ffffff;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    text-shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  .page-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .page-dots span{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.35);
+    display:inline-block;
+    transition:background 0.2s;
+  }
+  .page-dots span.active{
+    background:var(--yellow);
+  }
+  .page-dots span.visited{
+    background:rgba(255,255,255,0.8);
+  }
+  .page-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:8px;
+    margin-bottom:40px;
+  }
+  .page-nav .btn{
+    margin-top:0;
+    flex:1;
+  }
+  .btn-prev:disabled{
+    opacity:0.35;
+    cursor:not-allowed;
+    background:#fff;
+  }
+</style>
+</head>
+<body>
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+<div class="angle-badge">
+<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+<div class="credit">by Viktoria Syuzyova</div>
+</div>
+<img class="floating-logo" src="img/course-cover.png" alt="Academy Stars Second Edition">
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Academy Stars<br>Placement Test</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Student name</h2>
+    <p>Enter your name before starting the test.</p>
+    <input type="text" id="studentName" name="studentName" style="width:280px" required placeholder="Full name">
+  </div>
+
+  <div class="quiz-page active" data-page="0">
+    <div class="section">
+      <h2>Questions 1&ndash;10</h2>
+<div class="item" data-answer="I'm" data-type="mc">
+        <p>Question 1. Complete Tom's description of himself using the correct pronoun form.</p>
+        <img class="q-illustration" src="img/q1.jpg" alt="Question 1 illustration">
+        <div class="options">
+          <label><input type="radio" name="q1" value="It's"> A) It's</label>
+          <label><input type="radio" name="q1" value="I'm"> B) I'm</label>
+          <label><input type="radio" name="q1" value="He's"> C) He's</label>
+          <label><input type="radio" name="q1" value="She's"> D) She's</label>
+        </div>
+      </div>
+<div class="item" data-answer="Yes, it is." data-type="mc">
+        <p>Question 2. Answer the question about the bag correctly.</p>
+        <img class="q-illustration" src="img/q2.jpg" alt="Question 2 illustration">
+        <div class="options">
+          <label><input type="radio" name="q2" value="No, it is."> A) No, it is.</label>
+          <label><input type="radio" name="q2" value="Yes, it is."> B) Yes, it is.</label>
+          <label><input type="radio" name="q2" value="No, it isn't."> C) No, it isn't.</label>
+          <label><input type="radio" name="q2" value="Yes, it isn't."> D) Yes, it isn't.</label>
+        </div>
+      </div>
+<div class="item" data-answer="grandpa" data-type="mc">
+        <p>Question 3. Choose the family word that matches the picture (an old man).</p>
+        <img class="q-illustration" src="img/q3.jpg" alt="Question 3 illustration">
+        <div class="options">
+          <label><input type="radio" name="q3" value="baby"> A) baby</label>
+          <label><input type="radio" name="q3" value="family"> B) family</label>
+          <label><input type="radio" name="q3" value="brother"> C) brother</label>
+          <label><input type="radio" name="q3" value="grandpa"> D) grandpa</label>
+        </div>
+      </div>
+<div class="item" data-answer="hungry" data-type="mc">
+        <p>Question 4. Choose the word that describes how the children are feeling.</p>
+        <img class="q-illustration" src="img/q4.jpg" alt="Question 4 illustration">
+        <div class="options">
+          <label><input type="radio" name="q4" value="hungry"> A) hungry</label>
+          <label><input type="radio" name="q4" value="angry"> B) angry</label>
+          <label><input type="radio" name="q4" value="cold"> C) cold</label>
+          <label><input type="radio" name="q4" value="hot"> D) hot</label>
+        </div>
+      </div>
+<div class="item" data-answer="climb" data-type="mc">
+        <p>Question 5. Choose the verb that matches what the panda is doing.</p>
+        <img class="q-illustration" src="img/q5.jpg" alt="Question 5 illustration">
+        <div class="options">
+          <label><input type="radio" name="q5" value="jump"> A) jump</label>
+          <label><input type="radio" name="q5" value="throw"> B) throw</label>
+          <label><input type="radio" name="q5" value="catch"> C) catch</label>
+          <label><input type="radio" name="q5" value="climb"> D) climb</label>
+        </div>
+      </div>
+<div class="item" data-answer="in" data-type="mc">
+        <p>Question 6. Choose the preposition that shows where the paints are.</p>
+        <img class="q-illustration" src="img/q6.jpg" alt="Question 6 illustration">
+        <div class="options">
+          <label><input type="radio" name="q6" value="in"> A) in</label>
+          <label><input type="radio" name="q6" value="on"> B) on</label>
+          <label><input type="radio" name="q6" value="under"> C) under</label>
+          <label><input type="radio" name="q6" value="next to"> D) next to</label>
+        </div>
+      </div>
+<div class="item" data-answer="eyes" data-type="mc">
+        <p>Question 7. Choose the body part that completes the description of the rabbits.</p>
+        <img class="q-illustration" src="img/q7.jpg" alt="Question 7 illustration">
+        <div class="options">
+          <label><input type="radio" name="q7" value="eyes"> A) eyes</label>
+          <label><input type="radio" name="q7" value="tails"> B) tails</label>
+          <label><input type="radio" name="q7" value="arms"> C) arms</label>
+          <label><input type="radio" name="q7" value="legs"> D) legs</label>
+        </div>
+      </div>
+<div class="item" data-answer="do" data-type="mc">
+        <p>Question 8. Choose the correct auxiliary verb for the question about school clothes.</p>
+        <img class="q-illustration" src="img/q8.jpg" alt="Question 8 illustration">
+        <div class="options">
+          <label><input type="radio" name="q8" value="does"> A) does</label>
+          <label><input type="radio" name="q8" value="are"> B) are</label>
+          <label><input type="radio" name="q8" value="do"> C) do</label>
+          <label><input type="radio" name="q8" value="is"> D) is</label>
+        </div>
+      </div>
+<div class="item" data-answer="beds" data-type="mc">
+        <p>Question 9. Choose the bedroom furniture item shown in the picture.</p>
+        <img class="q-illustration" src="img/q9.jpg" alt="Question 9 illustration">
+        <div class="options">
+          <label><input type="radio" name="q9" value="wardrobes"> A) wardrobes</label>
+          <label><input type="radio" name="q9" value="clocks"> B) clocks</label>
+          <label><input type="radio" name="q9" value="lamps"> C) lamps</label>
+          <label><input type="radio" name="q9" value="beds"> D) beds</label>
+        </div>
+      </div>
+<div class="item" data-answer="coconuts" data-type="mc">
+        <p>Question 10. Choose the fruit that matches the crossed-out picture (the one not liked).</p>
+        <img class="q-illustration" src="img/q10.jpg" alt="Question 10 illustration">
+        <div class="options">
+          <label><input type="radio" name="q10" value="tomatoes"> A) tomatoes</label>
+          <label><input type="radio" name="q10" value="coconuts"> B) coconuts</label>
+          <label><input type="radio" name="q10" value="mangoes"> C) mangoes</label>
+          <label><input type="radio" name="q10" value="pears"> D) pears</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-page" data-page="1">
+    <div class="section">
+      <h2>Questions 11&ndash;20</h2>
+<div class="item" data-answer="kangaroos" data-type="mc">
+        <p>Question 11. Choose the Australian animal described in the sentence.</p>
+        <img class="q-illustration" src="img/q11.jpg" alt="Question 11 illustration">
+        <div class="options">
+          <label><input type="radio" name="q11" value="bears"> A) bears</label>
+          <label><input type="radio" name="q11" value="camels"> B) camels</label>
+          <label><input type="radio" name="q11" value="wolves"> C) wolves</label>
+          <label><input type="radio" name="q11" value="kangaroos"> D) kangaroos</label>
+        </div>
+      </div>
+<div class="item" data-answer="do gymnastics" data-type="mc">
+        <p>Question 12. Choose the activity shown in the gymnastics picture.</p>
+        <img class="q-illustration" src="img/q12.jpg" alt="Question 12 illustration">
+        <div class="options">
+          <label><input type="radio" name="q12" value="go to school"> A) go to school</label>
+          <label><input type="radio" name="q12" value="do gymnastics"> B) do gymnastics</label>
+          <label><input type="radio" name="q12" value="play basketball"> C) play basketball</label>
+          <label><input type="radio" name="q12" value="have a music lesson"> D) have a music lesson</label>
+        </div>
+      </div>
+<div class="item" data-answer="glasses" data-type="mc">
+        <p>Question 13. Choose the object that matches the picture of the glasses.</p>
+        <img class="q-illustration" src="img/q13.jpg" alt="Question 13 illustration">
+        <div class="options">
+          <label><input type="radio" name="q13" value="guitar"> A) guitar</label>
+          <label><input type="radio" name="q13" value="glasses"> B) glasses</label>
+          <label><input type="radio" name="q13" value="camera"> C) camera</label>
+          <label><input type="radio" name="q13" value="headphones"> D) headphones</label>
+        </div>
+      </div>
+<div class="item" data-answer="visits" data-type="mc">
+        <p>Question 14. Choose the correct verb form for what Kirsty does on Saturdays.</p>
+        <img class="q-illustration" src="img/q14.jpg" alt="Question 14 illustration">
+        <div class="options">
+          <label><input type="radio" name="q14" value="visit"> A) visit</label>
+          <label><input type="radio" name="q14" value="visits"> B) visits</label>
+          <label><input type="radio" name="q14" value="don't visit"> C) don't visit</label>
+          <label><input type="radio" name="q14" value="doesn't visit"> D) doesn't visit</label>
+        </div>
+      </div>
+<div class="item" data-answer="are" data-type="mc">
+        <p>Question 15. Choose the correct verb form for what John and Kate are doing.</p>
+        <img class="q-illustration" src="img/q15.jpg" alt="Question 15 illustration">
+        <div class="options">
+          <label><input type="radio" name="q15" value="is"> A) is</label>
+          <label><input type="radio" name="q15" value="do"> B) do</label>
+          <label><input type="radio" name="q15" value="are"> C) are</label>
+          <label><input type="radio" name="q15" value="can"> D) can</label>
+        </div>
+      </div>
+<div class="item" data-answer="isn't" data-type="mc">
+        <p>Question 16. Choose the correct negative form for what the brother is NOT doing.</p>
+        <img class="q-illustration" src="img/q16.jpg" alt="Question 16 illustration">
+        <div class="options">
+          <label><input type="radio" name="q16" value="isn't"> A) isn't</label>
+          <label><input type="radio" name="q16" value="don't"> B) don't</label>
+          <label><input type="radio" name="q16" value="aren't"> C) aren't</label>
+          <label><input type="radio" name="q16" value="doesn't"> D) doesn't</label>
+        </div>
+      </div>
+<div class="item" data-answer="winter" data-type="mc">
+        <p>Question 17. Choose the season that matches the snowman picture.</p>
+        <img class="q-illustration" src="img/q17.jpg" alt="Question 17 illustration">
+        <div class="options">
+          <label><input type="radio" name="q17" value="spring"> A) spring</label>
+          <label><input type="radio" name="q17" value="summer"> B) summer</label>
+          <label><input type="radio" name="q17" value="autumn"> C) autumn</label>
+          <label><input type="radio" name="q17" value="winter"> D) winter</label>
+        </div>
+      </div>
+<div class="item" data-answer="Would" data-type="mc">
+        <p>Question 18. Choose the polite offer that matches 'Yes, please.'</p>
+        <img class="q-illustration" src="img/q18.jpg" alt="Question 18 illustration">
+        <div class="options">
+          <label><input type="radio" name="q18" value="Do"> A) Do</label>
+          <label><input type="radio" name="q18" value="Are"> B) Are</label>
+          <label><input type="radio" name="q18" value="Can"> C) Can</label>
+          <label><input type="radio" name="q18" value="Would"> D) Would</label>
+        </div>
+      </div>
+<div class="item" data-answer="kitchen" data-type="mc">
+        <p>Question 19. Choose the room that matches the picture (making a cake).</p>
+        <img class="q-illustration" src="img/q19.jpg" alt="Question 19 illustration">
+        <div class="options">
+          <label><input type="radio" name="q19" value="hall"> A) hall</label>
+          <label><input type="radio" name="q19" value="kitchen"> B) kitchen</label>
+          <label><input type="radio" name="q19" value="bathroom"> C) bathroom</label>
+          <label><input type="radio" name="q19" value="dining room"> D) dining room</label>
+        </div>
+      </div>
+<div class="item" data-answer="visited" data-type="mc">
+        <p>Question 20. Choose the correct past tense verb form for the art gallery visit.</p>
+        <img class="q-illustration" src="img/q20.jpg" alt="Question 20 illustration">
+        <div class="options">
+          <label><input type="radio" name="q20" value="visit"> A) visit</label>
+          <label><input type="radio" name="q20" value="visits"> B) visits</label>
+          <label><input type="radio" name="q20" value="visited"> C) visited</label>
+          <label><input type="radio" name="q20" value="visiting"> D) visiting</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-page" data-page="2">
+    <div class="section">
+      <h2>Questions 21&ndash;30</h2>
+<div class="item" data-answer="computer studies" data-type="mc">
+        <p>Question 21. Choose the school subject that matches making a website.</p>
+        <img class="q-illustration" src="img/q21.jpg" alt="Question 21 illustration">
+        <div class="options">
+          <label><input type="radio" name="q21" value="maths"> A) maths</label>
+          <label><input type="radio" name="q21" value="music"> B) music</label>
+          <label><input type="radio" name="q21" value="social studies"> C) social studies</label>
+          <label><input type="radio" name="q21" value="computer studies"> D) computer studies</label>
+        </div>
+      </div>
+<div class="item" data-answer="always" data-type="mc">
+        <p>Question 22. Choose the frequency word for having PE before lunch on Wednesday.</p>
+        <img class="q-illustration" src="img/q22.jpg" alt="Question 22 illustration">
+        <div class="options">
+          <label><input type="radio" name="q22" value="once"> A) once</label>
+          <label><input type="radio" name="q22" value="twice"> B) twice</label>
+          <label><input type="radio" name="q22" value="always"> C) always</label>
+          <label><input type="radio" name="q22" value="three times"> D) three times</label>
+        </div>
+      </div>
+<div class="item" data-answer="library" data-type="mc">
+        <p>Question 23. Choose the place shown in the picture (books, studying).</p>
+        <img class="q-illustration" src="img/q23.jpg" alt="Question 23 illustration">
+        <div class="options">
+          <label><input type="radio" name="q23" value="library"> A) library</label>
+          <label><input type="radio" name="q23" value="cinema"> B) cinema</label>
+          <label><input type="radio" name="q23" value="supermarket"> C) supermarket</label>
+          <label><input type="radio" name="q23" value="swimming pool"> D) swimming pool</label>
+        </div>
+      </div>
+<div class="item" data-answer="were" data-type="mc">
+        <p>Question 24. Choose the correct past tense 'to be' form for the rainy weekend.</p>
+        <img class="q-illustration" src="img/q24.jpg" alt="Question 24 illustration">
+        <div class="options">
+          <label><input type="radio" name="q24" value="is"> A) is</label>
+          <label><input type="radio" name="q24" value="am"> B) am</label>
+          <label><input type="radio" name="q24" value="was"> C) was</label>
+          <label><input type="radio" name="q24" value="were"> D) were</label>
+        </div>
+      </div>
+<div class="item" data-answer="a lot" data-type="mc">
+        <p>Question 25. Choose the quantity word for the number of shops in the city.</p>
+        <img class="q-illustration" src="img/q25.jpg" alt="Question 25 illustration">
+        <div class="options">
+          <label><input type="radio" name="q25" value="some"> A) some</label>
+          <label><input type="radio" name="q25" value="much"> B) much</label>
+          <label><input type="radio" name="q25" value="a lot"> C) a lot</label>
+          <label><input type="radio" name="q25" value="many"> D) many</label>
+        </div>
+      </div>
+<div class="item" data-answer="friendlier" data-type="mc">
+        <p>Question 26. Choose the correct comparative adjective for dolphins vs sharks.</p>
+        <img class="q-illustration" src="img/q26.jpg" alt="Question 26 illustration">
+        <div class="options">
+          <label><input type="radio" name="q26" value="nice"> A) nice</label>
+          <label><input type="radio" name="q26" value="good"> B) good</label>
+          <label><input type="radio" name="q26" value="worst"> C) worst</label>
+          <label><input type="radio" name="q26" value="friendlier"> D) friendlier</label>
+        </div>
+      </div>
+<div class="item" data-answer="have" data-type="mc">
+        <p>Question 27. Choose the correct verb form for having a good day yesterday.</p>
+        <img class="q-illustration" src="img/q27.jpg" alt="Question 27 illustration">
+        <div class="options">
+          <label><input type="radio" name="q27" value="has"> A) has</label>
+          <label><input type="radio" name="q27" value="had"> B) had</label>
+          <label><input type="radio" name="q27" value="have"> C) have</label>
+          <label><input type="radio" name="q27" value="having"> D) having</label>
+        </div>
+      </div>
+<div class="item" data-answer="weren't" data-type="mc">
+        <p>Question 28. Choose the correct negative form for the question about windows in the cave.</p>
+        <img class="q-illustration" src="img/q28.jpg" alt="Question 28 illustration">
+        <div class="options">
+          <label><input type="radio" name="q28" value="are"> A) are</label>
+          <label><input type="radio" name="q28" value="aren't"> B) aren't</label>
+          <label><input type="radio" name="q28" value="wasn't"> C) wasn't</label>
+          <label><input type="radio" name="q28" value="weren't"> D) weren't</label>
+        </div>
+      </div>
+<div class="item" data-answer="goggles" data-type="mc">
+        <p>Question 29. Choose the swimming item shown in the picture.</p>
+        <img class="q-illustration" src="img/q29.jpg" alt="Question 29 illustration">
+        <div class="options">
+          <label><input type="radio" name="q29" value="glove"> A) glove</label>
+          <label><input type="radio" name="q29" value="trainers"> B) trainers</label>
+          <label><input type="radio" name="q29" value="goggles"> C) goggles</label>
+          <label><input type="radio" name="q29" value="tracksuit"> D) tracksuit</label>
+        </div>
+      </div>
+<div class="item" data-answer="Are" data-type="mc">
+        <p>Question 30. Choose the correct question form for going to France on holiday.</p>
+        <img class="q-illustration" src="img/q30.jpg" alt="Question 30 illustration">
+        <div class="options">
+          <label><input type="radio" name="q30" value="Do"> A) Do</label>
+          <label><input type="radio" name="q30" value="Are"> B) Are</label>
+          <label><input type="radio" name="q30" value="Can"> C) Can</label>
+          <label><input type="radio" name="q30" value="Am"> D) Am</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-page" data-page="3">
+    <div class="section">
+      <h2>Questions 31&ndash;40</h2>
+<div class="item" data-answer="volcano" data-type="mc">
+        <p>Question 31. Choose the landform shown in the volcano picture.</p>
+        <img class="q-illustration" src="img/q31.jpg" alt="Question 31 illustration">
+        <div class="options">
+          <label><input type="radio" name="q31" value="lake"> A) lake</label>
+          <label><input type="radio" name="q31" value="island"> B) island</label>
+          <label><input type="radio" name="q31" value="volcano"> C) volcano</label>
+          <label><input type="radio" name="q31" value="countryside"> D) countryside</label>
+        </div>
+      </div>
+<div class="item" data-answer="did" data-type="mc">
+        <p>Question 32. Choose the correct verb form for learning to tie shoelaces at age seven.</p>
+        <img class="q-illustration" src="img/q32.jpg" alt="Question 32 illustration">
+        <div class="options">
+          <label><input type="radio" name="q32" value="could"> A) could</label>
+          <label><input type="radio" name="q32" value="was"> B) was</label>
+          <label><input type="radio" name="q32" value="can"> C) can</label>
+          <label><input type="radio" name="q32" value="did"> D) did</label>
+        </div>
+      </div>
+<div class="item" data-answer="safety vest" data-type="mc">
+        <p>Question 33. Choose the clothing item that matches the picture (worn in the dark).</p>
+        <img class="q-illustration" src="img/q33.jpg" alt="Question 33 illustration">
+        <div class="options">
+          <label><input type="radio" name="q33" value="safety vest"> A) safety vest</label>
+          <label><input type="radio" name="q33" value="brakes"> B) brakes</label>
+          <label><input type="radio" name="q33" value="wheel"> C) wheel</label>
+          <label><input type="radio" name="q33" value="gears"> D) gears</label>
+        </div>
+      </div>
+<div class="item" data-answer="more" data-type="mc">
+        <p>Question 34. Choose the correct comparative form for the cake being tastier.</p>
+        <img class="q-illustration" src="img/q34.jpg" alt="Question 34 illustration">
+        <div class="options">
+          <label><input type="radio" name="q34" value="most"> A) most</label>
+          <label><input type="radio" name="q34" value="more"> B) more</label>
+          <label><input type="radio" name="q34" value="much"> C) much</label>
+          <label><input type="radio" name="q34" value="many"> D) many</label>
+        </div>
+      </div>
+<div class="item" data-answer="sore throat" data-type="mc">
+        <p>Question 35. Choose the illness that matches the picture (holding the throat).</p>
+        <img class="q-illustration" src="img/q35.jpg" alt="Question 35 illustration">
+        <div class="options">
+          <label><input type="radio" name="q35" value="earache"> A) earache</label>
+          <label><input type="radio" name="q35" value="sore throat"> B) sore throat</label>
+          <label><input type="radio" name="q35" value="broken arm"> C) broken arm</label>
+          <label><input type="radio" name="q35" value="stomach ache"> D) stomach ache</label>
+        </div>
+      </div>
+<div class="item" data-answer="were" data-type="mc">
+        <p>Question 36. Choose the correct past tense 'to be' form for buying a birthday present.</p>
+        <img class="q-illustration" src="img/q36.jpg" alt="Question 36 illustration">
+        <div class="options">
+          <label><input type="radio" name="q36" value="was"> A) was</label>
+          <label><input type="radio" name="q36" value="were"> B) were</label>
+          <label><input type="radio" name="q36" value="wasn't"> C) wasn't</label>
+          <label><input type="radio" name="q36" value="weren't"> D) weren't</label>
+        </div>
+      </div>
+<div class="item" data-answer="charger" data-type="mc">
+        <p>Question 37. Choose the electronic accessory shown in the picture.</p>
+        <img class="q-illustration" src="img/q37.jpg" alt="Question 37 illustration">
+        <div class="options">
+          <label><input type="radio" name="q37" value="charger"> A) charger</label>
+          <label><input type="radio" name="q37" value="laptop"> B) laptop</label>
+          <label><input type="radio" name="q37" value="mouse"> C) mouse</label>
+          <label><input type="radio" name="q37" value="screen"> D) screen</label>
+        </div>
+      </div>
+<div class="item" data-answer="scales" data-type="mc">
+        <p>Question 38. Choose the body covering that matches the fish picture.</p>
+        <img class="q-illustration" src="img/q38.jpg" alt="Question 38 illustration">
+        <div class="options">
+          <label><input type="radio" name="q38" value="fur"> A) fur</label>
+          <label><input type="radio" name="q38" value="petals"> B) petals</label>
+          <label><input type="radio" name="q38" value="scales"> C) scales</label>
+          <label><input type="radio" name="q38" value="feathers"> D) feathers</label>
+        </div>
+      </div>
+<div class="item" data-answer="happens" data-type="mc">
+        <p>Question 39. Choose the correct present simple verb form for what happens to a marble in water.</p>
+        <img class="q-illustration" src="img/q39.jpg" alt="Question 39 illustration">
+        <div class="options">
+          <label><input type="radio" name="q39" value="happen"> A) happen</label>
+          <label><input type="radio" name="q39" value="happens"> B) happens</label>
+          <label><input type="radio" name="q39" value="happened"> C) happened</label>
+          <label><input type="radio" name="q39" value="happening"> D) happening</label>
+        </div>
+      </div>
+<div class="item" data-answer="has" data-type="mc">
+        <p>Question 40. Choose the correct verb form for why he is tired after cleaning the car.</p>
+        <img class="q-illustration" src="img/q40.jpg" alt="Question 40 illustration">
+        <div class="options">
+          <label><input type="radio" name="q40" value="is"> A) is</label>
+          <label><input type="radio" name="q40" value="did"> B) did</label>
+          <label><input type="radio" name="q40" value="was"> C) was</label>
+          <label><input type="radio" name="q40" value="has"> D) has</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-page" data-page="4">
+    <div class="section">
+      <h2>Questions 41&ndash;50</h2>
+<div class="item" data-answer="came" data-type="mc">
+        <p>Question 41. Choose the correct past simple verb form for when the ambulance arrived.</p>
+        <img class="q-illustration" src="img/q41.jpg" alt="Question 41 illustration">
+        <div class="options">
+          <label><input type="radio" name="q41" value="came"> A) came</label>
+          <label><input type="radio" name="q41" value="comes"> B) comes</label>
+          <label><input type="radio" name="q41" value="has come"> C) has come</label>
+          <label><input type="radio" name="q41" value="was coming"> D) was coming</label>
+        </div>
+      </div>
+<div class="item" data-answer="I didn't use to like" data-type="mc">
+        <p>Question 42. Choose the correct negative form for not liking salad as a child.</p>
+        <img class="q-illustration" src="img/q42.jpg" alt="Question 42 illustration">
+        <div class="options">
+          <label><input type="radio" name="q42" value="I'm not use to like"> A) I'm not use to like</label>
+          <label><input type="radio" name="q42" value="I didn't use to like"> B) I didn't use to like</label>
+          <label><input type="radio" name="q42" value="I don't used to like"> C) I don't used to like</label>
+          <label><input type="radio" name="q42" value="I didn't used to like"> D) I didn't used to like</label>
+        </div>
+      </div>
+<div class="item" data-answer="put up a tent" data-type="mc">
+        <p>Question 43. Choose the activity Tom has never done, shown in the picture.</p>
+        <img class="q-illustration" src="img/q43.jpg" alt="Question 43 illustration">
+        <div class="options">
+          <label><input type="radio" name="q43" value="put up a tent"> A) put up a tent</label>
+          <label><input type="radio" name="q43" value="been kayaking"> B) been kayaking</label>
+          <label><input type="radio" name="q43" value="swum with dolphins"> C) swum with dolphins</label>
+          <label><input type="radio" name="q43" value="been in a hot-air balloon"> D) been in a hot-air balloon</label>
+        </div>
+      </div>
+<div class="item" data-answer="pilot" data-type="mc">
+        <p>Question 44. Choose the job that matches the cockpit picture.</p>
+        <img class="q-illustration" src="img/q44.jpg" alt="Question 44 illustration">
+        <div class="options">
+          <label><input type="radio" name="q44" value="pilot"> A) pilot</label>
+          <label><input type="radio" name="q44" value="dentist"> B) dentist</label>
+          <label><input type="radio" name="q44" value="gardener"> C) gardener</label>
+          <label><input type="radio" name="q44" value="paramedic"> D) paramedic</label>
+        </div>
+      </div>
+<div class="item" data-answer="fast" data-type="mc">
+        <p>Question 45. Choose the correct adjective for comparing motorbikes and planes.</p>
+        <img class="q-illustration" src="img/q45.jpg" alt="Question 45 illustration">
+        <div class="options">
+          <label><input type="radio" name="q45" value="fast"> A) fast</label>
+          <label><input type="radio" name="q45" value="faster"> B) faster</label>
+          <label><input type="radio" name="q45" value="fastest"> C) fastest</label>
+          <label><input type="radio" name="q45" value="more fast"> D) more fast</label>
+        </div>
+      </div>
+<div class="item" data-answer="denim" data-type="mc">
+        <p>Question 46. Choose the material the jeans are made of.</p>
+        <img class="q-illustration" src="img/q46.jpg" alt="Question 46 illustration">
+        <div class="options">
+          <label><input type="radio" name="q46" value="wood"> A) wood</label>
+          <label><input type="radio" name="q46" value="metal"> B) metal</label>
+          <label><input type="radio" name="q46" value="denim"> C) denim</label>
+          <label><input type="radio" name="q46" value="leather"> D) leather</label>
+        </div>
+      </div>
+<div class="item" data-answer="will be" data-type="mc">
+        <p>Question 47. Choose the correct future form for becoming a famous musician one day.</p>
+        <img class="q-illustration" src="img/q47.jpg" alt="Question 47 illustration">
+        <div class="options">
+          <label><input type="radio" name="q47" value="am"> A) am</label>
+          <label><input type="radio" name="q47" value="will be"> B) will be</label>
+          <label><input type="radio" name="q47" value="am being"> C) am being</label>
+          <label><input type="radio" name="q47" value="have been"> D) have been</label>
+        </div>
+      </div>
+<div class="item" data-answer="don't" data-type="mc">
+        <p>Question 48. Choose the correct negative form for the condition about calling mum.</p>
+        <img class="q-illustration" src="img/q48.jpg" alt="Question 48 illustration">
+        <div class="options">
+          <label><input type="radio" name="q48" value="don't"> A) don't</label>
+          <label><input type="radio" name="q48" value="won't"> B) won't</label>
+          <label><input type="radio" name="q48" value="haven't"> C) haven't</label>
+          <label><input type="radio" name="q48" value="shouldn't"> D) shouldn't</label>
+        </div>
+      </div>
+<div class="item" data-answer="anything" data-type="mc">
+        <p>Question 49. Choose the correct word for the negative sentence about being hungry.</p>
+        <img class="q-illustration" src="img/q49.jpg" alt="Question 49 illustration">
+        <div class="options">
+          <label><input type="radio" name="q49" value="something"> A) something</label>
+          <label><input type="radio" name="q49" value="anything"> B) anything</label>
+          <label><input type="radio" name="q49" value="nothing"> C) nothing</label>
+          <label><input type="radio" name="q49" value="many"> D) many</label>
+        </div>
+      </div>
+<div class="item" data-answer="prove" data-type="mc">
+        <p>Question 50. Choose the correct verb for what can't be proven about the stolen bag.</p>
+        <img class="q-illustration" src="img/q50.jpg" alt="Question 50 illustration">
+        <div class="options">
+          <label><input type="radio" name="q50" value="solve"> A) solve</label>
+          <label><input type="radio" name="q50" value="prove"> B) prove</label>
+          <label><input type="radio" name="q50" value="borrow"> C) borrow</label>
+          <label><input type="radio" name="q50" value="behave"> D) behave</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-page" data-page="5">
+    <div class="section">
+      <h2>Questions 51&ndash;60</h2>
+<div class="item" data-answer="species" data-type="mc">
+        <p>Question 51. Choose the correct word for the different types of rhino.</p>
+        <img class="q-illustration" src="img/q51.jpg" alt="Question 51 illustration">
+        <div class="options">
+          <label><input type="radio" name="q51" value="species"> A) species</label>
+          <label><input type="radio" name="q51" value="habitats"> B) habitats</label>
+          <label><input type="radio" name="q51" value="predators"> C) predators</label>
+          <label><input type="radio" name="q51" value="sanctuaries"> D) sanctuaries</label>
+        </div>
+      </div>
+<div class="item" data-answer="had brought" data-type="mc">
+        <p>Question 52. Choose the correct past perfect form for the friend bringing her guitar to school.</p>
+        <img class="q-illustration" src="img/q52.jpg" alt="Question 52 illustration">
+        <div class="options">
+          <label><input type="radio" name="q52" value="brought"> A) brought</label>
+          <label><input type="radio" name="q52" value="had brought"> B) had brought</label>
+          <label><input type="radio" name="q52" value="has brought"> C) has brought</label>
+          <label><input type="radio" name="q52" value="was bringing"> D) was bringing</label>
+        </div>
+      </div>
+<div class="item" data-answer="sweet" data-type="mc">
+        <p>Question 53. Choose the taste that matches too much sugar in the cake.</p>
+        <img class="q-illustration" src="img/q53.jpg" alt="Question 53 illustration">
+        <div class="options">
+          <label><input type="radio" name="q53" value="sour"> A) sour</label>
+          <label><input type="radio" name="q53" value="salty"> B) salty</label>
+          <label><input type="radio" name="q53" value="bitter"> C) bitter</label>
+          <label><input type="radio" name="q53" value="sweet"> D) sweet</label>
+        </div>
+      </div>
+<div class="item" data-answer="have been cleaning" data-type="mc">
+        <p>Question 54. Choose the correct verb form for cleaning the beach for hours.</p>
+        <img class="q-illustration" src="img/q54.jpg" alt="Question 54 illustration">
+        <div class="options">
+          <label><input type="radio" name="q54" value="cleaned"> A) cleaned</label>
+          <label><input type="radio" name="q54" value="had cleaned"> B) had cleaned</label>
+          <label><input type="radio" name="q54" value="have cleaned"> C) have cleaned</label>
+          <label><input type="radio" name="q54" value="have been cleaning"> D) have been cleaning</label>
+        </div>
+      </div>
+<div class="item" data-answer="I'm visiting" data-type="mc">
+        <p>Question 55. Choose the correct present continuous form for the museum visit on Saturday.</p>
+        <img class="q-illustration" src="img/q55.jpg" alt="Question 55 illustration">
+        <div class="options">
+          <label><input type="radio" name="q55" value="I visit"> A) I visit</label>
+          <label><input type="radio" name="q55" value="I will visit"> B) I will visit</label>
+          <label><input type="radio" name="q55" value="I'm visiting"> C) I'm visiting</label>
+          <label><input type="radio" name="q55" value="I have visited"> D) I have visited</label>
+        </div>
+      </div>
+<div class="item" data-answer="wasn't it" data-type="mc">
+        <p>Question 56. Choose the correct question tag for 'Indoor skydiving was great, ___?'</p>
+        <img class="q-illustration" src="img/q56.jpg" alt="Question 56 illustration">
+        <div class="options">
+          <label><input type="radio" name="q56" value="was it"> A) was it</label>
+          <label><input type="radio" name="q56" value="didn't it"> B) didn't it</label>
+          <label><input type="radio" name="q56" value="wasn't it"> C) wasn't it</label>
+          <label><input type="radio" name="q56" value="doesn't it"> D) doesn't it</label>
+        </div>
+      </div>
+<div class="item" data-answer="qualify" data-type="mc">
+        <p>Question 57. Choose the correct verb for what's needed to enter the cycling event.</p>
+        <img class="q-illustration" src="img/q57.jpg" alt="Question 57 illustration">
+        <div class="options">
+          <label><input type="radio" name="q57" value="qualify"> A) qualify</label>
+          <label><input type="radio" name="q57" value="achieve"> B) achieve</label>
+          <label><input type="radio" name="q57" value="exercise"> C) exercise</label>
+          <label><input type="radio" name="q57" value="persevere"> D) persevere</label>
+        </div>
+      </div>
+<div class="item" data-answer="were deleted" data-type="mc">
+        <p>Question 58. Choose the correct passive form for the photos disappearing from the laptop.</p>
+        <img class="q-illustration" src="img/q58.jpg" alt="Question 58 illustration">
+        <div class="options">
+          <label><input type="radio" name="q58" value="delete"> A) delete</label>
+          <label><input type="radio" name="q58" value="deleted"> B) deleted</label>
+          <label><input type="radio" name="q58" value="are deleted"> C) are deleted</label>
+          <label><input type="radio" name="q58" value="were deleted"> D) were deleted</label>
+        </div>
+      </div>
+<div class="item" data-answer="cast" data-type="mc">
+        <p>Question 59. Choose the film element that matches 'the actor who played the hero'.</p>
+        <img class="q-illustration" src="img/q59.jpg" alt="Question 59 illustration">
+        <div class="options">
+          <label><input type="radio" name="q59" value="set"> A) set</label>
+          <label><input type="radio" name="q59" value="plot"> B) plot</label>
+          <label><input type="radio" name="q59" value="cast"> C) cast</label>
+          <label><input type="radio" name="q59" value="script"> D) script</label>
+        </div>
+      </div>
+<div class="item" data-answer="would" data-type="mc">
+        <p>Question 60. Choose the correct modal verb for the second conditional about having money.</p>
+        <img class="q-illustration" src="img/q60.jpg" alt="Question 60 illustration">
+        <div class="options">
+          <label><input type="radio" name="q60" value="should"> A) should</label>
+          <label><input type="radio" name="q60" value="would"> B) would</label>
+          <label><input type="radio" name="q60" value="can"> C) can</label>
+          <label><input type="radio" name="q60" value="will"> D) will</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-indicator" id="pageIndicator">Page 1 of 6</div>
+  <div class="page-dots" id="pageDots"></div>
+
+  <div class="page-nav">
+    <button type="button" class="btn btn-prev" id="prevBtn" disabled>&larr; Previous</button>
+    <button type="button" class="btn btn-next" id="nextBtn">Next &rarr;</button>
+    <button type="submit" class="btn" id="submitBtn" style="display:none;">Check my answers</button>
+  </div>
+
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+// ---- Pagination ----
+(function(){
+  const pages = Array.from(document.querySelectorAll('.quiz-page'));
+  const total = pages.length;
+  const indicator = document.getElementById('pageIndicator');
+  const dotsWrap = document.getElementById('pageDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  let current = 0;
+
+  pages.forEach((p, i) => {
+    const dot = document.createElement('span');
+    dot.dataset.idx = i;
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function render(){
+    pages.forEach((p, i) => p.classList.toggle('active', i === current));
+    indicator.textContent = 'Page ' + (current+1) + ' of ' + total;
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      d.classList.toggle('visited', i < current);
+    });
+    prevBtn.disabled = (current === 0);
+    const isLast = (current === total - 1);
+    nextBtn.style.display = isLast ? 'none' : 'block';
+    submitBtn.style.display = isLast ? 'block' : 'none';
+    document.querySelector('.wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  prevBtn.addEventListener('click', function(){
+    if(current > 0){ current--; render(); }
+  });
+  nextBtn.addEventListener('click', function(){
+    if(current < total - 1){ current++; render(); }
+  });
+  dots.forEach(d => {
+    d.style.cursor = 'pointer';
+    d.addEventListener('click', function(){
+      current = parseInt(d.dataset.idx, 10);
+      render();
+    });
+  });
+
+  render();
+})();
+
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let wrongNumbers = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer.trim().toLowerCase() === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer.trim().toLowerCase() === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect){
+      correct++;
+    } else {
+      wrongNumbers.push(total);
+    }
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  function levelFor(score){
+    if(score <= 5)  return "Starter level";
+    if(score <= 10) return "Level 1 (CEFR Pre-A1)";
+    if(score <= 20) return "Level 2 (CEFR Pre-A1)";
+    if(score <= 30) return "Level 3 (CEFR A1)";
+    if(score <= 40) return "Level 4 (CEFR A1)";
+    if(score <= 50) return "Level 5 (CEFR A2)";
+    return "Level 6 (CEFR Pre-B1)";
+  }
+  const level = levelFor(correct);
+  const studentName = document.getElementById('studentName').value.trim();
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = 'Suggested starting point: ' + level + '. (This is a guide only — the teacher will confirm the final placement.)';
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const wrongList = wrongNumbers.length ? wrongNumbers.join(', ') : 'None — perfect score!';
+  const fd = new FormData();
+  fd.append('exercise', 'Academy Stars — Placement Test');
+  fd.append('student', studentName);
+  fd.append('score', correct + '/' + total);
+  fd.append('suggested_level', level);
+  fd.append('questions_with_mistakes', wrongList);
+
+  fetch('https://formspree.io/f/maewykro', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Is there / Are there? How many...? Revision</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Academy Stars 2">
+<meta name="ws:course-id" content="as2">
+<meta name="ws:unit"      content="1">
+<meta name="ws:title"     content="Is there / Are there? &amp; How many...? Revision">
+<meta name="ws:emoji"     content="🌱">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnlwkd">
+<meta name="ws:tags"      content="there is/are, how many">
+<meta name="robots"       content="noindex, nofollow">
+
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .cue-row{display:flex;align-items:center;gap:16px;margin-bottom:6px;}
+  .cue-pic{font-size:2.6em;line-height:1;flex-shrink:0;width:60px;text-align:center;}
+  .cue-text{flex:1;}
+  .cue-text p{margin:0 0 8px 0;}
+  .qty-tag{display:inline-block;background:var(--yellow);color:var(--black);font-weight:800;padding:2px 10px;margin-left:8px;font-size:0.85em;}
+  .student-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#f3eef8;
+    border:2px solid var(--purple);
+    padding:14px 20px;
+    margin-bottom:24px;
+  }
+  .student-info label{
+    font-weight:800;
+    color:var(--purple);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    white-space:nowrap;
+  }
+  .student-info input[type="text"]{
+    flex:1;
+    width:auto;
+    font-size:1.05em;
+  }
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .logo-caption{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+<img class="floating-logo" src="img/course-cover.png" alt="Academy Stars 2" alt="Academy Stars 5">
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="logo-caption">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Is there / Are there? &amp; How many...?</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+<div class="student-info">
+  <label for="studentName">Student's name:</label>
+  <input type="text" id="studentName" name="studentName" placeholder="Write your name here">
+</div>
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Part 1 — Is there...? / Are there...?</h2>
+    <p>Look at the picture. Choose the correct word to complete the question.</p>
+
+    <div class="item" data-type="dd" data-answer="Is">
+      <div class="cue-row">
+        <div class="cue-pic">🕷️</div>
+        <div class="cue-text"><p>___ there a spider under the log?</p></div>
+      </div>
+      <select name="dd1">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="Are">
+      <div class="cue-row">
+        <div class="cue-pic">🐦</div>
+        <div class="cue-text"><p>___ there any birds in the tree?</p></div>
+      </div>
+      <select name="dd2">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="Are">
+      <div class="cue-row">
+        <div class="cue-pic">🐛</div>
+        <div class="cue-text"><p>___ there any insects under the stone?</p></div>
+      </div>
+      <select name="dd3">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="Is">
+      <div class="cue-row">
+        <div class="cue-pic">🐢</div>
+        <div class="cue-text"><p>___ there a tortoise near the pond?</p></div>
+      </div>
+      <select name="dd4">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="Are">
+      <div class="cue-row">
+        <div class="cue-pic">🐊</div>
+        <div class="cue-text"><p>___ there any crocodiles in the river?</p></div>
+      </div>
+      <select name="dd5">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="Are">
+      <div class="cue-row">
+        <div class="cue-pic">🐟</div>
+        <div class="cue-text"><p>___ there any fish in the lake?</p></div>
+      </div>
+      <select name="dd6">
+        <option value="">-- choose --</option>
+        <option value="Is">Is</option>
+        <option value="Are">Are</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Yes / No short answers</h2>
+    <p>Look at the picture and the question. Write a short answer: <em>Yes, there is. / Yes, there are.</em></p>
+
+    <div class="item" data-type="fib" data-answer="are">
+      <div class="cue-row">
+        <div class="cue-pic">🌳</div>
+        <div class="cue-text"><p>Are there any trees in the park?</p></div>
+      </div>
+      <p class="blank-sentence">Yes, there <input type="text" name="fib1">.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="is">
+      <div class="cue-row">
+        <div class="cue-pic">🦊</div>
+        <div class="cue-text"><p>Is there a fox in the forest?</p></div>
+      </div>
+      <p class="blank-sentence">Yes, there <input type="text" name="fib2">.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="are">
+      <div class="cue-row">
+        <div class="cue-pic">🪱</div>
+        <div class="cue-text"><p>Are there any worms in the soil?</p></div>
+      </div>
+      <p class="blank-sentence">Yes, there <input type="text" name="fib3">.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="is">
+      <div class="cue-row">
+        <div class="cue-pic">🌸</div>
+        <div class="cue-text"><p>Is there a flower in the garden?</p></div>
+      </div>
+      <p class="blank-sentence">Yes, there <input type="text" name="fib4">.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — How many...are there?</h2>
+    <p>Look at the picture and the number. Complete the answer.</p>
+
+    <div class="item" data-type="fib" data-answer="6">
+      <div class="cue-row">
+        <div class="cue-pic">🐦</div>
+        <div class="cue-text"><p>How many birds are there? <span class="qty-tag">6</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib5"> birds.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="3">
+      <div class="cue-row">
+        <div class="cue-pic">🌸</div>
+        <div class="cue-text"><p>How many flowers are there? <span class="qty-tag">3</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib6"> flowers.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="4">
+      <div class="cue-row">
+        <div class="cue-pic">🦊</div>
+        <div class="cue-text"><p>How many foxes are there? <span class="qty-tag">4</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib7"> foxes.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="12">
+      <div class="cue-row">
+        <div class="cue-pic">🐛</div>
+        <div class="cue-text"><p>How many insects are there? <span class="qty-tag">12</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib8"> insects.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="8">
+      <div class="cue-row">
+        <div class="cue-pic">🌳</div>
+        <div class="cue-text"><p>How many trees are there? <span class="qty-tag">8</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib9"> trees.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="2">
+      <div class="cue-row">
+        <div class="cue-pic">🐢</div>
+        <div class="cue-text"><p>How many tortoises are there? <span class="qty-tag">2</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib10"> tortoises.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="15">
+      <div class="cue-row">
+        <div class="cue-pic">🐟</div>
+        <div class="cue-text"><p>How many fish are there? <span class="qty-tag">15</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib11"> fish.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="20">
+      <div class="cue-row">
+        <div class="cue-pic">🪱</div>
+        <div class="cue-text"><p>How many worms are there? <span class="qty-tag">20</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib12"> worms.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="5">
+      <div class="cue-row">
+        <div class="cue-pic">🐊</div>
+        <div class="cue-text"><p>How many crocodiles are there? <span class="qty-tag">5</span></p></div>
+      </div>
+      <p class="blank-sentence">There are <input type="text" name="fib13"> crocodiles.</p>
+    </div>
+  </div>
+
+
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer.trim().toLowerCase() === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer.trim().toLowerCase() === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for class."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Is there / Are there? & How many...? Revision');
+  fd.append('student', document.getElementById('studentName').value || '(not entered)');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mjgnlwkd', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

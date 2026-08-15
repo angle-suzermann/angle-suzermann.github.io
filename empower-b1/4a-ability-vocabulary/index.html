@@ -13,7 +13,7 @@
 <meta name="ws:emoji"     content="✏️">
 <meta name="ws:date"      content="2026-05-14">
 <meta name="ws:status"    content="published">
-<meta name="ws:formspree" content="">
+<meta name="ws:formspree" content="mjgnlwdp">
 <meta name="ws:tags"      content="vocabulary, ability, prepositions, Christian Bale">
 <meta name="robots"       content="noindex, nofollow">
 
@@ -292,6 +292,30 @@
   }
   .toolbar button:active{ background:var(--black); }
 
+  .student-info{
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    padding:14px 16px;
+    margin:16px 0 0;
+  }
+  .student-info label{
+    font-weight:800;
+    color:var(--purple);
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:0.5px;
+  }
+  .student-info input[type="text"]{
+    width:100%;
+    min-height:44px;
+    font-size:15px;
+    padding:8px 10px;
+    border:1px solid var(--neutral-border);
+    margin-top:6px;
+    box-sizing:border-box;
+  }
+
   footer{
     margin-top:34px;
     font-size:11px;
@@ -317,6 +341,11 @@
 </header>
 
 <div class="wrap">
+
+<div class="student-info">
+  <label for="studentName">Ваше имя:</label>
+  <input type="text" id="studentName" placeholder="Впишите имя, чтобы учитель узнал результат">
+</div>
 
 <h2>1&nbsp; Match the word to its meaning</h2>
 <div class="task">Tap a word first, then tap the matching definition. A correct pair turns green; a wrong pair flashes red and you can try again.</div>
@@ -356,6 +385,8 @@
 <ol class="exercise" id="ex5"></ol>
 
 <div class="toolbar">
+  <button onclick="sendResults()">Отправить результат учителю</button>
+  <div class="score-line" id="sendStatus"></div>
   <button onclick="window.print()">Print / save as PDF</button>
 </div>
 
@@ -678,6 +709,52 @@ function renderPersonal(){
     li.appendChild(ta);
     ol.appendChild(li);
   });
+}
+
+/* ================= SEND TO TEACHER ================= */
+
+function computeSelectScore(containerId){
+  const sel = document.querySelectorAll('#' + containerId + ' select.gap');
+  let correct = 0;
+  sel.forEach(s => { if(s.value === s.dataset.answer) correct++; });
+  return {correct: correct, total: sel.length};
+}
+
+function sendResults(){
+  checkSelects('ex2');
+  checkSelects('ex3');
+  checkPrep();
+
+  const name = (document.getElementById('studentName').value || '').trim() || '(не указано)';
+  const ex2s = computeSelectScore('ex2');
+  const ex3s = computeSelectScore('ex3');
+  const prepCorrect = document.querySelectorAll('#ex4 .prep-btn.correct').length;
+  const personal = Array.prototype.map.call(document.querySelectorAll('#ex5 textarea'), function(t){ return t.value.trim(); })
+    .filter(Boolean).join(' | ') || '(пусто)';
+
+  const totalCorrect = matchedCount + ex2s.correct + ex3s.correct + prepCorrect;
+  const totalQuestions = words.length + ex2s.total + ex3s.total + ex4data.length;
+
+  const statusEl = document.getElementById('sendStatus');
+  statusEl.textContent = 'Отправляю…';
+
+  const fd = new FormData();
+  fd.append('material', '4A Vocabulary Check: Ability');
+  fd.append('student', name);
+  fd.append('score', totalCorrect + ' / ' + totalQuestions);
+  fd.append('ex1_matching', matchedCount + '/' + words.length);
+  fd.append('ex2_gaps', ex2s.correct + '/' + ex2s.total);
+  fd.append('ex3_gaps', ex3s.correct + '/' + ex3s.total);
+  fd.append('ex4_prepositions', prepCorrect + '/' + ex4data.length);
+  fd.append('ex5_personal_answers', personal);
+
+  fetch('https://formspree.io/f/mjgnlwdp', { method: 'POST', headers: {'Accept': 'application/json'}, body: fd })
+    .then(function(res){
+      statusEl.textContent = res.ok ? 'Отправлено учителю ✓' : 'Не получилось отправить — сделайте скриншот и пришлите его.';
+    })
+    .catch(function(){
+      statusEl.textContent = 'Не получилось отправить — сделайте скриншот и пришлите его.';
+    });
 }
 
 /* ================= INIT ================= */

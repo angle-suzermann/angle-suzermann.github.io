@@ -197,6 +197,24 @@ body{
 .filter-btn:hover{ background: rgba(254,213,0,0.22); border-color: rgba(254,213,0,0.6); transform: translateY(-1px); }
 .filter-btn.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); text-shadow: none; }
 
+/* подвкладки уровней внутри курса-семьи (напр. Academy Stars 2/3/4/5) */
+.sub-tabs{
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -6px 0 16px 4px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(254,213,0,0.4);
+}
+.sub-tabs:not([hidden]){ display: flex; }
+.filter-btn.sub{
+  min-height: 30px;
+  padding: 4px 13px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.16);
+}
+.filter-btn.sub.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+
 .staff-card{
   background: var(--neutral-card);
   border: 1px solid var(--neutral-border);

@@ -10,35 +10,108 @@
   "_repoUrl": "Подставьте свой логин GitHub. Используется для ссылок «исходник» в учительском индексе.",
   "courses": [
     {
+      "id": "as2",
+      "name": "Academy Stars 2",
+      "family": "Academy Stars",
+      "emoji": "🌟",
+      "formspree": "mjgnlwkd"
+    },
+    {
+      "id": "as3",
+      "name": "Academy Stars 3",
+      "family": "Academy Stars",
+      "emoji": "🌟",
+      "formspree": "xwleolev"
+    },
+    {
       "id": "as4",
       "name": "Academy Stars 4",
+      "family": "Academy Stars",
       "emoji": "🌟",
-      "formspree": "mjgnbjkk"
+      "formspree": "xeeyrowk"
     },
     {
       "id": "as5",
       "name": "Academy Stars 5",
+      "family": "Academy Stars",
       "emoji": "⭐",
-      "formspree": "mjgnbjkk"
+      "formspree": "mlgqeayn"
     },
     {
       "id": "empower-b1",
       "name": "Empower B1+",
       "emoji": "🚀",
+      "formspree": "mjgnlwdp"
+    },
+    {
+      "id": "gateway/gw-b2",
+      "name": "GW B2",
+      "family": "Gateway",
+      "emoji": "🌍",
+      "formspree": "xoeaqeyz"
+    },
+    {
+      "id": "gateway/gateway-to-the-world-b2",
+      "name": "Gateway to the World B2",
+      "family": "Gateway",
+      "emoji": "🚪",
       "formspree": ""
     },
     {
-      "id": "ege",
-      "name": "ЕГЭ 2026",
+      "id": "gateway/gateway-to-the-world-b1",
+      "name": "Gateway to the World B1",
+      "family": "Gateway",
+      "emoji": "🚪",
+      "formspree": ""
+    },
+    {
+      "id": "ege-2027",
+      "name": "ЕГЭ 2027",
       "emoji": "🎓",
       "formspree": "mnjekjvq"
     },
     {
-      "id": "misc",
-      "name": "Разное (курс не определён)",
-      "emoji": "📦",
+      "id": "oxford-phonics/1",
+      "name": "Oxford Phonics World 1",
+      "family": "Oxford Phonics",
+      "emoji": "🔊",
+      "formspree": "mlgqqwpk"
+    },
+    {
+      "id": "oxford-phonics/2",
+      "name": "Oxford Phonics World 2",
+      "family": "Oxford Phonics",
+      "emoji": "🔊",
+      "formspree": "mlgqqwpk"
+    },
+    {
+      "id": "oxford-phonics/3",
+      "name": "Oxford Phonics World 3",
+      "family": "Oxford Phonics",
+      "emoji": "🔊",
+      "formspree": "mlgqqwpk"
+    },
+    {
+      "id": "oxford-phonics/4",
+      "name": "Oxford Phonics World 4",
+      "family": "Oxford Phonics",
+      "emoji": "🔊",
+      "formspree": "mlgqqwpk"
+    },
+    {
+      "id": "oxford-phonics/5",
+      "name": "Oxford Phonics World 5",
+      "family": "Oxford Phonics",
+      "emoji": "🔊",
+      "formspree": "mlgqqwpk"
+    },
+    {
+      "id": "placement-tests",
+      "name": "Placement tests",
+      "emoji": "🧭",
       "formspree": ""
     }
   ],
-  "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте."
+  "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте.",
+  "_family": "Необязательное поле у курса. Курсы с одинаковым family группируются в панели преподавателя в одну кнопку-родитель с подвкладками-уровнями внутри. Страницы курсов (/as2/ и т.п.) family не затрагивает."
 }

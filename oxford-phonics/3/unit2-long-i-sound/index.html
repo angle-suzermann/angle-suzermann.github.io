@@ -1,0 +1,703 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 Sound Practice — Long i (i_e) | ANGLE</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Oxford Phonics World 3">
+<meta name="ws:course-id" content="oxford-phonics/3">
+<meta name="ws:unit"      content="2">
+<meta name="ws:title"     content="Unit 2 Sound Practice — Long i (i_e)">
+<meta name="ws:emoji"     content="🔤">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mlgqqwpk">
+<meta name="ws:tags"      content="phonics, long i">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#5E4877;
+    --purple-dark:#453458;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --card:#ffffff;
+    --card-tint:#f6f2fa;
+    --text:#2D2926;
+    --muted:#7a7288;
+    --correct:#3fa66b;
+    --correct-bg:#e6f7ee;
+    --wrong:#d6503f;
+    --wrong-bg:#fdeae6;
+    --border:#e2dbea;
+  }
+  *{box-sizing:border-box;}
+  html,body{ margin:0; min-height:100%; }
+  body{
+    font-family:'Apercu Pro','Manrope','Helvetica Neue',Arial,sans-serif;
+    color:var(--text);
+    position:relative;
+  }
+  h1,h2,h3{ font-family:'Apercu Pro','Manrope','Helvetica Neue',Arial,sans-serif; font-weight:800; margin:0 0 10px; color:var(--purple-dark); }
+  p{ line-height:1.55; }
+
+  /* ---- Background photo + brand wash ---- */
+  .bg-photo{
+    position:fixed; inset:0; z-index:0;
+    background-image:url('img/bg-photo.jpg');
+    background-size:cover; background-position:center 25%;
+    opacity:0.55;
+  }
+  .bg-wash{
+    position:fixed; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92));
+  }
+
+  header.topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--purple);
+    color:#fff;
+    padding:14px 20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .topbar-inner{ max-width:900px; margin:0 auto; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  .brand-row .title{ font-weight:800; font-size:1.15rem; }
+  .brand-row .subtitle{ font-size:.85rem; opacity:.9; }
+  .namebar{ display:flex; align-items:center; gap:8px; }
+  .namebar label{ font-size:.8rem; opacity:.9; }
+  .namebar input{
+    border:none; border-radius:8px; padding:6px 10px; font-size:.9rem;
+    font-family:inherit; width:150px;
+  }
+  .progress-track{ margin-top:10px; background:rgba(255,255,255,.25); border-radius:20px; height:10px; overflow:hidden; }
+  .progress-fill{ background:var(--yellow); height:100%; width:14.3%; transition:width .3s ease; border-radius:20px; }
+  .progress-label{ font-size:.78rem; margin-top:4px; opacity:.9; }
+  .dots{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+  .dot{
+    width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.25);
+    color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; border:2px solid transparent;
+  }
+  .dot.active{ background:var(--yellow); color:var(--purple-dark); }
+
+  .wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:22px 18px 140px; }
+  .page{ display:none; animation:fadein .3s ease; }
+  .page.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .card{
+    background:var(--card); border:2px solid var(--border); border-radius:18px;
+    padding:22px 22px 20px; margin-bottom:18px; box-shadow:0 8px 24px rgba(20,14,25,.25);
+  }
+  .badge-tag{
+    display:inline-block; background:var(--yellow); color:var(--black); font-weight:800;
+    font-size:.8rem; padding:4px 12px; border-radius:20px; margin-bottom:10px; letter-spacing:.3px;
+  }
+  .rule-box{
+    background:var(--card-tint); border:2px dashed var(--purple); border-radius:14px; padding:14px 16px; margin:14px 0;
+  }
+  .example-row{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:10px; }
+  .example-pair{
+    display:flex; align-items:center; gap:8px; background:var(--card-tint); border:2px solid var(--border);
+    border-radius:12px; padding:8px 14px; font-weight:700; font-size:1.05rem;
+  }
+  .example-pair .arrow{ color:var(--purple); font-weight:800; }
+
+  button{ font-family:inherit; cursor:pointer; }
+  .speak-btn{
+    background:var(--purple); color:#fff; border:none; border-radius:10px; padding:7px 12px;
+    font-weight:700; font-size:.85rem; box-shadow:0 2px 0 var(--purple-dark);
+  }
+  .speak-btn:active{ transform:translateY(1px); box-shadow:none; }
+
+  .nav-btns{ display:flex; justify-content:space-between; margin-top:22px; }
+  .nav-btn{
+    background:var(--purple); color:#fff; border:none; border-radius:12px; padding:11px 22px;
+    font-weight:800; font-size:.95rem; box-shadow:0 3px 0 var(--purple-dark);
+  }
+  .nav-btn:active{ transform:translateY(2px); box-shadow:none; }
+  .nav-btn.ghost{ background:transparent; color:var(--purple); border:2px solid var(--purple); box-shadow:none; }
+
+  /* Listen & choose */
+  .listen-item{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:12px 14px; border:2px solid var(--border);
+    border-radius:14px; margin-bottom:12px; background:var(--card-tint);
+  }
+  .listen-item .options{ display:flex; gap:10px; }
+  .opt-word{
+    background:#fff; border:2px solid var(--purple); color:var(--purple-dark); border-radius:10px;
+    padding:8px 16px; font-weight:800; font-size:1rem;
+  }
+  .opt-word.correct{ background:var(--correct-bg); border-color:var(--correct); color:var(--correct); }
+  .opt-word.wrong{ background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong); }
+  .opt-word:disabled{ cursor:default; }
+
+  /* Sort */
+  .bank{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0; min-height:48px; }
+  .chip{
+    background:var(--yellow); color:var(--black); border:none; border-radius:20px; padding:9px 18px;
+    font-weight:800; font-size:1rem; box-shadow:0 2px 0 #d9a900;
+  }
+  .chip.selected{ outline:3px solid var(--purple); }
+  .chip:disabled{ opacity:.3; }
+  .buckets{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:14px; }
+  @media(max-width:560px){ .buckets{ grid-template-columns:1fr; } }
+  .bucket{
+    border:2px dashed var(--purple); border-radius:14px; padding:12px; min-height:90px; background:var(--card-tint);
+  }
+  .bucket h3{ margin:0 0 8px; font-size:1.05rem; }
+  .bucket .placed{ display:flex; gap:6px; flex-wrap:wrap; }
+  .bucket-word{
+    background:var(--correct-bg); color:var(--correct); border:2px solid var(--correct);
+    border-radius:10px; padding:5px 11px; font-weight:700; font-size:.9rem;
+  }
+
+  /* Fill in the blank */
+  .fill-item{
+    display:flex; align-items:center; gap:12px; padding:10px 12px; border:2px solid var(--border);
+    border-radius:14px; margin-bottom:10px; background:var(--card-tint); flex-wrap:wrap;
+  }
+  .fill-item .emoji{ font-size:1.6rem; }
+  .fill-item .word-pattern{ font-weight:800; letter-spacing:1px; }
+  .fill-item input.fill-input{
+    border:2px solid var(--purple); border-radius:8px; padding:6px 10px; font-size:1rem; width:110px;
+    font-family:inherit; font-weight:700;
+  }
+  .fill-input.is-correct{ border-color:var(--correct); background:var(--correct-bg); }
+  .fill-input.is-wrong{ border-color:var(--wrong); background:var(--wrong-bg); }
+
+  /* Rhyme match */
+  .match-columns{ display:flex; justify-content:space-between; gap:24px; margin-top:14px; }
+  .match-col{ flex:1; display:flex; flex-direction:column; gap:10px; }
+  .rhyme-word{
+    background:#fff; border:2px solid var(--purple); color:var(--purple-dark); border-radius:12px;
+    padding:10px 14px; font-weight:800; font-size:1rem;
+  }
+  .rhyme-word.selected{ outline:3px solid var(--yellow); }
+  .rhyme-word.matched-correct{ background:var(--correct-bg); border-color:var(--correct); color:var(--correct); }
+  .rhyme-word:disabled{ cursor:default; }
+  .flash-wrong{ animation:shake .35s; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+
+  /* Reading */
+  .story{ background:var(--card-tint); border:2px solid var(--border); border-radius:14px; padding:16px 18px; font-size:1.08rem; line-height:1.8; }
+  .story b{ color:var(--purple); }
+  .read-item{ margin:16px 0; padding:12px 14px; border:2px solid var(--border); border-radius:14px; background:#fff; }
+  .read-item p{ font-weight:700; margin-bottom:8px; }
+  .read-item .options{ display:flex; gap:8px; flex-wrap:wrap; }
+  .opt-letter{
+    background:var(--card-tint); border:2px solid var(--purple); border-radius:10px; padding:7px 14px;
+    font-weight:700; font-size:.92rem;
+  }
+  .opt-letter.correct{ background:var(--correct-bg); border-color:var(--correct); color:var(--correct); }
+  .opt-letter.wrong{ background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong); }
+  .opt-letter:disabled{ cursor:default; }
+
+  .check-btn{
+    background:var(--black); color:var(--yellow); border:none; border-radius:12px; padding:10px 20px;
+    font-weight:800; font-size:.95rem; box-shadow:0 3px 0 #000; margin-top:8px;
+  }
+  .check-btn:active{ transform:translateY(2px); box-shadow:none; }
+
+  /* Finish */
+  .score-circle{
+    width:150px; height:150px; border-radius:50%; background:var(--purple); color:#fff; display:flex;
+    align-items:center; justify-content:center; flex-direction:column; margin:20px auto; box-shadow:0 4px 14px rgba(0,0,0,.25);
+  }
+  .score-circle .pct{ font-size:2.2rem; font-weight:800; }
+  .score-circle .frac{ font-size:.85rem; opacity:.85; }
+  .praise{ text-align:center; font-size:1.3rem; color:var(--purple-dark); font-weight:800; margin-top:6px; }
+  .redo-btn{
+    display:block; margin:18px auto 0; background:var(--black); color:var(--yellow); border:none; border-radius:12px;
+    padding:12px 26px; font-weight:800; font-size:1rem; box-shadow:0 3px 0 #000;
+  }
+
+  /* ---- ANGLE sticky badge ---- */
+  .angle-badge{
+    position:fixed; left:28px; bottom:24px; z-index:9999;
+    pointer-events:none;
+    display:flex; flex-direction:column; align-items:flex-start;
+    color:var(--yellow);
+  }
+  .angle-badge .wordmark{ width:120px; height:auto; display:block; }
+  .angle-badge .credit{
+    margin-top:4px; margin-left:3px;
+    font-family:'Apercu Pro','Manrope','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:400; font-size:11px; letter-spacing:0.3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div>
+        <div class="title">Unit 2 Sound Practice</div>
+        <div class="subtitle">Long i — magic e (i_e)</div>
+      </div>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your name"></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">Page 1 / 7</div>
+    <div class="dots" id="dots"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- PAGE 0: WELCOME / SOUND FOCUS -->
+  <section class="page active" data-page="0">
+    <div class="card">
+      <span class="badge-tag">SOUND FOCUS</span>
+      <h1>Meet the Magic E! ✨</h1>
+      <p>Today we practise the <b>long i</b> sound — the sound i makes when it says its own name, like in <b>kite</b> and <b>time</b>.</p>
+      <div class="rule-box">
+        <p style="margin:0;"><b>The rule:</b> when a short word ends in <b>i + consonant + e</b>, the <b>e</b> stays quiet — but it works like magic and makes the <b>i</b> say "I"! 🪄</p>
+      </div>
+      <p>Listen to the difference:</p>
+      <div class="example-row">
+        <div class="example-pair">kit <span class="arrow">→</span> kite <button class="speak-btn" onclick="speak('kit, kite')">🔊</button></div>
+        <div class="example-pair">pin <span class="arrow">→</span> pine <button class="speak-btn" onclick="speak('pin, pine')">🔊</button></div>
+        <div class="example-pair">rid <span class="arrow">→</span> ride <button class="speak-btn" onclick="speak('rid, ride')">🔊</button></div>
+      </div>
+      <p style="margin-top:14px;">You'll practise this sound in six mini-games: listening, sorting, spelling, rhyming, and reading. Ready? Let's go! 🚲</p>
+    </div>
+    <div class="nav-btns"><span></span><button class="nav-btn" onclick="nextPage()">Start →</button></div>
+  </section>
+
+  <!-- PAGE 1: LISTEN & CHOOSE -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <span class="badge-tag">GAME 1 · LISTEN</span>
+      <h2>Listen &amp; Choose 🎧</h2>
+      <p>Press 🔊, then click the word you hear.</p>
+      <div id="listenList"></div>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><button class="nav-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 2: WORD FAMILY SORT -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <span class="badge-tag">GAME 2 · SORT</span>
+      <h2>Sort the Word Families 🧺</h2>
+      <p>Click a word, then click the basket where it belongs. Keep going until every word is sorted correctly!</p>
+      <div class="bank" id="sortBank"></div>
+      <div class="buckets" id="sortBuckets"></div>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><button class="nav-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 3: FILL IN THE MAGIC E -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <span class="badge-tag">GAME 3 · SPELL</span>
+      <h2>Fill in the Magic E ✍️</h2>
+      <p>Look at the picture and the pattern, then type the whole word.</p>
+      <div id="fillList"></div>
+      <button class="check-btn" onclick="checkFill()">Check my spelling</button>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><button class="nav-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 4: RHYME MATCH -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <span class="badge-tag">GAME 4 · RHYME</span>
+      <h2>Match the Rhymes 🎵</h2>
+      <p>Click a word on the left, then click its rhyming partner on the right.</p>
+      <div class="match-columns">
+        <div class="match-col" id="matchLeft"></div>
+        <div class="match-col" id="matchRight"></div>
+      </div>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><button class="nav-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 5: READ & ANSWER -->
+  <section class="page" data-page="5">
+    <div class="card">
+      <span class="badge-tag">GAME 5 · READ</span>
+      <h2>Read the Story 📖</h2>
+      <div class="story">
+        It's a <b>fine</b> day. <b>Mike</b> and his dog go for a <b>bike</b> ride. They <b>ride</b> <b>five</b> miles to the lake. Mike <b>likes</b> to <b>dive</b> and swim, but his dog just likes to <b>shine</b> in the sun! At <b>nine</b> o'clock, they go home. Mike <b>smiles</b> — what a nice <b>hike</b>!
+        <div style="margin-top:10px;"><button class="speak-btn" onclick="speak(document.getElementById('storyText').textContent)">🔊 Listen to the story</button></div>
+      </div>
+      <span id="storyText" hidden>It's a fine day. Mike and his dog go for a bike ride. They ride five miles to the lake. Mike likes to dive and swim, but his dog just likes to shine in the sun! At nine o'clock, they go home. Mike smiles, what a nice hike!</span>
+      <div id="readList"></div>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><button class="nav-btn" onclick="nextPage()">See my results →</button></div>
+  </section>
+
+  <!-- PAGE 6: FINISH -->
+  <section class="page" data-page="6">
+    <div class="card">
+      <span class="badge-tag">FINISH LINE</span>
+      <h2 style="text-align:center;">Great job! 🏆</h2>
+      <div class="score-circle"><span class="pct" id="scorePct">–</span><span class="frac" id="scoreFrac">– / –</span></div>
+      <p class="praise" id="praiseText"></p>
+      <p style="text-align:center; color:var(--muted);">Games 1, 3, 4 and 5 count toward your score (24 points total).</p>
+      <button class="check-btn" id="sendBtn" style="display:block; margin:14px auto 0;" onclick="submitAll()">📤 Send my results to the teacher</button>
+      <p id="submitStatus" style="text-align:center; font-weight:700; margin-top:8px;"></p>
+      <button class="redo-btn" onclick="location.reload()">🔄 Play again</button>
+    </div>
+    <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+  </section>
+
+</div>
+
+<!-- ANGLE sticky badge -->
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+/* ---------- Navigation ---------- */
+const PAGE_LABELS = ["Sound","Listen","Sort","Spell","Rhyme","Read","Finish"];
+let current = 0;
+
+function buildDots(){
+  const wrap = document.getElementById('dots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>showPage(i);
+    wrap.appendChild(d);
+  });
+}
+
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  if (current === 6) computeResults();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ---------- Text-to-speech ---------- */
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------- Game 1: Listen & Choose ---------- */
+const LISTEN_ITEMS = [
+  { answer:'pine', pair:['pin','pine'] },
+  { answer:'kite', pair:['kit','kite'] },
+  { answer:'ride', pair:['rid','ride'] },
+  { answer:'slide', pair:['slid','slide'] },
+  { answer:'fine', pair:['fin','fine'] },
+  { answer:'dime', pair:['dim','dime'] },
+];
+function buildListen(){
+  const wrap = document.getElementById('listenList');
+  LISTEN_ITEMS.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className = 'listen-item';
+    div.dataset.answer = item.answer;
+    const shuffled = Math.random() < 0.5 ? item.pair : [...item.pair].reverse();
+    div.innerHTML = `
+      <button class="speak-btn" onclick="speak('${item.answer}')">🔊 Listen</button>
+      <div class="options">
+        <button class="opt-word" data-val="${shuffled[0]}">${shuffled[0]}</button>
+        <button class="opt-word" data-val="${shuffled[1]}">${shuffled[1]}</button>
+      </div>`;
+    wrap.appendChild(div);
+  });
+  wrap.querySelectorAll('.opt-word').forEach(btn=>{
+    btn.onclick = ()=>{
+      const item = btn.closest('.listen-item');
+      if (item.dataset.done) return;
+      item.dataset.done = "1";
+      const answer = item.dataset.answer;
+      item.querySelectorAll('.opt-word').forEach(o=>{
+        o.disabled = true;
+        if (o.dataset.val === answer) o.classList.add('correct');
+        else if (o === btn) o.classList.add('wrong');
+      });
+      item.dataset.result = (btn.dataset.val === answer) ? 'correct' : 'wrong';
+    };
+  });
+}
+
+/* ---------- Game 2: Word family sort ---------- */
+const SORT_WORDS = [
+  {w:'time', fam:'ime'}, {w:'lime', fam:'ime'}, {w:'slime', fam:'ime'},
+  {w:'bike', fam:'ike'}, {w:'hike', fam:'ike'}, {w:'like', fam:'ike'},
+  {w:'five', fam:'ive'}, {w:'dive', fam:'ive'}, {w:'hive', fam:'ive'},
+  {w:'nine', fam:'ine'}, {w:'shine', fam:'ine'}, {w:'pine', fam:'ine'},
+];
+const FAMILIES = ['ime','ike','ive','ine'];
+let selectedChip = null;
+
+function shuffleArr(arr){
+  const a = [...arr];
+  for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function buildSort(){
+  const bank = document.getElementById('sortBank');
+  shuffleArr(SORT_WORDS).forEach(item=>{
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.textContent = item.w;
+    btn.dataset.word = item.w;
+    btn.dataset.fam = item.fam;
+    btn.onclick = ()=> selectChip(btn);
+    bank.appendChild(btn);
+  });
+  const bucketsWrap = document.getElementById('sortBuckets');
+  FAMILIES.forEach(fam=>{
+    const div = document.createElement('div');
+    div.className = 'bucket';
+    div.dataset.fam = fam;
+    div.innerHTML = `<h3>_${fam}</h3><div class="placed"></div>`;
+    div.onclick = ()=> dropIntoBucket(div);
+    bucketsWrap.appendChild(div);
+  });
+}
+function selectChip(btn){
+  if (selectedChip) selectedChip.classList.remove('selected');
+  selectedChip = btn;
+  btn.classList.add('selected');
+}
+function dropIntoBucket(bucketEl){
+  if (!selectedChip) return;
+  if (selectedChip.dataset.fam === bucketEl.dataset.fam){
+    const tag = document.createElement('span');
+    tag.className = 'bucket-word';
+    tag.textContent = selectedChip.dataset.word;
+    bucketEl.querySelector('.placed').appendChild(tag);
+    selectedChip.remove();
+    selectedChip = null;
+  } else {
+    bucketEl.classList.add('flash-wrong');
+    setTimeout(()=>bucketEl.classList.remove('flash-wrong'), 350);
+    selectedChip.classList.remove('selected');
+    selectedChip = null;
+  }
+}
+
+/* ---------- Game 3: Fill in the magic e ---------- */
+const FILL_ITEMS = [
+  { emoji:'🚲', pattern:'b _ k e', answer:'bike' },
+  { emoji:'⏰', pattern:'t _ m e', answer:'time' },
+  { emoji:'5️⃣', pattern:'f _ v e', answer:'five' },
+  { emoji:'9️⃣', pattern:'n _ n e', answer:'nine' },
+  { emoji:'🪁', pattern:'k _ t e', answer:'kite' },
+  { emoji:'🥾', pattern:'h _ k e', answer:'hike' },
+  { emoji:'🤿', pattern:'d _ v e', answer:'dive' },
+  { emoji:'✨', pattern:'sh _ n e', answer:'shine' },
+];
+function buildFill(){
+  const wrap = document.getElementById('fillList');
+  FILL_ITEMS.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className = 'fill-item';
+    div.innerHTML = `
+      <span class="emoji">${item.emoji}</span>
+      <span class="word-pattern">${item.pattern}</span>
+      <input type="text" class="fill-input" data-answer="${item.answer}" id="fill-${i}" placeholder="type the word">`;
+    wrap.appendChild(div);
+  });
+}
+function normalise(s){ return (s||'').trim().toLowerCase(); }
+function checkFill(){
+  document.querySelectorAll('.fill-input').forEach(inp=>{
+    const ok = normalise(inp.value) === normalise(inp.dataset.answer);
+    inp.classList.toggle('is-correct', ok);
+    inp.classList.toggle('is-wrong', !ok);
+    inp.dataset.result = ok ? 'correct' : 'wrong';
+  });
+}
+
+/* ---------- Game 4: Rhyme match ---------- */
+const RHYME_PAIRS = [
+  ['bike','like'], ['time','lime'], ['five','hive'], ['nine','shine'], ['ride','slide'], ['mine','pine']
+];
+let rhymeFirstPick = null;
+
+function buildRhyme(){
+  const left = document.getElementById('matchLeft');
+  const right = document.getElementById('matchRight');
+  const leftWords = RHYME_PAIRS.map((p,i)=>({w:p[0], id:i}));
+  const rightWords = shuffleArr(RHYME_PAIRS.map((p,i)=>({w:p[1], id:i})));
+  leftWords.forEach(item=>{
+    const btn = document.createElement('button');
+    btn.className = 'rhyme-word';
+    btn.textContent = item.w;
+    btn.dataset.id = item.id;
+    btn.onclick = ()=> pickRhyme(btn);
+    left.appendChild(btn);
+  });
+  rightWords.forEach(item=>{
+    const btn = document.createElement('button');
+    btn.className = 'rhyme-word';
+    btn.textContent = item.w;
+    btn.dataset.id = item.id;
+    btn.onclick = ()=> pickRhyme(btn);
+    right.appendChild(btn);
+  });
+}
+function pickRhyme(btn){
+  if (btn.disabled) return;
+  if (!rhymeFirstPick){
+    rhymeFirstPick = btn;
+    btn.classList.add('selected');
+    return;
+  }
+  if (btn === rhymeFirstPick){
+    btn.classList.remove('selected');
+    rhymeFirstPick = null;
+    return;
+  }
+  const isMatch = btn.dataset.id === rhymeFirstPick.dataset.id;
+  if (isMatch){
+    [btn, rhymeFirstPick].forEach(b=>{ b.classList.remove('selected'); b.classList.add('matched-correct'); b.disabled = true; });
+  } else {
+    [btn, rhymeFirstPick].forEach(b=> b.classList.add('flash-wrong'));
+    setTimeout(()=>{
+      [btn, rhymeFirstPick].forEach(b=>{ b.classList.remove('selected','flash-wrong'); });
+    }, 500);
+  }
+  rhymeFirstPick = null;
+}
+
+/* ---------- Game 5: Read & answer ---------- */
+const READ_ITEMS = [
+  { q:'How many miles do Mike and his dog ride?', opts:['three','five','nine'], correct:1 },
+  { q:'What does Mike like to do at the lake?', opts:['sleep','dive and swim','read a book'], correct:1 },
+  { q:'What time do they go home?', opts:['five o’clock','seven o’clock','nine o’clock'], correct:2 },
+  { q:'True or false: the dog also likes to dive.', opts:['True','False'], correct:1 },
+];
+function buildRead(){
+  const wrap = document.getElementById('readList');
+  READ_ITEMS.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className = 'read-item';
+    div.dataset.correct = item.correct;
+    const optsHtml = item.opts.map((o,oi)=>`<button class="opt-letter" data-val="${oi}">${o}</button>`).join('');
+    div.innerHTML = `<p>${i+1}. ${item.q}</p><div class="options">${optsHtml}</div>`;
+    wrap.appendChild(div);
+  });
+  wrap.querySelectorAll('.read-item').forEach(item=>{
+    item.querySelectorAll('.opt-letter').forEach(btn=>{
+      btn.onclick = ()=>{
+        if (item.dataset.done) return;
+        item.dataset.done = "1";
+        const correctVal = item.dataset.correct;
+        item.querySelectorAll('.opt-letter').forEach(o=>{
+          o.disabled = true;
+          if (o.dataset.val === correctVal) o.classList.add('correct');
+          else if (o === btn) o.classList.add('wrong');
+        });
+        item.dataset.result = (btn.dataset.val === correctVal) ? 'correct' : 'wrong';
+      };
+    });
+  });
+}
+
+/* ---------- Results ---------- */
+function computeResults(){
+  let correct = 0, total = 0;
+
+  document.querySelectorAll('.listen-item').forEach(el=>{
+    total++; if (el.dataset.result === 'correct') correct++;
+  });
+  document.querySelectorAll('.fill-input').forEach(el=>{
+    total++; if (el.dataset.result === 'correct') correct++;
+  });
+  document.querySelectorAll('.read-item').forEach(el=>{
+    total++; if (el.dataset.result === 'correct') correct++;
+  });
+
+  // Rhyme pairs: each matched pair marks 2 buttons as matched-correct
+  const rhymeCorrectButtons = document.querySelectorAll('.rhyme-word.matched-correct').length;
+  correct += Math.floor(rhymeCorrectButtons/2);
+  total += RHYME_PAIRS.length;
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scorePct').textContent = `${pct}%`;
+  document.getElementById('scoreFrac').textContent = `${correct} / ${total}`;
+
+  const name = document.getElementById('studentName').value.trim();
+  let praise;
+  if (pct >= 90) praise = "Sound Superstar! 🌟 You've got the long i nailed!";
+  else if (pct >= 70) praise = "Awesome work! 🎉 Just a little more practice.";
+  else if (pct >= 50) praise = "Good try! 💪 Play again to sharpen your ear.";
+  else praise = "Nice start! 🌱 Listen to the examples again and try once more.";
+  document.getElementById('praiseText').textContent = name ? `${name} — ${praise}` : praise;
+}
+
+/* ---------- Submit results to teacher ---------- */
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  const statusEl = document.getElementById('submitStatus');
+  if (!nameInput.value.trim()){
+    nameInput.focus();
+    alert('Please type your name at the top before sending your results.');
+    return;
+  }
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
+  statusEl.style.color = 'var(--muted)';
+  statusEl.textContent = 'Sending...';
+  try{
+    const fd = new FormData();
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${document.getElementById('scoreFrac').textContent} (${document.getElementById('scorePct').textContent})`);
+    fd.append('timestamp', new Date().toISOString());
+    const res = await fetch('https://formspree.io/f/mlgqqwpk', {
+      method:'POST',
+      headers:{'Accept':'application/json'},
+      body: fd
+    });
+    if (res.ok){
+      statusEl.style.color = 'var(--correct)';
+      statusEl.textContent = 'Sent to your teacher ✓';
+    } else {
+      throw new Error('bad response');
+    }
+  } catch(e){
+    sendBtn.disabled = false;
+    statusEl.style.color = 'var(--wrong)';
+    statusEl.textContent = 'Could not send — check your internet connection and try again.';
+  }
+}
+
+/* ---------- Init ---------- */
+buildDots();
+buildListen();
+buildSort();
+buildFill();
+buildRhyme();
+buildRead();
+showPage(0);
+</script>
+</body>
+</html>

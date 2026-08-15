@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gateway 2nd Edition &mdash; Placement Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Placement tests">
+<meta name="ws:course-id" content="placement-tests">
+<meta name="ws:unit"      content="Gateway">
+<meta name="ws:title"     content="Gateway 2nd Edition — Placement Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xoeavdkr">
+<meta name="ws:tags"      content="placement test, gateway">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+    
+  :root{
+    --purple:#5E4877;
+    --purple-dark:#453458;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --card:#ffffff;
+    --card-tint:#f6f2fa;
+    --text:#2D2926;
+    --text-invert:#ffffff;
+    --correct:#3fa66b;
+    --wrong:#d6503f;
+    --border:#e2dbea;
+    --muted:#7a7288;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    color:var(--text);
+    background:#1a1420;
+    padding:0;
+  }
+  .bg-photo{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:url('img/bg-photo.jpg');
+    background-size:cover;
+    background-position:center 40%;
+    opacity:0.4;
+  }
+  .bg-wash{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(180deg, rgba(20,14,25,.55) 0%, rgba(69,52,88,.65) 45%, rgba(20,14,25,.92) 100%);
+  }
+
+  /* ---- Sticky top bar ---- */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:60;
+    background:linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(246,242,250,0.7) 55%, rgba(94,72,119,0.7) 100%);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    border-bottom:none;
+    box-shadow:0 6px 14px -4px rgba(20,14,25,0.35);
+    padding:14px 20px 20px;
+  }
+  .topbar-inner{max-width:820px;margin:0 auto;}
+  .brand-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .lesson-title{
+    font-weight:800;
+    color:var(--purple);
+    font-size:1.05em;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    line-height:1.25;
+  }
+  .namebar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.9em;
+  }
+  .namebar label{font-weight:700;color:var(--black);}
+  .namebar input{
+    padding:7px 10px;
+    border:1px solid var(--border);
+    font-family:inherit;
+    font-size:1em;
+    width:190px;
+    border-radius:4px;
+  }
+  .namebar input:focus{outline:2px solid var(--purple);border-color:var(--purple);}
+  .progress-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+  }
+  .progress-track{
+    flex:1;
+    height:8px;
+    background:var(--border);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--yellow);
+    width:10%;
+    transition:width 0.3s ease;
+  }
+  .progress-label{
+    font-size:0.78em;
+    color:var(--muted);
+    white-space:nowrap;
+    font-weight:700;
+  }
+  .page-dots{
+    display:flex;
+    gap:6px;
+    margin-top:10px;
+    flex-wrap:wrap;
+  }
+  .page-dot{
+    width:27px;
+    height:27px;
+    border-radius:50%;
+    background:var(--card-tint);
+    color:var(--purple);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.72em;
+    font-weight:800;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:all .15s;
+  }
+  .page-dot:hover{border-color:var(--purple);}
+  .page-dot.active{background:var(--purple);color:#fff;}
+  .page-dot.visited{border-color:var(--yellow);}
+
+  /* ---- Page shell ---- */
+  .page-wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:24px 20px 90px;
+    position:relative;
+    z-index:1;
+  }
+  .page{display:none;}
+  .page.active{display:block;animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:16px;
+    box-shadow:0 6px 20px rgba(20,14,25,0.18);
+  }
+  .card h2{
+    color:var(--purple);
+    margin-top:0;
+    font-size:1.15em;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .instructions{
+    font-style:italic;
+    color:var(--muted);
+    margin-bottom:20px;
+    font-size:0.92em;
+  }
+
+  /* ---- MC question ---- */
+  .mcq{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+  .mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .mcq p{font-weight:600;margin:0 0 10px;line-height:1.5;}
+  .mcq .qnum{color:var(--purple);font-weight:800;}
+  .mcq .options{display:flex;flex-direction:column;gap:8px;}
+  .mcq .opt{
+    text-align:left;
+    padding:10px 14px;
+    border:1.5px solid var(--border);
+    background:#fff;
+    border-radius:6px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:0.97em;
+    color:var(--text);
+    transition:all .15s;
+  }
+  .mcq .opt:hover{border-color:var(--purple);background:var(--card-tint);}
+  .mcq .opt.chosen{border-color:var(--purple);background:var(--card-tint);font-weight:700;}
+  .mcq .opt.correct{border-color:var(--correct);background:rgba(63,166,107,0.14);color:var(--correct);font-weight:800;}
+  .mcq .opt.wrong{border-color:var(--wrong);background:rgba(214,80,63,0.14);color:var(--wrong);}
+
+  /* ---- Reading ---- */
+  .reading-passage{
+    background:var(--card-tint);
+    border-left:4px solid var(--purple);
+    padding:16px 18px;
+    margin-bottom:20px;
+    line-height:1.65;
+    font-size:0.95em;
+    max-height:380px;
+    overflow-y:auto;
+    border-radius:0 6px 6px 0;
+  }
+  .reading-passage h3{margin-top:0;color:var(--purple);}
+  .reading-passage p{margin:0 0 10px;}
+
+  /* ---- Writing ---- */
+  .card blockquote{
+    background:var(--card-tint);
+    border-left:4px solid var(--yellow);
+    margin:12px 0;
+    padding:10px 16px;
+    font-style:italic;
+    border-radius:0 6px 6px 0;
+  }
+  textarea.writing-answer{
+    width:100%;
+    min-height:200px;
+    padding:14px;
+    border:1.5px solid var(--border);
+    font-family:inherit;
+    font-size:1em;
+    line-height:1.5;
+    resize:vertical;
+    border-radius:6px;
+  }
+  textarea.writing-answer:focus{outline:2px solid var(--purple);border-color:var(--purple);}
+  .word-count{text-align:right;font-size:0.82em;color:var(--muted);margin-top:6px;}
+  .word-count.ok{color:var(--correct);font-weight:700;}
+
+  /* ---- Nav buttons ---- */
+  .nav-btns{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:8px;
+  }
+  .nav-btns button{
+    flex:1;
+    padding:15px;
+    border:none;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:0.95em;
+    border-radius:6px;
+    transition:all .15s;
+  }
+  .nav-btns .btn-back{background:#fff;border:2px solid var(--purple);color:var(--purple);}
+  .nav-btns .btn-back:hover{background:var(--card-tint);}
+  .nav-btns .btn-next{background:var(--black);color:var(--yellow);}
+  .nav-btns .btn-next:hover{background:var(--purple);color:#fff;}
+  .nav-btns span{flex:1;}
+
+  /* ---- Score summary ---- */
+  #scoreSummary{
+    background:var(--card);
+    border:2px solid var(--purple);
+    padding:22px;
+    text-align:center;
+    font-size:1.1em;
+    border-radius:10px;
+    margin-top:18px;
+    box-shadow:0 6px 20px rgba(20,14,25,0.18);
+  }
+  #scoreSummary .level-pill{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--black);
+    font-weight:800;
+    padding:5px 14px;
+    border-radius:20px;
+    margin-top:8px;
+    font-size:0.95em;
+  }
+  #scoreSummary .note{
+    font-size:0.78em;
+    color:var(--muted);
+    margin-top:10px;
+    font-style:italic;
+  }
+  #submitStatus{
+    text-align:center;
+    margin-top:10px;
+    font-size:0.9em;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .angle-badge{
+    position:fixed;
+    left:28px;
+    bottom:24px;
+    z-index:9999;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    opacity:0.9;
+    color:var(--yellow);
+  }
+  .angle-badge .wordmark{
+    width:150px;
+    height:auto;
+    display:block;
+  }
+  .angle-badge .credit{
+    margin-top:4px;
+    margin-left:3px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.3px;
+  }
+</style>
+</head>
+<body>
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+<div class="angle-badge">
+<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+<div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Gateway 2nd Edition<br>Placement Test</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 10</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+<section class="page active" data-page="0">
+  <div class="card">
+    <h2>Grammar &amp; Vocabulary &mdash; Part 1</h2>
+    <p class="instructions">For questions 1&ndash;36, choose the best word or phrase (A, B or C).</p>
+      <div class="mcq" data-correct="2" data-qnum="1">
+        <p><span class="qnum">1.</span> I ................ got a computer but I've got a tablet.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) don't</button>
+          <button class="opt" type="button" data-val="1">B) 've</button>
+          <button class="opt" type="button" data-val="2">C) haven't</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="2">
+        <p><span class="qnum">2.</span> <strong>Sue:</strong> I love Billie Eilish! ................ her?<br><strong>Mike:</strong> No. I prefer Dua Lipa.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Do you like</button>
+          <button class="opt" type="button" data-val="1">B) Are you like</button>
+          <button class="opt" type="button" data-val="2">C) Does you like</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="3">
+        <p><span class="qnum">3.</span> <strong>Marie:</strong> ................ play a musical instrument, John?<br><strong>John:</strong> Yes. I play the piano.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Can you</button>
+          <button class="opt" type="button" data-val="1">B) Do you can</button>
+          <button class="opt" type="button" data-val="2">C) Are you</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="4">
+        <p><span class="qnum">4.</span> That's Jana. She's ................ to her friend.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) talks</button>
+          <button class="opt" type="button" data-val="1">B) talk</button>
+          <button class="opt" type="button" data-val="2">C) talking</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="5">
+        <p><span class="qnum">5.</span> <strong>Amy:</strong> Where ................ you yesterday?<br><strong>Jill:</strong> I was at my grandmother's house.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) were</button>
+          <button class="opt" type="button" data-val="1">B) did</button>
+          <button class="opt" type="button" data-val="2">C) are</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="6">
+        <p><span class="qnum">6.</span> <strong>Angel:</strong> Messi's the ................ footballer in the world.<br><strong>Ricardo:</strong> No, he isn't. Ronaldo is!</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) most good</button>
+          <button class="opt" type="button" data-val="1">B) best</button>
+          <button class="opt" type="button" data-val="2">C) better</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="7">
+        <p><span class="qnum">7.</span> I ................ to the radio every day.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) read</button>
+          <button class="opt" type="button" data-val="1">B) watch</button>
+          <button class="opt" type="button" data-val="2">C) listen</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="8">
+        <p><span class="qnum">8.</span> <strong>Dad:</strong> Where are you going?<br><strong>Mum:</strong> To the ................. I need to buy some boots.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) chemist's</button>
+          <button class="opt" type="button" data-val="1">B) newsagent's</button>
+          <button class="opt" type="button" data-val="2">C) shoe shop</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="9">
+        <p><span class="qnum">9.</span> Mary is very ................. She always helps me when I have a problem.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) hard-working</button>
+          <button class="opt" type="button" data-val="1">B) kind</button>
+          <button class="opt" type="button" data-val="2">C) creative</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="10">
+        <p><span class="qnum">10.</span> You ................ tell anyone &mdash; it's a secret.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) don't have to</button>
+          <button class="opt" type="button" data-val="1">B) must</button>
+          <button class="opt" type="button" data-val="2">C) mustn't</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="11">
+        <p><span class="qnum">11.</span> When I was five I ................ swim but now I can.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) couldn't</button>
+          <button class="opt" type="button" data-val="1">B) can't</button>
+          <button class="opt" type="button" data-val="2">C) could</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="12">
+        <p><span class="qnum">12.</span> While we ................ to school, it started snowing. It was beautiful!</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) was walking</button>
+          <button class="opt" type="button" data-val="1">B) were walking</button>
+          <button class="opt" type="button" data-val="2">C) walked</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <span></span>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Grammar &amp; Vocabulary &mdash; Part 1 (cont.)</h2>
+    <p class="instructions">For questions 1&ndash;36, choose the best word or phrase (A, B or C).</p>
+      <div class="mcq" data-correct="0" data-qnum="13">
+        <p><span class="qnum">13.</span> <strong>Harry:</strong> What are you doing tonight?<br><strong>Ben:</strong> I ................ basketball with Michael. Do you want to come?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) 'm playing</button>
+          <button class="opt" type="button" data-val="1">B) will play</button>
+          <button class="opt" type="button" data-val="2">C) play</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="14">
+        <p><span class="qnum">14.</span> I haven't finished cleaning my bike .................</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) already</button>
+          <button class="opt" type="button" data-val="1">B) just</button>
+          <button class="opt" type="button" data-val="2">C) yet</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="15">
+        <p><span class="qnum">15.</span> If ................ to the concert later, ................ with you.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) you'll go / I come</button>
+          <button class="opt" type="button" data-val="1">B) you go / I'll come</button>
+          <button class="opt" type="button" data-val="2">C) you go / I come</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="16">
+        <p><span class="qnum">16.</span> He's a ................. He writes articles for the newspaper.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) dentist</button>
+          <button class="opt" type="button" data-val="1">B) journalist</button>
+          <button class="opt" type="button" data-val="2">C) secretary</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="17">
+        <p><span class="qnum">17.</span> <strong>Customer:</strong> I'd like a ................ of pizza, please.<br><strong>Server:</strong> Of course. Here you are.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) packet</button>
+          <button class="opt" type="button" data-val="1">B) slice</button>
+          <button class="opt" type="button" data-val="2">C) carton</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="18">
+        <p><span class="qnum">18.</span> <strong>George:</strong> These trousers are a bit big.<br><strong>Dad:</strong> Yes, I think you need to buy a ................ .</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) cap</button>
+          <button class="opt" type="button" data-val="1">B) scarf</button>
+          <button class="opt" type="button" data-val="2">C) belt</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="19">
+        <p><span class="qnum">19.</span> That is the man ................ name I can't pronounce.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) whose</button>
+          <button class="opt" type="button" data-val="1">B) who</button>
+          <button class="opt" type="button" data-val="2">C) which</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="20">
+        <p><span class="qnum">20.</span> My best friend isn't ................ my sister.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) as old than</button>
+          <button class="opt" type="button" data-val="1">B) as old as</button>
+          <button class="opt" type="button" data-val="2">C) so old than</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="21">
+        <p><span class="qnum">21.</span> Can you turn the music down, it's .................</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) not enough loud</button>
+          <button class="opt" type="button" data-val="1">B) not loud enough</button>
+          <button class="opt" type="button" data-val="2">C) too loud</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="22">
+        <p><span class="qnum">22.</span> <strong>James:</strong> What ................ if you ................ &euro;100 in the street?<br><strong>Lisa:</strong> I'd give it to the police.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) will you do / found</button>
+          <button class="opt" type="button" data-val="1">B) would you do / would find</button>
+          <button class="opt" type="button" data-val="2">C) would you do / found</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="23">
+        <p><span class="qnum">23.</span> My brother and sister ................ play football together when they were younger.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) did use to</button>
+          <button class="opt" type="button" data-val="1">B) use to</button>
+          <button class="opt" type="button" data-val="2">C) used to</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="24">
+        <p><span class="qnum">24.</span> I enjoyed ................ my homework last night.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) do</button>
+          <button class="opt" type="button" data-val="1">B) to do</button>
+          <button class="opt" type="button" data-val="2">C) doing</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Grammar &amp; Vocabulary &mdash; Part 1 (cont.)</h2>
+    <p class="instructions">For questions 1&ndash;36, choose the best word or phrase (A, B or C).</p>
+      <div class="mcq" data-correct="1" data-qnum="25">
+        <p><span class="qnum">25.</span> <strong>Mum:</strong> What's the matter?<br><strong>Natalie:</strong> I sang too much at the concert and now my throat is .................</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) pain</button>
+          <button class="opt" type="button" data-val="1">B) sore</button>
+          <button class="opt" type="button" data-val="2">C) ache</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="26">
+        <p><span class="qnum">26.</span> I am very ................ in learning Chinese next year.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) interesting</button>
+          <button class="opt" type="button" data-val="1">B) interest</button>
+          <button class="opt" type="button" data-val="2">C) interested</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="27">
+        <p><span class="qnum">27.</span> If I don't know a word I always ................ using an online dictionary.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) look it for</button>
+          <button class="opt" type="button" data-val="1">B) look up it</button>
+          <button class="opt" type="button" data-val="2">C) look it up</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="28">
+        <p><span class="qnum">28.</span> I've lived in London ................ 20 years but I've never visited London Zoo.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) for</button>
+          <button class="opt" type="button" data-val="1">B) since</button>
+          <button class="opt" type="button" data-val="2">C) from</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="29">
+        <p><span class="qnum">29.</span> By this time next week, we ................ our exams and we'll be on holiday!</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) 'll be finishing</button>
+          <button class="opt" type="button" data-val="1">B) 're going to finish</button>
+          <button class="opt" type="button" data-val="2">C) 'll have finished</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="30">
+        <p><span class="qnum">30.</span> This film, ................ won three Oscars, stars Anne Hathaway and is directed by Tim Burton.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) which</button>
+          <button class="opt" type="button" data-val="1">B) where</button>
+          <button class="opt" type="button" data-val="2">C) that</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="31">
+        <p><span class="qnum">31.</span> It ................ John who used the computer because he doesn't know the password.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) mustn't be</button>
+          <button class="opt" type="button" data-val="1">B) can't have been</button>
+          <button class="opt" type="button" data-val="2">C) might have been</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="32">
+        <p><span class="qnum">32.</span> If you ................ football for five hours you ................ so tired.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) wouldn't have played / wouldn't have felt</button>
+          <button class="opt" type="button" data-val="1">B) hadn't played / won't feel</button>
+          <button class="opt" type="button" data-val="2">C) hadn't played / wouldn't have felt</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="33">
+        <p><span class="qnum">33.</span> I wish I ................ as well as her. She's got such a lovely voice.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) sing</button>
+          <button class="opt" type="button" data-val="1">B) can sing</button>
+          <button class="opt" type="button" data-val="2">C) could sing</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="34">
+        <p><span class="qnum">34.</span> When we entered the church it was ................ inside.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) absolutely packed</button>
+          <button class="opt" type="button" data-val="1">B) very enormous</button>
+          <button class="opt" type="button" data-val="2">C) absolutely old</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="35">
+        <p><span class="qnum">35.</span> My teacher is very good ................ grammar.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) for explain</button>
+          <button class="opt" type="button" data-val="1">B) in explaining</button>
+          <button class="opt" type="button" data-val="2">C) at explaining</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="36">
+        <p><span class="qnum">36.</span> Sally, could you ................ me some money, please?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) owe</button>
+          <button class="opt" type="button" data-val="1">B) lend</button>
+          <button class="opt" type="button" data-val="2">C) borrow</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Grammar &amp; Vocabulary &mdash; Part 2</h2>
+    <p class="instructions">For questions 37&ndash;60, choose the best word or phrase (A, B, C or D).</p>
+      <div class="mcq" data-correct="2" data-qnum="37">
+        <p><span class="qnum">37.</span> <strong>Tom:</strong> Where are you? ................ here for an hour.<br><strong>Emma:</strong> Sorry. I missed the bus.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) I wait</button>
+          <button class="opt" type="button" data-val="1">B) I'm waiting</button>
+          <button class="opt" type="button" data-val="2">C) I've been waiting</button>
+          <button class="opt" type="button" data-val="3">D) I'd been waiting</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="38">
+        <p><span class="qnum">38.</span> It was ................ hot that we decided to stay at home.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) so</button>
+          <button class="opt" type="button" data-val="1">B) very</button>
+          <button class="opt" type="button" data-val="2">C) too</button>
+          <button class="opt" type="button" data-val="3">D) such a</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="3" data-qnum="39">
+        <p><span class="qnum">39.</span> The ................ I concentrate, the ................ I finish my work.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) more hard / fastest</button>
+          <button class="opt" type="button" data-val="1">B) hardly / faster</button>
+          <button class="opt" type="button" data-val="2">C) harder / fastest</button>
+          <button class="opt" type="button" data-val="3">D) harder / faster</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="40">
+        <p><span class="qnum">40.</span> You ................ brought food. We have got plenty here.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) had better</button>
+          <button class="opt" type="button" data-val="1">B) needn't have</button>
+          <button class="opt" type="button" data-val="2">C) didn't need</button>
+          <button class="opt" type="button" data-val="3">D) should have</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="41">
+        <p><span class="qnum">41.</span> We'll play a game tonight ................ you have done your homework.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) unless</button>
+          <button class="opt" type="button" data-val="1">B) provided</button>
+          <button class="opt" type="button" data-val="2">C) supposed</button>
+          <button class="opt" type="button" data-val="3">D) if only</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="42">
+        <p><span class="qnum">42.</span> You won a prize for your paintings, ................</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) isn't it?</button>
+          <button class="opt" type="button" data-val="1">B) haven't you?</button>
+          <button class="opt" type="button" data-val="2">C) didn't you?</button>
+          <button class="opt" type="button" data-val="3">D) don't you?</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="43">
+        <p><span class="qnum">43.</span> The ................ from the airport into London was expensive but quick.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) travel</button>
+          <button class="opt" type="button" data-val="1">B) excursion</button>
+          <button class="opt" type="button" data-val="2">C) journey</button>
+          <button class="opt" type="button" data-val="3">D) voyage</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="44">
+        <p><span class="qnum">44.</span> When I ................ money, I usually take out &euro;40 from the cash machine.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) pick up</button>
+          <button class="opt" type="button" data-val="1">B) withdraw</button>
+          <button class="opt" type="button" data-val="2">C) set aside</button>
+          <button class="opt" type="button" data-val="3">D) deposit</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="45">
+        <p><span class="qnum">45.</span> Max always ................ his important computer documents on an external drive.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) prints out</button>
+          <button class="opt" type="button" data-val="1">B) saves up</button>
+          <button class="opt" type="button" data-val="2">C) backs up</button>
+          <button class="opt" type="button" data-val="3">D) sets off</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="46">
+        <p><span class="qnum">46.</span> If the computer doesn't work try ................ it off and on again.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) to switch</button>
+          <button class="opt" type="button" data-val="1">B) switching</button>
+          <button class="opt" type="button" data-val="2">C) switch</button>
+          <button class="opt" type="button" data-val="3">D) having switched</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="47">
+        <p><span class="qnum">47.</span> The suspect ................ being near the bank at the time of the crime.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) claimed</button>
+          <button class="opt" type="button" data-val="1">B) accused</button>
+          <button class="opt" type="button" data-val="2">C) denied</button>
+          <button class="opt" type="button" data-val="3">D) refused</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="3" data-qnum="48">
+        <p><span class="qnum">48.</span> The man is believed ................ over a thousand marathons since he started.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) to run</button>
+          <button class="opt" type="button" data-val="1">B) to be running</button>
+          <button class="opt" type="button" data-val="2">C) he has run</button>
+          <button class="opt" type="button" data-val="3">D) to have run</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Grammar &amp; Vocabulary &mdash; Part 2 (cont.)</h2>
+    <p class="instructions">For questions 37&ndash;60, choose the best word or phrase (A, B, C or D).</p>
+      <div class="mcq" data-correct="3" data-qnum="49">
+        <p><span class="qnum">49.</span> Paul didn't like decorating so he got a professional decorator ................ his flat for him.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) designing</button>
+          <button class="opt" type="button" data-val="1">B) design</button>
+          <button class="opt" type="button" data-val="2">C) she designed</button>
+          <button class="opt" type="button" data-val="3">D) to design</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="50">
+        <p><span class="qnum">50.</span> ................ all her emails, she switched off her computer.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Sending</button>
+          <button class="opt" type="button" data-val="1">B) She sent</button>
+          <button class="opt" type="button" data-val="2">C) Having sent</button>
+          <button class="opt" type="button" data-val="3">D) Sent</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="51">
+        <p><span class="qnum">51.</span> If you're angry, just tell him. You should get it off your ................ .</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) head</button>
+          <button class="opt" type="button" data-val="1">B) chest</button>
+          <button class="opt" type="button" data-val="2">C) back</button>
+          <button class="opt" type="button" data-val="3">D) foot</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="52">
+        <p><span class="qnum">52.</span> You should take a few days off work. It won't ................ you any harm.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) do</button>
+          <button class="opt" type="button" data-val="1">B) give</button>
+          <button class="opt" type="button" data-val="2">C) make</button>
+          <button class="opt" type="button" data-val="3">D) pay</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="53">
+        <p><span class="qnum">53.</span> Slow down, Barry. I can't ................ you.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) keep up with</button>
+          <button class="opt" type="button" data-val="1">B) come up to</button>
+          <button class="opt" type="button" data-val="2">C) come up with</button>
+          <button class="opt" type="button" data-val="3">D) reach up with</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="54">
+        <p><span class="qnum">54.</span> Cairo is a wonderful city full of culture and ................ in history.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) sprawling</button>
+          <button class="opt" type="button" data-val="1">B) renowned</button>
+          <button class="opt" type="button" data-val="2">C) steeped</button>
+          <button class="opt" type="button" data-val="3">D) bustling</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="55">
+        <p><span class="qnum">55.</span> I liked my new English teacher, ................ was fortunate, as she also was teaching us history.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) who</button>
+          <button class="opt" type="button" data-val="1">B) what</button>
+          <button class="opt" type="button" data-val="2">C) which</button>
+          <button class="opt" type="button" data-val="3">D) that</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="56">
+        <p><span class="qnum">56.</span> <strong>Mum:</strong> Laura, have you done the dishes yet?<br><strong>Laura:</strong> Well, I ................ doing them, but then I had to answer my phone.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) started to</button>
+          <button class="opt" type="button" data-val="1">B) did start</button>
+          <button class="opt" type="button" data-val="2">C) was starting</button>
+          <button class="opt" type="button" data-val="3">D) have just was</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="57">
+        <p><span class="qnum">57.</span> ................ the film started when the phone rang.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) No sooner had</button>
+          <button class="opt" type="button" data-val="1">B) Seldom had</button>
+          <button class="opt" type="button" data-val="2">C) Barely had</button>
+          <button class="opt" type="button" data-val="3">D) Not until</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="3" data-qnum="58">
+        <p><span class="qnum">58.</span> Do you remember ................ your bed when you were a child?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) to do</button>
+          <button class="opt" type="button" data-val="1">B) doing</button>
+          <button class="opt" type="button" data-val="2">C) to make</button>
+          <button class="opt" type="button" data-val="3">D) making</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="59">
+        <p><span class="qnum">59.</span> My aunt Jane bears a(n) ................ resemblance to a famous rock star.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) uncanny</button>
+          <button class="opt" type="button" data-val="1">B) sceptical</button>
+          <button class="opt" type="button" data-val="2">C) intentional</button>
+          <button class="opt" type="button" data-val="3">D) irrational</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="60">
+        <p><span class="qnum">60.</span> My sister and my father like to win. There is a competitive ................ running through our family.</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) line</button>
+          <button class="opt" type="button" data-val="1">B) consciousness</button>
+          <button class="opt" type="button" data-val="2">C) streak</button>
+          <button class="opt" type="button" data-val="3">D) shift</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Reading &mdash; Bike Sharing</h2>
+    <div class="reading-passage">
+      <h3>Bike Sharing</h3>
+      
+<p>If you travel to a big city, you will see many people riding public bikes. This isn't a new idea. The first public bike sharing system began in Amsterdam in the 1960s. The organisers painted the bikes white and many people used them. After one person finished their journey they left the bike for the next person. Unfortunately, people stole many of the bikes or threw them in the rivers, and so the system was stopped.</p>
+<p>In 1974, the city of La Rochelle, in France, started its own system of free public bicycles. Their bikes were yellow and the system was successful. Today, there are more than 300 bikes and the city is famous for its yellow bikes. You have to pay to use the bikes now, but they aren't expensive and they are very popular.</p>
+<p>Today, technology has changed public bike sharing systems. There are now special stations for people to put the bikes so they are safe and computer systems that record the location of the bikes at the bike stations. In most bike sharing systems, the riders use a special card to pay for the bike. Public bike sharing systems are popular in Europe, but <strong>they</strong> are also becoming popular in Asia. In fact, the biggest bike sharing system is in the city of Hangzhou, in China. There are over 84,000 bicycles and over 3,000 stations!</p>
+<p>Cities don't have bike sharing systems to make money, but the city benefits because there are fewer cars on the roads, less noise and less pollution. Public bike sharing systems are also becoming very popular with tourists. Local people are happy because a shared bike is cheaper than using a car, it is good for the environment and it is good exercise. With over 500 bike sharing systems in the world today it looks like they are here to stay.</p>
+
+    </div>
+      <div class="mcq" data-correct="2" data-qnum="61">
+        <p><span class="qnum">61.</span> What was one of the problems with the first bike sharing system?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Nobody wanted a white bicycle.</button>
+          <button class="opt" type="button" data-val="1">B) People rode the bicycles into the river.</button>
+          <button class="opt" type="button" data-val="2">C) Some people took the bikes and kept them.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="62">
+        <p><span class="qnum">62.</span> What does the writer say about the bike sharing system in France?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) When it started people didn't pay to use the bikes.</button>
+          <button class="opt" type="button" data-val="1">B) People liked yellow bikes more than white bikes.</button>
+          <button class="opt" type="button" data-val="2">C) Many famous people use the yellow bikes.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="63">
+        <p><span class="qnum">63.</span> What does <strong>'they'</strong> refer to?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) the riders</button>
+          <button class="opt" type="button" data-val="1">B) the cards</button>
+          <button class="opt" type="button" data-val="2">C) bike sharing systems</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="64">
+        <p><span class="qnum">64.</span> What's the topic of the last paragraph?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) how cities can make money with bike sharing systems</button>
+          <button class="opt" type="button" data-val="1">B) why bike sharing systems are good for tourists</button>
+          <button class="opt" type="button" data-val="2">C) the advantages of bike sharing systems</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="65">
+        <p><span class="qnum">65.</span> How does the writer feel about bike sharing systems?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) They have a good future.</button>
+          <button class="opt" type="button" data-val="1">B) Cars will always be more popular.</button>
+          <button class="opt" type="button" data-val="2">C) They are the best way to do exercise.</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="6">
+  <div class="card">
+    <h2>Reading &mdash; Democratic School</h2>
+    <div class="reading-passage">
+      <h3>Democratic School</h3>
+      
+<p>I've just started university and have met lots of new people from all sorts of countries. Despite their different backgrounds, they all went to the same type of school as me. The schools had lots of rules, lots of sitting quietly, <strong>hours of listening to lessons and never-ending tests.</strong> However, there was one student, Derek, who told me he'd gone to a democratic school. I didn't know what he meant so I asked him to tell me more.</p>
+<p>Derek explained that democratic schools are very different from typical schools where the teachers decide what the rules are. In democratic schools, things like equality and freedom are more important than getting good grades. Students are encouraged to take responsibility for their own actions. He explained that in weekly meetings students and staff members voted on school rules and ways to enforce them. They also decided what to do if someone broke the rules. Each student and staff member had one vote each, so, as there were many more students than staff, the students were in control.</p>
+<p>As for the lessons themselves, Derek said that students made their own timetables at the beginning of each term. They could choose from a range of traditional subjects like geography, maths and woodwork. He also explained how the students weren't separated by age and even more surprisingly that participation in each class was optional. They had to attend the class, but if they chose to, the students could do an alternative activity like reading or drawing. Despite this, the students often chose to prepare for exams in order to go to university.</p>
+<p>If I'd gone to a democratic school, I wouldn't have studied anything and I'd have spent all my time playing games. Even now, I need someone to tell me what to do and organise my life for me. But maybe that's the point of democratic schools. Perhaps if young people were allowed to make more decisions themselves, they would be better prepared not only for life at university, but also the challenges beyond.</p>
+
+    </div>
+      <div class="mcq" data-correct="2" data-qnum="66">
+        <p><span class="qnum">66.</span> What is the writer doing in the text?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Telling a funny story about school.</button>
+          <button class="opt" type="button" data-val="1">B) Recommending a school.</button>
+          <button class="opt" type="button" data-val="2">C) Discussing a type of school.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="67">
+        <p><span class="qnum">67.</span> What does <strong>'never-ending tests'</strong> mean?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) lots of tests</button>
+          <button class="opt" type="button" data-val="1">B) difficult tests</button>
+          <button class="opt" type="button" data-val="2">C) boring tests</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="68">
+        <p><span class="qnum">68.</span> According to Derek, how are democratic schools different from more typical schools?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Students are given more freedom.</button>
+          <button class="opt" type="button" data-val="1">B) Students get worse grades.</button>
+          <button class="opt" type="button" data-val="2">C) Students are allowed to break the rules.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="69">
+        <p><span class="qnum">69.</span> What does the writer learn about the classes in the democratic school?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Students didn't need to attend them.</button>
+          <button class="opt" type="button" data-val="1">B) The boys and the girls weren't separated.</button>
+          <button class="opt" type="button" data-val="2">C) Students didn't have to take part in them.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="70">
+        <p><span class="qnum">70.</span> How does the writer feel about democratic schools?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Students won't learn anything useful.</button>
+          <button class="opt" type="button" data-val="1">B) They might be good for young people.</button>
+          <button class="opt" type="button" data-val="2">C) He wishes he'd gone to one.</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="7">
+  <div class="card">
+    <h2>Reading &mdash; The Importance of Music</h2>
+    <div class="reading-passage">
+      <h3>The Importance of Music</h3>
+      
+<p>Music has always been important to people, and has been around for longer than you might think. In 2012, a primitive flute made from bird bone and mammoth ivory, discovered in Germany, was claimed to be over forty-thousand years old. If true, this would make it the world's oldest musical instrument. But why have humans needed music for so long?</p>
+<p>There are many theories as to the importance of music. Some experts suggest that humans used music like birds do, to attract a mate. Other theories suggest that music emerged to accompany storytelling. Stories told in groups turned into poetry, which had a rhythm. This rhythm may have been accompanied by clapping, which may have evolved into drums and other instruments. Another function of music was to bond communities, and this can still be evidenced in football stadiums all over the world. Whatever the reason, it is clear that music has never been essential for survival, but is something that has been kept because it serves various functions and is enjoyed by people.</p>
+<p>In fact, according to recent studies, nowadays more and more young people are learning to play an instrument; the most popular being the recorder, piano and guitar. In recent years, electric keyboards and electric guitars have increased in popularity, suggesting a shift away from more traditional instruments towards electronic ones. With the arrival of the Internet and mobile technology, it is possible to turn a mobile phone into a keyboard or drum, and beginners can learn guitar and other instruments by watching video tutorials online. Some artists, like Shawn Mendes, have become famous after posting their performances on the Internet.</p>
+<p>The Internet has also created the potential for people to collaborate on online musical projects so new sounds and ways of making music can be easily shared. <strong>The Virtual Choir is one example of this</strong>; more than a thousand voices were brought together by the Internet to create a digital choir. In addition, musicians who use the Internet can form online bands and use internet websites such as YouTube to share their music, without ever meeting in person.</p>
+<p>But what about the young people without access to the Internet or expensive instruments like the piano? Well, in the same way as people have been doing for millennia, they make music in any way they can; by whistling, clapping or just hitting a box with their hands. As long as we have creativity and imagination, the future of music is assured, regardless of the instruments that we play.</p>
+
+    </div>
+      <div class="mcq" data-correct="2" data-qnum="71">
+        <p><span class="qnum">71.</span> Why does the writer use the example of the flute?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) to suggest that musical instruments can be simple</button>
+          <button class="opt" type="button" data-val="1">B) to highlight the fact that music instruments are important</button>
+          <button class="opt" type="button" data-val="2">C) to exemplify that music has existed for thousands of years</button>
+          <button class="opt" type="button" data-val="3">D) to impress the reader with an amazing fact</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="1" data-qnum="72">
+        <p><span class="qnum">72.</span> In the second paragraph, what does the writer suggest about music?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) It probably evolved as a way for the species to continue.</button>
+          <button class="opt" type="button" data-val="1">B) It is more desirable than vital.</button>
+          <button class="opt" type="button" data-val="2">C) It is an essential way to bring groups together.</button>
+          <button class="opt" type="button" data-val="3">D) It replaces the spoken word.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="2" data-qnum="73">
+        <p><span class="qnum">73.</span> In the third paragraph, what reason is given for the increase in young people learning an instrument?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) Electronic music is easier to play than traditional instruments.</button>
+          <button class="opt" type="button" data-val="1">B) Young people like electronic music more.</button>
+          <button class="opt" type="button" data-val="2">C) There are more resources to help people.</button>
+          <button class="opt" type="button" data-val="3">D) Young people want to become famous.</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="0" data-qnum="74">
+        <p><span class="qnum">74.</span> What does <strong>'this'</strong> refer to?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) online collaboration</button>
+          <button class="opt" type="button" data-val="1">B) creating potential</button>
+          <button class="opt" type="button" data-val="2">C) making new music</button>
+          <button class="opt" type="button" data-val="3">D) sharing music</button>
+        </div>
+      </div>
+      <div class="mcq" data-correct="3" data-qnum="75">
+        <p><span class="qnum">75.</span> How does the writer feel about the future of music?</p>
+        <div class="options">
+          <button class="opt" type="button" data-val="0">A) optimistic as long as people have the right instruments</button>
+          <button class="opt" type="button" data-val="1">B) worried that music will become increasingly simpler</button>
+          <button class="opt" type="button" data-val="2">C) concerned that music will only be for the rich</button>
+          <button class="opt" type="button" data-val="3">D) confident that music will always exist</button>
+        </div>
+      </div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="8">
+  <div class="card">
+    <h2>Writing Task 1 &mdash; Email</h2>
+    
+<p>Read part of an email you have received from an English-speaking friend. Write an email answering your friend's questions.</p>
+<blockquote>In your next email, please tell me about your favourite kind of music or favourite singers or group. What type of music do they play? Why do you like them?</blockquote>
+<p><strong>Write 75&ndash;100 words.</strong></p>
+
+    <textarea class="writing-answer" id="writing1" data-min="75" data-max="100" placeholder="Write your answer here..."></textarea>
+    <div class="word-count"><span id="writing1Count">0</span> words (target: 75&ndash;100)</div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" onclick="nextPage()">Next &rarr;</button>
+  </div>
+</section>
+
+<section class="page" data-page="9">
+  <div class="card">
+    <h2>Writing Task 2 &mdash; Essay</h2>
+    
+<p>At school you have been discussing the best way to study. Your teacher has asked you to write an essay. Read the statement and write an essay discussing both views. Then give your opinion.</p>
+<blockquote>Some students think the best way to prepare for a test is to study a little bit every day, while others think it is better to wait until the week before the test and study for many hours.</blockquote>
+<p><strong>Write 150&ndash;180 words.</strong></p>
+
+    <textarea class="writing-answer" id="writing2" data-min="150" data-max="180" placeholder="Write your answer here..."></textarea>
+    <div class="word-count"><span id="writing2Count">0</span> words (target: 150&ndash;180)</div>
+  </div>
+  <div class="nav-btns">
+    <button type="button" class="btn-back" onclick="prevPage()">&larr; Back</button>
+    <button type="button" class="btn-next" id="submitBtn" onclick="submitAll()">Check &amp; Submit</button>
+  </div>
+</section>
+
+<div id="scoreSummary" hidden></div>
+<div id="submitStatus"></div>
+
+</div>
+
+<script>
+var PAGE_LABELS = ["Grammar 1", "Grammar 2", "Grammar 3", "Grammar 4", "Grammar 5", "Reading 1", "Reading 2", "Reading 3", "Writing 1", "Writing 2"];
+var current = 0;
+
+function buildDots(){
+  var wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach(function(label, i){
+    var d = document.createElement('div');
+    d.className = 'page-dot';
+    d.textContent = i + 1;
+    d.title = label;
+    d.onclick = function(){ showPage(i); };
+    wrap.appendChild(d);
+  });
+}
+
+function showPage(n){
+  var pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length - 1, n));
+  pages.forEach(function(p, i){ p.classList.toggle('active', i === current); });
+  document.getElementById('progressFill').style.width = ((current + 1) / pages.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = 'Page ' + (current + 1) + ' / ' + pages.length;
+  document.querySelectorAll('.page-dot').forEach(function(d, i){
+    d.classList.toggle('active', i === current);
+    d.classList.toggle('visited', i < current);
+  });
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function nextPage(){ showPage(current + 1); }
+function prevPage(){ showPage(current - 1); }
+
+// ---- Multiple choice: click to reveal ----
+document.querySelectorAll('.mcq .opt').forEach(function(btn){
+  btn.onclick = function(){
+    var group = btn.closest('.mcq');
+    group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('chosen','correct','wrong'); });
+    btn.classList.add('chosen');
+    var correct = group.dataset.correct;
+    group.querySelectorAll('.opt').forEach(function(o){
+      if(o.dataset.val === correct) o.classList.add('correct');
+      else if(o === btn) o.classList.add('wrong');
+    });
+  };
+});
+
+// ---- Word counters for writing tasks ----
+function wireWordCount(id){
+  var ta = document.getElementById(id);
+  var counter = document.getElementById(id + 'Count');
+  ta.addEventListener('input', function(){
+    var words = ta.value.trim().length ? ta.value.trim().split(/\s+/).length : 0;
+    counter.textContent = words;
+    var min = parseInt(ta.dataset.min, 10);
+    var max = parseInt(ta.dataset.max, 10);
+    counter.parentElement.classList.toggle('ok', words >= min && words <= max);
+  });
+}
+wireWordCount('writing1');
+wireWordCount('writing2');
+
+// ---- Scoring & submission ----
+// Auto-graded score covers grammar, vocabulary & reading only (75 items).
+// Writing (worth up to 10 more points, official test total 85) is marked
+// manually by the teacher, who will adjust the final placement afterwards.
+
+function levelFor(score){
+  if(score <= 10) return "A1+";
+  if(score <= 21) return "A2";
+  if(score <= 32) return "B1";
+  if(score <= 43) return "B1+";
+  if(score <= 54) return "B2";
+  if(score <= 65) return "B2+";
+  return "C1";
+}
+
+async function submitAll(){
+  var nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('Please type your name at the top before submitting.');
+    return;
+  }
+
+  var correct = 0, total = 0;
+  var wrongNumbers = [];
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(function(g){
+    total++;
+    var chosen = g.querySelector('.opt.chosen');
+    var qnum = g.dataset.qnum;
+    if(chosen && chosen.dataset.val === g.dataset.correct){
+      correct++;
+    } else {
+      wrongNumbers.push(qnum);
+    }
+  });
+
+  var pct = total ? Math.round(correct / total * 100) : 0;
+  var level = levelFor(correct);
+  var wrongList = wrongNumbers.length ? wrongNumbers.join(', ') : 'None \u2014 perfect score!';
+
+  var w1 = document.getElementById('writing1').value.trim();
+  var w2 = document.getElementById('writing2').value.trim();
+  var w1Words = w1.length ? w1.split(/\s+/).length : 0;
+  var w2Words = w2.length ? w2.split(/\s+/).length : 0;
+
+  var summary = document.getElementById('scoreSummary');
+  summary.innerHTML =
+    '<strong>' + nameInput.value.trim() + '</strong> &mdash; score: ' + correct + ' / ' + total + ' (' + pct + '%)' +
+    '<br><span class="level-pill">Suggested level: ' + level + '</span>' +
+    '<div class="note">Grammar, vocabulary &amp; reading only \u2014 writing tasks are not included in this score. Writing tasks (' + w1Words + ' / ' + w2Words + ' words) have been sent to your teacher, who will mark them and adjust the final placement and total (out of 85) by hand.</div>';
+  summary.hidden = false;
+  summary.scrollIntoView({behavior:'smooth', block:'center'});
+
+  var submitBtn = document.getElementById('submitBtn');
+  if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitted'; }
+
+  try{
+    var fd = new FormData();
+    fd.append('exercise', 'Gateway 2nd Edition \u2014 Placement Test');
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+    fd.append('suggested_level', level);
+    fd.append('questions_with_mistakes', wrongList);
+    fd.append('writing_task_1_email', w1 + '\n\n[' + w1Words + ' words]');
+    fd.append('writing_task_2_essay', w2 + '\n\n[' + w2Words + ' words]');
+    fd.append('timestamp', new Date().toISOString());
+    var res = await fetch('https://formspree.io/f/xoeavdkr', {
+      method: 'POST',
+      headers: {'Accept': 'application/json'},
+      body: fd
+    });
+    document.getElementById('submitStatus').textContent = res.ok
+      ? 'Result sent to your teacher \u2713'
+      : 'Score saved here, but sending to your teacher failed \u2014 please screenshot this page.';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Score saved here, but sending to your teacher failed \u2014 please screenshot this page.';
+  }
+}
+
+buildDots();
+showPage(0);
+</script>
+</body>
+</html>

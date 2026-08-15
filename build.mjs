@@ -282,11 +282,46 @@ const staffCard = (m) => {
   </div>`;
 };
 
+/* Курсы с одинаковым config.courses[].family сворачиваются в одну кнопку
+   с подвкладками-уровнями (см. site.config.json, поле "family"). Курсы без
+   family остаются обычными отдельными кнопками. */
+const familyOrder = [];
+const familyCourses = new Map(); // famId -> [course, ...]
+const familyId = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const standaloneCourses = [];
+for (const c of courses) {
+  if (c.family) {
+    const fid = familyId(c.family);
+    if (!familyCourses.has(fid)) { familyCourses.set(fid, []); familyOrder.push([fid, c.family]); }
+    familyCourses.get(fid).push(c);
+  } else {
+    standaloneCourses.push(c);
+  }
+}
+
+const familyBtns = familyOrder.map(([fid, famName]) =>
+  `<button type="button" class="filter-btn" data-filter="family:${esc(fid)}" data-has-sub="${esc(fid)}">${esc(famName)}</button>`);
+
+const subTabRows = familyOrder.map(([fid, famName]) => {
+  const levelBtns = familyCourses.get(fid).map((c) => {
+    const label = esc(c.name.replace(famName, '').trim() || c.name);
+    return `<button type="button" class="filter-btn sub" data-filter="course:${esc(c.id)}">${label}</button>`;
+  }).join('\n      ');
+  return `  <div class="sub-tabs" data-sub-for="${esc(fid)}" hidden>
+      <button type="button" class="filter-btn sub on" data-filter="family:${esc(fid)}">Все уровни</button>
+      ${levelBtns}
+    </div>`;
+}).join('\n');
+
+const familyMapJson = JSON.stringify(
+  Object.fromEntries(familyOrder.map(([fid]) => [fid, familyCourses.get(fid).map((c) => c.id)]))
+);
+
 const filterBtns = [
   '<button type="button" class="filter-btn on" data-filter="all">Все</button>',
-  ...courses.map((c) => `<button type="button" class="filter-btn" data-filter="course:${esc(c.id)}">${esc(c.name)}</button>`),
-  ...TYPES.map((t) => `<button type="button" class="filter-btn" data-filter="type:${t}">${t}</button>`),
-  '<button type="button" class="filter-btn" data-filter="status:draft">черновики</button>',
+  ...familyBtns,
+  ...standaloneCourses.map((c) => `<button type="button" class="filter-btn" data-filter="course:${esc(c.id)}">${esc(c.name)}</button>`),
+  ...TYPES.filter((t) => t === 'test').map((t) => `<button type="button" class="filter-btn" data-filter="type:${t}">${t}</button>`),
 ].join('\n    ');
 
 const staffScript = `<script>
@@ -295,6 +330,7 @@ const staffScript = `<script>
   var search = document.getElementById('q');
   var count = document.getElementById('count');
   var active = 'all';
+  var familyMap = ${familyMapJson};
 
   function apply(){
     var q = search.value.trim().toLowerCase();
@@ -302,6 +338,7 @@ const staffScript = `<script>
     cards.forEach(function(c){
       var okFilter = active === 'all' ||
         (active.indexOf('course:') === 0 && c.dataset.course === active.slice(7)) ||
+        (active.indexOf('family:') === 0 && (familyMap[active.slice(7)] || []).indexOf(c.dataset.course) !== -1) ||
         (active.indexOf('type:')   === 0 && c.dataset.type   === active.slice(5)) ||
         (active.indexOf('status:') === 0 && c.dataset.status === active.slice(7));
       var okSearch = !q || c.dataset.search.indexOf(q) !== -1;
@@ -312,9 +349,35 @@ const staffScript = `<script>
     count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
   }
 
-  document.querySelectorAll('.filter-btn').forEach(function(b){
+  function showSubTabsFor(famId){
+    document.querySelectorAll('.sub-tabs').forEach(function(row){
+      row.hidden = row.dataset.subFor !== famId;
+    });
+  }
+
+  document.querySelectorAll('.toolbar .filter-btn').forEach(function(b){
     b.addEventListener('click', function(){
-      document.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      document.querySelectorAll('.toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      active = b.dataset.filter;
+      if(b.dataset.hasSub){
+        showSubTabsFor(b.dataset.hasSub);
+        var row = document.querySelector('.sub-tabs[data-sub-for="' + b.dataset.hasSub + '"]');
+        if(row){
+          row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+          row.querySelector('.filter-btn').classList.add('on');
+        }
+      } else {
+        showSubTabsFor(null);
+      }
+      apply();
+    });
+  });
+
+  document.querySelectorAll('.sub-tabs .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = b.closest('.sub-tabs');
+      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
       b.classList.add('on');
       active = b.dataset.filter;
       apply();
@@ -350,6 +413,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   <div class="toolbar">
     ${filterBtns}
   </div>
+${subTabRows}
   <p class="count" id="count"></p>
 ${materials.map(staffCard).join('\n')}
   <p class="note">Материалов всего: ${materials.length}.
