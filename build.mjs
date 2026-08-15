@@ -409,6 +409,12 @@ const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) 
     </div>`;
 }).join('\n');
 
+/* ссылка курса → адрес его открытой страницы, для кнопки копирования,
+   которая появляется в панели преподавателя, когда выбран конкретный курс */
+const courseUrlMapJson = JSON.stringify(
+  Object.fromEntries(courses.map((c) => [c.id, `${BASE}/${c.id}/`]))
+);
+
 const filterBtns = [
   '<button type="button" class="filter-btn on" data-filter="all">Все</button>',
   ...familyBtns,
@@ -424,6 +430,8 @@ const staffScript = `<script>
   var active = 'all';
   var activeGroup = 'all';
   var familyMap = ${familyMapJson};
+  var courseUrlMap = ${courseUrlMapJson};
+  var courseLinkBtn = document.getElementById('courseLinkBtn');
 
   function apply(){
     var q = search.value.trim().toLowerCase();
@@ -458,6 +466,12 @@ const staffScript = `<script>
         row.querySelector('.filter-btn').classList.add('on');
       }
     });
+    if(courseId && courseUrlMap[courseId]){
+      courseLinkBtn.dataset.copy = courseUrlMap[courseId];
+      courseLinkBtn.hidden = false;
+    } else {
+      courseLinkBtn.hidden = true;
+    }
   }
 
   document.querySelectorAll('.toolbar .filter-btn').forEach(function(b){
@@ -522,6 +536,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
 ${subTabRows}
 ${courseGroupRows}
   <p class="count" id="count"></p>
+  <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
 ${materials.map(staffCard).join('\n')}
   <p class="note">Материалов всего: ${materials.length}.
   Чтобы добавить новый — попросите Claude, он положит папку в нужный курс, и она появится здесь
