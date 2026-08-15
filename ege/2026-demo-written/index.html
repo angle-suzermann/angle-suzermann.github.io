@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЕГЭ 2026. Английский язык — Демонстрационный вариант (письменная речь)</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2026">
+<meta name="ws:course-id" content="ege">
+<meta name="ws:unit"      content="Демо">
+<meta name="ws:title"     content="ЕГЭ 2026 — письменная речь (демо)">
+<meta name="ws:emoji"     content="✍️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, письмо, эссе">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; padding:0;
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  color:var(--text);
+  background:var(--purple-dark);
+  line-height:1.5;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.55; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92)); }
+.angle-badge{ position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); filter:drop-shadow(0 1px 4px rgba(0,0,0,.55)); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:400; font-size:11px; letter-spacing:.3px; }
+.topbar{ position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.86); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); border-bottom:none; box-shadow:0 1px 0 rgba(94,72,119,.35), 0 10px 24px -12px rgba(45,41,38,.45); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.brand-row .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05em; letter-spacing:.01em; }
+.brand-row .lesson-sub{ font-weight:400; color:var(--muted); font-size:.78em; margin-top:2px; max-width:560px; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.85em; color:var(--muted); }
+.namebar .req{ color:var(--wrong); }
+.namebar input{ border:1px solid var(--border); border-radius:5px; padding:5px 9px; font-family:inherit; font-size:.92em; width:160px; }
+.namebar input:invalid{ border-color:var(--border); }
+.namebar input.missing{ border-color:var(--wrong); background:#fdecea; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); border:1px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.75em; font-weight:800; cursor:pointer; }
+.page-dot:hover{ border-color:var(--purple); }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:9px; border-radius:6px; background:var(--card-tint); overflow:hidden; border:1px solid var(--border); }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--purple-dark)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.78em; color:var(--muted); white-space:nowrap; font-weight:700;}
+
+.page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:20px 18px 60px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:16px; }
+.card h2{ color:var(--purple); font-size:1.15em; margin:0 0 10px; border-bottom:3px solid var(--yellow); padding-bottom:8px; }
+.card h3{ color:var(--black); font-size:1.02em; margin:14px 0 6px; }
+.instruction{ background:var(--card-tint); border-left:5px solid var(--purple); padding:10px 14px; font-style:italic; font-size:.94em; margin:10px 0 16px; border-radius:0 6px 6px 0; }
+.reminder{ background:#fff8e0; border:1px dashed #cbb500; color:#6b5c00; font-size:.85em; padding:7px 12px; border-radius:6px; margin:8px 0 12px; font-weight:600; }
+
+.task{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:16px; position:relative; }
+.task-num{ position:absolute; top:-12px; left:14px; background:var(--black); color:var(--yellow); font-weight:800; font-size:.85em; padding:2px 10px; border-radius:5px; }
+.task-body{ margin-top:8px; }
+
+.timer-box{ display:flex; align-items:center; gap:14px; background:var(--black); color:#fff; border-radius:8px; padding:12px 18px; margin-bottom:18px; flex-wrap:wrap; }
+.timer-box .t-label{ font-size:.85em; color:#cfc6da; }
+.timer-box .t-clock{ font-size:1.6em; font-weight:800; color:var(--yellow); font-variant-numeric:tabular-nums; min-width:80px; }
+.btn{ background:var(--yellow); color:var(--black); border:none; border-radius:6px; padding:10px 18px; font-weight:800; cursor:pointer; font-size:.92em; font-family:inherit; }
+.btn:hover{ background:#e6c000; }
+.btn.secondary{ background:transparent; color:#fff; border:2px solid var(--yellow); }
+.btn.secondary:hover{ background:rgba(254,213,0,.12); }
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+.timer-status{ font-size:.85em; color:var(--yellow); font-weight:700; }
+
+.mtable{ border-collapse:collapse; margin:12px 0; width:100%; }
+.mtable th, .mtable td{ border:1px solid var(--purple); padding:7px 10px; text-align:left; font-size:.88em; }
+.mtable th{ background:var(--card-tint); color:var(--purple); font-weight:800; }
+.mtable td:last-child, .mtable th:last-child{ text-align:center; width:150px; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:20px; gap:10px; }
+.nav-btns .btn.dark{ background:var(--black); color:var(--yellow); }
+.nav-btns .btn.dark:hover{ background:#1c1917; }
+
+.section-progress{ font-size:.82em; color:var(--muted); margin-bottom:6px; }
+.note-box{ background:var(--card-tint); border:1px solid var(--border); border-radius:8px; padding:12px 16px; font-size:.88em; color:var(--muted); margin-top:14px; }
+
+.email-preview{ background:var(--card-tint); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:.87em; margin:10px 0 14px; font-family:'Courier New',monospace; white-space:pre-wrap; }
+.email-preview .hdr{ color:var(--muted); }
+
+.plan-list{ margin:8px 0 4px; padding-left:20px; }
+.plan-list li{ margin-bottom:5px; font-size:.93em; }
+
+.wordbox{ display:flex; align-items:center; gap:10px; margin:10px 0 6px; font-size:.86em; font-weight:700; }
+.wordbox .wcount{ padding:3px 12px; border-radius:20px; background:var(--card-tint); color:var(--muted); }
+.wordbox .wcount.ok{ background:#eafaf1; color:var(--correct); }
+.wordbox .wcount.bad{ background:#fdecea; color:var(--wrong); }
+
+textarea.essay{ width:100%; min-height:220px; border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-family:inherit; font-size:.96em; line-height:1.5; resize:vertical; }
+textarea.essay:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0 3px rgba(94,72,119,.15); }
+
+.subtask-choice{ display:flex; gap:10px; margin:10px 0 16px; flex-wrap:wrap; }
+.subtask-choice label{ flex:1; min-width:230px; display:flex; gap:8px; align-items:flex-start; border:2px solid var(--border); border-radius:8px; padding:12px 14px; cursor:pointer; font-size:.9em; }
+.subtask-choice label:hover{ border-color:var(--purple); }
+.subtask-choice label.active{ border-color:var(--purple); background:var(--card-tint); }
+.subtask-choice input{ margin-top:3px; accent-color:var(--purple); }
+
+.pie-wrap{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin:14px 0; }
+.pie{ width:160px; height:160px; border-radius:50%; flex-shrink:0; background:conic-gradient(
+  #5E4877 0deg 122.4deg,
+  #FED500 122.4deg 216deg,
+  #2D2926 216deg 288deg,
+  #9b86b3 288deg 327.6deg,
+  #cbb500 327.6deg 360deg
+); }
+.legend{ display:flex; flex-direction:column; gap:6px; font-size:.87em; }
+.legend .sw{ display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:7px; vertical-align:middle; }
+
+.finish-card{ background:var(--purple); color:#fff; border-radius:10px; padding:22px 24px; margin-bottom:18px; }
+.finish-card h2{ color:#fff; border-bottom:3px solid var(--yellow); }
+.finish-summary{ width:100%; border-collapse:collapse; margin-top:10px; }
+.finish-summary td, .finish-summary th{ padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.25); font-size:.92em; text-align:left; }
+.finish-summary th{ color:var(--yellow); }
+
+@media(max-width:600px){
+  .mtable th, .mtable td{ font-size:.82em; padding:5px 6px; }
+  .pie-wrap{ flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" width="120" height="35" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#FED500">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div>
+        <div class="lesson-title">ЕГЭ 2026 · Английский язык · 11 класс</div>
+        <div class="lesson-sub">Демонстрационный вариант ФИПИ — письменная речь: задания 37–38 (часть 2 из 2)</div>
+      </div>
+      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Страница 1 / 4</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ================= PAGE 0: INTRO ================= -->
+<section class="page active" data-page="0">
+  <div class="card">
+    <h2>Раздел 4. Письменная речь — инструкция</h2>
+    <p>Это вторая часть демо-теста. Первая часть (Аудирование, Чтение, Грамматика и лексика) проверяется автоматически. Письменная речь так не работает — её нужно оценивать по официальным критериям вручную, поэтому здесь нет счётчика баллов.</p>
+    <div class="instruction">Раздел состоит из 2 заданий. Задание 37 — электронное письмо личного характера, 100–140 слов, до 6 первичных баллов, рекомендуемое время — 30 минут. Задание 38 — развёрнутое письменное высказывание с элементами рассуждения на основе таблицы или диаграммы (на выбор), 200–250 слов, до 14 первичных баллов, рекомендуемое время — 60 минут. Максимум за раздел — 20 первичных баллов.</div>
+    <p>Впиши своё имя вверху страницы, выполни оба задания в текстовых полях — счётчик слов подскажет, укладываешься ли ты в требуемый объём. На последней странице можно скачать оба текста в один файл и прислать мне на проверку — вместе посчитаем баллы по критериям.</p>
+  </div>
+  <div class="nav-btns">
+    <span></span>
+    <button class="btn" onclick="goToPage(1)">Начать →</button>
+  </div>
+</section>
+
+<!-- ================= PAGE 1: ЗАДАНИЕ 37 ================= -->
+<section class="page" data-page="1">
+  <div class="section-progress">Задание 1 из 2</div>
+  <div class="card">
+    <h2>Задание 37. Электронное письмо личного характера</h2>
+    <div class="timer-box">
+      <div>
+        <div class="t-label">Рекомендуемое время на задание</div>
+        <div class="t-clock" id="clock-1">30:00</div>
+      </div>
+      <button class="btn" id="start-1" onclick="startTimer(1,1800)">Начать</button>
+      <span class="timer-status" id="status-1"></span>
+    </div>
+  </div>
+
+  <div class="task">
+    <span class="task-num">Задание 37</span>
+    <div class="task-body">
+      <p>You have received an email message from your English-speaking pen-friend Chris:</p>
+      <div class="email-preview"><span class="hdr">From: Chris@mail.uk
+To: Russian_friend@ege.ru
+Subject: Russian science</span>
+
+...Yesterday our school teacher told us a lot about Russian scientific inventions. What is the most famous Russian invention? Why is it important to study science at school? What Russian scientist do you think a foreigner should learn about, and why?
+...I've just bought a present for my brother...</div>
+      <p>Write an email to Chris. In your message:</p>
+      <ul class="plan-list">
+        <li>answer his questions;</li>
+        <li>ask 3 questions about the present.</li>
+      </ul>
+      <p><b>Write 100–140 words.</b> Remember the rules of email writing.</p>
+
+      <div class="reminder">Не забывай про формат личного письма: обращение и подпись — на отдельных строках, неформальный стиль, абзацы. Уложись в 100–140 слов — счётчик ниже покажет, попадаешь ли ты в диапазон.</div>
+
+      <div class="wordbox"><span>Объём:</span><span class="wcount" id="wc37">0 слов (нужно 100–140)</span></div>
+      <textarea class="essay" id="essay37" placeholder="Dear Chris,&#10;&#10;Thanks for your letter..." oninput="updateWordCount('essay37',100,140,'wc37')"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn dark" onclick="goToPage(0)">← Назад</button>
+    <button class="btn" onclick="goToPage(2)">Далее →</button>
+  </div>
+</section>
+
+<!-- ================= PAGE 2: ЗАДАНИЕ 38 ================= -->
+<section class="page" data-page="2">
+  <div class="section-progress">Задание 2 из 2</div>
+  <div class="card">
+    <h2>Задание 38. Письменное высказывание с элементами рассуждения</h2>
+    <div class="timer-box">
+      <div>
+        <div class="t-label">Рекомендуемое время на задание</div>
+        <div class="t-clock" id="clock-2">60:00</div>
+      </div>
+      <button class="btn" id="start-2" onclick="startTimer(2,3600)">Начать</button>
+      <span class="timer-status" id="status-2"></span>
+    </div>
+  </div>
+
+  <div class="task">
+    <span class="task-num">Задание 38</span>
+    <div class="task-body">
+      <p>Выбери только ОДНО из двух предложенных заданий:</p>
+      <div class="subtask-choice">
+        <label id="choice-label-1" class="active">
+          <input type="radio" name="task38choice" value="38.1" checked onchange="selectSubtask(1)">
+          <span><b>38.1</b> — Почему молодые жители Зетландии выбирают гуманитарные специальности (данные в таблице)</span>
+        </label>
+        <label id="choice-label-2">
+          <input type="radio" name="task38choice" value="38.2" onchange="selectSubtask(2)">
+          <span><b>38.2</b> — Приоритеты жителей Зетландии при чтении и обсуждении новостей в соцсетях (данные на диаграмме)</span>
+        </label>
+      </div>
+
+      <div id="sub38-1">
+        <p>Imagine that you are doing a project on <b>why many young Zetlanders choose to major in the humanities</b>. You have found some data on the subject – the results of a survey conducted among young Zetlanders (see the table below).</p>
+        <p><b>Comment on the survey data and give your opinion on the subject of the project.</b></p>
+        <table class="mtable">
+          <tr><th colspan="2">The survey question: Why have you chosen to major in the humanities?</th></tr>
+          <tr><th>Options</th><th>Number of respondents (%)</th></tr>
+          <tr><td>Love for creativity</td><td>37</td></tr>
+          <tr><td>Interesting subjects</td><td>28</td></tr>
+          <tr><td>Public significance</td><td>20</td></tr>
+          <tr><td>Variety of jobs upon graduation</td><td>9</td></tr>
+          <tr><td>Personal fulfilment</td><td>6</td></tr>
+        </table>
+        <p>Use the following plan:</p>
+        <ul class="plan-list">
+          <li>make an opening statement on the subject of the project;</li>
+          <li>select and report 2–3 facts;</li>
+          <li>make 1–2 comparisons where relevant and give your comments;</li>
+          <li>outline a problem that can arise with studying the humanities and suggest a way of solving it;</li>
+          <li>conclude by giving and explaining your opinion on the importance of choosing the right profession.</li>
+        </ul>
+      </div>
+
+      <div id="sub38-2" style="display:none">
+        <p>Imagine that you are doing a project on <b>Zetlanders' priorities in reading and discussing the news in social networks</b>. You have found some data on the subject – the results of a survey conducted among Zetland social networks users (see the pie chart below).</p>
+        <p><b>Comment on the survey data and give your opinion on the subject of the project.</b></p>
+        <p style="font-size:.9em;color:var(--muted)">The survey question: What is your priority in reading and discussing the news in social networks? <i>Choose one option</i></p>
+        <div class="pie-wrap">
+          <div class="pie"></div>
+          <div class="legend">
+            <div><span class="sw" style="background:#5E4877"></span>Reliable information — 34%</div>
+            <div><span class="sw" style="background:#FED500"></span>Internet security — 26%</div>
+            <div><span class="sw" style="background:#2D2926"></span>Volume of information — 20%</div>
+            <div><span class="sw" style="background:#9b86b3"></span>Discussing information with other users — 11%</div>
+            <div><span class="sw" style="background:#cbb500"></span>Friendly attitude of other users — 9%</div>
+          </div>
+        </div>
+        <p>Use the following plan:</p>
+        <ul class="plan-list">
+          <li>make an opening statement on the subject of the project;</li>
+          <li>select and report 2–3 facts;</li>
+          <li>make 1–2 comparisons where relevant and give your comments;</li>
+          <li>outline a problem that can arise with reading and discussing the news in social networks and suggest a way of solving it;</li>
+          <li>conclude by giving and explaining your opinion on whether one should trust the news from social media.</li>
+        </ul>
+      </div>
+
+      <p><b>Write 200–250 words.</b></p>
+
+      <div class="reminder">Соблюдай структуру по плану выше и делай абзацы под каждый пункт плана — это отдельный критерий оценивания. Уложись в 200–250 слов.</div>
+
+      <div class="wordbox"><span>Объём:</span><span class="wcount" id="wc38">0 слов (нужно 200–250)</span></div>
+      <textarea class="essay" id="essay38" placeholder="In my project I decided to look into..." oninput="updateWordCount('essay38',200,250,'wc38')"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn dark" onclick="goToPage(1)">← Назад</button>
+    <button class="btn" onclick="goToPage(3)">Готово →</button>
+  </div>
+</section>
+
+<!-- ================= PAGE 3: ГОТОВО ================= -->
+<section class="page" data-page="3">
+  <div class="finish-card">
+    <h2>Готово</h2>
+    <p>Эта часть не оценивается автоматически. Проверь объём обеих работ ниже, скачай текст и пришли мне — посчитаем первичный балл по официальным критериям вместе, как договаривались.</p>
+    <table class="finish-summary">
+      <tr><th>Задание</th><th>Слов</th><th>Нужно</th></tr>
+      <tr><td>37 — письмо</td><td id="final-wc37">0</td><td>100–140</td></tr>
+      <tr><td>38 — эссе</td><td id="final-wc38">0</td><td>200–250</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <button class="btn" onclick="downloadAnswers()">Скачать ответы (.txt)</button>
+    <button class="btn" id="sendBtn" onclick="sendToTeacher()" style="margin-left:10px;">Отправить учителю</button>
+    <div id="sendStatus" style="font-size:.85em;color:var(--muted);margin-top:10px;font-weight:600;"></div>
+    <div class="note-box">Скачивание сохраняет файл на твой компьютер и никуда не отправляется само по себе. Кнопка «Отправить учителю» уходит на почту через Formspree — жми её, когда работа готова.</div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn dark" onclick="goToPage(2)">← Назад к заданию 38</button>
+    <span></span>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ---------- Navigation ----------
+const TOTAL_PAGES = 4;
+const PAGE_LABELS = ['Инструкция','Задание 37','Задание 38','Готово'];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  wrap.innerHTML = '';
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className = 'page-dot';
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>goToPage(i);
+    wrap.appendChild(d);
+  });
+  updateDots();
+}
+function updateDots(){
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+}
+function goToPage(n){
+  current = Math.max(0, Math.min(TOTAL_PAGES-1, n));
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = ((current+1)/TOTAL_PAGES*100)+'%';
+  document.getElementById('progressLabel').textContent = 'Страница '+(current+1)+' / '+TOTAL_PAGES;
+  updateDots();
+  if(current===3){
+    document.getElementById('final-wc37').textContent = countWords(document.getElementById('essay37').value);
+    document.getElementById('final-wc38').textContent = countWords(document.getElementById('essay38').value);
+  }
+  window.scrollTo(0,0);
+}
+buildDots();
+
+// ---------- Timers ----------
+const timers = {};
+function startTimer(sectionNum, seconds){
+  const btn = document.getElementById('start-'+sectionNum);
+  const clock = document.getElementById('clock-'+sectionNum);
+  const status = document.getElementById('status-'+sectionNum);
+  if(timers[sectionNum]){ return; }
+  btn.disabled = true;
+  status.textContent = 'Идёт отсчёт…';
+  let remaining = seconds;
+  function render(){
+    const m = Math.floor(remaining/60).toString().padStart(2,'0');
+    const s = (remaining%60).toString().padStart(2,'0');
+    clock.textContent = m+':'+s;
+  }
+  render();
+  timers[sectionNum] = setInterval(()=>{
+    remaining--;
+    render();
+    if(remaining<=0){
+      clearInterval(timers[sectionNum]);
+      status.textContent = 'Время задания истекло';
+      clock.style.color = 'var(--wrong)';
+    }
+  },1000);
+}
+
+// ---------- Word count ----------
+function countWords(text){
+  const t = text.trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function updateWordCount(taId, min, max, outId){
+  const n = countWords(document.getElementById(taId).value);
+  const el = document.getElementById(outId);
+  el.textContent = n + ' слов (нужно '+min+'–'+max+')';
+  el.classList.remove('ok','bad');
+  el.classList.add(n>=min && n<=max ? 'ok' : 'bad');
+}
+
+// ---------- Task 38 subtask toggle ----------
+function selectSubtask(n){
+  document.getElementById('sub38-1').style.display = n===1 ? 'block':'none';
+  document.getElementById('sub38-2').style.display = n===2 ? 'block':'none';
+  document.getElementById('choice-label-1').classList.toggle('active', n===1);
+  document.getElementById('choice-label-2').classList.toggle('active', n===2);
+}
+
+// ---------- Download ----------
+function downloadAnswers(){
+  const nameInput = document.getElementById('studentName');
+  const name = nameInput.value.trim();
+  if(!name){
+    nameInput.classList.add('missing');
+    alert('Впиши своё имя вверху страницы перед скачиванием.');
+    return;
+  }
+  nameInput.classList.remove('missing');
+  const t37 = document.getElementById('essay37').value;
+  const t38 = document.getElementById('essay38').value;
+  const choice = document.querySelector('input[name="task38choice"]:checked').value;
+  const content = 'ЕГЭ 2026 — Письменная речь\nИмя: '+name+'\n\n=== Задание 37 (email, '+countWords(t37)+' слов) ===\n'+t37+'\n\n=== Задание '+choice+' (эссе, '+countWords(t38)+' слов) ===\n'+t38+'\n';
+  const blob = new Blob([content], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ЕГЭ_письмо_'+name.replace(/\s+/g,'_')+'.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ---------- Send to teacher (Formspree) ----------
+async function sendToTeacher(){
+  const nameInput = document.getElementById('studentName');
+  const name = nameInput.value.trim();
+  const status = document.getElementById('sendStatus');
+  const btn = document.getElementById('sendBtn');
+  if(!name){
+    nameInput.classList.add('missing');
+    alert('Впиши своё имя вверху страницы перед отправкой.');
+    return;
+  }
+  nameInput.classList.remove('missing');
+  const t37 = document.getElementById('essay37').value;
+  const t38 = document.getElementById('essay38').value;
+  const choice = document.querySelector('input[name="task38choice"]:checked').value;
+  btn.disabled = true;
+  status.textContent = 'Отправляю…';
+  status.style.color = 'var(--muted)';
+  try{
+    const fd = new FormData();
+    fd.append('Файл', 'ЕГЭ 2026 — письменная речь');
+    fd.append('Имя', name);
+    fd.append('Дата', new Date().toLocaleString('ru-RU'));
+    fd.append('Задание 37 (email, '+countWords(t37)+' слов)', t37);
+    fd.append('Задание '+choice+' (эссе, '+countWords(t38)+' слов)', t38);
+    const res = await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    if(res.ok){
+      status.textContent = 'Отправлено! Учитель получит письмо и эссе по почте.';
+      status.style.color = 'var(--correct)';
+    } else {
+      status.textContent = 'Не получилось отправить (ошибка сервера). Попробуй ещё раз или скачай файл и пришли вручную.';
+      status.style.color = 'var(--wrong)';
+      btn.disabled = false;
+    }
+  }catch(err){
+    status.textContent = 'Не получилось отправить: нет сети или доступ заблокирован. Скачай файл и пришли вручную.';
+    status.style.color = 'var(--wrong)';
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>

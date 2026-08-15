@@ -1,0 +1,460 @@
+/* ============================================================
+   Структура интерактивного теста (стиль Macmillan photocopiable)
+   Подключается так:
+     <link rel="stylesheet" href="/assets/test.css">
+
+   ЗДЕСЬ НЕТ ЦВЕТОВ САМОГО ТЕСТА. Палитра задаётся в самом
+   материале через :root — так каждый юнит может иметь свой цвет,
+   а структура остаётся общей. Полный список переменных со
+   значениями по умолчанию — в начале файла.
+   ============================================================ */
+
+:root{
+  /* ---- палитра (переопределяется в материале) ---- */
+  --bg: #EEF2EA;              /* фон страницы */
+  --paper: #FBFCF9;           /* фон карточек */
+  --ink: #1F2A20;             /* основной текст */
+  --ink-soft: #55604F;        /* второстепенный текст */
+  --moss: #35664F;            /* акцент: шапка */
+  --moss-dark: #234436;       /* тёмный акцент: панель результатов */
+  --clay: #B8582E;            /* кнопка «Проверить» */
+  --indigo: #2E5578;
+  --line: #D8DECF;            /* границы */
+  --tag-bg: #E4EADA;          /* фон ярлыка секции */
+  --soft: #F3F5EE;            /* подложка: словарный банк, ключи */
+  --accent-soft: #EAF3D8;     /* полоса прогресса, кнопка отправки */
+  --status-ok-fg: #C9EAD1;    /* текст «отправлено» на тёмной панели */
+
+  /* верно/неверно — общие для всех тестов */
+  --ok: #2F7A4D;
+  --ok-bg: #E4F2E7;
+  --bad: #B23A2E;
+  --bad-bg: #FBE7E4;
+
+  --radius: 14px;
+
+  /* ---- декор шапки (необязательный) ---- */
+  --bg-pattern: radial-gradient(circle at 1px 1px, rgba(53,102,79,0.08) 1px, transparent 0);
+  --bg-pattern-size: 22px 22px;
+  --hero-blob: rgba(255,255,255,0.06);
+  --hero-glyph: "";           /* например "✦" — символ в углу шапки */
+  --eyebrow-glyph: "";        /* например " ✧" — после надзаголовка */
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+
+body{
+  background-color: var(--bg);
+  background-image: var(--bg-pattern);
+  background-size: var(--bg-pattern-size);
+  background-repeat: repeat;
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  padding: 40px 18px 100px;
+}
+
+.wrap{max-width: 760px; margin: 0 auto;}
+
+/* ---- имя ученика и класс ---- */
+
+.info-box{
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.info-box label{
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+.info-box > input,
+.info-box-group input{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid var(--line);
+  background: transparent;
+  padding: 4px 2px;
+  color: var(--ink);
+}
+.info-box > input{ flex: 1 1 240px; min-width: 200px; }
+.info-box-group{ flex: 0 0 140px; display: flex; flex-direction: column; }
+.info-box input:focus{ outline: none; border-color: var(--moss); }
+
+/* ---- шапка теста ---- */
+
+header.hero{
+  background: var(--moss);
+  color: #F3F6EE;
+  border-radius: var(--radius);
+  padding: 30px 28px 26px;
+  margin-bottom: 26px;
+  position: relative;
+  overflow: hidden;
+}
+header.hero::after{
+  content: "";
+  position: absolute;
+  right: -30px; top: -30px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: var(--hero-blob);
+}
+header.hero::before{
+  content: var(--hero-glyph);
+  position: absolute;
+  left: 24px; bottom: 14px;
+  font-size: 20px;
+  color: rgba(255,255,255,0.35);
+}
+header.hero .eyebrow{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 8px;
+}
+header.hero .eyebrow::after{
+  content: var(--eyebrow-glyph);
+  opacity: 0.8;
+}
+header.hero h1{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+header.hero p{
+  margin: 0;
+  font-size: 14.5px;
+  opacity: 0.85;
+  max-width: 46ch;
+}
+
+.progress-shell{
+  margin-top: 16px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+.progress-fill{
+  height: 100%;
+  width: 0%;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+.progress-label{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+/* ---- секция с заданием ---- */
+
+section.card{
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 24px 24px;
+  margin-bottom: 20px;
+}
+.card-head{
+  display:flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.card-head h2{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+.tag{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--tag-bg);
+  color: var(--moss-dark);
+  padding: 2px 9px;
+  border-radius: 6px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.instructions{
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 4px 0 16px;
+}
+.wordbank{
+  background: var(--soft);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+/* ---- отдельный вопрос ---- */
+
+.item{ margin-bottom: 14px; font-size: 15px; }
+.item:last-child{ margin-bottom: 0; }
+.item-number{
+  font-weight: 600;
+  color: var(--moss-dark);
+  margin-right: 4px;
+}
+.pattern{
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
+  margin-right: 8px;
+}
+
+/* ---- поля ввода ---- */
+
+input[type=text]{
+  font-family: inherit;
+  font-size: 15px;
+  border: none;
+  border-bottom: 2px solid var(--line);
+  background: transparent;
+  padding: 3px 4px;
+  min-width: 110px;
+  color: var(--ink);
+  transition: border-color 0.15s ease;
+}
+input[type=text]:focus{ outline: none; border-color: var(--moss); }
+input.correct{ border-color: var(--ok); background: var(--ok-bg); border-radius: 4px; }
+input.incorrect{ border-color: var(--bad); background: var(--bad-bg); border-radius: 4px; }
+
+select{
+  font-family: inherit;
+  font-size: 14.5px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+select.correct{ border-color: var(--ok); background: var(--ok-bg); }
+select.incorrect{ border-color: var(--bad); background: var(--bad-bg); }
+
+/* ---- кнопки выбора варианта ---- */
+
+.choices{
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  vertical-align: middle;
+}
+.choice-btn{
+  font-family: inherit;
+  font-size: 14px;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  padding: 4px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  color: var(--ink);
+}
+.choice-btn:hover{ border-color: var(--moss); }
+.choice-btn.selected{ background: var(--moss); border-color: var(--moss); color: #fff; }
+.choice-btn.correct{ background: var(--ok); border-color: var(--ok); color: #fff; }
+.choice-btn.incorrect{ background: var(--bad); border-color: var(--bad); color: #fff; }
+.choice-btn.reveal-correct{ border-color: var(--ok); color: var(--ok); font-weight: 600; }
+
+/* ---- ключи для заданий на соответствие ---- */
+
+.match-answers{
+  background: var(--soft);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.match-answers div{ margin-bottom: 3px; }
+.match-answers b{ color: var(--ink); }
+
+/* ---- диалог ---- */
+
+.dialog-line{ margin-bottom: 10px; }
+.dialog-speaker{
+  font-weight: 700;
+  color: var(--moss-dark);
+  margin-right: 4px;
+}
+
+/* ---- задания с картинками ---- */
+
+.item.pic-item{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+img.pic{
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  display: block;
+}
+img.pic-wide{ width: 128px; height: auto; flex: none; }
+img.pic-tall{ width: 108px; height: auto; flex: none; }
+img.pic-full{ width: 100%; max-width: 420px; height: auto; margin: 4px 0 16px; }
+.pic-pair{
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.pic-pair figure{ margin: 0; text-align: center; }
+.pic-pair img{ width: 150px; height: auto; }
+.pic-pair figcaption{
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ---- счёт по секции ---- */
+
+.score-pill{
+  float: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--moss-dark);
+  font-weight: 600;
+}
+.score-pill.ok{ background: var(--ok-bg); color: var(--ok); }
+.score-pill.bad{ background: var(--bad-bg); color: var(--bad); }
+
+/* ---- кнопка проверки ---- */
+
+.check-bar{
+  position: sticky;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+  z-index: 5;
+}
+.check-btn{
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  background: var(--clay);
+  border: none;
+  padding: 14px 34px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(184,88,46,0.35);
+  transition: transform 0.12s ease;
+}
+.check-btn:hover{ transform: translateY(-1px); }
+.check-btn:active{ transform: translateY(1px); }
+
+/* ---- панель результатов ---- */
+
+.results-panel{
+  background: var(--moss-dark);
+  color: #F3F6EE;
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin-top: 22px;
+  text-align: center;
+  display: none;
+}
+.results-panel.show{ display: block; }
+.results-panel .big{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.results-panel .sub{
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+.breakdown{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.breakdown span{
+  background: rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+/* ---- отправка результата учителю ---- */
+
+.send-btn{
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--moss-dark);
+  background: var(--accent-soft);
+  border: none;
+  padding: 11px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.send-btn:hover{ transform: translateY(-1px); }
+.send-btn:disabled{ opacity: 0.6; cursor: default; transform: none; }
+
+.send-status{
+  font-size: 13px;
+  margin-top: 10px;
+  min-height: 18px;
+  opacity: 0.9;
+}
+.send-status.ok{ color: var(--status-ok-fg); }
+.send-status.err{ color: #F3C9C2; }
+
+.reset-link{
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px){
+  header.hero h1{ font-size: 24px; }
+  section.card{ padding: 18px 16px 20px; }
+}

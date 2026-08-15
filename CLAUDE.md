@@ -1,0 +1,153 @@
+# Материалы ANGLE — правила работы с репозиторием
+
+Это сайт с интерактивными заданиями для учеников. Автор — Viktoria Syuzyova.
+Материалы создаются в диалоге с Claude, публикуются на GitHub Pages.
+
+## Главное в двух строках
+
+Материал — это одна папка `<курс>/<slug>/` с `index.html` внутри.
+Положил папку → запушил → материал сам появился в каталоге. Больше ничего делать не надо.
+
+## Карта репозитория
+
+```
+site.config.json      курсы, ярлыки Formspree, адрес панели преподавателя
+build.mjs             сборка: проверяет материалы и генерирует каталоги
+assets/               ОБЩЕЕ для всех материалов
+  angle.css           бренд ANGLE: шрифт, палитра, шапка с логотипом
+  test.css            структура тестов (без цветов — они у материала)
+  test-engine.js      подсчёт баллов и отправка результата учителю
+  catalog.css         оформление каталогов
+  fonts/              Apercu Pro, woff2
+  brand/angle-logo.png
+_templates/           заготовки: test.html, worksheet.html
+as4/ as5/ misc/       материалы по курсам
+```
+
+## Как добавить материал
+
+1. Определить курс и slug. Путь: `<course-id>/<slug>/index.html`.
+   `course-id` — строго из `site.config.json`. Slug — латиницей, через дефис:
+   `unit9-test`, `unit10-past-simple-worksheet`.
+2. Скопировать заготовку из `_templates/` (какую — см. ниже).
+3. Заполнить блок `<meta name="ws:*">` целиком.
+4. Написать задания.
+5. Проверить: `node build.mjs`. Он падает с понятным текстом, если что-то не так.
+
+## Какую заготовку брать
+
+| Что делаем | Заготовка | Вид |
+|---|---|---|
+| Тест с баллами и отправкой учителю | `_templates/test.html` | стиль Macmillan photocopiable, свой цвет на юнит |
+| Воркшит с самопроверкой | `_templates/worksheet.html` | бренд ANGLE: фиолетовый, жёлтый, логотип |
+| Короткая разминка | `_templates/worksheet.html`, `ws:type: warmup` | то же, при желании с отправкой |
+
+Отправка результата не привязана к виду: чтобы добавить её в воркшит, скопируйте
+блок `.results-panel` + `#sendBtn` из `_templates/test.html` и подключите
+`/assets/test-engine.js`. Чтобы убрать из теста — удалите `#sendBtn` и очистите `ws:formspree`.
+
+## Метаданные
+
+```html
+<meta name="ws:type"       content="test">        <!-- test | worksheet | warmup -->
+<meta name="ws:course"     content="Academy Stars 5">
+<meta name="ws:course-id"  content="as5">         <!-- = имя папки курса -->
+<meta name="ws:unit"       content="9">
+<meta name="ws:title"      content="Unit 9 — What's your opinion?">
+<meta name="ws:emoji"      content="📖">
+<meta name="ws:date"       content="2026-05-14">  <!-- ГГГГ-ММ-ДД -->
+<meta name="ws:status"     content="published">   <!-- draft — только в панели учителя -->
+<meta name="ws:formspree"  content="mjgnbjkk">    <!-- пусто = без отправки -->
+<meta name="ws:tags"       content="reported speech, food">
+<meta name="robots"        content="noindex, nofollow">
+```
+
+Новый материал начинайте со `status: draft`. Он будет виден в панели преподавателя,
+но не появится на странице курса, пока Виктория не проверит и не переключит на `published`.
+
+## Разметка заданий в тестах
+
+`test-engine.js` сам находит вопросы — специально ничего регистрировать не нужно.
+
+```html
+<section class="card" id="ex1" data-name="01 Словарь">   <!-- data-name → в письмо учителю -->
+
+  <!-- текстовое поле -->
+  <input type="text" data-q="1_1" data-ans="teaspoons">
+
+  <!-- несколько верных вариантов -->
+  <input type="text" data-q="1_2" data-ans-list="lorry|truck">
+
+  <!-- выпадающий список -->
+  <select data-q="1_3" data-ans="h">…</select>
+
+  <!-- кнопки-варианты: ответ на контейнере, значения на кнопках -->
+  <div class="dialog-line" data-group="1_4" data-ans="something">
+    <button type="button" class="choice-btn" data-val="something">something</button>
+    <button type="button" class="choice-btn" data-val="anything">anything</button>
+  </div>
+</section>
+```
+
+Сравнение ответов нечувствительно к регистру, лишним пробелам и знакам `? . !`.
+
+`data-q` и `data-group` должны быть уникальны в пределах страницы. Удобная схема —
+`<номер задания>_<номер вопроса>`.
+
+Обязательные `id` на странице теста: `studentName`, `studentGroup`, `progressFill`,
+`progressLabel`, `checkBtn`, `resultsPanel`, `resultsPercent`, `resultsFraction`,
+`resultsBreakdown`. Необязательные: `sendBtn`, `sendStatus`, `resetLink`.
+
+## Пути к ассетам
+
+В материалах пишите обычные абсолютные пути: `/assets/test.css`, `/assets/brand/angle-logo.png`.
+Относительные (`../../assets/…`) не использовать — они ломаются при переносе материала
+в другой курс.
+
+Если сайт опубликован не в корне домена, а в подпапке (репозиторий назван не
+`ЛОГИН.github.io`), в `site.config.json` заполняется `basePath`, и `build.mjs` сам
+подставляет префикс во все `href`, `src` и `url()` в html и css. В исходниках префикса
+быть не должно.
+
+## Чего делать нельзя
+
+- **Не встраивать base64.** Ни шрифты, ни логотип, ни картинки. Именно из-за этого
+  прежние файлы весили 800 КБ при 30 КБ содержимого, и их нельзя было редактировать.
+  Шрифт и логотип уже подключены из `/assets/`. Картинки задания кладите в `img/`
+  рядом с материалом. Сборка проверяет это и падает, если найдёт `src="data:..."`.
+- **Не подключать шрифт Apercu Pro заново** через `@font-face` — он уже в `angle.css`.
+- **Не коммитить `.otf` / `.ttf`.** Apercu Pro — коммерческий шрифт, репозиторий публичный.
+  В репозитории только woff2 в `assets/fonts/`.
+- **Не редактировать сгенерированное:** `_site/`, `catalog.json`, `<курс>/index.html`.
+  Их перезаписывает `build.mjs` при каждой сборке.
+- **Не создавать новый сайт на Netlify.** Все новые материалы живут здесь.
+
+## Куда приходят результаты
+
+Formspree, ярлык на курс. Таблица — в `site.config.json`, поле `formspree`.
+
+| Курс | Ярлык |
+|---|---|
+| Academy Stars 4 | `mjgnbjkk` |
+| Academy Stars 5 | `mjgnbjkk` |
+| разминка debate-warmup | `mlgqeayn` — курс не уточнён, спросить у Виктории |
+
+Письмо приходит с полями: название теста, имя ученика, класс, процент, счёт,
+разбивка по заданиям, время отправки.
+
+## Проверка
+
+```bash
+node build.mjs                          # собрать и проверить
+python3 -m http.server 8080 -d _site    # посмотреть в браузере
+```
+
+Открыть: `/` лендинг, `/as5/` страница курса, `/staff-7fk2q9/` панель преподавателя
+(адрес — из `site.config.json`).
+
+## Как это попадает в интернет
+
+Виктория нажимает в GitHub Desktop **Commit to main**, затем **Push origin**.
+GitHub Actions сам собирает и публикует, примерно за минуту.
+Правки прямо на github.com тоже работают — сборка запустится и там.
+

@@ -1,0 +1,211 @@
+/* ============================================================
+   Оформление каталогов: лендинг, страницы курсов, учительский индекс.
+   Сами страницы генерирует build.mjs — их править руками бесполезно,
+   а вот этот файл менять можно, внешний вид берётся отсюда.
+   ============================================================ */
+
+@import url('/assets/angle.css');
+
+body{
+  padding: 0;
+  background: var(--neutral-bg);
+}
+
+.page{
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 18px 80px;
+}
+
+/* ---- шапка каталога ---- */
+
+.cat-header{
+  position: relative;
+  background: var(--purple);
+  color: #fff;
+  padding: 82px 24px 30px;
+  margin: 0 0 26px;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  text-align: center;
+}
+.cat-header h1{
+  font-size: clamp(20px, 5vw, 30px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+}
+.cat-header p{ margin: 0; opacity: 0.9; font-size: 14px; }
+.cat-header .logo{
+  position: absolute;
+  top: 14px; left: 14px;
+  width: 60px;
+}
+.cat-header .logo img{ display: block; width: 100%; height: auto; }
+.cat-header .credit{
+  position: absolute;
+  top: 78px; left: 14px;
+  font-size: 11px;
+  opacity: 0.85;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ---- список материалов ---- */
+
+.course-block{ margin-bottom: 34px; }
+.course-block > h2{
+  color: var(--purple);
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card{
+  display: block;
+  background: var(--neutral-card);
+  border: 1px solid var(--neutral-border);
+  border-left: 6px solid var(--purple);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--black);
+  box-shadow: 0 4px 14px rgba(45,41,38,0.06);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+.card:hover{ transform: translateY(-1px); border-left-color: var(--yellow); }
+
+/* .row и .meta одинаковы у карточки курса и карточки в панели преподавателя */
+.row{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.name{ font-weight: 700; font-size: 15.5px; }
+.meta{
+  font-size: 12px;
+  color: #6b6560;
+  margin-top: 4px;
+  display: flex;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+/* Точка-разделитель, чтобы поля не сливались. Именно ::after у всех,
+   кроме последнего: тогда при переносе строки точка остаётся в конце
+   предыдущей строки, а не открывает новую. */
+.meta > span:not(:last-child)::after{
+  content: "·";
+  margin-left: 14px;
+  color: #b8b2ab;
+}
+
+.pill{
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 2px 8px;
+  background: var(--neutral-border);
+  color: var(--black);
+}
+.pill.test{ background: var(--purple); color: #fff; }
+.pill.worksheet{ background: var(--yellow); color: var(--black); }
+.pill.warmup{ background: var(--black); color: var(--yellow); }
+.pill.draft{ background: #d97706; color: #fff; }
+
+.empty{
+  color: #6b6560;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+/* ---- панель учителя ---- */
+
+.toolbar{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.toolbar input[type=search]{
+  flex: 1 1 220px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--purple);
+  background: #fff;
+  font: inherit;
+  font-size: 15px;
+  color: var(--black);
+}
+.filter-btn{
+  min-height: 40px;
+  padding: 7px 14px;
+  border: 1px solid var(--neutral-border);
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--black);
+}
+.filter-btn.on{ background: var(--purple); border-color: var(--purple); color: #fff; }
+
+.staff-card{
+  background: var(--neutral-card);
+  border: 1px solid var(--neutral-border);
+  border-left: 6px solid var(--purple);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(45,41,38,0.06);
+}
+.staff-card.is-draft{ border-left-color: #d97706; }
+.staff-card a.open{ color: var(--purple); font-weight: 700; text-decoration: none; }
+.staff-card a.open:hover{ text-decoration: underline; }
+
+.actions{ display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.actions button,
+.actions a{
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  min-height: 34px;
+  border: 1px solid var(--neutral-border);
+  background: #fff;
+  color: var(--black);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.actions button:hover, .actions a:hover{ border-color: var(--purple); }
+.actions button.copied{ background: var(--correct); border-color: var(--correct); color: #fff; }
+
+.legacy{
+  font-size: 11.5px;
+  color: #8a6d3b;
+  background: #fdf6e3;
+  border: 1px solid #f0e0b0;
+  padding: 5px 9px;
+  margin-top: 8px;
+}
+
+.count{ font-size: 13px; color: #6b6560; margin-bottom: 14px; }
+
+.note{
+  font-size: 13px;
+  color: #6b6560;
+  border-top: 1px solid var(--neutral-border);
+  margin-top: 34px;
+  padding-top: 14px;
+}
+.note code{
+  background: #fff;
+  border: 1px solid var(--neutral-border);
+  padding: 1px 5px;
+  font-size: 12px;
+}

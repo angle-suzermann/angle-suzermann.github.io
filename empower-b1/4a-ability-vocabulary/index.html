@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>4A Vocabulary Check: Ability</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Empower B1+">
+<meta name="ws:course-id" content="empower-b1">
+<meta name="ws:unit"      content="4A">
+<meta name="ws:title"     content="4A Vocabulary Check: Ability">
+<meta name="ws:emoji"     content="✏️">
+<meta name="ws:date"      content="2026-05-14">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="vocabulary, ability, prepositions, Christian Bale">
+<meta name="robots"       content="noindex, nofollow">
+
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+  .sheet{
+    max-width:680px;
+    margin:0 auto;
+    background:var(--neutral-bg);
+    padding:0 0 60px;
+  }
+  header .unit{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--black);
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:2px;
+    margin-bottom:10px;
+  }
+  header .sub{
+    color:#ffffff;
+    opacity:0.9;
+    font-size:13px;
+    margin:0;
+  }
+  .wrap{
+    padding:16px 16px 0;
+  }
+  h2{
+    color:var(--purple);
+    background:none;
+    font-size:1.1em;
+    font-weight:800;
+    text-transform:uppercase;
+    padding:0;
+    margin:30px 0 0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .task{
+    font-size:14px;
+    color:var(--black);
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    padding:14px 16px;
+    margin:12px 0 16px;
+    border-radius:0;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .wordbank{
+    background:#fff;
+    border:1px dashed var(--purple);
+    border-radius:0;
+    padding:10px 14px;
+    margin-bottom:16px;
+    font-size:13.5px;
+    overflow-wrap:anywhere;
+  }
+  .wordbank strong{color:var(--purple);}
+
+  /* ---- generic tap buttons ---- */
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    min-height:46px;
+    padding:10px 16px;
+    margin:5px 6px 5px 0;
+    border:1px solid var(--neutral-border);
+    background:#fff;
+    color:var(--black);
+    border-radius:0;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    user-select:none;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .chip:active{ transform:scale(0.97); }
+  .chip.selected{
+    background:var(--purple);
+    color:#fff;
+    border-color:var(--purple);
+  }
+  .chip.correct{
+    background:var(--correct);
+    border-color:var(--correct);
+    color:#fff;
+  }
+  .chip.wrong{
+    background:var(--wrong);
+    border-color:var(--wrong);
+    color:#fff;
+  }
+  .chip.disabled, .chip:disabled{
+    opacity:0.55;
+    pointer-events:none;
+  }
+
+  /* ---- matching exercise ---- */
+  .match-block{margin-bottom:8px;}
+  .match-block h3{
+    font-size:13px;
+    color:var(--purple);
+    margin:14px 0 4px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-weight:800;
+  }
+  .chip-wrap{
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .def-chip{
+    display:block;
+    width:100%;
+    text-align:left;
+    min-height:46px;
+    padding:10px 14px;
+    margin:5px 0;
+    border:1px solid var(--neutral-border);
+    background:#fff;
+    color:var(--black);
+    border-radius:0;
+    font-size:14.5px;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+  .def-chip:active{ transform:scale(0.99); }
+  .def-chip.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
+  .def-chip.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+  .def-chip.disabled{ opacity:0.55; pointer-events:none; }
+  .hint{
+    font-size:12.5px;
+    color:#666;
+    min-height:16px;
+    margin:4px 0 10px;
+  }
+
+  /* ---- gap fill with select ---- */
+  ol.exercise{
+    padding-left:20px;
+    margin:0;
+  }
+  ol.exercise li{
+    margin-bottom:16px;
+    font-size:15.5px;
+    overflow-wrap:anywhere;
+  }
+  select.gap{
+    font-size:16px;
+    min-height:44px;
+    padding:8px 10px;
+    border:1px solid var(--purple);
+    border-radius:0;
+    background:#fff;
+    color:var(--black);
+    max-width:100%;
+    margin-top:4px;
+    display:block;
+    width:100%;
+  }
+  select.gap.correct{ border-color:var(--correct); background:#eafaf0; }
+  select.gap.wrong{ border-color:var(--wrong); background:#fdecea; }
+  .correct-answer-note{
+    display:block;
+    font-size:13px;
+    color:var(--wrong);
+    margin-top:2px;
+  }
+
+  /* ---- preposition buttons ---- */
+  .prep-item{ margin-bottom:18px; }
+  .prep-sentence{ font-size:15.5px; margin-bottom:6px; overflow-wrap:anywhere;}
+  .prep-options{
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .prep-btn{
+    min-height:44px;
+    min-width:72px;
+    padding:9px 14px;
+    margin:4px 6px 4px 0;
+    border:1px solid var(--purple);
+    background:#fff;
+    color:var(--black);
+    border-radius:0;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+  .prep-btn.selected{ background:var(--purple); border-color:var(--purple); color:#fff; }
+  .prep-btn.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
+  .prep-btn.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+
+  /* ---- personalization ---- */
+  textarea.personal{
+    width:100%;
+    min-height:56px;
+    font-size:16px;
+    font-family:inherit;
+    padding:10px;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    margin-top:6px;
+    resize:vertical;
+  }
+
+  /* ---- buttons / controls ---- */
+  .check-btn, .reset-btn{
+    display:block;
+    width:100%;
+    min-height:50px;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    color:var(--yellow);
+    background:var(--black);
+    border:none;
+    border-radius:0;
+    margin:14px 0 4px;
+    cursor:pointer;
+    touch-action:manipulation;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .check-btn:active, .reset-btn:active{ background:var(--purple); color:#fff; }
+  .reset-btn{ background:#8a8a8a; color:#fff; font-weight:600; font-size:14px; min-height:42px; clip-path:none; text-transform:none; letter-spacing:0; }
+  .score-line{
+    font-size:14px;
+    font-weight:700;
+    color:var(--purple);
+    margin-top:6px;
+    min-height:18px;
+  }
+
+  .toolbar{
+    margin:34px 0 10px;
+  }
+  .toolbar button{
+    display:block;
+    width:100%;
+    min-height:52px;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    color:#ffffff;
+    background:var(--purple);
+    border:none;
+    border-radius:0;
+    margin:8px 0;
+    cursor:pointer;
+    touch-action:manipulation;
+  }
+  .toolbar button:active{ background:var(--black); }
+
+  footer{
+    margin-top:34px;
+    font-size:11px;
+    color:#999;
+    text-align:center;
+  }
+
+  @media print{
+    .toolbar, .check-btn, .reset-btn{display:none;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet" id="sheet">
+
+<header>
+  <div class="studio-icon"><img src="/assets/brand/angle-logo.png" alt="ANGLE"></div>
+  <p class="studio-credit">by Viktoria Syuzyova</p>
+  <div class="unit">UNIT 4A · VOCABULARY: ABILITY</div>
+  <h1>I could sing very well when I was younger</h1>
+  <p class="sub">Interactive vocabulary check: successful, talented, ability, intelligent, achievement, give up, positive attitude, determined, confident, good at</p>
+</header>
+
+<div class="wrap">
+
+<h2>1&nbsp; Match the word to its meaning</h2>
+<div class="task">Tap a word first, then tap the matching definition. A correct pair turns green; a wrong pair flashes red and you can try again.</div>
+
+<div class="match-block">
+  <h3>Words</h3>
+  <div class="chip-wrap" id="words-wrap"></div>
+</div>
+<div class="match-block">
+  <h3>Definitions</h3>
+  <div id="defs-wrap"></div>
+</div>
+<div class="hint" id="match-hint">Tap a word, then tap its definition.</div>
+<div class="score-line" id="match-score"></div>
+<button class="reset-btn" onclick="resetMatch()">Start over</button>
+
+<h2>2&nbsp; The text about Christian Bale</h2>
+<div class="task">Choose the correct word from the list for each gap (based on "When will I be famous?", p.44).</div>
+<ol class="exercise" id="ex2"></ol>
+<button class="check-btn" onclick="checkSelects('ex2')">Check</button>
+<div class="score-line" id="ex2-score"></div>
+
+<h2>3&nbsp; Describing Emma and Alex</h2>
+<div class="task">Listen to the recording again and choose the correct word or phrase for each gap.</div>
+<ol class="exercise" id="ex3"></ol>
+<button class="check-btn" onclick="checkSelects('ex3')">Check</button>
+<div class="score-line" id="ex3-score"></div>
+
+<h2>4&nbsp; Choose the correct preposition</h2>
+<div class="task">Tap the correct preposition for each sentence. Sometimes more than one answer is possible — any accepted option counts as correct.</div>
+<div id="ex4"></div>
+<button class="check-btn" onclick="checkPrep()">Check</button>
+<div class="score-line" id="ex4-score"></div>
+
+<h2>5&nbsp; Make it personal</h2>
+<div class="task">Complete the sentences so they are true for you. Use at least one target word from this lesson in each answer.</div>
+<ol class="exercise" id="ex5"></ol>
+
+<div class="toolbar">
+  <button onclick="window.print()">Print / save as PDF</button>
+</div>
+
+</div>
+
+<footer>Based on "When will I be famous?" (Unit 4A reading text) and the extrovert / introvert listening script.</footer>
+
+</div>
+
+<script>
+/* ================= DATA ================= */
+
+const words = [
+  {id:1, text:"successful"},
+  {id:2, text:"talented at"},
+  {id:3, text:"ability to"},
+  {id:4, text:"intelligent"},
+  {id:5, text:"achievement"},
+  {id:6, text:"give up"},
+  {id:7, text:"positive attitude"},
+  {id:8, text:"determined"},
+  {id:9, text:"confident about"},
+  {id:10, text:"good at"}
+];
+
+// definitions in a shuffled order, each maps back to a word id
+const defs = [
+  {letter:"A", wordId:10, text:"having the skill or knowledge to do something well"},
+  {letter:"B", wordId:9,  text:"sure that something you want or expect will happen"},
+  {letter:"C", wordId:3,  text:"having the mental or physical power to do something"},
+  {letter:"D", wordId:8,  text:"having made a firm decision and refusing to let anything stop you"},
+  {letter:"E", wordId:1,  text:"having achieved a lot / having done well, e.g. in a career"},
+  {letter:"F", wordId:4,  text:"able to understand and learn things quickly"},
+  {letter:"G", wordId:2,  text:"quick to learn or naturally skilled at something"},
+  {letter:"H", wordId:7,  text:"an optimistic way of thinking about a situation or piece of work"},
+  {letter:"I", wordId:5,  text:"reaching success or achieving something difficult, often after a lot of effort"},
+  {letter:"J", wordId:6,  text:"to stop trying to do something, usually because it's too difficult"}
+];
+
+const bankOptions = words.map(w => w.text);
+
+const ex2data = [
+  {text:"Christian Bale is now thought of as one of Hollywood's most ___ actors.", answer:"successful",
+    options:["successful","confident about","talented at","good at"]},
+  {text:"As a boy, he was clearly very ___ acting.", answer:"talented at",
+    options:["talented at","good at","ability to","successful"]},
+  {text:"From early on, it was clear he had real ___ perform.", answer:"ability to",
+    options:["ability to","talented at","good at","determined"]},
+  {text:"Although he was a(n) ___ child, school work didn't interest him much.", answer:"intelligent",
+    options:["intelligent","talented at","determined","confident about"]},
+  {text:"Despite his early ___, he didn't always enjoy the attention that came with fame.", answer:"achievement",
+    options:["achievement","successful","determined","positive attitude"]},
+  {text:"He almost decided to ___ acting until a director offered him a role in Henry V.", answer:"give up",
+    options:["give up","determined","confident about","positive attitude"]},
+  {text:"That experience gave him a more ___ towards his profession.", answer:"positive attitude",
+    options:["positive attitude","confident about","determined","achievement"]},
+  {text:"When he left school at 16, he was ___ to become a successful actor.", answer:"determined",
+    options:["determined","confident about","positive attitude","give up"]},
+  {text:"Despite all his success, he's still not fully ___ that he'll keep getting good roles.", answer:"confident about",
+    options:["confident about","determined","positive attitude","good at"]},
+  {text:"As a child, Christian was also ___ ballet and playing the guitar.", answer:"good at",
+    options:["good at","talented at","ability to","successful"]}
+];
+
+const ex3data = [
+  {text:"Emma says she's ___ telling jokes and entertaining people at parties.", answer:"good at",
+    options:["good at","talented at","successful","ability to"]},
+  {text:"Alex is also ___ telling jokes, but only in front of close friends.", answer:"talented at",
+    options:["talented at","good at","ability to","successful"]},
+  {text:"Emma clearly has the ___ make people laugh in social situations.", answer:"ability to",
+    options:["ability to","talented at","good at","determined"]},
+  {text:"Alex would rather read a book or have a deep conversation, which suggests he's a thoughtful, ___ person.", answer:"intelligent",
+    options:["intelligent","determined","confident about","talented at"]},
+  {text:"One ___ for Emma is managing to hide her shyness so well that people think she's a natural extrovert.", answer:"achievement",
+    options:["achievement","successful","positive attitude","determined"]},
+  {text:"Even though presentations make her nervous, Emma doesn't ___ — she pushes through anyway.", answer:"give up",
+    options:["give up","determined","positive attitude","confident about"]},
+  {text:"Alex seems to have a ___ spending time alone — he doesn't see it as a problem at all.", answer:"positive attitude",
+    options:["positive attitude","confident about","determined","achievement"]},
+  {text:"Emma sounds fairly ___ in most social situations, but not when she has to speak to an audience.", answer:"confident about",
+    options:["confident about","determined","positive attitude","good at"]},
+  {text:"Alex isn't especially ___ making conversation with strangers — he says he doesn't know what to say to people.", answer:"confident about",
+    options:["confident about","talented at","good at","determined"]},
+  {text:"Both speakers seem ___ to understand their own personalities and talk about them honestly.", answer:"determined",
+    options:["determined","confident about","give up","positive attitude"]}
+];
+
+const ex4data = [
+  {text:"1. She is good ___ making friends.", correct:["at"]},
+  {text:"2. I'm not very talented ___ art.", correct:["at"]},
+  {text:"3. It's important to have a positive attitude ___ your work.", correct:["towards","about"]},
+  {text:"4. She has the ability ___ pass exams without even trying.", correct:["to"]},
+  {text:"5. He is confident ___ his ability to pass the exam.", correct:["about"]}
+];
+
+const ex5data = [
+  "It's important to have a positive attitude and not give up because…",
+  "I'm talented at…",
+  "I'm not very good at…",
+  "If you want to be successful in life, you need to…",
+  "One of my biggest achievements was…"
+];
+
+/* ================= MATCHING EXERCISE ================= */
+
+let selectedWordId = null;
+let matchedCount = 0;
+
+function renderMatch(){
+  const wordsWrap = document.getElementById("words-wrap");
+  const defsWrap = document.getElementById("defs-wrap");
+  wordsWrap.innerHTML = "";
+  defsWrap.innerHTML = "";
+
+  words.forEach(w=>{
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.textContent = w.text;
+    b.dataset.wordId = w.id;
+    b.onclick = () => onWordTap(w.id, b);
+    wordsWrap.appendChild(b);
+  });
+
+  // shuffle definitions display order for a real matching task
+  const shuffledDefs = [...defs].sort(()=>Math.random()-0.5);
+  shuffledDefs.forEach(d=>{
+    const b = document.createElement("button");
+    b.className = "def-chip";
+    b.textContent = d.text;
+    b.dataset.wordId = d.wordId;
+    b.onclick = () => onDefTap(d.wordId, b);
+    defsWrap.appendChild(b);
+  });
+
+  selectedWordId = null;
+  matchedCount = 0;
+  document.getElementById("match-hint").textContent = "Tap a word, then tap its definition.";
+  document.getElementById("match-score").textContent = "";
+}
+
+function onWordTap(id, btn){
+  if(btn.classList.contains("correct")) return;
+  document.querySelectorAll("#words-wrap .chip").forEach(c=>c.classList.remove("selected"));
+  btn.classList.add("selected");
+  selectedWordId = id;
+  document.getElementById("match-hint").textContent = "Now tap a definition.";
+}
+
+function onDefTap(wordId, btn){
+  if(btn.classList.contains("disabled")) return;
+  if(selectedWordId === null){
+    document.getElementById("match-hint").textContent = "Tap a word first, then a definition.";
+    return;
+  }
+  const wordBtn = document.querySelector('#words-wrap .chip[data-word-id="'+selectedWordId+'"]');
+  if(wordId === selectedWordId){
+    btn.classList.add("correct","disabled");
+    wordBtn.classList.remove("selected");
+    wordBtn.classList.add("correct","disabled");
+    matchedCount++;
+    document.getElementById("match-hint").textContent = "Correct!";
+    document.getElementById("match-score").textContent = "Matched: " + matchedCount + " of " + words.length;
+  } else {
+    btn.classList.add("wrong");
+    wordBtn.classList.add("wrong");
+    document.getElementById("match-hint").textContent = "Not quite, try again.";
+    setTimeout(()=>{
+      btn.classList.remove("wrong");
+      wordBtn.classList.remove("wrong","selected");
+    }, 550);
+  }
+  selectedWordId = null;
+}
+
+function resetMatch(){
+  renderMatch();
+}
+
+/* ================= GAP-FILL SELECTS (ex2 / ex3) ================= */
+
+function renderSelectExercise(containerId, data){
+  const ol = document.getElementById(containerId);
+  ol.innerHTML = "";
+  data.forEach((item, idx)=>{
+    const li = document.createElement("li");
+    const parts = item.text.split("___");
+    const selectId = containerId + "-sel-" + idx;
+
+    const beforeSpan = document.createElement("span");
+    beforeSpan.textContent = parts[0];
+    li.appendChild(beforeSpan);
+
+    const select = document.createElement("select");
+    select.className = "gap";
+    select.id = selectId;
+    select.dataset.answer = item.answer;
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "— choose a word —";
+    select.appendChild(placeholder);
+
+    const itemOptions = item.options ? [...item.options].sort(()=>Math.random()-0.5) : bankOptions;
+    itemOptions.forEach(opt=>{
+      const o = document.createElement("option");
+      o.value = opt;
+      o.textContent = opt;
+      select.appendChild(o);
+    });
+
+    li.appendChild(select);
+
+    const afterSpan = document.createElement("span");
+    afterSpan.textContent = parts[1];
+    li.appendChild(afterSpan);
+
+    const note = document.createElement("span");
+    note.className = "correct-answer-note";
+    note.id = selectId + "-note";
+    li.appendChild(note);
+
+    ol.appendChild(li);
+  });
+}
+
+function checkSelects(containerId){
+  const ol = document.getElementById(containerId);
+  const selects = ol.querySelectorAll("select.gap");
+  let correct = 0;
+  selects.forEach(sel=>{
+    sel.classList.remove("correct","wrong");
+    const note = document.getElementById(sel.id + "-note");
+    note.textContent = "";
+    if(sel.value === sel.dataset.answer){
+      sel.classList.add("correct");
+      correct++;
+    } else if(sel.value !== ""){
+      sel.classList.add("wrong");
+      note.textContent = "Correct answer: " + sel.dataset.answer;
+    } else {
+      sel.classList.add("wrong");
+      note.textContent = "Correct answer: " + sel.dataset.answer;
+    }
+  });
+  document.getElementById(containerId + "-score").textContent =
+    "Correct: " + correct + " of " + selects.length;
+}
+
+/* ================= PREPOSITION EXERCISE (ex4) ================= */
+
+function renderPrep(){
+  const wrap = document.getElementById("ex4");
+  wrap.innerHTML = "";
+  const options = ["about","at","to","towards"];
+
+  ex4data.forEach((item, idx)=>{
+    const div = document.createElement("div");
+    div.className = "prep-item";
+
+    const sentence = document.createElement("div");
+    sentence.className = "prep-sentence";
+    sentence.textContent = item.text;
+    div.appendChild(sentence);
+
+    const optsWrap = document.createElement("div");
+    optsWrap.className = "prep-options";
+    optsWrap.id = "prep-" + idx;
+
+    options.forEach(opt=>{
+      const b = document.createElement("button");
+      b.className = "prep-btn";
+      b.textContent = opt;
+      b.dataset.value = opt;
+      b.onclick = () => {
+        optsWrap.querySelectorAll(".prep-btn").forEach(x=>{
+          x.classList.remove("selected","correct","wrong");
+        });
+        b.classList.add("selected");
+      };
+      optsWrap.appendChild(b);
+    });
+
+    div.appendChild(optsWrap);
+    wrap.appendChild(div);
+  });
+}
+
+function checkPrep(){
+  let correct = 0;
+  ex4data.forEach((item, idx)=>{
+    const group = document.getElementById("prep-" + idx);
+    const selected = group.querySelector(".selected");
+    group.querySelectorAll(".prep-btn").forEach(b=>{
+      b.classList.remove("correct","wrong");
+    });
+    if(selected){
+      selected.classList.remove("selected");
+      if(item.correct.includes(selected.dataset.value)){
+        selected.classList.add("correct");
+        correct++;
+      } else {
+        selected.classList.add("wrong");
+      }
+    }
+  });
+  document.getElementById("ex4-score").textContent =
+    "Correct: " + correct + " of " + ex4data.length;
+}
+
+/* ================= PERSONALIZATION (ex5) ================= */
+
+function renderPersonal(){
+  const ol = document.getElementById("ex5");
+  ol.innerHTML = "";
+  ex5data.forEach(t=>{
+    const li = document.createElement("li");
+    li.textContent = t;
+    const ta = document.createElement("textarea");
+    ta.className = "personal";
+    li.appendChild(ta);
+    ol.appendChild(li);
+  });
+}
+
+/* ================= INIT ================= */
+
+renderMatch();
+renderSelectExercise("ex2", ex2data);
+renderSelectExercise("ex3", ex3data);
+renderPrep();
+renderPersonal();
+</script>
+</body>
+</html>

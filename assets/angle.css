@@ -1,0 +1,130 @@
+/* ============================================================
+   ANGLE — фирменная основа для воркшитов и разминок
+   Подключается так:  <link rel="stylesheet" href="/assets/angle.css">
+
+   Здесь ТОЛЬКО общее: шрифты, палитра, сброс, шапка с логотипом.
+   Вёрстка самих заданий (.section, .chip, .task и т.п.) остаётся
+   в <style> внутри материала — она у каждого своя.
+   ============================================================ */
+
+@font-face{
+  font-family:'Apercu Pro';
+  src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Apercu Pro';
+  src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');
+  font-weight:700 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  /* фирменные цвета — не менять */
+  --purple:#5E4877;
+  --black:#2D2926;
+  --yellow:#FED500;
+  --neutral-bg:#f7f6f4;
+  --neutral-card:#ffffff;
+  --neutral-border:#e4e0e8;
+  --correct:#3d7a3f;
+  --wrong:#b23a3a;
+
+  /* настройки шапки — материал может переопределить у себя */
+  --angle-logo-w:60px;
+  --angle-credit-top:78px;
+  --angle-credit-size:0.6em;
+  --angle-header-pad:96px 20px 34px;
+  --angle-h1-size:clamp(19px,5.5vw,26px);
+  --angle-h1-lh:1.25;
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+body{
+  margin:0;
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,Helvetica,sans-serif;
+  background:var(--neutral-bg);
+  color:var(--black);
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+
+/* ---- шапка с логотипом студии ---- */
+
+header{
+  position:relative;
+  background:var(--purple);
+  color:#ffffff;
+  padding:var(--angle-header-pad);
+  margin-bottom:0;
+  overflow:hidden;
+  clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+  text-align:center;
+}
+header h1{
+  font-size:var(--angle-h1-size);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin:0 0 6px;
+  line-height:var(--angle-h1-lh);
+}
+header p{
+  color:#ffffff;
+  margin:0;
+  opacity:0.9;
+}
+
+.studio-icon{
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:var(--angle-logo-w);
+  height:auto;
+  z-index:2;
+}
+.studio-icon img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.studio-credit{
+  position:absolute;
+  top:var(--angle-credit-top);
+  left:14px;
+  font-size:var(--angle-credit-size);
+  color:#ffffff;
+  opacity:0.85;
+  font-weight:400;
+  z-index:2;
+  margin:0;
+  white-space:nowrap;
+}
+
+/* жёлтый треугольник-маркер перед заголовком раздела */
+.angle-marker::before{
+  content:"";
+  display:inline-block;
+  width:0;
+  height:0;
+  border-left:9px solid transparent;
+  border-right:9px solid transparent;
+  border-bottom:16px solid var(--yellow);
+}
+
+/* ---- общая обратная связь по ответу ---- */
+
+.feedback-icon{ font-weight:700; margin-left:6px; }
+.feedback-icon.ok,
+.feedback-icon.correct{ color:var(--correct); }
+.feedback-icon.no,
+.feedback-icon.wrong{ color:var(--wrong); }

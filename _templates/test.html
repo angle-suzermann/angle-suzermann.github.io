@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НАЗВАНИЕ КУРСА — Unit N Test</title>
+
+<!-- ===== МЕТАДАННЫЕ. Без них сборка упадёт. =====================
+     type      : test | worksheet | warmup
+     course-id : совпадает с именем папки курса (as4, as5, …)
+     status    : draft — виден только в панели преподавателя
+                 published — попадает на страницу курса
+     formspree : ярлык курса из site.config.json; пусто = без отправки
+     =========================================================== -->
+<meta name="ws:type"       content="test">
+<meta name="ws:course"     content="Academy Stars 5">
+<meta name="ws:course-id"  content="as5">
+<meta name="ws:unit"       content="N">
+<meta name="ws:title"      content="Unit N — тема юнита">
+<meta name="ws:emoji"      content="📖">
+<meta name="ws:date"       content="2026-01-01">
+<meta name="ws:status"     content="draft">
+<meta name="ws:formspree"  content="mjgnbjkk">
+<meta name="ws:tags"       content="грамматика, лексика">
+<meta name="robots"        content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/test.css">
+
+<style>
+  /* Палитра юнита. Можно удалить весь блок — тогда возьмётся
+     зелёная по умолчанию из /assets/test.css.
+     Приём Виктории: каждый юнит своего цвета. */
+  :root{
+    --bg: #F1E9FB;
+    --paper: #FDFBFF;
+    --ink: #2A2040;
+    --ink-soft: #6E5D8A;
+    --moss: #7B3FB5;
+    --moss-dark: #4C2A78;
+    --clay: #9B3FC9;
+    --line: #E1D2F6;
+    --tag-bg: #EEE1FA;
+    --soft: #F5EEFB;
+    --accent-soft: #F1E4FA;
+    --status-ok-fg: #E3D0F7;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="info-box">
+    <label for="studentName">Student's name</label>
+    <input type="text" id="studentName" placeholder="Write your name here">
+    <div class="info-box-group">
+      <label for="studentGroup">Group / Class</label>
+      <input type="text" id="studentGroup" placeholder="e.g. 5B">
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Macmillan · НАЗВАНИЕ КУРСА · Photocopiable test</div>
+    <h1>Unit N — тема юнита</h1>
+    <p>Одно предложение о том, что проверяет тест.</p>
+    <div class="progress-shell"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 / 0 answered</div>
+  </header>
+
+  <!-- ===== ЗАДАНИЕ 1 =====
+       id  — любой уникальный (ex1, ex2, …)
+       data-name — подпись в разбивке результатов и в письме учителю -->
+  <section class="card" id="ex1" data-name="01 Название задания">
+    <div class="card-head"><span class="tag">01 · vocabulary</span><h2>Заголовок задания</h2></div>
+    <p class="instructions">Что нужно сделать.</p>
+
+    <!-- словарный банк, если нужен -->
+    <div class="wordbank">слово · слово · слово</div>
+
+    <!-- ВИД 1: текстовое поле -->
+    <div class="item"><span class="item-number">1.</span>
+      I usually put two <input type="text" data-q="1_1" data-ans="teaspoons"> of sugar in my tea.
+    </div>
+
+    <!-- если верных вариантов несколько — через | -->
+    <div class="item"><span class="item-number">2.</span>
+      We went by <input type="text" data-q="1_2" data-ans-list="lorry|truck">.
+    </div>
+
+    <!-- ВИД 2: выпадающий список -->
+    <div class="item"><span class="item-number">3.</span> teaspoon —
+      <select data-q="1_3" data-ans="h">
+        <option value="">match…</option>
+        <option>a</option><option>b</option><option>h</option>
+      </select>
+    </div>
+
+    <!-- ВИД 3: кнопки-варианты. data-ans на контейнере, data-val на кнопках -->
+    <div class="dialog-line" data-group="1_4" data-ans="something">
+      <span class="dialog-speaker">Anna:</span> There is
+      <span class="choices">
+        <button type="button" class="choice-btn" data-val="something">something</button>
+        <button type="button" class="choice-btn" data-val="anything">anything</button>
+        <button type="button" class="choice-btn" data-val="nothing">nothing</button>
+      </span>
+      in the box.
+    </div>
+  </section>
+
+  <!-- ===== КНОПКА ПРОВЕРКИ ===== -->
+  <div class="check-bar">
+    <button class="check-btn" id="checkBtn">Проверить ответы</button>
+  </div>
+
+  <!-- ===== РЕЗУЛЬТАТ =====
+       Чтобы сделать тест без отправки учителю — удалите .send-btn
+       и .send-status, и очистите ws:formspree. -->
+  <div class="results-panel" id="resultsPanel">
+    <div class="big" id="resultsPercent">0%</div>
+    <div class="sub" id="resultsFraction">0 / 0 correct</div>
+    <div class="breakdown" id="resultsBreakdown"></div>
+    <button class="send-btn" id="sendBtn">Отправить результат учителю</button>
+    <div class="send-status" id="sendStatus"></div>
+  </div>
+
+  <span class="reset-link" id="resetLink">Начать заново</span>
+
+</div>
+
+<script src="/assets/test-engine.js"></script>
+</body>
+</html>

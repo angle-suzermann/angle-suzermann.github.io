@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Название воркшита</title>
+
+<!-- ===== МЕТАДАННЫЕ. Без них сборка упадёт. =====================
+     type      : worksheet — самопроверка, без отправки
+                 warmup    — короткая разминка (можно с отправкой)
+     course-id : совпадает с именем папки курса
+     formspree : пусто = без отправки; иначе ярлык из site.config.json
+     =========================================================== -->
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 5">
+<meta name="ws:course-id" content="as5">
+<meta name="ws:unit"      content="N">
+<meta name="ws:title"     content="Название воркшита">
+<meta name="ws:emoji"     content="✏️">
+<meta name="ws:date"      content="2026-01-01">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="лексика, тема">
+<meta name="robots"       content="noindex, nofollow">
+
+<!-- Бренд ANGLE: шрифт Apercu Pro, палитра, шапка с логотипом.
+     Шрифт НЕ встраивать в файл — он уже подключён отсюда. -->
+<link rel="stylesheet" href="/assets/angle.css">
+
+<style>
+  /* Настройки шапки — только если нужно отойти от значений по умолчанию:
+     --angle-logo-w, --angle-credit-top, --angle-credit-size,
+     --angle-header-pad, --angle-h1-size
+
+     Дальше — вёрстка заданий этого конкретного воркшита.
+     Доступные цвета: --purple --black --yellow --neutral-bg
+                      --neutral-card --neutral-border --correct --wrong */
+
+  .sheet{
+    max-width:680px;
+    margin:0 auto;
+    padding:0 0 60px;
+  }
+  .wrap{ padding:16px 16px 0; }
+
+  header .unit{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--black);
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:4px 10px;
+    margin-bottom:10px;
+  }
+  header .sub{ color:#fff; opacity:0.9; font-size:13px; margin:0; }
+
+  h2{
+    color:var(--purple);
+    font-size:1.1em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin:30px 0 0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .task{
+    font-size:14px;
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    padding:14px 16px;
+    margin:12px 0 16px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+
+  /* кнопка-«чип» для заданий на нажатие — минимум 44px под палец */
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    min-height:46px;
+    padding:10px 16px;
+    margin:5px 6px 5px 0;
+    border:1px solid var(--neutral-border);
+    background:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .chip.selected{ background:var(--purple); color:#fff; border-color:var(--purple); }
+  .chip.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
+  .chip.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+
+  .check-btn{
+    min-height:46px;
+    padding:12px 22px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    font-weight:800;
+    text-transform:uppercase;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  .check-btn:hover{ background:var(--purple); color:#fff; }
+
+  .score-line{ font-size:14px; font-weight:700; margin-top:8px; min-height:20px; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<!-- Шапка. Логотип и подпись — обязательная часть бренда,
+     путь к логотипу общий, не встраивайте картинку в файл. -->
+<header>
+  <div class="studio-icon"><img src="/assets/brand/angle-logo.png" alt="ANGLE"></div>
+  <p class="studio-credit">by Viktoria Syuzyova</p>
+  <div class="unit">UNIT N · ТЕМА</div>
+  <h1>Заголовок воркшита</h1>
+  <p class="sub">Список целевой лексики или краткое описание.</p>
+</header>
+
+<div class="wrap">
+
+  <h2 class="angle-marker">1&nbsp; Название задания</h2>
+  <div class="task">Что нужно сделать.</div>
+
+  <div id="ex1"></div>
+  <button class="check-btn" onclick="checkEx1()">Check</button>
+  <div class="score-line" id="ex1-score"></div>
+
+  <div class="toolbar">
+    <button class="check-btn" onclick="window.print()">Print / save as PDF</button>
+  </div>
+
+</div>
+
+<footer></footer>
+</div>
+
+<script>
+/* Воркшиты проверяют себя сами — общего движка здесь нет,
+   логика задания пишется под конкретное упражнение.
+   Если нужна отправка результата учителю — берите за основу
+   _templates/test.html, там это уже готово. */
+function checkEx1(){
+  document.getElementById('ex1-score').textContent = '';
+}
+</script>
+</body>
+</html>
