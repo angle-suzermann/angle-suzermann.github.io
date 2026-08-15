@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Expert — Module 6 Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="6">
+<meta name="ws:title"     content="Advanced Expert — Module 6 Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="module 6, C1">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  .test-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 26px;}
+  .test-nav .btn{width:auto;flex:0 0 auto;padding:12px 22px;margin-top:0;}
+  .btn-secondary{background:var(--purple);}
+  .btn-secondary:hover{background:var(--black);}
+  .page-indicator{font-weight:800;color:var(--purple);text-transform:uppercase;font-size:0.8em;letter-spacing:0.5px;text-align:center;}
+  .passage-box{background:#fbfaf9;border:1px solid var(--neutral-border);padding:16px 18px;margin:0 0 18px;font-weight:400;line-height:1.65;}
+  .passage-box .ptitle{display:block;font-weight:800;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px;}
+  .instr{font-weight:700;}
+  .mark-note{font-style:italic;font-size:0.85em;color:var(--black);opacity:0.75;margin:0 0 16px;}
+  .gap-label{font-weight:700;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Module 6 Test</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Part 1 — Open cloze</h2>
+    <p class="instr"><strong>1 For questions 1–8, read the text below and think of the word that best fits each gap. Use only one word in each gap.</strong></p>
+    <div class="passage-box"><span class="ptitle">A LIKELY MISUNDERSTANDING</span>
+      I cannot help but think that my boss (1) _____ the point of my giving her feedback, which, with hindsight, had been easier said than (2) _____ . I still cannot say for (3) _____ whether she understood what I was trying to get across to her when I (4) _____ up about it. Since that meeting, I've spent hours mulling (5) _____ what was said, and it (6) _____ on me that she might have thought I was (7) _____ a go at her. She did get rather (8) _____ up.
+    </div>
+
+    <div class="item" data-answer="missed" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (1)</span> <input type="text" name="q1"></p></div>
+    <div class="item" data-answer="done" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (2)</span> <input type="text" name="q2"></p></div>
+    <div class="item" data-answer="certain|sure" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (3)</span> <input type="text" name="q3"></p></div>
+    <div class="item" data-answer="spoke" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (4)</span> <input type="text" name="q4"></p></div>
+    <div class="item" data-answer="over" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (5)</span> <input type="text" name="q5"></p></div>
+    <div class="item" data-answer="dawned" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (6)</span> <input type="text" name="q6"></p></div>
+    <div class="item" data-answer="having" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (7)</span> <input type="text" name="q7"></p></div>
+    <div class="item" data-answer="wound|worked" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (8)</span> <input type="text" name="q8"></p></div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Spelling</h2>
+    <p class="instr"><strong>2 For questions 1–10, read the text below and choose the correct spelling of the missing word for each gap.</strong></p>
+    <div class="passage-box"><span class="ptitle">LEARNING A LANGUAGE ABROAD</span>
+      Although it is not (1) _____ to live abroad when studying a foreign language, it is often highly (2) _____ . (3) _____ to experts, you are far more likely to learn a language to a high level (4) _____ if you are immersed in a culture where it is spoken. Even as a complete (5) _____ , you will almost (6) _____ find yourself communicating, even at a basic level. It's hard to (7) _____ how hearing and having to communicate in another language will (8) _____ any learner. Whatever the outcome, one thing is for sure and that is that you will not be (9) _____ with your progress. Hopefully you'll be in a position to enjoy such a fantastic learning (10) _____ .
+    </div>
+
+    <div class="item" data-answer="necessary" data-type="dd">
+      <p><span class="gap-label">Gap (1)</span></p>
+      <select name="q9"><option value="">-- choose --</option><option value="neccessary">neccessary</option><option value="necessary">necessary</option><option value="necesary">necesary</option></select>
+    </div>
+    <div class="item" data-answer="recommended" data-type="dd">
+      <p><span class="gap-label">Gap (2)</span></p>
+      <select name="q10"><option value="">-- choose --</option><option value="recommended">recommended</option><option value="reccommended">reccommended</option><option value="recomended">recomended</option></select>
+    </div>
+    <div class="item" data-answer="according" data-type="dd">
+      <p><span class="gap-label">Gap (3)</span></p>
+      <select name="q11"><option value="">-- choose --</option><option value="acording">Acording</option><option value="accordding">Accordding</option><option value="according">According</option></select>
+    </div>
+    <div class="item" data-answer="successfully" data-type="dd">
+      <p><span class="gap-label">Gap (4)</span></p>
+      <select name="q12"><option value="">-- choose --</option><option value="sucessfully">sucessfully</option><option value="successfully">successfully</option><option value="successfuly">successfuly</option></select>
+    </div>
+    <div class="item" data-answer="beginner" data-type="dd">
+      <p><span class="gap-label">Gap (5)</span></p>
+      <select name="q13"><option value="">-- choose --</option><option value="begginner">begginner</option><option value="beginer">beginer</option><option value="beginner">beginner</option></select>
+    </div>
+    <div class="item" data-answer="immediately" data-type="dd">
+      <p><span class="gap-label">Gap (6)</span></p>
+      <select name="q14"><option value="">-- choose --</option><option value="immediately">immediately</option><option value="imediately">imediately</option><option value="immediatly">immediatly</option></select>
+    </div>
+    <div class="item" data-answer="exaggerate" data-type="dd">
+      <p><span class="gap-label">Gap (7)</span></p>
+      <select name="q15"><option value="">-- choose --</option><option value="exagerate">exagerate</option><option value="exaggerate">exaggerate</option><option value="exagarate">exagarate</option></select>
+    </div>
+    <div class="item" data-answer="affect" data-type="dd">
+      <p><span class="gap-label">Gap (8)</span></p>
+      <select name="q16"><option value="">-- choose --</option><option value="effect">effect</option><option value="affect">affect</option><option value="efect">efect</option></select>
+    </div>
+    <div class="item" data-answer="disappointed" data-type="dd">
+      <p><span class="gap-label">Gap (9)</span></p>
+      <select name="q17"><option value="">-- choose --</option><option value="disapointed">disapointed</option><option value="disappointed">disappointed</option><option value="dissappointed">dissappointed</option></select>
+    </div>
+    <div class="item" data-answer="opportunity" data-type="dd">
+      <p><span class="gap-label">Gap (10)</span></p>
+      <select name="q18"><option value="">-- choose --</option><option value="oportunity">oportunity</option><option value="opourtunity">opourtunity</option><option value="opportunity">opportunity</option></select>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Key word transformation</h2>
+    <p class="instr"><strong>3 For questions 1–7, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the words given. Use between three and six words.</strong></p>
+
+    <div class="item" data-answer="my glasses i struggle to read" data-type="fib">
+      <p class="blank-sentence">1 I struggle to read road signs at any distance if I am not wearing my glasses. <span class="func-tag">STRUGGLE</span><br>Without <input type="text" name="q19"> road signs at any distance.</p>
+    </div>
+    <div class="item" data-answer="arranged for a taxi to collect" data-type="fib">
+      <p class="blank-sentence">2 The hotel arranged a taxi to come and collect us from the airport. <span class="func-tag">COLLECT</span><br>The hotel had <input type="text" name="q20"> us from the airport.</p>
+    </div>
+    <div class="item" data-answer="considered working abroad after i" data-type="fib">
+      <p class="blank-sentence">3 After I left university, I thought about working abroad. <span class="func-tag">CONSIDERED</span><br>I had <input type="text" name="q21"> left university.</p>
+    </div>
+    <div class="item" data-answer="resented having to" data-type="fib">
+      <p class="blank-sentence">4 He always felt bitter about having to stay in to look after his brother. <span class="func-tag">RESENTED</span><br>He always <input type="text" name="q22"> stay in to look after his brother.</p>
+    </div>
+    <div class="item" data-answer="put off doing things|put things off" data-type="fib">
+      <p class="blank-sentence">5 It was difficult working with someone who always delayed doing things until the last minute. <span class="func-tag">PUT</span><br>It was difficult working with someone who always <input type="text" name="q23"> until the last minute.</p>
+    </div>
+    <div class="item" data-answer="neglected to tell" data-type="fib">
+      <p class="blank-sentence">6 I don't know why he failed to tell me about his interview. <span class="func-tag">NEGLECTED</span><br>I don't know why he <input type="text" name="q24"> me about his interview.</p>
+    </div>
+    <div class="item" data-answer="remembered falling off" data-type="fib">
+      <p class="blank-sentence">7 I remembered falling off my bike but nothing else. <span class="func-tag">REMEMBERED</span><br>I <input type="text" name="q25"> my bike but nothing else.</p>
+    </div>
+  </div>
+
+  <div class="test-nav">
+    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="anglePrevPage()">← Previous section</button>
+    <div class="page-indicator" id="pageIndicator">Section 1 of 3</div>
+    <button type="button" class="btn btn-secondary" id="nextBtn" onclick="angleNextPage()">Next section →</button>
+  </div>
+
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    const acceptable = answer.split('|').map(function(a){ return a.trim(); });
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = acceptable.indexOf(userAnswer) !== -1;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + acceptable.join(' / ') + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + acceptable.join(' / '));
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Advanced Expert — Module 6 Test');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mdaqrvdd', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#quizForm .section'));
+  var total = sections.length;
+  var idx = 0;
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var submitBtn = document.getElementById('submitBtn');
+  var indicator = document.getElementById('pageIndicator');
+  function show(i){
+    sections.forEach(function(s,j){ s.style.display = (j===i) ? '' : 'none'; });
+    if(prevBtn) prevBtn.style.display = (i===0) ? 'none' : '';
+    if(nextBtn) nextBtn.style.display = (i===total-1) ? 'none' : '';
+    if(submitBtn) submitBtn.style.display = (i===total-1) ? '' : 'none';
+    if(indicator) indicator.textContent = 'Section ' + (i+1) + ' of ' + total;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
+  window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  show(idx);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case File: The Robbery — Unit 10</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 5">
+<meta name="ws:course-id" content="as5">
+<meta name="ws:unit"      content="10">
+<meta name="ws:title"     content="Case File: The Robbery">
+<meta name="ws:emoji"     content="🕵️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:tags"      content="past simple, detective story">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --paper:#ffffff;
+    --bg:#f7f6f4;
+    --border:#e4e0e8;
+    --red:#b23a3a;
+    --green:#3d7a3f;
+    --text:#2D2926;
+    --muted:#7d6f8a;
+    --shadow: 0 4px 14px rgba(45,41,38,.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    min-height:100vh;
+    padding:24px 14px 60px;
+  }
+  h1,h2,h3{font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:800; letter-spacing:.2px;}
+  .app{max-width:920px; margin:0 auto;}
+
+  header.case-header{
+    position:relative;
+    background:var(--purple);
+    color:#fff;
+    padding:22px 24px 34px;
+    display:flex; align-items:center; gap:20px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    box-shadow:var(--shadow);
+  }
+  .logo-block{flex:0 0 auto; width:84px; display:flex; flex-direction:column; align-items:center;}
+  .logo-block img{display:block; width:100%; height:auto;}
+  .studio-credit{font-size:.62rem; color:#fff; opacity:.85; margin:6px 0 0; text-align:center; white-space:nowrap;}
+  .title-block{flex:1 1 auto; min-width:0;}
+  header.case-header h1{margin:0 0 4px; font-size:1.35rem; text-transform:uppercase; letter-spacing:.5px; color:#fff;}
+  header.case-header .sub{font-size:.8rem; color:#fff; opacity:.9;}
+
+  .meta-bar{display:flex; justify-content:flex-end; margin-top:12px;}
+  .score-pill{
+    background:var(--yellow); color:var(--black); font-weight:800;
+    padding:8px 14px; border-radius:0; font-size:.85rem; white-space:nowrap;
+  }
+  .progress-track{height:8px; background:var(--black); border-radius:0; margin-top:10px; overflow:hidden;}
+  .progress-fill{height:100%; background:var(--yellow); width:0%; transition:width .35s ease;}
+
+  .stagenav{display:flex; gap:6px; flex-wrap:wrap; margin:14px 0; justify-content:center;}
+  .stagenav button{
+    background:#fff; color:var(--purple); border:1px solid var(--border);
+    border-radius:0; padding:7px 10px; font-size:.72rem; font-weight:700;
+    cursor:pointer; font-family:inherit;
+  }
+  .stagenav button.active{background:var(--black); color:var(--yellow); border-color:var(--black);}
+
+  main#stage{
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    box-shadow:var(--shadow);
+    padding:28px 26px;
+    min-height:420px;
+    position:relative;
+  }
+  .stamp{
+    position:absolute; top:16px; right:22px;
+    border:3px solid var(--red); color:var(--red);
+    font-family:inherit; padding:6px 12px; border-radius:0;
+    transform:rotate(6deg); font-size:.75rem; font-weight:800; letter-spacing:1px; opacity:.85;
+  }
+  h2.page-title{color:var(--purple); text-transform:uppercase; border-bottom:3px solid var(--yellow); padding-bottom:8px; margin-top:0; font-size:1.15rem;}
+  .lead{color:var(--muted); font-size:.98rem; line-height:1.5;}
+  .card-box{background:var(--bg); border:1px solid var(--border); border-left:4px solid var(--purple); border-radius:0; padding:16px 18px; margin:14px 0;}
+  .char-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;}
+  @media (max-width:560px){.char-grid{grid-template-columns:1fr;}}
+  .char-card{background:#fff; border:1px solid var(--border); border-left:3px solid var(--yellow); border-radius:0; padding:10px 12px;}
+  .char-card b{color:var(--purple);}
+
+  .controls{display:flex; justify-content:space-between; margin-top:16px; gap:10px;}
+  .btn{
+    background:#fff; color:var(--purple); border:1px solid var(--purple);
+    padding:10px 18px; border-radius:0; font-weight:800; cursor:pointer; font-size:.85rem;
+    font-family:inherit; text-transform:uppercase; letter-spacing:.3px;
+  }
+  .btn.gold{
+    background:var(--black); color:var(--yellow); border:none;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn.gold:hover{background:var(--purple); color:#fff;}
+  .btn:disabled{background:var(--border); color:#999; border-color:var(--border);}
+  .btn.small{padding:6px 12px; font-size:.72rem;}
+
+  .match-cols{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px;}
+  .match-col h4{margin:0 0 8px; color:var(--purple); font-size:.8rem; text-transform:uppercase; letter-spacing:.06em;}
+  .match{
+    display:block; width:100%; text-align:left; margin-bottom:8px;
+    background:#fff; border:1px solid var(--border); border-radius:0; padding:10px 12px;
+    cursor:pointer; font-family:inherit; font-size:.88rem; font-weight:700; color:var(--text);
+  }
+  .match.selected{border-color:var(--purple); background:#f1ecf5;}
+  .match.matched-correct{background:#e6f2e7; border-color:var(--green); cursor:default;}
+  .match.wrong-flash{background:#fbe9e8; border-color:var(--red);}
+
+  table.retrieval{width:100%; border-collapse:collapse; margin-top:14px;}
+  table.retrieval td, table.retrieval th{padding:8px 6px; border-bottom:1px solid var(--border); text-align:left; font-size:.88rem;}
+  table.retrieval select{padding:6px 8px; border-radius:0; border:1px solid var(--border); font-family:inherit; min-width:160px;}
+  table.retrieval tr.ok select{border-color:var(--green); background:#eaf6ee;}
+  table.retrieval tr.bad select{border-color:var(--red); background:#fbeceb;}
+
+  .bank{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;}
+  .token{background:#fff; border:1px solid var(--purple); border-radius:999px; padding:7px 14px; font-size:.82rem; font-weight:700; cursor:pointer; color:var(--purple);}
+  .token.selected{background:var(--yellow); border-color:var(--yellow); color:var(--black);}
+  .token.used{opacity:.3; cursor:not-allowed; text-decoration:line-through;}
+  .fill-row{display:flex; align-items:center; gap:10px; margin:9px 0; font-size:.9rem; flex-wrap:wrap;}
+  .fill-row b{min-width:120px; display:inline-block;}
+  .blank{display:inline-block; min-width:190px; border-bottom:2px dashed var(--muted); padding:4px 8px; font-style:italic; color:var(--muted); border-radius:0;}
+  .blank.filled{font-style:normal; color:var(--text); border-bottom-color:var(--purple);}
+  .blank.ok{background:#eaf6ee; border-color:var(--green); color:var(--green); font-weight:700;}
+  .blank.bad{background:#fbeceb; border-color:var(--red); color:var(--red); font-weight:700;}
+
+  .flash-wrap{display:flex; flex-direction:column; align-items:center; margin-top:10px;}
+  .flip-card{width:100%; max-width:420px; height:200px; perspective:1000px; cursor:pointer;}
+  .flip-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{position:absolute; inset:0; backface-visibility:hidden; border-radius:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:18px; border:2px solid var(--purple);}
+  .flip-front{background:var(--black); color:var(--yellow); border-color:var(--black);}
+  .flip-front .w{font-family:inherit; font-size:1.5rem; text-transform:uppercase;}
+  .flip-back{background:#fff; transform:rotateY(180deg); color:var(--text);}
+  .flip-back .pos{color:var(--purple); font-weight:800; font-size:.72rem; text-transform:uppercase; margin-bottom:6px;}
+  .flip-back .ex{font-style:italic; color:var(--muted); margin-top:8px; font-size:.85rem;}
+  .flash-controls{display:flex; gap:10px; margin-top:14px; align-items:center;}
+  .flash-count{font-size:.8rem; color:var(--muted); font-weight:700;}
+
+  .qbox{margin:16px 0; padding:14px; background:var(--bg); border:1px solid var(--border); border-left:4px solid var(--purple); border-radius:0;}
+  .qbox p.prompt{font-weight:800; margin:0 0 10px;}
+  .opts{display:flex; flex-wrap:wrap; gap:8px;}
+  .opt{background:#fff; border:1px solid var(--border); border-radius:0; padding:9px 14px; cursor:pointer; font-weight:700; font-size:.85rem; font-family:inherit; color:var(--text);}
+  .opt.correct{background:#e6f2e7; border-color:var(--green); color:var(--green);}
+  .opt.wrong{background:#fbe9e8; border-color:var(--red); color:var(--red);}
+
+  .order-list{display:flex; flex-direction:column; gap:8px; margin-top:12px;}
+  .order-item{background:#fff; border:1px solid var(--border); border-radius:0; padding:10px 12px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:.88rem; font-weight:600;}
+  .order-item.picked{background:#f1ecf5; border-color:var(--purple);}
+  .order-item.correct-pos{border-color:var(--green); background:#e6f2e7;}
+  .order-item.wrong-pos{border-color:var(--red); background:#fbe9e8;}
+  .order-num{width:26px; height:26px; border-radius:50%; background:var(--black); color:var(--yellow); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem; flex-shrink:0;}
+  .order-num:empty::before{content:"?"; opacity:.5;}
+
+  textarea.discuss{width:100%; min-height:90px; border:1px solid var(--border); border-radius:0; padding:10px; font-family:inherit; font-size:.9rem; resize:vertical;}
+  .name-input{width:100%; border:1px solid var(--border); border-radius:0; padding:10px 12px; font-family:inherit; font-size:.95rem; color:var(--text);}
+  .name-input:focus{outline:none; border-color:var(--purple);}
+  .saved-note{color:var(--green); font-weight:700; font-size:.82rem; margin-top:6px; display:none;}
+
+  .final-score{text-align:center; margin-top:20px; padding:20px; border-radius:0; background:var(--black); color:#fff; border:2px solid var(--yellow);}
+  .final-score .big{font-family:inherit; font-size:2.4rem; color:var(--yellow); font-weight:800;}
+  .breakdown{text-align:left; max-width:360px; margin:14px auto 0; font-size:.85rem;}
+  .breakdown div{display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed rgba(255,255,255,.2);}
+
+  .hint{font-size:.78rem; color:var(--muted); margin-top:4px;}
+  .center{text-align:center;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="case-header">
+    <div class="logo-block">
+      <img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+      <p class="studio-credit">by Viktoria Syuzyova</p>
+    </div>
+    <div class="title-block">
+      <h1>Case File: The Robbery</h1>
+      <div class="sub">Unit 10 &middot; Academy Stars 5 &middot; Reading skill: scan for details</div>
+    </div>
+  </header>
+  <div class="meta-bar"><div class="score-pill" id="scorePill">0 / 0 clues found</div></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <nav class="stagenav" id="stagenav"></nav>
+
+  <main id="stage"></main>
+
+  <div class="controls">
+    <button class="btn" id="prevBtn" onclick="prevPage()">← Back</button>
+    <button class="btn gold" id="nextBtn" onclick="nextPage()">Next →</button>
+  </div>
+</div>
+
+<script>
+/* ============ DATA MODEL ============ */
+const CHARACTERS = [
+  {name:"Inspector Fox", role:"Police officer"},
+  {name:"Pat Plump", role:"Businessman"},
+  {name:"Lucy Specks", role:"University student"},
+  {name:"Tim Tall", role:"School student"},
+  {name:"Miss Pepper", role:"Tim's teacher"},
+  {name:"Dr Green", role:"Doctor"},
+  {name:"Sue Snaps", role:"Photographer"}
+];
+
+const VOCAB = [
+  {word:"robbery", pos:"noun", def:"the crime of stealing something from a place", example:"There was a robbery at the museum yesterday evening."},
+  {word:"suspect", pos:"noun", def:"a person who might have done a crime", example:"The six visitors were all suspects."},
+  {word:"valuable", pos:"adjective", def:"worth a lot of money", example:"The dinosaur egg was very valuable."},
+  {word:"statement", pos:"noun", def:"what a person says happened, told to the police", example:"Inspector Fox took statements from everyone."},
+  {word:"hobby", pos:"noun", def:"something you enjoy doing in your free time", example:"Drawing hieroglyphics is Pat Plump's hobby."},
+  {word:"crime", pos:"noun", def:"something illegal that a person does", example:"Stealing is a crime."},
+  {word:"prove", pos:"verb", def:"to show with facts that something is true", example:"Lucy could prove she bought a present."},
+  {word:"lying", pos:"verb (to lie)", def:"saying something that is not true", example:"Lucy thought Dr Green was lying."},
+  {word:"borrow", pos:"verb", def:"to take something and plan to give it back", example:"Sue only borrowed the egg — she didn't steal it."},
+  {word:"solve", pos:"verb", def:"to find the answer to a mystery or problem", example:"Inspector Fox solved the crime."}
+];
+
+const LOCATION_ANSWERS = {
+  "Pat Plump":"Egyptian Room",
+  "Lucy Specks":"Museum shop",
+  "Tim Tall":"Chinese Room",
+  "Miss Pepper":"Chinese Room",
+  "Sue Snaps":"Restoration Room",
+  "Dr Green":"Dinosaur Room"
+};
+const ROOMS = ["Egyptian Room","Chinese Room","Restoration Room","Dinosaur Room","Museum shop"];
+
+const REASON_ANSWERS = {
+  "Pat Plump":"drawing hieroglyphics",
+  "Lucy Specks":"buying a birthday present",
+  "Tim Tall":"looking for his school bag",
+  "Miss Pepper":"looking for Tim",
+  "Sue Snaps":"looking at old paintings",
+  "Dr Green":"doing research on dinosaur eggs"
+};
+
+const TF_ITEMS = [
+  {text:"A valuable dinosaur egg went missing from the museum.", answer:true},
+  {text:"Drawing hieroglyphics is Pat Plump's only hobby.", answer:false},
+  {text:"Lucy Specks could prove why she had a big bag.", answer:true},
+  {text:"Tim Tall left the museum at four o'clock with his class.", answer:false},
+  {text:"Miss Pepper found Tim in the Chinese Room.", answer:true},
+  {text:"The museum guard saw Sue Snaps go into the Restoration Room.", answer:true},
+  {text:"The dinosaur egg was in the Dinosaur Room at five o'clock.", answer:false},
+  {text:"Sue Snaps wanted to sell the egg.", answer:false},
+  {text:"Sue Snaps planned to put the egg back.", answer:true},
+  {text:"Lucy Specks thought Dr Green was lying.", answer:true}
+];
+
+const ORDER_EVENTS = [
+  {id:1, text:"The school trip to the museum ends at four o'clock."},
+  {id:2, text:"Tim Tall loses his school bag and stays behind to look for it."},
+  {id:3, text:"The museum guard sees Sue Snaps go into the Restoration Room."},
+  {id:4, text:"The CCTV camera records Lucy Specks leaving the shop with a big bag."},
+  {id:5, text:"Miss Pepper finds Tim in the Chinese Room."},
+  {id:6, text:"The dinosaur egg disappears from the Restoration Room."},
+  {id:7, text:"Inspector Fox takes statements from all six suspects."},
+  {id:8, text:"Sue Snaps shows everyone the egg and explains why she took it."}
+];
+
+const QUIZ = [
+  {q:"Dr Green was alone in the Dinosaur Room all afternoon. Why isn't he the thief?",
+   opts:["He has an alibi from the guard","The egg wasn't in the Dinosaur Room at five o'clock","He proved dinosaur eggs aren't his hobby","Lucy Specks saw him somewhere else"], correct:1},
+  {q:"How did Lucy Specks prove she wasn't the thief?",
+   opts:["The guard saw her the whole time","She showed a receipt from the museum shop","Miss Pepper was standing with her","She wasn't in the museum at five o'clock"], correct:1},
+  {q:"Why did Sue Snaps take the egg?",
+   opts:["To sell it","To give it to Dr Green for his research","To take a photograph of it for a magazine","She didn't know it was valuable"], correct:2}
+];
+
+const CLOZE_TEXT = ["Yesterday there was a", "1", "at the museum. A", "2", "dinosaur egg went missing. The guard saw Sue Snaps go into the", "3", "at", "4", ". The egg was there for cleaning. Sue Snaps", "5", "the egg because she wanted a photo for a", "6", ". In the end, Inspector Fox", "7", "the case!"];
+const CLOZE_ANSWERS = {"1":"robbery","2":"valuable","3":"Restoration Room","4":"quarter to five","5":"borrowed","6":"magazine","7":"solved"};
+const CLOZE_BANK = ["robbery","valuable","Restoration Room","quarter to five","borrowed","magazine","solved","crime"];
+
+/* ============ STATE ============ */
+let current = 0;
+let studentName = "";
+let discuss1Text = "";
+let discuss2Text = "";
+const results = {
+  roles:{correct:0,total:CHARACTERS.length,done:false},
+  location:{correct:0,total:Object.keys(LOCATION_ANSWERS).length,done:false},
+  reasons:{correct:0,total:Object.keys(REASON_ANSWERS).length,done:false},
+  tf:{correct:0,total:TF_ITEMS.length,done:false},
+  order:{correct:0,total:ORDER_EVENTS.length,done:false},
+  quiz:{correct:0,total:QUIZ.length,done:false},
+  cloze:{correct:0,total:Object.keys(CLOZE_ANSWERS).length,done:false}
+};
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-GB'; u.rate=0.9;
+  speechSynthesis.speak(u);
+}
+
+/* ============ PAGES ============ */
+const pages = [
+  {label:"Case File", render: renderCover},
+  {label:"Who's Who", render: renderRoles},
+  {label:"Key Words", render: renderVocab},
+  {label:"Where?", render: renderLocations},
+  {label:"Alibis", render: renderReasons},
+  {label:"True/False", render: renderTF},
+  {label:"Timeline", render: renderOrder},
+  {label:"Solve It", render: renderSolve},
+  {label:"Verdict", render: renderVerdict}
+];
+
+function renderCover(){
+  return `
+    <span class="stamp">CONFIDENTIAL</span>
+    <h2 class="page-title">Case File 10: The Museum Robbery</h2>
+    <p class="lead">A valuable dinosaur egg has disappeared from the museum. Inspector Fox questioned six visitors who were all in the building at five o'clock yesterday. Read the play script "The Robbery" (Student's Book, pages 122–123) again, then work through this case file to find and prove who really took the egg.</p>
+    <div class="card-box">
+      <h3 style="margin-top:0;">Your mission</h3>
+      <ul style="line-height:1.7; font-size:.92rem;">
+        <li>Match each suspect to their job and their location</li>
+        <li>Learn the key crime vocabulary</li>
+        <li>Scan the text for exact details — true or false?</li>
+        <li>Put the story events in order</li>
+        <li>Solve the case and write your verdict</li>
+      </ul>
+    </div>
+    <p class="lead">Click <b>Next</b> to open the file.</p>
+  `;
+}
+
+function renderRoles(){
+  const left = CHARACTERS.map((c,i)=>`<button class="match" data-role="left" data-id="${i}" onclick="pickRole(this)">${c.name}</button>`).join("");
+  const shuffled = shuffle(CHARACTERS.map((c,i)=>({...c,id:i})));
+  const right = shuffled.map(c=>`<button class="match" data-role="right" data-id="${c.id}" onclick="pickRole(this)">${c.role}</button>`).join("");
+  return `
+    <h2 class="page-title">1. Who's Who?</h2>
+    <p class="lead">Match each character to their job in the story. Click a name, then click their job.</p>
+    <div class="match-cols">
+      <div class="match-col"><h4>Character</h4>${left}</div>
+      <div class="match-col"><h4>Job</h4>${right}</div>
+    </div>
+    <div class="hint" id="rolesHint"></div>
+  `;
+}
+let firstRolePick = null;
+function pickRole(el){
+  if(el.classList.contains('matched-correct')) return;
+  if(!firstRolePick){ firstRolePick = el; el.classList.add('selected'); return; }
+  if(firstRolePick === el){ el.classList.remove('selected'); firstRolePick=null; return; }
+  const isMatch = firstRolePick.dataset.id === el.dataset.id && firstRolePick.dataset.role !== el.dataset.role;
+  if(isMatch){
+    firstRolePick.classList.remove('selected'); firstRolePick.classList.add('matched-correct');
+    el.classList.add('matched-correct');
+    if(!firstRolePick.dataset.counted){ firstRolePick.dataset.counted="1"; results.roles.correct++; updateScorePill(); }
+  } else {
+    el.classList.add('wrong-flash'); firstRolePick.classList.add('wrong-flash');
+    setTimeout(()=>{ el.classList.remove('wrong-flash'); firstRolePick.classList.remove('selected','wrong-flash'); },550);
+  }
+  firstRolePick = null;
+}
+
+let deckIndex = 0;
+function renderVocab(){
+  const v = VOCAB[deckIndex];
+  return `
+    <h2 class="page-title">2. Key Words for the Case</h2>
+    <p class="lead">Click the card to flip it. Use the arrows to go through all ${VOCAB.length} words.</p>
+    <div class="flash-wrap">
+      <div class="flip-card" id="flipCard" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front"><div class="w">${v.word}</div><div style="font-size:.75rem; margin-top:8px; opacity:.8;">click to flip</div></div>
+          <div class="flip-back"><div class="pos">${v.pos}</div><div>${v.def}</div><div class="ex">"${v.example}"</div></div>
+        </div>
+      </div>
+      <div class="flash-controls">
+        <button class="btn small" onclick="event.stopPropagation(); changeCard(-1)">← Prev</button>
+        <button class="btn small" onclick="event.stopPropagation(); speak('${v.word}. ${v.example.replace(/'/g,"")}')">🔊 Listen</button>
+        <button class="btn small" onclick="event.stopPropagation(); changeCard(1)">Next →</button>
+      </div>
+      <div class="flash-count">Card ${deckIndex+1} / ${VOCAB.length}</div>
+    </div>
+  `;
+}
+function changeCard(dir){
+  deckIndex = (deckIndex + dir + VOCAB.length) % VOCAB.length;
+  document.getElementById('stage').innerHTML = renderVocab();
+}
+
+function renderLocations(){
+  const rows = Object.keys(LOCATION_ANSWERS).map((name,i)=>`
+    <tr id="locRow${i}">
+      <td><b>${name}</b></td>
+      <td>
+        <select id="locSel${i}" data-name="${name}">
+          <option value="">-- choose a room --</option>
+          ${ROOMS.map(r=>`<option value="${r}">${r}</option>`).join("")}
+        </select>
+      </td>
+    </tr>`).join("");
+  return `
+    <h2 class="page-title">3. Where Were They at Five O'Clock?</h2>
+    <p class="lead">Scan the play script again. Choose the correct room for each suspect.</p>
+    <table class="retrieval">
+      <tr><th>Suspect</th><th>Room at 5 o'clock</th></tr>
+      ${rows}
+    </table>
+    <div class="controls" style="margin-top:16px;">
+      <span></span>
+      <button class="btn gold" onclick="checkLocations()">Check answers</button>
+    </div>
+  `;
+}
+function checkLocations(){
+  let correctNow = 0;
+  Object.keys(LOCATION_ANSWERS).forEach((name,i)=>{
+    const sel = document.getElementById('locSel'+i);
+    const row = document.getElementById('locRow'+i);
+    const ok = sel.value === LOCATION_ANSWERS[name];
+    row.classList.toggle('ok', ok);
+    row.classList.toggle('bad', !ok);
+    if(ok) correctNow++;
+  });
+  results.location.correct = correctNow;
+  results.location.done = true;
+  updateScorePill();
+}
+
+let selectedReasonToken = null;
+function renderReasons(){
+  const bank = shuffle(Object.values(REASON_ANSWERS));
+  const rows = Object.keys(REASON_ANSWERS).map((name,i)=>`
+    <div class="fill-row">
+      <b>${name}:</b>
+      <span class="blank" id="reasonBlank${i}" data-name="${name}" onclick="placeReason(${i})">click a reason below</span>
+    </div>`).join("");
+  const tokens = bank.map((phrase,i)=>`<button class="token" id="reasonToken${i}" onclick="selectReasonToken(this,'${phrase}')">${phrase}</button>`).join("");
+  return `
+    <h2 class="page-title">4. What Was Their Reason?</h2>
+    <p class="lead">Click a phrase from the word bank, then click the correct suspect's blank to place it.</p>
+    ${rows}
+    <div class="bank">${tokens}</div>
+    <div class="controls" style="margin-top:6px;">
+      <span></span>
+      <button class="btn gold" onclick="checkReasons()">Check answers</button>
+    </div>
+  `;
+}
+function selectReasonToken(el, phrase){
+  if(el.classList.contains('used')) return;
+  if(selectedReasonToken) selectedReasonToken.el.classList.remove('selected');
+  selectedReasonToken = {el, phrase};
+  el.classList.add('selected');
+}
+function placeReason(i){
+  if(!selectedReasonToken) return;
+  const blank = document.getElementById('reasonBlank'+i);
+  blank.textContent = selectedReasonToken.phrase;
+  blank.classList.add('filled');
+  blank.dataset.filled = selectedReasonToken.phrase;
+  selectedReasonToken.el.classList.add('used');
+  selectedReasonToken.el.classList.remove('selected');
+  selectedReasonToken = null;
+}
+function checkReasons(){
+  let correctNow = 0;
+  Object.keys(REASON_ANSWERS).forEach((name,i)=>{
+    const blank = document.getElementById('reasonBlank'+i);
+    const ok = (blank.dataset.filled||"").toLowerCase() === REASON_ANSWERS[name].toLowerCase();
+    blank.classList.toggle('ok', ok);
+    blank.classList.toggle('bad', !ok);
+    if(ok) correctNow++;
+  });
+  results.reasons.correct = correctNow;
+  results.reasons.done = true;
+  updateScorePill();
+}
+
+function renderTF(){
+  const items = TF_ITEMS.map((item,i)=>`
+    <div class="qbox">
+      <p class="prompt">${i+1}. ${item.text}</p>
+      <div class="opts" data-correct="${item.answer}" id="tf${i}">
+        <button class="opt" onclick="answerTF(${i}, true)">True</button>
+        <button class="opt" onclick="answerTF(${i}, false)">False</button>
+      </div>
+    </div>`).join("");
+  return `
+    <h2 class="page-title">5. Scan for Details: True or False</h2>
+    <p class="lead">Look back at the script for exact details. Click True or False for each sentence.</p>
+    ${items}
+  `;
+}
+function answerTF(i, chosen){
+  const box = document.getElementById('tf'+i);
+  if(box.dataset.done) return;
+  box.dataset.done = "1";
+  const correctAns = box.dataset.correct === "true";
+  const btns = box.querySelectorAll('.opt');
+  btns.forEach(b=>{
+    const isTrueBtn = b.textContent.trim() === "True";
+    if(isTrueBtn === correctAns) b.classList.add('correct');
+    else if(isTrueBtn === chosen) b.classList.add('wrong');
+  });
+  if(chosen === correctAns){ results.tf.correct++; }
+  results.tf.done = true;
+  updateScorePill();
+}
+
+let orderClicks = [];
+let orderShuffled = [];
+function renderOrder(){
+  orderClicks = [];
+  orderShuffled = shuffle(ORDER_EVENTS);
+  const items = orderShuffled.map(ev=>`
+    <div class="order-item" id="orderItem${ev.id}" data-id="${ev.id}" onclick="orderClick(${ev.id})">
+      <span class="order-num" id="orderNum${ev.id}"></span>
+      <span>${ev.text}</span>
+    </div>`).join("");
+  return `
+    <h2 class="page-title">6. Put the Story in Order</h2>
+    <p class="lead">Click the events in the order they happened, from first to last.</p>
+    <div class="order-list">${items}</div>
+    <div class="controls" style="margin-top:16px;">
+      <button class="btn small" onclick="resetOrder()">Reset</button>
+      <button class="btn gold" onclick="checkOrder()">Check order</button>
+    </div>
+  `;
+}
+function orderClick(id){
+  if(orderClicks.includes(id)) return;
+  orderClicks.push(id);
+  document.getElementById('orderItem'+id).classList.add('picked');
+  document.getElementById('orderNum'+id).textContent = orderClicks.length;
+}
+function resetOrder(){
+  orderClicks = [];
+  ORDER_EVENTS.forEach(ev=>{
+    const item = document.getElementById('orderItem'+ev.id);
+    const num = document.getElementById('orderNum'+ev.id);
+    if(item){ item.classList.remove('picked','correct-pos','wrong-pos'); }
+    if(num){ num.textContent = ""; }
+  });
+}
+function checkOrder(){
+  if(orderClicks.length < ORDER_EVENTS.length) return;
+  let correctNow = 0;
+  orderClicks.forEach((id, idx)=>{
+    const item = document.getElementById('orderItem'+id);
+    const ok = id === (idx+1);
+    item.classList.toggle('correct-pos', ok);
+    item.classList.toggle('wrong-pos', !ok);
+    if(ok) correctNow++;
+  });
+  results.order.correct = correctNow;
+  results.order.done = true;
+  updateScorePill();
+}
+
+let selectedClozeToken = null;
+function renderSolve(){
+  const quizHtml = QUIZ.map((item,i)=>`
+    <div class="qbox">
+      <p class="prompt">${i+1}. ${item.q}</p>
+      <div class="opts" id="quiz${i}" data-correct="${item.correct}">
+        ${item.opts.map((o,oi)=>`<button class="opt" onclick="answerQuiz(${i},${oi})">${o}</button>`).join("")}
+      </div>
+    </div>`).join("");
+
+  let blankCount = 0;
+  const paragraph = CLOZE_TEXT.map(part=>{
+    if(CLOZE_ANSWERS[part]){
+      blankCount++;
+      return `<span class="blank" id="clozeBlank${part}" data-key="${part}" onclick="placeCloze('${part}')">___(${part})___</span>`;
+    }
+    return part;
+  }).join(" ");
+  const bank = shuffle(CLOZE_BANK).map((w,i)=>`<button class="token" id="clozeToken${i}" onclick="selectClozeToken(this,'${w}')">${w}</button>`).join("");
+
+  return `
+    <h2 class="page-title">7. Solve It!</h2>
+    <p class="lead">Use what you know from the story to answer these detective questions.</p>
+    ${quizHtml}
+    <div class="card-box">
+      <h3 style="margin-top:0;">Inspector Fox's Final Report</h3>
+      <p class="lead" style="line-height:1.9;">${paragraph}</p>
+      <div class="bank">${bank}</div>
+    </div>
+    <div class="controls" style="margin-top:6px;">
+      <span></span>
+      <button class="btn gold" onclick="checkSolve()">Check my case</button>
+    </div>
+  `;
+}
+function answerQuiz(i, chosenIdx){
+  const box = document.getElementById('quiz'+i);
+  if(box.dataset.done) return;
+  box.dataset.done = "1";
+  const correctIdx = Number(box.dataset.correct);
+  const btns = box.querySelectorAll('.opt');
+  btns.forEach((b,bi)=>{
+    if(bi === correctIdx) b.classList.add('correct');
+    else if(bi === chosenIdx) b.classList.add('wrong');
+  });
+  if(chosenIdx === correctIdx){ results.quiz.correct++; }
+  results.quiz.done = true;
+  updateScorePill();
+}
+function selectClozeToken(el, word){
+  if(el.classList.contains('used')) return;
+  if(selectedClozeToken) selectedClozeToken.el.classList.remove('selected');
+  selectedClozeToken = {el, word};
+  el.classList.add('selected');
+}
+function placeCloze(key){
+  if(!selectedClozeToken) return;
+  const blank = document.getElementById('clozeBlank'+key);
+  blank.textContent = selectedClozeToken.word;
+  blank.classList.add('filled');
+  blank.dataset.filled = selectedClozeToken.word;
+  selectedClozeToken.el.classList.add('used');
+  selectedClozeToken.el.classList.remove('selected');
+  selectedClozeToken = null;
+}
+function checkSolve(){
+  let correctNow = 0;
+  Object.keys(CLOZE_ANSWERS).forEach(key=>{
+    const blank = document.getElementById('clozeBlank'+key);
+    const ok = (blank.dataset.filled||"").toLowerCase() === CLOZE_ANSWERS[key].toLowerCase();
+    blank.classList.toggle('ok', ok);
+    blank.classList.toggle('bad', !ok);
+    if(ok) correctNow++;
+  });
+  results.cloze.correct = correctNow;
+  results.cloze.done = true;
+  updateScorePill();
+}
+
+function renderVerdict(){
+  let totalCorrect = 0, totalPossible = 0;
+  const rows = Object.entries(results).map(([key,val])=>{
+    totalCorrect += val.correct; totalPossible += val.total;
+    const labelMap = {roles:"Who's Who", location:"Where Were They?", reasons:"Alibis", tf:"True/False", order:"Timeline", quiz:"Solve It quiz", cloze:"Final report"};
+    return `<div><span>${labelMap[key]}</span><span>${val.correct} / ${val.total}</span></div>`;
+  }).join("");
+  const pct = totalPossible ? Math.round((totalCorrect/totalPossible)*100) : 0;
+  return `
+    <h2 class="page-title">8. Your Verdict</h2>
+
+    <div class="card-box">
+      <label for="studentName" style="display:block; font-weight:800; color:var(--purple); margin-bottom:6px; text-transform:uppercase; font-size:.78rem;">Detective's name</label>
+      <input type="text" id="studentName" class="name-input" placeholder="Type your full name" value="${studentName.replace(/"/g,'&quot;')}" oninput="studentName=this.value">
+    </div>
+
+    <p class="lead"><b>Discuss and write:</b> Do you think Sue Snaps meant to steal the egg? What do you think will happen to her?</p>
+    <textarea class="discuss" id="discuss1" oninput="discuss1Text=this.value" placeholder="Write your answer here (at least 2 sentences)...">${discuss1Text}</textarea>
+    <p class="lead" style="margin-top:16px;"><b>Discuss and write:</b> Was Inspector Fox a good detective? Which clue helped him solve the case the most?</p>
+    <textarea class="discuss" id="discuss2" oninput="discuss2Text=this.value" placeholder="Write your answer here (at least 2 sentences)...">${discuss2Text}</textarea>
+    <div class="controls" style="margin-top:10px;">
+      <span></span>
+      <button class="btn gold" onclick="saveDiscussion()">Save my answers</button>
+    </div>
+    <p class="saved-note" id="savedNote">✓ Nice work, detective! Your answers are saved on this page.</p>
+
+    <div class="final-score">
+      <div>CASE FILE COMPLETE</div>
+      <div class="big">${pct}%</div>
+      <div>${totalCorrect} / ${totalPossible} clues correct</div>
+      <div class="breakdown">${rows}</div>
+    </div>
+
+    <div class="controls" style="margin-top:18px;">
+      <span></span>
+      <button class="btn gold" id="submitBtn" onclick="submitCase()">Submit case file to teacher</button>
+    </div>
+    <p class="saved-note" id="submitNote"></p>
+  `;
+}
+function saveDiscussion(){
+  discuss1Text = document.getElementById('discuss1').value;
+  discuss2Text = document.getElementById('discuss2').value;
+  const d1 = discuss1Text.trim();
+  const d2 = discuss2Text.trim();
+  const note = document.getElementById('savedNote');
+  if(d1.split(/\s+/).length >= 4 && d2.split(/\s+/).length >= 4){
+    note.textContent = "✓ Nice work, detective! Your answers are saved on this page.";
+  } else {
+    note.textContent = "Try to write a little more — at least a full sentence for each question.";
+  }
+  note.style.display = "block";
+}
+
+async function submitCase(){
+  const nameInput = document.getElementById('studentName');
+  const name = (nameInput ? nameInput.value : studentName).trim();
+  const note = document.getElementById('submitNote');
+  note.style.display = "block";
+  if(!name){
+    note.style.color = "var(--red)";
+    note.textContent = "Please type your name above before submitting.";
+    if(nameInput) nameInput.focus();
+    return;
+  }
+  studentName = name;
+  if(document.getElementById('discuss1')) discuss1Text = document.getElementById('discuss1').value;
+  if(document.getElementById('discuss2')) discuss2Text = document.getElementById('discuss2').value;
+
+  let totalCorrect = 0, totalPossible = 0;
+  const breakdown = {};
+  Object.entries(results).forEach(([key,val])=>{
+    totalCorrect += val.correct; totalPossible += val.total;
+    breakdown[key] = `${val.correct}/${val.total}`;
+  });
+  const pct = totalPossible ? Math.round((totalCorrect/totalPossible)*100) : 0;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+  note.style.color = "var(--muted)";
+  note.textContent = "Sending your case file...";
+
+  const fd = new FormData();
+  fd.append('name', name);
+  fd.append('lesson', document.title);
+  fd.append('timestamp', new Date().toISOString());
+  fd.append('score_percent', pct + '%');
+  fd.append('score_breakdown', JSON.stringify(breakdown));
+  fd.append('discussion_1', discuss1Text.trim());
+  fd.append('discussion_2', discuss2Text.trim());
+
+  try{
+    const res = await fetch('https://formspree.io/f/mlgqeayn', {
+      method:'POST',
+      headers:{'Accept':'application/json'},
+      body: fd
+    });
+    if(res.ok){
+      note.style.color = "var(--green)";
+      note.textContent = "✓ Sent! Your case file has been submitted to your teacher.";
+      btn.textContent = "Submitted ✓";
+    } else {
+      throw new Error('Server responded with an error');
+    }
+  } catch(err){
+    note.style.color = "var(--red)";
+    note.textContent = "Something went wrong sending your case file. Check your internet connection and try again.";
+    btn.disabled = false;
+    btn.textContent = "Submit case file to teacher";
+  }
+}
+
+/* ============ NAVIGATION ============ */
+function buildNav(){
+  const nav = document.getElementById('stagenav');
+  nav.innerHTML = pages.map((p,i)=>`<button id="navbtn${i}" onclick="goToPage(${i})">${i+1}. ${p.label}</button>`).join("");
+}
+function goToPage(n){
+  current = n;
+  document.getElementById('stage').innerHTML = pages[current].render();
+  document.querySelectorAll('#stagenav button').forEach((b,i)=>b.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${((current+1)/pages.length)*100}%`;
+  document.getElementById('prevBtn').disabled = current===0;
+  document.getElementById('nextBtn').textContent = current===pages.length-1 ? "Finish" : "Next →";
+  window.scrollTo(0,0);
+}
+function nextPage(){ if(current < pages.length-1) goToPage(current+1); }
+function prevPage(){ if(current > 0) goToPage(current-1); }
+
+function updateScorePill(){
+  let c=0,t=0;
+  Object.values(results).forEach(r=>{ c+=r.correct; t+=r.total; });
+  document.getElementById('scorePill').textContent = `${c} / ${t} clues found`;
+}
+
+buildNav();
+goToPage(0);
+updateScorePill();
+</script>
+</body>
+</html>

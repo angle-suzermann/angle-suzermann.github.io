@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ЕГЭ. Задания 30–36. Лексико-грамматические навыки</title>
+
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Лексика 30–36 — тренажёр">
+<meta name="ws:emoji"     content="🔤">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+  :root{
+    --bg:#f7f5f0;
+    --card:#ffffff;
+    --ink:#2b2b2b;
+    --muted:#6b6b6b;
+    --accent:#3a5a78;
+    --accent-light:#e8eef3;
+    --correct:#2e7d4f;
+    --correct-bg:#e6f4ea;
+    --wrong:#b3392c;
+    --wrong-bg:#fbe9e7;
+    --border:#d8d3c8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:32px 16px;
+    background:var(--bg);
+    font-family: "Georgia", "Times New Roman", serif;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+  h1{
+    font-size:1.5rem;
+    text-align:center;
+    margin-bottom:4px;
+    color:var(--accent);
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.95rem;
+    margin-bottom:32px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:28px 32px;
+    margin-bottom:28px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card h2{
+    font-size:1.15rem;
+    text-align:center;
+    margin-top:0;
+    margin-bottom:18px;
+    color:var(--accent);
+    border-bottom:1px solid var(--border);
+    padding-bottom:10px;
+  }
+  .text-body{
+    text-align:justify;
+    font-size:1.02rem;
+  }
+  select{
+    font-family:inherit;
+    font-size:0.95rem;
+    padding:2px 6px;
+    border:1px solid var(--accent);
+    border-radius:4px;
+    background:var(--accent-light);
+    color:var(--ink);
+    margin:0 2px;
+  }
+  select.correct{
+    background:var(--correct-bg);
+    border-color:var(--correct);
+    color:var(--correct);
+    font-weight:bold;
+  }
+  select.wrong{
+    background:var(--wrong-bg);
+    border-color:var(--wrong);
+    color:var(--wrong);
+    font-weight:bold;
+  }
+  .gap-num{
+    font-size:0.75rem;
+    color:var(--muted);
+    vertical-align:super;
+  }
+  .controls{
+    max-width:820px;
+    margin:0 auto 24px auto;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+  }
+  button{
+    font-family:inherit;
+    font-size:1rem;
+    padding:10px 26px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:var(--accent);
+    color:#fff;
+    transition:background 0.15s;
+  }
+  button:hover{background:#2c4560;}
+  button.secondary{
+    background:transparent;
+    color:var(--accent);
+    border:1px solid var(--accent);
+  }
+  button.secondary:hover{background:var(--accent-light);}
+  #result{
+    max-width:820px;
+    margin:0 auto 24px auto;
+    text-align:center;
+    font-size:1.1rem;
+    font-weight:bold;
+    min-height:1.4em;
+  }
+
+  .card-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid var(--border);
+  }
+  .card-controls button{
+    padding:7px 20px;
+    font-size:0.92rem;
+  }
+  .card-result{
+    font-size:0.95rem;
+    font-weight:bold;
+    min-width:110px;
+  }
+  .source{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:-16px;
+    margin-bottom:24px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Лексико-грамматические навыки</h1>
+  <div class="subtitle">Задания 30–36 · выберите нужный вариант в каждом пропуске</div>
+</div>
+
+<div id="result"></div>
+<div class="controls">
+  <button id="checkBtn">Проверить</button>
+  <button id="resetBtn" class="secondary">Сбросить</button>
+</div>
+
+<div class="wrap">
+
+  <!-- TEXT 1 -->
+  <div class="card">
+    <h2>Solo travelling</h2>
+    <p class="text-body">
+      I like travelling alone. I have visited many places, such as Thailand, Europe, South America and the USA on my own, which was a great challenge. Every time I travel solo I
+      <select data-q="1-30"><option value="">—</option></select>
+      myself of how strong I am. Travelling with others, you tend to rely on different people for different things. For example, Joe handles the map because he's good
+      <select data-q="1-31"><option value="">—</option></select>
+      navigation, while Jennifer deals with the arguments because she's an excellent problem solver. When you're travelling by yourself, only you're
+      <select data-q="1-32"><option value="">—</option></select>
+      for it all: reading the map, navigating local transportation, communicating through language barriers to order food or a bus ticket, and any other travel situation.
+      Solo travelling also developed my communication skills. I think I truly reached my full socializing potential when I was travelling alone in Europe. I can
+      <select data-q="1-33"><option value="">—</option></select>
+      that European culture is extremely social in itself. Suddenly, people were coming up and starting conversations with me in money exchanges, train stations, parks, buses, piazzas, hostels. As I got used to the European culture, I began initiating conversations myself. I still
+      <select data-q="1-34"><option value="">—</option></select>
+      in touch with most of the friends I made on that trip. They are very kind and helpful people.
+      <select data-q="1-35"><option value="">—</option></select>,
+      I realized how easy it was to make friends once you came out of your shell. These communication skills have helped me to
+      <select data-q="1-36"><option value="">—</option></select>
+      in work, friendship and relationships.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="1">Проверить</button>
+      <span class="card-result" id="card-result-1"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 2 -->
+  <div class="card">
+    <h2>Mr. Thoreau in Concord</h2>
+    <p class="text-body">
+      Concord, Massachusetts, is one of the New England towns that everybody likes to visit. When tourists
+      <select data-q="2-30"><option value="">—</option></select>
+      Boston they usually make a point of going to Concord by electric train because they have read about the famous battle ground of the great Revolutionary War there. They also want to see the homes of American writers Hawthorne, Emerson, and Thoreau.
+      <select data-q="2-31"><option value="">—</option></select>,
+      Concord is the place that everybody likes to visit.
+      The philosopher Henry Thoreau, who was born in Concord, was
+      <select data-q="2-32"><option value="">—</option></select>
+      on hiking. He loved the town so much that he spent most of his life walking through its fields and forests. You might
+      <select data-q="2-33"><option value="">—</option></select>
+      it was his life's work, for he never had any real profession, and he walked between four to eight hours a day.
+      When Mr. Thoreau started out on a long walk in the woods, he wore a wide-brimmed straw hat, stout shoes, and strong grey trousers to
+      <select data-q="2-34"><option value="">—</option></select>
+      sure that they would not show spots too easily, and would survive tree-climbing. Under his arm he usually carried an old music book in which to press plants, and in his pocket he kept a pencil and his diary. His friend, William Ellery Channing, often
+      <select data-q="2-35"><option value="">—</option></select>
+      the writer on his walks in the forest. They agreed that a week's camping was more fun than all the books in the world. Once they tried camping in Canada. They wore overalls most of the time, and
+      <select data-q="2-36"><option value="">—</option></select>
+      of suitcases, they tied a few changes of clothing into bundles, and each man took an umbrella. They called themselves "Knights of the Umbrella and Bundle".
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="2">Проверить</button>
+      <span class="card-result" id="card-result-2"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 3 -->
+  <div class="card">
+    <h2>A hard task</h2>
+    <p class="text-body">
+      I barely made the 8:30 a.m. Saturday train to Huntington, a town on the north shore of Long Island. The railroad stopped service because of the snowfall the night before; sleepy commuters wearing smart suits crowded in the train. They seemed really tired and eager to get home and finally
+      <select data-q="3-30"><option value="">—</option></select>
+      the rest of the weekend with their families.
+      I had planned on using this one-hour train ride to get a good start on a short story I was
+      <select data-q="3-31"><option value="">—</option></select>
+      to submit to a magazine on Monday morning. But standing there, sandwiched between a stroller and an exhausted businessman, I couldn't even get my journal out of my backpack. It was absolutely impossible to compose my thoughts on its pages. Of course, it was a
+      <select data-q="3-32"><option value="">—</option></select>
+      for me as I was forced to relax instead of struggling with my blank journal pages. Frankly
+      <select data-q="3-33"><option value="">—</option></select>,
+      I'd been struggling to come up with an idea for the story for days, my thoughts circling aimlessly in the warehouse of my mind. The harder I
+      <select data-q="3-34"><option value="">—</option></select>
+      for the idea, the emptier my head seemed. And then, unexpectedly, as I was trying hard to maintain my balance, pressed against the bathroom door and a crowd of commuters, I finally got an idea — or rather, an idea for how to get an idea.
+      I decided that by the end of
+      <select data-q="3-35"><option value="">—</option></select>
+      adventure I have this weekend, I will write a short story about it. I told my friend Bennett about my decision when I was getting inside his car at the station. And the two of us set
+      <select data-q="3-36"><option value="">—</option></select>
+      on our adventure.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="3">Проверить</button>
+      <span class="card-result" id="card-result-3"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 4 -->
+  <div class="card">
+    <h2>Alaska</h2>
+    <p class="text-body">
+      The first Europeans to visit what is now called Alaska were Russian sailors led by Captain Bering. The
+      <select data-q="4-1"><option value="">—</option></select>
+      was funded by Russian czar Peter the Great. In 1728 Bering and his crew
+      <select data-q="4-2"><option value="">—</option></select>
+      through the strait that is now named after him, between the easternmost part of Asia and the westernmost part of the Americas. Their journey
+      <select data-q="4-3"><option value="">—</option></select>
+      that Asia was not connected to North America; however, due to the heavy fog, they never actually saw the nearby land of North America. In 1741 Bering headed further south, landing on tiny Kayak Island off the
+      <select data-q="4-4"><option value="">—</option></select>
+      of what is now the southeastern part of the state.
+      In the 1780s and 1790s Russians began small colonies, first on Kodiak Island and later on the mainland. In 1799 the Russian-American Company was established to
+      <select data-q="4-5"><option value="">—</option></select>
+      Russian interests. For the next 68 years the company provided the only form of government for the European colonists,
+      <select data-q="4-6"><option value="">—</option></select>
+      never numbered more than a few hundred. The Russians ruled the
+      <select data-q="4-7"><option value="">—</option></select>
+      until the late 1860s, when they sold it to the United States for $7.2 million dollars.
+      The
+      <select data-q="4-8"><option value="">—</option></select>
+      of gold in 1896 in the Yukon Territory started a huge gold rush that brought thousands of settlers.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="4">Проверить</button>
+      <span class="card-result" id="card-result-4"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 5 -->
+  <div class="card">
+    <h2>To the North of London</h2>
+    <p class="text-body">
+      The Aldenham Country Park is a large and pleasant area easily reached if you are travelling north out of London. It is worth visiting if you want a quick breath of fresh air and a reasonably attractive place for a brief picnic. The most important point of the park is Aldenham Reservoir. It was built in 1796 to
+      <select data-q="5-1"><option value="">—</option></select>
+      the water level in the river
+      <select data-q="5-2"><option value="">—</option></select>
+      by the newly constructed Grand Union Canal, and more recently has been used as a reserve public water supply. Not far from there lies the busy town of Watford which can be recommended for a brief visit. And in any
+      <select data-q="5-3"><option value="">—</option></select>
+      much more interesting stretches of the canal are met further north. And if you make your way through the town you can visit the Watford Museum in the High Street which has materials on printing and paper-making on
+      <select data-q="5-4"><option value="">—</option></select>.
+      The picture gallery has changing exhibitions of works by artists who lived or painted in the area. Another attraction of the neighbourhood is a fascinating complex of Roman buildings, the
+      <select data-q="5-5"><option value="">—</option></select>
+      of a great city, once the third largest centre of Roman Britain. The private houses were impressive, many of them furnished with mosaic floors. The beauty of the mosaics can hardly be described on paper, and it is best
+      <select data-q="5-6"><option value="">—</option></select>
+      by standing and looking for a while. The other principal Roman site to be visited is a long stretch of the city wall which
+      <select data-q="5-7"><option value="">—</option></select>
+      back to the 3rd century.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="5">Проверить</button>
+      <span class="card-result" id="card-result-5"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 6 -->
+  <div class="card">
+    <h2>British Theatre</h2>
+    <p class="text-body">
+      The theatre has always been very strong in Britain. Its centre is, of course, London, where successful plays can
+      <select data-q="6-1"><option value="">—</option></select>
+      without a break for many years. London has several dozens of theatres, most of them not
+      <select data-q="6-2"><option value="">—</option></select>
+      from Trafalgar Square.
+      <select data-q="6-3"><option value="">—</option></select>
+      London even some quite big towns have no public theatre at all, but every town has its private theatres. British theatre is much admired. There you can
+      <select data-q="6-4"><option value="">—</option></select>
+      the best of everything — an excellent orchestra, famous conductors, celebrated actors and a well-dressed
+      <select data-q="6-5"><option value="">—</option></select>.
+      Choose a good play, and you'll enjoy yourself throughout from the moment the curtain
+      <select data-q="6-6"><option value="">—</option></select>
+      to the end of the last act. Get your seats beforehand, either at the box-office or at the theatre itself. You'll probably want to sit as near to the
+      <select data-q="6-7"><option value="">—</option></select>
+      as possible.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="6">Проверить</button>
+      <span class="card-result" id="card-result-6"></span>
+    </div>
+  </div>
+
+  <!-- TEXT 7 -->
+  <div class="card">
+    <h2>New York City: Nostalgia for the Old Neighbourhood</h2>
+    <p class="text-body">
+      Life is made up of little things: some unimportant memories from childhood that, in fact, shaped your character. I
+      <select data-q="7-1"><option value="">—</option></select>
+      on Third Avenue in midtown Manhattan during the 1950s-60s where family life was centred around old
+      <select data-q="7-2"><option value="">—</option></select>
+      of flats and small stores. Third Avenue was my old neighbourhood and it had character. It was
+      <select data-q="7-3"><option value="">—</option></select>
+      with working families of Italian, German and Irish origin. We shopped together with all those people and their kids played together. Third Avenue influenced the way our family lived. I absorbed the street life. It gave me an
+      <select data-q="7-4"><option value="">—</option></select>
+      that I could not have received in any other place. To me, it was home.
+      In a recent walk around Third Avenue my eyes
+      <select data-q="7-5"><option value="">—</option></select>
+      signs of the old neighbourhood but couldn't find any. If I hadn't been born here and someone described the area, it would be
+      <select data-q="7-6"><option value="">—</option></select>
+      to believe. It wasn't because a few buildings had changed — everything had changed. The transformation began in the late 1950s and 60s when corporations replaced the old neighbourhood. In the early 1960s, the houses were pulled down. Families were forced to
+      <select data-q="7-7"><option value="">—</option></select>,
+      the small stores went out of business and the old neighbourhood was changed forever. And now there is a lack of character in the transformed neighbourhood.
+    </p>
+  
+    <div class="card-controls">
+      <button class="checkCardBtn" data-card="7">Проверить</button>
+      <span class="card-result" id="card-result-7"></span>
+    </div>
+  </div>
+
+</div>
+
+<div class="controls">
+  <button id="checkBtn2">Проверить</button>
+  <button id="resetBtn2" class="secondary">Сбросить</button>
+</div>
+<p class="source">по материалам @exam_cases_ege_oge</p>
+
+<script>
+const data = {
+  "1-30": {options:["revise","review","remind","recall"], answer:"remind"},
+  "1-31": {options:["in","at","on","of"], answer:"at"},
+  "1-32": {options:["dependable","consistent","reliable","responsible"], answer:"responsible"},
+  "1-33": {options:["say","speak","talk","tell"], answer:"say"},
+  "1-34": {options:["take","hold","keep","make"], answer:"keep"},
+  "1-35": {options:["therefore","otherwise","however","moreover"], answer:"moreover"},
+  "1-36": {options:["succeed","fulfill","achieve","manage"], answer:"succeed"},
+
+  "2-30": {options:["achieve","reach","enter","arrive"], answer:"reach"},
+  "2-31": {options:["therefore","although","moreover","however"], answer:"therefore"},
+  "2-32": {options:["fond","crazy","eager","keen"], answer:"keen"},
+  "2-33": {options:["say","speak","talk","tell"], answer:"say"},
+  "2-34": {options:["take","keep","make","gain"], answer:"make"},
+  "2-35": {options:["attached","accompanied","connected","attended"], answer:"accompanied"},
+  "2-36": {options:["against","outside","besides","instead"], answer:"instead"},
+
+  "3-30": {options:["admire","enjoy","adore","envy"], answer:"enjoy"},
+  "3-31": {options:["suspected","succeeded","supported","supposed"], answer:"supposed"},
+  "3-32": {options:["refund","revenge","relief","regret"], answer:"relief"},
+  "3-33": {options:["telling","talking","saying","speaking"], answer:"speaking"},
+  "3-34": {options:["looked","watched","glanced","saw"], answer:"looked"},
+  "3-35": {options:["wherever","whenever","whatever","whoever"], answer:"whatever"},
+  "3-36": {options:["round","off","over","down"], answer:"off"},
+
+  "4-1": {options:["travel","trip","journey","expedition"], answer:"expedition"},
+  "4-2": {options:["paddled","sailed","travelled","rowed"], answer:"sailed"},
+  "4-3": {options:["proved","convinced","persuaded","appeared"], answer:"proved"},
+  "4-4": {options:["bank","beach","shore","sea-side"], answer:"shore"},
+  "4-5": {options:["look after","look at","look for","look away"], answer:"look after"},
+  "4-6": {options:["which","whose","what","who"], answer:"who"},
+  "4-7": {options:["country","area","ground","earth"], answer:"area"},
+  "4-8": {options:["discovery","detection","exploration","innovation"], answer:"discovery"},
+
+  "5-1": {options:["remain","support","hold","maintain"], answer:"maintain"},
+  "5-2": {options:["confused","affected","bothered","disturbed"], answer:"affected"},
+  "5-3": {options:["condition","situation","circumstance","case"], answer:"case"},
+  "5-4": {options:["presentation","display","demonstration","exhibition"], answer:"display"},
+  "5-5": {options:["remains","wastes","wreckage","reminders"], answer:"remains"},
+  "5-6": {options:["praised","approved","appreciated","regarded"], answer:"appreciated"},
+  "5-7": {options:["dates","returns","follows","comes"], answer:"dates"},
+
+  "6-1": {options:["show","perform","run","produce"], answer:"run"},
+  "6-2": {options:["far","remote","distant","close"], answer:"far"},
+  "6-3": {options:["Inside","Outside","In","Out"], answer:"Outside"},
+  "6-4": {options:["take","give","hold","get"], answer:"get"},
+  "6-5": {options:["audience","auditorium","authority","publicity"], answer:"audience"},
+  "6-6": {options:["puts up","sets up","makes up","goes up"], answer:"goes up"},
+  "6-7": {options:["scene","stage","scenery","performance"], answer:"stage"},
+
+  "7-1": {options:["brought up","grew up","went up","got up"], answer:"grew up"},
+  "7-2": {options:["blocks","houses","groups","sets"], answer:"blocks"},
+  "7-3": {options:["covered","held","loaded","filled"], answer:"filled"},
+  "7-4": {options:["knowledge","information","education","training"], answer:"education"},
+  "7-5": {options:["looked after","looked for","looked through","looked at"], answer:"looked for"},
+  "7-6": {options:["hard","easy","strange","heavy"], answer:"hard"},
+  "7-7": {options:["stay out","take out","move out","go out"], answer:"move out"}
+};
+
+function buildSelects(){
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    info.options.forEach(opt=>{
+      const o = document.createElement("option");
+      o.value = opt;
+      o.textContent = opt;
+      sel.appendChild(o);
+    });
+  });
+}
+buildSelects();
+
+function checkAnswers(){
+  let total = 0, correct = 0;
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    total++;
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    sel.classList.remove("correct","wrong");
+    if(sel.value === ""){
+      sel.classList.add("wrong");
+      return;
+    }
+    if(sel.value === info.answer){
+      correct++;
+      sel.classList.add("correct");
+    } else {
+      sel.classList.add("wrong");
+    }
+  });
+  const result = document.getElementById("result");
+  result.textContent = `Результат: ${correct} из ${total}`;
+  result.style.color = correct === total ? "var(--correct)" : "var(--ink)";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function resetAnswers(){
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    sel.value = "";
+    sel.classList.remove("correct","wrong");
+  });
+  document.getElementById("result").textContent = "";
+}
+
+document.getElementById("checkBtn").addEventListener("click", checkAnswers);
+document.getElementById("checkBtn2").addEventListener("click", checkAnswers);
+document.getElementById("resetBtn").addEventListener("click", resetAnswers);
+document.getElementById("resetBtn2").addEventListener("click", resetAnswers);
+
+function checkCard(cardNum){
+  let total = 0, correct = 0;
+  document.querySelectorAll(`select[data-q^="${cardNum}-"]`).forEach(sel=>{
+    total++;
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    sel.classList.remove("correct","wrong");
+    if(sel.value === ""){
+      sel.classList.add("wrong");
+      return;
+    }
+    if(sel.value === info.answer){
+      correct++;
+      sel.classList.add("correct");
+    } else {
+      sel.classList.add("wrong");
+    }
+  });
+  const result = document.getElementById(`card-result-${cardNum}`);
+  if(result){
+    result.textContent = `${correct} из ${total}`;
+    result.style.color = correct === total ? "var(--correct)" : "var(--wrong)";
+  }
+}
+
+document.querySelectorAll(".checkCardBtn").forEach(btn=>{
+  btn.addEventListener("click", ()=> checkCard(btn.getAttribute("data-card")));
+});
+</script>
+
+</body>
+</html>

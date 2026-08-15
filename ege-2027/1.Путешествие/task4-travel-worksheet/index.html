@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Задание 4. Устная часть — Путешествие по своей стране и за рубежом. Осмотр достопримечательностей</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Задание 4 — Путешествия, интерактивный воркшит">
+<meta name="ws:emoji"     content="🧭">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text);
+  background:var(--card-tint);
+  min-height:100vh;
+}
+.bg-photo{ position:fixed; inset:0; z-index:-2; background-image:url('img/img13.jpg'); background-size:cover; background-position:center 30%; opacity:0.35; }
+.bg-wash{ position:fixed; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(94,72,119,.85)); }
+
+h1,h2,h3{ color:var(--purple); font-weight:700; margin-top:0; }
+p{ line-height:1.5; }
+.hidden{ display:none !important; }
+
+/* ===== Top bar ===== */
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px 12px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:700; color:var(--purple-dark); font-size:15px; line-height:1.25; max-width:600px; }
+.lesson-title small{ display:block; font-weight:400; color:var(--muted); font-size:12px; margin-top:2px; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:13px; color:var(--muted); font-weight:700; white-space:nowrap; }
+.namebar input{ border:2px solid var(--border); border-radius:8px; padding:7px 10px; font-family:inherit; font-size:14px; width:200px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; border:1px solid var(--border); }
+.progress-fill{ height:100%; width:11.1%; background:linear-gradient(90deg,var(--purple),var(--yellow)); transition:width .3s ease; }
+.progress-label{ font-size:12px; color:var(--muted); white-space:nowrap; font-weight:700; }
+.page-dots{ display:flex; gap:5px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); border:2px solid var(--border); color:var(--muted); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s; }
+.page-dot:hover{ border-color:var(--purple); }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.visited:not(.active){ background:var(--card-tint); border-color:var(--purple); color:var(--purple); }
+
+/* ===== Page layout ===== */
+.page-wrap{ max-width:980px; margin:0 auto; padding:24px 20px 60px; position:relative; z-index:1; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; box-shadow:0 6px 24px rgba(45,25,60,.10); margin-bottom:18px; border:1px solid var(--border); }
+.tag{ display:inline-block; background:var(--yellow); color:var(--black); font-weight:700; font-size:12px; padding:4px 10px; border-radius:20px; margin-bottom:10px; letter-spacing:.02em; }
+.task-instruction{ background:var(--card-tint); border-left:4px solid var(--purple); padding:14px 16px; border-radius:0 10px 10px 0; font-size:15px; margin-bottom:18px; }
+.task-instruction b{ color:var(--purple-dark); }
+
+.photo-block{ display:grid; grid-template-columns:280px 1fr; gap:20px; margin-bottom:14px; }
+.photo-block img{ width:100%; border-radius:12px; display:block; box-shadow:0 3px 12px rgba(0,0,0,.15); }
+.photo-block .qs{ margin:0 0 10px 0; padding-left:20px; }
+.photo-block .qs li{ margin-bottom:4px; }
+.wordbox{ background:var(--card-tint); border:1px dashed var(--purple); border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+.wordbox .wb-title{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; margin-bottom:6px; }
+.chip{ display:inline-block; background:#fff; border:1px solid var(--purple); color:var(--purple-dark); border-radius:20px; padding:5px 12px; margin:3px 4px 3px 0; font-size:13px; cursor:pointer; transition:.15s; }
+.chip:hover{ background:var(--purple); color:#fff; }
+textarea.answer{ width:100%; min-height:70px; border:2px solid var(--border); border-radius:10px; padding:10px 12px; font-family:inherit; font-size:14px; resize:vertical; }
+textarea.answer:focus{ outline:none; border-color:var(--purple); }
+@media (max-width:720px){ .photo-block{ grid-template-columns:1fr; } }
+
+/* Task 2 categorize */
+.bank{ display:flex; flex-wrap:wrap; gap:8px; padding:14px; background:var(--card-tint); border-radius:12px; margin-bottom:18px; min-height:50px; }
+.bank .chip.word{ cursor:pointer; user-select:none; }
+.bank .chip.word.selected{ background:var(--purple); color:#fff; }
+.bank .chip.word.placed{ display:none; }
+.buckets{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.bucket{ border:2px dashed var(--border); border-radius:12px; padding:10px; min-height:170px; cursor:pointer; transition:.15s; background:#fff; }
+.bucket:hover{ border-color:var(--purple); }
+.bucket h4{ margin:0 0 8px; font-size:13px; text-align:center; color:var(--purple-dark); }
+.bucket img{ width:100%; height:auto; object-fit:contain; border-radius:8px; margin-bottom:8px; display:block; }
+.bucket .chip.word{ display:inline-block; margin:3px; font-size:12px; }
+.bucket .chip.word.correct-mark{ border-color:var(--correct); background:#e8f7ef; color:#1f6b41; }
+.bucket .chip.word.wrong-mark{ border-color:var(--wrong); background:#fbeae7; color:#8c2e20; }
+@media (max-width:720px){ .buckets{ grid-template-columns:1fr; } }
+
+.self-check-note{ font-size:12px; color:var(--muted); font-style:italic; margin-top:10px; }
+.btn{ background:var(--purple); color:#fff; border:none; border-radius:10px; padding:10px 20px; font-family:inherit; font-weight:700; font-size:14px; cursor:pointer; transition:.15s; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:2px solid var(--purple); }
+.btn.big-cta{ background:var(--yellow); color:var(--black); font-size:16px; padding:14px 30px; border-radius:12px; }
+.btn.big-cta:hover{ background:#e6c000; }
+
+/* Task 3 table */
+.adv-table{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.adv-table .col{ background:var(--card-tint); border-radius:12px; padding:14px; }
+.adv-table h4{ margin:0 0 8px; color:var(--purple-dark); text-align:center; }
+@media (max-width:720px){ .adv-table{ grid-template-columns:1fr; } }
+
+/* Task 4 photos + template */
+.t4-photos{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+.t4-photos figure{ margin:0; text-align:center; }
+.t4-photos img{ width:100%; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.18); }
+.t4-photos figcaption{ font-weight:700; color:var(--purple-dark); margin-top:6px; }
+@media (max-width:720px){ .t4-photos{ grid-template-columns:1fr; } }
+ul.criteria{ padding-left:20px; }
+ul.criteria li{ margin-bottom:6px; }
+.blank-row{ margin-bottom:14px; }
+.blank-row p{ margin:0 0 6px; font-size:14px; }
+.blank-row textarea{ width:100%; min-height:44px; border:2px solid var(--border); border-radius:8px; padding:8px 10px; font-family:inherit; font-size:14px; resize:vertical; }
+.blank-row textarea:focus{ outline:none; border-color:var(--purple); }
+
+/* Plan-scheme flow */
+.plan-flow{ display:grid; grid-template-columns:260px 1fr; gap:0 16px; align-items:stretch; }
+.plan-note{ background:var(--card-tint); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--purple-dark); display:flex; align-items:center; font-style:italic; }
+.plan-box{ background:#fff; border:2px solid var(--purple); border-radius:10px; padding:10px 14px; margin:5px 0; font-size:14px; display:flex; align-items:center; }
+.plan-box b{ color:var(--purple-dark); }
+.plan-box small{ display:block; color:var(--muted); font-weight:400; }
+.plan-group{ grid-column:2; }
+.plan-arrow{ text-align:center; color:var(--purple); font-size:18px; grid-column:2; margin:2px 0; }
+@media (max-width:720px){ .plan-flow{ grid-template-columns:1fr; } .plan-group,.plan-arrow{ grid-column:1; } }
+
+/* Sample answer */
+.sample-text{ font-size:15px; line-height:1.7; }
+.sample-text p{ margin-bottom:12px; }
+.speak-btn{ background:var(--yellow); border:none; border-radius:8px; padding:6px 14px; font-weight:700; cursor:pointer; margin-bottom:14px; }
+.speak-btn:hover{ background:#e6c000; }
+
+/* Phrases page */
+.phrase-group{ margin-bottom:18px; }
+.phrase-group h4{ color:var(--purple-dark); border-bottom:2px solid var(--yellow); padding-bottom:4px; display:inline-block; }
+.phrase-cols{ display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; font-size:13.5px; }
+.phrase-cols div{ margin-bottom:4px; }
+@media (max-width:720px){ .phrase-cols{ grid-template-columns:1fr; } }
+.illustration-img{ width:100%; border-radius:12px; margin:10px 0; box-shadow:0 3px 14px rgba(0,0,0,.12); border:1px solid var(--border); }
+
+/* Nav buttons */
+.nav-btns{ display:flex; justify-content:space-between; margin-top:20px; }
+.nav-btns .spacer{ flex:1; }
+
+/* Finish page */
+.score-summary{ background:var(--card-tint); border-radius:12px; padding:18px; margin-top:16px; font-size:16px; text-align:center; }
+.submit-status{ text-align:center; margin-top:10px; font-size:13px; color:var(--muted); font-weight:700; }
+.finish-actions{ text-align:center; margin-top:10px; }
+
+.footer-credit{ text-align:center; font-size:11px; color:var(--muted); padding:20px 0 30px; position:relative; z-index:1; }
+
+/* ===== Sticky ANGLE badge ===== */
+.angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); }
+.angle-badge .wordmark{ width:130px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; font-weight:400; font-size:11px; letter-spacing:.3px; }
+@media (max-width:600px){ .angle-badge{ left:14px; bottom:14px; } .angle-badge .wordmark{ width:96px; } }
+</style>
+</head>
+<body>
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="lesson-title">Раздел «Устная часть». Задание 4
+        <small>Путешествие по своей стране и за рубежом. Осмотр достопримечательностей</small>
+      </div>
+      <div class="namebar">
+        <label for="studentName">Имя:</label>
+        <input type="text" id="studentName" placeholder="Впишите имя">
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Страница 1 / 9</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- PAGE 0: COVER -->
+<section class="page active" data-page="0">
+  <div class="card">
+    <span class="tag">ЕГЭ · Говорение · Задание 4</span>
+    <h1>Путешествие по своей стране и за рубежом.<br>Осмотр достопримечательностей</h1>
+    <p>Это интерактивная рабочая тетрадь для отработки Задания 4 устной части. Материал построен по кейсу «1_Кейс ЕГЭ 2024_Путешествие по своей стране и за рубежом. Осмотр достопримечательностей_ Uch 4».</p>
+    <p>В тетради 9 страниц: <b>Task 1</b> (описание трёх фото), <b>Task 2</b> (распределение лексики), <b>Task 3</b> (плюсы/минусы), <b>Task 4</b> (полное задание с шаблоном ответа), а также справочные страницы — <b>план-схема</b>, <b>образец построения высказывания</b> и <b>полезные фразы и конструкции</b>.</p>
+    <p>Впишите своё имя вверху страницы и нажмите «Начать», чтобы перейти к первой странице.</p>
+    <div class="nav-btns"><span class="spacer"></span><button class="btn big-cta" onclick="nextPage()">Начать →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 1: TASK 1 -->
+<section class="page" data-page="1">
+  <div class="card">
+    <span class="tag">Task 1</span>
+    <div class="task-instruction"><b>Task 1.</b> Look at the photos and answer the questions. Give full sentence answers. Make use of the words and word combinations given in the box.</div>
+
+    <div class="photo-block">
+      <img src="img/img1.jpg" alt="Landscape photo">
+      <div>
+        <ul class="qs">
+          <li>What season is it now? How do you know that?</li>
+          <li>What is the weather like?</li>
+          <li>How can you describe the landscape?</li>
+        </ul>
+        <div class="wordbox" id="wb1">
+          <div class="wb-title">Word box</div>
+          <span class="chip" onclick="insertChip(this,'ans1')">to shine brightly</span>
+          <span class="chip" onclick="insertChip(this,'ans1')">in the foreground/in the background</span>
+          <span class="chip" onclick="insertChip(this,'ans1')">green trees and meadows</span>
+          <span class="chip" onclick="insertChip(this,'ans1')">clear and cloudless</span>
+          <span class="chip" onclick="insertChip(this,'ans1')">hilly mountains</span>
+        </div>
+        <textarea class="answer" id="ans1" placeholder="Ваш развёрнутый ответ..."></textarea>
+      </div>
+    </div>
+
+    <div class="photo-block">
+      <img src="img/img2.jpg" alt="Hiking photo">
+      <div>
+        <ul class="qs">
+          <li>Where are the people?</li>
+          <li>What is the lady dressed in?</li>
+          <li>What are her emotions?</li>
+        </ul>
+        <div class="wordbox" id="wb2">
+          <div class="wb-title">Word box</div>
+          <span class="chip" onclick="insertChip(this,'ans2')">a mountainous area</span>
+          <span class="chip" onclick="insertChip(this,'ans2')">in the wild</span>
+          <span class="chip" onclick="insertChip(this,'ans2')">to cross the stream</span>
+          <span class="chip" onclick="insertChip(this,'ans2')">special equipment</span>
+          <span class="chip" onclick="insertChip(this,'ans2')">to be concentrated</span>
+        </div>
+        <textarea class="answer" id="ans2" placeholder="Ваш развёрнутый ответ..."></textarea>
+      </div>
+    </div>
+
+    <div class="photo-block">
+      <img src="img/img3.jpg" alt="City photo">
+      <div>
+        <ul class="qs">
+          <li>What place in the city do we see in the photo?</li>
+          <li>Why have the people come here?</li>
+          <li>What problems can over-tourism cause to the locals?</li>
+        </ul>
+        <div class="wordbox" id="wb3">
+          <div class="wb-title">Word box</div>
+          <span class="chip" onclick="insertChip(this,'ans3')">historic part of the city</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">a famous landmark/tourist attraction</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">to go sightseeing/to see the sights</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">the use of space between residents</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">hordes of tourists</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">to influence the local infrastructure</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">to leave litter</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">traffic congestion</span>
+          <span class="chip" onclick="insertChip(this,'ans3')">air and noise pollution</span>
+        </div>
+        <textarea class="answer" id="ans3" placeholder="Ваш развёрнутый ответ..."></textarea>
+      </div>
+    </div>
+    <p class="self-check-note">Нажимайте на слова из word box, чтобы добавить их в свой ответ. Это задание не оценивается автоматически — устный ответ проверяет преподаватель.</p>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 2: TASK 2 -->
+<section class="page" data-page="2">
+  <div class="card">
+    <span class="tag">Task 2</span>
+    <div class="task-instruction"><b>Task 2.</b> Study the vocabulary from the box below. Which of the words and word combinations can be used to speak about the first photo, the second photo or for both photos? Distribute the words to the columns.</div>
+
+    <p>Нажмите на слово в банке лексики ниже, затем нажмите на нужную колонку (the first photo / BOTH / the second photo), чтобы распределить его.</p>
+
+    <div class="bank" id="wordBank"><!-- chips injected by JS --></div>
+
+    <div class="buckets">
+      <div class="bucket" data-bucket="photo1" onclick="dropWord('photo1')">
+        <img src="img/img4.jpg" alt="The first photo">
+        <h4>The first photo</h4>
+        <div class="bucket-items" id="bucket-photo1"></div>
+      </div>
+      <div class="bucket" data-bucket="both" onclick="dropWord('both')">
+        <img src="img/img5.jpg" alt="BOTH">
+        <h4>BOTH</h4>
+        <div class="bucket-items" id="bucket-both"></div>
+      </div>
+      <div class="bucket" data-bucket="photo2" onclick="dropWord('photo2')">
+        <img src="img/img6.jpg" alt="The second photo">
+        <h4>The second photo</h4>
+        <div class="bucket-items" id="bucket-photo2"></div>
+      </div>
+    </div>
+
+    <p class="self-check-note" id="task2note">Распределите все 18 слов по колонкам, затем нажмите «Проверить Task 2», чтобы увидеть предложенный вариант для самопроверки (это авторский вариант распределения, а не официальный ключ ФИПИ).</p>
+    <div style="text-align:center;margin-top:10px;"><button class="btn ghost" onclick="checkTask2()">Проверить Task 2</button></div>
+
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 3: TASK 3 -->
+<section class="page" data-page="3">
+  <div class="card">
+    <span class="tag">Task 3</span>
+    <div class="task-instruction"><b>Task 3.</b> Think of the possible advantages and disadvantages of mass tourism.</div>
+    <img src="img/img7.jpg" alt="advantages / disadvantages" style="max-width:220px;display:block;margin:0 auto 16px;">
+    <div class="adv-table">
+      <div class="col">
+        <h4>ADVANTAGES</h4>
+        <textarea class="answer" id="adv" style="min-height:160px;" placeholder="1.&#10;2.&#10;3."></textarea>
+      </div>
+      <div class="col">
+        <h4>DISADVANTAGES</h4>
+        <textarea class="answer" id="disadv" style="min-height:160px;" placeholder="1.&#10;2.&#10;3."></textarea>
+      </div>
+    </div>
+    <p class="self-check-note">Свободное задание — фиксируется как выполненное, преподаватель проверяет содержание отдельно.</p>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 4: TASK 4 -->
+<section class="page" data-page="4">
+  <div class="card">
+    <span class="tag">Task 4 · Главное задание</span>
+    <div class="task-instruction">
+      <b>Task 4.</b> Imagine that you and your friend are doing a school project “Mass tourism”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+      <ul class="criteria">
+        <li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li>
+        <li>mention the advantages (1–2) of the two types of tourism;</li>
+        <li>mention the disadvantages (1–2) of the two types of tourism;</li>
+        <li>express your opinion on the subject of the project – which of the types of tourism presented in the pictures you'd prefer and why.</li>
+      </ul>
+      You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.
+    </div>
+
+    <div class="t4-photos">
+      <figure><img src="img/img8.jpg" alt="A woman photographing wildflowers in the mountains"></figure>
+      <figure><img src="img/img9.jpg" alt="A group of tourists with a guide in a city square"></figure>
+    </div>
+
+    <h3>You may use the following construction for your EXAM TASK ANSWER</h3>
+
+    <div class="blank-row"><p>Hello, Sveta! You know what, I have found two pictures, which to my mind can illustrate our project</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>You see, they both relate to</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>One picture shows</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>In the other photo we can see</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>These photos have certain differences. The first one is the following.</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>Another difference is that</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>As for the advantages of travelling alone, I can say that</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>The main advantage/s of travelling in a group is/are the following</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>As for the disadvantages of these types of tourism,</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>Well, these photos are ideal for our project “______” as</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>As for me, I would like to travel</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>I think so because</p><textarea placeholder="..."></textarea></div>
+    <div class="blank-row"><p>That is all I wanted to tell you about the photos, call me back soon and let me know what you think about the photos.</p></div>
+
+    <p class="self-check-note">Заполните шаблон своими словами. Это тренировочная запись устного высказывания — она не оценивается автоматически.</p>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 5: PLAN SCHEME -->
+<section class="page" data-page="5">
+  <div class="card">
+    <span class="tag">Справочный материал</span>
+    <h2>План-схема для Задания 4. Устная часть</h2>
+
+    <div class="plan-flow">
+      <div class="plan-note">explain the choice of the illustrations for the project by briefly describing them and noting the differences;</div>
+      <div class="plan-group">
+        <div class="plan-box">Introduction + address to the friend (PROJECT)</div>
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Brief description of the first photo <small>action / location / people / other details</small></div>
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Brief description of the second photo <small>action / location / people / other details</small></div>
+      </div>
+
+      <div class="plan-note">explain the choice of the illustrations for the project by briefly describing them and noting the differences;</div>
+      <div class="plan-group">
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Difference 1 <small>+ justification</small></div>
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Difference 2 <small>+ justification (optional)</small></div>
+      </div>
+
+      <div class="plan-note">mention the advantages (1–2) of the two ….. ;</div>
+      <div class="plan-group">
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Advantages <small>(1+1 или 1+2 или 2+1)</small></div>
+      </div>
+
+      <div class="plan-note">mention the disadvantages (1–2) of the two …. ;</div>
+      <div class="plan-group">
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Disadvantages <small>(1+1 или 1+2 или 2+1)</small></div>
+      </div>
+
+      <div class="plan-note">express your opinion on the subject of the project – ….. and why.</div>
+      <div class="plan-group">
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box">Your opinion + why</div>
+        <div class="plan-arrow">↓</div>
+        <div class="plan-box"><b>Conclusion</b></div>
+      </div>
+    </div>
+
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 6: SAMPLE ANSWER -->
+<section class="page" data-page="6">
+  <div class="card">
+    <span class="tag">Справочный материал</span>
+    <h2>Образец построения высказывания</h2>
+    <button class="speak-btn" onclick="speakSample()">🔊 Прослушать образец</button>
+    <div class="sample-text" id="sampleText">
+      <p>Hello, Sveta! I have found two pictures which to my mind can illustrate our project “Mass tourism”. I would like to discuss them with you.</p>
+      <p>The first photo shows a lady who is travelling somewhere in the wild, we can see hilly mountains in the background. She has a professional camera and she is taking a photo of some plants, I suppose, rare species. In the second photo we can see a group of tourists on a double–decker, they are on a sightseeing tour in some city. They are listening to the guide and taking pictures of the surrounding buildings.</p>
+      <p>These photos have a difference that is really important for our project. In the first photo the lady is travelling solo, there are no companions with her, while in the second photo there is a group of people. Another difference worth mentioning is that in the first photo the lady has chosen some natural destination off the beaten track, such places are usually popular among individual travellers. In the second photo the people are on a city tour, usually these tours are for groups.</p>
+      <p>Speaking about the advantages of the two types of tourism I can say that alone you always have a chance to relax, unwind and recharge and meditate. On the other hand, if you are with a group of mates, you feel safer and can always get advice from more experienced travellers. But both ways of travelling have disadvantages as well. For example, if you are alone in an unknown place, you can get lost. In case with travelling in a group you can be disturbed by others when you listen to the guide.</p>
+      <p>As for my opinion, I can say that I would like to travel in a group, with my friends and relatives. I am a sociable person and I like it when there is someone I can share my emotions with, discuss what I see and just have fun together.</p>
+      <p>So, I think that is all I wanted to tell you about the photos for our project. Let me know what you think about them.</p>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 7: USEFUL PHRASES -->
+<section class="page" data-page="7">
+  <div class="card">
+    <span class="tag">Справочный материал</span>
+    <h2>Полезные фразы и конструкции для построения высказывания</h2>
+    <p style="color:var(--muted);font-size:13px;">Задание 4. Раздел «Устная речь»</p>
+
+    <div class="phrase-group">
+      <h4>Introduction</h4>
+      <div class="phrase-cols">
+        <div>Hello, …! I have found two pictures which to my mind can illustrate our project «….».</div>
+        <div>You see, they both relate to …</div>
+        <div>Hello, …! I would like to discuss with you the photos which I have chosen for the project.</div>
+        <div>Hello, Olga/Oleg, I'd like to discuss with you the choice of the photos for our project «…».</div>
+        <div>Hi, Misha/Masha, I've found two photos for our project and I'd like to discuss them with you</div>
+      </div>
+    </div>
+
+    <div class="phrase-group">
+      <h4>Explain the choice of the illustrations for the project by briefly describing them and noting the differences</h4>
+      <div class="phrase-cols">
+        <div>I'd like to start by saying that</div>
+        <div>Well, these photos are ideal for our project “…” as/because …</div>
+        <div>To begin with, I will justify why these photos are really suitable for our project. In the first photo,</div>
+        <div>The first photo shows / In the second photo we can see</div>
+        <div>As for the second picture, there is/are</div>
+        <div>In the second picture there is/are</div>
+        <div>These photos are suitable for our project for several reasons. First of all, in the first photo</div>
+        <div>It illustrates the idea of our project perfectly.</div>
+        <div></div>
+        <div>The very first impression one can have looking at them is… (positive, negative, pleasant etc.)</div>
+      </div>
+      <div class="phrase-cols" style="margin-top:8px;">
+        <div>There are also several important/significant/obvious/apparent differences like, for example,</div>
+        <div>… that is really important for our project.</div>
+        <div>Nevertheless, there are also several important differences. Firstly, … Secondly, …</div>
+        <div>… that illustrates the main idea of the project.</div>
+        <div>These photos have certain differences. The first one is the following.</div>
+        <div>It is obvious that this feature/detail is a nice illustration for our project.</div>
+        <div>Another difference is that</div>
+        <div>In fact,</div>
+        <div>The next difference worth mentioning is … (the following.)</div>
+        <div>Whereas (In the first photo we can see one person whereas in the second photo there is a group of tourists.)</div>
+        <div>These two photos are different in a way/in some ways.</div>
+        <div>On the one hand … on the other hand / However, / Yet, / Still, / Otherwise/On the contrary/Unlike</div>
+      </div>
+    </div>
+
+    <div class="phrase-group">
+      <h4>Mention the advantages (1–2) of the two types …</h4>
+      <div class="phrase-cols">
+        <div>The presented types of … have their pluses and minuses.</div>
+        <div>For example, the main advantage of</div>
+        <div>To my mind, the presented types/ways/kinds of … have their positive and negative aspects/features.</div>
+        <div>As for the type/way/kind of … shown in the second photo, its real benefit is</div>
+        <div>Obviously, these two types of … have their advantages and disadvantages. It is important to note that</div>
+        <div>What is more, / Moreover/Besides,</div>
+        <div>As for the advantage(s) of</div>
+        <div>As for the …. / Speaking about the</div>
+        <div>Concerning the advantages/the major advantage</div>
+        <div>Advantage = benefit, plus / Disadvantage = downside, drawback, minus</div>
+        <div>The main advantage/s of … is/are the following.</div>
+        <div></div>
+        <div>The type of … shown in the second photo also has a great advantage.</div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="phrase-group">
+      <h4>Mention the disadvantages (1–2) of the two types …</h4>
+      <div class="phrase-cols">
+        <div>As for the disadvantage(s) of</div>
+        <div>Speaking about the disadvantages of</div>
+        <div>Concerning the disadvantages/the major disadvantage</div>
+        <div>One of the major minuses of</div>
+        <div>The main disadvantage/s of … is/are the following.</div>
+        <div>The drawback of … worth mentioning is the following.</div>
+        <div>The type of … shown in Photo … also has a great disadvantage.</div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="phrase-group">
+      <h4>Express your opinion on the subject of the project – whether you/what you/how you/where you … and why</h4>
+      <div class="phrase-cols">
+        <div>As for my opinion on …, I can say that</div>
+        <div>I think so because</div>
+        <div>Speaking about myself,</div>
+        <div>The main reason why I think so is that</div>
+        <div>I think/In my opinion/I believe/ To my mind</div>
+        <div>You may ask why I think so, ok,</div>
+        <div>I am absolutely sure/convinced</div>
+        <div>From my point of view</div>
+        <div>I firmly believe that</div>
+        <div>Personally, I feel that/ The way I see that</div>
+        <div>As far as I am concerned/ In my view</div>
+        <div>From my point of view / viewpoint</div>
+        <div></div>
+        <div>To my way of thinking</div>
+      </div>
+    </div>
+
+    <div class="phrase-group">
+      <h4>Conclusion</h4>
+      <div class="phrase-cols">
+        <div>That is all I wanted to tell you about the photos, call me back soon.</div>
+        <div>That is all I wanted to say. I hope you find the photos nice. Let me know your opinion.</div>
+        <div>That is all I wanted to say. Tell me what you think about these photos.</div>
+        <div>That's all I wanted to discuss with you. / That's all for now.</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px;">Полезные фразы и выражения для описания картинок из пособия «Effective Speaking».</p>
+    </div>
+
+    <h3 style="margin-top:24px;">Иллюстрации из пособия «Effective Speaking»</h3>
+    <img class="illustration-img" src="img/img10.jpg" alt="Talking about position in the picture">
+    <img class="illustration-img" src="img/img11.jpg" alt="Describing people, actions, feelings">
+    <img class="illustration-img" src="img/img12.jpg" alt="Comparing two pictures">
+
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 8: FINISH -->
+<section class="page" data-page="8">
+  <div class="card">
+    <span class="tag">Завершение</span>
+    <h2>Проверка и отправка</h2>
+    <p>Впишите своё имя вверху страницы (если ещё не сделали этого) и нажмите кнопку ниже. Будет автоматически проверено задание Task 2, остальные задания отмечаются как выполненные — их содержание проверяет преподаватель.</p>
+    <div style="text-align:center;">
+      <button class="btn big-cta" onclick="submitAll()">Проверить и отправить ✓</button>
+    </div>
+    <div class="score-summary hidden" id="scoreSummary"></div>
+    <div class="submit-status" id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><span class="spacer"></span></div>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<div class="footer-credit">ANGLE · студия системного английского · Viktoria Syuzyova</div>
+
+<script>
+const PAGE_LABELS = ["Обложка","Task 1","Task 2","Task 3","Task 4","План-схема","Образец","Фразы","Финиш"];
+let current = 0;
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className = 'page-dot' + (i===0 ? ' active visited' : '');
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>showPage(i);
+    wrap.appendChild(d);
+  });
+}
+
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Страница ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>{
+    d.classList.toggle('active', i===current);
+    if(i<=current) d.classList.add('visited');
+  });
+  window.scrollTo(0,0);
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+function insertChip(el, targetId){
+  const ta = document.getElementById(targetId);
+  const word = el.textContent;
+  ta.value = ta.value.trim().length ? (ta.value.trim() + ' ' + word) : word;
+  ta.focus();
+}
+
+/* ===== Task 2: categorize ===== */
+const TASK2_WORDS = [
+  {text:"to go sightseeing", cat:"photo2"},
+  {text:"to wander off the beaten track", cat:"photo1"},
+  {text:"picturesque", cat:"both"},
+  {text:"to travel solo", cat:"photo1"},
+  {text:"to set for/out", cat:"both"},
+  {text:"a sense of adventure", cat:"photo1"},
+  {text:"natural destinations", cat:"photo1"},
+  {text:"a guided tour", cat:"photo2"},
+  {text:"rare flora and fauna", cat:"photo1"},
+  {text:"an impressive view", cat:"both"},
+  {text:"sustainable/ecological tourism", cat:"photo1"},
+  {text:"cultural heritage", cat:"photo2"},
+  {text:"ancient buildings", cat:"photo2"},
+  {text:"to have a thirst for smth", cat:"both"},
+  {text:"a cheerful fellow traveller", cat:"photo2"},
+  {text:"unforgettable experience", cat:"both"},
+  {text:"unexplored wilderness", cat:"photo1"},
+  {text:"extreme concentration of tourists", cat:"photo2"}
+];
+let selectedWord = null;
+
+function buildWordBank(){
+  const bank = document.getElementById('wordBank');
+  TASK2_WORDS.forEach((w,i)=>{
+    const chip = document.createElement('span');
+    chip.className = 'chip word';
+    chip.textContent = w.text;
+    chip.dataset.idx = i;
+    chip.onclick = (e)=>{ e.stopPropagation(); selectWord(chip); };
+    bank.appendChild(chip);
+  });
+}
+function selectWord(chip){
+  document.querySelectorAll('.chip.word.selected').forEach(c=>c.classList.remove('selected'));
+  selectedWord = chip;
+  chip.classList.add('selected');
+}
+function dropWord(bucketName){
+  if(!selectedWord) return;
+  const target = document.getElementById('bucket-' + bucketName);
+  const clone = selectedWord.cloneNode(true);
+  clone.classList.remove('selected');
+  clone.dataset.assigned = bucketName;
+  clone.onclick = (e)=>{ e.stopPropagation(); clone.remove(); selectedWord.classList.remove('placed'); };
+  target.appendChild(clone);
+  selectedWord.classList.add('placed');
+  selectedWord = null;
+}
+function checkTask2(){
+  let correct = 0, total = TASK2_WORDS.length;
+  ['photo1','both','photo2'].forEach(cat=>{
+    document.querySelectorAll('#bucket-' + cat + ' .chip.word').forEach(chip=>{
+      const idx = chip.dataset.idx;
+      const isCorrect = TASK2_WORDS[idx].cat === cat;
+      chip.classList.toggle('correct-mark', isCorrect);
+      chip.classList.toggle('wrong-mark', !isCorrect);
+      if(isCorrect) correct++;
+    });
+  });
+  document.getElementById('task2note').innerHTML =
+    `Результат самопроверки: <b>${correct} / ${total}</b> совпадений с предложенным вариантом (авторский вариант, не официальный ключ ФИПИ). Зелёным отмечены совпадения, красным — расхождения.`;
+  window.task2Score = {correct, total};
+}
+
+/* ===== Text-to-speech ===== */
+function speak(text, lang='en-GB', rate=0.95){
+  if(!window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang; u.rate = rate;
+  speechSynthesis.speak(u);
+}
+function speakSample(){
+  const text = document.getElementById('sampleText').innerText;
+  speak(text);
+}
+
+/* ===== Submit ===== */
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('Пожалуйста, впишите имя вверху страницы перед отправкой.');
+    return;
+  }
+  if(!window.task2Score){ checkTask2(); }
+  const {correct, total} = window.task2Score || {correct:0,total:TASK2_WORDS.length};
+  const pct = total ? Math.round(correct/total*100) : 0;
+
+  const box = document.getElementById('scoreSummary');
+  box.classList.remove('hidden');
+  box.innerHTML = `<strong>${nameInput.value.trim()}</strong><br>Task 2 (самопроверка): ${correct} / ${total} (${pct}%)<br>Task 1, 3, 4 — отмечены как выполненные, проверяются преподавателем.`;
+
+  try{
+    const fd = new FormData();
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('task2_score', `${correct} / ${total} (${pct}%)`);
+    fd.append('task1_answers', [1,2,3].map(i=>document.getElementById('ans'+i).value).join(' ||| '));
+    fd.append('task3_advantages', document.getElementById('adv').value);
+    fd.append('task3_disadvantages', document.getElementById('disadv').value);
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Отправлено преподавателю ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Не удалось отправить — проверьте подключение к интернету и попробуйте снова.';
+  }
+}
+
+buildDots();
+buildWordBank();
+showPage(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Travelling Is Important — Homework (Recirculation, B1+/B2)</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Why Travelling Is Important — домашнее задание (recirculation)">
+<meta name="ws:emoji"     content="📗">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+      :root{
+    --cream:#f7f6f4;
+    --paper:#ffffff;
+    --ink:#2D2926;
+    --ink-soft:#6a6560;
+    --navy:#5E4877;
+    --navy-dark:#2D2926;
+    --amber:#FED500;
+    --amber-dark:#2D2926;
+    --coral:#2D2926;
+    --correct:#3d7a3f;
+    --correct-bg:#e5f3e7;
+    --wrong:#b23a3a;
+    --wrong-bg:#fbe8e6;
+    --border:#e4e0e8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background-color:var(--cream); background-image:linear-gradient(rgba(247,246,244,.7), rgba(247,246,244,.7)), url('tom-barrett-M0AWNxnLaMw-unsplash.jpg'); background-size:cover; background-position:center; background-attachment:fixed; background-repeat:no-repeat; color:var(--ink); font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; line-height:1.55;}
+  h1,h2,h3{font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:700; margin:0 0 .4em;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 20px 60px;}
+  header.hero::before{
+    content:""; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 34px);
+    pointer-events:none;
+  }
+  header.hero .stamp{
+    position:absolute; right:26px; top:26px; width:62px; height:62px; border-radius:50%;
+    border:3px solid var(--amber); display:flex; align-items:center; justify-content:center;
+    font-size:24px; transform:rotate(-8deg); color:var(--amber);
+  }
+  header.hero .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:12px; color:var(--amber); font-weight:600; margin-bottom:8px;}
+  header.hero h1{font-size:clamp(22px,4vw,32px); max-width:600px;}
+  header.hero p.sub{max-width:560px; opacity:.92; margin:10px 0 0; font-size:14.5px;}
+
+  .progress-track{height:6px; background:rgba(255,255,255,.22); border-radius:4px; margin-top:20px; overflow:hidden;}
+  .progress-fill{height:100%; background:var(--amber); width:16.6%; transition:width .3s ease;}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:8px; max-width:860px; margin:14px auto 0; padding:0 20px; position:relative; z-index:2;}
+  nav.tabs .tab{
+    background:var(--paper); border:1px solid var(--border); color:var(--ink-soft);
+    padding:8px 13px; border-radius:8px; font-size:12.5px; font-weight:600; cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,.06); font-family:inherit;
+  }
+  nav.tabs .tab.active{background:var(--coral); border-color:var(--coral); color:#fff;}
+
+  main{padding-top:24px;}
+  .page{display:none;}
+  .page.active{display:block; animation:fadeIn .25s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .card{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin-bottom:18px; box-shadow:0 3px 10px rgba(27,42,74,.05);}
+  .card h2{color:var(--navy); font-size:21px;}
+  .lead{color:var(--ink-soft); font-size:14.5px; margin-bottom:14px;}
+  .note{font-size:12.5px; color:var(--ink-soft); margin-top:10px;}
+
+  .btn{display:inline-flex; align-items:center; gap:6px; background:var(--ink); color:var(--amber); border:none; border-radius:9px; padding:10px 18px; font-size:14px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:.3px; font-family:inherit;}
+  .btn:hover{background:var(--navy); color:#fff;}
+  .btn.secondary{background:transparent; color:var(--navy); border:1px solid var(--navy);}
+  .btn.secondary:hover{background:#f3eef8;}
+  .btn.ghost{background:transparent; color:var(--ink-soft); border:1px dashed var(--border);}
+
+  .pager{display:flex; justify-content:space-between; align-items:center; max-width:860px; margin:8px auto 0; padding:0 20px 40px;}
+  .pager span{font-size:13px; color:var(--ink-soft);}
+
+  .score-pill{display:inline-block; background:var(--amber); color:var(--navy-dark); font-weight:700; border-radius:20px; padding:4px 14px; font-size:13px;}
+
+  /* MCQ recall */
+  .mcq-item{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:12px;}
+  .mcq-item p{margin:0 0 10px; font-size:14.5px; font-weight:500;}
+  .opt-row{display:flex; flex-direction:column; gap:8px;}
+  .opt{background:#fff; border:1px solid var(--border); border-radius:9px; padding:9px 14px; font-size:13.5px; font-weight:500; cursor:pointer; font-family:inherit; text-align:left; color:var(--ink);}
+  .opt:hover{border-color:var(--navy);}
+  .opt.correct{background:var(--correct-bg); border-color:var(--correct); color:var(--correct);}
+  .opt.wrong{background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong);}
+
+  /* cloze */
+  .word-bank{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; padding:12px; background:#eef1f7; border-radius:12px;}
+  .word-bank span{background:#fff; border:1px solid var(--navy); color:var(--navy); border-radius:16px; padding:5px 12px; font-size:13px; cursor:pointer;}
+  .word-bank span.used{opacity:.35; text-decoration:line-through; cursor:default;}
+  .passage{font-size:15px;}
+  .passage p{margin:0 0 14px;}
+  input.gap{border:none; border-bottom:2px solid var(--coral); background:transparent; font-family:inherit; font-size:14.5px; padding:2px 4px; min-width:170px; color:var(--ink);}
+  input.gap:focus{outline:none; border-bottom-color:var(--navy);}
+  input.gap.correct{border-bottom-color:var(--correct); background:var(--correct-bg);}
+  input.gap.wrong{border-bottom-color:var(--wrong); background:var(--wrong-bg);}
+
+  /* categorize */
+  .chip-tray{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; padding:12px; background:#eef1f7; border-radius:12px; min-height:44px;}
+  .chip{background:#fff; border:1px solid var(--navy); color:var(--navy); border-radius:16px; padding:6px 13px; font-size:13px; cursor:pointer; font-family:inherit;}
+  .chip.selected{background:var(--amber); border-color:var(--amber-dark); color:var(--navy-dark);}
+  .chip.placed-correct{background:var(--correct-bg); border-color:var(--correct); color:var(--correct); cursor:default;}
+  .chip.placed-wrong{background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong);}
+  .buckets{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
+  .bucket{background:#fff; border:2px dashed var(--border); border-radius:12px; padding:12px; min-height:110px;}
+  .bucket h3{font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); margin-bottom:8px;}
+  .bucket .bucket-items{display:flex; flex-wrap:wrap; gap:6px;}
+
+  /* TF */
+  .tf-group{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:12px;}
+  .tf-group p{margin:0 0 10px; font-size:14.5px;}
+  .tf-opts{display:flex; gap:8px;}
+  .tf-opt{background:#fff; border:1px solid var(--border); border-radius:20px; padding:7px 18px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; color:var(--ink-soft);}
+  .tf-opt.correct{background:var(--correct-bg); border-color:var(--correct); color:var(--correct);}
+  .tf-opt.wrong{background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong);}
+
+  /* production */
+  textarea#postcardInput{width:100%; min-height:110px; border:1px solid var(--border); border-radius:12px; padding:12px; font-family:inherit; font-size:14.5px; resize:vertical;}
+  .feedback{margin-top:10px; padding:10px 12px; border-radius:10px; font-size:13.5px;}
+  .feedback.good{background:var(--correct-bg); color:var(--correct);}
+  .feedback.needs-review{background:#fdf1de; color:#8a5a10;}
+
+  .summary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:10px;}
+  .summary-item{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center;}
+  .summary-item .num{font-family:'Spectral',serif; font-size:24px; color:var(--coral);}
+  .summary-item .label{font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
+
+  .helper-list{margin:0; padding-left:20px; font-size:13.5px; color:var(--ink-soft);}
+  .helper-list li{margin-bottom:6px;}
+
+  header.angle-header{
+    position:relative; background:var(--navy);
+    color:#ffffff; padding:24px 24px 40px; overflow:hidden; min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex; align-items:center; gap:20px; text-align:left;
+  }
+  header.angle-header .logo-block{flex:0 0 auto; width:84px; display:flex; flex-direction:column; align-items:center;}
+  header.angle-header .logo-block img{display:block; width:100%; height:auto;}
+  header.angle-header .title-block{flex:1 1 auto; min-width:0; align-self:center;}
+  header.angle-header .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--amber); font-weight:700; margin:0 0 6px;}
+  header.angle-header h1{font-size:clamp(20px,3.6vw,30px); font-weight:800; text-transform:uppercase; letter-spacing:.4px; margin:0; color:#fff;}
+  header.angle-header .studio-credit{font-size:.65em; color:#ffffff; opacity:.85; font-weight:400; margin:6px 0 0; text-align:center; white-space:nowrap;}
+  .card h2::before{content:""; display:inline-block; width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:14px solid var(--amber); margin-right:8px;}
+  .card h2{display:flex; align-items:center; text-transform:uppercase; letter-spacing:.4px;}
+</style>
+</head>
+<body>
+
+<header class="angle-header">
+  <div class="logo-block">
+    <img class="studio-icon-img" src="img/img1.png" alt="ANGLE">
+    <p class="studio-credit">by Viktoria Syuzyova</p>
+  </div>
+  <div class="title-block">
+    <p class="eyebrow">ЕГЭ · Homework · Travel recirculation</p>
+    <h1>Why Travelling Is Important — Homework</h1>
+  </div>
+</header>
+<div class="wrap" style="padding:14px 20px 0;">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<nav class="tabs">
+  <button class="tab active" onclick="goPage(0)">1 · Start</button>
+  <button class="tab" onclick="goPage(1)">2 · Quick Recall</button>
+  <button class="tab" onclick="goPage(2)">3 · New Story</button>
+  <button class="tab" onclick="goPage(3)">4 · Sort It</button>
+  <button class="tab" onclick="goPage(4)">5 · True or False</button>
+  <button class="tab" onclick="goPage(5)">6 · Postcard</button>
+</nav>
+
+<main class="wrap">
+
+  <!-- PAGE 0 : START -->
+  <section class="page active" data-page="0">
+    <div class="card">
+      <h2>Before you begin</h2>
+      <p class="lead">In class you studied ten expressions from the video "Why Travelling Is Important" and practised them with matching, listening and a gap-fill. This homework recycles the <b>same expressions and ideas</b> — but in new sentences, a new short story, and new questions, so you have to actually remember the language rather than recognise the same exercise again.</p>
+      <p class="lead">Target expressions: <i>fulfilling, to regret smth, temporarily, to deal with issues, to solve problems, to live in one's own comfort zone, diverse, to face a challenge, to handle smth, to come up with creative solutions.</i></p>
+      <button class="btn" onclick="goPage(1)">Start → Quick Recall</button>
+    </div>
+  </section>
+
+  <!-- PAGE 1 : QUICK RECALL MCQ -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <h2>Quick Recall</h2>
+      <p class="lead">Choose the expression that matches each meaning. Some options are close in meaning — read carefully. Score: <span class="score-pill" id="mcqScorePill">0 / 5</span></p>
+      <div id="mcqList"></div>
+    </div>
+    <button class="btn" onclick="goPage(2)">Next → New Story</button>
+  </section>
+
+  <!-- PAGE 2 : NEW CONTEXT CLOZE -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <h2>A New Story</h2>
+      <p class="lead">This is a different story from the video — a student's diary entry about a trip to Georgia. Fill in the gaps with expressions from the lesson. Stuck? Open the word bank. Score: <span class="score-pill" id="clozeScorePill">0 / 8</span></p>
+      <button class="btn ghost" onclick="toggleBank()">Show / hide word bank</button>
+      <div class="word-bank" id="wordBank" hidden>
+        <span onclick="useToken(this)">out of my comfort zone</span>
+        <span onclick="useToken(this)">come up with a creative solution</span>
+        <span onclick="useToken(this)">diverse</span>
+        <span onclick="useToken(this)">face a challenge</span>
+        <span onclick="useToken(this)">handle</span>
+        <span onclick="useToken(this)">fulfilling</span>
+        <span onclick="useToken(this)">temporarily</span>
+        <span onclick="useToken(this)">regret</span>
+      </div>
+      <div class="passage">
+        <p>Last summer I went trekking in the mountains of Georgia. At first, everything felt strange — I don't usually like to be <input class="gap" id="c1"> but this trip was different.</p>
+        <p>On the third day we lost the path and had to <input class="gap" id="c2"> using an old paper map. I met travellers from six different countries, and it made me realise how <input class="gap" id="c3"> the world really is.</p>
+        <p>There were difficult moments too — twice we had to <input class="gap" id="c4"> we hadn't planned for, like a broken bus and no phone signal. Somehow we always managed to <input class="gap" id="c5"> it.</p>
+        <p>Looking back, the trip was completely <input class="gap" id="c6"> — it gave me more than any souvenir could. I only stayed there <input class="gap" id="c7">, just ten days, but the lessons stayed with me much longer.</p>
+        <p>If someone asked whether I <input class="gap" id="c8"> spending all that money on a plane ticket instead of a new laptop, I would say no — not for a second.</p>
+      </div>
+      <div style="margin-top:14px; display:flex; gap:10px;">
+        <button class="btn" onclick="checkCloze()">Check answers</button>
+        <button class="btn ghost" onclick="revealCloze()">Show answers</button>
+      </div>
+    </div>
+    <button class="btn" onclick="goPage(3)">Next → Sort It</button>
+  </section>
+
+  <!-- PAGE 3 : CATEGORIZE -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <h2>Sort the Expressions</h2>
+      <p class="lead">Click an expression, then click the box it belongs in. All ten expressions from the lesson go into one of the three groups below. Score: <span class="score-pill" id="sortScorePill">0 / 10</span></p>
+      <div class="chip-tray" id="chipTray"></div>
+      <div class="buckets" id="buckets">
+        <div class="bucket" data-bucket="problems" onclick="dropInto('problems')">
+          <h3>Dealing with problems</h3>
+          <div class="bucket-items" id="bucket-problems"></div>
+        </div>
+        <div class="bucket" data-bucket="feelings" onclick="dropInto('feelings')">
+          <h3>Comfort &amp; feelings</h3>
+          <div class="bucket-items" id="bucket-feelings"></div>
+        </div>
+        <div class="bucket" data-bucket="describing" onclick="dropInto('describing')">
+          <h3>Time &amp; variety</h3>
+          <div class="bucket-items" id="bucket-describing"></div>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <button class="btn" onclick="checkSort()">Check my sorting</button>
+      </div>
+      <p class="note">Tip: notice that "to deal with issues," "to solve problems" and "to handle smth" all belong together — they're close synonyms, just like you saw in class.</p>
+    </div>
+    <button class="btn" onclick="goPage(4)">Next → True or False</button>
+  </section>
+
+  <!-- PAGE 4 : TRUE OR FALSE (IDEAS) -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <h2>True or False — the video's ideas</h2>
+      <p class="lead">These are not exact quotes — they're paraphrases of ideas from the video. Decide if each one matches what the video actually said. Score: <span class="score-pill" id="tfScorePill">0 / 5</span></p>
+
+      <div class="tf-group" data-correct="T">
+        <p>1. Spending money on experiences is generally a better investment than spending it on material things.</p>
+        <div class="tf-opts">
+          <button class="tf-opt" data-val="T">True</button>
+          <button class="tf-opt" data-val="F">False</button>
+        </div>
+      </div>
+      <div class="tf-group" data-correct="F">
+        <p>2. Meeting people from other countries isn't really necessary for personal growth.</p>
+        <div class="tf-opts">
+          <button class="tf-opt" data-val="T">True</button>
+          <button class="tf-opt" data-val="F">False</button>
+        </div>
+      </div>
+      <div class="tf-group" data-correct="F">
+        <p>3. Staying inside your comfort zone all the time is presented as the best way to grow as a person.</p>
+        <div class="tf-opts">
+          <button class="tf-opt" data-val="T">True</button>
+          <button class="tf-opt" data-val="F">False</button>
+        </div>
+      </div>
+      <div class="tf-group" data-correct="T">
+        <p>4. Facing unexpected problems while travelling can actually build your confidence.</p>
+        <div class="tf-opts">
+          <button class="tf-opt" data-val="T">True</button>
+          <button class="tf-opt" data-val="F">False</button>
+        </div>
+      </div>
+      <div class="tf-group" data-correct="F">
+        <p>5. The video claims that travelling always guarantees you will never face any problems.</p>
+        <div class="tf-opts">
+          <button class="tf-opt" data-val="T">True</button>
+          <button class="tf-opt" data-val="F">False</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn" onclick="goPage(5)">Next → Postcard</button>
+  </section>
+
+  <!-- PAGE 5 : PRODUCTION + SUMMARY + SEND -->
+  <section class="page" data-page="5">
+    <div class="card">
+      <h2>Write a Postcard</h2>
+      <p class="lead">Imagine you're on a trip right now. Write a short postcard to a friend (4–6 sentences) about the trip. Use at least <b>3</b> expressions from the lesson.</p>
+      <textarea id="postcardInput" placeholder="Dear..."></textarea>
+      <div style="margin-top:10px;">
+        <button class="btn" onclick="checkPostcard()">Check my postcard</button>
+      </div>
+      <div id="postcardFeedback" class="feedback" style="display:none;"></div>
+    </div>
+
+    <div class="card">
+      <h2>Your results</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><div class="num" id="sumMcq">0 / 5</div><div class="label">Quick Recall</div></div>
+        <div class="summary-item"><div class="num" id="sumCloze">0 / 8</div><div class="label">New Story</div></div>
+        <div class="summary-item"><div class="num" id="sumSort">0 / 10</div><div class="label">Sort It</div></div>
+        <div class="summary-item"><div class="num" id="sumTf">0 / 5</div><div class="label">True / False</div></div>
+      </div>
+      <p class="note">Well done — that's the homework complete. Bring any questions to your next lesson with Viktoria.</p>
+    </div>
+
+    <div class="card">
+      <h2>Send your results to Viktoria</h2>
+      <p class="lead">This sends your scores and your postcard straight to your teacher.</p>
+      <input type="text" id="studentName" placeholder="Your name" style="width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-family:inherit; font-size:14.5px; margin-bottom:10px;">
+      <button class="btn" onclick="sendCompletion()">Send to teacher</button>
+      <p id="sendStatus" class="note" style="display:none;"></p>
+    </div>
+  </section>
+
+</main>
+
+<div class="pager wrap">
+  <button class="btn secondary" onclick="prevPage()">← Back</button>
+  <span id="pageIndicator">Page 1 of 6</span>
+  <button class="btn secondary" onclick="nextPage()">Next →</button>
+</div>
+
+<script>
+  // ---------- vocab / answer data ----------
+  const VOCAB = {
+    "fulfilling": { bucket:"feelings" },
+    "to regret smth": { bucket:"feelings" },
+    "temporarily": { bucket:"describing" },
+    "to deal with issues": { bucket:"problems" },
+    "to solve problems": { bucket:"problems" },
+    "to live in one's own comfort zone": { bucket:"feelings" },
+    "diverse": { bucket:"describing" },
+    "to face a challenge": { bucket:"problems" },
+    "to handle smth": { bucket:"problems" },
+    "to come up with creative solutions": { bucket:"problems" }
+  };
+
+  const mcqData = [
+    { q: "Which word means 'various, of many different kinds'?",
+      opts: ["diverse","temporarily","fulfilling","to regret smth"], correct: "diverse" },
+    { q: "Which phrase means 'to feel sorry about something you did or didn't do'?",
+      opts: ["to face a challenge","to regret smth","to handle smth","diverse"], correct: "to regret smth" },
+    { q: "Which phrase best fits 'making decisions and behaving in a way that deals with a difficult situation'?",
+      opts: ["to handle smth","to solve problems","to come up with creative solutions","temporarily"], correct: "to handle smth" },
+    { q: "Which word means 'happening for a short time, not permanently'?",
+      opts: ["temporarily","diverse","fulfilling","to face a challenge"], correct: "temporarily" },
+    { q: "Which phrase means 'to think of new and original ways to deal with a difficult situation'?",
+      opts: ["to come up with creative solutions","to deal with issues","to live in one's own comfort zone","to handle smth"], correct: "to come up with creative solutions" }
+  ];
+
+  const clozeAnswers = [
+    ["out of my comfort zone","out of your comfort zone"],
+    ["come up with a creative solution","come up with creative solutions"],
+    ["diverse"],
+    ["face a challenge","face challenges"],
+    ["handle"],
+    ["fulfilling"],
+    ["temporarily"],
+    ["regret","regretted"]
+  ];
+
+  // ---------- helpers ----------
+  function normalise(s){ return s.trim().toLowerCase().replace(/['"']/g,"").replace(/\s+/g," "); }
+  function fuzzyMatch(value, acceptableList){
+    const v = normalise(value);
+    if(!v) return false;
+    return acceptableList.some(a => v === normalise(a) || v.includes(normalise(a)) || normalise(a).includes(v));
+  }
+
+  // ---------- navigation ----------
+  let currentPage = 0;
+  const totalPages = 6;
+  function goPage(n){
+    currentPage = n;
+    document.querySelectorAll(".page").forEach((p,i)=> p.classList.toggle("active", i===n));
+    document.querySelectorAll(".tab").forEach((t,i)=> t.classList.toggle("active", i===n));
+    document.getElementById("progressFill").style.width = ((n+1)/totalPages*100)+"%";
+    document.getElementById("pageIndicator").textContent = "Page "+(n+1)+" of "+totalPages;
+    window.scrollTo(0,0);
+    if(n===5) updateSummary();
+  }
+  function nextPage(){ if(currentPage < totalPages-1) goPage(currentPage+1); }
+  function prevPage(){ if(currentPage > 0) goPage(currentPage-1); }
+
+  // ---------- Quick Recall (MCQ) ----------
+  let mcqScore = 0;
+  const mcqTotal = mcqData.length;
+  function renderMcq(){
+    const list = document.getElementById("mcqList");
+    list.innerHTML = mcqData.map((item,i)=>{
+      const opts = item.opts.map(o => `<button class="opt" data-val="${o}" onclick="answerMcq(${i}, this)">${o}</button>`).join("");
+      return `<div class="mcq-item" data-idx="${i}"><p>${(i+1)}. ${item.q}</p><div class="opt-row">${opts}</div></div>`;
+    }).join("");
+  }
+  function answerMcq(i, btn){
+    const item = document.querySelector(`.mcq-item[data-idx="${i}"]`);
+    if(item.dataset.done) return;
+    item.dataset.done = "1";
+    const correct = mcqData[i].correct;
+    item.querySelectorAll(".opt").forEach(o=>{
+      if(o.dataset.val === correct) o.classList.add("correct");
+      else if(o === btn) o.classList.add("wrong");
+    });
+    if(btn.dataset.val === correct){
+      mcqScore++;
+      document.getElementById("mcqScorePill").textContent = mcqScore+" / "+mcqTotal;
+    }
+  }
+
+  // ---------- New Story cloze ----------
+  let lastFocusedGap = null;
+  function attachGaps(){
+    document.querySelectorAll(".gap").forEach(inp=>{
+      inp.addEventListener("focus", ()=> lastFocusedGap = inp);
+    });
+  }
+  function toggleBank(){
+    const b = document.getElementById("wordBank");
+    b.hidden = !b.hidden;
+  }
+  function useToken(tokenEl){
+    if(tokenEl.classList.contains("used")) return;
+    if(!lastFocusedGap){ alert("Click into a gap first, then tap a word."); return; }
+    lastFocusedGap.value = tokenEl.textContent.trim();
+    tokenEl.classList.add("used");
+  }
+  function checkCloze(){
+    let score = 0;
+    clozeAnswers.forEach((accepted,i)=>{
+      const input = document.getElementById("c"+(i+1));
+      const ok = fuzzyMatch(input.value, accepted);
+      input.classList.toggle("correct", ok);
+      input.classList.toggle("wrong", !ok);
+      if(ok) score++;
+    });
+    document.getElementById("clozeScorePill").textContent = score+" / "+clozeAnswers.length;
+  }
+  function revealCloze(){
+    clozeAnswers.forEach((accepted,i)=>{
+      const input = document.getElementById("c"+(i+1));
+      input.value = accepted[0];
+      input.classList.add("correct");
+      input.classList.remove("wrong");
+    });
+    document.getElementById("clozeScorePill").textContent = clozeAnswers.length+" / "+clozeAnswers.length+" (revealed)";
+  }
+
+  // ---------- Sort It (categorize) ----------
+  let selectedChip = null;
+  const placement = {};
+  function renderChips(){
+    const tray = document.getElementById("chipTray");
+    const keys = Object.keys(VOCAB);
+    tray.innerHTML = keys.map(k => `<button class="chip" data-key="${k}" onclick="selectChip(this)">${k}</button>`).join("");
+  }
+  function selectChip(el){
+    if(el.classList.contains("placed-correct") || el.classList.contains("placed-wrong")) return;
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("selected"));
+    selectedChip = el;
+    el.classList.add("selected");
+  }
+  function dropInto(bucketName){
+    if(!selectedChip) return;
+    const key = selectedChip.dataset.key;
+    placement[key] = bucketName;
+    document.getElementById("bucket-"+bucketName).appendChild(selectedChip);
+    selectedChip.classList.remove("selected");
+    selectedChip = null;
+  }
+  function checkSort(){
+    let score = 0;
+    Object.keys(VOCAB).forEach(key=>{
+      const chip = document.querySelector(`.chip[data-key="${key}"]`);
+      const correctBucket = VOCAB[key].bucket;
+      const placed = placement[key];
+      if(!placed){ return; }
+      if(placed === correctBucket){
+        chip.classList.add("placed-correct");
+        score++;
+      } else {
+        chip.classList.add("placed-wrong");
+      }
+    });
+    document.getElementById("sortScorePill").textContent = score+" / "+Object.keys(VOCAB).length;
+  }
+
+  // ---------- True or False ----------
+  let tfScore = 0;
+  const tfTotal = 5;
+  function attachTF(){
+    document.querySelectorAll(".tf-group .tf-opt").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const group = btn.closest(".tf-group");
+        if(group.dataset.done) return;
+        group.dataset.done = "1";
+        const correct = group.dataset.correct;
+        group.querySelectorAll(".tf-opt").forEach(o=>{
+          if(o.dataset.val === correct) o.classList.add("correct");
+          else if(o === btn) o.classList.add("wrong");
+        });
+        if(btn.dataset.val === correct){
+          tfScore++;
+          document.getElementById("tfScorePill").textContent = tfScore+" / "+tfTotal;
+        }
+      });
+    });
+  }
+
+  // ---------- Postcard production check ----------
+  function checkPostcard(){
+    const val = document.getElementById("postcardInput").value;
+    const norm = normalise(val);
+    const usedChunks = Object.keys(VOCAB).filter(k => norm.includes(normalise(k)));
+    const box = document.getElementById("postcardFeedback");
+    box.style.display = "block";
+    const wordCount = val.trim().length ? val.trim().split(/\s+/).length : 0;
+    if(wordCount < 20){
+      box.textContent = "Try to write a bit more — aim for at least 4 full sentences.";
+      box.className = "feedback needs-review";
+    } else if(usedChunks.length >= 3){
+      box.textContent = "Nice! You used: " + usedChunks.join(", ") + ". Flagged for your teacher to check the grammar.";
+      box.className = "feedback good";
+    } else {
+      box.textContent = "Good start — try to fit in at least three expressions from the lesson (e.g. face a challenge, out of your comfort zone, fulfilling).";
+      box.className = "feedback needs-review";
+    }
+  }
+
+  // ---------- summary ----------
+  function updateSummary(){
+    document.getElementById("sumMcq").textContent = mcqScore+" / "+mcqTotal;
+    document.getElementById("sumCloze").textContent = document.getElementById("clozeScorePill").textContent;
+    document.getElementById("sumSort").textContent = document.getElementById("sortScorePill").textContent;
+    document.getElementById("sumTf").textContent = tfScore+" / "+tfTotal;
+  }
+
+  // ---------- send completion record to teacher ----------
+  function sendCompletion(){
+    const statusEl = document.getElementById("sendStatus");
+    statusEl.style.display = "block";
+    statusEl.textContent = "Sending…";
+    const name = document.getElementById("studentName").value.trim() || "(no name entered)";
+    const summary = {
+      quick_recall: mcqScore + " / " + mcqTotal,
+      new_story_cloze: document.getElementById("clozeScorePill").textContent,
+      sort_it: document.getElementById("sortScorePill").textContent,
+      true_false: tfScore + " / " + tfTotal,
+      postcard_answer: document.getElementById("postcardInput").value.trim() || "(not answered)"
+    };
+    const fd = new FormData();
+    fd.append("lesson", document.title);
+    fd.append("student", name);
+    fd.append("timestamp", new Date().toISOString());
+    fd.append("quick_recall", summary.quick_recall);
+    fd.append("new_story_cloze", summary.new_story_cloze);
+    fd.append("sort_it", summary.sort_it);
+    fd.append("true_false", summary.true_false);
+    fd.append("postcard_answer", summary.postcard_answer);
+    fd.append("summary_json", JSON.stringify(summary));
+
+    fetch("https://formspree.io/f/mnjekjvq", {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: fd
+    }).then(res => {
+      if(res.ok){
+        statusEl.textContent = "Sent to your teacher — nice work!";
+        statusEl.style.color = "var(--correct)";
+      } else {
+        statusEl.textContent = "Something went wrong sending this. Try again, or tell Viktoria directly.";
+        statusEl.style.color = "var(--wrong)";
+      }
+    }).catch(()=>{
+      statusEl.textContent = "Couldn't connect. Check your internet connection and try again.";
+      statusEl.style.color = "var(--wrong)";
+    });
+  }
+
+  // ---------- init ----------
+  renderMcq();
+  renderChips();
+  attachGaps();
+  attachTF();
+</script>
+
+</body>
+</html>

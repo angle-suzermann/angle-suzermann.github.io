@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 9 · Water — Grammar 2</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 4">
+<meta name="ws:course-id" content="as4">
+<meta name="ws:unit"      content="9">
+<meta name="ws:title"     content="Grammar 2 — Water, Zero Conditional">
+<meta name="ws:emoji"     content="🔁">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xeeyrowk">
+<meta name="ws:tags"      content="zero conditional, water">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --ink:#2D2926;
+    --ink-soft:#5c5650;
+    --bg:#f7f6f4;
+    --card:#ffffff;
+    --card-soft:#f3eef8;
+    --accent:#5E4877;
+    --accent-deep:#3f3358;
+    --accent-pale:#ECE6F2;
+    --clay:#2D2926;
+    --clay-pale:#FFF6BD;
+    --correct:#3d7a3f;
+    --correct-bg:#e3f2e4;
+    --wrong:#b23a3a;
+    --wrong-bg:#fbe7e3;
+    --border:#e4e0e8;
+    --shadow: 0 4px 14px rgba(45,41,38,0.10);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:820px;
+    margin:0 auto;
+    padding:20px 16px 60px;
+  }
+
+  /* Header */
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#fff;
+    padding:24px 24px 40px;
+    margin-bottom:18px;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:150px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+  }
+  .title-block h1{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:22px;
+    margin:0;
+    color:#fff;
+    line-height:1.25;
+  }
+  .title-block .sub{
+    font-size:13px;
+    color:#fff;
+    opacity:0.85;
+    margin-top:4px;
+  }
+
+  /* Info box */
+  .info-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:0;
+    padding:14px 16px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .info-field{
+    flex:1 1 200px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .info-field label{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+    letter-spacing:0.03em;
+  }
+  .info-field input{
+    height:44px;
+    border-radius:0;
+    border:1.5px solid var(--border);
+    padding:0 12px;
+    font-size:16px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--card-soft);
+    color:var(--ink);
+  }
+  .info-field input:focus{ outline:none; border-color:var(--accent); }
+
+  /* Progress */
+  .progress-track{
+    height:8px;
+    background:var(--accent-pale);
+    border-radius:0;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:var(--accent);
+    transition:width .3s ease;
+  }
+
+  /* Vocab cloud */
+  .vocab-cloud{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:0;
+    padding:16px 18px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 16px;
+    align-items:center;
+    justify-content:center;
+  }
+  .vocab-cloud .vchip{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:600;
+    color:var(--accent-deep);
+    background:var(--accent-pale);
+    padding:6px 14px;
+    border-radius:0;
+    font-size:14px;
+  }
+  .vocab-cloud .vchip:nth-child(2n){ background:var(--clay-pale); color:var(--clay); }
+
+  /* Section */
+  .section{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:0;
+    padding:20px 18px 22px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+  }
+  .section h2{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:17px;
+    margin:0 0 4px;
+    color:var(--accent-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-bottom:14px solid var(--yellow);
+    flex:0 0 auto;
+  }
+  .section .instr{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0 0 16px 36px;
+  }
+
+  .item{
+    border-top:1px dashed var(--border);
+    padding:14px 0 14px 36px;
+  }
+  .item:first-of-type{ border-top:none; }
+  .item .qnum{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:12px;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .item p.prompt{ margin:0 0 10px; font-size:15px; }
+
+  /* Example (done) styling */
+  .item.example{ opacity:0.9; }
+  .item.example .qnum::after{ content:" · example"; color:var(--ink-soft); font-weight:400; text-transform:none; }
+  .example-answer{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--correct-bg);
+    color:var(--correct);
+    padding:4px 10px;
+    border-radius:0;
+    font-size:14px;
+    font-weight:600;
+  }
+
+  /* MCQ */
+  .options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .opt{
+    min-height:44px;
+    padding:8px 16px;
+    border-radius:0;
+    border:1.5px solid var(--border);
+    background:var(--card-soft);
+    color:var(--ink);
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:15px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .opt:active{ transform:scale(0.98); }
+  .opt.correct{ background:var(--correct-bg); border-color:var(--correct); color:var(--correct); font-weight:600; }
+  .opt.wrong{ background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong); }
+
+  /* Text inputs */
+  .text-row{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .text-row label.mini{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .scrambled{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:12.5px;
+    color:var(--clay);
+    background:var(--clay-pale);
+    border-radius:0;
+    padding:6px 10px;
+    display:inline-block;
+    margin-bottom:8px;
+    line-height:1.5;
+  }
+  input.freetext{
+    width:100%;
+    min-height:44px;
+    border-radius:0;
+    border:1.5px solid var(--border);
+    padding:0 12px;
+    font-size:16px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--card-soft);
+    color:var(--ink);
+  }
+  input.freetext:focus{ outline:none; border-color:var(--accent); }
+  input.freetext.correct{ border-color:var(--correct); background:var(--correct-bg); }
+  input.freetext.wrong{ border-color:var(--wrong); background:var(--wrong-bg); }
+
+  .given-answer{
+    font-weight:600;
+    color:var(--accent-deep);
+  }
+
+  .fb-icon{
+    font-size:13px;
+    margin-top:6px;
+    font-weight:600;
+  }
+  .fb-icon.ok{ color:var(--correct); }
+  .fb-icon.no{ color:var(--wrong); }
+
+  /* Actions */
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:6px;
+  }
+  button.primary, button.secondary{
+    min-height:48px;
+    padding:0 22px;
+    border:none;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    flex:1 1 200px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fff;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  button.primary:active{ background:var(--accent-deep); }
+  button.secondary{ background:#fff; color:var(--accent-deep); border:1.5px solid var(--accent); }
+  button.secondary:disabled{ opacity:0.45; cursor:not-allowed; }
+
+  .results{
+    display:none;
+    background:var(--card);
+    border:1.5px solid var(--accent);
+    border-radius:0;
+    padding:20px;
+    margin-top:18px;
+    box-shadow:var(--shadow);
+    text-align:center;
+  }
+  .results.show{ display:block; }
+  .results .pct{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:40px;
+    font-weight:700;
+    color:var(--accent-deep);
+  }
+  .results .msg{ font-size:14.5px; margin:6px 0 12px; color:var(--ink-soft); }
+  .results .breakdown{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .results .breakdown b{ color:var(--accent-deep); }
+
+  .send-status{
+    font-size:12.5px;
+    margin-top:10px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+
+  footer.credit-foot{
+    text-align:center;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:26px;
+  }
+
+  @media (max-width:600px){
+    header{ flex-direction:column; text-align:center; clip-path:none; padding:20px 16px 26px; }
+    .logo-block{ width:110px; }
+    .title-block{ text-align:center; }
+    .info-box{ flex-direction:column; }
+    button.primary, button.secondary{ flex:1 1 100%; }
+    .item, .section .instr{ padding-left:0; margin-left:0; }
+    .section h2{ font-size:16px; }
+  }
+
+  /* ANGLE sticky badge */
+  .angle-badge{
+    position:fixed;
+    left:28px;
+    bottom:24px;
+    z-index:9999;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    transition:color 0.15s ease;
+    opacity:1;
+  }
+  .angle-badge .wordmark{
+    width:110px;
+    height:auto;
+    display:block;
+  }
+  .angle-badge .credit{
+    margin-top:4px;
+    margin-left:3px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:400;
+    font-size:10px;
+    letter-spacing:0.3px;
+  }
+  .angle-badge.on-dark{ color:#fff; }
+  .angle-badge.on-light{ color:#2D2926; }
+
+  /* Hero photo */
+  .hero-photo{
+    position:relative;
+    margin-bottom:18px;
+    border-radius:0;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+  }
+  .hero-photo img{
+    display:block;
+    width:100%;
+    height:auto;
+    max-height:340px;
+    object-fit:cover;
+  }
+  .hero-photo .caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    background:linear-gradient(180deg, rgba(45,41,38,0) 0%, rgba(45,41,38,0.62) 100%);
+    color:#fff;
+    padding:22px 16px 10px;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:12.5px;
+    letter-spacing:0.02em;
+  }
+
+  /* Academy Stars 4 floating badge */
+  .as-badge{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#fff;
+    border-radius:8px;
+    padding:8px 12px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--border);
+  }
+  .as-badge img{ display:block; height:34px; width:auto; }
+  @media (max-width:600px){
+    .as-badge{ padding:5px 8px; bottom:12px; right:12px; }
+    .as-badge img{ height:26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="as-badge" title="Academy Stars 4">
+  <img src="img/course-cover.jpg" alt="Academy Stars 4">
+</div>
+
+<div class="angle-badge on-light">
+<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<div class="wrap">
+
+  <header data-badge-contrast="dark">
+    <div class="logo-block">
+<img class="studio-icon-img" style="width:100%;height:auto;display:block;" src="/assets/brand/angle-logo.png" alt="ANGLE">
+      <p class="studio-credit">by Viktoria Syuzyova</p>
+    </div>
+    <div class="title-block">
+      <h1>Grammar 2 — What happens if...?</h1>
+      <div class="sub">Academy Stars 4 · zero conditional practice</div>
+    </div>
+  </header>
+
+  <div class="hero-photo" data-badge-contrast="light">
+    <img src="img/hero-photo.jpg" alt="A feather resting on the surface of water">
+    <div class="caption">Surface tension: how a feather stays afloat</div>
+  </div>
+
+  <div class="info-box" data-badge-contrast="light">
+    <div class="info-field">
+      <label for="stuName">ИМЯ УЧЕНИКА</label>
+      <input type="text" id="stuName" placeholder="Введите имя">
+    </div>
+    <div class="info-field">
+      <label for="stuGroup">ГРУППА / КЛАСС</label>
+      <input type="text" id="stuGroup" placeholder="Например, 4B">
+    </div>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="vocab-cloud" data-badge-contrast="light">
+    <span class="vchip">melt</span>
+    <span class="vchip">freeze</span>
+    <span class="vchip">float</span>
+    <span class="vchip">dissolve</span>
+    <span class="vchip">sink</span>
+    <span class="vchip">heat</span>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="section1" data-badge-contrast="light">
+    <h2>Do the science quiz. Circle the correct answers.</h2>
+    <p class="instr">Choose the correct verb for each situation.</p>
+
+    <div class="item example">
+      <div class="qnum">Q1</div>
+      <p class="prompt">What happens if you put a smartphone in the sun?</p>
+      <p>It <span class="example-answer">✓ heats</span></p>
+    </div>
+
+    <div class="item">
+      <div class="qnum">Q2</div>
+      <p class="prompt">What happens if you put an ice cream in the sun?</p>
+      <div class="mcq options" data-correct="a">
+        <button class="opt" data-val="a">melts</button>
+        <button class="opt" data-val="b">heats</button>
+        <button class="opt" data-val="c">dissolves</button>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="qnum">Q3</div>
+      <p class="prompt">What happens if you put an apple in the fridge?</p>
+      <div class="mcq options" data-correct="a">
+        <button class="opt" data-val="a">cools</button>
+        <button class="opt" data-val="b">freezes</button>
+        <button class="opt" data-val="c">melts</button>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="qnum">Q4</div>
+      <p class="prompt">What happens if you put strawberries in the freezer?</p>
+      <div class="mcq options" data-correct="b">
+        <button class="opt" data-val="a">cool</button>
+        <button class="opt" data-val="b">freeze</button>
+        <button class="opt" data-val="c">melt</button>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="qnum">Q5</div>
+      <p class="prompt">What happens if you put a stone in water?</p>
+      <div class="mcq options" data-correct="c">
+        <button class="opt" data-val="a">dissolves</button>
+        <button class="opt" data-val="b">floats</button>
+        <button class="opt" data-val="c">sinks</button>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="qnum">Q6</div>
+      <p class="prompt">What happens if you put salt in water?</p>
+      <div class="mcq options" data-correct="c">
+        <button class="opt" data-val="a">floats</button>
+        <button class="opt" data-val="b">sinks</button>
+        <button class="opt" data-val="c">dissolves</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="section2" data-badge-contrast="light">
+    <h2>Make questions and write the answers.</h2>
+    <p class="instr">Put the words in the right order to make a question, then write the answer.</p>
+
+    <div class="item example">
+      <div class="qnum">Q1</div>
+      <span class="scrambled">What / an / ice / cube? / if / heat / you / happens</span>
+      <p class="prompt" style="margin-top:8px;">What happens if you heat an ice cube? <span class="example-answer">✓ It melts.</span></p>
+    </div>
+
+    <div class="item" data-kind="ex2" data-idx="0">
+      <div class="qnum">Q2</div>
+      <span class="scrambled">happens / you / What / if / put / in / the fridge? / lemonade</span>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q-input" type="text" placeholder="What happens if...?">
+        <label class="mini">Your answer:</label>
+        <input class="freetext a-input" type="text" placeholder="It ...">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+
+    <div class="item" data-kind="ex2" data-idx="1">
+      <div class="qnum">Q3</div>
+      <span class="scrambled">you / pick / up / happens / snow? / if / What</span>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q-input" type="text" placeholder="What happens if...?">
+        <label class="mini">Your answer:</label>
+        <input class="freetext a-input" type="text" placeholder="It ...">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+
+    <div class="item" data-kind="ex2" data-idx="2">
+      <div class="qnum">Q4</div>
+      <span class="scrambled">very / cold? / if / happens / water / What / gets</span>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q-input" type="text" placeholder="What happens if...?">
+        <label class="mini">Your answer:</label>
+        <input class="freetext a-input" type="text" placeholder="It ...">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="section3" data-badge-contrast="light">
+    <h2>Write questions for the answers.</h2>
+    <p class="instr">Look at the answer and write a suitable question.</p>
+
+    <div class="item example">
+      <div class="qnum">Q1</div>
+      <p class="prompt">Answer: <span class="given-answer">It floats.</span></p>
+      <p style="margin-top:8px;">Question: <span class="example-answer">✓ What happens if you put oil in water?</span></p>
+    </div>
+
+    <div class="item" data-kind="ex3" data-idx="0">
+      <div class="qnum">Q2</div>
+      <p class="prompt">Answer: <span class="given-answer">It sinks.</span></p>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q3-input" type="text" placeholder="What happens if...?">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+
+    <div class="item" data-kind="ex3" data-idx="1">
+      <div class="qnum">Q3</div>
+      <p class="prompt">Answer: <span class="given-answer">It dissolves.</span></p>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q3-input" type="text" placeholder="What happens if...?">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+
+    <div class="item" data-kind="ex3" data-idx="2">
+      <div class="qnum">Q4</div>
+      <p class="prompt">Answer: <span class="given-answer">It heats.</span></p>
+      <div class="text-row" style="margin-top:8px;">
+        <label class="mini">Your question:</label>
+        <input class="freetext q3-input" type="text" placeholder="What happens if...?">
+      </div>
+      <div class="fb-icon" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="checkBtn">Проверить ответы</button>
+    <button class="secondary" id="sendBtn" disabled>Отправить результат учителю</button>
+  </div>
+
+  <div class="results" id="resultsBox" data-badge-contrast="light">
+    <div class="pct" id="resultsPct">—</div>
+    <div class="msg" id="resultsMsg"></div>
+    <div class="breakdown" id="resultsBreakdown"></div>
+    <div class="send-status" id="sendStatus"></div>
+  </div>
+
+  <footer class="credit-foot" data-badge-contrast="light">ANGLE · студия системного английского · by Viktoria Syuzyova</footer>
+
+</div>
+
+<script>
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeeyrowk";
+
+  function normalise(s){
+    return s.trim().toLowerCase()
+      .replace(/['’"]/g,'')
+      .replace(/[.,!?]/g,'')
+      .replace(/\s+/g,' ');
+  }
+
+  function requiredWordsMatch(value, required, threshold){
+    const tokens = new Set(normalise(value).split(' ').filter(Boolean));
+    const hit = required.filter(w => tokens.has(w)).length;
+    return (hit / required.length) >= (threshold || 0.85);
+  }
+
+  function exactish(value, accepted){
+    const v = normalise(value);
+    return accepted.some(a => v === normalise(a) || v.includes(normalise(a)));
+  }
+
+  // ---- Section 1: MCQ ----
+  document.querySelectorAll('#section1 .mcq .opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const group = btn.closest('.mcq');
+      if (group.dataset.done) return;
+      group.dataset.done = "1";
+      const correct = group.dataset.correct;
+      group.querySelectorAll('.opt').forEach(o=>{
+        if (o.dataset.val === correct) o.classList.add('correct');
+        else if (o === btn) o.classList.add('wrong');
+      });
+      updateProgress();
+    });
+  });
+
+  // ---- Data for Ex2 / Ex3 ----
+  const EX2 = [
+    { required: ['what','happens','if','you','put','lemonade','fridge'], answers: ['cools','it cools'] },
+    { required: ['what','happens','if','you','pick','up','snow'],        answers: ['melts','it melts'] },
+    { required: ['what','happens','if','water','gets','very','cold'],   answers: ['freezes','it freezes'] }
+  ];
+  const EX3 = [
+    { required: ['what','happens','if','you','put','stone','water'] },
+    { required: ['what','happens','if','you','put','salt','water'] },
+    { required: ['what','happens','if','you','put','smartphone','sun'] }
+  ];
+
+  function updateProgress(){
+    const totalMcq = document.querySelectorAll('#section1 .mcq').length;
+    const doneMcq = document.querySelectorAll('#section1 .mcq[data-done]').length;
+    const totalText = document.querySelectorAll('[data-kind] .q-input, [data-kind] .q3-input').length;
+    let doneText = 0;
+    document.querySelectorAll('[data-kind] .q-input, [data-kind] .q3-input').forEach(i=>{ if(i.value.trim()) doneText++; });
+    const pct = ((doneMcq + doneText) / (totalMcq + totalText)) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+  document.querySelectorAll('input.freetext').forEach(i=> i.addEventListener('input', updateProgress));
+
+  function scoreAll(){
+    let s1correct = 0, s1total = 0;
+    document.querySelectorAll('#section1 .mcq').forEach(g=>{
+      s1total++;
+      if (g.dataset.done && g.querySelector('.opt.correct') && !g.querySelector('.opt.wrong')) s1correct++;
+    });
+
+    let s2correct = 0, s2total = EX2.length;
+    document.querySelectorAll('[data-kind="ex2"]').forEach(item=>{
+      const idx = parseInt(item.dataset.idx, 10);
+      const qEl = item.querySelector('.q-input');
+      const aEl = item.querySelector('.a-input');
+      const fb = item.querySelector('.fb-icon');
+      const qOk = requiredWordsMatch(qEl.value, EX2[idx].required);
+      const aOk = exactish(aEl.value, EX2[idx].answers);
+      const ok = qOk && aOk;
+      qEl.classList.toggle('correct', qOk);
+      qEl.classList.toggle('wrong', !qOk);
+      aEl.classList.toggle('correct', aOk);
+      aEl.classList.toggle('wrong', !aOk);
+      fb.style.display = 'block';
+      fb.className = 'fb-icon ' + (ok ? 'ok' : 'no');
+      fb.textContent = ok ? '✓ Correct' : '✗ Check the word order and the answer';
+      if (ok) s2correct++;
+    });
+
+    let s3correct = 0, s3total = EX3.length;
+    document.querySelectorAll('[data-kind="ex3"]').forEach(item=>{
+      const idx = parseInt(item.dataset.idx, 10);
+      const qEl = item.querySelector('.q3-input');
+      const fb = item.querySelector('.fb-icon');
+      const ok = requiredWordsMatch(qEl.value, EX3[idx].required);
+      qEl.classList.toggle('correct', ok);
+      qEl.classList.toggle('wrong', !ok);
+      fb.style.display = 'block';
+      fb.className = 'fb-icon ' + (ok ? 'ok' : 'no');
+      fb.textContent = ok ? '✓ Correct' : '✗ Try rephrasing as a question with \"What happens if...?\"';
+      if (ok) s3correct++;
+    });
+
+    const total = s1total + s2total + s3total;
+    const correct = s1correct + s2correct + s3correct;
+    const pct = Math.round((correct/total)*100);
+
+    return { pct, s1correct, s1total, s2correct, s2total, s3correct, s3total, correct, total };
+  }
+
+  function messageFor(pct){
+    if (pct >= 90) return "Excellent. You clearly understand these science verbs.";
+    if (pct >= 70) return "Good work. A few points to review.";
+    if (pct >= 50) return "Getting there. Look back at the example sentences.";
+    return "Let's go over this together next lesson.";
+  }
+
+  let lastResult = null;
+
+  document.getElementById('checkBtn').addEventListener('click', ()=>{
+    const r = scoreAll();
+    lastResult = r;
+    document.getElementById('resultsPct').textContent = r.pct + '%';
+    document.getElementById('resultsMsg').textContent = messageFor(r.pct);
+    document.getElementById('resultsBreakdown').innerHTML =
+      `Ex.1: <b>${r.s1correct}/${r.s1total}</b> &nbsp;·&nbsp; Ex.2: <b>${r.s2correct}/${r.s2total}</b> &nbsp;·&nbsp; Ex.3: <b>${r.s3correct}/${r.s3total}</b>`;
+    document.getElementById('resultsBox').classList.add('show');
+    document.getElementById('sendBtn').disabled = false;
+    updateProgress();
+    document.getElementById('resultsBox').scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  document.getElementById('sendBtn').addEventListener('click', async ()=>{
+    const name = document.getElementById('stuName').value.trim();
+    const group = document.getElementById('stuGroup').value.trim();
+    const statusEl = document.getElementById('sendStatus');
+
+    if (!name){
+      statusEl.textContent = 'Пожалуйста, введите имя ученика перед отправкой.';
+      statusEl.style.color = 'var(--wrong)';
+      document.getElementById('stuName').focus();
+      return;
+    }
+    if (!lastResult){
+      statusEl.textContent = 'Сначала нажмите «Проверить ответы».';
+      statusEl.style.color = 'var(--wrong)';
+      return;
+    }
+
+    const payload = {
+      exercise: 'Unit 9 · Grammar 2 — What happens if...?',
+      student_name: name,
+      group: group,
+      score_percent: lastResult.pct,
+      breakdown: `Ex.1: ${lastResult.s1correct}/${lastResult.s1total}; Ex.2: ${lastResult.s2correct}/${lastResult.s2total}; Ex.3: ${lastResult.s3correct}/${lastResult.s3total}`,
+      timestamp: new Date().toISOString()
+    };
+
+    statusEl.style.color = 'var(--ink-soft)';
+    statusEl.textContent = 'Отправка...';
+
+    try{
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok){
+        statusEl.textContent = 'Результат отправлен учителю ✓';
+        statusEl.style.color = 'var(--correct)';
+        document.getElementById('sendBtn').disabled = true;
+      } else {
+        statusEl.textContent = 'Не удалось отправить. Попробуйте ещё раз.';
+        statusEl.style.color = 'var(--wrong)';
+      }
+    } catch(e){
+      statusEl.textContent = 'Ошибка сети. Проверьте подключение и попробуйте снова.';
+      statusEl.style.color = 'var(--wrong)';
+    }
+  });
+</script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.angle-badge');
+  var sections = document.querySelectorAll('[data-badge-contrast]');
+  function update(){
+    var r = badge.getBoundingClientRect();
+    var probeY = r.top + r.height/2;
+    var current = null;
+    for (var i = 0; i < sections.length; i++){
+      var sr = sections[i].getBoundingClientRect();
+      if (probeY >= sr.top && probeY <= sr.bottom){ current = sections[i]; }
+    }
+    if (current){
+      var mode = current.getAttribute('data-badge-contrast');
+      badge.classList.toggle('on-light', mode === 'light');
+      badge.classList.toggle('on-dark', mode === 'dark');
+    }
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Expert — Module 8 Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="8">
+<meta name="ws:title"     content="Advanced Expert — Module 8 Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="module 8, C1">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  .test-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 26px;}
+  .test-nav .btn{width:auto;flex:0 0 auto;padding:12px 22px;margin-top:0;}
+  .btn-secondary{background:var(--purple);}
+  .btn-secondary:hover{background:var(--black);}
+  .page-indicator{font-weight:800;color:var(--purple);text-transform:uppercase;font-size:0.8em;letter-spacing:0.5px;text-align:center;}
+  .passage-box{background:#fbfaf9;border:1px solid var(--neutral-border);padding:16px 18px;margin:0 0 18px;font-weight:400;line-height:1.65;}
+  .passage-box .ptitle{display:block;font-weight:800;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px;}
+  .instr{font-weight:700;}
+  .mark-note{font-style:italic;font-size:0.85em;color:var(--black);opacity:0.75;margin:0 0 16px;}
+  .gap-label{font-weight:700;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Module 8 Test</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Part 1 — Multiple-choice cloze</h2>
+    <p class="instr"><strong>1 For questions 1–10, read the text below and decide which answer (A, B, C or D) best fits each gap.</strong></p>
+    <div class="passage-box"><span class="ptitle">SILVER SURFERS ARE US</span>
+      The idea of a small business (1) _____ offering IT training and support for the third generation came about after retirement. After careful consideration, I decided that no funds needed to be (2) _____ as our life savings would suffice. That being said, it did feel rather (3) _____ to be investing money that was intended to keep me in my old age in something with no guarantee of success. However, I have been fortunate to have IT and business-orientated advice from my children. With their help, I carried (4) _____ market research to check whether my idea was viable. They also helped me not only to (5) _____ my business plan but also to (6) _____ the business. While the business is now going from strength to strength and building up quite a reputation, I have to admit it hasn't all been (7) _____ sailing. (8) _____ business during the recession was quite an experience and I can only put my success (9) _____ the rapport I've built up with my clients. It seems strange to me that no one else had (10) _____ the idea of bringing the internet to more would-be silver surfers.
+    </div>
+
+    <div class="item" data-answer="venture" data-type="mc"><p><span class="gap-label">Gap (1)</span></p>
+      <div class="options"><label><input type="radio" name="q1" value="adventure"> A adventure</label><label><input type="radio" name="q1" value="experience"> B experience</label><label><input type="radio" name="q1" value="venture"> C venture</label><label><input type="radio" name="q1" value="scene"> D scene</label></div></div>
+    <div class="item" data-answer="raised" data-type="mc"><p><span class="gap-label">Gap (2)</span></p>
+      <div class="options"><label><input type="radio" name="q2" value="elevated"> A elevated</label><label><input type="radio" name="q2" value="raised"> B raised</label><label><input type="radio" name="q2" value="lent"> C lent</label><label><input type="radio" name="q2" value="saved"> D saved</label></div></div>
+    <div class="item" data-answer="cautious" data-type="mc"><p><span class="gap-label">Gap (3)</span></p>
+      <div class="options"><label><input type="radio" name="q3" value="intrepid"> A intrepid</label><label><input type="radio" name="q3" value="cautious"> B cautious</label><label><input type="radio" name="q3" value="reckless"> C reckless</label><label><input type="radio" name="q3" value="regardless"> D regardless</label></div></div>
+    <div class="item" data-answer="out" data-type="mc"><p><span class="gap-label">Gap (4)</span></p>
+      <div class="options"><label><input type="radio" name="q4" value="forward"> A forward</label><label><input type="radio" name="q4" value="on"> B on</label><label><input type="radio" name="q4" value="out of"> C out of</label><label><input type="radio" name="q4" value="out"> D out</label></div></div>
+    <div class="item" data-answer="develop" data-type="mc"><p><span class="gap-label">Gap (5)</span></p>
+      <div class="options"><label><input type="radio" name="q5" value="develop"> A develop</label><label><input type="radio" name="q5" value="progress"> B progress</label><label><input type="radio" name="q5" value="expand"> C expand</label><label><input type="radio" name="q5" value="grow"> D grow</label></div></div>
+    <div class="item" data-answer="launch" data-type="mc"><p><span class="gap-label">Gap (6)</span></p>
+      <div class="options"><label><input type="radio" name="q6" value="launch"> A launch</label><label><input type="radio" name="q6" value="project"> B project</label><label><input type="radio" name="q6" value="shoot"> C shoot</label><label><input type="radio" name="q6" value="drive"> D drive</label></div></div>
+    <div class="item" data-answer="plain" data-type="mc"><p><span class="gap-label">Gap (7)</span></p>
+      <div class="options"><label><input type="radio" name="q7" value="clear"> A clear</label><label><input type="radio" name="q7" value="open"> B open</label><label><input type="radio" name="q7" value="simple"> C simple</label><label><input type="radio" name="q7" value="plain"> D plain</label></div></div>
+    <div class="item" data-answer="staying in" data-type="mc"><p><span class="gap-label">Gap (8)</span></p>
+      <div class="options"><label><input type="radio" name="q8" value="keeping on"> A Keeping on</label><label><input type="radio" name="q8" value="staying in"> B Staying in</label><label><input type="radio" name="q8" value="holding over"> C Holding over</label><label><input type="radio" name="q8" value="sitting through"> D Sitting through</label></div></div>
+    <div class="item" data-answer="down to" data-type="mc"><p><span class="gap-label">Gap (9)</span></p>
+      <div class="options"><label><input type="radio" name="q9" value="up to"> A up to</label><label><input type="radio" name="q9" value="thanks to"> B thanks to</label><label><input type="radio" name="q9" value="down to"> C down to</label><label><input type="radio" name="q9" value="owing to"> D owing to</label></div></div>
+    <div class="item" data-answer="stumbled across" data-type="mc"><p><span class="gap-label">Gap (10)</span></p>
+      <div class="options"><label><input type="radio" name="q10" value="turned up"> A turned up</label><label><input type="radio" name="q10" value="passed up"> B passed up</label><label><input type="radio" name="q10" value="bumped into"> C bumped into</label><label><input type="radio" name="q10" value="stumbled across"> D stumbled across</label></div></div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Prepositions</h2>
+    <p class="instr"><strong>2 For questions 1–10, complete the text with the correct prepositions.</strong></p>
+    <div class="passage-box">
+      When there is work to be done I tend to crack (1) __________ with it. Procrastination for me is a recipe (2) __________ disaster. But the same could be said for choosing the wrong partner when you go (3) __________ business. This was why I made a very measured decision about the type of person I would start (4) __________ a business with and those I would take (5) __________ as staff. Neither I nor my current business partner have ever taken any chances when setting (6) __________ the business, particularly when attempting to break (7) __________ a new market. We much prefer to play it safe and we are also very clear on clarifying our roles and responsibilities each time we embark (8) __________ a new project; that way we do not tread (9) __________ each other's toes. Ultimately, our approach to working together has kept us (10) __________ business.
+    </div>
+    <p class="mark-note">½ mark for each correct answer.</p>
+
+    <div class="item" data-answer="on" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (1)</span> <input type="text" name="q11"></p></div>
+    <div class="item" data-answer="for" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (2)</span> <input type="text" name="q12"></p></div>
+    <div class="item" data-answer="into" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (3)</span> <input type="text" name="q13"></p></div>
+    <div class="item" data-answer="up" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (4)</span> <input type="text" name="q14"></p></div>
+    <div class="item" data-answer="on" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (5)</span> <input type="text" name="q15"></p></div>
+    <div class="item" data-answer="up" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (6)</span> <input type="text" name="q16"></p></div>
+    <div class="item" data-answer="into" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (7)</span> <input type="text" name="q17"></p></div>
+    <div class="item" data-answer="upon|on" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (8)</span> <input type="text" name="q18"></p></div>
+    <div class="item" data-answer="on" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (9)</span> <input type="text" name="q19"></p></div>
+    <div class="item" data-answer="in" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (10)</span> <input type="text" name="q20"></p></div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Key word transformation</h2>
+    <p class="instr"><strong>3 For questions 1–10, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between three and six words.</strong></p>
+
+    <div class="item" data-answer="no account will we not be" data-type="fib"><p class="blank-sentence">1 He will not forget to collect us from the airport. <span class="func-tag">ACCOUNT</span><br>On <input type="text" name="q21"> collected from the airport.</p></div>
+    <div class="item" data-answer="jake is just about the most" data-type="fib"><p class="blank-sentence">2 I don't think I've ever met such an interesting person as Jake. <span class="func-tag">JUST</span><br><input type="text" name="q22"> interesting person I've ever met.</p></div>
+    <div class="item" data-answer="the brochure was anything said|the brochure did it say anything" data-type="fib"><p class="blank-sentence">3 It didn't say anything about the extra charges in the brochure. <span class="func-tag">ANYTHING</span><br>Nowhere in <input type="text" name="q23"> about the extra charges.</p></div>
+    <div class="item" data-answer="the same as it was when|the same as when" data-type="fib"><p class="blank-sentence">4 Very little has changed since the last time I visited this village. <span class="func-tag">SAME</span><br>The village is much <input type="text" name="q24"> I last visited it.</p></div>
+    <div class="item" data-answer="circumstances is he allowed|circumstances is he to be allowed|circumstances may he be allowed" data-type="fib"><p class="blank-sentence">5 He has been banned from entering the building. <span class="func-tag">ALLOWED</span><br>Under no <input type="text" name="q25"> to enter the building.</p></div>
+    <div class="item" data-answer="more now than it used to" data-type="fib"><p class="blank-sentence">6 The cost of living is far higher now than it used to be. <span class="func-tag">THAN</span><br>Everything costs considerably <input type="text" name="q26"> .</p></div>
+    <div class="item" data-answer="since gaining her driving" data-type="fib"><p class="blank-sentence">7 She hasn't driven since she passed her driving test ten years ago. <span class="func-tag">GAINING</span><br>Not <input type="text" name="q27"> licence ten years ago has she driven.</p></div>
+    <div class="item" data-answer="'d prefer to be happy than|would prefer to be happy than" data-type="fib"><p class="blank-sentence">8 If I had the option, I'd choose happiness over wealth. <span class="func-tag">PREFER</span><br>I <input type="text" name="q28"> wealthy.</p></div>
+    <div class="item" data-answer="do you meet anyone who has" data-type="fib"><p class="blank-sentence">9 You don't often meet people who have taught themselves Chinese. <span class="func-tag">ANYONE</span><br>Rarely <input type="text" name="q29"> taught themselves Chinese.</p></div>
+    <div class="item" data-answer="later it became, the more i|later it got, the more i" data-type="fib"><p class="blank-sentence">10 As the hours passed I became increasingly worried about them. <span class="func-tag">LATER</span><br>The <input type="text" name="q30"> worried about them.</p></div>
+  </div>
+
+  <div class="test-nav">
+    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="anglePrevPage()">← Previous section</button>
+    <div class="page-indicator" id="pageIndicator">Section 1 of 3</div>
+    <button type="button" class="btn btn-secondary" id="nextBtn" onclick="angleNextPage()">Next section →</button>
+  </div>
+
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    const acceptable = answer.split('|').map(function(a){ return a.trim(); });
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = acceptable.indexOf(userAnswer) !== -1;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + acceptable.join(' / ') + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + acceptable.join(' / '));
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Advanced Expert — Module 8 Test');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mdaqrvdd', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#quizForm .section'));
+  var total = sections.length;
+  var idx = 0;
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var submitBtn = document.getElementById('submitBtn');
+  var indicator = document.getElementById('pageIndicator');
+  function show(i){
+    sections.forEach(function(s,j){ s.style.display = (j===i) ? '' : 'none'; });
+    if(prevBtn) prevBtn.style.display = (i===0) ? 'none' : '';
+    if(nextBtn) nextBtn.style.display = (i===total-1) ? 'none' : '';
+    if(submitBtn) submitBtn.style.display = (i===total-1) ? '' : 'none';
+    if(indicator) indicator.textContent = 'Section ' + (i+1) + ' of ' + total;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
+  window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  show(idx);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Expert — Module 10 Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="10">
+<meta name="ws:title"     content="Advanced Expert — Module 10 Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="module 10, C1">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  .test-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 26px;}
+  .test-nav .btn{width:auto;flex:0 0 auto;padding:12px 22px;margin-top:0;}
+  .btn-secondary{background:var(--purple);}
+  .btn-secondary:hover{background:var(--black);}
+  .page-indicator{font-weight:800;color:var(--purple);text-transform:uppercase;font-size:0.8em;letter-spacing:0.5px;text-align:center;}
+  .passage-box{background:#fbfaf9;border:1px solid var(--neutral-border);padding:16px 18px;margin:0 0 18px;font-weight:400;line-height:1.65;}
+  .passage-box .ptitle{display:block;font-weight:800;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px;}
+  .instr{font-weight:700;}
+  .mark-note{font-style:italic;font-size:0.85em;color:var(--black);opacity:0.75;margin:0 0 16px;}
+  .gap-label{font-weight:700;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Module 10 Test</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Part 1 — Word formation</h2>
+    <p class="instr"><strong>1 For questions 1–6, read the text below. Use the word given in capitals at the end of some of the lines to form a word that fits in the gap in the same line.</strong></p>
+    <div class="passage-box"><span class="ptitle">TURNING PROFESSIONAL</span>
+      The transition from amateur to professional is far from easy for an athlete. Choices must be made and sacrifices too. As an (1) __________ novice, you may find it a steep learning curve going from running for fun on a regular basis to a very (2) __________ approach to training as established by a coach. Your coach is likely to create a varied routine for each day that focuses on (3) __________ different aspects of fitness to get you into peak shape. They will also have you do a (4) __________ assessment so they can determine any dietary changes needed. When first turning professional, you might be (5) __________ employed but pretty soon you might find yourself having to choose which matters most: becoming a successful athlete or having a full-time job. Our advice would be to discuss (6) __________ with your coach and start following up leads as soon as possible.
+    </div>
+
+    <div class="item" data-answer="unenlightened" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (1)</span> <input type="text" name="q1"> <span class="func-tag">LIGHT</span></p></div>
+    <div class="item" data-answer="regimented" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (2)</span> <input type="text" name="q2"> <span class="func-tag">REGIME</span></p></div>
+    <div class="item" data-answer="uniting" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (3)</span> <input type="text" name="q3"> <span class="func-tag">UNITY</span></p></div>
+    <div class="item" data-answer="nutritional" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (4)</span> <input type="text" name="q4"> <span class="func-tag">NUTRIENT</span></p></div>
+    <div class="item" data-answer="gainfully" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (5)</span> <input type="text" name="q5"> <span class="func-tag">GAIN</span></p></div>
+    <div class="item" data-answer="sponsorship" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (6)</span> <input type="text" name="q6"> <span class="func-tag">SPONSOR</span></p></div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Phrase choice</h2>
+    <p class="instr"><strong>2 For questions 1–12, underline the correct word or set of words in italics in the following paragraph.</strong></p>
+    <div class="passage-box"><span class="ptitle">AS A CHILD</span>
+      When I was a child, I felt so restricted by all the rules and regulations imposed on me by my parents. They (1) _____ let me have the freedom I yearned for outside the house: freedom that my friends all seemed to enjoy. As a result, I (2) _____ the hours (3) _____ my thumbs in an attempt to find inventive ways to occupy myself at home. When I (4) _____ my homework, I (5) _____ myself getting quite distracted, especially (6) _____ seeing the neighbours' kids playing in the trees that grew at the end of their garden. At home I (7) _____ required to help with housework if I wanted to get any pocket money. However, (8) _____ a hole in my mum's best dress whilst daydreaming instead of ironing, I soon found myself relieved of that dreaded chore and doing the washing-up instead. I (9) _____ have been about fourteen when this happened. As you (10) _____ , (11) _____ freer, I became very creative in my ideas of how to have fun using just my imagination. But well, I shan't go on – (12) _____ in a minute with some friends of mine. Being an adult means I now have the freedom to go out whenever I choose to.
+    </div>
+
+    <div class="item" data-answer="wouldn't" data-type="dd"><p><span class="gap-label">Gap (1)</span></p>
+      <select name="q7"><option value="">-- choose --</option><option value="shan't">shan't</option><option value="wouldn't">wouldn't</option><option value="couldn't">couldn't</option></select></div>
+    <div class="item" data-answer="would while away" data-type="dd"><p><span class="gap-label">Gap (2)</span></p>
+      <select name="q8"><option value="">-- choose --</option><option value="would while away">would while away</option><option value="should've whiled away">should've whiled away</option><option value="will have whiled away">will have whiled away</option></select></div>
+    <div class="item" data-answer="twiddling" data-type="dd"><p><span class="gap-label">Gap (3)</span></p>
+      <select name="q9"><option value="">-- choose --</option><option value="to twiddle">to twiddle</option><option value="twiddling">twiddling</option><option value="for twiddling">for twiddling</option></select></div>
+    <div class="item" data-answer="was supposed to be doing" data-type="dd"><p><span class="gap-label">Gap (4)</span></p>
+      <select name="q10"><option value="">-- choose --</option><option value="had better do">had better do</option><option value="was supposed to be doing">was supposed to be doing</option><option value="was obliged to do">was obliged to do</option></select></div>
+    <div class="item" data-answer="would often find" data-type="dd"><p><span class="gap-label">Gap (5)</span></p>
+      <select name="q11"><option value="">-- choose --</option><option value="would often find">would often find</option><option value="must have found">must have found</option><option value="would have found">would have found</option></select></div>
+    <div class="item" data-answer="on" data-type="dd"><p><span class="gap-label">Gap (6)</span></p>
+      <select name="q12"><option value="">-- choose --</option><option value="on">on</option><option value="with">with</option><option value="for">for</option></select></div>
+    <div class="item" data-answer="was" data-type="dd"><p><span class="gap-label">Gap (7)</span></p>
+      <select name="q13"><option value="">-- choose --</option><option value="must have">must have</option><option value="should have">should have</option><option value="was">was</option></select></div>
+    <div class="item" data-answer="having burnt" data-type="dd"><p><span class="gap-label">Gap (8)</span></p>
+      <select name="q14"><option value="">-- choose --</option><option value="having burnt">having burnt</option><option value="while burning">while burning</option><option value="although burning">although burning</option></select></div>
+    <div class="item" data-answer="would" data-type="dd"><p><span class="gap-label">Gap (9)</span></p>
+      <select name="q15"><option value="">-- choose --</option><option value="would">would</option><option value="can't">can't</option><option value="should">should</option></select></div>
+    <div class="item" data-answer="will have realised" data-type="dd"><p><span class="gap-label">Gap (10)</span></p>
+      <select name="q16"><option value="">-- choose --</option><option value="shall realise">shall realise</option><option value="can realise">can realise</option><option value="will have realised">will have realised</option></select></div>
+    <div class="item" data-answer="wanting to be" data-type="dd"><p><span class="gap-label">Gap (11)</span></p>
+      <select name="q17"><option value="">-- choose --</option><option value="wanting to be">wanting to be</option><option value="feeling">feeling</option><option value="becoming">becoming</option></select></div>
+    <div class="item" data-answer="i'm supposed to be going out" data-type="dd"><p><span class="gap-label">Gap (12)</span></p>
+      <select name="q18"><option value="">-- choose --</option><option value="i'm supposed to be going out">I'm supposed to be going out</option><option value="i am to go out">I am to go out</option><option value="should go out">should go out</option></select></div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Key word transformation</h2>
+    <p class="instr"><strong>3 For questions 1–7, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between three and six words.</strong></p>
+
+    <div class="item" data-answer="are required by law to go|are required to go" data-type="fib"><p class="blank-sentence">1 The law stipulates that you cannot leave formal education until you are sixteen years old. <span class="func-tag">REQUIRED</span><br>You <input type="text" name="q19"> to school until you reach sixteen.</p></div>
+    <div class="item" data-answer="'d better get|had better get|'d better buy|had better buy" data-type="fib"><p class="blank-sentence">2 It would be a good idea to buy some petrol on the way there. <span class="func-tag">BETTER</span><br>We <input type="text" name="q20"> some petrol on the way there.</p></div>
+    <div class="item" data-answer="smoking is not permitted" data-type="fib"><p class="blank-sentence">3 You are not allowed to smoke anywhere on the premises. <span class="func-tag">PERMITTED</span><br><input type="text" name="q21"> on these premises.</p></div>
+    <div class="item" data-answer="are supposed to finish|are supposed to have finished" data-type="fib"><p class="blank-sentence">4 If all goes well, the project should be finished by the end of the month. <span class="func-tag">SUPPOSED</span><br>We <input type="text" name="q22"> the project by the end of the month.</p></div>
+    <div class="item" data-answer="'s advisable not to|is advisable not to|isn't advisable to|is not advisable to" data-type="fib"><p class="blank-sentence">5 If I were you, I wouldn't tell them you're planning to leave yet. <span class="func-tag">ADVISABLE</span><br>It <input type="text" name="q23"> disclose you're leaving yet.</p></div>
+    <div class="item" data-answer="'re under no obligation|are under no obligation" data-type="fib"><p class="blank-sentence">6 You really don't have to phone me when you're away on holiday. <span class="func-tag">OBLIGATION</span><br>You <input type="text" name="q24"> to call when you're on holiday.</p></div>
+    <div class="item" data-answer="to report to" data-type="fib"><p class="blank-sentence">7 All students who arrive late for school must go to the school office on arrival. <span class="func-tag">REPORT</span><br>Any students arriving late for school are <input type="text" name="q25"> the school office on arrival.</p></div>
+  </div>
+
+  <div class="test-nav">
+    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="anglePrevPage()">← Previous section</button>
+    <div class="page-indicator" id="pageIndicator">Section 1 of 3</div>
+    <button type="button" class="btn btn-secondary" id="nextBtn" onclick="angleNextPage()">Next section →</button>
+  </div>
+
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    const acceptable = answer.split('|').map(function(a){ return a.trim(); });
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = acceptable.indexOf(userAnswer) !== -1;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + acceptable.join(' / ') + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + acceptable.join(' / '));
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Advanced Expert — Module 10 Test');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mdaqrvdd', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#quizForm .section'));
+  var total = sections.length;
+  var idx = 0;
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var submitBtn = document.getElementById('submitBtn');
+  var indicator = document.getElementById('pageIndicator');
+  function show(i){
+    sections.forEach(function(s,j){ s.style.display = (j===i) ? '' : 'none'; });
+    if(prevBtn) prevBtn.style.display = (i===0) ? 'none' : '';
+    if(nextBtn) nextBtn.style.display = (i===total-1) ? 'none' : '';
+    if(submitBtn) submitBtn.style.display = (i===total-1) ? '' : 'none';
+    if(indicator) indicator.textContent = 'Section ' + (i+1) + ' of ' + total;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
+  window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  show(idx);
+})();
+</script>
+
+</body>
+</html>

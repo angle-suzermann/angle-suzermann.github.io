@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>1_Кейс ЕГЭ 2023_Путешествие_Задание 37_авторская 1</title>
+
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Задание 37 — электронное письмо, финал">
+<meta name="ws:emoji"     content="✉️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --card:#ffffff;
+    --ink:#2b2b2b;
+    --muted:#6b6b6b;
+    --accent:#3a5a78;
+    --accent-light:#e8eff4;
+    --ok:#2f7a4f;
+    --ok-bg:#e6f4ea;
+    --bad:#b23b3b;
+    --bad-bg:#fbe9e9;
+    --border:#dcd9d2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:Georgia, 'Times New Roman', serif;
+    background:var(--bg);
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+  h1{
+    font-size:1.3rem;
+    margin:0 0 16px;
+    color:var(--accent);
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 24px;
+    margin-bottom:22px;
+  }
+  .card h2{
+    font-size:1.05rem;
+    margin:0 0 6px;
+    color:var(--accent);
+  }
+  .task-desc{
+    font-size:0.98rem;
+    color:var(--ink);
+    margin-bottom:6px;
+    line-height:1.55;
+  }
+  .task-desc p{margin:0 0 4px;}
+  .letter{
+    background:var(--accent-light);
+    border-left:3px solid var(--accent);
+    padding:12px 16px;
+    font-style:italic;
+    font-size:0.92rem;
+    margin-bottom:0;
+    line-height:1.5;
+  }
+  textarea{
+    width:100%;
+    min-height:220px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:12px;
+    font-family:inherit;
+    font-size:1rem;
+    line-height:1.6;
+    resize:vertical;
+    background:#fffefb;
+  }
+  textarea.small{min-height:80px;}
+  .wordcount{
+    text-align:right;
+    font-size:0.85rem;
+    color:var(--muted);
+    margin-top:6px;
+  }
+  .wordcount.warn{color:var(--bad);}
+  .wordcount.ok{color:var(--ok);}
+  .q-group{margin-bottom:18px;}
+  .q-group h3{
+    font-size:0.95rem;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .q-line{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:8px 10px;
+    border-radius:6px;
+    margin-bottom:6px;
+    border:1px solid transparent;
+  }
+  .q-line .num{color:var(--muted);min-width:18px;}
+  .q-line .text{flex:1;font-size:0.95rem;}
+  .btns{display:flex;gap:8px;}
+  .btns button{
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:5px;
+    padding:4px 10px;
+    font-size:0.8rem;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .btns button.correct-choice.active{
+    background:var(--ok-bg);
+    border-color:var(--ok);
+    color:var(--ok);
+  }
+  .btns button.incorrect-choice.active{
+    background:var(--bad-bg);
+    border-color:var(--bad);
+    color:var(--bad);
+  }
+  .q-line.reveal-correct{background:var(--ok-bg);border-color:var(--ok);}
+  .q-line.reveal-incorrect{background:var(--bad-bg);border-color:var(--bad);}
+  .actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .main-btn{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    font-family:inherit;
+    font-size:0.95rem;
+    cursor:pointer;
+  }
+  .main-btn.secondary{
+    background:#fff;
+    color:var(--accent);
+    border:1px solid var(--accent);
+  }
+  .result-box{
+    margin-top:12px;
+    font-size:0.9rem;
+    padding:10px 14px;
+    border-radius:6px;
+    display:none;
+  }
+  .result-box.show{display:block;}
+  .result-box.good{background:var(--ok-bg);color:var(--ok);}
+  .result-box.bad{background:var(--bad-bg);color:var(--bad);}
+  .save-bar{
+    position:sticky;
+    bottom:0;
+    background:var(--bg);
+    padding:14px 0 4px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    border-top:1px solid var(--border);
+  }
+  .toast{
+    position:fixed;
+    bottom:70px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--accent);
+    color:#fff;
+    padding:8px 18px;
+    border-radius:20px;
+    font-size:0.85rem;
+    opacity:0;
+    transition:opacity .3s;
+    pointer-events:none;
+  }
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>1_Кейс ЕГЭ 2023_Путешествие_Задание 37_авторская 1</h1>
+
+  <!-- Original email from Mary -->
+  <div class="card">
+    <div class="letter">
+      From: Mary@mail.uk<br>
+      To: Russian_friend@ege.ru<br>
+      Subject: Sightseeing tour<br><br>
+      … During my spring holidays my class and I went on an exciting sightseeing tour to an ancient city not far from the place where we live.... Do you ever go on trips with your class? What do you usually take with you when you go on an excursion? What famous place would you like to visit and why?<br><br>
+      Next weekend we are going to our city museum with my friend…
+    </div>
+  </div>
+
+  <!-- Main task -->
+  <div class="card">
+    <div class="task-desc">
+      <p>You have received an email message from your English-speaking pen-friend Mary.</p>
+      <p>Write an email to Mary</p>
+      <p>In your message</p>
+      <p>-answer her questions</p>
+      <p>-ask 3 questions about her city</p>
+      <p>Write 100 — 140 words.</p>
+      <p>Remember the rules of email writing.</p>
+    </div>
+    <textarea id="mainEmail" placeholder=""></textarea>
+    <div class="wordcount" id="mainCount">0 words</div>
+  </div>
+
+  <!-- Extension activity 1 -->
+  <div class="card">
+    <h2>Extension activity 1:</h2>
+    <div class="task-desc">
+      <p>- ask 3 questions about the museum</p>
+      <p>- ask 3 questions about her friend</p>
+    </div>
+
+    <div class="q-group">
+      <textarea class="small" id="museumQ" placeholder=""></textarea>
+    </div>
+
+    <div class="q-group">
+      <textarea class="small" id="friendQ" placeholder=""></textarea>
+    </div>
+  </div>
+
+  <!-- Extension activity 2 -->
+  <div class="card">
+    <h2>Extension activity 2</h2>
+    <div class="task-desc">
+      <p>Отметьте вопросы, которые соответствуют заданию (т.е. правильные) и которые не соответствуют (т.е. неправильные)</p>
+    </div>
+
+    <div class="q-group" data-group="city">
+      <h3>- ask 3 questions about her city</h3>
+      <div class="q-line" data-correct="false"><span class="num">1)</span><span class="text">How long have you lived in this city?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">2)</span><span class="text">When was the city founded?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">3)</span><span class="text">Is your city old?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">4)</span><span class="text">What is the population of your city?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="false"><span class="num">5)</span><span class="text">Was your friend born in this city?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+    </div>
+
+    <div class="q-group" data-group="museum">
+      <h3>- ask 3 questions about the museum</h3>
+      <div class="q-line" data-correct="true"><span class="num">1)</span><span class="text">Where is this museum located?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="false"><span class="num">2)</span><span class="text">Do you often go to this museum?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">3)</span><span class="text">What is the museum devoted to?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">4)</span><span class="text">What are the working hours of the museum?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="false"><span class="num">5)</span><span class="text">Who likes to go to this museum?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+    </div>
+
+    <div class="q-group" data-group="friend">
+      <h3>- ask 3 questions about her friend</h3>
+      <div class="q-line" data-correct="true"><span class="num">1)</span><span class="text">What is your friend's name?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">2)</span><span class="text">Is your friend a reliable person?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="true"><span class="num">3)</span><span class="text">What is your friend's hobby?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="false"><span class="num">4)</span><span class="text">Do you enjoy spending time with your friend?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+      <div class="q-line" data-correct="false"><span class="num">5)</span><span class="text">Do your parents like your friend?</span><span class="btns"><button class="correct-choice">correct</button><button class="incorrect-choice">incorrect</button></span></div>
+    </div>
+
+    <div class="actions">
+      <button class="main-btn" id="checkBtn">Check</button>
+      <button class="main-btn secondary" id="resetChoicesBtn">Reset marks</button>
+    </div>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="save-bar">
+    <button class="main-btn" id="saveBtn">Save answers</button>
+    <button class="main-btn secondary" id="clearAllBtn">Clear all</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'ege_task37_travel_v2';
+
+  const mainEmail = document.getElementById('mainEmail');
+  const mainCount = document.getElementById('mainCount');
+  const museumQ = document.getElementById('museumQ');
+  const friendQ = document.getElementById('friendQ');
+
+  function countWords(str){
+    const trimmed = str.trim();
+    if(!trimmed) return 0;
+    return trimmed.split(/\s+/).length;
+  }
+
+  function updateCount(){
+    const n = countWords(mainEmail.value);
+    mainCount.textContent = n + ' words';
+    mainCount.classList.remove('ok','warn');
+    if(n >= 100 && n <= 140){
+      mainCount.classList.add('ok');
+      mainCount.textContent += ' — within the required range';
+    } else if(n > 0){
+      mainCount.classList.add('warn');
+      mainCount.textContent += (n < 100 ? ' — too short (100–140 required)' : ' — too long (100–140 required)');
+    }
+  }
+  mainEmail.addEventListener('input', updateCount);
+
+  document.querySelectorAll('.q-line').forEach(line => {
+    const correctBtn = line.querySelector('.correct-choice');
+    const incorrectBtn = line.querySelector('.incorrect-choice');
+    correctBtn.addEventListener('click', () => {
+      correctBtn.classList.add('active');
+      incorrectBtn.classList.remove('active');
+      line.dataset.userChoice = 'true';
+    });
+    incorrectBtn.addEventListener('click', () => {
+      incorrectBtn.classList.add('active');
+      correctBtn.classList.remove('active');
+      line.dataset.userChoice = 'false';
+    });
+  });
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    let total = 0, correctCount = 0, answered = 0;
+    document.querySelectorAll('.q-line').forEach(line => {
+      total++;
+      line.classList.remove('reveal-correct','reveal-incorrect');
+      const isCorrect = line.dataset.correct === 'true';
+      const userChoice = line.dataset.userChoice;
+      if(userChoice !== undefined) answered++;
+      if(userChoice === line.dataset.correct){
+        correctCount++;
+      }
+      line.classList.add(isCorrect ? 'reveal-correct' : 'reveal-incorrect');
+    });
+    const box = document.getElementById('resultBox');
+    box.classList.add('show');
+    if(answered < total){
+      box.classList.remove('good');
+      box.classList.add('bad');
+      box.textContent = `You have marked ${answered} out of ${total} items. Mark every question, then check again. Colours show which questions fit the task (green) and which don't (red).`;
+    } else {
+      box.classList.remove('bad');
+      box.classList.add('good');
+      box.textContent = `Matches with the answer key: ${correctCount} out of ${total}. Green highlights questions that match the task; red highlights those that don't.`;
+    }
+  });
+
+  document.getElementById('resetChoicesBtn').addEventListener('click', () => {
+    document.querySelectorAll('.q-line').forEach(line => {
+      delete line.dataset.userChoice;
+      line.classList.remove('reveal-correct','reveal-incorrect');
+      line.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    });
+    document.getElementById('resultBox').classList.remove('show','good','bad');
+  });
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  function collectState(){
+    const choices = {};
+    document.querySelectorAll('.q-line').forEach((line, i) => {
+      choices[i] = line.dataset.userChoice || null;
+    });
+    return {
+      mainEmail: mainEmail.value,
+      museumQ: museumQ.value,
+      friendQ: friendQ.value,
+      choices
+    };
+  }
+
+  function saveState(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+      showToast('Saved');
+    }catch(e){
+      showToast('Could not save');
+    }
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      mainEmail.value = data.mainEmail || '';
+      museumQ.value = data.museumQ || '';
+      friendQ.value = data.friendQ || '';
+      const lines = document.querySelectorAll('.q-line');
+      lines.forEach((line, i) => {
+        const choice = data.choices ? data.choices[i] : null;
+        if(choice === 'true' || choice === 'false'){
+          line.dataset.userChoice = choice;
+          const btn = choice === 'true' ? line.querySelector('.correct-choice') : line.querySelector('.incorrect-choice');
+          btn.classList.add('active');
+        }
+      });
+      updateCount();
+    }catch(e){}
+  }
+
+  document.getElementById('saveBtn').addEventListener('click', saveState);
+  document.getElementById('clearAllBtn').addEventListener('click', () => {
+    if(!confirm('Clear all answers?')) return;
+    mainEmail.value = '';
+    museumQ.value = '';
+    friendQ.value = '';
+    document.querySelectorAll('.q-line').forEach(line => {
+      delete line.dataset.userChoice;
+      line.classList.remove('reveal-correct','reveal-incorrect');
+      line.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    });
+    document.getElementById('resultBox').classList.remove('show','good','bad');
+    localStorage.removeItem(STORAGE_KEY);
+    updateCount();
+    showToast('Cleared');
+  });
+
+  loadState();
+  updateCount();
+</script>
+</body>
+</html>

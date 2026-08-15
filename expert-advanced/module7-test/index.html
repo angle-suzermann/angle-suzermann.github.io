@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Expert — Module 7 Test</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="7">
+<meta name="ws:title"     content="Advanced Expert — Module 7 Test">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="module 7, C1">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  .test-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 26px;}
+  .test-nav .btn{width:auto;flex:0 0 auto;padding:12px 22px;margin-top:0;}
+  .btn-secondary{background:var(--purple);}
+  .btn-secondary:hover{background:var(--black);}
+  .page-indicator{font-weight:800;color:var(--purple);text-transform:uppercase;font-size:0.8em;letter-spacing:0.5px;text-align:center;}
+  .passage-box{background:#fbfaf9;border:1px solid var(--neutral-border);padding:16px 18px;margin:0 0 18px;font-weight:400;line-height:1.65;}
+  .passage-box .ptitle{display:block;font-weight:800;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px;}
+  .instr{font-weight:700;}
+  .mark-note{font-style:italic;font-size:0.85em;color:var(--black);opacity:0.75;margin:0 0 16px;}
+  .gap-label{font-weight:700;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Module 7 Test</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="section">
+    <h2>Part 1 — Multiple-choice cloze</h2>
+    <p class="instr"><strong>1 For questions 1–11, read the text below and decide which answer (A, B, C or D) best fits each gap.</strong></p>
+    <div class="passage-box"><span class="ptitle">AN OLD CHARACTER</span>
+      Joe had always been a (1) _____ type of person and had never been one of those people who are prone to sudden (2) _____ . He was also a very kind man and not once in all the years I'd known him had he ever had a (3) _____ word to say about anyone. Some said he had a (4) _____ air about him and that he seemed most (5) _____ when tinkering with his train set but I'd always found him to be great company and loved tagging (6) _____ with him whenever I had the chance to. He'd been born in the same house where he now lived and after years of accumulation it had become a very (7) _____ cottage. He enjoyed living an easy day-to-day life without any (8) _____ and often frequented the local auctions, which were a regular (9) _____ . He would often find himself having outbid someone for some item on the (10) _____ the moment which, although not needed, would (11) _____ inside him a sense of satisfaction.
+    </div>
+
+    <div class="item" data-answer="laid-back" data-type="mc">
+      <p><span class="gap-label">Gap (1)</span></p>
+      <div class="options"><label><input type="radio" name="q1" value="low-pressure"> A low-pressure</label><label><input type="radio" name="q1" value="laid-back"> B laid-back</label><label><input type="radio" name="q1" value="offhand"> C offhand</label><label><input type="radio" name="q1" value="fed up"> D fed up</label></div>
+    </div>
+    <div class="item" data-answer="outbursts" data-type="mc">
+      <p><span class="gap-label">Gap (2)</span></p>
+      <div class="options"><label><input type="radio" name="q2" value="outbursts"> A outbursts</label><label><input type="radio" name="q2" value="eruptions"> B eruptions</label><label><input type="radio" name="q2" value="outbreaks"> C outbreaks</label><label><input type="radio" name="q2" value="blow-ups"> D blow-ups</label></div>
+    </div>
+    <div class="item" data-answer="harsh" data-type="mc">
+      <p><span class="gap-label">Gap (3)</span></p>
+      <div class="options"><label><input type="radio" name="q3" value="bleak"> A bleak</label><label><input type="radio" name="q3" value="harsh"> B harsh</label><label><input type="radio" name="q3" value="clashing"> C clashing</label><label><input type="radio" name="q3" value="severe"> D severe</label></div>
+    </div>
+    <div class="item" data-answer="childish" data-type="mc">
+      <p><span class="gap-label">Gap (4)</span></p>
+      <div class="options"><label><input type="radio" name="q4" value="petty"> A petty</label><label><input type="radio" name="q4" value="young"> B young</label><label><input type="radio" name="q4" value="babyish"> C babyish</label><label><input type="radio" name="q4" value="childish"> D childish</label></div>
+    </div>
+    <div class="item" data-answer="at home" data-type="mc">
+      <p><span class="gap-label">Gap (5)</span></p>
+      <div class="options"><label><input type="radio" name="q5" value="at rest"> A at rest</label><label><input type="radio" name="q5" value="homely"> B homely</label><label><input type="radio" name="q5" value="at home"> C at home</label><label><input type="radio" name="q5" value="in comfort"> D in comfort</label></div>
+    </div>
+    <div class="item" data-answer="along" data-type="mc">
+      <p><span class="gap-label">Gap (6)</span></p>
+      <div class="options"><label><input type="radio" name="q6" value="along"> A along</label><label><input type="radio" name="q6" value="about"> B about</label><label><input type="radio" name="q6" value="by"> C by</label><label><input type="radio" name="q6" value="on"> D on</label></div>
+    </div>
+    <div class="item" data-answer="cramped" data-type="mc">
+      <p><span class="gap-label">Gap (7)</span></p>
+      <div class="options"><label><input type="radio" name="q7" value="crowded"> A crowded</label><label><input type="radio" name="q7" value="restricted"> B restricted</label><label><input type="radio" name="q7" value="confined"> C confined</label><label><input type="radio" name="q7" value="cramped"> D cramped</label></div>
+    </div>
+    <div class="item" data-answer="hassle" data-type="mc">
+      <p><span class="gap-label">Gap (8)</span></p>
+      <div class="options"><label><input type="radio" name="q8" value="contests"> A contests</label><label><input type="radio" name="q8" value="hassle"> B hassle</label><label><input type="radio" name="q8" value="struggle"> C struggle</label><label><input type="radio" name="q8" value="rumble"> D rumble</label></div>
+    </div>
+    <div class="item" data-answer="occurrence" data-type="mc">
+      <p><span class="gap-label">Gap (9)</span></p>
+      <div class="options"><label><input type="radio" name="q9" value="appearance"> A appearance</label><label><input type="radio" name="q9" value="circumstance"> B circumstance</label><label><input type="radio" name="q9" value="occurrence"> C occurrence</label><label><input type="radio" name="q9" value="incidence"> D incidence</label></div>
+    </div>
+    <div class="item" data-answer="spur of" data-type="mc">
+      <p><span class="gap-label">Gap (10)</span></p>
+      <div class="options"><label><input type="radio" name="q10" value="turn of"> A turn of</label><label><input type="radio" name="q10" value="turn at"> B turn at</label><label><input type="radio" name="q10" value="spur of"> C spur of</label><label><input type="radio" name="q10" value="spur at"> D spur at</label></div>
+    </div>
+    <div class="item" data-answer="stir up" data-type="mc">
+      <p><span class="gap-label">Gap (11)</span></p>
+      <div class="options"><label><input type="radio" name="q11" value="switch up"> A switch up</label><label><input type="radio" name="q11" value="trigger on"> B trigger on</label><label><input type="radio" name="q11" value="start on"> C start on</label><label><input type="radio" name="q11" value="stir up"> D stir up</label></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Phrase choice</h2>
+    <p class="instr"><strong>2 For questions 1–7, read the text below and underline the correct option.</strong></p>
+    <div class="passage-box">
+      (1) _____ I've always really enjoyed about moving house is the excitement of exploring a new area and making new friends. (2) _____ I retired that I felt my desire to keep uprooting myself had waned. (3) _____ wanted to do was to find a place where I felt I really fitted in and could be myself. Some people have been astonished at the number of times I've relocated, moving from country to country even, but I have to say (4) _____ who gave me these itchy feet. I guess (5) _____ I think back that I see how his working abroad shaped my own comfort zones and travelling experiences. In all the years I lived abroad, (6) _____ about my home country was my loved ones and I guess comedy. Ultimately, (7) _____ I now find myself calling home is one where I am close to nature and my family.
+    </div>
+
+    <div class="item" data-answer="the thing that" data-type="dd">
+      <p><span class="gap-label">Gap (1)</span></p>
+      <select name="q12"><option value="">-- choose --</option><option value="the reason that">The reason that</option><option value="the reason why">The reason why</option><option value="the thing that">The thing that</option></select>
+    </div>
+    <div class="item" data-answer="it wasn't until" data-type="dd">
+      <p><span class="gap-label">Gap (2)</span></p>
+      <select name="q13"><option value="">-- choose --</option><option value="it wasn't until">It wasn't until</option><option value="it's only by">It's only by</option><option value="it wasn't since">It wasn't since</option></select>
+    </div>
+    <div class="item" data-answer="all i've ever" data-type="dd">
+      <p><span class="gap-label">Gap (3)</span></p>
+      <select name="q14"><option value="">-- choose --</option><option value="the reason why i">The reason why I</option><option value="all i've ever">All I've ever</option><option value="what i only">What I only</option></select>
+    </div>
+    <div class="item" data-answer="it was my father" data-type="dd">
+      <p><span class="gap-label">Gap (4)</span></p>
+      <select name="q15"><option value="">-- choose --</option><option value="it was my father">it was my father</option><option value="it was this travelling">it was this travelling</option><option value="it was the reason">it was the reason</option></select>
+    </div>
+    <div class="item" data-answer="it is only when" data-type="dd">
+      <p><span class="gap-label">Gap (5)</span></p>
+      <select name="q16"><option value="">-- choose --</option><option value="it is only when">it is only when</option><option value="it is only where">it is only where</option><option value="it is the reason">it is the reason</option></select>
+    </div>
+    <div class="item" data-answer="what i missed most" data-type="dd">
+      <p><span class="gap-label">Gap (6)</span></p>
+      <select name="q17"><option value="">-- choose --</option><option value="the thing i was missing">the thing I was missing</option><option value="what i missed most">what I missed most</option><option value="all i'd ever missed">all I'd ever missed</option></select>
+    </div>
+    <div class="item" data-answer="the place that" data-type="dd">
+      <p><span class="gap-label">Gap (7)</span></p>
+      <select name="q18"><option value="">-- choose --</option><option value="the one thing that">the one thing that</option><option value="it is the place that">it is the place that</option><option value="the place that">the place that</option></select>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Key word transformation</h2>
+    <p class="instr"><strong>3 For questions 1–7, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between three and six words.</strong></p>
+
+    <div class="item" data-answer="you could get the day" data-type="fib">
+      <p class="blank-sentence">1 It's a shame you aren't able to take Monday off. <span class="func-tag">GET</span><br>If only <input type="text" name="q19"> off on Monday.</p>
+    </div>
+    <div class="item" data-answer="i'd sooner we spent|i would sooner we spent" data-type="fib">
+      <p class="blank-sentence">2 I'm not sure I want us to spend a week in New York. I think Austin sounds better. <span class="func-tag">SOONER</span><br><input type="text" name="q20"> a week in Austin than in New York.</p>
+    </div>
+    <div class="item" data-answer="wish you had told me|wish you'd told me" data-type="fib">
+      <p class="blank-sentence">3 Why didn't you tell me my boss would be at the party? <span class="func-tag">WISH</span><br>I <input type="text" name="q21"> my boss was going to be at the party.</p>
+    </div>
+    <div class="item" data-answer="it had been possible for me" data-type="fib">
+      <p class="blank-sentence">4 I'd love to have been able to go to the concert with you. <span class="func-tag">POSSIBLE</span><br>If only <input type="text" name="q22"> to make it to the concert.</p>
+    </div>
+    <div class="item" data-answer="wish i hadn't taken|regret having taken" data-type="fib">
+      <p class="blank-sentence">5 It was a mistake to accept that job offer – I'm really not enjoying the job. <span class="func-tag">TAKEN</span><br>I <input type="text" name="q23"> that job. It's terrible!</p>
+    </div>
+    <div class="item" data-answer="had invited jules to come|had asked jules to come" data-type="fib">
+      <p class="blank-sentence">6 'Do you think we should have invited Jules to the party?' <span class="func-tag">COME</span><br>What if we <input type="text" name="q24"> with us to the party?</p>
+    </div>
+    <div class="item" data-answer="talk as though they|talk as if they" data-type="fib">
+      <p class="blank-sentence">7 They did ignore you on purpose but you pretended they didn't. <span class="func-tag">TALK</span><br>You <input type="text" name="q25"> never purposely ignored you.</p>
+    </div>
+  </div>
+
+  <div class="test-nav">
+    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="anglePrevPage()">← Previous section</button>
+    <div class="page-indicator" id="pageIndicator">Section 1 of 3</div>
+    <button type="button" class="btn btn-secondary" id="nextBtn" onclick="angleNextPage()">Next section →</button>
+  </div>
+
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    const acceptable = answer.split('|').map(function(a){ return a.trim(); });
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = acceptable.indexOf(userAnswer) !== -1;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + acceptable.join(' / ') + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + acceptable.join(' / '));
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Advanced Expert — Module 7 Test');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mdaqrvdd', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#quizForm .section'));
+  var total = sections.length;
+  var idx = 0;
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var submitBtn = document.getElementById('submitBtn');
+  var indicator = document.getElementById('pageIndicator');
+  function show(i){
+    sections.forEach(function(s,j){ s.style.display = (j===i) ? '' : 'none'; });
+    if(prevBtn) prevBtn.style.display = (i===0) ? 'none' : '';
+    if(nextBtn) nextBtn.style.display = (i===total-1) ? 'none' : '';
+    if(submitBtn) submitBtn.style.display = (i===total-1) ? '' : 'none';
+    if(indicator) indicator.textContent = 'Section ' + (i+1) + ' of ' + total;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
+  window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  show(idx);
+})();
+</script>
+
+</body>
+</html>

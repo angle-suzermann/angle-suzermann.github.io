@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modals &amp; Phrases of Ability — Revision Workshop</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Empower B1+">
+<meta name="ws:course-id" content="empower-b1">
+<meta name="ws:unit"      content="4">
+<meta name="ws:title"     content="Modals &amp; Phrases of Ability — Revision Workshop">
+<meta name="ws:emoji"     content="💪">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="modals, ability">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --bg:#f7f6f4;
+    --bg-alt:#F3EEF8;
+    --ink:#2D2926;
+    --ink-soft:#6b6560;
+    --accent:#5E4877;
+    --accent-dark:#453460;
+    --gold:#FED500;
+    --gold-soft:#FFF3B0;
+    --correct:#3d7a3f;
+    --incorrect:#b23a3a;
+    --card:#FFFFFF;
+    --border:#e4e0e8;
+    --shadow: 0 4px 14px rgba(45,41,38,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    color:var(--accent-dark);
+    margin:0 0 .5em 0;
+    font-weight:800;
+  }
+  .app{max-width:900px;margin:0 auto;padding:0 20px 80px;}
+
+  /* HEADER */
+  header.top{
+    position:relative;
+    background:var(--accent);
+    color:#fff;
+    padding:26px 24px 42px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:150px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+  }
+  header.top .inner{
+    max-width:900px;margin:0 auto;width:100%;
+    display:flex;align-items:center;gap:22px;
+  }
+  header.top .logo-block{flex:0 0 auto;width:84px;display:flex;flex-direction:column;align-items:center;}
+  header.top .logo-block img{display:block;width:100%;height:auto;}
+  header.top .studio-credit{font-size:.6rem;color:#fff;opacity:.85;margin:6px 0 0;text-align:center;white-space:nowrap;}
+  header.top .title-block{flex:1 1 auto;min-width:0;}
+  header.top .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  header.top h1{color:#fff;font-size:1.65rem;margin-bottom:0;text-transform:uppercase;letter-spacing:.02em;font-weight:800;}
+
+  .subheader-band{background:var(--accent-dark);padding-bottom:6px;}
+  .subhead-note{
+    max-width:900px;margin:0 auto;padding:14px 20px 0;color:#EDE7F2;font-size:.88rem;
+  }
+
+  .progress-wrap{
+    max-width:900px;margin:18px auto 0;padding:0 20px;
+  }
+  .progress-track{
+    height:8px;background:rgba(255,255,255,.28);border-radius:6px;overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;background:var(--gold);width:14%;transition:width .35s ease;
+  }
+
+  nav.pillbar{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    max-width:900px;margin:16px auto 0;padding:0 20px 18px;
+  }
+  .nav-pill{
+    border:1px solid rgba(255,255,255,.4);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    padding:7px 13px;
+    border-radius:999px;
+    font-size:.8rem;
+    cursor:pointer;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:500;
+    transition:background .2s;
+    white-space:nowrap;
+  }
+  .nav-pill:hover{background:rgba(255,255,255,.18);}
+  .nav-pill.active{background:var(--gold);color:var(--accent-dark);border-color:var(--gold);font-weight:700;}
+
+  main{padding-top:28px;}
+  .page{display:none;}
+  .page.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:6px solid var(--accent);
+    border-radius:2px;
+    padding:22px 24px;
+    margin-bottom:20px;
+    box-shadow:var(--shadow);
+  }
+  .card h2{font-size:1.3rem;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:8px;}
+  .card h2::before{
+    content:"";display:inline-block;width:0;height:0;
+    border-left:8px solid transparent;border-right:8px solid transparent;
+    border-bottom:14px solid var(--gold);
+  }
+  .card h3{font-size:1.05rem;color:var(--accent);}
+  .lead{color:var(--ink-soft);font-size:.95rem;}
+  .tag{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--gold);
+    font-size:.72rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding:3px 12px;
+    border-radius:2px;
+    margin-bottom:10px;
+  }
+
+  /* WARM-UP MCQ */
+  .mcq-item{margin-bottom:16px;}
+  .mcq-item p{font-weight:600;margin-bottom:8px;}
+  .mcq-opts{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt-btn{
+    border:2px solid var(--border);
+    background:var(--bg-alt);
+    color:var(--ink);
+    padding:9px 16px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:.9rem;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-weight:500;
+    transition:.15s;
+  }
+  .opt-btn:hover{border-color:var(--accent);}
+  .opt-btn.correct{background:#E4F3EA;border-color:var(--correct);color:var(--correct);font-weight:700;}
+  .opt-btn.wrong{background:#FBEAE8;border-color:var(--incorrect);color:var(--incorrect);}
+  .opt-btn.disabled-opt{opacity:.5;cursor:default;}
+  .inline-feedback{font-size:.85rem;margin-top:6px;font-style:italic;color:var(--ink-soft);}
+
+  /* CONCEPT MAP */
+  .tile{
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:12px;
+    overflow:hidden;
+    background:var(--bg-alt);
+  }
+  .tile-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .tile-head:hover{background:#F3EEF8;}
+  .tile-head .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:.8rem;font-weight:700;
+    margin-right:10px;flex:none;
+  }
+  .tile-head .ttitle{display:flex;align-items:center;font-weight:600;color:var(--accent-dark);font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;}
+  .tile-head .chev{transition:transform .25s;color:var(--accent);font-size:1.1rem;}
+  .tile.open .chev{transform:rotate(180deg);}
+  .tile-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    padding:0 18px;
+    background:#fff;
+  }
+  .tile.open .tile-body{max-height:400px;padding:6px 18px 16px;}
+  .tile-body .forms{
+    display:inline-block;background:var(--gold-soft);color:var(--accent-dark);
+    padding:3px 10px;border-radius:7px;font-weight:700;font-size:.85rem;margin-bottom:8px;
+  }
+  .tile-body .ex{font-style:italic;color:var(--ink-soft);margin:6px 0;}
+  .tile-body .note{font-size:.88rem;}
+
+  /* FILL / ERROR ITEMS */
+  .item{
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    background:var(--bg-alt);
+  }
+  .item p{margin:0 0 8px 0;}
+  .item .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:50%;background:var(--accent);
+    color:#fff;font-size:.75rem;font-weight:700;margin-right:8px;
+  }
+  input.gap{
+    border:2px solid var(--border);
+    border-radius:7px;
+    padding:6px 10px;
+    font-size:.9rem;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    width:210px;
+    background:#fff;
+  }
+  input.gap:focus{outline:none;border-color:var(--accent);}
+  input.gap.correct{border-color:var(--correct);background:#EEF9F1;}
+  input.gap.wrong{border-color:var(--incorrect);background:#FCEEED;}
+  .err{color:var(--incorrect);font-weight:700;text-decoration:underline wavy;}
+  .fix-label{font-size:.82rem;color:var(--ink-soft);display:block;margin-bottom:6px;}
+  .item-feedback{font-size:.82rem;margin-top:4px;min-height:1em;font-weight:600;}
+  .item-feedback.correct{color:var(--correct);}
+  .item-feedback.wrong{color:var(--incorrect);}
+
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center;}
+  .btn{
+    background:var(--ink);
+    color:var(--gold);
+    border:none;
+    padding:11px 20px;
+    border-radius:2px;
+    font-weight:800;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    cursor:pointer;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    transition:.15s;
+  }
+  .btn:hover{background:var(--accent);color:#fff;}
+  .btn.secondary{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:9px 18px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:.82rem;border-radius:2px;}
+  .btn.secondary:hover{background:var(--accent);color:#fff;}
+  .score-pill{
+    background:var(--gold-soft);color:var(--accent-dark);font-weight:700;
+    padding:8px 14px;border-radius:999px;font-size:.85rem;
+  }
+
+  /* CATEGORIZE */
+  .chipbank{
+    display:flex;flex-wrap:wrap;gap:10px;
+    padding:14px;background:var(--bg-alt);border-radius:10px;margin-bottom:16px;min-height:50px;
+  }
+  .chip{
+    background:#fff;border:2px solid var(--border);padding:8px 14px;border-radius:8px;
+    font-size:.85rem;cursor:pointer;font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;font-weight:500;
+    transition:.15s;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .chip.selected{border-color:var(--gold);background:var(--gold-soft);}
+  .chip.correct{border-color:var(--correct);background:#EEF9F1;}
+  .chip.wrong{border-color:var(--incorrect);background:#FCEEED;}
+  .buckets{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:600px){.buckets{grid-template-columns:1fr;}}
+  .bucket{
+    border:2px dashed var(--border);border-radius:12px;padding:12px;min-height:110px;background:#fff;
+  }
+  .bucket h4{margin:0 0 8px 0;font-size:.85rem;color:var(--accent-dark);font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+  .bucket .chipzone{display:flex;flex-wrap:wrap;gap:8px;min-height:40px;}
+
+  /* THREE-WAY MC */
+  .abchoice{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  .abbtn{
+    border:2px solid var(--border);background:#fff;padding:8px 14px;border-radius:8px;
+    cursor:pointer;font-weight:600;font-size:.85rem;font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  }
+  .abbtn:hover{border-color:var(--accent);}
+  .abbtn.correct{background:#E4F3EA;border-color:var(--correct);color:var(--correct);}
+  .abbtn.wrong{background:#FBEAE8;border-color:var(--incorrect);color:var(--incorrect);}
+
+  /* SPEAKING */
+  .deck-wrap{text-align:center;}
+  .flip-card{
+    width:100%;max-width:500px;height:190px;margin:0 auto 16px;
+    perspective:1200px;cursor:pointer;
+  }
+  .flip-inner{
+    position:relative;width:100%;height:100%;
+    transition:transform .5s;transform-style:preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{
+    position:absolute;inset:0;backface-visibility:hidden;
+    border-radius:16px;display:flex;align-items:center;justify-content:center;
+    padding:24px;text-align:center;font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;font-size:1.15rem;
+    box-shadow:var(--shadow);
+  }
+  .flip-front{background:var(--accent);color:#fff;}
+  .flip-back{background:var(--gold-soft);color:var(--accent-dark);transform:rotateY(180deg);font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;font-size:.92rem;font-weight:500;}
+  .deck-controls{display:flex;justify-content:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .deck-counter{color:var(--ink-soft);font-size:.85rem;margin-bottom:14px;}
+  .cardtypepill{
+    display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
+    padding:3px 9px;border-radius:999px;font-weight:700;margin-bottom:8px;
+  }
+
+  .checklist{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+  .checklist label{
+    display:flex;align-items:center;gap:10px;background:var(--bg-alt);padding:10px 14px;border-radius:9px;
+    font-size:.9rem;cursor:pointer;
+  }
+  .checklist input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);}
+  .checklist label.ticked{background:#E4F3EA;}
+
+  .timerbox{
+    display:flex;align-items:center;gap:14px;justify-content:center;margin-top:16px;flex-wrap:wrap;
+  }
+  .timer-display{
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent-dark);
+    background:var(--gold-soft);padding:8px 22px;border-radius:12px;min-width:120px;text-align:center;
+  }
+
+  /* CHEAT SHEET MODAL */
+  .cheat-btn{
+    position:fixed;bottom:22px;right:22px;z-index:50;
+    background:var(--accent-dark);color:#fff;border:none;
+    padding:13px 18px;border-radius:999px;font-weight:700;font-size:.85rem;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer;font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  }
+  .cheat-btn:hover{background:var(--accent);}
+  .overlay{
+    position:fixed;inset:0;background:rgba(38,50,59,.55);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:82vh;overflow-y:auto;
+    padding:26px 26px 20px;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.3rem;
+    cursor:pointer;color:var(--ink-soft);
+  }
+  .modal h3{font-size:1.2rem;margin-bottom:14px;}
+  .cheat-rule{border-bottom:1px solid var(--border);padding:10px 0;}
+  .cheat-rule:last-child{border-bottom:none;}
+  .cheat-rule .forms{color:var(--accent);font-weight:700;font-size:.88rem;}
+  .cheat-rule .t{font-weight:700;font-size:.85rem;color:var(--accent-dark);}
+
+  footer.pagenav{
+    display:flex;justify-content:space-between;margin-top:8px;
+  }
+
+  ul.plain{margin:6px 0 0 0;padding-left:20px;}
+  ul.plain li{margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="logo-block">
+      <img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+      <p class="studio-credit">by Viktoria Syuzyova</p>
+    </div>
+    <div class="title-block">
+      <div class="eyebrow">ANGLE · студия системного английского · B1+</div>
+      <h1>Modals &amp; Phrases of Ability</h1>
+    </div>
+  </div>
+</header>
+<div class="subheader-band">
+  <p class="subhead-note">A revision workshop for <em>can, could, be able to</em> and <em>manage to</em> — built to reinforce Unit 4A, not repeat it. Every task below uses new sentences and new situations.</p>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <nav class="pillbar" id="pillbar">
+  <button class="nav-pill active" data-page="0">1 · Warm-up</button>
+  <button class="nav-pill" data-page="1">2 · How it works</button>
+  <button class="nav-pill" data-page="2">3 · Gap-fill</button>
+  <button class="nav-pill" data-page="3">4 · Fix the error</button>
+  <button class="nav-pill" data-page="4">5 · Sort it</button>
+  <button class="nav-pill" data-page="5">6 · Choose it</button>
+  <button class="nav-pill" data-page="6">7 · Speaking</button>
+  </nav>
+</div>
+
+<div class="app">
+<main>
+
+  <!-- PAGE 0: WARM-UP -->
+  <section class="page active" id="page-0">
+    <div class="card">
+      <span class="tag">Warm-up · trust your instinct</span>
+      <h2>Before we explain anything...</h2>
+      <p class="lead">Try these four sentences first. Don't worry about the rule yet — just pick what sounds right. We'll check the logic together on the next page.</p>
+
+      <div class="mcq-item" data-qid="w1">
+        <p>1. When I was seven, I ___ ride a bike without stabilisers.</p>
+        <div class="mcq-opts">
+          <button class="opt-btn" data-val="a">could</button>
+          <button class="opt-btn" data-val="b">was able to</button>
+        </div>
+        <div class="inline-feedback"></div>
+      </div>
+
+      <div class="mcq-item" data-qid="w2">
+        <p>2. It was really difficult, but in the end she ___ finish the marathon.</p>
+        <div class="mcq-opts">
+          <button class="opt-btn" data-val="a">could</button>
+          <button class="opt-btn" data-val="b">managed to</button>
+        </div>
+        <div class="inline-feedback"></div>
+      </div>
+
+      <div class="mcq-item" data-qid="w3">
+        <p>3. Next year, I ___ speak Japanese fluently, I hope!</p>
+        <div class="mcq-opts">
+          <button class="opt-btn" data-val="a">will can</button>
+          <button class="opt-btn" data-val="b">will be able to</button>
+        </div>
+        <div class="inline-feedback"></div>
+      </div>
+
+      <div class="mcq-item" data-qid="w4">
+        <p>4. I ___ speak French since I was a child.</p>
+        <div class="mcq-opts">
+          <button class="opt-btn" data-val="a">can</button>
+          <button class="opt-btn" data-val="b">have been able to</button>
+        </div>
+        <div class="inline-feedback"></div>
+      </div>
+
+      <p class="lead" style="margin-top:16px;">Notice anything? Four different situations needed four different forms. That's the whole topic — let's map it out.</p>
+    </div>
+    <footer class="pagenav">
+      <span></span>
+      <button class="btn" onclick="goPage(1)">Next: How it works →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 1: CONCEPT MAP -->
+  <section class="page" id="page-1">
+    <div class="card">
+      <span class="tag">The system</span>
+      <h2>Five situations, five forms</h2>
+      <p class="lead">Click each tile to reveal the rule. This is the whole grammar point — everything else in this workshop is just this map applied to new sentences.</p>
+      <div id="tileWrap"></div>
+    </div>
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(0)">← Back</button>
+      <button class="btn" onclick="goPage(2)">Next: Gap-fill →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 2: PRACTICE A - GAP FILL -->
+  <section class="page" id="page-2">
+    <div class="card">
+      <span class="tag">Practice 1 · Gap-fill</span>
+      <h2>Complete each sentence</h2>
+      <p class="lead">Type only the missing ability phrase (e.g. <em>can</em>, <em>could</em>, <em>was able to</em>, <em>managed to</em>, <em>be able to</em>). Some blanks accept more than one correct answer.</p>
+
+      <div class="item">
+        <p><span class="num-badge">1</span>My grandmother <input type="text" class="gap" id="a1" placeholder="..."> speak four languages fluently — she's amazing with languages.</p>
+        <div class="item-feedback" id="a1-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">2</span>When he was a teenager, Marco <input type="text" class="gap" id="a2" placeholder="..."> fix any bike in about ten minutes.</p>
+        <div class="item-feedback" id="a2-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">3</span>It took me three attempts, but I finally <input type="text" class="gap" id="a3" placeholder="..."> pass my driving test.</p>
+        <div class="item-feedback" id="a3-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">4</span>After months of practice, she <input type="text" class="gap" id="a4" placeholder="..."> play the whole piece from memory.</p>
+        <div class="item-feedback" id="a4-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">5</span>We <input type="text" class="gap" id="a5" placeholder="..."> get a signal on the mountain, so we had to wait until we came down to call for help.</p>
+        <div class="item-feedback" id="a5-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">6</span>I've <input type="text" class="gap" id="a6" placeholder="..."> cook since I was ten — my mum taught me everything.</p>
+        <div class="item-feedback" id="a6-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">7</span>If you study hard, you <input type="text" class="gap" id="a7" placeholder="..."> pass the exam next month.</p>
+        <div class="item-feedback" id="a7-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">8</span>He's worried about not <input type="text" class="gap" id="a8" placeholder="..."> finish the report on time.</p>
+        <div class="item-feedback" id="a8-fb"></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="checkPracticeA()">Check answers</button>
+        <button class="btn secondary" onclick="resetPracticeA()">Try again</button>
+        <span class="score-pill" id="scoreA">0 / 8</span>
+      </div>
+    </div>
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(1)">← Back</button>
+      <button class="btn" onclick="goPage(3)">Next: Fix the error →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 3: PRACTICE B - ERROR CORRECTION -->
+  <section class="page" id="page-3">
+    <div class="card">
+      <span class="tag">Practice 2 · Fix the error</span>
+      <h2>Every sentence below has one mistake</h2>
+      <p class="lead">These are real mistakes B1 students make with this grammar. Find the underlined part and type the correction.</p>
+
+      <div class="item">
+        <p><span class="num-badge">1</span>He <span class="err">can plays</span> the guitar really well.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b1" placeholder="type the fix...">
+        <div class="item-feedback" id="b1-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">2</span>I <span class="err">can to speak</span> three languages.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b2" placeholder="type the fix...">
+        <div class="item-feedback" id="b2-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">3</span>They won't <span class="err">be able reach</span> an agreement.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b3" placeholder="type the fix...">
+        <div class="item-feedback" id="b3-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">4</span>I <span class="err">could get</span> the last ticket for the concert, so I went.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b4" placeholder="type the fix...">
+        <div class="item-feedback" id="b4-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">5</span>We<span class="err"> 'll can finish</span> the project by Friday.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b5" placeholder="type the fix...">
+        <div class="item-feedback" id="b5-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">6</span>I <span class="err">can be able to swim</span> really well.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b6" placeholder="type the fix...">
+        <div class="item-feedback" id="b6-fb"></div>
+      </div>
+      <div class="item">
+        <p><span class="num-badge">7</span>My brother <span class="err">can walk</span> when he was ten months old.</p>
+        <span class="fix-label">Correction:</span>
+        <input type="text" class="gap" id="b7" placeholder="type the fix...">
+        <div class="item-feedback" id="b7-fb"></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="checkPracticeB()">Check answers</button>
+        <button class="btn secondary" onclick="resetPracticeB()">Try again</button>
+        <span class="score-pill" id="scoreB">0 / 7</span>
+      </div>
+    </div>
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(2)">← Back</button>
+      <button class="btn" onclick="goPage(4)">Next: Sort it →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 4: PRACTICE C - CATEGORIZE -->
+  <section class="page" id="page-4">
+    <div class="card">
+      <span class="tag">Practice 3 · Sort it</span>
+      <h2>Click a phrase, then click the box it belongs in</h2>
+      <p class="lead">Sort all twelve phrases into the four categories from the concept map.</p>
+
+      <div class="chipbank" id="chipBank">
+        <button class="chip" data-bucket="present">can cook Thai food</button>
+        <button class="chip" data-bucket="present">can't drive a manual car</button>
+        <button class="chip" data-bucket="present">can speak up in meetings now</button>
+        <button class="chip" data-bucket="past">could read before starting school</button>
+        <button class="chip" data-bucket="past">couldn't swim as a child</button>
+        <button class="chip" data-bucket="past">could always make people laugh</button>
+        <button class="chip" data-bucket="specific">managed to catch the last train</button>
+        <button class="chip" data-bucket="specific">was able to fix the leak herself</button>
+        <button class="chip" data-bucket="specific">couldn't get through to customer service</button>
+        <button class="chip" data-bucket="other">will be able to travel more next year</button>
+        <button class="chip" data-bucket="other">has been able to work from home since March</button>
+        <button class="chip" data-bucket="other">needs to be able to use Excel for the job</button>
+      </div>
+
+      <div class="buckets">
+        <div class="bucket" data-zone="present"><h4>General ability — now</h4><div class="chipzone"></div></div>
+        <div class="bucket" data-zone="past"><h4>General ability — past</h4><div class="chipzone"></div></div>
+        <div class="bucket" data-zone="specific"><h4>One specific event — past</h4><div class="chipzone"></div></div>
+        <div class="bucket" data-zone="other"><h4>Future / perfect / after another word</h4><div class="chipzone"></div></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="checkPracticeC()">Check answers</button>
+        <button class="btn secondary" onclick="resetPracticeC()">Reset</button>
+        <span class="score-pill" id="scoreC">0 / 12</span>
+      </div>
+    </div>
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(3)">← Back</button>
+      <button class="btn" onclick="goPage(5)">Next: Choose it →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 5: PRACTICE D - THREE WAY MC -->
+  <section class="page" id="page-5">
+    <div class="card">
+      <span class="tag">Practice 4 · Choose it</span>
+      <h2>A, B, or both correct?</h2>
+      <p class="lead">Sometimes two forms are both grammatically fine — sometimes only one is. Decide for each sentence.</p>
+      <div id="dWrap"></div>
+      <div class="btnrow">
+        <span class="score-pill" id="scoreD">0 / 11 answered</span>
+      </div>
+    </div>
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(4)">← Back</button>
+      <button class="btn" onclick="goPage(6)">Next: Speaking →</button>
+    </footer>
+  </section>
+
+  <!-- PAGE 6: SPEAKING -->
+  <section class="page" id="page-6">
+    <div class="card">
+      <span class="tag">Final task · Freer speaking practice</span>
+      <h2>Talent Interview</h2>
+      <p class="lead">Work with a partner. Flip a card, ask the question, and really talk — follow-up questions are encouraged. There's no right answer here; the goal is to use the target language naturally. Cards 9–12 are the challenge round.</p>
+
+      <div class="deck-wrap">
+        <div id="cardTypePill" class="cardtypepill">warm-up</div>
+        <div class="flip-card" id="flipCard" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front" id="cardFront">Click to reveal</div>
+            <div class="flip-back" id="cardBack">Tip</div>
+          </div>
+        </div>
+        <div class="deck-counter">Card <span id="cardIndex">1</span> / <span id="cardTotal">12</span></div>
+        <div class="deck-controls">
+          <button class="btn secondary" onclick="prevCard()">← Previous</button>
+          <button class="btn secondary" onclick="shuffleDeck()">🔀 Shuffle</button>
+          <button class="btn" onclick="nextCard()">Next card →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Before you finish — self-check</h3>
+      <p class="lead">Tick each structure once you and your partner have both used it naturally in the conversation.</p>
+      <div class="checklist" id="checklist">
+        <label><input type="checkbox"> can / can't (a general ability now)</label>
+        <label><input type="checkbox"> could / couldn't (a general ability in the past)</label>
+        <label><input type="checkbox"> was able to / were able to (one specific past success)</label>
+        <label><input type="checkbox"> managed to (a specific past success that was difficult)</label>
+        <label><input type="checkbox"> be able to — future, perfect, or after another verb</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Optional: timed round</h3>
+      <p class="lead">Set 3 minutes and see how many cards you can get through as a pair, speaking as naturally as possible.</p>
+      <div class="timerbox">
+        <div class="timer-display" id="timerDisplay">3:00</div>
+        <button class="btn" id="timerStartBtn" onclick="toggleTimer()">Start</button>
+        <button class="btn secondary" onclick="resetTimer()">Reset</button>
+      </div>
+    </div>
+
+    <footer class="pagenav">
+      <button class="btn secondary" onclick="goPage(5)">← Back</button>
+      <span></span>
+    </footer>
+  </section>
+
+</main>
+</div>
+
+<button class="cheat-btn" onclick="openCheat()">📎 Quick rules</button>
+<div class="overlay" id="cheatOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheat()">✕</button>
+    <h3>Quick reference</h3>
+    <div id="cheatBody"></div>
+  </div>
+</div>
+
+<script>
+/* ---------- RULES DATA (shared by concept map + cheat sheet) ---------- */
+const RULES = [
+  {
+    title: "General ability — now",
+    forms: "can / can't",
+    example: "I can cook Thai food, but I can't bake bread.",
+    note: "Use can/can't for abilities you have in the present. There's no other present-tense form for this — 'be able to' only appears in the special cases below."
+  },
+  {
+    title: "General ability — in the past",
+    forms: "could / couldn't",
+    example: "When I was a child, I could run really fast.",
+    note: "Use could/couldn't for an ability that lasted over time or happened repeatedly in the past — not for one single occasion."
+  },
+  {
+    title: "One specific success — past",
+    forms: "was/were able to · managed to",
+    example: "After three attempts, she was able to pass the driving test. It was hard work, but he managed to finish the report on time.",
+    note: "Never use could for one single successful past event. Use was/were able to, or managed to if you want to emphasise that it was difficult."
+  },
+  {
+    title: "One specific event — past, negative",
+    forms: "couldn't · wasn't/weren't able to",
+    example: "I looked everywhere, but I couldn't find my keys. I wasn't able to find my keys.",
+    note: "For a negative specific past event, both couldn't and wasn't/weren't able to are correct — this is the one place could is allowed for a single occasion."
+  },
+  {
+    title: "Every other structure",
+    forms: "be able to",
+    example: "How long have you been able to drive? · We hope we'll be able to come. · Everyone should be able to swim. · She's worried about not being able to finish.",
+    note: "Can and could have no future, perfect, infinitive or -ing form, and can't follow a modal verb, another verb, or a preposition. Use a form of be able to instead."
+  }
+];
+
+function buildTiles(){
+  const wrap = document.getElementById('tileWrap');
+  wrap.innerHTML = RULES.map((r,i)=>`
+    <div class="tile" id="tile-${i}">
+      <div class="tile-head" onclick="toggleTile(${i})">
+        <span class="ttitle"><span class="num">${i+1}</span>${r.title}</span>
+        <span class="chev">⌄</span>
+      </div>
+      <div class="tile-body">
+        <div class="forms">${r.forms}</div>
+        <div class="ex">"${r.example}"</div>
+        <div class="note">${r.note}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function toggleTile(i){
+  document.getElementById('tile-'+i).classList.toggle('open');
+}
+function buildCheat(){
+  document.getElementById('cheatBody').innerHTML = RULES.map(r=>`
+    <div class="cheat-rule">
+      <div class="t">${r.title}</div>
+      <div class="forms">${r.forms}</div>
+      <div style="font-size:.85rem;color:var(--ink-soft);margin-top:4px;">${r.example}</div>
+    </div>
+  `).join('');
+}
+function openCheat(){ document.getElementById('cheatOverlay').classList.add('open'); }
+function closeCheat(){ document.getElementById('cheatOverlay').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCheat(); });
+
+/* ---------- PAGE NAV ---------- */
+const TOTAL_PAGES = 7;
+let currentPage = 0;
+function goPage(n){
+  currentPage = n;
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active', i===n));
+  document.querySelectorAll('.nav-pill').forEach((b,i)=>b.classList.toggle('active', i===n));
+  document.getElementById('progressFill').style.width = ((n+1)/TOTAL_PAGES*100)+'%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('.nav-pill').forEach(btn=>{
+  btn.addEventListener('click', ()=> goPage(parseInt(btn.dataset.page)));
+});
+
+/* ---------- WARM-UP MCQ ---------- */
+const WARMUP_ANSWERS = { w1:'a', w2:'b', w3:'b', w4:'b' };
+document.querySelectorAll('.mcq-item').forEach(item=>{
+  const qid = item.dataset.qid;
+  item.querySelectorAll('.opt-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(item.dataset.done) return;
+      item.dataset.done = "1";
+      const correctVal = WARMUP_ANSWERS[qid];
+      item.querySelectorAll('.opt-btn').forEach(o=>{
+        if(o.dataset.val === correctVal) o.classList.add('correct');
+        else if(o === btn) o.classList.add('wrong');
+        o.classList.add('disabled-opt');
+      });
+    });
+  });
+});
+
+/* ---------- NORMALIZE HELPER ---------- */
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/’/g,"'")
+    .replace(/\s+/g,' ');
+}
+function matchAny(value, acceptList){
+  const v = norm(value);
+  return acceptList.some(a => v === norm(a));
+}
+
+/* ---------- PRACTICE A ---------- */
+const PRACTICE_A = {
+  a1: ["can"],
+  a2: ["could"],
+  a3: ["managed to","was able to"],
+  a4: ["was able to","managed to"],
+  a5: ["couldn't","weren't able to","could not","were not able to"],
+  a6: ["been able to"],
+  a7: ["'ll be able to","will be able to"],
+  a8: ["being able to"]
+};
+function checkPracticeA(){
+  let score = 0;
+  Object.keys(PRACTICE_A).forEach(id=>{
+    const input = document.getElementById(id);
+    const fb = document.getElementById(id+'-fb');
+    const ok = matchAny(input.value, PRACTICE_A[id]);
+    input.classList.toggle('correct', ok);
+    input.classList.toggle('wrong', !ok);
+    if(ok){ score++; fb.textContent = 'Correct'; fb.className = 'item-feedback correct'; }
+    else{ fb.textContent = 'Not quite — accepted: ' + PRACTICE_A[id].join(' / '); fb.className = 'item-feedback wrong'; }
+  });
+  document.getElementById('scoreA').textContent = score + ' / 8';
+}
+function resetPracticeA(){
+  Object.keys(PRACTICE_A).forEach(id=>{
+    const input = document.getElementById(id);
+    input.value = '';
+    input.classList.remove('correct','wrong');
+    document.getElementById(id+'-fb').textContent = '';
+  });
+  document.getElementById('scoreA').textContent = '0 / 8';
+}
+
+/* ---------- PRACTICE B ---------- */
+const PRACTICE_B = {
+  b1: ["play"],
+  b2: ["can speak"],
+  b3: ["be able to reach"],
+  b4: ["was able to get","managed to get"],
+  b5: ["'ll be able to finish","will be able to finish"],
+  b6: ["can swim"],
+  b7: ["could walk"]
+};
+function checkPracticeB(){
+  let score = 0;
+  Object.keys(PRACTICE_B).forEach(id=>{
+    const input = document.getElementById(id);
+    const fb = document.getElementById(id+'-fb');
+    const ok = matchAny(input.value, PRACTICE_B[id]);
+    input.classList.toggle('correct', ok);
+    input.classList.toggle('wrong', !ok);
+    if(ok){ score++; fb.textContent = 'Correct'; fb.className = 'item-feedback correct'; }
+    else{ fb.textContent = 'Not quite — accepted: ' + PRACTICE_B[id].join(' / '); fb.className = 'item-feedback wrong'; }
+  });
+  document.getElementById('scoreB').textContent = score + ' / 7';
+}
+function resetPracticeB(){
+  Object.keys(PRACTICE_B).forEach(id=>{
+    const input = document.getElementById(id);
+    input.value = '';
+    input.classList.remove('correct','wrong');
+    document.getElementById(id+'-fb').textContent = '';
+  });
+  document.getElementById('scoreB').textContent = '0 / 7';
+}
+
+/* ---------- PRACTICE C: CATEGORIZE ---------- */
+let selectedChip = null;
+function selectChipFn(chip){
+  if(selectedChip) selectedChip.classList.remove('selected');
+  if(selectedChip === chip){ selectedChip = null; return; }
+  selectedChip = chip;
+  chip.classList.add('selected');
+}
+document.querySelectorAll('.bucket').forEach(bucket=>{
+  bucket.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('chip')) return; // clicking a placed chip re-selects it instead
+    if(selectedChip){
+      bucket.querySelector('.chipzone').appendChild(selectedChip);
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+    }
+  });
+});
+// allow re-selecting a chip that's already inside a bucket
+document.addEventListener('click', (e)=>{
+  if(e.target.classList.contains('chip')){
+    selectChipFn(e.target);
+  }
+});
+function checkPracticeC(){
+  let score = 0;
+  document.querySelectorAll('.bucket').forEach(bucket=>{
+    const zone = bucket.dataset.zone;
+    bucket.querySelectorAll('.chip').forEach(chip=>{
+      const ok = chip.dataset.bucket === zone;
+      chip.classList.remove('correct','wrong');
+      chip.classList.add(ok ? 'correct' : 'wrong');
+      if(ok) score++;
+    });
+  });
+  document.getElementById('scoreC').textContent = score + ' / 12';
+}
+function resetPracticeC(){
+  const bank = document.getElementById('chipBank');
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.classList.remove('selected','correct','wrong');
+    bank.appendChild(chip);
+  });
+  selectedChip = null;
+  document.getElementById('scoreC').textContent = '0 / 12';
+}
+
+/* ---------- PRACTICE D: THREE-WAY MC ---------- */
+const PRACTICE_D = [
+  {text:"I sent the email twice, but I ___ get a reply.", a:"couldn't", b:"wasn't able to", correct:"Both"},
+  {text:"Ana ___ drive since she was seventeen.", a:"has been able to", b:"can", correct:"A"},
+  {text:"As a teenager, my dad ___ run 10km without stopping.", a:"could", b:"was able to", correct:"Both"},
+  {text:"She tried to fix the printer herself, but she ___ solve the problem.", a:"wasn't able to", b:"didn't manage to", correct:"Both"},
+  {text:"When she was younger, Elena ___ touch her toes without bending her knees.", a:"could", b:"was able to", correct:"Both"},
+  {text:"But she ___ do it now — she says her back's not as flexible as it used to be.", a:"can't", b:"couldn't", correct:"A"},
+  {text:"For this role, the candidate ___ speak both English and German.", a:"needs to can", b:"needs to be able to", correct:"B"},
+  {text:"I'm sure you ___ find a better flat soon.", a:"will can", b:"will be able to", correct:"B"},
+  {text:"He's nervous ___ forgetting his lines during the speech.", a:"of not being able to", b:"of can't", correct:"A"},
+  {text:"We looked everywhere, but we ___ find the car keys.", a:"couldn't", b:"didn't manage to", correct:"Both"},
+  {text:"To get the certificate, every student must ___ swim 200 metres.", a:"manage to", b:"be able to", correct:"B"}
+];
+let dAnswered = 0;
+function buildPracticeD(){
+  const wrap = document.getElementById('dWrap');
+  wrap.innerHTML = PRACTICE_D.map((q,i)=>`
+    <div class="item" data-correct="${q.correct}" id="d-item-${i}">
+      <p><span class="num-badge">${i+1}</span>${q.text}</p>
+      <div class="abchoice">
+        <button class="abbtn" data-choice="A" onclick="answerD(${i},'A')">A) ${q.a}</button>
+        <button class="abbtn" data-choice="B" onclick="answerD(${i},'B')">B) ${q.b}</button>
+        <button class="abbtn" data-choice="Both" onclick="answerD(${i},'Both')">Both correct</button>
+      </div>
+      <div class="item-feedback" id="d-fb-${i}"></div>
+    </div>
+  `).join('');
+}
+function answerD(i, choice){
+  const item = document.getElementById('d-item-'+i);
+  if(item.dataset.done) return;
+  item.dataset.done = "1";
+  dAnswered++;
+  document.getElementById('scoreD').textContent = dAnswered + ' / 11 answered';
+  const correct = PRACTICE_D[i].correct;
+  const fb = document.getElementById('d-fb-'+i);
+  item.querySelectorAll('.abbtn').forEach(btn=>{
+    if(btn.dataset.choice === correct) btn.classList.add('correct');
+    else if(btn.dataset.choice === choice) btn.classList.add('wrong');
+  });
+  fb.textContent = (choice === correct) ? 'Correct!' : ('The correct answer is: ' + correct);
+  fb.className = 'item-feedback ' + (choice === correct ? 'correct' : 'wrong');
+}
+
+/* ---------- SPEAKING DECK ---------- */
+let DECK = [
+  {type:'warm-up', q:"What's something you could do as a child that you can't do anymore?", tip:"Try: I could ... when I was younger, but I can't ... now."},
+  {type:'warm-up', q:"Tell your partner about a time you managed to solve a problem under pressure.", tip:"Try: I managed to ... even though it was really difficult."},
+  {type:'warm-up', q:"Is there a skill you've always wanted to be able to do? What's stopping you?", tip:"Try: I'd love to be able to ... but I've never had time / the chance."},
+  {type:'warm-up', q:"What's something you weren't able to do last year that you can do now?", tip:"Try: Last year I wasn't able to ..., but now I can."},
+  {type:'warm-up', q:"Describe a specific time you were able to help someone in a difficult situation.", tip:"Try: I was able to ... because ..."},
+  {type:'warm-up', q:"What's a skill your parents or grandparents could do that you can't?", tip:"Try: My grandfather could ..., but I've never learned how."},
+  {type:'warm-up', q:"If you had one more hour a day, what would you finally be able to do?", tip:"Try: I'd finally be able to ..."},
+  {type:'warm-up', q:"Tell your partner about something you managed to fix or figure out on your own.", tip:"Try: I managed to ... without any help, which felt great."},
+  {type:'challenge', q:"Explain why some people are able to learn languages quickly while others struggle. Use 'be able to' at least twice.", tip:"Think about: exposure, motivation, confidence, practice."},
+  {type:'challenge', q:"Tell a short story about a time you didn't manage to do something important. What happened?", tip:"Try: I was trying to ..., but in the end I didn't manage to ... because ..."},
+  {type:'challenge', q:"Predict: in ten years, what will people be able to do that they can't do today?", tip:"Try: I think we'll be able to ..."},
+  {type:'challenge', q:"Interview your partner about a childhood ability they've lost or a new one they've gained. Ask at least 3 follow-up questions.", tip:"Follow-ups: When did that start? How did you learn? Do you miss it?"}
+];
+let deckIndex = 0;
+function renderCard(){
+  const card = DECK[deckIndex];
+  const flip = document.getElementById('flipCard');
+  flip.classList.remove('flipped');
+  document.getElementById('cardFront').textContent = card.q;
+  document.getElementById('cardBack').textContent = card.tip;
+  document.getElementById('cardIndex').textContent = deckIndex+1;
+  document.getElementById('cardTotal').textContent = DECK.length;
+  const pill = document.getElementById('cardTypePill');
+  pill.textContent = card.type === 'challenge' ? 'challenge round' : 'warm-up';
+  pill.style.background = card.type === 'challenge' ? 'var(--incorrect)' : 'var(--accent)';
+  pill.style.color = '#fff';
+}
+function nextCard(){ deckIndex = (deckIndex+1) % DECK.length; renderCard(); }
+function prevCard(){ deckIndex = (deckIndex-1+DECK.length) % DECK.length; renderCard(); }
+function shuffleDeck(){
+  for(let i=DECK.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [DECK[i],DECK[j]] = [DECK[j],DECK[i]];
+  }
+  deckIndex = 0;
+  renderCard();
+}
+
+/* checklist visual tick */
+document.querySelectorAll('#checklist input[type=checkbox]').forEach(cb=>{
+  cb.addEventListener('change', ()=>{
+    cb.closest('label').classList.toggle('ticked', cb.checked);
+  });
+});
+
+/* ---------- TIMER ---------- */
+let timerSeconds = 180;
+let timerInterval = null;
+let timerRunning = false;
+function renderTimer(){
+  const m = Math.floor(timerSeconds/60);
+  const s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m + ':' + (s<10?'0':'') + s;
+}
+function toggleTimer(){
+  const btn = document.getElementById('timerStartBtn');
+  if(timerRunning){
+    clearInterval(timerInterval);
+    timerRunning = false;
+    btn.textContent = 'Resume';
+  } else {
+    timerRunning = true;
+    btn.textContent = 'Pause';
+    timerInterval = setInterval(()=>{
+      timerSeconds--;
+      renderTimer();
+      if(timerSeconds<=0){
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerStartBtn').textContent = 'Start';
+        document.getElementById('timerDisplay').style.color = 'var(--incorrect)';
+      }
+    },1000);
+  }
+}
+function resetTimer(){
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 180;
+  document.getElementById('timerDisplay').style.color = 'var(--accent-dark)';
+  document.getElementById('timerStartBtn').textContent = 'Start';
+  renderTimer();
+}
+
+/* ---------- INIT ---------- */
+buildTiles();
+buildCheat();
+buildPracticeD();
+renderCard();
+renderTimer();
+</script>
+</body>
+</html>

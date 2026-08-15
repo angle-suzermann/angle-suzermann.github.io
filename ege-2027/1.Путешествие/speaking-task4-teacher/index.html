@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>ЕГЭ-2026. Задание 4 устной части — проверка (учитель)</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Задание 4 — устная часть, проверка для учителя (mass tourism)">
+<meta name="ws:emoji"     content="🗣️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    
+
+:root{
+  --purple:#5E4877;
+  --purple-dark:#453458;
+  --black:#2D2926;
+  --yellow:#FED500;
+  --card:#ffffff;
+  --card-tint:#f6f2fa;
+  --text:#2D2926;
+  --correct:#2f8a55;
+  --wrong:#c23f30;
+  --border:#e2dbea;
+  --muted:#7a7288;
+}
+@page{
+  size:A4;
+  margin:20mm 20mm 18mm 20mm;
+  @bottom-center{
+    content:"ANGLE — студия системного английского · by Viktoria Syuzyova";
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    font-size:8px;
+    color:#a79db3;
+    letter-spacing:0.3px;
+  }
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  color:var(--text);
+  font-size:10.3pt;
+  line-height:1.5;
+}
+.header{
+  background:var(--purple);
+  color:#ffffff;
+  padding:9mm 10mm 7mm;
+  margin:-20mm -20mm 0 -20mm;
+}
+.header-bar{
+  height:6px;
+  background:var(--yellow);
+  margin:0 -20mm 8mm -20mm;
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.wordmark-svg{
+  width:110px;
+  height:auto;
+  display:block;
+  fill:#FED500;
+  color:#FED500;
+}
+.wordmark-svg path, .wordmark-svg g{
+  fill:#FED500;
+}
+.logo-col{
+  flex:0 0 auto;
+  text-align:left;
+}
+.studio-credit{
+  font-size:8.3pt;
+  color:var(--yellow);
+  opacity:0.9;
+  margin:3px 0 0 2px;
+  font-weight:400;
+}
+.title-col{
+  flex:1 1 auto;
+  border-left:1.5px solid rgba(255,255,255,0.35);
+  padding-left:16px;
+}
+.title-col h1{
+  font-size:16.5pt;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+  margin:0 0 3px;
+}
+.title-col .subtitle{
+  font-size:9.6pt;
+  margin:0;
+  opacity:0.92;
+  font-weight:400;
+}
+h2.section-title{
+  color:var(--purple);
+  font-size:13pt;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.2px;
+  margin:20px 0 9px;
+  padding-bottom:5px;
+  border-bottom:2px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+h2.section-title::before{
+  content:"";
+  display:inline-block;
+  width:0;
+  height:0;
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-bottom:12px solid var(--yellow);
+  flex:0 0 auto;
+}
+h3.sub-title{
+  color:var(--black);
+  font-size:10.8pt;
+  font-weight:700;
+  margin:14px 0 4px;
+}
+p{ margin:0 0 8px; }
+.quote-box{
+  background:var(--card-tint);
+  border:1px solid var(--border);
+  border-left:4px solid var(--purple);
+  padding:11px 14px;
+  font-style:italic;
+  color:#3a3536;
+  margin:6px 0 10px;
+}
+.small-note{
+  font-size:8.6pt;
+  color:var(--muted);
+  margin:2px 0 10px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:6px 0 12px;
+  font-size:9.4pt;
+}
+th{
+  background:var(--purple);
+  color:#ffffff;
+  font-weight:700;
+  text-align:left;
+  padding:6px 8px;
+  font-size:9.2pt;
+  text-transform:uppercase;
+  letter-spacing:0.2px;
+}
+td{
+  padding:6px 8px;
+  border:1px solid var(--border);
+  vertical-align:top;
+}
+tr:nth-child(even) td{ background:var(--card-tint); }
+.center{ text-align:center; }
+.bold{ font-weight:700; }
+.answer{ color:var(--correct); font-weight:600; }
+.wrong-text{ color:var(--wrong); font-weight:600; }
+.score-panel{
+  background:var(--black);
+  color:#ffffff;
+  padding:14px 18px;
+  margin:8px 0 16px;
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+.score-panel .num{
+  font-size:30pt;
+  font-weight:800;
+  color:var(--yellow);
+  line-height:1;
+}
+.score-panel .num .of{
+  font-size:14pt;
+  color:#ffffff;
+  font-weight:400;
+}
+.score-panel .label{
+  font-size:9.6pt;
+  color:#d9d3e0;
+  text-transform:uppercase;
+  letter-spacing:0.4px;
+}
+.chip{
+  display:inline-block;
+  background:var(--black);
+  color:var(--yellow);
+  font-size:7.6pt;
+  font-weight:700;
+  text-transform:uppercase;
+  padding:2px 7px;
+  margin-left:4px;
+  letter-spacing:0.3px;
+}
+.task-bar{
+  background:var(--purple);
+  color:#ffffff;
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:10.5pt;
+  letter-spacing:0.3px;
+  padding:8px 12px;
+  margin:16px 0 10px;
+}
+.blank-line{
+  border-bottom:1px solid var(--muted);
+  display:block;
+  height:16px;
+  margin:2px 0 10px;
+}
+.exercise-item{ margin:0 0 9px; }
+.key-block{
+  background:var(--card-tint);
+  border:1px solid var(--border);
+  padding:10px 14px;
+  margin:4px 0 14px;
+}
+.key-block p{ color:var(--correct); font-weight:600; margin:0 0 4px; }
+.two-col{
+  display:flex;
+  gap:14px;
+}
+.two-col > div{ flex:1 1 0; }
+.fixbox-label{
+  font-size:8.3pt;
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--muted);
+  margin:0 0 3px;
+}
+.pagebreak{ page-break-before:always; }
+
+/* --- keep headers attached to their content, keep blocks intact --- */
+h2.section-title, h3.sub-title, .task-bar{
+  page-break-after:avoid;
+  break-after:avoid-page;
+}
+table, tr{
+  page-break-inside:avoid;
+  break-inside:avoid-page;
+}
+.keep{
+  page-break-inside:avoid;
+  break-inside:avoid-page;
+}
+
+
+html{ background:#e9e4ee; }
+body{
+  background:#e9e4ee;
+  padding:34px 0 60px;
+}
+.page{
+  max-width:800px;
+  margin:0 auto;
+  background:#ffffff;
+  box-shadow:0 6px 30px rgba(45,41,38,0.16);
+  padding:0 20mm 20mm;
+}
+.header{
+  margin:0 -20mm 0 -20mm;
+  padding:9mm 20mm 7mm;
+}
+.header-bar{
+  height:6px;
+  background:var(--yellow);
+  margin:0 -20mm 10mm -20mm;
+}
+.pagebreak{
+  margin:30px 0 22px;
+  border-top:2px dashed var(--border);
+}
+.page-footer{
+  text-align:center;
+  font-size:8.6pt;
+  color:#a79db3;
+  letter-spacing:0.3px;
+  margin-top:26px;
+}
+@media print{
+  html, body{ background:#fff; }
+  .page{ box-shadow:none; padding:0; max-width:none; }
+  .pagebreak{ border-top:none; margin:0; page-break-before:always; }
+}
+
+</style></head><body>
+<div class="page">
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-col">
+      <svg class="wordmark-svg" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#FED500">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+      <p class="studio-credit">by Viktoria Syuzyova</p>
+    </div>
+    <div class="title-col">
+      <h1>Задание 4 &middot; устная часть</h1>
+      <p class="subtitle">Проверка ответа по критериям ФИПИ &middot; версия для учителя &middot; тема проекта: mass tourism</p>
+    </div>
+  </div>
+</div>
+<div class="header-bar"></div>
+
+
+<div class="keep">
+<h2 class="section-title">Текст ответа ученика</h2>
+<div class="quote-box">Hi, I have found two pictures for our project about mass tourism. The first picture shows a woman in the mountains. She has a camera and a big backpack. The second picture shows a group of tourists on a bus tour in a big city. The main difference between these two pictures is that the first type of tourism is more active and closer to nature while the second one is more interesting and social. As for the advantage for solo hiking in the mountains, I can say that you can enjoy peace and quiet and breath fresh air. As for the advantage for a city bus tour, you can learn many interesting historical facts from a professional guide. As for the disadvantage for the first picture, hiking in the mountains can be physically annoying and dangerous if you get lost. As for the disadvantage for a second picture on a bus tour in a big city can be too noisy and crowded. It can be stressful for people who want to relax. As for me, I would prefer the type of tourism that presented in the first picture. Because I really love nature and hiking in the mountains. I think it is the best way to spend your free time. It helps to relax.</div>
+<p class="small-note">Ответ прислан текстом (не аудио) &mdash; фонетическая составляющая критерия «Языковое оформление» не оценивалась.</p>
+</div>
+
+<div class="keep">
+<h2 class="section-title">Итоговый балл</h2>
+<div class="score-panel">
+  <div class="num">6<span class="of"> / 10</span></div>
+  <div class="label">Решение коммуникативной задачи 3/4 &nbsp;&middot;&nbsp; Организация 1/3 &nbsp;&middot;&nbsp; Языковое оформление 2/3</div>
+</div>
+</div>
+
+<div class="keep">
+<h2 class="section-title">Критерий 1. Решение коммуникативной задачи — 3 из 4</h2>
+<table>
+<tr><th style="width:30%">Аспект</th><th style="width:10%" class="center">Оценка</th><th>Комментарий</th></tr>
+<tr><td>1. Описание фото + различие, связанное с темой проекта</td><td class="center bold">&plusmn;</td>
+<td>Различие сформулировано верно и обобщённо (активный/близкий к природе туризм в одиночку vs социальный групповой). Но описание фото 1 статично: нет глагола действия (is hiking / is trekking), только перечисление снаряжения.</td></tr>
+<tr><td>2. Достоинства (1&ndash;2) двух видов</td><td class="center bold">+</td>
+<td>По одному чёткому достоинству на каждый вид: покой и природа vs факты от гида.</td></tr>
+<tr><td>3. Недостатки (1&ndash;2) двух видов</td><td class="center bold">+</td>
+<td>По одному чёткому недостатку: физическая нагрузка/опасность vs шум и толпа.</td></tr>
+<tr><td>4. Мнение автора + обоснование</td><td class="center bold">+</td>
+<td>Мнение выражено эксплицитно («I would prefer&hellip;») и обосновано (любовь к природе, отдых).</td></tr>
+</table>
+<p class="small-note">Правило: 1 аспект раскрыт неточно, остальные &mdash; полно, объём &asymp;14 фраз (норма 12&ndash;15 выполнена) &rarr; 3 балла.</p>
+</div>
+
+<div class="keep">
+<h2 class="section-title">Критерий 2. Организация высказывания — 1 из 3</h2>
+<p><b>Вступление:</b> есть («Hi, I have found two pictures&hellip;»), но без обращения к другу по имени &mdash; принято решение считать это недочётом вступления.</p>
+<p><b>Заключение:</b> отсутствует полностью &mdash; ответ обрывается на «It helps to relax.», без прощальной фразы.</p>
+<p><b>Внутренняя логика:</b> связки «As for the advantage&hellip; / As for the disadvantage&hellip; / As for me&hellip;» использованы последовательно и корректно, серьёзных сбоев связности нет.</p>
+<p class="small-note">Правило критериев: отсутствие вступительной ИЛИ заключительной фразы ограничивает ОВ баллом не выше 1, даже при хорошей внутренней логике. Заключение отсутствует полностью &rarr; 1 балл.</p>
+</div>
+
+<div class="keep">
+<h2 class="section-title">Критерий 3. Языковое оформление — 2 из 3</h2>
+<table>
+<tr><th style="width:38%">Ошибка в тексте</th><th style="width:27%">Тип</th><th>Правильный вариант</th></tr>
+<tr><td>breath fresh air</td><td>негрубая (лексика)</td><td class="answer">breathe fresh air</td></tr>
+<tr><td>the type of tourism that presented in the first picture</td><td>грубая (пропущен глагол-связка)</td><td class="answer">that is presented</td></tr>
+<tr><td>the disadvantage&hellip; can be too noisy and crowded</td><td>негрубая (рассогласование подлежащего)</td><td class="answer">the city / the tour can be too noisy and crowded</td></tr>
+</table>
+<p class="small-note">1 грубая + 2 негрубые ошибки &mdash; в пределах допуска для 2 баллов (для 3 баллов грубые ошибки не допускаются). Фонетика (интонация, ударение, паузы, произношение звуков) не оценивалась &mdash; доступен только текст ответа, не аудиозапись; при наличии записи итоговый балл по ЯО может измениться.</p>
+</div>
+
+<div class="keep">
+<h2 class="section-title">Примечания эксперта</h2>
+<p>&bull; Правило «0 по К1 &rarr; 0 за всё задание» не сработало &mdash; по содержанию 3 балла, не 0.</p>
+<p>&bull; Аспект 1 &mdash; самая спорная точка: различие сформулировано хорошо, а вот полнота описания фото 1 оценена консервативно (нет явного глагола действия). При другом прочтении можно засчитать полностью &mdash; тогда содержание было бы 4/4, итог 7/10.</p>
+<p>&bull; Оценка ЯО дана по тексту без прослушивания записи &mdash; окончательный балл по факту может отличаться в диапазоне &plusmn;1 в зависимости от произношения.</p>
+</div>
+
+<p class="page-footer">ANGLE &mdash; студия системного английского &middot; by Viktoria Syuzyova</p>
+</div>
+</body></html>

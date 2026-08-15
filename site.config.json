@@ -44,6 +44,12 @@
       "formspree": "mjgnlwdp"
     },
     {
+      "id": "expert-advanced",
+      "name": "Expert Advanced",
+      "emoji": "🎯",
+      "formspree": "mdaqrvdd"
+    },
+    {
       "id": "gateway/gw-b2",
       "name": "GW B2",
       "family": "Gateway",

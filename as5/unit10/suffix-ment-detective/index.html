@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Case File 10: The -ment Mystery — Academy Stars 5</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 5">
+<meta name="ws:course-id" content="as5">
+<meta name="ws:unit"      content="10">
+<meta name="ws:title"     content="Case File 10: The -ment Mystery">
+<meta name="ws:emoji"     content="🔍">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:tags"      content="suffixes, word formation">
+<meta name="robots"       content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3ead2;
+    --paper-dark:#e9dcb8;
+    --navy:#1c2440;
+    --navy-light:#2a3358;
+    --gold:#b8902b;
+    --gold-light:#e0bf5a;
+    --ink:#2b2620;
+    --ink-soft:#6b6354;
+    --red:#8c2a20;
+    --green:#2f6b3a;
+    --card:#fffaf0;
+    --line:#d9c9a0;
+    --shadow: 0 8px 22px rgba(20,24,45,0.20);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Libre Franklin', Arial, sans-serif;
+    padding:24px 14px 60px;
+  }
+  .app{ max-width:880px; margin:0 auto; }
+
+  /* HEADER */
+  .case-header{
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius:16px 16px 4px 4px;
+    padding:22px 26px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+    border:2px solid var(--navy);
+  }
+  .case-header::after{
+    content:'';
+    position:absolute; top:-40%; right:-10%;
+    width:220px; height:220px;
+    background: radial-gradient(circle, rgba(184,144,43,0.18) 0%, transparent 70%);
+  }
+  .badge{
+    flex:0 0 auto;
+    width:62px; height:62px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 70%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35), inset 0 0 0 3px rgba(255,255,255,0.25);
+  }
+  .badge svg{ width:34px; height:34px; }
+  .header-text{ position:relative; z-index:1; }
+  .header-text .kicker{
+    font-family:'Special Elite', monospace;
+    color:var(--gold-light);
+    font-size:0.72rem;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .header-text h1{
+    font-family:'Special Elite', monospace;
+    color:#fdf6e3;
+    font-size:1.55rem;
+    margin:0 0 5px;
+    letter-spacing:0.5px;
+  }
+  .header-text p{
+    margin:0;
+    color:#c8cee0;
+    font-size:0.88rem;
+  }
+
+  /* PROGRESS */
+  .progress-wrap{
+    height:9px; background:var(--paper-dark);
+    border-radius:6px; margin:14px 0 10px;
+    overflow:hidden; border:1px solid var(--line);
+  }
+  .progress-fill{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width .4s ease;
+  }
+
+  /* TABS */
+  .tabs{
+    display:flex; gap:6px; overflow-x:auto;
+    padding-bottom:2px; margin-bottom:2px;
+    scrollbar-width:thin;
+  }
+  .tab{
+    font-family:'Special Elite', monospace;
+    flex:0 0 auto;
+    background:var(--paper-dark);
+    color:var(--ink-soft);
+    border:2px solid var(--line);
+    border-bottom:none;
+    border-radius:8px 8px 0 0;
+    padding:8px 12px 7px;
+    font-size:0.68rem;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.15s;
+  }
+  .tab:hover{ background:#f0e4c3; }
+  .tab.active{
+    background:var(--card);
+    color:var(--navy);
+    border-color:var(--gold);
+    transform:translateY(2px);
+    box-shadow:0 -2px 6px rgba(0,0,0,0.06);
+  }
+
+  /* STAGE */
+  .stage{
+    background:var(--card);
+    border:2px solid var(--gold);
+    border-radius:0 10px 10px 10px;
+    padding:26px 24px 30px;
+    box-shadow:var(--shadow);
+    min-height:340px;
+  }
+  .tag{
+    display:inline-block;
+    font-family:'Special Elite', monospace;
+    background:var(--navy);
+    color:var(--gold-light);
+    font-size:0.68rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:5px;
+    margin-bottom:10px;
+  }
+  .sheet-head h2{
+    font-family:'Special Elite', monospace;
+    font-size:1.28rem;
+    margin:2px 0 10px;
+    color:var(--navy);
+    line-height:1.35;
+  }
+  .instructions{
+    font-size:0.97rem;
+    color:var(--ink-soft);
+    line-height:1.55;
+    margin:0 0 18px;
+    padding:12px 14px;
+    background:var(--paper);
+    border-left:4px solid var(--gold);
+    border-radius:6px;
+  }
+  .rule-box{
+    background:var(--paper);
+    border:1.5px dashed var(--gold);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:14px 0 20px;
+    font-size:1rem;
+  }
+  .rule-box b{ color:var(--navy); }
+  em{ color:var(--red); font-style:normal; font-weight:700; }
+
+  /* ACTIVITY 1 */
+  .example-row, .item-row{
+    display:flex; align-items:center; gap:12px;
+    padding:9px 10px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .example-row{ background:var(--paper); border-radius:8px; margin-bottom:8px; }
+  .num{
+    font-family:'Special Elite', monospace;
+    width:22px; height:22px; flex:0 0 auto;
+    border-radius:50%; background:var(--navy); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.72rem;
+  }
+  .verb{ font-weight:700; min-width:78px; color:var(--navy); }
+  .ex-label{ margin-left:auto; font-size:0.75rem; color:var(--ink-soft); font-style:italic; }
+  .badge-yes{
+    background:var(--green); color:#fff; border-radius:6px;
+    padding:2px 8px; font-weight:800; font-size:0.85rem;
+  }
+  .noun-example{ font-weight:700; text-decoration:underline; color:var(--navy); }
+  .toggle-group{ display:flex; gap:5px; }
+  .tgl{
+    width:34px; height:34px; border-radius:7px;
+    border:2px solid var(--line); background:#fff;
+    font-weight:800; font-size:1rem; cursor:pointer; color:var(--ink-soft);
+    transition:.15s;
+  }
+  .tgl.tick.active{ background:var(--green); border-color:var(--green); color:#fff; }
+  .tgl.cross.active{ background:var(--red); border-color:var(--red); color:#fff; }
+  .noun-input{
+    flex:1 1 160px; min-width:140px;
+    padding:7px 10px; border-radius:7px; border:2px solid var(--line);
+    font-size:0.95rem; font-family:inherit;
+  }
+  .noun-input:disabled{ background:#efe9d8; color:#a89f89; }
+  .item-row.correct{ background:rgba(47,107,58,0.08); border-radius:8px; }
+  .item-row.incorrect{ background:rgba(140,42,32,0.08); border-radius:8px; }
+  .item-row.correct .num, .item-row.incorrect .num{ background:var(--gold); }
+
+  .check-row{ display:flex; align-items:center; gap:14px; margin-top:18px; flex-wrap:wrap; }
+  .btn-check, .btn-secondary, .nav-btn{
+    font-family:'Libre Franklin', sans-serif;
+    font-weight:700; font-size:0.92rem;
+    padding:11px 20px; border-radius:8px;
+    border:none; cursor:pointer;
+    background:var(--navy); color:#fdf6e3;
+    box-shadow:0 3px 0 #0e1428;
+    transition:.12s;
+  }
+  .btn-check:active, .btn-secondary:active, .nav-btn:active{ transform:translateY(2px); box-shadow:0 1px 0 #0e1428; }
+  .btn-secondary{ background:var(--paper-dark); color:var(--navy); box-shadow:0 3px 0 #c9b98c; }
+  .result-pill{
+    font-family:'Special Elite', monospace;
+    font-size:0.85rem; padding:7px 14px; border-radius:20px;
+    background:var(--gold); color:var(--navy); display:none;
+  }
+  .result-pill.show{ display:inline-block; }
+
+  /* ACT 2 chips */
+  .chip-grid{ display:flex; flex-wrap:wrap; gap:10px; margin:16px 0; }
+  .chip{
+    padding:10px 16px; border-radius:22px; border:2px solid var(--line);
+    background:#fff; font-weight:700; cursor:pointer; font-size:0.95rem;
+    color:var(--ink);
+  }
+  .chip.picked{ background:var(--gold-light); border-color:var(--gold); }
+  .chip.correct-pick{ background:var(--green); border-color:var(--green); color:#fff; }
+  .chip.wrong-pick{ background:var(--red); border-color:var(--red); color:#fff; }
+  .chip.missed-pick{ background:#fff; border:2px dashed var(--red); color:var(--red); }
+  .chip.example-chip{ background:var(--navy); color:#fdf6e3; cursor:default; opacity:0.85; }
+
+  /* ACT 3 letters */
+  .letters-wrap{
+    background:var(--paper); border:2px solid var(--line); border-radius:10px;
+    padding:18px 16px; margin:14px 0 20px;
+    font-family:'Special Elite', monospace;
+    font-size:1.3rem; line-height:2.1; letter-spacing:0.5px;
+    display:flex; flex-wrap:wrap; align-items:center;
+    word-break:break-all;
+  }
+  .letter{ padding:0 1px; color:var(--navy); }
+  .gap{
+    width:11px; height:1.5em; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    position:relative; flex:0 0 auto;
+  }
+  .gap::before{
+    content:''; width:2px; height:55%; background:transparent; border-radius:2px;
+  }
+  .gap.cut::before{ background:var(--gold); width:3px; }
+  .gap.g-correct::before{ background:var(--green); width:3px; }
+  .gap.g-wrong::before{ background:var(--red); width:3px; }
+  .gap.g-missed::before{ background:transparent; border-left:2px dashed var(--red); width:0; height:70%; }
+  .word-bank{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; }
+  .flip-chip{
+    width:150px; height:64px; perspective:600px; cursor:pointer;
+  }
+  .flip-chip-inner{
+    width:100%; height:100%; position:relative; transition:transform .5s;
+    transform-style:preserve-3d;
+  }
+  .flip-chip.flipped .flip-chip-inner{ transform:rotateY(180deg); }
+  .flip-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-weight:700; text-align:center; padding:4px; font-size:0.85rem;
+    border:2px solid var(--line);
+  }
+  .flip-front{ background:#fff; color:var(--navy); }
+  .flip-back{ background:var(--navy); color:var(--gold-light); transform:rotateY(180deg); font-size:0.82rem; }
+
+  /* ACT 4 sentences */
+  .sentence-block{
+    background:var(--paper); border-radius:8px; padding:14px 16px; margin-bottom:12px;
+    line-height:2.3; font-size:1rem;
+  }
+  .sentence-block .num{ display:inline-flex; margin-right:6px; vertical-align:middle; }
+  .blank-input{
+    border:none; border-bottom:2.5px solid var(--gold);
+    background:transparent; font-family:inherit; font-size:1rem;
+    text-align:center; width:130px; padding:2px 4px;
+    color:var(--navy); font-weight:700;
+  }
+  .blank-input:disabled{ color:var(--ink-soft); border-color:var(--line); }
+  .blank-input.correct{ border-color:var(--green); color:var(--green); }
+  .blank-input.incorrect{ border-color:var(--red); color:var(--red); }
+
+  /* Flashcards (notebook) */
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:14px; margin-top:16px; }
+  .flashcard{ height:150px; perspective:900px; cursor:pointer; }
+  .flashcard-inner{ width:100%; height:100%; position:relative; transition:transform .5s; transform-style:preserve-3d; }
+  .flashcard.flipped .flashcard-inner{ transform:rotateY(180deg); }
+  .fc-face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:10px;
+    padding:14px; display:flex; flex-direction:column; justify-content:center;
+    border:2px solid var(--gold);
+  }
+  .fc-front{ background:#fff; align-items:center; text-align:center; }
+  .fc-front .word{ font-family:'Special Elite', monospace; font-size:1.05rem; color:var(--navy); }
+  .fc-front .hint{ font-size:0.7rem; color:var(--ink-soft); margin-top:8px; }
+  .fc-back{ background:var(--navy); color:#fdf6e3; transform:rotateY(180deg); font-size:0.78rem; }
+  .fc-back .pos{ color:var(--gold-light); font-weight:700; margin-bottom:4px; text-transform:uppercase; font-size:0.65rem; letter-spacing:1px;}
+  .fc-back .ex{ font-style:italic; margin-top:6px; color:#c8cee0; }
+  .speak-btn{
+    margin-top:6px; align-self:center;
+    background:var(--gold); border:none; border-radius:14px;
+    padding:3px 10px; font-size:0.7rem; cursor:pointer; font-weight:700;
+  }
+
+  /* Sort buckets */
+  .sort-area{ display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; }
+  .sort-bank{ flex:1 1 100%; display:flex; flex-wrap:wrap; gap:8px; padding:12px; background:var(--paper); border-radius:8px; border:1.5px dashed var(--line); min-height:50px; }
+  .buckets{ display:flex; gap:14px; flex:1 1 100%; flex-wrap:wrap; }
+  .bucket{
+    flex:1 1 240px; min-height:110px; border-radius:10px; padding:12px;
+    border:2px solid var(--line); background:#fff;
+  }
+  .bucket h4{ margin:0 0 8px; font-family:'Special Elite', monospace; font-size:0.85rem; }
+  .bucket.yes h4{ color:var(--green); }
+  .bucket.no h4{ color:var(--red); }
+  .bucket-body{ display:flex; flex-wrap:wrap; gap:6px; min-height:60px; }
+  .sort-chip{
+    padding:6px 12px; border-radius:16px; background:var(--gold-light);
+    border:2px solid var(--gold); font-weight:700; font-size:0.85rem; cursor:pointer;
+  }
+  .sort-chip.selected{ outline:3px solid var(--navy); }
+  .sort-chip.right{ background:var(--green); border-color:var(--green); color:#fff; }
+  .sort-chip.wrong{ background:var(--red); border-color:var(--red); color:#fff; }
+
+  /* Report page */
+  textarea.report-box{
+    width:100%; min-height:70px; border-radius:8px; border:2px solid var(--line);
+    padding:10px; font-family:inherit; font-size:0.95rem; resize:vertical;
+  }
+  .report-item{ margin-bottom:16px; }
+  .report-item label{ display:block; font-weight:700; color:var(--navy); margin-bottom:5px; }
+  .review-flag{ font-size:0.78rem; margin-top:4px; color:var(--gold); display:none; }
+  .review-flag.show{ display:block; }
+  .ok-flag{ font-size:0.78rem; margin-top:4px; color:var(--green); display:none; }
+  .ok-flag.show{ display:block; }
+
+  /* Results page */
+  .stamp{
+    font-family:'Special Elite', monospace;
+    display:inline-block; border:5px solid var(--red); color:var(--red);
+    padding:10px 22px; font-size:1.5rem; transform:rotate(-6deg);
+    border-radius:10px; letter-spacing:2px; margin:10px 0 20px; opacity:0.9;
+  }
+  .score-big{ font-family:'Special Elite', monospace; font-size:2.6rem; color:var(--navy); margin:6px 0; }
+  .breakdown{ width:100%; border-collapse:collapse; margin:16px 0; }
+  .breakdown th, .breakdown td{ text-align:left; padding:8px 6px; border-bottom:1px solid var(--line); font-size:0.92rem; }
+  .breakdown th{ color:var(--ink-soft); font-weight:600; font-size:0.78rem; text-transform:uppercase; }
+  .send-row{ margin-top:20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .send-status{ font-size:0.85rem; color:var(--ink-soft); }
+
+  /* Footer controls */
+  .controls{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-top:14px; flex-wrap:wrap;
+  }
+  .score-pill{
+    font-family:'Special Elite', monospace; font-size:0.78rem;
+    background:var(--navy); color:var(--gold-light); padding:7px 14px; border-radius:20px;
+  }
+
+  @media (max-width:520px){
+    .header-text h1{ font-size:1.2rem; }
+    .stage{ padding:18px 14px 24px; }
+    .verb{ min-width:60px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="case-header">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="6.2" stroke="#1c2440" stroke-width="2"/>
+        <line x1="14.6" y1="14.6" x2="21" y2="21" stroke="#1c2440" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <p class="kicker">Academy Stars 5 &middot; Unit 10 &middot; Working with words</p>
+      <h1>Case File 10: The &minus;ment Mystery</h1>
+      <p>Help Inspector Fox build noun evidence with the suffix <strong>-ment</strong>.</p>
+    </div>
+  </header>
+
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+  <nav class="tabs" id="tabs"></nav>
+  <main class="stage" id="stage"></main>
+
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" onclick="prevPage()">&larr; Back</button>
+    <span class="score-pill" id="scorePill">Case progress: 0%</span>
+    <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next &rarr;</button>
+  </div>
+
+</div>
+
+<script>
+/* ============ DATA ============ */
+
+const VOCAB = {
+  payment: { pos:'noun', def:'money that you give someone for something you buy or owe.', example:"I don't have enough money to make this payment." },
+  agreement: { pos:'noun', def:'when two or more people decide the same thing.', example:'We made an agreement to work together.' },
+  arrangement: { pos:'noun', def:'a plan, or the way things are organised.', example:'The flower arrangement looks lovely on the table.' },
+  excitement: { pos:'noun', def:'a strong feeling of happiness and energy.', example:'There was a lot of excitement when their team won.' },
+  equipment: { pos:'noun', def:'the things you need for an activity.', example:'Safety equipment is expensive but necessary.' },
+  statement: { pos:'noun', def:'something a person says or writes, especially officially.', example:'Inspector Fox took a statement from every suspect.' },
+  movement: { pos:'noun', def:'the act of moving, or a physical action.', example:"I've broken my leg, so every little movement hurts!" },
+  announcement: { pos:'noun', def:'a public statement that tells people about something.', example:'There was an announcement that the trains were delayed.' },
+  advertisement: { pos:'noun', def:'a notice, picture or film that tells people about a product.', example:'We saw an advertisement for the new museum exhibition.' },
+  entertainment: { pos:'noun', def:'things that amuse or interest people.', example:'There was a lot of entertainment at the football game.' },
+  improvement: { pos:'noun', def:'the act of making something better.', example:'Her spelling has shown great improvement this term.' },
+  achievement: { pos:'noun', def:'something you succeed in doing, usually after effort.', example:'Solving the mystery was a big achievement for Inspector Fox.' },
+  disagreement: { pos:'noun', def:'when people do not have the same opinion.', example:'They had a disagreement about who stole the egg.' }
+};
+
+const ACT1_ITEMS = [
+  { verb:'solve',    takesMent:false, noun:null },
+  { verb:'agree',    takesMent:true,  noun:'agreement' },
+  { verb:'arrange',  takesMent:true,  noun:'arrangement' },
+  { verb:'perform',  takesMent:false, noun:null },
+  { verb:'excite',   takesMent:true,  noun:'excitement' },
+  { verb:'equip',    takesMent:true,  noun:'equipment' },
+  { verb:'believe',  takesMent:false, noun:null },
+  { verb:'research', takesMent:false, noun:null }
+];
+
+const ACT2_WORDS = ['believe','disagree','achieve','research','solve','perform','announce','state'];
+const ACT2_CORRECT = new Set(['disagree','achieve','announce','state']);
+
+const ACT3_STRING = "advertiseagreearrangeentertainequipexcitemovepay";
+const ACT3_WORDS = ['advertise','agree','arrange','entertain','equip','excite','move','pay'];
+const ACT3_BOUNDARIES = [9,14,21,30,35,41,45];
+
+const ACT4_ITEMS = [
+  { parts:["I need to ", {given:'pay'}, " for my books, but I don't have enough money to make this ", {blank:'payment', id:'a4-0'}, "."] },
+  { parts:["Football games ", {blank:'entertain', id:'a4-1'}, " fans. There was a lot of ", {blank:'entertainment', id:'a4-2'}, " at the game."] },
+  { parts:["We made an ", {blank:'arrangement', id:'a4-3'}, " to work together. She thinks sugar is healthy, but I don't ", {blank:'agree', id:'a4-4'}, "."] },
+  { parts:["The flower ", {blank:'arrangement', id:'a4-5'}, " looks lovely on the table. Please ", {blank:'arrange', id:'a4-6'}, " the rest of the flowers in the same way."] },
+  { parts:["Safety ", {blank:'equipment', id:'a4-7'}, " is expensive but necessary. However, the school won't ", {blank:'equip', id:'a4-8'}, " the team with new shoes. Everyone has to buy their own."] }
+];
+
+const SORT_VERBS = shuffle([
+  {v:'pay', yes:true}, {v:'solve', yes:false}, {v:'agree', yes:true}, {v:'arrange', yes:true},
+  {v:'perform', yes:false}, {v:'excite', yes:true}, {v:'equip', yes:true}, {v:'believe', yes:false},
+  {v:'research', yes:false}, {v:'improve', yes:true}, {v:'achieve', yes:true}, {v:'announce', yes:true},
+  {v:'state', yes:true}, {v:'disagree', yes:true}
+]);
+
+const REPORT_WORDS = ['statement','excitement','agreement'];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function normalise(s){ return (s||'').trim().toLowerCase(); }
+function speak(text){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.92;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ============ STATE ============ */
+const state = {
+  act1: { picks:{}, checked:false, score:0 },
+  act2: { picked:new Set(), checked:false, score:0 },
+  act3: { cuts:new Set(), checked:false, score:0, revealed:false },
+  act4: { checked:false, score:0 },
+  sort: { placement:{}, selected:null, checked:false, score:0 }
+};
+
+/* ============ PAGES ============ */
+let current = 0;
+
+const PAGES = [
+  { tab:'Briefing', render: pageBriefing },
+  { tab:'Evidence 1', render: pageAct1, init: initAct1 },
+  { tab:'Evidence 2', render: pageAct2, init: initAct2 },
+  { tab:'Evidence 3', render: pageAct3, init: initAct3 },
+  { tab:'Evidence 4', render: pageAct4, init: initAct4 },
+  { tab:"Notebook", render: pageNotebook, init: initNotebook },
+  { tab:'Sort the Clues', render: pageSort, init: initSort },
+  { tab:'Your Report', render: pageReport, init: initReport },
+  { tab:'Case Closed', render: pageResults, init: initResults }
+];
+
+function pageBriefing(){
+  return `
+  <div class="sheet">
+    <span class="tag">Briefing</span>
+    <div class="sheet-head"><h2>A robbery at the museum...</h2></div>
+    <p class="instructions">
+      Yesterday evening a valuable dinosaur egg went missing from the museum. Inspector Fox is
+      questioning six suspects &mdash; and needs your help to write up the case. Many detective
+      words are built with the suffix <em>-ment</em>: it turns a verb into a noun.
+    </p>
+    <div class="rule-box">
+      <b>Rule:</b> verb + <em>-ment</em> = noun &nbsp;&middot;&nbsp; e.g. <b>state</b> + <em>-ment</em> = <b>statement</b>
+      <br><span style="color:var(--ink-soft); font-size:0.9rem;">Watch out &mdash; not every verb follows this rule! Some verbs form their noun a different way (<b>believe</b> &rarr; belief, <b>solve</b> &rarr; solution).</span>
+    </div>
+    <p class="instructions" style="border-left-color:var(--navy);">
+      Work through the case file: check the evidence, build the words, fill in the report, then open your
+      Detective's Notebook and sort the clues for extra practice. At the end you'll close the case and see your score.
+    </p>
+    <div class="check-row">
+      <button class="btn-check" onclick="nextPage()">Start the investigation &rarr;</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- ACT 1 ---------- */
+function pageAct1(){
+  return `
+  <div class="sheet">
+    <span class="tag">Evidence 1</span>
+    <div class="sheet-head"><h2>Which verbs can take -ment?</h2></div>
+    <p class="instructions">Tick (&#10003;) the verbs that can become a noun with <em>-ment</em>, or cross (&#10007;) the ones that can't.
+    If you tick it, write the new noun in the box. Use a dictionary if you need one.</p>
+    <div class="example-row">
+      <span class="num">0</span><span class="verb">pay</span>
+      <span class="badge-yes">&#10003;</span><span class="noun-example">payment</span>
+      <span class="ex-label">example</span>
+    </div>
+    <div class="item-list">
+      ${ACT1_ITEMS.map((it,i)=>`
+        <div class="item-row" id="a1-row-${i}">
+          <span class="num">${i+1}</span>
+          <span class="verb">${it.verb}</span>
+          <div class="toggle-group">
+            <button class="tgl tick" id="a1-tick-${i}" onclick="a1Select(${i},true)">&#10003;</button>
+            <button class="tgl cross" id="a1-cross-${i}" onclick="a1Select(${i},false)">&#10007;</button>
+          </div>
+          <input type="text" class="noun-input" id="a1-input-${i}" placeholder="write the noun..." disabled>
+        </div>`).join('')}
+    </div>
+    <div class="check-row">
+      <button class="btn-check" onclick="checkAct1()">Check my answers</button>
+      <span class="result-pill" id="a1-result"></span>
+    </div>
+  </div>`;
+}
+function initAct1(){
+  ACT1_ITEMS.forEach((it,i)=>{
+    const p = state.act1.picks[i];
+    document.getElementById(`a1-tick-${i}`).classList.toggle('active', p===true);
+    document.getElementById(`a1-cross-${i}`).classList.toggle('active', p===false);
+    const input = document.getElementById(`a1-input-${i}`);
+    input.disabled = (p!==true);
+    input.value = state.act1['val'+i] || '';
+    input.oninput = ()=>{ state.act1['val'+i] = input.value; };
+  });
+  if (state.act1.checked) showAct1Result();
+}
+function a1Select(i,isYes){
+  if (state.act1.checked) return;
+  state.act1.picks[i] = isYes;
+  const input = document.getElementById(`a1-input-${i}`);
+  document.getElementById(`a1-tick-${i}`).classList.toggle('active', isYes===true);
+  document.getElementById(`a1-cross-${i}`).classList.toggle('active', isYes===false);
+  input.disabled = !isYes;
+  if (!isYes){ input.value=''; state.act1['val'+i]=''; }
+}
+function checkAct1(){
+  let score = 0;
+  ACT1_ITEMS.forEach((it,i)=>{
+    const pick = state.act1.picks[i];
+    const val = normalise(document.getElementById(`a1-input-${i}`).value);
+    let ok;
+    if (it.takesMent){ ok = (pick===true) && (val === it.noun); }
+    else { ok = (pick===false); }
+    if (ok) score++;
+    document.getElementById(`a1-row-${i}`).classList.toggle('correct', ok);
+    document.getElementById(`a1-row-${i}`).classList.toggle('incorrect', !ok);
+    document.getElementById(`a1-input-${i}`).classList.toggle('correct', ok && it.takesMent);
+    document.getElementById(`a1-input-${i}`).classList.toggle('incorrect', !ok && it.takesMent && pick===true);
+  });
+  state.act1.checked = true;
+  state.act1.score = score;
+  showAct1Result();
+}
+function showAct1Result(){
+  const el = document.getElementById('a1-result');
+  el.textContent = `Score: ${state.act1.score} / ${ACT1_ITEMS.length}`;
+  el.classList.add('show');
+}
+
+/* ---------- ACT 2 ---------- */
+function pageAct2(){
+  return `
+  <div class="sheet">
+    <span class="tag">Evidence 2</span>
+    <div class="sheet-head"><h2>Which words can end in -ment?</h2></div>
+    <p class="instructions">Click the words below that can take <em>-ment</em> to make a real noun. Leave the others unclicked.</p>
+    <div class="chip-grid">
+      <span class="chip example-chip">improve &rarr; improvement (example)</span>
+      ${ACT2_WORDS.map(w=>`<button class="chip" id="a2-chip-${w}" onclick="a2Toggle('${w}')">${w}</button>`).join('')}
+    </div>
+    <div class="check-row">
+      <button class="btn-check" onclick="checkAct2()">Check my answers</button>
+      <span class="result-pill" id="a2-result"></span>
+    </div>
+  </div>`;
+}
+function initAct2(){
+  ACT2_WORDS.forEach(w=>{
+    const el = document.getElementById(`a2-chip-${w}`);
+    el.classList.toggle('picked', state.act2.picked.has(w));
+    if (state.act2.checked){
+      const shouldPick = ACT2_CORRECT.has(w);
+      const picked = state.act2.picked.has(w);
+      el.classList.remove('picked');
+      if (shouldPick && picked) el.classList.add('correct-pick');
+      else if (!shouldPick && picked) el.classList.add('wrong-pick');
+      else if (shouldPick && !picked) el.classList.add('missed-pick');
+    }
+  });
+  if (state.act2.checked) showAct2Result();
+}
+function a2Toggle(w){
+  if (state.act2.checked) return;
+  if (state.act2.picked.has(w)) state.act2.picked.delete(w); else state.act2.picked.add(w);
+  document.getElementById(`a2-chip-${w}`).classList.toggle('picked');
+}
+function checkAct2(){
+  let score = 0;
+  ACT2_WORDS.forEach(w=>{
+    const should = ACT2_CORRECT.has(w);
+    const picked = state.act2.picked.has(w);
+    if (should === picked) score++;
+  });
+  state.act2.checked = true;
+  state.act2.score = score;
+  initAct2();
+  showAct2Result();
+}
+function showAct2Result(){
+  const el = document.getElementById('a2-result');
+  el.textContent = `Score: ${state.act2.score} / ${ACT2_WORDS.length}`;
+  el.classList.add('show');
+}
+
+/* ---------- ACT 3 ---------- */
+function pageAct3(){
+  const letters = ACT3_STRING.split('').map((ch,i)=>{
+    let out = `<span class="letter">${ch}</span>`;
+    if (i < ACT3_STRING.length-1){
+      out += `<span class="gap" id="a3-gap-${i+1}" onclick="a3Toggle(${i+1})"></span>`;
+    }
+    return out;
+  }).join('');
+  return `
+  <div class="sheet">
+    <span class="tag">Evidence 3</span>
+    <div class="sheet-head"><h2>Divide the words, then build them</h2></div>
+    <p class="instructions">These eight verbs are joined together. Click between the letters (7 clicks) to divide them into separate words.</p>
+    <div class="letters-wrap">${letters}</div>
+    <div class="check-row">
+      <button class="btn-check" onclick="checkAct3()">Check my cuts</button>
+      <button class="btn-secondary" onclick="resetAct3()">Reset</button>
+      <span class="result-pill" id="a3-result"></span>
+    </div>
+    <p class="instructions" style="margin-top:20px;">Now add <em>-ment</em> to each verb. Click a card to reveal the new word.</p>
+    <div class="word-bank" id="a3-bank">
+      ${ACT3_WORDS.map((w,i)=>`
+        <div class="flip-chip" id="a3-flip-${i}" onclick="document.getElementById('a3-flip-${i}').classList.toggle('flipped')">
+          <div class="flip-chip-inner">
+            <div class="flip-face flip-front">${w}</div>
+            <div class="flip-face flip-back">${w}<br><b>${w}ment</b></div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+function initAct3(){
+  ACT3_BOUNDARIES.forEach(()=>{});
+  for (let pos of state.act3.cuts){
+    const g = document.getElementById(`a3-gap-${pos}`);
+    if (g) g.classList.add('cut');
+  }
+  if (state.act3.checked) paintAct3Result();
+}
+function a3Toggle(pos){
+  if (state.act3.checked) return;
+  const g = document.getElementById(`a3-gap-${pos}`);
+  if (state.act3.cuts.has(pos)){ state.act3.cuts.delete(pos); g.classList.remove('cut'); }
+  else { state.act3.cuts.add(pos); g.classList.add('cut'); }
+}
+function resetAct3(){
+  if (state.act3.checked) return;
+  state.act3.cuts.clear();
+  document.querySelectorAll('.gap').forEach(g=>g.classList.remove('cut'));
+}
+function checkAct3(){
+  let score = 0;
+  const correctSet = new Set(ACT3_BOUNDARIES);
+  correctSet.forEach(pos=>{ if (state.act3.cuts.has(pos)) score++; });
+  state.act3.checked = true;
+  state.act3.score = score;
+  paintAct3Result();
+}
+function paintAct3Result(){
+  const correctSet = new Set(ACT3_BOUNDARIES);
+  for (let i=1;i<ACT3_STRING.length;i++){
+    const g = document.getElementById(`a3-gap-${i}`);
+    if (!g) continue;
+    g.classList.remove('cut');
+    const has = state.act3.cuts.has(i);
+    const should = correctSet.has(i);
+    if (has && should) g.classList.add('g-correct');
+    else if (has && !should) g.classList.add('g-wrong');
+    else if (!has && should) g.classList.add('g-missed');
+  }
+  const el = document.getElementById('a3-result');
+  el.textContent = `Score: ${state.act3.score} / ${ACT3_BOUNDARIES.length}`;
+  el.classList.add('show');
+}
+
+/* ---------- ACT 4 ---------- */
+function pageAct4(){
+  return `
+  <div class="sheet">
+    <span class="tag">Evidence 4</span>
+    <div class="sheet-head"><h2>Complete the sentences</h2></div>
+    <p class="instructions">Use the words you built in Evidence 3 to complete the sentences below.</p>
+    ${ACT4_ITEMS.map((item,i)=>`
+      <div class="sentence-block"><span class="num">${i+1}</span>${item.parts.map(p=>{
+        if (typeof p === 'string') return p;
+        if (p.given) return `<input type="text" class="blank-input" value="${p.given}" disabled>`;
+        return `<input type="text" class="blank-input" id="${p.id}" data-answer="${p.blank}" placeholder="...">`;
+      }).join('')}</div>
+    `).join('')}
+    <div class="check-row">
+      <button class="btn-check" onclick="checkAct4()">Check my answers</button>
+      <span class="result-pill" id="a4-result"></span>
+    </div>
+  </div>`;
+}
+function initAct4(){
+  document.querySelectorAll('.blank-input[data-answer]').forEach(inp=>{
+    inp.value = state.act4[inp.id] || '';
+    inp.oninput = ()=>{ state.act4[inp.id] = inp.value; };
+    if (state.act4.checked){
+      const ok = normalise(inp.value) === normalise(inp.dataset.answer);
+      inp.classList.toggle('correct', ok);
+      inp.classList.toggle('incorrect', !ok);
+    }
+  });
+  if (state.act4.checked) showAct4Result();
+}
+function checkAct4(){
+  let total = 0, score = 0;
+  document.querySelectorAll('.blank-input[data-answer]').forEach(inp=>{
+    total++;
+    const ok = normalise(inp.value) === normalise(inp.dataset.answer);
+    if (ok) score++;
+    inp.classList.toggle('correct', ok);
+    inp.classList.toggle('incorrect', !ok);
+  });
+  state.act4.checked = true;
+  state.act4.score = score;
+  state.act4.total = total;
+  showAct4Result();
+}
+function showAct4Result(){
+  const el = document.getElementById('a4-result');
+  el.textContent = `Score: ${state.act4.score} / ${state.act4.total || 9}`;
+  el.classList.add('show');
+}
+
+/* ---------- NOTEBOOK ---------- */
+function pageNotebook(){
+  const words = Object.keys(VOCAB);
+  return `
+  <div class="sheet">
+    <span class="tag">Extra &middot; Reinforcement</span>
+    <div class="sheet-head"><h2>Detective's Notebook</h2></div>
+    <p class="instructions">All the -ment words from this case, in one place. Click a card to flip it and read the meaning. Tap &#128266; to hear it.</p>
+    <div class="card-grid">
+      ${words.map((w,i)=>`
+        <div class="flashcard" id="fc-${i}" onclick="flipCard(${i})">
+          <div class="flashcard-inner">
+            <div class="fc-face fc-front">
+              <div class="word">${w}</div>
+              <div class="hint">click to reveal meaning</div>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="pos">${VOCAB[w].pos}</div>
+              <div>${VOCAB[w].def}</div>
+              <div class="ex">"${VOCAB[w].example}"</div>
+              <button class="speak-btn" onclick="event.stopPropagation(); speak('${w}. ${VOCAB[w].example.replace(/'/g,"\\'")}')">&#128266; listen</button>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+function initNotebook(){}
+function flipCard(i){ document.getElementById(`fc-${i}`).classList.toggle('flipped'); }
+
+/* ---------- SORT ---------- */
+function pageSort(){
+  return `
+  <div class="sheet">
+    <span class="tag">Extra &middot; Reinforcement</span>
+    <div class="sheet-head"><h2>Sort the clues</h2></div>
+    <p class="instructions">All the verbs from this case are mixed up. Click a verb, then click the correct box to sort it.</p>
+    <div class="sort-area">
+      <div class="sort-bank" id="sort-bank"></div>
+      <div class="buckets">
+        <div class="bucket yes"><h4>&#10003; Takes -ment</h4><div class="bucket-body" id="bucket-yes" onclick="sortDrop('yes')"></div></div>
+        <div class="bucket no"><h4>&#10007; No -ment</h4><div class="bucket-body" id="bucket-no" onclick="sortDrop('no')"></div></div>
+      </div>
+    </div>
+    <div class="check-row">
+      <button class="btn-check" onclick="checkSort()">Check my sorting</button>
+      <button class="btn-secondary" onclick="resetSort()">Reset</button>
+      <span class="result-pill" id="sort-result"></span>
+    </div>
+  </div>`;
+}
+function initSort(){ renderSort(); }
+function renderSort(){
+  const bank = document.getElementById('sort-bank');
+  const yesB = document.getElementById('bucket-yes');
+  const noB = document.getElementById('bucket-no');
+  bank.innerHTML=''; yesB.innerHTML=''; noB.innerHTML='';
+  SORT_VERBS.forEach(item=>{
+    const chipHtml = `<span class="sort-chip" data-v="${item.v}" onclick="sortSelect(event,'${item.v}')">${item.v}</span>`;
+    const place = state.sort.placement[item.v];
+    if (!place) bank.insertAdjacentHTML('beforeend', chipHtml);
+    else if (place==='yes') yesB.insertAdjacentHTML('beforeend', chipHtml);
+    else noB.insertAdjacentHTML('beforeend', chipHtml);
+  });
+  document.querySelectorAll('.sort-chip').forEach(c=>{
+    c.classList.toggle('selected', c.dataset.v === state.sort.selected);
+    if (state.sort.checked){
+      const item = SORT_VERBS.find(x=>x.v===c.dataset.v);
+      const correctZone = item.yes ? 'yes' : 'no';
+      const ok = state.sort.placement[c.dataset.v] === correctZone;
+      c.classList.remove('right','wrong');
+      if (state.sort.placement[c.dataset.v]) c.classList.add(ok ? 'right' : 'wrong');
+    }
+  });
+}
+function sortSelect(ev, v){
+  ev.stopPropagation();
+  if (state.sort.checked) return;
+  state.sort.selected = (state.sort.selected===v) ? null : v;
+  renderSort();
+}
+function sortDrop(zone){
+  if (state.sort.checked || !state.sort.selected) return;
+  state.sort.placement[state.sort.selected] = zone;
+  state.sort.selected = null;
+  renderSort();
+}
+function resetSort(){
+  if (state.sort.checked) return;
+  state.sort.placement = {}; state.sort.selected = null;
+  renderSort();
+}
+function checkSort(){
+  let score = 0;
+  SORT_VERBS.forEach(item=>{
+    const zone = state.sort.placement[item.v];
+    const correctZone = item.yes ? 'yes' : 'no';
+    if (zone === correctZone) score++;
+  });
+  state.sort.checked = true;
+  state.sort.score = score;
+  renderSort();
+  const el = document.getElementById('sort-result');
+  el.textContent = `Score: ${score} / ${SORT_VERBS.length}`;
+  el.classList.add('show');
+}
+
+/* ---------- REPORT ---------- */
+function pageReport(){
+  return `
+  <div class="sheet">
+    <span class="tag">Extra &middot; Production</span>
+    <div class="sheet-head"><h2>Your report</h2></div>
+    <p class="instructions">Write your own sentence for each word below, like a detective writing up the case. Use each word correctly in a full sentence.</p>
+    ${REPORT_WORDS.map((w,i)=>`
+      <div class="report-item">
+        <label>${i+1}. Use the word "<em style="color:var(--navy);">${w}</em>" in a sentence:</label>
+        <textarea class="report-box" id="rep-${i}" oninput="checkReport(${i},'${w}')"></textarea>
+        <div class="ok-flag" id="rep-ok-${i}">Nice! That looks like a solid sentence with "${w}".</div>
+        <div class="review-flag" id="rep-flag-${i}">Keep going &mdash; try a full sentence (4+ words) that includes "${w}".</div>
+      </div>
+    `).join('')}
+    <p class="instructions" style="border-left-color:var(--navy);">There's no single correct answer here &mdash; this page is for your teacher to review.</p>
+  </div>`;
+}
+function initReport(){
+  REPORT_WORDS.forEach((w,i)=>{
+    const box = document.getElementById(`rep-${i}`);
+    box.value = state['rep'+i] || '';
+    checkReport(i,w);
+  });
+}
+function checkReport(i,w){
+  const box = document.getElementById(`rep-${i}`);
+  state['rep'+i] = box.value;
+  const val = normalise(box.value);
+  const wordCount = box.value.trim().split(/\s+/).filter(Boolean).length;
+  const ok = val.includes(w.toLowerCase()) && wordCount >= 4;
+  document.getElementById(`rep-ok-${i}`).classList.toggle('show', ok && box.value.length>0);
+  document.getElementById(`rep-flag-${i}`).classList.toggle('show', !ok && box.value.length>0);
+}
+
+/* ---------- RESULTS ---------- */
+function pageResults(){
+  const rows = [
+    ['Evidence 1 — tick/cross + spelling', state.act1.score, ACT1_ITEMS.length, state.act1.checked],
+    ['Evidence 2 — word selection', state.act2.score, ACT2_WORDS.length, state.act2.checked],
+    ['Evidence 3 — dividing words', state.act3.score, ACT3_BOUNDARIES.length, state.act3.checked],
+    ['Evidence 4 — sentence completion', state.act4.score, state.act4.total||9, state.act4.checked],
+    ['Sort the clues', state.sort.score, SORT_VERBS.length, state.sort.checked]
+  ];
+  const totalScore = rows.reduce((s,r)=>s+(r[3]?r[1]:0),0);
+  const totalMax = rows.reduce((s,r)=>s+r[2],0);
+  const pct = totalMax ? Math.round(totalScore/totalMax*100) : 0;
+  const allDone = rows.every(r=>r[3]);
+  let verdict = "Keep investigating &mdash; go back and complete every page of evidence.";
+  if (allDone){
+    if (pct>=90) verdict = "Master Detective! Outstanding case work.";
+    else if (pct>=70) verdict = "Great detective work &mdash; the case is basically solved!";
+    else verdict = "Case partly solved &mdash; review the evidence pages and try again.";
+  }
+  return `
+  <div class="sheet">
+    <span class="tag">Case Closed</span>
+    <div class="sheet-head"><h2>Your investigation report</h2></div>
+    <div class="stamp">CASE CLOSED</div>
+    <div class="score-big">${allDone ? pct+'%' : '—'}</div>
+    <p class="instructions">${verdict}</p>
+    <table class="breakdown">
+      <tr><th>Section</th><th>Score</th></tr>
+      ${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[3] ? r[1]+' / '+r[2] : 'not completed'}</td></tr>`).join('')}
+    </table>
+    <div class="send-row">
+      <button class="btn-check" onclick="sendCompletion()">Send my report to my teacher</button>
+      <span class="send-status" id="sendStatus"></span>
+    </div>
+  </div>`;
+}
+function initResults(){}
+
+async function sendCompletion(){
+  const status = document.getElementById('sendStatus');
+  status.textContent = 'Sending...';
+  try{
+    const fd = new FormData();
+    fd.append('lesson', document.title);
+    fd.append('exercise', 'Unit 10 — Suffixes -ment (Detective Case File)');
+    fd.append('timestamp', new Date().toISOString());
+    fd.append('act1_score', `${state.act1.score}/${ACT1_ITEMS.length}`);
+    fd.append('act2_score', `${state.act2.score}/${ACT2_WORDS.length}`);
+    fd.append('act3_score', `${state.act3.score}/${ACT3_BOUNDARIES.length}`);
+    fd.append('act4_score', `${state.act4.score}/${state.act4.total||9}`);
+    fd.append('sort_score', `${state.sort.score}/${SORT_VERBS.length}`);
+    fd.append('report_1', state.rep0 || '');
+    fd.append('report_2', state.rep1 || '');
+    fd.append('report_3', state.rep2 || '');
+    const res = await fetch('https://formspree.io/f/mlgqeayn', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    status.textContent = res.ok ? 'Sent to your teacher!' : "Couldn't send — check your connection.";
+  }catch(e){
+    status.textContent = "Couldn't send — check your connection.";
+  }
+}
+
+/* ============ NAV ENGINE ============ */
+function renderStage(){
+  const p = PAGES[current];
+  document.getElementById('stage').innerHTML = p.render();
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/PAGES.length*100}%`;
+  document.getElementById('scorePill').textContent = `Page ${current+1} of ${PAGES.length}`;
+  if (p.init) p.init();
+  document.getElementById('prevBtn').disabled = (current===0);
+  document.getElementById('nextBtn').textContent = (current===PAGES.length-1) ? 'Restart ⟲' : 'Next →';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function nextPage(){ current = (current===PAGES.length-1) ? 0 : current+1; renderStage(); }
+function prevPage(){ if (current>0){ current--; renderStage(); } }
+function goTo(i){ current=i; renderStage(); }
+
+document.getElementById('tabs').innerHTML = PAGES.map((p,i)=>`<button class="tab" onclick="goTo(${i})">${p.tab}</button>`).join('');
+renderStage();
+</script>
+</body>
+</html>

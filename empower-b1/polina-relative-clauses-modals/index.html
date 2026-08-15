@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Polina — Relative Clauses, Ability Modals & Mechanics</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="Empower B1+">
+<meta name="ws:course-id" content="empower-b1">
+<meta name="ws:unit"      content="—">
+<meta name="ws:title"     content="Polina — Relative Clauses, Ability Modals &amp; Mechanics">
+<meta name="ws:emoji"     content="✍️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnlwdp">
+<meta name="ws:tags"      content="relative clauses, modals, individual">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Relative Clauses, Ability Modals & Mechanics</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <!-- =====================================================================
+       TEMPLATE GUIDE — test_template_angle.html
+       =====================================================================
+       This is the reusable ANGLE-brand test/exercise template (purple #5E4877 /
+       black #2D2926 / yellow #FED500, Apercu Pro font, diagonal header, ANGLE
+       logo + "by Viktoria Syuzyova" credit, floating logo badge).
+
+       This template does NOT prescribe a fixed set of sections or exercise
+       types. The structure (how many sections, in what order, which exercise
+       types) is supplied per exercise, based on the source material.
+
+       HOW TO ADD EXERCISES:
+       1. Wrap each group of questions in a <div class="section"> with an
+          <h2> heading (e.g. "Part 1 — ...").
+       2. Every question is a <div class="item"> with two required attributes:
+            data-answer="..."   the correct answer, matched case-insensitively
+            data-type="mc" | "dd" | "fib"
+          and MUST contain exactly one <p> with the question text (the scorer
+          reads this text for the review log), plus the matching input(s):
+            mc  -> radio buttons: <div class="options"><label><input type="radio" name="..." value="..."> ...</label></div>
+            dd  -> <select name="..."><option value="">-- choose --</option>...</select>
+            fib -> <p class="blank-sentence">...<input type="text" name="...">...</p>
+       3. Give every input/select a unique name attribute across the whole
+          file (mc1, mc2, dd1, fib1 ...) — never reuse a name.
+       4. Update <title>, the <h1> in .title-block, and the
+          fd.append('exercise', '...') line near the bottom of the <script> to
+          match the new exercise name.
+       5. Delete this guide comment block (or leave it, it is invisible on the page).
+       ===================================================================== -->
+
+
+  <div class="section">
+    <h2>Part 1 — Relative Clauses: defining vs. non-defining</h2>
+
+    <div class="item" data-type="fib" data-answer="where">
+      <p>1. Fill in the correct relative pronoun (defining clause — no comma).</p>
+      <p class="blank-sentence">We visited a city <input type="text" name="fib1" style="width:90px"> we saw ancient landmarks.</p>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="comma">
+      <p>2. Does this sentence need a comma before the relative clause?</p>
+      <p class="blank-sentence">We visited Beijing ___ where we saw ancient landmarks.</p>
+      <select name="dd1">
+        <option value="">-- choose --</option>
+        <option value="comma">comma needed (non-defining)</option>
+        <option value="no comma">no comma needed (defining)</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="that">
+      <p>3. Fill in the correct relative pronoun (defining clause).</p>
+      <p class="blank-sentence">The giveaway <input type="text" name="fib2" style="width:90px"> we announced on Instagram got hundreds of entries.</p>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="no comma">
+      <p>4. Does this sentence need a comma before the relative clause?</p>
+      <p class="blank-sentence">The city ___ where we saw ancient landmarks was incredible.</p>
+      <select name="dd2">
+        <option value="">-- choose --</option>
+        <option value="comma">comma needed (non-defining)</option>
+        <option value="no comma">no comma needed (defining)</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="who">
+      <p>5. Fill in the correct relative pronoun (non-defining clause — extra info about a known person).</p>
+      <p class="blank-sentence">My colleague, <input type="text" name="fib3" style="width:90px"> has lived in Beijing for ten years, gave us great tips.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Ability Modals: could / was able to / managed to / been able to</h2>
+
+    <div class="item" data-type="fib" data-answer="could">
+      <p>6. Complete with the correct ability form (general past ability).</p>
+      <p class="blank-sentence">As a teenager, she <input type="text" name="fib4" style="width:110px"> speak three languages fluently.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="managed to">
+      <p>7. Complete with the correct ability form (succeeded at something difficult).</p>
+      <p class="blank-sentence">After trying five times, he finally <input type="text" name="fib5" style="width:110px"> open the stubborn jar.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="managed to">
+      <p>8. Complete with the correct ability form (specific achievement despite difficulty).</p>
+      <p class="blank-sentence">Despite the rain, we <input type="text" name="fib6" style="width:110px"> finish the whole tour on foot.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="been able to">
+      <p>9. Complete with the correct ability form (Present Perfect — "can" is impossible here).</p>
+      <p class="blank-sentence">He's <input type="text" name="fib7" style="width:110px"> think much more clearly since he started journaling.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="managed to">
+      <p>10. Complete with the correct ability form (succeeding despite difficulty, describing a small percentage).</p>
+      <p class="blank-sentence">Only 5% of applicants <input type="text" name="fib8" style="width:110px"> pass the final round.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Prepositions, Articles & Mechanics</h2>
+
+    <div class="item" data-type="fib" data-answer="on">
+      <p>11. Fill in the correct preposition (the platform).</p>
+      <p class="blank-sentence">She posted the news <input type="text" name="fib9" style="width:70px"> Instagram this morning.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="in">
+      <p>12. Fill in the correct preposition (content within the post itself).</p>
+      <p class="blank-sentence">There's a surprising detail <input type="text" name="fib10" style="width:70px"> the post itself.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="a">
+      <p>13. Fill in the correct article (first mention of a countable noun).</p>
+      <p class="blank-sentence">We're planning <input type="text" name="fib11" style="width:70px"> giveaway for our followers next week.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="I">
+      <p>14. Fill in the missing word (remember: this pronoun is always capitalized).</p>
+      <p class="blank-sentence"><input type="text" name="fib12" style="width:70px"> think this is a great idea.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="only">
+      <p>15. Complete the sentence naturally (negate the verb, not the noun, for emphasis).</p>
+      <p class="blank-sentence">During our trip, we visited Rome, then Florence, then Venice — we didn't visit <input type="text" name="fib13" style="width:70px"> one city.</p>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Polina — Relative Clauses, Ability Modals & Mechanics');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mjgnlwdp', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

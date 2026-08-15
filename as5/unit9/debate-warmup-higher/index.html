@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debate Phrases Warm-Up</title>
+<meta name="ws:type"      content="warmup">
+<meta name="ws:course"    content="Academy Stars 5">
+<meta name="ws:course-id" content="as5">
+<meta name="ws:unit"      content="9">
+<meta name="ws:title"     content="Debate Phrases Warm-Up — Higher">
+<meta name="ws:emoji"     content="🗣️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:tags"      content="debate, discussion phrases, higher level">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:36px 24px 46px;
+    margin-bottom:0;
+    overflow:hidden;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    text-align:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-icon{
+    position:absolute;
+    top:14px;
+    left:14px;
+    width:104px;
+    height:auto;
+    z-index:2;
+  }
+  .studio-icon img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  .studio-credit{
+    position:absolute;
+    top:124px;
+    left:14px;
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    z-index:2;
+    margin:0;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+<img class="floating-logo" src="img/course-cover.png" alt="Academy Stars 5">
+
+
+<header>
+<div class="studio-icon"><img src="/assets/brand/angle-logo.png" alt="ANGLE"></div>
+<p class="studio-credit">by Viktoria Syuzyova</p>
+  <h1>Debate Phrases Warm-Up</h1>
+  <p>School sports & school uniforms — check your functions before class</p>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <!-- SECTION A: MULTIPLE CHOICE -->
+  <div class="section">
+    <h2>Part 1 — Choose the right phrase</h2>
+
+    <div class="item" data-answer="b" data-type="mc">
+      <p>"Sports are dangerous." <span class="func-tag">Agree</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc1" value="a"> I'm not so sure about that.</label>
+        <label><input type="radio" name="mc1" value="b"> I couldn't agree more — injuries happen a lot in PE.</label>
+        <label><input type="radio" name="mc1" value="c"> What do you think about that?</label>
+        <label><input type="radio" name="mc1" value="d"> Sorry to interrupt, but...</label>
+      </div>
+    </div>
+
+    <div class="item" data-answer="a" data-type="mc">
+      <p>"School sports should be compulsory." <span class="func-tag">Disagree</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc2" value="a"> I'm not so sure about that — not everyone enjoys sports.</label>
+        <label><input type="radio" name="mc2" value="b"> I couldn't agree more.</label>
+        <label><input type="radio" name="mc2" value="c"> That's exactly my point.</label>
+        <label><input type="radio" name="mc2" value="d"> Can I say something here?</label>
+      </div>
+    </div>
+
+    <div class="item" data-answer="c" data-type="mc">
+      <p>"Uniforms make school fairer." <span class="func-tag">Ask for opinion</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc3" value="a"> I completely agree with that.</label>
+        <label><input type="radio" name="mc3" value="b"> I see it differently.</label>
+        <label><input type="radio" name="mc3" value="c"> What do you think about that?</label>
+        <label><input type="radio" name="mc3" value="d"> Sorry to interrupt, but...</label>
+      </div>
+    </div>
+
+    <div class="item" data-answer="d" data-type="mc">
+      <p>Your partner is mid-sentence and you need to jump in politely. <span class="func-tag">Interrupt</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc4" value="a"> I couldn't agree more.</label>
+        <label><input type="radio" name="mc4" value="b"> I'm not so sure about that.</label>
+        <label><input type="radio" name="mc4" value="c"> What do you think about that?</label>
+        <label><input type="radio" name="mc4" value="d"> Sorry to interrupt, but can I add something?</label>
+      </div>
+    </div>
+
+    <div class="item" data-answer="b" data-type="mc">
+      <p>"Changing clothes takes too much time, so PE wastes the lesson." <span class="func-tag">Give your opinion</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc5" value="a"> What's your opinion on this?</label>
+        <label><input type="radio" name="mc5" value="b"> In my opinion, that's a minor problem compared to the benefits.</label>
+        <label><input type="radio" name="mc5" value="c"> I couldn't agree more.</label>
+        <label><input type="radio" name="mc5" value="d"> Sorry, go on.</label>
+      </div>
+    </div>
+
+    <div class="item" data-answer="a" data-type="mc">
+      <p>"Physical activity increases blood flow to the brain." <span class="func-tag">Agree</span></p>
+      <div class="options">
+        <label><input type="radio" name="mc6" value="a"> That's a good point — it makes sense physiologically.</label>
+        <label><input type="radio" name="mc6" value="b"> I'm not convinced by that at all.</label>
+        <label><input type="radio" name="mc6" value="c"> Can I ask you something?</label>
+        <label><input type="radio" name="mc6" value="d"> What do you mean by that?</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B: DROPDOWN -->
+  <div class="section">
+    <h2>Part 2 — Name the function</h2>
+
+    <div class="item" data-answer="agreement" data-type="dd">
+      <p>"That's exactly my point."</p>
+      <select name="dd1">
+        <option value="">-- choose --</option>
+        <option value="opinion">Giving an opinion</option>
+        <option value="asking">Asking for an opinion</option>
+        <option value="agreement">Agreement</option>
+        <option value="disagreement">Disagreement</option>
+        <option value="interruption">Polite interruption</option>
+      </select>
+    </div>
+
+    <div class="item" data-answer="disagreement" data-type="dd">
+      <p>"I see it differently."</p>
+      <select name="dd2">
+        <option value="">-- choose --</option>
+        <option value="opinion">Giving an opinion</option>
+        <option value="asking">Asking for an opinion</option>
+        <option value="agreement">Agreement</option>
+        <option value="disagreement">Disagreement</option>
+        <option value="interruption">Polite interruption</option>
+      </select>
+    </div>
+
+    <div class="item" data-answer="interruption" data-type="dd">
+      <p>"Can I just say something here?"</p>
+      <select name="dd3">
+        <option value="">-- choose --</option>
+        <option value="opinion">Giving an opinion</option>
+        <option value="asking">Asking for an opinion</option>
+        <option value="agreement">Agreement</option>
+        <option value="disagreement">Disagreement</option>
+        <option value="interruption">Polite interruption</option>
+      </select>
+    </div>
+
+    <div class="item" data-answer="asking" data-type="dd">
+      <p>"How do you feel about that?"</p>
+      <select name="dd4">
+        <option value="">-- choose --</option>
+        <option value="opinion">Giving an opinion</option>
+        <option value="asking">Asking for an opinion</option>
+        <option value="agreement">Agreement</option>
+        <option value="disagreement">Disagreement</option>
+        <option value="interruption">Polite interruption</option>
+      </select>
+    </div>
+
+    <div class="item" data-answer="opinion" data-type="dd">
+      <p>"As far as I'm concerned, sports are essential at school."</p>
+      <select name="dd5">
+        <option value="">-- choose --</option>
+        <option value="opinion">Giving an opinion</option>
+        <option value="asking">Asking for an opinion</option>
+        <option value="agreement">Agreement</option>
+        <option value="disagreement">Disagreement</option>
+        <option value="interruption">Polite interruption</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SECTION C: FILL IN THE BLANK -->
+  <div class="section">
+    <h2>Part 3 — Complete the phrase</h2>
+
+    <div class="item" data-answer="more" data-type="fib">
+      <p class="blank-sentence">I couldn't agree <input type="text" name="fib1"> with you.</p>
+    </div>
+
+    <div class="item" data-answer="sure" data-type="fib">
+      <p class="blank-sentence">I'm not so <input type="text" name="fib2"> about that.</p>
+    </div>
+
+    <div class="item" data-answer="interrupt" data-type="fib">
+      <p class="blank-sentence">Sorry to <input type="text" name="fib3">, but can I add something?</p>
+    </div>
+
+    <div class="item" data-answer="opinion" data-type="fib">
+      <p class="blank-sentence">In my <input type="text" name="fib4">, school sports should stay optional.</p>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('exercise', 'Debate Phrases Warm-Up');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/mlgqeayn', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

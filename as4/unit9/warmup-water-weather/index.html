@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Warm-Up: Water &amp; Weather Review</title>
+<meta name="ws:type"      content="warmup">
+<meta name="ws:course"    content="Academy Stars 4">
+<meta name="ws:course-id" content="as4">
+<meta name="ws:unit"      content="9">
+<meta name="ws:title"     content="Warm-Up: Water & Weather Review">
+<meta name="ws:emoji"     content="💧">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xeeyrowk">
+<meta name="ws:tags"      content="water, weather">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f7f6f4;
+    --neutral-card:#ffffff;
+    --neutral-border:#e4e0e8;
+    --correct:#3d7a3f;
+    --wrong:#b23a3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+    background:var(--neutral-bg);
+    color:var(--black);
+    padding:0;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px;}
+  header{
+    position:relative;
+    background:var(--purple);
+    color:#ffffff;
+    padding:24px 24px 40px;
+    margin-bottom:0;
+    overflow:hidden;
+    min-height:140px;
+    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-align:left;
+  }
+  .logo-block{
+    flex:0 0 auto;
+    width:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .logo-block img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .title-block{
+    flex:1 1 auto;
+    min-width:0;
+    align-self:center;
+  }
+  header h1{
+    font-size:1.9em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin:0 0 6px 0;
+  }
+  header p{
+    color:#ffffff;
+    margin:0;
+    font-size:1em;
+    opacity:0.9;
+  }
+  .stars{display:none;}
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .student-info{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--yellow);
+    border-radius:0;
+    padding:18px 22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .student-info label{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    font-weight:700;
+    font-size:0.85em;
+    color:var(--purple);
+    flex:1 1 220px;
+  }
+  .student-info input{
+    font-family:inherit;
+    font-size:1em;
+    padding:8px 10px;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    background:#ffffff;
+    color:var(--black);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
+  }
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
+  }
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
+  }
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
+  }
+  .blank-sentence{font-weight:400;}
+  .btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+  }
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
+  }
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+
+  .floating-logo{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    max-width:110px;
+    height:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:6px 8px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.25);
+    z-index:1000;
+  }
+  .studio-credit{
+    font-size:0.65em;
+    color:#ffffff;
+    opacity:0.85;
+    font-weight:400;
+    margin:6px 0 0;
+    text-align:center;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+<img class="floating-logo" src="img/course-cover.png" alt="Academy Stars 4">
+
+
+<header>
+<div class="logo-block">
+<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+<p class="studio-credit">by Viktoria Syuzyova</p>
+</div>
+<div class="title-block">
+  <h1>Warm-Up: Water &amp; Weather Review</h1>
+</div>
+</header>
+
+<div class="wrap">
+
+
+<form id="quizForm">
+
+  <div class="student-info">
+    <label>Student's name
+      <input type="text" id="studentName" name="studentName" placeholder="e.g. Anton">
+    </label>
+    <label>Group / class
+      <input type="text" id="studentGroup" name="studentGroup" placeholder="e.g. AS4 Wed">
+    </label>
+  </div>
+
+  <div class="section">
+    <h2>Part 1 — Wh- Words: Add the Silent H</h2>
+
+    <div class="item" data-type="fib" data-answer="h">
+      <p>Add the missing letter to complete the word from the poem.</p>
+      <p class="blank-sentence">W<input type="text" name="fib1" maxlength="1" style="width:2.5em;text-align:center;">at is snow?</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="h">
+      <p>Add the missing letter to complete the word from the poem.</p>
+      <p class="blank-sentence">W<input type="text" name="fib2" maxlength="1" style="width:2.5em;text-align:center;">y is it white?</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="h">
+      <p>Add the missing letter to complete the word from the poem.</p>
+      <p class="blank-sentence">W<input type="text" name="fib3" maxlength="1" style="width:2.5em;text-align:center;">ere does it go?</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Saving Water: Choose the Number</h2>
+
+    <div class="item" data-type="mc" data-answer="12-15 litres">
+      <p>A dishwasher uses about how much water per cycle?</p>
+      <div class="options">
+        <label><input type="radio" name="mc1" value="12-15 litres"> 12–15 litres</label>
+        <label><input type="radio" name="mc1" value="50-60 litres"> 50–60 litres</label>
+        <label><input type="radio" name="mc1" value="100+ litres"> 100+ litres</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="50-60 litres">
+      <p>A washing machine uses about how much water per cycle?</p>
+      <div class="options">
+        <label><input type="radio" name="mc2" value="12-15 litres"> 12–15 litres</label>
+        <label><input type="radio" name="mc2" value="50-60 litres"> 50–60 litres</label>
+        <label><input type="radio" name="mc2" value="100+ litres"> 100+ litres</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3 — Water on Earth: True or False</h2>
+
+    <div class="item" data-type="mc" data-answer="true">
+      <p>Almost all the water on Earth is salty.</p>
+      <div class="options">
+        <label><input type="radio" name="mc3" value="true"> True</label>
+        <label><input type="radio" name="mc3" value="false"> False</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="false">
+      <p>Most freshwater on Earth is found in rivers and lakes, not glaciers.</p>
+      <div class="options">
+        <label><input type="radio" name="mc4" value="true"> True</label>
+        <label><input type="radio" name="mc4" value="false"> False</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="true">
+      <p>New water is not created on Earth — it just keeps moving through the water cycle.</p>
+      <div class="options">
+        <label><input type="radio" name="mc5" value="true"> True</label>
+        <label><input type="radio" name="mc5" value="false"> False</label>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <p id="resultName" style="font-weight:700;color:var(--purple);"></p>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+  });
+
+  const studentName = document.getElementById('studentName').value.trim();
+  const studentGroup = document.getElementById('studentGroup').value.trim();
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('resultName').textContent = studentName ? studentName + (studentGroup ? ' — ' + studentGroup : '') : '';
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You know this material well."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('student_name', studentName || '(not entered)');
+  fd.append('student_group', studentGroup || '(not entered)');
+  fd.append('exercise', 'Warm-Up: Water & Weather Review');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
+
+  fetch('https://formspree.io/f/xeeyrowk', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

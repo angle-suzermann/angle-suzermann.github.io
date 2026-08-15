@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ЕГЭ. Отработка ошибок. Новые предложения</title>
+
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="Лексика 30–36 — новые предложения на ошибки">
+<meta name="ws:emoji"     content="🔤">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+
+<style>
+  :root{
+    --bg:#f7f5f0;
+    --card:#ffffff;
+    --ink:#2b2b2b;
+    --muted:#6b6b6b;
+    --accent:#3a5a78;
+    --accent-light:#e8eef3;
+    --correct:#2e7d4f;
+    --correct-bg:#e6f4ea;
+    --wrong:#b3392c;
+    --wrong-bg:#fbe9e7;
+    --border:#d8d3c8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:32px 16px;
+    background:var(--bg);
+    font-family: "Georgia", "Times New Roman", serif;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+  h1{
+    font-size:1.5rem;
+    text-align:center;
+    margin-bottom:4px;
+    color:var(--accent);
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.95rem;
+    margin-bottom:32px;
+  }
+  .item{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px 24px;
+    margin-bottom:14px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.05);
+  }
+  .item-num{
+    font-size:0.8rem;
+    color:var(--muted);
+    font-family: Arial, sans-serif;
+    margin-bottom:4px;
+  }
+  .item-text{
+    font-size:1.02rem;
+  }
+  select{
+    font-family:inherit;
+    font-size:0.95rem;
+    padding:2px 6px;
+    border:1px solid var(--accent);
+    border-radius:4px;
+    background:var(--accent-light);
+    color:var(--ink);
+    margin:0 2px;
+  }
+  select.correct{
+    background:var(--correct-bg);
+    border-color:var(--correct);
+    color:var(--correct);
+    font-weight:bold;
+  }
+  select.wrong{
+    background:var(--wrong-bg);
+    border-color:var(--wrong);
+    color:var(--wrong);
+    font-weight:bold;
+  }
+  .controls{
+    max-width:820px;
+    margin:0 auto 24px auto;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+  }
+  button{
+    font-family:inherit;
+    font-size:1rem;
+    padding:10px 26px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:var(--accent);
+    color:#fff;
+    transition:background 0.15s;
+  }
+  button:hover{background:#2c4560;}
+  button.secondary{
+    background:transparent;
+    color:var(--accent);
+    border:1px solid var(--accent);
+  }
+  button.secondary:hover{background:var(--accent-light);}
+  #result{
+    max-width:820px;
+    margin:0 auto 24px auto;
+    text-align:center;
+    font-size:1.1rem;
+    font-weight:bold;
+    min-height:1.4em;
+  }
+  .source{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Отработка ошибок · новые предложения</h1>
+  <div class="subtitle">Те же 16 слов, но в новом контексте — без опоры на исходный текст.</div>
+</div>
+
+<div id="result"></div>
+<div class="controls">
+  <button id="checkBtn">Проверить</button>
+  <button id="showBtn" class="secondary">Показать ответы</button>
+  <button id="resetBtn" class="secondary">Сбросить</button>
+</div>
+
+<div class="wrap">
+
+  <div class="item">
+    <div class="item-num">1</div>
+    <div class="item-text">After six hours on the road, we finally <select data-q="q1"><option value="">—</option></select> the coast.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">2</div>
+    <div class="item-text">The forecast promised heavy rain; <select data-q="q2"><option value="">—</option></select>, we decided to postpone the hike.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">3</div>
+    <div class="item-text">The guide <select data-q="q3"><option value="">—</option></select> the tourists throughout their tour of the old town.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">4</div>
+    <div class="item-text">Finding a seat on the crowded train was such a <select data-q="q4"><option value="">—</option></select> after standing for an hour.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">5</div>
+    <div class="item-text">Frankly <select data-q="q5"><option value="">—</option></select>, the trip was a disaster from the very start.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">6</div>
+    <div class="item-text">The explorers <select data-q="q6"><option value="">—</option></select> across the strait in a small wooden ship.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">7</div>
+    <div class="item-text">They pitched their tents just off the <select data-q="q7"><option value="">—</option></select> before the storm arrived.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">8</div>
+    <div class="item-text">The organisation was set up to <select data-q="q8"><option value="">—</option></select> the interests of local farmers.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">9</div>
+    <div class="item-text">The <select data-q="q9"><option value="">—</option></select> of oil in the region changed the local economy completely.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">10</div>
+    <div class="item-text">The dam was built to <select data-q="q10"><option value="">—</option></select> a constant water level throughout the year.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">11</div>
+    <div class="item-text">The old bridge <select data-q="q11"><option value="">—</option></select> back to the Roman period.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">12</div>
+    <div class="item-text">The musical has <select data-q="q12"><option value="">—</option></select> in the West End for over a decade.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">13</div>
+    <div class="item-text">The actors received a standing ovation from the <select data-q="q13"><option value="">—</option></select>.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">14</div>
+    <div class="item-text">She felt nervous the moment she stepped onto the <select data-q="q14"><option value="">—</option></select>.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">15</div>
+    <div class="item-text">The old market square was always <select data-q="q15"><option value="">—</option></select> with vendors selling fresh produce.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">16</div>
+    <div class="item-text">Growing up in a big family gave her an <select data-q="q16"><option value="">—</option></select> in patience and compromise.</div>
+  </div>
+
+</div>
+
+<div class="controls">
+  <button id="checkBtn2">Проверить</button>
+  <button id="showBtn2" class="secondary">Показать ответы</button>
+  <button id="resetBtn2" class="secondary">Сбросить</button>
+</div>
+<p class="source">Отработка ошибок · новые предложения на те же 16 слов</p>
+
+<script>
+const data = {
+  "q1": {options:["achieve","reach","enter","arrive"], answer:"reach"},
+  "q2": {options:["therefore","although","moreover","however"], answer:"therefore"},
+  "q3": {options:["attached","accompanied","connected","attended"], answer:"accompanied"},
+  "q4": {options:["refund","revenge","relief","regret"], answer:"relief"},
+  "q5": {options:["telling","talking","saying","speaking"], answer:"speaking"},
+  "q6": {options:["paddled","sailed","travelled","rowed"], answer:"sailed"},
+  "q7": {options:["bank","beach","shore","sea-side"], answer:"shore"},
+  "q8": {options:["look after","look at","look for","look away"], answer:"look after"},
+  "q9": {options:["discovery","detection","exploration","innovation"], answer:"discovery"},
+  "q10": {options:["remain","support","hold","maintain"], answer:"maintain"},
+  "q11": {options:["dates","returns","follows","comes"], answer:"dates"},
+  "q12": {options:["show","perform","run","produce"], answer:"run"},
+  "q13": {options:["audience","auditorium","authority","publicity"], answer:"audience"},
+  "q14": {options:["scene","stage","scenery","performance"], answer:"stage"},
+  "q15": {options:["covered","held","loaded","filled"], answer:"filled"},
+  "q16": {options:["knowledge","information","education","training"], answer:"education"}
+};
+
+function buildSelects(){
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    info.options.forEach(opt=>{
+      const o = document.createElement("option");
+      o.value = opt;
+      o.textContent = opt;
+      sel.appendChild(o);
+    });
+  });
+}
+buildSelects();
+
+function checkAnswers(){
+  let total = 0, correct = 0;
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    total++;
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    sel.classList.remove("correct","wrong");
+    if(sel.value === ""){
+      sel.classList.add("wrong");
+      return;
+    }
+    if(sel.value === info.answer){
+      correct++;
+      sel.classList.add("correct");
+    } else {
+      sel.classList.add("wrong");
+    }
+  });
+  const result = document.getElementById("result");
+  result.textContent = `Результат: ${correct} из ${total}`;
+  result.style.color = correct === total ? "var(--correct)" : "var(--ink)";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function resetAnswers(){
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    sel.value = "";
+    sel.classList.remove("correct","wrong");
+  });
+  document.getElementById("result").textContent = "";
+}
+
+function showAnswers(){
+  let total = 0;
+  document.querySelectorAll("select[data-q]").forEach(sel=>{
+    total++;
+    const key = sel.getAttribute("data-q");
+    const info = data[key];
+    sel.value = info.answer;
+    sel.classList.remove("wrong");
+    sel.classList.add("correct");
+  });
+  const result = document.getElementById("result");
+  result.textContent = `Показаны правильные ответы (${total})`;
+  result.style.color = "var(--correct)";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.getElementById("checkBtn").addEventListener("click", checkAnswers);
+document.getElementById("checkBtn2").addEventListener("click", checkAnswers);
+document.getElementById("resetBtn").addEventListener("click", resetAnswers);
+document.getElementById("resetBtn2").addEventListener("click", resetAnswers);
+document.getElementById("showBtn").addEventListener("click", showAnswers);
+document.getElementById("showBtn2").addEventListener("click", showAnswers);
+</script>
+
+</body>
+</html>

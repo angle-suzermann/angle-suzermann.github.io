@@ -109,14 +109,30 @@ if (BASE) applyBase(OUT);
 const materials = [];
 const seenPaths = new Set();
 
+/* Ищет материалы на любой глубине внутри папки курса: сама папка материала —
+   первая по пути вниз, у которой есть index.html. Так юниты можно сгруппировать
+   в подпапки (as4/unit9/water-test), не трогая site.config.json. */
+function findMaterialSlugs(dir, prefix = '') {
+  let out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const sub = path.join(dir, entry.name);
+    const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (fs.existsSync(path.join(sub, 'index.html'))) {
+      out.push(slug);
+    } else {
+      out = out.concat(findMaterialSlugs(sub, slug));
+    }
+  }
+  return out;
+}
+
 for (const course of courses) {
   const courseDir = path.join(ROOT, course.id);
   if (!fs.existsSync(courseDir)) continue;
 
-  for (const slug of fs.readdirSync(courseDir)) {
+  for (const slug of findMaterialSlugs(courseDir)) {
     const file = path.join(courseDir, slug, 'index.html');
-    if (!fs.statSync(path.join(courseDir, slug)).isDirectory()) continue;
-    if (!fs.existsSync(file)) continue;
 
     const rel  = `${course.id}/${slug}`;
     const html = fs.readFileSync(file, 'utf8');

@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case File: The Modal Investigation — C1 Revision</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="3">
+<meta name="ws:title"     content="Case File: The Modal Investigation — C1 Revision">
+<meta name="ws:emoji"     content="🕵️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="modals, C1">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#12161c;
+  --bg-alt:#1a2028;
+  --panel:#212932;
+  --panel-2:#262f3a;
+  --border:#38424e;
+  --paper:#f2e9d6;
+  --paper-2:#e7d9b8;
+  --ink:#2b241c;
+  --amber:#e0a444;
+  --amber-bright:#f3c06c;
+  --red:#c1503f;
+  --text:#edf0f3;
+  --text-dim:#9aa7b3;
+  --correct:#5fbb84;
+  --incorrect:#e2645a;
+  --angle-purple:#5E4877;
+  --angle-purple-dark:#4a3a60;
+  --angle-yellow:#FED500;
+  --angle-yellow-soft:#ffe14d;
+  --angle-black:#2D2926;
+  --font-head:'Special Elite', cursive;
+  --font-body:'Inter', sans-serif;
+  --font-brand:'Poppins', sans-serif;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(27,34,43,.72) 0%, rgba(18,22,28,.75) 55%),
+    repeating-linear-gradient(135deg, var(--angle-yellow) 0 22px, var(--angle-black) 22px 44px);
+  background-attachment:fixed, fixed;
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.55;
+}
+
+header.topbar{
+  position:relative;
+  background:linear-gradient(135deg, var(--angle-purple) 0%, var(--angle-purple-dark) 100%);
+  clip-path:polygon(0 0,100% 0,100% 90%,0 100%);
+  padding:22px 6vw 42px;
+}
+.brand-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;}
+.logo-img{width:56px;height:auto;display:block;}
+.tagline{font-size:.72rem;color:#e2d7ec;margin-top:6px;letter-spacing:.03em;}
+.credit{font-size:.68rem;color:#c8b8db;margin-top:6px;}
+.case-id{
+  font-family:var(--font-head);
+  color:var(--angle-yellow);
+  border:1.5px solid var(--angle-yellow);
+  border-radius:6px;
+  padding:6px 12px;
+  letter-spacing:.05em;
+  font-size:.72rem;
+  transform:rotate(3deg);
+  white-space:nowrap;
+  height:fit-content;
+}
+header.topbar h1{
+  font-family:var(--font-head);
+  font-size:clamp(1.5rem,3.2vw,2.3rem);
+  margin:20px 0 6px;
+  color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
+}
+header.topbar .subtitle{
+  color:#e2d7ec;
+  font-size:.95rem;
+}
+
+nav.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:14px 6vw 0;
+  background:var(--bg-alt);
+  border-bottom:1px solid var(--border);
+}
+nav.tabs button{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.82rem;
+  background:var(--panel);
+  color:var(--text-dim);
+  border:1px solid var(--border);
+  border-bottom:none;
+  padding:10px 14px;
+  border-radius:8px 8px 0 0;
+  cursor:pointer;
+  transition:.15s;
+}
+nav.tabs button:hover{color:var(--text);}
+nav.tabs button.active{
+  background:var(--paper);
+  color:var(--ink);
+  border-color:var(--angle-yellow);
+}
+
+.progress-track{
+  height:6px;
+  background:var(--bg-alt);
+  border-bottom:1px solid var(--border);
+}
+.progress-fill{
+  height:100%;
+  width:14.3%;
+  background:linear-gradient(90deg, var(--angle-purple), var(--angle-yellow));
+  transition:width .3s ease;
+}
+
+main{
+  max-width:920px;
+  margin:0 auto;
+  padding:34px 6vw 80px;
+}
+
+.page{display:none;animation:fade .3s ease;}
+.page.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+h2.page-title{
+  font-family:var(--font-head);
+  color:var(--amber-bright);
+  font-size:1.5rem;
+  margin:0 0 4px;
+}
+.page-kicker{
+  color:var(--text-dim);
+  font-size:.85rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:22px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px 22px;
+  margin-bottom:18px;
+}
+.card.paper{
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid var(--paper-2);
+}
+
+.objectives{list-style:none;padding:0;margin:0;}
+.objectives li{
+  padding:10px 0 10px 30px;
+  border-bottom:1px dashed var(--border);
+  position:relative;
+}
+.objectives li:last-child{border-bottom:none;}
+.objectives li::before{
+  content:"✓";
+  position:absolute;left:0;top:9px;
+  color:var(--correct);
+  font-weight:800;
+}
+
+/* Field manual accordion */
+.manual-grid{display:flex;flex-direction:column;gap:10px;}
+.manual-card{
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid var(--paper-2);
+  border-radius:10px;
+  overflow:hidden;
+}
+.manual-head{
+  padding:14px 18px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:700;
+}
+.manual-head .forms{
+  font-weight:500;
+  font-size:.85rem;
+  color:#5a4c33;
+  margin-top:3px;
+}
+.manual-head .chev{transition:.2s;color:var(--red);font-size:1.1rem;}
+.manual-card.open .chev{transform:rotate(90deg);}
+.manual-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .25s ease;
+  padding:0 18px;
+  font-size:.92rem;
+}
+.manual-card.open .manual-body{max-height:260px;padding:0 18px 16px;}
+.manual-body .ex{
+  font-style:italic;
+  background:var(--paper-2);
+  padding:8px 12px;
+  border-radius:6px;
+  margin:8px 0;
+}
+
+/* Task 1: categorize */
+.chip-pool{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-bottom:20px;
+  min-height:52px;
+  padding:12px;
+  border:1px dashed var(--border);
+  border-radius:10px;
+}
+.chip{
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:9px 13px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:.88rem;
+  transition:.15s;
+}
+.chip:hover{border-color:var(--amber);}
+.chip.selected{border-color:var(--amber-bright);box-shadow:0 0 0 2px rgba(224,164,68,.35);}
+.chip.correct-chip{cursor:default;background:rgba(95,187,132,.18);border-color:var(--correct);}
+.chip.shake{animation:shake .35s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+
+.bucket-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+}
+.bucket{
+  background:var(--panel);
+  border:2px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  min-height:90px;
+  cursor:pointer;
+}
+.bucket:hover{border-color:var(--amber);}
+.bucket-title{font-weight:700;font-size:.85rem;color:var(--amber-bright);margin-bottom:8px;}
+.bucket-items{display:flex;flex-wrap:wrap;gap:6px;}
+.bucket.flash-wrong{border-color:var(--incorrect);animation:shake .35s;}
+
+/* generic items for T2/T3/T4 */
+.item{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+.item:last-child{border-bottom:none;}
+.item .prompt{color:var(--text-dim);font-size:.85rem;margin-bottom:4px;}
+.item .given{
+  display:inline-block;
+  background:var(--panel-2);
+  color:var(--amber-bright);
+  font-weight:700;
+  font-size:.75rem;
+  letter-spacing:.05em;
+  padding:2px 8px;
+  border-radius:5px;
+  margin-left:6px;
+}
+.blank-sentence input[type=text]{
+  min-width:220px;
+}
+input[type=text], textarea, input[type=text].gap{
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:7px;
+  font-family:var(--font-body);
+  font-size:.95rem;
+}
+input[type=text]:focus, textarea:focus{outline:2px solid var(--amber);border-color:var(--amber);}
+.item input.correct{border-color:var(--correct);box-shadow:0 0 0 2px rgba(95,187,132,.25);}
+.item input.wrong{border-color:var(--incorrect);box-shadow:0 0 0 2px rgba(226,100,90,.25);}
+.reveal{
+  display:none;
+  margin-top:6px;
+  font-size:.85rem;
+  color:var(--amber-bright);
+}
+.reveal.show{display:block;}
+.note-line{
+  display:none;
+  margin-top:6px;
+  font-size:.83rem;
+  color:var(--text-dim);
+  background:var(--panel-2);
+  border-left:3px solid var(--amber);
+  padding:8px 10px;
+  border-radius:0 6px 6px 0;
+}
+.note-line.show{display:block;}
+
+.narrative{
+  background:var(--paper);
+  color:var(--ink);
+  border-radius:10px;
+  padding:20px 22px;
+  font-size:1.02rem;
+  line-height:2;
+}
+.narrative input.gap{
+  width:190px;
+  background:#fff;
+  border:1px solid #b8a97e;
+  color:var(--ink);
+}
+.narrative .verb-hint{font-size:.75rem;color:#7a6a45;}
+
+.btn{
+  font-family:var(--font-body);
+  font-weight:700;
+  background:var(--angle-yellow);
+  color:var(--angle-black);
+  border:none;
+  padding:11px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:.92rem;
+  transition:.15s;
+}
+.btn:hover{background:var(--angle-yellow-soft);}
+.btn.secondary{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+}
+.btn.secondary:hover{border-color:var(--angle-yellow);color:var(--angle-yellow);}
+
+.score-pill{
+  display:inline-block;
+  background:var(--panel-2);
+  border:1px solid var(--angle-yellow);
+  color:var(--angle-yellow);
+  font-weight:700;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:.85rem;
+  margin-left:10px;
+}
+
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:640px){.roles-grid{grid-template-columns:1fr;} .bucket-grid{grid-template-columns:1fr 1fr;}}
+.role-card{background:var(--paper);color:var(--ink);border-radius:10px;padding:16px 18px;}
+.role-card h3{margin:0 0 8px;font-family:var(--font-head);font-size:1.05rem;}
+.role-card ul{margin:0;padding-left:18px;font-size:.9rem;}
+.role-card li{margin-bottom:6px;}
+
+.timer-box{
+  display:flex;align-items:center;gap:12px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;padding:14px 18px;margin:18px 0;
+}
+.timer-display{font-family:var(--font-head);font-size:1.6rem;color:var(--amber-bright);min-width:70px;}
+
+textarea{width:100%;min-height:110px;resize:vertical;}
+.field-row{margin-bottom:14px;}
+.field-row label{display:block;font-size:.85rem;color:var(--text-dim);margin-bottom:6px;}
+.field-row input[type=text]{width:100%;}
+
+.stamp{
+  display:none;
+  font-family:var(--font-head);
+  border:3px solid var(--correct);
+  color:var(--correct);
+  transform:rotate(-4deg);
+  padding:10px 22px;
+  border-radius:8px;
+  font-size:1.2rem;
+  letter-spacing:.08em;
+  width:fit-content;
+  margin:16px 0;
+}
+.stamp.show{display:block;}
+.stamp.fail{border-color:var(--incorrect);color:var(--incorrect);}
+
+.nav-buttons{display:flex;justify-content:space-between;margin-top:26px;}
+
+footer{
+  text-align:center;
+  padding:22px;
+  color:var(--text-dim);
+  font-size:.8rem;
+  border-top:2px solid var(--angle-purple);
+}
+footer .foot-brand{color:var(--angle-yellow);font-weight:700;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand-row">
+    <div>
+      <img class="logo-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
+      <div class="tagline">студия системного английского</div>
+      <div class="credit">by Viktoria Syuzyova</div>
+    </div>
+    <div class="case-id">CASE FILE № EX·178–179</div>
+  </div>
+  <h1>The Modal Investigation</h1>
+  <div class="subtitle">Advanced (C1) grammar revision — Modals &amp; semi-modals · reinforcement worksheet</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-idx="0" class="active">Briefing</button>
+  <button data-idx="1">Field Manual</button>
+  <button data-idx="2">Task 1</button>
+  <button data-idx="3">Task 2</button>
+  <button data-idx="4">Task 3</button>
+  <button data-idx="5">Task 4</button>
+  <button data-idx="6">Final Case</button>
+</nav>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<main>
+
+  <!-- PAGE 0: BRIEFING -->
+  <section class="page active" id="page-0">
+    <div class="page-kicker">Stage 1 / 7</div>
+    <h2 class="page-title">Mission Briefing</h2>
+    <div class="card">
+      <p>Welcome to the Modal Verbs Division. Before you're sent out into the field, you need to prove you can handle every kind of modal verb an investigator meets on the job — from ordering a rookie about, to working out who's lying, to politely asking a suspect a question.</p>
+      <p>This case file is <strong>not</strong> a repeat of your coursebook exercises — every sentence here is new. It reviews exactly the same ground your Student's Book covered on pages 50–51, with the reference grammar on pages 178–179, but you'll meet it in fresh contexts.</p>
+    </div>
+    <div class="card">
+      <strong style="color:var(--amber-bright)">By the end of this case file, you will be able to:</strong>
+      <ul class="objectives">
+        <li>choose the right modal (or semi-modal) for obligation, prohibition, advice, permission, ability, possibility, deduction, and offers/requests</li>
+        <li>tell the difference between close pairs examiners love to test: <em>mustn't vs. can't</em>, <em>needn't have vs. didn't need to</em>, <em>could vs. was able to</em></li>
+        <li>spot and correct the most common modal mistakes at this level</li>
+        <li>use past modals (<em>must have done, needn't have done, should have done</em>) accurately in connected speech</li>
+        <li>hold a natural, unscripted conversation using a wide range of modals under time pressure</li>
+      </ul>
+    </div>
+    <div class="nav-buttons">
+      <span></span>
+      <button class="btn" onclick="goTo(1)">Open the Field Manual →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 1: FIELD MANUAL -->
+  <section class="page" id="page-1">
+    <div class="page-kicker">Stage 2 / 7</div>
+    <h2 class="page-title">Field Manual — 8 Functions of Modals</h2>
+    <p style="color:var(--text-dim)">Tap each entry to open it. Skim it once now; you'll want to come back to it while you work on the tasks.</p>
+    <div class="manual-grid" id="manualGrid"></div>
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(0)">← Back</button>
+      <button class="btn" onclick="goTo(2)">Start Task 1 →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 2: TASK 1 - CATEGORIZE -->
+  <section class="page" id="page-2">
+    <div class="page-kicker">Stage 3 / 7 — Task 1</div>
+    <h2 class="page-title">Spot the Meaning <span class="score-pill" id="t1score">0 / 8</span></h2>
+    <p style="color:var(--text-dim)">Tap a sentence card, then tap the box where it belongs. Wrong guesses bounce back — keep going until all 8 are filed correctly.</p>
+    <div class="chip-pool" id="chipPool"></div>
+    <div class="bucket-grid" id="bucketGrid"></div>
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(1)">← Back</button>
+      <button class="btn" onclick="goTo(3)">Task 2 →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 3: TASK 2 - TRANSFORMATION -->
+  <section class="page" id="page-3">
+    <div class="page-kicker">Stage 4 / 7 — Task 2</div>
+    <h2 class="page-title">Rewrite the Report <span class="score-pill" id="t2score">0 / 6</span></h2>
+    <p style="color:var(--text-dim)">Complete the second sentence so it means the same as the first, using the word given (unchanged) and a modal verb. Contractions count.</p>
+    <div class="card" id="t2items"></div>
+    <button class="btn" onclick="checkT2()">Check my answers</button>
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(2)">← Back</button>
+      <button class="btn" onclick="goTo(4)">Task 3 →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 4: TASK 3 - NARRATIVE GAP FILL -->
+  <section class="page" id="page-4">
+    <div class="page-kicker">Stage 5 / 7 — Task 3</div>
+    <h2 class="page-title">Crack the Case <span class="score-pill" id="t3score">0 / 6</span></h2>
+    <p style="color:var(--text-dim)">Read the incident report. Complete each gap with a modal verb (+ the verb in brackets) that expresses the meaning shown. Word bank below for support.</p>
+    <div class="card paper" style="font-family:var(--font-body);color:var(--ink);font-size:.85rem;">
+      <strong>Word bank:</strong> must have · can't have / couldn't have · might have / could have · should have · needn't have
+    </div>
+    <div class="narrative" id="t3narrative"></div>
+    <button class="btn" onclick="checkT3()" style="margin-top:14px;">Check my answers</button>
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(3)">← Back</button>
+      <button class="btn" onclick="goTo(5)">Task 4 →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 5: TASK 4 - ERROR CORRECTION -->
+  <section class="page" id="page-5">
+    <div class="page-kicker">Stage 6 / 7 — Task 4</div>
+    <h2 class="page-title">The Suspect's Alibi <span class="score-pill" id="t4score">0 / 6</span></h2>
+    <p style="color:var(--text-dim)">Each statement contains one modal-verb mistake. Type the corrected sentence (or just the corrected part) below it.</p>
+    <div class="card" id="t4items"></div>
+    <button class="btn" onclick="checkT4()">Check my answers</button>
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(4)">← Back</button>
+      <button class="btn" onclick="goTo(6)">Final Case →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 6: FINAL - SPEAKING -->
+  <section class="page" id="page-6">
+    <div class="page-kicker">Stage 7 / 7 — Freer Practice</div>
+    <h2 class="page-title">The Interrogation Room</h2>
+    <div class="card">
+      <p>Work with a partner (or record yourself doing both sides). One of you is the <strong>Detective</strong>, the other is the <strong>Witness</strong>. Improvise a 3–4 minute conversation about a (invented) incident you both agree on in 10 seconds before you start — e.g. a break-in, a missing pet, a workplace mix-up. Try to naturally use modals from <em>every</em> category in the Field Manual.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <h3>🕵️ Detective</h3>
+        <ul>
+          <li>Ask permission questions (<em>Might I…? / Would you mind if…?</em>)</li>
+          <li>State obligations (<em>You'll have to… / You need to…</em>)</li>
+          <li>Make deductions out loud (<em>You must have… / You can't have…</em>)</li>
+          <li>Give advice or a warning (<em>You'd better… / You should…</em>)</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3>🙋 Witness</h3>
+        <ul>
+          <li>Talk about what you can/could and couldn't do that night</li>
+          <li>Speculate about what might have happened (<em>It could have been…</em>)</li>
+          <li>Criticise your own past actions (<em>I shouldn't have… / I needn't have…</em>)</li>
+          <li>Offer to help further (<em>I could… / Shall I…?</em>)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timer-box">
+      <span class="timer-display" id="timerDisplay">3:00</span>
+      <button class="btn secondary" id="timerBtn" onclick="toggleTimer()">Start timer</button>
+      <button class="btn secondary" onclick="resetTimer()">Reset</button>
+    </div>
+
+    <div class="card">
+      <strong style="color:var(--amber-bright)">Case report</strong>
+      <p style="color:var(--text-dim);font-size:.9rem;margin-top:4px">After your conversation, write 4–6 sentences summarising what you found out — use at least five different modal verbs.</p>
+      <div class="field-row">
+        <textarea id="reflection" placeholder="e.g. The witness must have left before 9pm, because... She should have called the police sooner, but..."></textarea>
+      </div>
+      <div id="reflectionHint" style="font-size:.8rem;color:var(--text-dim)"></div>
+    </div>
+
+    <div class="card">
+      <strong style="color:var(--amber-bright)">Submit your case file</strong>
+      <p style="color:var(--text-dim);font-size:.9rem;margin-top:4px">This sends your scores and case report to your teacher. Fill in your name first.</p>
+      <div class="field-row">
+        <label for="studentName">Your name</label>
+        <input type="text" id="studentName" placeholder="First and last name">
+      </div>
+      <button class="btn" onclick="submitCase()">Submit case report</button>
+      <div class="stamp" id="submitStamp">CASE FILED ✔</div>
+      <div class="stamp fail" id="submitFail">Couldn't submit — check your connection and try again</div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goTo(5)">← Back</button>
+      <span></span>
+    </div>
+  </section>
+
+</main>
+
+<footer><span class="foot-brand">ANGLE</span> · студия системного английского — Viktoria Syuzyova</footer>
+
+<script>
+/* ---------- Navigation ---------- */
+const pages = document.querySelectorAll('.page');
+const tabBtns = document.querySelectorAll('#tabs button');
+function goTo(idx){
+  pages.forEach((p,i)=>p.classList.toggle('active', i===idx));
+  tabBtns.forEach((b,i)=>b.classList.toggle('active', i===idx));
+  document.getElementById('progressFill').style.width = ((idx+1)/pages.length*100)+'%';
+  window.scrollTo(0,0);
+}
+tabBtns.forEach(b=>b.addEventListener('click', ()=>goTo(parseInt(b.dataset.idx))));
+
+/* ---------- Helpers ---------- */
+function normalise(s){
+  return s.trim().toLowerCase()
+    .replace(/[’']/g,"'")
+    .replace(/[^\w\s']/g,'')
+    .replace(/\s+/g,' ');
+}
+function fuzzyMatch(value, acceptableList){
+  const v = normalise(value);
+  if(!v) return false;
+  return acceptableList.some(a=>{
+    const na = normalise(a);
+    return v === na || v.includes(na);
+  });
+}
+
+/* ---------- Field Manual data ---------- */
+const MODALS = [
+  {key:"obligation", title:"Obligation & Necessity", forms:"must · have to · need to", example:"Detectives must log every piece of evidence.", note:"‘must’ = the speaker's own strong feeling; ‘have to / need to’ = an obligation imposed from outside (a rule, another person). Negative — different meaning: don't have to / needn't / don't need to = it isn't necessary."},
+  {key:"prohibition", title:"Prohibition & Criticism", forms:"mustn't · can't · couldn't · may not · should(n't) have", example:"You mustn't remove anything from a crime scene.", note:"‘mustn't’ = the speaker forbids it; ‘can't / may not’ = forbidden by a rule or someone else. ‘should(n't) have + past participle’ criticises a past action that's already done and can't be changed."},
+  {key:"advice", title:"Advice & Recommendation", forms:"should · ought to · had better · must (for emphasis)", example:"You'd better double-check that alibi before the trial.", note:"‘had better’ carries a hint of warning about consequences; ‘must’ used for advice is much stronger than ‘should/ought to’, and often just emphatic."},
+  {key:"permission", title:"Permission", forms:"can · could · may · might", example:"Might I take a look at the file, detective?", note:"‘can’ = informal; ‘could’ = polite; ‘may’ = formal; ‘might’ = the most tentative and polite of all."},
+  {key:"ability", title:"Ability", forms:"can · could · was/were able to · managed to", example:"She was finally able to identify the getaway car.", note:"‘could’ = general ability in the past. For ONE specific past success, use ‘was/were able to’ or ‘managed to’ — not ‘could’."},
+  {key:"possibility", title:"Possibility & Probability", forms:"can · could · may · might · should", example:"The fingerprints could belong to the accomplice.", note:"‘should’ here means ‘it's likely, based on what we'd expect’ — nothing to do with obligation. ‘can’ = theoretically possible in general; ‘might/could’ = possible in this specific case."},
+  {key:"deduction", title:"Deduction", forms:"must · can't · couldn't (+ have + past participle for the past)", example:"He can't have done it — he was on camera all night.", note:"For a confident NEGATIVE deduction, English uses ‘can't/couldn't’ — never ‘mustn't’."},
+  {key:"offers", title:"Offers, Suggestions & Requests", forms:"can/could/may/might · shall · will · would", example:"Shall I fetch the case notes for you?", note:"‘Shall I…?’ = an offer; ‘Could/Would you…?’ = a polite request; ‘You could/might…’ = a suggestion."}
+];
+
+const manualGrid = document.getElementById('manualGrid');
+MODALS.forEach((m,i)=>{
+  const div = document.createElement('div');
+  div.className='manual-card';
+  div.innerHTML = `
+    <div class="manual-head" onclick="this.parentElement.classList.toggle('open')">
+      <div><div>${m.title}</div><div class="forms">${m.forms}</div></div>
+      <span class="chev">▸</span>
+    </div>
+    <div class="manual-body">
+      <div class="ex">"${m.example}"</div>
+      <div>${m.note}</div>
+    </div>`;
+  manualGrid.appendChild(div);
+});
+
+/* ---------- Task 1: categorize ---------- */
+const T1_ITEMS = [
+  {id:"a", text:"Witnesses must arrive at the station by 9 a.m.", key:"obligation"},
+  {id:"b", text:"You mustn't discuss the case with journalists.", key:"prohibition"},
+  {id:"c", text:"You'd better check the security tapes again before you file your report.", key:"advice"},
+  {id:"d", text:"Might I ask you a few questions, madam?", key:"permission"},
+  {id:"e", text:"After weeks of searching, they finally managed to track down the missing witness.", key:"ability"},
+  {id:"f", text:"The stolen painting could be hidden somewhere in this warehouse.", key:"possibility"},
+  {id:"g", text:"She can't have taken the last train — it left before the robbery happened.", key:"deduction"},
+  {id:"h", text:"Shall I call for backup before we go in?", key:"offers"}
+];
+
+const chipPool = document.getElementById('chipPool');
+const bucketGrid = document.getElementById('bucketGrid');
+let t1Correct = 0;
+let selectedChip = null;
+
+function shuffle(arr){return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]);}
+
+shuffle(T1_ITEMS).forEach(item=>{
+  const chip = document.createElement('div');
+  chip.className='chip';
+  chip.textContent = item.text;
+  chip.dataset.key = item.key;
+  chip.addEventListener('click', ()=>{
+    if(chip.classList.contains('correct-chip')) return;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+    chip.classList.add('selected');
+    selectedChip = chip;
+  });
+  chipPool.appendChild(chip);
+});
+
+shuffle([...MODALS]).forEach(m=>{
+  const bucket = document.createElement('div');
+  bucket.className='bucket';
+  bucket.dataset.key = m.key;
+  bucket.innerHTML = `<div class="bucket-title">${m.title}</div><div class="bucket-items"></div>`;
+  bucket.addEventListener('click', ()=>{
+    if(!selectedChip) return;
+    if(selectedChip.dataset.key === bucket.dataset.key){
+      bucket.querySelector('.bucket-items').appendChild(selectedChip);
+      selectedChip.classList.remove('selected');
+      selectedChip.classList.add('correct-chip');
+      selectedChip = null;
+      t1Correct++;
+      document.getElementById('t1score').textContent = t1Correct+' / 8';
+    } else {
+      bucket.classList.add('flash-wrong');
+      selectedChip.classList.add('shake');
+      setTimeout(()=>{
+        bucket.classList.remove('flash-wrong');
+        selectedChip && selectedChip.classList.remove('shake');
+      },400);
+    }
+  });
+  bucketGrid.appendChild(bucket);
+});
+
+/* ---------- Task 2: transformation ---------- */
+const T2_ITEMS = [
+  {id:"t2-1", prompt:"It's essential that witnesses arrive at the station on time.", given:"HAVE", stem:"Witnesses", tail:"on time.", accept:["have to arrive","need to arrive"]},
+  {id:"t2-2", prompt:"It wasn't necessary for her to call the station, but she did it anyway.", given:"NEEDN'T", stem:"She", tail:"the station, but she did it anyway.", accept:["needn't have called","need not have called"]},
+  {id:"t2-3", prompt:"I'm sure the suspect was lying — the evidence proves it.", given:"MUST", stem:"The suspect", tail:".", accept:["must have been lying"]},
+  {id:"t2-4", prompt:"It's possible he escaped through the window, but we can't be sure.", given:"MIGHT", stem:"He", tail:"through the window.", accept:["might have escaped","could have escaped"]},
+  {id:"t2-5", prompt:"I regret not searching the basement earlier.", given:"SHOULD", stem:"I", tail:"the basement earlier.", accept:["should have searched"]},
+  {id:"t2-6", prompt:"Is it all right if I examine the fingerprints?", given:"MIGHT", stem:"", tail:"examine the fingerprints?", accept:["might i"]}
+];
+const t2Container = document.getElementById('t2items');
+T2_ITEMS.forEach(it=>{
+  const div = document.createElement('div');
+  div.className='item';
+  div.innerHTML = `
+    <div class="prompt">${it.prompt} <span class="given">${it.given}</span></div>
+    <div class="blank-sentence">${it.stem} <input type="text" id="${it.id}" autocomplete="off"> ${it.tail}</div>
+    <div class="reveal" id="${it.id}-reveal">Model answer: ${it.stem} <strong>${it.accept[0]}</strong> ${it.tail}</div>
+  `;
+  t2Container.appendChild(div);
+});
+let t2Score = 0;
+function checkT2(){
+  t2Score = 0;
+  T2_ITEMS.forEach(it=>{
+    const input = document.getElementById(it.id);
+    const reveal = document.getElementById(it.id+'-reveal');
+    const ok = fuzzyMatch(input.value, it.accept);
+    input.classList.toggle('correct', ok);
+    input.classList.toggle('wrong', !ok);
+    reveal.classList.toggle('show', !ok);
+    if(ok) t2Score++;
+  });
+  document.getElementById('t2score').textContent = t2Score+' / 6';
+}
+
+/* ---------- Task 3: narrative gap fill ---------- */
+const T3_GAPS = [
+  {id:"t3-1", verb:"force", accept:["must have been forced","must've been forced"]},
+  {id:"t3-2", verb:"go off", accept:["can't have gone off","couldn't have gone off","cannot have gone off"]},
+  {id:"t3-3", verb:"use", accept:["might have used","could have used","may have used"]},
+  {id:"t3-4", verb:"change", accept:["should have changed","should've changed"]},
+  {id:"t3-5", verb:"keep", accept:["needn't have kept","need not have kept"]},
+  {id:"t3-6", verb:"know", accept:["must have known","must've known"]}
+];
+const narrativeHTML = `
+By the time Detective Reyes arrived, the shop was empty. The lock
+<input type="text" class="gap" id="t3-1"> <span class="verb-hint">(force)</span>
+— there were fresh scratch marks around the keyhole. The old alarm
+<input type="text" class="gap" id="t3-2"> <span class="verb-hint">(go off)</span>,
+because none of the neighbours heard anything. The thief
+<input type="text" class="gap" id="t3-3"> <span class="verb-hint">(use)</span>
+a copy of the key, though nobody could explain how they got one. Reyes frowned:
+the shop owner
+<input type="text" class="gap" id="t3-4"> <span class="verb-hint">(change)</span>
+the locks after the last break-in, but he never did. He also
+<input type="text" class="gap" id="t3-5"> <span class="verb-hint">(keep)</span>
+all that cash in the till overnight — it was an unnecessary risk. Still, whoever did this
+<input type="text" class="gap" id="t3-6"> <span class="verb-hint">(know)</span>
+the owner's routine perfectly.
+`;
+document.getElementById('t3narrative').innerHTML = narrativeHTML;
+let t3Score = 0;
+function checkT3(){
+  t3Score = 0;
+  T3_GAPS.forEach(g=>{
+    const input = document.getElementById(g.id);
+    const ok = fuzzyMatch(input.value, g.accept);
+    input.classList.toggle('correct', ok);
+    input.classList.toggle('wrong', !ok);
+    if(ok) t3Score++;
+  });
+  document.getElementById('t3score').textContent = t3Score+' / 6';
+}
+
+/* ---------- Task 4: error correction ---------- */
+const T4_ITEMS = [
+  {id:"t4-1", wrong:"The witness couldn't to remember the license plate.", accept:["couldn't remember","could not remember"], note:"Nothing goes between a full modal and the main verb — no ‘to’."},
+  {id:"t4-2", wrong:"You'll need finding a lawyer before the trial.", accept:["need to find","'ll need to find","will need to find"], note:"‘need’ as a semi-modal takes a to-infinitive: need to + verb."},
+  {id:"t4-3", wrong:"She should avoided the alley at night.", accept:["should have avoided","should've avoided"], note:"Past modals need the perfect form: modal + have + past participle."},
+  {id:"t4-4", wrong:"He mustn't be the culprit — he wasn't even in town.", accept:["can't be the culprit","couldn't be the culprit"], note:"A confident negative deduction uses can't/couldn't, not mustn't."},
+  {id:"t4-5", wrong:"They didn't must report the incident, but they chose to.", accept:["didn't have to report","did not have to report","didn't need to report","did not need to report"], note:"‘must’ has no negative/past form with ‘do’ — use didn't have to / didn't need to instead."},
+  {id:"t4-6", wrong:"I'm sure she must to have seen something.", accept:["must have seen"], note:"Only one modal-type word per verb phrase — no ‘to’ after ‘must’, and the past needs have + past participle."}
+];
+const t4Container = document.getElementById('t4items');
+T4_ITEMS.forEach(it=>{
+  const div = document.createElement('div');
+  div.className='item';
+  div.innerHTML = `
+    <div class="prompt">✗ "${it.wrong}"</div>
+    <input type="text" id="${it.id}" placeholder="Type the correction..." autocomplete="off">
+    <div class="note-line" id="${it.id}-note">${it.note} — model correction: <strong>${it.accept[0]}</strong></div>
+  `;
+  t4Container.appendChild(div);
+});
+let t4Score = 0;
+function checkT4(){
+  t4Score = 0;
+  T4_ITEMS.forEach(it=>{
+    const input = document.getElementById(it.id);
+    const note = document.getElementById(it.id+'-note');
+    const ok = fuzzyMatch(input.value, it.accept);
+    input.classList.toggle('correct', ok);
+    input.classList.toggle('wrong', !ok);
+    note.classList.add('show');
+    if(ok) t4Score++;
+  });
+  document.getElementById('t4score').textContent = t4Score+' / 6';
+}
+
+/* ---------- Timer ---------- */
+let timerSeconds = 180;
+let timerInterval = null;
+function renderTimer(){
+  const m = Math.floor(timerSeconds/60);
+  const s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+String(s).padStart(2,'0');
+}
+function toggleTimer(){
+  const btn = document.getElementById('timerBtn');
+  if(timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    btn.textContent = 'Resume';
+    return;
+  }
+  btn.textContent = 'Pause';
+  timerInterval = setInterval(()=>{
+    if(timerSeconds<=0){ clearInterval(timerInterval); timerInterval=null; document.getElementById('timerBtn').textContent='Start timer'; return; }
+    timerSeconds--; renderTimer();
+  },1000);
+}
+function resetTimer(){
+  clearInterval(timerInterval); timerInterval=null;
+  timerSeconds = 180; renderTimer();
+  document.getElementById('timerBtn').textContent = 'Start timer';
+}
+renderTimer();
+
+/* ---------- Reflection hint ---------- */
+const reflectionBox = document.getElementById('reflection');
+reflectionBox.addEventListener('input', ()=>{
+  const words = reflectionBox.value.trim().split(/\s+/).filter(Boolean).length;
+  const hint = document.getElementById('reflectionHint');
+  hint.textContent = words+' word'+(words===1?'':'s')+(words<30 ? ' — aim for at least a few full sentences.' : ' — nice, that\'s a solid case report.');
+});
+
+/* ---------- Submit to teacher ---------- */
+async function submitCase(){
+  const name = document.getElementById('studentName').value.trim();
+  const stampOk = document.getElementById('submitStamp');
+  const stampFail = document.getElementById('submitFail');
+  stampOk.classList.remove('show');
+  stampFail.classList.remove('show');
+  if(!name){
+    alert('Please enter your name before submitting.');
+    return;
+  }
+  const summary = {
+    task1_spotTheMeaning: t1Correct+' / 8',
+    task2_rewriteTheReport: t2Score+' / 6',
+    task3_crackTheCase: t3Score+' / 6',
+    task4_theSuspectsAlibi: t4Score+' / 6',
+    total: (t1Correct+t2Score+t3Score+t4Score)+' / 26'
+  };
+  const fd = new FormData();
+  fd.append('lesson', document.title);
+  fd.append('student_name', name);
+  fd.append('timestamp', new Date().toISOString());
+  fd.append('scores_summary', JSON.stringify(summary));
+  fd.append('case_report_reflection', reflectionBox.value.trim());
+
+  try{
+    const res = await fetch('https://formspree.io/f/mdaqrvdd', {
+      method:'POST',
+      headers:{'Accept':'application/json'},
+      body:fd
+    });
+    if(res.ok){
+      stampOk.classList.add('show');
+    } else {
+      stampFail.classList.add('show');
+    }
+  }catch(e){
+    stampFail.classList.add('show');
+  }
+}
+</script>
+</body>
+</html>
