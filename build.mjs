@@ -174,10 +174,15 @@ for (const course of courses) {
 
     /* ВНИМАНИЕ: ключ courseCfg, а не course — иначе объект курса
        затрёт человекочитаемое название из ws:course. */
+    /* группа — подпапка внутри курса (unit 9, module 3, 1.Путешествие…),
+       если материал лежит не прямо в папке курса, а на уровень глубже */
+    const group = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : null;
+
     materials.push({
       ...meta,
       url: `${BASE}/${rel}/`,
       dir: rel,
+      group,
       courseCfg: course,
       bytes: Buffer.byteLength(html),
     });
@@ -237,13 +242,62 @@ ${extraScript}
 </html>
 `;
 
-const card = (m) => `  <a class="card" href="${esc(m.url)}">
+const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.group || '')}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
     </div>
     <div class="meta"><span>Unit ${esc(m.unit)}</span>${m.tags ? `<span>${esc(m.tags)}</span>` : ''}</div>
   </a>`;
+
+/* вкладки по подпапкам курса (unit 9, module 3, 1.Путешествие…) —
+   показываются, только если у курса вообще есть такие подпапки */
+const groupTabs = (list) => {
+  const groups = [...new Set(list.map((m) => m.group).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+  if (!groups.length) return '';
+  const btns = [
+    '<button type="button" class="filter-btn on" data-group-filter="all">Все</button>',
+    ...groups.map((g) => `<button type="button" class="filter-btn" data-group-filter="${esc(g)}">${esc(g)}</button>`),
+  ].join('\n    ');
+  return `  <div class="toolbar group-toolbar">
+    ${btns}
+  </div>
+`;
+};
+
+const groupScript = `<script>
+  document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      var g = b.dataset.groupFilter;
+      document.querySelectorAll('.card[data-group]').forEach(function(c){
+        c.style.display = (g === 'all' || c.dataset.group === g) ? '' : 'none';
+      });
+    });
+  });
+</script>`;
+
+/* копирование ссылки по клику — общее для страницы курса и панели преподавателя */
+const copyScript = `<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var url = location.origin + btn.dataset.copy;
+      navigator.clipboard.writeText(url).then(function(){
+        var old = btn.textContent;
+        btn.textContent = 'Скопировано ✓';
+        btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1600);
+      });
+    });
+  });
+</script>`;
+
+const courseLinkRow = (course) => `  <div class="course-link-row">
+    <button type="button" class="link-copy" data-copy="${esc(`${BASE}/${course.id}/`)}">🔗 Скопировать ссылку на эту страницу</button>
+  </div>
+`;
 
 /* --- лендинг: намеренно без списка материалов --- */
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
@@ -265,8 +319,9 @@ for (const course of courses) {
     heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
-      : '  <p class="empty">Пока пусто.</p>',
+      ? `${courseLinkRow(course)}${groupTabs(list)}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
+      : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
+    extraScript: copyScript + (list.some((m) => m.group) ? groupScript : ''),
   }));
 }
 
@@ -277,7 +332,7 @@ const staffCard = (m) => {
     : '';
   return `  <div class="staff-card${m.status === 'draft' ? ' is-draft' : ''}"
        data-search="${esc((m.title + ' ' + m.course + ' ' + (m.tags || '') + ' unit ' + m.unit).toLowerCase())}"
-       data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}">
+       data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
@@ -333,6 +388,27 @@ const familyMapJson = JSON.stringify(
   Object.fromEntries(familyOrder.map(([fid]) => [fid, familyCourses.get(fid).map((c) => c.id)]))
 );
 
+/* третий уровень вкладок в панели преподавателя — по подпапкам внутри курса
+   (unit 9, module 3, 1.Путешествие…). Строится из тех же данных, что и
+   вкладки на страницах курсов, отдельно ничего в site.config.json заводить не нужно. */
+const courseGroupsMap = new Map(); // courseId -> [group, ...]
+for (const c of courses) {
+  const groups = [...new Set(
+    materials.filter((m) => m['course-id'] === c.id && m.group).map((m) => m.group)
+  )].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+  if (groups.length) courseGroupsMap.set(c.id, groups);
+}
+
+const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) => {
+  const btns = [
+    `<button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>`,
+    ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(g)}</button>`),
+  ].join('\n      ');
+  return `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
+      ${btns}
+    </div>`;
+}).join('\n');
+
 const filterBtns = [
   '<button type="button" class="filter-btn on" data-filter="all">Все</button>',
   ...familyBtns,
@@ -346,6 +422,7 @@ const staffScript = `<script>
   var search = document.getElementById('q');
   var count = document.getElementById('count');
   var active = 'all';
+  var activeGroup = 'all';
   var familyMap = ${familyMapJson};
 
   function apply(){
@@ -357,8 +434,9 @@ const staffScript = `<script>
         (active.indexOf('family:') === 0 && (familyMap[active.slice(7)] || []).indexOf(c.dataset.course) !== -1) ||
         (active.indexOf('type:')   === 0 && c.dataset.type   === active.slice(5)) ||
         (active.indexOf('status:') === 0 && c.dataset.status === active.slice(7));
+      var okGroup = activeGroup === 'all' || c.dataset.group === activeGroup;
       var okSearch = !q || c.dataset.search.indexOf(q) !== -1;
-      var show = okFilter && okSearch;
+      var show = okFilter && okGroup && okSearch;
       c.style.display = show ? '' : 'none';
       if(show) shown++;
     });
@@ -366,8 +444,19 @@ const staffScript = `<script>
   }
 
   function showSubTabsFor(famId){
-    document.querySelectorAll('.sub-tabs').forEach(function(row){
+    document.querySelectorAll('.sub-tabs:not(.sub-tabs-group)').forEach(function(row){
       row.hidden = row.dataset.subFor !== famId;
+    });
+  }
+
+  function showGroupTabsFor(courseId){
+    activeGroup = 'all';
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){
+      row.hidden = row.dataset.groupFor !== courseId;
+      if(!row.hidden){
+        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+        row.querySelector('.filter-btn').classList.add('on');
+      }
     });
   }
 
@@ -383,35 +472,36 @@ const staffScript = `<script>
           row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
           row.querySelector('.filter-btn').classList.add('on');
         }
+        showGroupTabsFor(null);
       } else {
         showSubTabsFor(null);
+        showGroupTabsFor(active.indexOf('course:') === 0 ? active.slice(7) : null);
       }
       apply();
     });
   });
 
-  document.querySelectorAll('.sub-tabs .filter-btn').forEach(function(b){
+  document.querySelectorAll('.sub-tabs:not(.sub-tabs-group) .filter-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var row = b.closest('.sub-tabs');
       row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
       b.classList.add('on');
       active = b.dataset.filter;
+      showGroupTabsFor(active.indexOf('course:') === 0 ? active.slice(7) : null);
+      apply();
+    });
+  });
+
+  document.querySelectorAll('.sub-tabs-group .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = b.closest('.sub-tabs-group');
+      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      activeGroup = b.dataset.groupFilter;
       apply();
     });
   });
   search.addEventListener('input', apply);
-
-  document.querySelectorAll('[data-copy]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var url = location.origin + btn.dataset.copy;
-      navigator.clipboard.writeText(url).then(function(){
-        var old = btn.textContent;
-        btn.textContent = 'Скопировано ✓';
-        btn.classList.add('copied');
-        setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1600);
-      });
-    });
-  });
 
   apply();
 })();
@@ -430,12 +520,13 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     ${filterBtns}
   </div>
 ${subTabRows}
+${courseGroupRows}
   <p class="count" id="count"></p>
 ${materials.map(staffCard).join('\n')}
   <p class="note">Материалов всего: ${materials.length}.
   Чтобы добавить новый — попросите Claude, он положит папку в нужный курс, и она появится здесь
   сама после <code>Commit</code> и <code>Push</code> в GitHub.</p>`,
-  extraScript: staffScript,
+  extraScript: copyScript + staffScript,
 }));
 
 /* --- машиночитаемый каталог для агентов --- */

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prefixes Practice Worksheet (B2)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Gateway to the world B2">
+<meta name="ws:course-id" content="gateway/gateway-to-the-world-b2">
+<meta name="ws:unit"      content="3">
+<meta name="ws:title"     content="Prefixes Practice Worksheet">
+<meta name="ws:emoji"     content="🔠">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="prefixes, word formation">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    max-width: 780px;
+    margin: 40px auto;
+    padding: 0 24px;
+    color: #2a1010;
+    line-height: 1.6;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #a30000;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #7a2020;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+  .instructions {
+    background: #fdf0f0;
+    border: 1px solid #e3a3a3;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  .instructions b { color: #a30000; }
+  ol {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 18px;
+    font-size: 16px;
+  }
+  .root {
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    color: #a30000;
+  }
+  input.gap {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    width: 150px;
+    padding: 4px 6px;
+    border: none;
+    border-bottom: 2px solid #c98a8a;
+    background: transparent;
+    text-align: center;
+    margin: 0 2px;
+    color: #2a1010;
+  }
+  input.gap:focus {
+    outline: none;
+    border-bottom: 2px solid #a30000;
+  }
+  input.correct {
+    border-bottom: 2px solid #a30000;
+    background: #fdeaea;
+    color: #a30000;
+  }
+  input.incorrect {
+    border-bottom: 2px solid #700000;
+    background: #f7d6d6;
+    color: #700000;
+  }
+  .answer-hint {
+    font-size: 13px;
+    color: #700000;
+    margin-left: 8px;
+    display: none;
+  }
+  .buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+  }
+  button {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid #a30000;
+    background: #a30000;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:hover { background: #7a0000; }
+  button.secondary {
+    background: transparent;
+    color: #a30000;
+  }
+  button.secondary:hover { background: #fdeaea; }
+  #score {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #a30000;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>Prefixes practice worksheet</h1>
+<p class="subtitle">Positive, modifying and negative prefixes &middot; B2 level</p>
+
+<div class="instructions">
+  Complete each sentence by adding a prefix (<b>mis-, over-, under-, re-, co-, un-, in-/il-/im-/ir-, dis-</b>) to the root word shown in capital letters. Type your answer in the gap, then press <b>Check my answers</b>.
+</div>
+
+<ol id="worksheet"></ol>
+
+<div class="buttons">
+  <button onclick="checkAnswers()">Check my answers</button>
+  <button class="secondary" onclick="resetWorksheet()">Reset</button>
+</div>
+<div id="score"></div>
+
+<script>
+const items = [
+  { sentence: "It is completely __________ to expect the project to be finished by tomorrow with so little staff.", root: "REALISTIC", answer: "unrealistic" },
+  { sentence: "Parking your car here is strictly __________. You will get a fine.", root: "LEGAL", answer: "illegal" },
+  { sentence: "I think you __________ the difficulty of the exam; it was much harder than you thought.", root: "ESTIMATED", answer: "underestimated" },
+  { sentence: "His signature was completely __________. I couldn't read his name at all.", root: "LEGIBLE", answer: "illegible" },
+  { sentence: "The company was accused of trying to __________ consumers about the safety of their products.", root: "LEAD", answer: "mislead" },
+  { sentence: "The waiter was so __________ that we decided not to leave a tip.", root: "PLEASANT", answer: "unpleasant" },
+  { sentence: "Mary is so __________ when it comes to waiting in lines; she always complains.", root: "PATIENT", answer: "impatient" },
+  { sentence: "The soup was completely __________; it tasted like warm water and needed a lot of salt.", root: "COOKED", answer: "undercooked" },
+  { sentence: "I have no idea why she is so __________ with her current job; she has great pay and benefits.", root: "SATISFIED", answer: "dissatisfied" },
+  { sentence: "Leaving young children unattended near the pool is highly __________.", root: "RESPONSIBLE", answer: "irresponsible" },
+  { sentence: "It was very __________ of Tim to arrive 30 minutes late for the job interview.", root: "POLITE", answer: "impolite" },
+  { sentence: "The restaurant staff are severely __________, which explains why the service is so slow.", root: "PAID", answer: "underpaid" },
+  { sentence: "Don't worry, the instructions are quite simple and __________.", root: "COMPLICATED", answer: "uncomplicated" },
+  { sentence: "Don't throw away that box; we can __________ it to store your old books.", root: "USE", answer: "reuse" },
+  { sentence: "His excuse for being absent sounded completely __________ to the manager.", root: "LOGICAL", answer: "illogical" },
+  { sentence: "You need to __________ your essay before submitting it because there are too many typos.", root: "WRITE", answer: "rewrite" },
+  { sentence: "The actors had to __________ the final scene several times until the director was happy.", root: "PLAY", answer: "replay" },
+  { sentence: "The airline __________ the flight, so three passengers had to be moved to a later plane.", root: "BOOKED", answer: "overbooked" },
+  { sentence: "He had to __________ with his former business rival to launch the new tech startup.", root: "OPERATE", answer: "cooperate" }
+];
+
+const list = document.getElementById('worksheet');
+items.forEach((item, i) => {
+  const li = document.createElement('li');
+  const parts = item.sentence.split('__________');
+  li.innerHTML = `${parts[0]}<input type="text" class="gap" id="gap${i}" autocomplete="off">${parts[1]} <span class="root">(${item.root})</span><span class="answer-hint" id="hint${i}"></span>`;
+  list.appendChild(li);
+});
+
+function checkAnswers() {
+  let correctCount = 0;
+  items.forEach((item, i) => {
+    const input = document.getElementById(`gap${i}`);
+    const hint = document.getElementById(`hint${i}`);
+    const userAnswer = input.value.trim().toLowerCase();
+    const isCorrect = userAnswer === item.answer.toLowerCase();
+    input.classList.remove('correct', 'incorrect');
+    if (isCorrect) {
+      input.classList.add('correct');
+      hint.style.display = 'none';
+      correctCount++;
+    } else {
+      input.classList.add('incorrect');
+      hint.textContent = `correct answer: ${item.answer}`;
+      hint.style.display = 'inline';
+    }
+  });
+  const scoreDiv = document.getElementById('score');
+  scoreDiv.style.display = 'block';
+  scoreDiv.textContent = `Score: ${correctCount} / ${items.length}`;
+}
+
+function resetWorksheet() {
+  items.forEach((item, i) => {
+    const input = document.getElementById(`gap${i}`);
+    const hint = document.getElementById(`hint${i}`);
+    input.value = '';
+    input.classList.remove('correct', 'incorrect');
+    hint.style.display = 'none';
+  });
+  document.getElementById('score').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

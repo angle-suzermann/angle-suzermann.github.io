@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ANGLE · Скрипт тренировочного интервью WayUSA</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="GW B2">
+<meta name="ws:course-id" content="gateway/gw-b2">
+<meta name="ws:unit"      content="8">
+<meta name="ws:title"     content="Скрипт тренировочного интервью WayUSA">
+<meta name="ws:emoji"     content="🎤">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="interview prep, WayUSA">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  :root{
+    --purple:#5E4877;
+    --purple-dark:#453458;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --tint:#f6f2fa;
+    --muted:#6b6570;
+    --line:#e5e0ea;
+    --bg:#f4f4f2;
+    --s-bg:#f6f2fa;
+    --s-line:#dcd0e8;
+    --i-bg:#f4f4f2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--black);
+    font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+    line-height:1.55;
+  }
+  .page{
+    max-width:800px;
+    margin:0 auto;
+    padding:44px 44px 80px;
+    background:#fff;
+  }
+  header.doc-header{
+    border-bottom:3px solid var(--purple);
+    padding-bottom:20px;
+    margin-bottom:30px;
+  }
+  .brand-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .brand-row svg{ width:92px; height:auto; color:var(--purple); display:block; }
+  .brand-row .credit{
+    font-size:11px;
+    letter-spacing:.03em;
+    color:var(--muted);
+  }
+  .doc-tag{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--black);
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding:4px 10px;
+    border-radius:3px;
+    margin-bottom:12px;
+  }
+  header.doc-header h1{
+    font-size:27px;
+    margin:0 0 8px;
+    line-height:1.28;
+  }
+  header.doc-header .subtitle{
+    color:var(--muted);
+    font-size:14px;
+  }
+  .toc{
+    background:var(--i-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 22px;
+    margin-bottom:30px;
+    font-size:13.5px;
+  }
+  .toc b{display:block; color:var(--purple); margin-bottom:8px; font-size:12px; text-transform:uppercase; letter-spacing:.04em;}
+  .toc ol{margin:0; padding-left:20px;}
+  .toc li{margin-bottom:4px;}
+  h2{
+    font-size:20px;
+    margin:40px 0 6px;
+    color:var(--purple);
+    border-top:1px solid var(--line);
+    padding-top:22px;
+  }
+  h2:first-of-type{border-top:none;}
+  .block-note{
+    color:var(--muted);
+    font-size:13.5px;
+    margin:0 0 18px;
+  }
+  h3.qtitle{
+    font-size:15px;
+    margin:22px 0 8px;
+    color:var(--black);
+  }
+  .qnum{
+    display:inline-block;
+    background:var(--purple);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    border-radius:50%;
+    width:20px;height:20px;
+    text-align:center;
+    line-height:20px;
+    margin-right:8px;
+  }
+  .dialogue{
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:8px;
+  }
+  .turn{
+    padding:12px 18px;
+    font-size:14.5px;
+  }
+  .turn.i{
+    background:var(--i-bg);
+    border-bottom:1px solid var(--line);
+  }
+  .turn.s{
+    background:var(--s-bg);
+  }
+  .turn .role{
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .turn.s .role{color:var(--purple-dark);}
+  .coach{
+    font-size:13px;
+    color:var(--muted);
+    background:#fafafa;
+    border-left:3px solid var(--yellow);
+    padding:8px 14px;
+    margin:0 0 22px;
+    border-radius:0 6px 6px 0;
+  }
+  .coach b{color:var(--purple-dark);}
+  .callout{
+    background:var(--tint);
+    border-left:4px solid var(--purple);
+    padding:14px 18px;
+    border-radius:4px;
+    margin:14px 0 22px;
+    font-size:13.5px;
+  }
+  .drill{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 20px;
+    margin-bottom:16px;
+  }
+  .drill h3{margin:0 0 6px; font-size:15px; color:var(--purple);}
+  .drill .target{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .drill ul{margin:0; padding-left:20px;}
+  .drill li{font-size:14px; margin-bottom:6px;}
+  .drill .frame{
+    background:var(--tint);
+    border-radius:6px;
+    padding:8px 12px;
+    margin-top:8px;
+    font-size:13px;
+    font-family:Consolas,Menlo,monospace;
+  }
+  footer{
+    margin-top:44px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--muted);
+  }
+  footer a{color:var(--purple);}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none; padding:0;}
+    h2{break-after:avoid;}
+    .dialogue, .drill, .toc{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-header">
+    <div class="brand-row">
+      <svg viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+        <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+          <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+        </g>
+      </svg>
+      <div class="credit">by Viktoria Syuzyova</div>
+    </div>
+    <div class="doc-tag">Тренировочный материал</div>
+    <h1>Скрипт тренировочного интервью WayUSA</h1>
+    <div class="subtitle">Полный сценарий вопросов и ответов + языковые тренировки на уровень B2+</div>
+  </header>
+
+  <div class="toc">
+    <b>Что внутри</b>
+    <ol>
+      <li>О скрипте: откуда вопросы и как им пользоваться</li>
+      <li>Часть 1. Полный сценарий интервью (7 блоков, вопрос → образец ответа → комментарий)</li>
+      <li>Часть 2. Языковые тренировки под функции интервью (B2+)</li>
+      <li>Как отрабатывать скрипт дома</li>
+    </ol>
+  </div>
+
+  <h2 style="border-top:none;">О скрипте: откуда вопросы</h2>
+  <p style="font-size:14.5px;">WayUSA не публикует собственный список вопросов интервью — это ожидаемо, интервью проводит координатор лично. Поэтому скрипт собран из двух реальных, публично доступных источников, которые используют настоящие организации культурного обмена для отбора школьников (Rotary Youth Exchange и справочник Exchange Student Tips), и адаптирован под факты и формулировки именно WayUSA (её программы J1/F1, требования, модель Host Family, фазы адаптации). Вопросы про размещение в маленьком городе — не абстракция: сайт WayUSA сам описывает программу в штате Нью-Йорк, в школах национального парка Adirondack, а не только в мегаполисах.</p>
+  <div class="callout">
+    Логика подбора вопросов везде одна: организации культурного обмена смотрят на мотивацию, гибкость, ответственность, здравый смысл в бытовых конфликтах и умение справляться с трудностями — это ровно те качества, которые WayUSA сама называет ключевыми на своём сайте.
+  </div>
+
+  <!-- ================= BLOCK 1 ================= -->
+  <h2>Блок 1. Знакомство и разогрев</h2>
+  <p class="block-note">Цель блока — снять напряжение и дать координатору первое общее впечатление. Ответы должны быть живыми, не заученными.</p>
+
+  <h3 class="qtitle"><span class="qnum">1</span>Tell me a little about yourself.</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Tell me a little about yourself — your family, your school, what you like doing.</div>
+    <div class="turn s"><span class="role">Student</span>Sure. I'm from [город], I'm in 10th grade, and I live with my parents and my younger brother. At school my favourite subjects are English and biology, and outside of school I do [увлечение] and I've been taking English lessons for [срок]. I'd say I'm pretty curious — I like trying new things, even when they make me a bit nervous.</div>
+  </div>
+  <div class="coach"><b>Почему это работает:</b> 3–4 предложения, не список фактов, а естественная речь с одной личной деталью в конце («even when they make me a bit nervous») — она задаёт тон для следующих вопросов про адаптацию.</div>
+
+  <h3 class="qtitle"><span class="qnum">2</span>Why are you interested in going on an exchange program?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Why are you interested in going on an exchange program?</div>
+    <div class="turn s"><span class="role">Student</span>Honestly, I've always wanted to know what everyday life is like in another country — not as a tourist, but really living it: going to a real school, being part of a family, dealing with normal, everyday things. I don't just want to visit the US, I want to become part of a community there for a while.</div>
+  </div>
+  <div class="coach"><b>Логика вопроса:</b> проверяют, что решение осознанное, а не «просто хочется в Америку» и не давление родителей.</div>
+
+  <!-- ================= BLOCK 2 ================= -->
+  <h2>Блок 2. Мотивация и знание программы</h2>
+  <p class="block-note">Проверяют, готовилась ли кандидатка осознанно, и её реакцию на реальные условия программы (не только мечту о большом городе).</p>
+
+  <h3 class="qtitle"><span class="qnum">3</span>What do you know about the WayUSA exchange program?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>What do you know about the WayUSA exchange program?</div>
+    <div class="turn s"><span class="role">Student</span>As far as I understand, it's a cultural exchange program on a J-1 or F-1 visa, where students live with a volunteer host family and attend a public or private high school for a semester or a full academic year. Host families don't get paid — they do it because they genuinely want to share their life with a student from another country, so I know it's a two-way relationship, not just a service I'm paying for.</div>
+  </div>
+  <div class="coach"><b>Почему важно:</b> упоминание, что хост-семьи — волонтёры, показывает, что кандидатка понимает суть программы, а не воспринимает её как отель.</div>
+
+  <h3 class="qtitle"><span class="qnum">4</span>Would you have a problem being placed in a small town rather than a big city?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>A lot of students imagine themselves in New York or Los Angeles, but you could just as easily be placed in a small town. Would that be a problem for you?</div>
+    <div class="turn s"><span class="role">Student</span>Not at all. Actually, I think a smaller town might give me a more honest picture of everyday American life than a big city would. I'm not going for the skyline — I'm going for the experience of being part of a family and a school community, and that can happen anywhere.</div>
+  </div>
+  <div class="coach"><b>Ловушка вопроса:</b> кандидаты, которые начинают колебаться или явно расстраиваются, сигнализируют о нереалистичных ожиданиях. Уверенное «anywhere» — сильный ответ.</div>
+
+  <!-- ================= BLOCK 3 ================= -->
+  <h2>Блок 3. О себе: качества и опыт</h2>
+  <p class="block-note">Самораскрытие: сильные и слабые стороны, самостоятельный опыт, достижения. Здесь особенно ценится честность и конкретика.</p>
+
+  <h3 class="qtitle"><span class="qnum">5</span>What would you say is your greatest strength, and your biggest weakness?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>What would you say is your greatest strength, and your biggest weakness?</div>
+    <div class="turn s"><span class="role">Student</span>I think one of my strengths is that I adapt fairly quickly to new situations — when I changed schools two years ago, I made new friends within the first month. As for a weakness, I can be quite shy the very first time I meet people, so I make a conscious effort to introduce myself first instead of waiting for someone else to start the conversation.</div>
+  </div>
+  <div class="coach"><b>Формула ответа:</b> сила + конкретный пример; слабость + что делает с этим на практике. Не «у меня нет слабостей» и не голое перечисление качеств.</div>
+
+  <h3 class="qtitle"><span class="qnum">6</span>Have you ever spent time away from your family before? Did you feel homesick?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Have you ever spent time away from your family before? Did you feel homesick?</div>
+    <div class="turn s"><span class="role">Student</span>I went to a summer camp for three weeks last year, and yes, I did feel a bit homesick during the first few days. What helped was keeping myself busy and getting to know people instead of checking my phone all the time. I know a year abroad is a much bigger step, but I learned that homesickness fades once I feel involved in what's happening around me.</div>
+  </div>
+  <div class="coach"><b>Почему это сильный ответ:</b> не отрицает тоску по дому (WayUSA сама говорит, что это нормально), а показывает рабочую стратегию.</div>
+
+  <!-- ================= BLOCK 4 ================= -->
+  <h2>Блок 4. Школа и английский</h2>
+  <p class="block-note">Проверяют реалистичность ожиданий от американской школы и готовность учиться в новых условиях.</p>
+
+  <h3 class="qtitle"><span class="qnum">7</span>What are your grades like, and what subjects would you like to take in an American high school?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>What are your grades like, and what subjects would you like to take in an American high school?</div>
+    <div class="turn s"><span class="role">Student</span>My grades are solid, mostly 4s and 5s. I know American schools work differently — everyone has an individual schedule instead of a fixed class, so I'd definitely keep the core subjects like English and Maths, but I'd also love to try electives that aren't offered at my school, like journalism or drama.</div>
+  </div>
+  <div class="coach"><b>Плюс:</b> упоминание electives показывает, что кандидатка реально читала про структуру американской школы, а не просто повторяет клише из сериалов.</div>
+
+  <h3 class="qtitle"><span class="qnum">8</span>What will you do if you don't understand something in class because of the language?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>What will you do if you don't understand something in class because of the language?</div>
+    <div class="turn s"><span class="role">Student</span>I'd ask the teacher to repeat or explain it differently — I know that's completely normal for an exchange student. If I still didn't get it, I'd ask a classmate after class, or go over the material again at home with my host family. I'd rather ask a "silly" question than pretend I understood.</div>
+  </div>
+  <div class="coach"><b>Ключевая фраза:</b> «I'd rather ask a silly question than pretend I understood» — показывает зрелость и отсутствие ложной гордости.</div>
+
+  <!-- ================= BLOCK 5 ================= -->
+  <h2>Блок 5. Host Family: границы и конфликты</h2>
+  <p class="block-note">Самый «предсказательный» блок: смотрят не на факты, а на здравый смысл и умение решать бытовые конфликты правильным путём.</p>
+
+  <h3 class="qtitle"><span class="qnum">9</span>If you had a problem with your host family — for example, a house rule you disagreed with — what would you do?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>If you had a problem with your host family — for example, a house rule you disagreed with — what would you do?</div>
+    <div class="turn s"><span class="role">Student</span>I'd talk to them directly and calmly, rather than staying silent or complaining to someone else first. Host families are volunteers, so I'd try to understand their reasons before assuming they were being unfair. If it were something bigger that we really couldn't work out between us, I know I could contact my local coordinator for help.</div>
+  </div>
+  <div class="coach"><b>Формула:</b> прямой разговор → попытка понять точку зрения семьи → эскалация к координатору только для серьёзных вопросов. Именно такая иерархия решения проблем ожидается.</div>
+
+  <h3 class="qtitle"><span class="qnum">10</span>What are you expecting in terms of responsibilities at home — chores, curfews, that kind of thing?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>What are you expecting in terms of responsibilities at home — chores, curfews, that kind of thing?</div>
+    <div class="turn s"><span class="role">Student</span>I expect to keep my room clean, help out with basic chores, and follow whatever curfew the family sets, even if it's stricter than what I'm used to at home. I see it as part of being a real member of the family, not a guest.</div>
+  </div>
+  <div class="coach"><b>Обратите внимание:</b> явное «even if it's stricter than what I'm used to at home» — снимает частое опасение принимающих семей, что подросток будет сопротивляться правилам.</div>
+
+  <!-- ================= BLOCK 6 ================= -->
+  <h2>Блок 6. Стойкость и адаптация</h2>
+  <p class="block-note">Прямая проверка на понимание культурного шока — WayUSA сама описывает его фазы (Honeymoon → Crisis), поэтому честный, рефлексивный ответ ценится выше «у меня всё будет отлично».</p>
+
+  <h3 class="qtitle"><span class="qnum">11</span>Exchange students usually go through a difficult period of culture shock at some point. How do you think you'll cope with it?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Exchange students usually go through a difficult period of culture shock at some point. How do you think you'll cope with it?</div>
+    <div class="turn s"><span class="role">Student</span>I don't expect the whole year to feel easy or exciting — I know there'll probably be a period when everything feels overwhelming or I just miss home. When that happens, I'll try to stay involved instead of isolating myself, talk to my host family about how I'm feeling, and remind myself that it's a normal part of adjusting, not a sign that something's wrong.</div>
+  </div>
+  <div class="coach"><b>Почему это лучший тип ответа:</b> называет трудность честно («overwhelming», «miss home»), но заканчивает конкретной стратегией, а не только эмоцией.</div>
+
+  <h3 class="qtitle"><span class="qnum">12</span>Tell me about a difficult or challenging situation you've faced, and how you dealt with it.</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Tell me about a difficult or challenging situation you've faced, and how you dealt with it.</div>
+    <div class="turn s"><span class="role">Student</span>Last year, I had to give a big presentation in front of my whole grade, and I was really anxious about public speaking. Instead of avoiding it, I practiced in front of my family several times and asked my teacher for feedback beforehand. It went well, and now I actually volunteer for presentations when I can — it taught me that the discomfort usually gets smaller once you actually do the thing you're scared of.</div>
+  </div>
+  <div class="coach"><b>Структура:</b> ситуация → что конкретно сделала → чему научилась. Классическая STAR-логика, которую стоит закрепить для любых вопросов на «расскажи о случае».</div>
+
+  <!-- ================= BLOCK 7 ================= -->
+  <h2>Блок 7. Завершение: вопросы кандидата</h2>
+  <p class="block-note">Инициатива на этом этапе воспринимается как плюс — молчание в ответ на «есть вопросы?» читается как пассивность.</p>
+
+  <h3 class="qtitle"><span class="qnum">13</span>Do you have any questions for us?</h3>
+  <div class="dialogue">
+    <div class="turn i"><span class="role">Interviewer</span>Do you have any questions for us?</div>
+    <div class="turn s"><span class="role">Student</span>Yes, actually — could you tell me a bit about how the school schedule is usually planned in the first weeks, and how much contact I'd have with the local coordinator during the year?</div>
+  </div>
+  <div class="coach"><b>Готовые варианты вопросов, которые можно держать в запасе:</b> «What kind of support is available if I have a problem with my host family?», «How is the host family selected for a student?», «What happens if I want to change an elective after the semester starts?»</div>
+
+  <!-- ================= PART 2 ================= -->
+  <h2>Часть 2. Языковые тренировки под функции интервью (B2+)</h2>
+  <p class="block-note">Уровень входа в программу — Intermediate (B1+), но у студентки B2+, поэтому тренировки нацелены не на «выжить», а на говорить бегло, разворачивать мысль и звучать естественно. Каждая тренировка привязана к функции, которая реально нужна в блоках выше.</p>
+
+  <div class="drill">
+    <h3>Тренировка 1. Гипотетические конфликты (2nd conditional + softening)</h3>
+    <div class="target">Нужна для блока 5 (Host Family: конфликты)</div>
+    <p style="font-size:14px; margin-bottom:6px;">Студентка отвечает на 5 гипотетических ситуаций, используя структуру <i>If + Past Simple, would + verb</i> и смягчающие обороты.</p>
+    <div class="frame">If my host sibling did X, I would... / I'd probably... / What I'd try to do first is...</div>
+    <ul>
+      <li>If your host family asked you to attend a religious service that isn't part of your own beliefs, what would you do?</li>
+      <li>If your host brother or sister borrowed your things without asking, how would you handle it?</li>
+      <li>If a teacher asked you to do something you weren't comfortable with, what would you do?</li>
+      <li>If you disagreed with your host family's curfew, how would you approach the conversation?</li>
+      <li>If you felt like your host family was too strict compared to what you're used to, what would you do?</li>
+    </ul>
+  </div>
+
+  <div class="drill">
+    <h3>Тренировка 2. Рассказ о личном опыте (нарративные времена)</h3>
+    <div class="target">Нужна для блоков 3 и 6 (о себе, стойкость)</div>
+    <p style="font-size:14px; margin-bottom:6px;">Студентка рассказывает о трёх реальных случаях из своей жизни (адаптация к новому месту, преодоление страха, решение конфликта), используя Past Simple, Past Continuous и связки последовательности.</p>
+    <div class="frame">At first... / Then I realised... / What really helped was... / Looking back, I think...</div>
+    <ul>
+      <li>История №1: случай, когда пришлось быстро адаптироваться (новая школа, переезд, лагерь).</li>
+      <li>История №2: случай, когда преодолела страх или неуверенность.</li>
+      <li>История №3: случай, когда пришлось решать конфликт или недопонимание самостоятельно, без помощи родителей.</li>
+    </ul>
+  </div>
+
+  <div class="drill">
+    <h3>Тренировка 3. Баланс «сильные / слабые стороны» (hedging language)</h3>
+    <div class="target">Нужна для блока 3 (самораскрытие)</div>
+    <p style="font-size:14px; margin-bottom:6px;">Цель — избежать двух крайностей: «у меня нет недостатков» и излишней самокритики. Используем смягчающие обороты.</p>
+    <div class="frame">I tend to... / One thing I'm working on is... / I wouldn't say I'm... but I can be... / I've learned to...</div>
+    <ul>
+      <li>Назови одну сильную сторону + пример, где она проявилась.</li>
+      <li>Назови одну слабость + конкретный способ, которым с ней справляешься.</li>
+      <li>Опиши, как эта слабость может повлиять на год по обмену, и что будешь делать заранее.</li>
+    </ul>
+  </div>
+
+  <div class="drill">
+    <h3>Тренировка 4. Инициативные вопросы (question formation под давлением)</h3>
+    <div class="target">Нужна для блока 7 (закрытие интервью)</div>
+    <p style="font-size:14px; margin-bottom:6px;">Студентка с ходу формулирует 5 уточняющих вопросов на разные темы программы — без подготовки, на время (по 15 секунд на вопрос), чтобы натренировать быстрое построение вопроса в стрессе.</p>
+    <ul>
+      <li>Про школу и расписание</li>
+      <li>Про хост-семью и то, как её подбирают</li>
+      <li>Про поддержку в трудной ситуации</li>
+      <li>Про правила программы (что можно/нельзя)</li>
+      <li>Про первые недели после приезда</li>
+    </ul>
+  </div>
+
+  <h2>Как отрабатывать скрипт дома</h2>
+  <ol style="font-size:14.5px;">
+    <li>Студентка проговаривает вслух все 13 вопросов Части 1 без опоры на текст — сначала своими словами, потом сверяет с образцом.</li>
+    <li>Записывает себя на диктофон и переслушивает: обращает внимание не на грамматику, а на то, звучит ли ответ как живая речь или как зазубренный текст.</li>
+    <li>Проходит Часть 2 отдельно, до автоматизма — эти структуры потом сами всплывают в разговоре.</li>
+    <li>Финальный прогон — полное пробное интервью с преподавателем без пауз на подготовку, включая один незнакомый «стресс-вопрос» не из этого списка.</li>
+  </ol>
+
+  <footer>ANGLE · студия системного английского — by Viktoria Syuzyova. Вопросы адаптированы из публичных материалов организаций культурного обмена: Rotary Youth Exchange, «Sample Interview Questions» (официальный документ дистрикта) и Exchange Student Tips, «29 practice exchange student interview questions and answers». Факты о программе — с официального сайта wayusa.info. Документ не является официальным материалом WayUSA.</footer>
+</div>
+</body>
+</html>

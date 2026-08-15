@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Future Forms Worksheet</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Gateway to the world B2">
+<meta name="ws:course-id" content="gateway/gateway-to-the-world-b2">
+<meta name="ws:unit"      content="3">
+<meta name="ws:title"     content="Future Forms Worksheet">
+<meta name="ws:emoji"     content="🔮">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="future tenses, grammar">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    max-width: 780px;
+    margin: 40px auto;
+    padding: 0 24px;
+    color: #2a1010;
+    line-height: 1.6;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #a30000;
+  }
+  h2 {
+    font-size: 17px;
+    color: #a30000;
+    margin-top: 40px;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #7a2020;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+  .instructions {
+    background: #fdf0f0;
+    border: 1px solid #e3a3a3;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .instructions b { color: #a30000; }
+
+  ol.mc { padding-left: 22px; }
+  ol.mc li { margin-bottom: 16px; font-size: 16px; }
+
+  .options {
+    margin-top: 6px;
+    display: flex;
+    gap: 24px;
+  }
+  .option {
+    border: 2px solid #c98a8a;
+    border-radius: 20px;
+    padding: 4px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+  }
+  .option:hover { border-color: #a30000; }
+  .option.selected {
+    border-color: #a30000;
+    background: #fdeaea;
+    color: #a30000;
+    font-weight: bold;
+  }
+  .option.correct-mark {
+    border-color: #a30000;
+    background: #fdeaea;
+    color: #a30000;
+  }
+  .option.wrong-mark {
+    border-color: #700000;
+    background: #f7d6d6;
+    color: #700000;
+  }
+
+  .textbox {
+    background: #fdf0f0;
+    border: 1px solid #e3a3a3;
+    border-left: 6px solid #a30000;
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+  .textbox p { margin: 0; }
+  .num {
+    color: #a30000;
+    font-weight: bold;
+  }
+  input.gap {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    width: 140px;
+    padding: 3px 6px;
+    border: none;
+    border-bottom: 2px solid #c98a8a;
+    background: transparent;
+    text-align: center;
+    margin: 0 2px;
+    color: #2a1010;
+  }
+  input.gap:focus {
+    outline: none;
+    border-bottom: 2px solid #a30000;
+  }
+  input.correct {
+    border-bottom: 2px solid #a30000;
+    background: #fdeaea;
+    color: #a30000;
+  }
+  input.incorrect {
+    border-bottom: 2px solid #700000;
+    background: #f7d6d6;
+    color: #700000;
+  }
+  .verb-hint {
+    font-size: 13px;
+    color: #7a2020;
+  }
+  .answer-hint {
+    font-size: 13px;
+    color: #700000;
+    margin-left: 6px;
+    display: none;
+  }
+
+  .buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+  }
+  button {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid #a30000;
+    background: #a30000;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:hover { background: #7a0000; }
+  button.secondary {
+    background: transparent;
+    color: #a30000;
+  }
+  button.secondary:hover { background: #fdeaea; }
+  #score {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #a30000;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>Future forms worksheet</h1>
+<p class="subtitle">Will, going to, present continuous and present simple for future</p>
+
+<h2>1&nbsp; Circle the correct answer.</h2>
+<div class="instructions">Click on the answer you think is correct (<b>a</b> or <b>b</b>).</div>
+<ol class="mc" id="mcList"></ol>
+
+<h2>2&nbsp; Complete the text with the correct form of the verbs given.</h2>
+<div class="instructions">Type the correct future form of the verb shown in brackets into each gap.</div>
+<div class="textbox" id="textGaps"></div>
+
+<div class="buttons">
+  <button onclick="checkAnswers()">Check my answers</button>
+  <button class="secondary" onclick="resetWorksheet()">Reset</button>
+</div>
+<div id="score"></div>
+
+<script>
+const mcItems = [
+  { text: "According to the timetable, our train __GAP__ tomorrow afternoon.", a: "will leave", b: "leaves", correct: "b" },
+  { text: "I've decided __GAP__ philosophy and politics at university.", a: "I'm going to study", b: "I study", correct: "a" },
+  { text: "Space tourism __GAP__ possible in the not too distant future.", a: "is", b: "will be", correct: "b" },
+  { text: "The heads of department __GAP__ tomorrow to discuss the issue.", a: "are meeting", b: "meet", correct: "a" },
+  { text: "Based on the results of the survey, these products __GAP__ a great success.", a: "are being", b: "are going to be", correct: "b" }
+];
+
+const mcList = document.getElementById('mcList');
+mcItems.forEach((item, i) => {
+  const li = document.createElement('li');
+  const parts = item.text.split('__GAP__');
+  li.innerHTML = `${parts[0]}<span style="color:#a30000;">........</span>${parts[1]}
+    <div class="options">
+      <span class="option" data-q="${i}" data-choice="a" onclick="selectOption(${i}, 'a')"><b>a</b>&nbsp; ${item.a}</span>
+      <span class="option" data-q="${i}" data-choice="b" onclick="selectOption(${i}, 'b')"><b>b</b>&nbsp; ${item.b}</span>
+    </div>`;
+  mcList.appendChild(li);
+});
+
+const selections = {};
+function selectOption(q, choice) {
+  selections[q] = choice;
+  document.querySelectorAll(`.option[data-q="${q}"]`).forEach(el => {
+    el.classList.remove('selected', 'correct-mark', 'wrong-mark');
+    if (el.dataset.choice === choice) el.classList.add('selected');
+  });
+}
+
+const gapItems = [
+  { before: "According to some predictions, flying cars ", verb: "be", answers: ["will be"] },
+  { before: " available in the next 15 years or so. Several companies are developing prototypes. Terrafugia is one company. Their car ", verb: "seat", answers: ["will seat", "seats"] },
+  { before: " four people and ", verb: "fly", answers: ["will fly", "flies"] },
+  { before: " with wings similar to a plane. Aeromobil ", verb: "hope", answers: ["hopes"] },
+  { before: " to sell a model as early as 2023. This prototype works like a normal car but has collapsible wings so it can fly. Both ideas are exciting. However, I don't think they ", verb: "become", answers: ["are going to become", "will become"] },
+  { before: " a normal form of transport any time soon because the first models ", verb: "be", answers: ["won't be", "will not be"] },
+  { before: " cheap.", verb: null, answers: null }
+];
+
+const textGaps = document.getElementById('textGaps');
+let html = '<p>';
+gapItems.forEach((g, i) => {
+  html += g.before;
+  if (g.verb) {
+    html += `<span class="num">(${i + 1})</span> <input type="text" class="gap" id="tgap${i}" autocomplete="off"><span class="verb-hint"> (${g.verb})</span> <span class="answer-hint" id="thint${i}"></span>`;
+  }
+});
+html += '</p>';
+textGaps.innerHTML = html;
+
+function checkAnswers() {
+  let correctCount = 0;
+  let totalCount = 0;
+
+  mcItems.forEach((item, i) => {
+    totalCount++;
+    const chosen = selections[i];
+    document.querySelectorAll(`.option[data-q="${i}"]`).forEach(el => {
+      el.classList.remove('correct-mark', 'wrong-mark');
+      if (el.dataset.choice === item.correct) el.classList.add('correct-mark');
+      else if (el.dataset.choice === chosen) el.classList.add('wrong-mark');
+    });
+    if (chosen === item.correct) correctCount++;
+  });
+
+  gapItems.forEach((g, i) => {
+    if (!g.verb) return;
+    totalCount++;
+    const input = document.getElementById(`tgap${i}`);
+    const hint = document.getElementById(`thint${i}`);
+    const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+    const isCorrect = g.answers.some(a => userAnswer === a.toLowerCase());
+    input.classList.remove('correct', 'incorrect');
+    if (isCorrect) {
+      input.classList.add('correct');
+      hint.style.display = 'none';
+      correctCount++;
+    } else {
+      input.classList.add('incorrect');
+      hint.textContent = `correct answer: ${g.answers.join(' or ')}`;
+      hint.style.display = 'inline';
+    }
+  });
+
+  const scoreDiv = document.getElementById('score');
+  scoreDiv.style.display = 'block';
+  scoreDiv.textContent = `Score: ${correctCount} / ${totalCount}`;
+}
+
+function resetWorksheet() {
+  mcItems.forEach((item, i) => {
+    delete selections[i];
+    document.querySelectorAll(`.option[data-q="${i}"]`).forEach(el => {
+      el.classList.remove('selected', 'correct-mark', 'wrong-mark');
+    });
+  });
+  gapItems.forEach((g, i) => {
+    if (!g.verb) return;
+    const input = document.getElementById(`tgap${i}`);
+    const hint = document.getElementById(`thint${i}`);
+    input.value = '';
+    input.classList.remove('correct', 'incorrect');
+    hint.style.display = 'none';
+  });
+  document.getElementById('score').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

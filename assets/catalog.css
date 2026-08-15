@@ -98,15 +98,18 @@ body{
 
 .card{
   display: block;
-  background: var(--neutral-card);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--neutral-border);
   border-left: 6px solid var(--purple);
+  border-radius: 14px;
   padding: 14px 16px;
   margin-bottom: 10px;
   text-decoration: none;
   color: var(--black);
-  box-shadow: 0 4px 14px rgba(45,41,38,0.06);
-  transition: transform 0.12s ease, border-color 0.12s ease;
+  box-shadow: 0 4px 14px rgba(45,41,38,0.08);
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 .card:hover{ transform: translateY(-1px); border-left-color: var(--yellow); }
 
@@ -137,7 +140,8 @@ body{
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  padding: 2px 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
   background: var(--neutral-border);
   color: var(--black);
 }
@@ -197,6 +201,26 @@ body{
 .filter-btn:hover{ background: rgba(254,213,0,0.22); border-color: rgba(254,213,0,0.6); transform: translateY(-1px); }
 .filter-btn.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); text-shadow: none; }
 
+.course-link-row{ margin: -4px 0 18px; }
+.link-copy{
+  min-height: 30px;
+  min-width: 30px;
+  padding: 0 8px;
+  border: 1px solid rgba(254,213,0,0.35);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  color: #fff;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.link-copy:hover{ background: rgba(254,213,0,0.3); border-color: rgba(254,213,0,0.6); transform: translateY(-1px); }
+.link-copy.copied{ background: var(--correct); border-color: var(--correct); color: #fff; font-size: 11px; font-weight: 700; padding: 0 10px; }
+
 /* подвкладки уровней внутри курса-семьи (напр. Academy Stars 2/3/4/5) */
 .sub-tabs{
   gap: 6px;
@@ -216,12 +240,16 @@ body{
 .filter-btn.sub.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); }
 
 .staff-card{
-  background: var(--neutral-card);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--neutral-border);
   border-left: 6px solid var(--purple);
+  border-radius: 14px;
   padding: 14px 16px;
   margin-bottom: 10px;
-  box-shadow: 0 4px 14px rgba(45,41,38,0.06);
+  box-shadow: 0 4px 14px rgba(45,41,38,0.08);
+  transition: background 0.12s ease;
 }
 .staff-card.is-draft{ border-left-color: #d97706; }
 .staff-card a.open{ color: var(--purple); font-weight: 700; text-decoration: none; }
@@ -236,12 +264,14 @@ body{
   padding: 6px 12px;
   min-height: 34px;
   border: 1px solid var(--neutral-border);
-  background: #fff;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.9);
   color: var(--black);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  transition: background 0.12s ease, border-color 0.12s ease;
 }
 .actions button:hover, .actions a:hover{ border-color: var(--purple); }
 .actions button.copied{ background: var(--correct); border-color: var(--correct); color: #fff; }
