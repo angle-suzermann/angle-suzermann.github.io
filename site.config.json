@@ -14,28 +14,32 @@
       "name": "Academy Stars 2",
       "family": "Academy Stars",
       "emoji": "🌟",
-      "formspree": "mjgnlwkd"
+      "formspree": "mjgnlwkd",
+      "textbookUrl": "https://drive.google.com/drive/folders/1SC6wXaadA-gcN5Wi4GBuKnky-xDaEOZM?usp=sharing"
     },
     {
       "id": "as3",
       "name": "Academy Stars 3",
       "family": "Academy Stars",
       "emoji": "🌟",
-      "formspree": "xwleolev"
+      "formspree": "xwleolev",
+      "textbookUrl": "https://drive.google.com/drive/folders/1CxXUAxNg47VuW-8vw6sDY4d33S8g6fcf?usp=sharing"
     },
     {
       "id": "as4",
       "name": "Academy Stars 4",
       "family": "Academy Stars",
       "emoji": "🌟",
-      "formspree": "xeeyrowk"
+      "formspree": "xeeyrowk",
+      "textbookUrl": "https://drive.google.com/drive/folders/1L3Wbd9fJGpn5RQn3NnK0pkFM0FxhAC61?usp=sharing"
     },
     {
       "id": "as5",
       "name": "Academy Stars 5",
       "family": "Academy Stars",
       "emoji": "⭐",
-      "formspree": "mlgqeayn"
+      "formspree": "mlgqeayn",
+      "textbookUrl": "https://drive.google.com/drive/folders/12b_sfS6acx_-aGV6PWv_iCbDrUnJIyk0?usp=sharing"
     },
     {
       "id": "empower-b1",
@@ -95,7 +99,8 @@
       "name": "Oxford Phonics World 3",
       "family": "Oxford Phonics",
       "emoji": "🔊",
-      "formspree": "mlgqqwpk"
+      "formspree": "mlgqqwpk",
+      "textbookUrl": "https://drive.google.com/drive/folders/1afVCJ3pAgdCQ2A5ODf9hmHQuZZios4c0?usp=sharing"
     },
     {
       "id": "oxford-phonics/4",
@@ -119,5 +124,6 @@
     }
   ],
   "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте.",
-  "_family": "Необязательное поле у курса. Курсы с одинаковым family группируются в панели преподавателя в одну кнопку-родитель с подвкладками-уровнями внутри. Страницы курсов (/as2/ и т.п.) family не затрагивает."
+  "_family": "Необязательное поле у курса. Курсы с одинаковым family группируются в панели преподавателя в одну кнопку-родитель с подвкладками-уровнями внутри. Страницы курсов (/as2/ и т.п.) family не затрагивает.",
+  "_textbookUrl": "Необязательное поле у курса. Ссылка на учебник (например, папка Google Диска, открытая «по ссылке») — если заполнено, на странице курса появляется кнопка «Скачать учебник». Публикуя учебник целиком, а не вырезки для заданий, проверьте сами, что вправе так делиться."
 }

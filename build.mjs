@@ -294,7 +294,8 @@ const copyScript = `<script>
   });
 </script>`;
 
-const courseLinkRow = (course) => `  <div class="course-link-row">
+const courseLinkRow = (course) => `  <div class="course-link-row">${course.textbookUrl ? `
+    <a class="textbook-link" href="${esc(course.textbookUrl)}" target="_blank" rel="noopener">📘 Скачать учебник</a>` : ''}
     <button type="button" class="link-copy" data-copy="${esc(`${BASE}/${course.id}/`)}">🔗 Скопировать ссылку на эту страницу</button>
   </div>
 `;
