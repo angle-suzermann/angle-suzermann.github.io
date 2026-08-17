@@ -10,15 +10,13 @@
 <meta name="ws:unit"      content="9">
 <meta name="ws:title"     content="Unit 9: Water — Test">
 <meta name="ws:emoji"     content="🚰">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-08-17">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="xeeyrowk">
 <meta name="ws:tags"      content="water, verbs, vocabulary">
 <meta name="robots"       content="noindex, nofollow">
 <style>
-
-
-:root{
+  :root{
   --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
   --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
   --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
@@ -33,7 +31,7 @@ body{
 }
 .bg-photo{
   position:fixed; inset:0; z-index:-2;
-  background-image:url('img/bg-photo.jpg');
+  background-image:url('img/img1.jpg');
   background-size:cover; background-position:center 35%;
   opacity:0.55;
 }
@@ -281,27 +279,27 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
       <div class="vocab-grid">
         <div class="vocab-item example">
           <div class="example-tag">Example</div>
-          <img src="img/tap.jpg" alt="tap">
+          <img src="img/img2.jpg" alt="tap">
           <div class="example-answer">tap</div>
         </div>
         <div class="vocab-item">
           <div class="num">2</div>
-          <img src="img/dishwasher.jpg" alt="dishwasher">
+          <img src="img/img3.jpg" alt="dishwasher">
           <input class="fib" type="text" name="ex1_2" data-answer="dishwasher" placeholder="d _ _ _ _ _ _ _ _ r">
         </div>
         <div class="vocab-item">
           <div class="num">3</div>
-          <img src="img/bucket.jpg" alt="bucket">
+          <img src="img/img4.jpg" alt="bucket">
           <input class="fib" type="text" name="ex1_3" data-answer="bucket" placeholder="b _ _ k _ t">
         </div>
         <div class="vocab-item">
           <div class="num">4</div>
-          <img src="img/washing-machine.jpg" alt="washing machine">
+          <img src="img/img5.jpg" alt="washing machine">
           <input class="fib" type="text" name="ex1_4" data-answer="washing machine" placeholder="w _ _ h _ _ g   m _ c h _ n _">
         </div>
         <div class="vocab-item">
           <div class="num">5</div>
-          <img src="img/watering-can.jpg" alt="watering can">
+          <img src="img/img6.jpg" alt="watering can">
           <input class="fib" type="text" name="ex1_5" data-answer="watering can" placeholder="w _ t _ r _ n g   c _ n">
         </div>
       </div>
@@ -323,32 +321,32 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
       <div class="vocab-grid">
         <div class="vocab-item example">
           <div class="example-tag">Example</div>
-          <img src="img/turn-on.jpg" alt="turn on">
+          <img src="img/img7.jpg" alt="turn on">
           <div class="example-answer">turn on</div>
         </div>
         <div class="vocab-item">
           <div class="num">2</div>
-          <img src="img/fill.jpg" alt="fill">
+          <img src="img/img8.jpg" alt="fill">
           <input class="fib" type="text" name="ex2_2" data-answer="fill" placeholder="type the word">
         </div>
         <div class="vocab-item">
           <div class="num">3</div>
-          <img src="img/waste.jpg" alt="waste">
+          <img src="img/img9.jpg" alt="waste">
           <input class="fib" type="text" name="ex2_3" data-answer="waste" placeholder="type the word">
         </div>
         <div class="vocab-item">
           <div class="num">4</div>
-          <img src="img/turn-off.jpg" alt="turn off">
+          <img src="img/img10.jpg" alt="turn off">
           <input class="fib" type="text" name="ex2_4" data-answer="turn off" placeholder="type the word">
         </div>
         <div class="vocab-item">
           <div class="num">5</div>
-          <img src="img/empty.jpg" alt="empty">
+          <img src="img/img11.jpg" alt="empty">
           <input class="fib" type="text" name="ex2_5" data-answer="empty" placeholder="type the word">
         </div>
         <div class="vocab-item">
           <div class="num">6</div>
-          <img src="img/save.jpg" alt="save">
+          <img src="img/img12.jpg" alt="save">
           <input class="fib" type="text" name="ex2_6" data-answer="save" placeholder="type the word">
         </div>
       </div>
@@ -608,6 +606,50 @@ function fuzzyMatch(value, acceptableList){
   return acceptableList.some(a => v === normalize(a));
 }
 
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.replace(/\s+/g,' ').trim() : '';
+}
+function itemContext(el){
+  const vocabItem = el.closest('.vocab-item');
+  if(vocabItem){
+    const num = vocabItem.querySelector('.num');
+    const img = vocabItem.querySelector('img');
+    const label = num ? `item ${num.textContent.trim()}` : '';
+    const alt = img ? img.getAttribute('alt') : '';
+    return [label, alt ? `(${alt})` : ''].filter(Boolean).join(' ');
+  }
+  const li = el.closest('li.blank-sentence');
+  if(li){
+    const clone = li.cloneNode(true);
+    clone.querySelectorAll('input, select').forEach(x=>x.remove());
+    const txt = clone.textContent.replace(/\s+/g,' ').trim();
+    if(txt) return txt.slice(0,90);
+  }
+  const row = el.closest('.match-row');
+  if(row){
+    const txt = row.querySelector('.match-text');
+    if(txt) return txt.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+  }
+  const qa = el.closest('.qa-block');
+  if(qa){
+    const scramble = qa.querySelector('.scramble');
+    const fieldLabel = el.closest('.field') ? el.closest('.field').querySelector('label') : null;
+    const parts = [];
+    if(scramble) parts.push(scramble.textContent.replace(/\s+/g,' ').trim().slice(0,60));
+    if(fieldLabel) parts.push('(' + fieldLabel.textContent.trim() + ')');
+    if(parts.length) return parts.join(' ');
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){
@@ -617,15 +659,14 @@ async function submitAll(){
     return;
   }
   let correct = 0, total = 0;
-  const details = [];
+  const wrongList = [];
 
   document.querySelectorAll('input.fib[data-answer]').forEach(inp=>{
     total++;
     const ok = normalize(inp.value) === normalize(inp.dataset.answer);
     inp.classList.toggle('is-correct', ok);
     inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
-    details.push(`${inp.name}: "${inp.value.trim()}" ${ok ? 'OK' : 'WRONG (expected: ' + inp.dataset.answer + ')'}`);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
   });
 
   document.querySelectorAll('input.fib[data-answers]').forEach(inp=>{
@@ -634,8 +675,7 @@ async function submitAll(){
     const ok = fuzzyMatch(inp.value, list);
     inp.classList.toggle('is-correct', ok);
     inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
-    details.push(`${inp.name}: "${inp.value.trim()}" ${ok ? 'OK' : 'WRONG (expected: ' + list[0] + ')'}`);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list[0]));
   });
 
   document.querySelectorAll('select.dd[data-answer]').forEach(sel=>{
@@ -643,8 +683,7 @@ async function submitAll(){
     const ok = normalize(sel.value) === normalize(sel.dataset.answer);
     sel.classList.toggle('is-correct', ok);
     sel.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
-    details.push(`${sel.name}: "${sel.value}" ${ok ? 'OK' : 'WRONG (expected: ' + sel.dataset.answer + ')'}`);
+    if(ok) correct++; else wrongList.push(describeWrong(sel, sel.value, sel.dataset.answer));
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -662,8 +701,8 @@ async function submitAll(){
     fd.append('group', document.getElementById('studentGroup').value.trim());
     fd.append('date', document.getElementById('studentDate').value);
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
-    fd.append('details', details.join('\n'));
     await fetch('https://formspree.io/f/xeeyrowk', {
       method:'POST',
       headers:{'Accept':'application/json'},
