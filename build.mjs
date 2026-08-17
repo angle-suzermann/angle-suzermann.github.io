@@ -255,7 +255,7 @@ const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.
    (когда добавили материал), по имени или по теме (юниту). Разметка
    одинаковая для страницы курса и панели преподавателя, скрипт общий
    (см. sortScript), различается только то, какой контейнер он сортирует. */
-const sortToolbar = () => `  <div class="toolbar sort-toolbar">
+const sortToolbar = () => `  <div class="sort-toolbar">
     <span class="sort-label">Сортировка:</span>
     <button type="button" class="filter-btn" data-sort="date">🕓 По дате</button>
     <button type="button" class="filter-btn" data-sort="title">🔤 По имени</button>

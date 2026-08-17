@@ -202,7 +202,18 @@ body{
 .filter-btn.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); text-shadow: none; }
 
 /* сортировка материалов по дате / имени / теме — сами кнопки те же .filter-btn,
-   только с подписью слева */
+   только с подписью слева. Класс "toolbar" сюда намеренно не добавлен: в панели
+   преподавателя скрипт фильтров слушает клики по любому ".toolbar .filter-btn",
+   и если бы сортировка тоже была ".toolbar", её кнопки перехватывались бы этим
+   обработчиком и ломали переключение фильтров/подпапок. Раскладку дублируем
+   вручную, чтобы выглядело как остальные тулбары. */
+.sort-toolbar{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
 .sort-toolbar .sort-label{
   font-size: 13px;
   font-weight: 700;
