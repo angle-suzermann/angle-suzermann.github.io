@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grand Canyon — Reading Comprehension — HOMEWORK</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="The Grand Canyon — Reading Comprehension (Homework)">
+<meta name="ws:emoji"     content="🏜️">
+<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="ЕГЭ, путешествие, лексика">
+<meta name="robots"       content="noindex, nofollow">
+
+<style id="font-face-style">
+    
+</style>
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+button, input, select, textarea{font-family:inherit;}
+
+body{margin:0;font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text);background:var(--black);}
+
+.bg-photo{position:fixed;inset:0;z-index:0;background-image:url('img/img1.jpg');background-size:cover;background-position:center 42%;opacity:0.55;}
+.bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,10,.55), rgba(69,52,88,.92));}
+
+.topbar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:3px solid var(--purple);box-shadow:0 2px 10px rgba(0,0,0,.15);}
+.topbar-inner{max-width:920px;margin:0 auto;padding:10px 18px 8px;}
+.brand-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.lesson-title{font-weight:700;color:var(--purple-dark);font-size:1.05rem;}
+.lesson-sub{font-weight:400;color:var(--muted);font-size:.78rem;display:block;}
+.namebar{display:flex;align-items:center;gap:6px;font-size:.85rem;}
+.namebar input{border:1.5px solid var(--border);border-radius:7px;padding:6px 9px;font-family:inherit;font-size:.85rem;min-width:190px;}
+.namebar input:focus{outline:2px solid var(--yellow);border-color:var(--purple);}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{flex:1;height:8px;background:var(--card-tint);border-radius:5px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--yellow));width:5%;transition:width .3s ease;}
+.progress-label{font-size:.75rem;color:var(--muted);white-space:nowrap;}
+.page-dots{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;}
+.page-dot{width:22px;height:22px;border-radius:50%;background:var(--card-tint);border:1.5px solid var(--border);color:var(--muted);font-size:.68rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:700;}
+.page-dot.active{background:var(--purple);border-color:var(--purple);color:#fff;}
+
+.page-wrap{position:relative;z-index:2;max-width:920px;margin:0 auto;padding:26px 18px 90px;}
+.page{display:none;}
+.page.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.card{background:var(--card);border-radius:16px;padding:24px 26px;box-shadow:0 10px 30px rgba(0,0,0,.25);margin-bottom:16px;}
+.card h1{color:var(--purple-dark);font-size:1.5rem;margin:0 0 8px;}
+.card h2{color:var(--purple-dark);font-size:1.15rem;margin:0 0 14px;border-bottom:2px solid var(--yellow);padding-bottom:8px;}
+.card h3{color:var(--purple);font-size:1rem;margin:18px 0 8px;}
+.card p{line-height:1.7;}
+.hero{color:#fff;text-align:center;padding:40px 10px 10px;}
+.hero h1{font-size:2.1rem;margin:0 0 6px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+.hero p{color:#f6ede0;font-size:1.05rem;}
+.tag{display:inline-block;background:var(--yellow);color:var(--black);font-weight:700;font-size:.72rem;padding:3px 10px;border-radius:20px;letter-spacing:.03em;text-transform:uppercase;}
+
+.reading p{margin:0 0 16px;}
+.reading h3{color:var(--purple-dark);margin-top:0;}
+.vtag{background:#fdf0c8;border-bottom:2px dotted var(--purple);cursor:pointer;padding:0 2px;border-radius:3px;font-weight:600;}
+.vtag:hover{background:var(--yellow);}
+
+.item{margin:16px 0;padding:14px 16px;background:var(--card-tint);border-radius:10px;border:1px solid var(--border);}
+.item p{margin:0 0 10px;font-weight:600;}
+.item .qnum{color:var(--purple);margin-right:6px;}
+.blank-sentence{font-weight:400;}
+input.fib, input.fib-fz{border:none;border-bottom:2px solid var(--purple);background:transparent;font-family:inherit;font-size:1rem;padding:3px 4px;min-width:160px;text-align:center;font-weight:700;color:var(--purple-dark);}
+input.fib-fz{min-width:260px;text-align:left;}
+input.fib:focus, input.fib-fz:focus{outline:none;border-bottom-color:var(--yellow);}
+input.is-correct{background:#e8f7ee;border-color:var(--correct)!important;color:var(--correct)!important;}
+input.is-wrong{background:#fbeae7;border-color:var(--wrong)!important;color:var(--wrong)!important;}
+
+.mcq2{display:flex;gap:10px;}
+.mcq2 .opt{flex:1;text-align:center;padding:10px;font-weight:700;border:1.5px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.92rem;}
+.mcq2 .opt.chosen{border-color:var(--purple);background:var(--card-tint);}
+.item.checked .opt.correct-ans{background:#e8f7ee;border-color:var(--correct);color:var(--correct);}
+.item.checked .opt.wrong-ans{background:#fbeae7;border-color:var(--wrong);color:var(--wrong);}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px;padding:12px;background:#fff;border-radius:9px;border:1px dashed var(--purple);}
+.word-bank span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-weight:700;color:var(--purple-dark);font-size:.85rem;}
+
+/* Matching */
+.match-wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
+.match-col{flex:1;min-width:230px;display:flex;flex-direction:column;gap:8px;}
+.match-btn{text-align:left;border:1.5px solid var(--border);background:#fff;padding:9px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.85rem;}
+.match-btn.selected{border-color:var(--purple);background:var(--card-tint);}
+.match-btn.matched-correct{border-color:var(--correct);background:#e8f7ee;color:var(--correct);cursor:default;}
+.match-btn.wrong-flash{border-color:var(--wrong);background:#fbeae7;}
+
+/* Flashcards (reused pattern) */
+.deck-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0;flex-wrap:wrap;}
+.deck-controls button{background:var(--purple);color:#fff;border:none;padding:9px 16px;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.85rem;}
+.deck-controls button.secondary{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.deck-counter{font-weight:700;color:var(--purple-dark);font-size:.85rem;}
+.flip-stage{display:flex;justify-content:center;margin:14px 0;perspective:1200px;}
+.flip-card{width:100%;max-width:440px;height:230px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.18);}
+.flip-front{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;font-size:1.3rem;font-weight:700;}
+.flip-back{background:var(--yellow);color:var(--black);transform:rotateY(180deg);font-size:.95rem;}
+.card-speak{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.25);border:none;border-radius:50%;width:32px;height:32px;font-size:1rem;cursor:pointer;}
+.flip-front .card-speak{color:#fff;}
+.deck-hint{text-align:center;color:var(--muted);font-size:.78rem;margin-top:6px;}
+
+.nav-btns{display:flex;justify-content:space-between;margin-top:18px;}
+.nav-btns button{background:var(--purple);color:#fff;border:none;padding:11px 22px;border-radius:24px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.9rem;}
+.nav-btns button.ghost{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.submit-btn{
+  background:linear-gradient(135deg,#FFE066,var(--yellow) 55%,#FFC700)!important;
+  color:var(--black)!important;
+  font-size:1.15rem!important;
+  font-weight:800!important;
+  padding:16px 34px!important;
+  border-radius:50px!important;
+  border:2px solid var(--black)!important;
+  box-shadow:0 8px 22px rgba(254,213,0,.5), 0 2px 8px rgba(0,0,0,.18);
+  letter-spacing:.01em;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:transform .18s ease, box-shadow .18s ease;
+  cursor:pointer;
+}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(254,213,0,.65), 0 4px 12px rgba(0,0,0,.22);}
+.submit-btn:active{transform:translateY(-1px) scale(.98);box-shadow:0 4px 12px rgba(254,213,0,.4);}
+.submit-icon{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--black);color:var(--yellow);font-size:.95rem;font-weight:900;flex-shrink:0;}
+
+#scoreSummary{background:var(--card-tint);border:2px solid var(--purple);border-radius:12px;padding:16px 20px;margin-top:16px;font-size:1.05rem;}
+#submitStatus{margin-top:8px;font-size:.85rem;color:var(--muted);}
+
+/* Glossary popup */
+#popupOverlay{position:fixed;inset:0;background:rgba(20,14,25,.55);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px;}
+#popupOverlay.open{display:flex;}
+.popup-box{background:#fff;border-radius:14px;padding:22px 24px;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.popup-box .pword{color:var(--purple-dark);font-size:1.2rem;font-weight:700;margin:0 0 4px;}
+.popup-box .ppos{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;}
+.popup-box .pdef{margin:0 0 8px;line-height:1.5;}
+.popup-box .pex{font-style:italic;color:var(--muted);font-size:.88rem;}
+.popup-close{margin-top:14px;background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+.angle-badge{position:fixed;left:24px;bottom:20px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:0.9;color:var(--yellow);}
+.angle-badge .wordmark{width:110px;height:auto;display:block;}
+.angle-badge .credit{margin-top:3px;margin-left:2px;font-family:'Apercu Pro',sans-serif;font-weight:400;font-size:10px;}
+@media (max-width:600px){.angle-badge .wordmark{width:80px;} .angle-badge{left:14px;bottom:14px;}}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div>
+        <span class="lesson-title">The Grand Canyon — Reading Comprehension</span>
+        <span class="lesson-sub">HOMEWORK · Text, comprehension, vocabulary &amp; synonyms</span>
+      </div>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 12</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- PAGE 0 -->
+  <section class="page active" data-page="0">
+    <div class="hero">
+      <span class="tag">ANGLE · Студия системного английского</span>
+      <h1>The Grand Canyon</h1>
+      <p>A wonderful place to visit — reading comprehension homework</p>
+    </div>
+    <div class="card">
+      <h1>Before you start</h1>
+      <p>Type your name at the top of the page. Read both pages of the text carefully — click any highlighted word for a quick definition. Then work through comprehension, vocabulary and synonym exercises. Finish with a vocabulary review deck, then check &amp; submit — your score goes straight to your teacher.</p>
+      <p style="color:var(--muted);font-size:.85rem;">12 pages · 7 graded exercises (83 items) · vocabulary reinforcement deck of 24 words</p>
+    </div>
+  </section>
+
+  <!-- PAGE 1: Reading part 1 -->
+  <section class="page" data-page="1">
+    <div class="card reading">
+      <h2>Reading · Part 1 — America's National Parks</h2>
+      <p>Last year, about 6.5 million people visited the United States from overseas. Most visitors entered the country through one of the largest cities – New York, Boston, Miami, Los Angeles, San Francisco. Then, having landed in a city, the newcomers simply "stayed put," not realising that the interior of the country offered travel opportunities of unusual beauty and interest. Did you know that between Maine and California there are 41 national parks? Some parks cover thousands of acres. Each has its own distinctive scenery and character. If you like nature study, hiking, camping, bird-watching, clean air, quiet, or just getting away from the city, you will love the national parks.</p>
+      <p>On the East Coast, for example, there is Acadia National Park, Maine. It faces the Atlantic Ocean and has a long, rocky coastline. On the West Coast, in California, there are Yosemite, with majestic mountains, forests and rivers, and Death Valley, with desert plants and animals. In between are enough national and state parks to satisfy every taste and interest: Cape Hatteras, North Carolina; Great Smoky Mountains, Tennessee; Shenandoah, Virginia. Above all, there is the Grand Canyon, Arizona, that mighty <span class="vtag" onclick="openPopup('chasm')">chasm</span> carved in the earth by the Colorado River. Visiting a national park need not be expensive for the overseas visitor, but it does require advance information and careful planning.</p>
+      <h3>Visiting the Grand Canyon</h3>
+      <p>The Grand Canyon is an impressive sight. It is 277 miles long, between 4 and 18 miles wide, and more than a mile deep. No one knows for sure how the <span class="vtag" onclick="openPopup('canyon')">canyon</span> was made, but <span class="vtag" onclick="openPopup('geologist')">geologists</span> generally agree that over millions of years, the Colorado River, which runs down the centre of the canyon, gradually cut through the sand and rock to carve this mighty chasm. This wearing-down process is called <span class="vtag" onclick="openPopup('erosion')">erosion</span>. The wind and natural land movements did the rest. Today the Grand Canyon is a geologist's dream. The rock <span class="vtag" onclick="openPopup('layer')">layers</span> in the sides of the canyon are exposed to view. Each layer is a record of all the natural events that happened to the land through the eons of time. In one layer, there is dust from an ancient <span class="vtag" onclick="openPopup('volcano')">volcano</span>. In another layer, there is sand from a lake that once covered the area. In a third layer, there are the bones of prehistoric animals. The canyon is like a storybook: if you had enough knowledge, you could unravel the history of the earth.</p>
+      <p>But studying geology is not the only interesting thing to do there. It is an ideal place to hike, ride a bike, take a boat ride down the river, camp out overnight, take photographs and see beautiful scenery. To add further interest, the canyon has six different climate zones, and many kinds of plants, trees and animals.</p>
+    </div>
+  </section>
+
+  <!-- PAGE 2: Reading part 2 -->
+  <section class="page" data-page="2">
+    <div class="card reading">
+      <h2>Reading · Part 2 — José and Ibrahim's trip</h2>
+      <p>"We've got to see the Grand Canyon," said José to his friend Ibrahim. José is from Colombia, South America, and speaks Spanish. Ibrahim is from Egypt, and speaks Arabic. To communicate, they have to speak English.</p>
+      <p>"Let's go," said Ibrahim. "School doesn't start for three weeks. We'll just have time. I saved some money from my summer job, but how will we get there? We don't have a car."</p>
+      <p>"There are three ways," José said. "We could fly or go by train, but that would be expensive, so let's take the bus. It explains how in this <span class="vtag" onclick="openPopup('booklet')">booklet</span>. There are two major <span class="vtag" onclick="openPopup('interurban')">interurban</span> bus lines in the U.S. – Greyhound and Trailways," said José, reading from the booklet. "These two companies operate 6,700 buses and carry over 350,000,000 passengers each year – more than the railroads and the airlines combined. Best of all, bus travel is relatively <span class="vtag" onclick="openPopup('cheap')">cheap</span>."</p>
+      <p>"This sounds like a great trip, and practical, too. When do we start?" asked Ibrahim.</p>
+      <p>"What about Monday? That would give us plenty of time to pack."</p>
+      <p>"Monday is okay with me," Ibrahim said. "I'm taking one <span class="vtag" onclick="openPopup('suitcase')">suitcase</span>, some <span class="vtag" onclick="openPopup('casual')">casual</span> clothes, and my hiking boots."</p>
+      <p>"'Travel light.' That's my <span class="vtag" onclick="openPopup('motto')">motto</span>," José said. "And carry <span class="vtag" onclick="openPopup('travelers check')">traveler's checks</span>. They're safer than cash."</p>
+      <p>Monday rolled around in no time. The two friends caught the bus at the depot. The next morning, they were in Flagstaff, Arizona, <span class="vtag" onclick="openPopup('gateway')">gateway</span> city to the Grand Canyon. A local bus took them the rest of the way, about 80 miles, and dropped them at the park entrance.</p>
+      <p>Now their excitement began to rise. They could hardly wait to view the canyon itself. But they were in for a surprise. At first there was nothing special to see. Dark green pine trees surrounded the boys on every side. They seemed to be in the middle of a forest. Fortunately, the <span class="vtag" onclick="openPopup('trail')">trail</span> to the canyon was well marked. "Grand Canyon this way," read a sign.</p>
+      <p>It took ten minutes of <span class="vtag" onclick="openPopup('rapidly')">rapid</span> walking to reach the canyon. The boys stumbled on it, really, for there was no preparation, no gradual slope – just <span class="vtag" onclick="openPopup('flat')">flat</span>, wooded country that suddenly disappeared into the mile-deep <span class="vtag" onclick="openPopup('abyss')">abyss</span>.</p>
+      <p>"Wow," said José. "Look at that!"</p>
+      <p>"Wow," repeated Ibrahim, unable to find better words.</p>
+      <p>It was a thrilling sight. The rocky precipice at the top fell straight down to the canyon floor, which was very uneven and covered with rocks. Cutting down the middle was the wild Colorado River, although from this distance it looked like a harmless stream. The other side of the canyon was clearly visible. Overhead, a <span class="vtag" onclick="openPopup('hawk')">hawk</span> flew lazily in a cloudless sky. The boys could see for a hundred miles in every direction.</p>
+      <p>"What will we do first?" José asked.</p>
+      <p>Just at that moment, the boys noticed a <span class="vtag" onclick="openPopup('park ranger')">park ranger</span> standing beside a big picture of the canyon. "Right now, we're standing on the south <span class="vtag" onclick="openPopup('rim')">rim</span>, or edge, of the canyon, just about here," the ranger said, indicating a place on the picture. "That's the north rim over there," he said, pointing across the canyon. "Did you notice how the rocks and earth are arranged like layers in a cake, and that each layer has a different colour? The layer at the bottom of the canyon is the oldest. It's called Early Precambrian," the ranger said, giving the <span class="vtag" onclick="openPopup('scientific')">scientific</span> name. "These rocks must be about 1.7 billion years old. The rocks at the top are younger. Each layer has a different age, and has characteristic <span class="vtag" onclick="openPopup('deposits')">deposits</span> that correspond to the geological and natural events occurring at the time. We find evidence of animal life at this level," said the ranger, pointing to a layer near the top. "Probably <span class="vtag" onclick="openPopup('dinosaurs')">dinosaurs</span>, <span class="vtag" onclick="openPopup('extinct')">extinct</span> animals that lived millions of years ago."</p>
+      <p>"Isn't this interesting," said Ibrahim. "When I get back to school, I'm going to do some <span class="vtag" onclick="openPopup('research')">research</span> in geology and write a paper for my science class."</p>
+      <p>"Yes, it is interesting," said José, "but I'm getting hungry. Isn't it time for supper?"</p>
+      <p>There were several places to eat. The boys could get fast food at a <span class="vtag" onclick="openPopup('lunch stand')">lunch stand</span> or dinner in the restaurant.</p>
+      <p>"Let's go to the restaurant," said Ibrahim. "I'm starved."</p>
+      <p>After a short wait, they were seated at a table. The waiter arrived to take their order.</p>
+      <p>"I am so hungry, I could eat a dinosaur," said José, <span class="vtag" onclick="openPopup('glanced')">glancing</span> at the menu. "I'm going to have vegetable soup, steak, mashed potatoes, lettuce salad, and ice cream for dessert."</p>
+      <p>Ibrahim ordered mushroom soup, veal stew with rice, tomato salad, and apple pie.</p>
+      <p>When the boys had finished eating, they glanced out of the window. The sun was just setting. If they hurried, they could just get outside in time to watch the sun drop below the canyon rim, which it did with a <span class="vtag" onclick="openPopup('burst')">burst</span> of many colors.</p>
+      <p>"Wasn't this a great day?" José said. "What'll we do tomorrow?"</p>
+    </div>
+  </section>
+
+  <!-- PAGE 3: Comprehension T/F -->
+  <section class="page" data-page="3">
+    <div class="card"><h2>1 · Reading comprehension — True or False</h2><div id="exTF"></div></div>
+  </section>
+
+  <!-- PAGE 4: Scanning -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <h2>2 · Scanning for information</h2>
+      <p style="color:var(--muted);margin-top:-8px;">Answer in your own words, based on the text — a few key words are enough.</p>
+      <div id="exScan"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 5: Vocab dev 1a -->
+  <section class="page" data-page="5">
+    <div class="card">
+      <h2>3a · Vocabulary development 1 — match the definitions</h2>
+      <p style="color:var(--muted);margin-top:-8px;">Click a word, then click its definition.</p>
+      <div id="exMatch1"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 6: Vocab dev 1b -->
+  <section class="page" data-page="6">
+    <div class="card">
+      <h2>3b · Now use the same words to fill the gaps</h2>
+      <div class="word-bank"><span>canyon</span><span>geologist</span><span>erosion</span><span>layers</span><span>volcano</span><span>interurban</span><span>motto</span><span>traveler's checks</span><span>rim</span><span>lunch stand</span></div>
+      <div id="ex1b"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 7: Vocab dev 2 -->
+  <section class="page" data-page="7">
+    <div class="card">
+      <h2>4 · Vocabulary development 2</h2>
+      <div class="word-bank"><span>deposits</span><span>research</span><span>major</span><span>booklet</span><span>boat ride</span><span>trail</span><span>abyss</span><span>hawk</span><span>park ranger</span><span>suitcase</span></div>
+      <div id="ex2"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 8: Synonyms -->
+  <section class="page" data-page="8">
+    <div class="card">
+      <h2>5 · Synonyms</h2>
+      <p style="color:var(--muted);margin-top:-8px;">Replace the word or phrase in italics with the best synonym from the box. Each word is used once (one sentence needs two words).</p>
+      <div class="word-bank"><span>one billion</span><span>rapidly</span><span>flat</span><span>casual</span><span>cheap</span><span>trail</span><span>interurban</span><span>glanced</span><span>rim</span><span>chasm</span><span>barely</span><span>burst</span><span>gateway</span><span>dinosaurs</span><span>major</span><span>a million</span><span>scientific</span><span>Arizona</span><span>extinct</span><span>ice cream</span></div>
+      <div id="exSyn"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 9: Word-form chart -->
+  <section class="page" data-page="9">
+    <div class="card">
+      <h2>6 · Word-form chart</h2>
+      <table class="vocab-table" style="width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:14px;">
+        <tr style="background:var(--card-tint);font-weight:700;"><td style="border:1px solid var(--border);padding:6px;">Noun</td><td style="border:1px solid var(--border);padding:6px;">Verb</td><td style="border:1px solid var(--border);padding:6px;">Adjective</td><td style="border:1px solid var(--border);padding:6px;">Adverb</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">nature</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">natural</td><td style="border:1px solid var(--border);padding:6px;">naturally</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">geology / geologist</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">geological</td><td style="border:1px solid var(--border);padding:6px;">geologically</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">impression</td><td style="border:1px solid var(--border);padding:6px;">impress</td><td style="border:1px solid var(--border);padding:6px;">impressive</td><td style="border:1px solid var(--border);padding:6px;">impressively</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">study / student</td><td style="border:1px solid var(--border);padding:6px;">study</td><td style="border:1px solid var(--border);padding:6px;">studious</td><td style="border:1px solid var(--border);padding:6px;">studiously</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">knowledge</td><td style="border:1px solid var(--border);padding:6px;">know</td><td style="border:1px solid var(--border);padding:6px;">knowledgeable</td><td style="border:1px solid var(--border);padding:6px;">knowledgeably</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">history</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">historic</td><td style="border:1px solid var(--border);padding:6px;">historically</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">expense</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">expensive</td><td style="border:1px solid var(--border);padding:6px;">expensively</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">visibility</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">visible</td><td style="border:1px solid var(--border);padding:6px;">visibly</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">hunger</td><td style="border:1px solid var(--border);padding:6px;">hunger</td><td style="border:1px solid var(--border);padding:6px;">hungry</td><td style="border:1px solid var(--border);padding:6px;">hungrily</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:6px;">distance</td><td style="border:1px solid var(--border);padding:6px;">—</td><td style="border:1px solid var(--border);padding:6px;">distant</td><td style="border:1px solid var(--border);padding:6px;">distantly</td></tr>
+      </table>
+      <div id="exWF"></div>
+    </div>
+  </section>
+
+  <!-- PAGE 10: Reinforcement flashcards -->
+  <section class="page" data-page="10">
+    <div class="card">
+      <h2>Vocabulary reinforcement — review deck</h2>
+      <p style="color:var(--muted);margin-top:-8px;">All the key words from the text in one deck. Flip each card, say the word out loud, then check the meaning.</p>
+      <div class="flip-stage"><div class="flip-card" id="flipCard" onclick="flipCard()">
+        <div class="flip-inner">
+          <div class="flip-front"><button class="card-speak" onclick="event.stopPropagation();speakCard()">🔊</button><span id="cardFront"></span></div>
+          <div class="flip-back"><span id="cardBack"></span></div>
+        </div>
+      </div></div>
+      <div class="deck-controls">
+        <button class="secondary" onclick="deckPrev()">← Prev</button>
+        <span class="deck-counter" id="deckCounter">1 / 24</span>
+        <button class="secondary" onclick="deckNext()">Next →</button>
+        <button onclick="deckShuffle()">🔀 Shuffle</button>
+      </div>
+      <p class="deck-hint">Click the card to flip it. Use the speaker to hear the word.</p>
+    </div>
+  </section>
+
+  <!-- PAGE 11: Submit -->
+  <section class="page" data-page="11">
+    <div class="card">
+      <h1>Finish</h1>
+      <p>Check that every exercise is complete, then submit. Your score is calculated automatically and sent to your teacher.</p>
+      <button class="nav-btns submit-btn" style="width:100%;" onclick="submitAll()"><span class="submit-icon">✓</span> Check &amp; Submit</button>
+      <div id="scoreSummary" hidden></div>
+      <div id="submitStatus"></div>
+      <p style="color:rgba(0,0,0,.35);font-size:9px;margin-top:22px;">Photo: Anqi Lu / Unsplash</p>
+    </div>
+  </section>
+
+</div>
+
+<div id="popupOverlay" onclick="if(event.target===this)closePopup()">
+  <div class="popup-box">
+    <p class="pword" id="popupWord"></p>
+    <p class="ppos" id="popupPos"></p>
+    <p class="pdef" id="popupDef"></p>
+    <p class="pex" id="popupEx"></p>
+    <button class="popup-close" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+/* ---------- VOCAB MASTER DICTIONARY ---------- */
+const VOCAB = {
+ "chasm":{pos:"noun",def:"a deep, wide crack or opening in the ground; a huge canyon.",example:"The canyon was a mighty chasm carved by the river."},
+ "canyon":{pos:"noun",def:"a deep valley with steep sides, often with a river running through it.",example:"The Grand Canyon is one of the world's most famous canyons."},
+ "geologist":{pos:"noun",def:"a scientist who studies the history and structure of the earth by analysing rocks.",example:"A geologist can read the story of the earth in its rock layers."},
+ "erosion":{pos:"noun",def:"the gradual wearing away of the earth's surface by wind, water or other natural forces.",example:"Erosion by the Colorado River carved the canyon over millions of years."},
+ "layer":{pos:"noun",def:"a thickness of material, usually one of several, that forms a distinct division.",example:"Each rock layer records a different period of the earth's history."},
+ "volcano":{pos:"noun",def:"a mountain that releases steam and molten rock from beneath the earth's surface.",example:"Dust from an ancient volcano was found in one of the layers."},
+ "interurban":{pos:"adjective",def:"connecting two or more cities or towns (usually of a bus or train system).",example:"Greyhound and Trailways are major interurban bus lines."},
+ "motto":{pos:"noun",def:"a short sentence or phrase expressing a rule of behaviour or a personal belief.",example:"'Travel light' — that's José's motto."},
+ "travelers check":{pos:"noun",def:"a check issued by a bank or travel agency that can be exchanged for cash — safer to carry than money.",example:"Carry traveler's checks — they're safer than cash."},
+ "rim":{pos:"noun",def:"the upper edge of the canyon.",example:"They stood on the south rim and looked across to the north rim."},
+ "lunch stand":{pos:"noun",def:"a small, usually outdoor restaurant that mainly serves fast food.",example:"The boys could get fast food at a lunch stand."},
+ "deposits":{pos:"noun",def:"layers of material (sand, dust, minerals) left behind by a natural process over time.",example:"Each rock layer has characteristic deposits from a different era."},
+ "research":{pos:"noun/verb",def:"careful study of a subject in order to discover new information.",example:"Ibrahim wants to do some research in geology for his science class."},
+ "major":{pos:"adjective",def:"important, main, or significant.",example:"There are two major interurban bus lines in the U.S."},
+ "booklet":{pos:"noun",def:"a small, thin book, usually containing information for visitors.",example:"The travel booklet explains how to get to the canyon by bus."},
+ "boat ride":{pos:"noun",def:"a short trip taken on a boat, usually for pleasure.",example:"You can take a boat ride down the Colorado River."},
+ "trail":{pos:"noun",def:"a rough path, especially through the countryside.",example:"The trail to the canyon was well marked with signs."},
+ "abyss":{pos:"noun",def:"an extremely deep hole or gap in the earth; a bottomless chasm.",example:"The flat land suddenly disappeared into the mile-deep abyss."},
+ "hawk":{pos:"noun",def:"a large bird of prey with sharp eyesight, related to eagles.",example:"A hawk flew lazily overhead in the cloudless sky."},
+ "park ranger":{pos:"noun",def:"an official who looks after a national park and gives visitors information.",example:"The park ranger explained the layers of rock in the canyon wall."},
+ "suitcase":{pos:"noun",def:"a rectangular case for carrying clothes and belongings while travelling.",example:"Ibrahim packed just one suitcase to travel light."},
+ "dinosaurs":{pos:"noun",def:"large prehistoric reptiles that became extinct millions of years ago.",example:"The ranger pointed to a layer with evidence of dinosaurs."},
+ "extinct":{pos:"adjective",def:"no longer existing; a species that has died out completely.",example:"Dinosaurs are extinct animals that lived millions of years ago."},
+ "scientific":{pos:"adjective",def:"relating to science; based on systematic study and evidence.",example:"'Early Precambrian' is the scientific name for the oldest rock layer."},
+ "gateway":{pos:"noun",def:"a place or city that serves as an entrance point to a region.",example:"Flagstaff is the gateway city to the Grand Canyon."},
+ "casual":{pos:"adjective",def:"relaxed and informal, especially in clothing.",example:"Ibrahim packed some casual clothes for the trip."},
+ "glanced":{pos:"verb (past)",def:"looked briefly or quickly at something.",example:"José glanced at the menu before ordering."},
+ "burst":{pos:"noun",def:"a sudden, brief release or explosion — here, of colour or light.",example:"The sun set with a burst of many colors."},
+ "rapidly":{pos:"adverb",def:"quickly; at a fast speed.",example:"It took ten minutes of rapid walking to reach the canyon."},
+ "flat":{pos:"adjective",def:"level, with no slopes or hills.",example:"The wooded country was flat right up to the edge of the canyon."},
+ "cheap":{pos:"adjective",def:"costing very little money; inexpensive.",example:"Bus travel is relatively cheap compared to flying or the train."}
+};
+
+const DECK_WORDS = ["chasm","canyon","geologist","erosion","layer","volcano","interurban","motto","travelers check","rim","lunch stand","deposits","research","major","booklet","trail","abyss","hawk","park ranger","suitcase","dinosaurs","extinct","gateway","burst"];
+let DECK = DECK_WORDS.map(k=>({front:k==="travelers check"?"traveler's check":k, back:VOCAB[k].def, key:k}));
+let deckIndex = 0;
+
+function esc(s){return (s+"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+/* ---------- GLOSSARY POPUP ---------- */
+function openPopup(key){
+  const v = VOCAB[key];
+  if(!v) return;
+  document.getElementById("popupWord").textContent = key==="travelers check" ? "traveler's check" : key;
+  document.getElementById("popupPos").textContent = v.pos;
+  document.getElementById("popupDef").textContent = v.def;
+  document.getElementById("popupEx").textContent = "“" + v.example + "”";
+  document.getElementById("popupOverlay").classList.add("open");
+}
+function closePopup(){ document.getElementById("popupOverlay").classList.remove("open"); }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePopup(); });
+
+/* ---------- EXERCISE DATA ---------- */
+const EX_TF = [
+ {p:"The national parks in the States have similar scenery and character.",ans:"False"},
+ {p:"Death Valley is famous for its mountains and forests.",ans:"False"},
+ {p:"National parks must be expensive for the local visitors.",ans:"False"},
+ {p:"Geologists suggest that the Colorado River carved this chasm.",ans:"True"},
+ {p:"There are several ways to have fun in the Grand Canyon.",ans:"True"},
+ {p:"Interurban buses transport fewer people than the railroads and airlines combined.",ans:"False"},
+ {p:"When you arrive at the canyon, you see nothing special at first, just pine trees.",ans:"True"},
+ {p:"The boys approached the canyon from the bottom, near the river.",ans:"False"},
+ {p:"The Colorado River looked very scary from a distance.",ans:"False"},
+ {p:"Some layers of the canyon have the same age.",ans:"False"},
+ {p:"Neither of the boys was hungry at dinner time.",ans:"False"},
+ {p:"The boys missed the sunset.",ans:"False"}
+];
+
+const EX_SCAN = [
+ {q:"What does Yosemite National Park offer its visitors?",kw:["mountain","forest","river"]},
+ {q:"What do the layers of the canyon show?",kw:["history","natural event","record","event"]},
+ {q:"What can you do in the canyon?",kw:["hike","bike","boat","camp","photograph","scenery","geology"]},
+ {q:"Why don't the two boys speak with each other in Spanish?",kw:["arabic","doesn't speak spanish","ibrahim"]},
+ {q:"Where does Ibrahim have money from for this trip?",kw:["summer job","saved"]},
+ {q:"How many ways are there to reach the Grand Canyon?",kw:["three","3"]},
+ {q:"Does José like to travel with a lot of luggage? Explain.",kw:["no","light","one suitcase"]},
+ {q:"How long does it take to reach the canyon from the park entrance?",kw:["ten minute","10 minute"]},
+ {q:"What kind of bird did the boys see flying?",kw:["hawk"]},
+ {q:"Who was standing beside a big picture of the canyon?",kw:["park ranger","ranger"]},
+ {q:"What does the ranger compare the layers of the canyon to?",kw:["cake"]},
+ {q:"What does Ibrahim want to research?",kw:["geology"]},
+ {q:"What did José have for dessert?",kw:["ice cream"]},
+ {q:"What was Ibrahim's main dish?",kw:["veal","stew"]},
+ {q:"Did José find their day great?",kw:["yes","great"]}
+];
+
+const MATCH1_PAIRS = [
+ ["erosion","a process that changes the earth's surface through the action of natural forces"],
+ ["canyon","a deep valley or crack in the earth, often with steep sides"],
+ ["lunch stand","a small restaurant, usually out of doors, serving mainly fast food"],
+ ["geologist","studies the history and structure of the earth by analysing rocks"],
+ ["rim","the upper edge of the canyon"],
+ ["traveler's check","a check issued by a bank or travel agency for the convenience of travellers"],
+ ["motto","a short sentence expressing a rule of behaviour or a personal belief"],
+ ["layer","a thickness of material, usually one of several, that forms a distinct division"],
+ ["volcano","a mountain that releases steam and molten rock from beneath the earth's surface"],
+ ["interurban","refers to a bus or other system that connects two or more cities"]
+];
+
+const EX_1B = [
+ {p:"The rocks in the canyon wall are arranged in horizontal ___.",ans:["layers","layer"]},
+ {p:"I only carry ___ when I travel because it's safer than cash.",ans:["traveler's checks","travelers checks","traveler's check"]},
+ {p:"The process of the wind blowing away the soil is called ___.",ans:"erosion"},
+ {p:"When you are in a hurry, you might prefer eating at a ___.",ans:"lunch stand"},
+ {p:"The Grand ___ is a very famous national park.",ans:"Canyon"},
+ {p:"Why don't we take the ___ bus from London to Bristol?",ans:"interurban"},
+ {p:"My ___ is: “Never give up anything.”",ans:"motto"},
+ {p:"My nephew is a ___. He studies minerals and rocks.",ans:"geologist"},
+ {p:"Etna is a famous ___ in Italy.",ans:"volcano"},
+ {p:"Don't go too close to the ___! It is very dangerous.",ans:"rim"}
+];
+
+const EX_2 = [
+ {p:"Why don't we take a ___ down the river?",ans:"boat ride"},
+ {p:"The girls walked along a ___ to reach the Canyon.",ans:"trail"},
+ {p:"The Grand Canyon is a ___ tourist attraction in the United States.",ans:"major"},
+ {p:"A ___ contains useful information for visitors.",ans:"booklet"},
+ {p:"The Canyon is a mile-deep ___.",ans:"abyss"},
+ {p:"Geologists study rock ___ in the Canyon walls.",ans:"deposits"},
+ {p:"If you want to have more information on a subject, do some ___ in the library.",ans:"research"},
+ {p:"A ___ flew lazily overhead.",ans:"hawk"},
+ {p:"The ___ tells interesting facts to the tourists.",ans:"park ranger"},
+ {p:"If you want to travel light, you should take only one ___ with you.",ans:"suitcase"}
+];
+
+const EX_SYN = [
+ {p:"The canyon was a huge ___. It was beautiful.",ans:"chasm"},
+ {p:"The boys decided to wear ___ clothes for their trip.",ans:"casual"},
+ {p:"There are two ___ ___ bus lines in the U.S.",ans:["major","interurban"],twoBlank:true},
+ {p:"Travelling by bus is quite ___.",ans:"cheap"},
+ {p:"The bones of ancient reptiles were found at the site — probably ___.",ans:"dinosaurs"},
+ {p:"You can have the best view from the ___ of the canyon.",ans:"rim"},
+ {p:"The Spanish-speaking boy ordered ___ for dessert.",ans:"ice cream"},
+ {p:"The sun set in a ___ of color.",ans:"burst"},
+ {p:"One of the boys ___ at the menu.",ans:"glanced"},
+ {p:"Dinosaurs are ___ — no longer living.",ans:"extinct"},
+ {p:"Early Precambrian is a ___ word.",ans:"scientific"},
+ {p:"The boys could ___ wait to see the canyon.",ans:"barely"},
+ {p:"The land was ___.",ans:"flat"},
+ {p:"They walked ___ in order to arrive as soon as possible.",ans:"rapidly"},
+ {p:"These rocks are ___ years old.",ans:"a million"}
+];
+
+const EX_WF = [
+ {p:"People like walking in ___ at weekends.",ans:["nature","the nature"]},
+ {p:"Several studies of the rocks were made ___.",ans:"geologically"},
+ {p:"Her knowledge was very ___.",ans:"impressive"},
+ {p:"My girlfriend is very ___ but she is very pretty at the same time.",ans:"studious"},
+ {p:"The park ranger was very ___. He knew everything about the park.",ans:"knowledgeable"},
+ {p:"These facts are very ___ so you can learn a lot from them.",ans:["historic","historical"]},
+ {p:"Keep a record of your ___ so you can check how much you spend.",ans:["expenses","expense"]},
+ {p:"There were no clouds so the ___ was perfect.",ans:"visibility"},
+ {p:"___ is a serious problem in the Third World.",ans:"Hunger"},
+ {p:"We could see a beautiful hawk flying in the ___.",ans:"distance"}
+];
+
+/* ---------- RENDER HELPERS ---------- */
+function renderTF(containerId, items){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map((it,i)=>`<div class="item"><p><span class="qnum">${i+1}.</span>${esc(it.p)}</p>
+    <div class="mcq mcq2" data-correct="${it.ans}">
+      <button type="button" class="opt" data-val="True">TRUE</button>
+      <button type="button" class="opt" data-val="False">FALSE</button>
+    </div></div>`).join("");
+  el.querySelectorAll(".mcq2 .opt").forEach(btn=>{
+    btn.onclick=()=>{
+      const g = btn.closest(".mcq2");
+      g.querySelectorAll(".opt").forEach(o=>o.classList.remove("chosen"));
+      btn.classList.add("chosen");
+    };
+  });
+}
+
+function renderScan(containerId, items, prefix){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map((it,i)=>`<div class="item"><p><span class="qnum">${i+1}.</span>${esc(it.q)}</p>
+    <input type="text" class="fib-fz" name="${prefix}${i}" data-kw="${esc(it.kw.join('|'))}" autocomplete="off" placeholder="Type a short answer..."></div>`).join("");
+}
+
+function renderFIB(containerId, items, namePrefix){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map((it,i)=>{
+    const parts = it.p.split("___");
+    const dataAns = Array.isArray(it.ans)? it.ans.join("|") : it.ans;
+    return `<div class="item"><p class="blank-sentence"><span class="qnum">${i+1}.</span>${esc(parts[0])}<input type="text" class="fib" name="${namePrefix}${i}" data-answer="${esc(dataAns)}" autocomplete="off">${esc(parts[1]||"")}</p></div>`;
+  }).join("");
+}
+
+function renderSyn(containerId, items, namePrefix){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map((it,i)=>{
+    if(it.twoBlank){
+      const parts = it.p.split("___");
+      return `<div class="item"><p class="blank-sentence"><span class="qnum">${i+1}.</span>${esc(parts[0])}<input type="text" class="fib" name="${namePrefix}${i}a" data-answer="${esc(it.ans[0])}" autocomplete="off" style="min-width:100px;">${esc(parts[1])}<input type="text" class="fib" name="${namePrefix}${i}b" data-answer="${esc(it.ans[1])}" autocomplete="off" style="min-width:100px;">${esc(parts[2]||"")}</p></div>`;
+    }
+    const parts = it.p.split("___");
+    const dataAns = Array.isArray(it.ans)? it.ans.join("|") : it.ans;
+    return `<div class="item"><p class="blank-sentence"><span class="qnum">${i+1}.</span>${esc(parts[0])}<input type="text" class="fib" name="${namePrefix}${i}" data-answer="${esc(dataAns)}" autocomplete="off">${esc(parts[1]||"")}</p></div>`;
+  }).join("");
+}
+
+/* ---------- CLICK-TO-MATCH ---------- */
+function renderMatch(containerId, pairs){
+  const el = document.getElementById(containerId);
+  const ids = pairs.map((_,i)=>i);
+  const leftItems = pairs.map((p,i)=>({id:i,text:p[0]}));
+  let rightItems = pairs.map((p,i)=>({id:i,text:p[1]}));
+  rightItems = shuffleArr(rightItems.slice());
+  el.innerHTML = `<div class="match-wrap" data-total-pairs="${pairs.length}" data-correct-count="0" id="${containerId}-wrap">
+    <div class="match-col" id="${containerId}-left">${leftItems.map(it=>`<button type="button" class="match-btn" data-id="${it.id}">${esc(it.text)}</button>`).join("")}</div>
+    <div class="match-col" id="${containerId}-right">${rightItems.map(it=>`<button type="button" class="match-btn" data-id="${it.id}">${esc(it.text)}</button>`).join("")}</div>
+  </div>`;
+  let firstPick = null;
+  let correctCount = 0;
+  el.querySelectorAll(".match-btn").forEach(btn=>{
+    btn.onclick = ()=>{
+      if(btn.classList.contains("matched-correct")) return;
+      if(!firstPick){ firstPick = btn; btn.classList.add("selected"); return; }
+      if(firstPick === btn){ firstPick.classList.remove("selected"); firstPick=null; return; }
+      const isMatch = firstPick.dataset.id === btn.dataset.id;
+      if(isMatch){
+        firstPick.classList.remove("selected"); firstPick.classList.add("matched-correct");
+        btn.classList.add("matched-correct");
+        correctCount++;
+        document.getElementById(containerId+"-wrap").dataset.correctCount = correctCount;
+      } else {
+        [firstPick, btn].forEach(x=>x.classList.add("wrong-flash"));
+        setTimeout(()=>{[firstPick, btn].forEach(x=>x.classList.remove("selected","wrong-flash"));}, 550);
+      }
+      firstPick = null;
+    };
+  });
+}
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------- FLASHCARDS ---------- */
+function renderCard(){
+  const c = DECK[deckIndex];
+  document.getElementById("flipCard").classList.remove("flipped");
+  document.getElementById("cardFront").textContent = c.front;
+  document.getElementById("cardBack").textContent = c.back;
+  document.getElementById("deckCounter").textContent = `${deckIndex+1} / ${DECK.length}`;
+}
+function flipCard(){ document.getElementById("flipCard").classList.toggle("flipped"); }
+function deckNext(){ deckIndex = (deckIndex+1) % DECK.length; renderCard(); }
+function deckPrev(){ deckIndex = (deckIndex-1+DECK.length) % DECK.length; renderCard(); }
+function deckShuffle(){ shuffleArr(DECK); deckIndex = 0; renderCard(); }
+function speakCard(){
+  const c = DECK[deckIndex];
+  const text = document.getElementById("flipCard").classList.contains("flipped") ? c.back : c.front;
+  const u = new SpeechSynthesisUtterance(text); u.lang="en-GB"; u.rate=0.95;
+  speechSynthesis.speak(u);
+}
+
+/* ---------- PAGE NAV ---------- */
+const PAGE_LABELS = ["Welcome","Reading 1","Reading 2","T/F","Scanning","Match","Vocab 1b","Vocab 2","Synonyms","Word-form","Review","Finish"];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById("pageDots");
+  wrap.innerHTML = "";
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement("div");
+    d.className = "page-dot"+(i===0?" active":"");
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>showPage(i);
+    wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll(".page");
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle("active", i===current));
+  document.getElementById("progressFill").style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById("progressLabel").textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll(".page-dot").forEach((d,i)=>d.classList.toggle("active", i===current));
+  document.querySelector(".topbar").scrollIntoView({behavior:"smooth", block:"start"});
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+function addNavButtons(){
+  document.querySelectorAll(".page").forEach((p,i)=>{
+    const n = document.createElement("div");
+    n.className = "nav-btns";
+    const backBtn = i>0 ? `<button class="ghost" onclick="prevPage()">← Back</button>` : `<span></span>`;
+    const nextBtn = i<PAGE_LABELS.length-1 ? `<button onclick="nextPage()">Next →</button>` : `<span></span>`;
+    n.innerHTML = backBtn + nextBtn;
+    p.appendChild(n);
+  });
+}
+
+/* ---------- SCORING ---------- */
+function normalize(s){ return (s||"").trim().toLowerCase().replace(/['’"]/g,"").replace(/\s+/g," "); }
+function matchAny(value, answerStr){
+  const v = normalize(value);
+  return answerStr.split("|").some(a=>normalize(a)===v);
+}
+function fuzzyMatch(value, kwList){
+  const v = normalize(value);
+  if(!v) return false;
+  return kwList.some(k=>v.includes(normalize(k)));
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById("studentName");
+  if(!nameInput.value.trim()){ nameInput.focus(); alert("Please type your name at the top before submitting."); showPage(0); return; }
+  let correct=0, total=0;
+
+  document.querySelectorAll(".fib[data-answer]").forEach(inp=>{
+    total++;
+    const ok = matchAny(inp.value, inp.dataset.answer);
+    inp.classList.toggle("is-correct", ok);
+    inp.classList.toggle("is-wrong", !ok);
+    if(ok) correct++;
+  });
+
+  document.querySelectorAll(".fib-fz[data-kw]").forEach(inp=>{
+    total++;
+    const ok = fuzzyMatch(inp.value, inp.dataset.kw.split("|"));
+    inp.classList.toggle("is-correct", ok);
+    inp.classList.toggle("is-wrong", !ok);
+    if(ok) correct++;
+  });
+
+  document.querySelectorAll(".mcq[data-correct]").forEach(g=>{
+    total++;
+    const chosen = g.querySelector(".opt.chosen");
+    const ok = chosen && normalize(chosen.dataset.val)===normalize(g.dataset.correct);
+    g.querySelectorAll(".opt").forEach(o=>{
+      o.classList.remove("correct-ans","wrong-ans");
+      if(normalize(o.dataset.val)===normalize(g.dataset.correct)) o.classList.add("correct-ans");
+      else if(o.classList.contains("chosen")) o.classList.add("wrong-ans");
+    });
+    g.closest(".item").classList.add("checked");
+    if(ok) correct++;
+  });
+
+  document.querySelectorAll("[data-total-pairs]").forEach(c=>{
+    total += parseInt(c.dataset.totalPairs || 0);
+    correct += parseInt(c.dataset.correctCount || 0);
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById("scoreSummary").innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById("scoreSummary").hidden = false;
+
+  try{
+    const fd = new FormData();
+    fd.append("lesson", document.title);
+    fd.append("exercise", "The Grand Canyon - Reading Comprehension (Homework)");
+    fd.append("student", nameInput.value.trim());
+    fd.append("score", `${correct} / ${total} (${pct}%)`);
+    fd.append("timestamp", new Date().toISOString());
+    await fetch("https://formspree.io/f/mnjekjvq", { method:"POST", headers:{"Accept":"application/json"}, body: fd });
+    document.getElementById("submitStatus").textContent = "Sent to your teacher ✓";
+  }catch(e){
+    document.getElementById("submitStatus").textContent = "Could not send — check your internet connection and try again.";
+  }
+}
+
+/* ---------- INIT ---------- */
+window.onload = function(){
+  renderTF("exTF", EX_TF);
+  renderScan("exScan", EX_SCAN, "scan");
+  renderMatch("exMatch1", MATCH1_PAIRS);
+  renderFIB("ex1b", EX_1B, "b");
+  renderFIB("ex2", EX_2, "c");
+  renderSyn("exSyn", EX_SYN, "syn");
+  renderFIB("exWF", EX_WF, "wf");
+  renderCard();
+  buildDots();
+  addNavButtons();
+  showPage(0);
+};
+</script>
+</body>
+</html>

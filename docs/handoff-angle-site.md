@@ -33,11 +33,11 @@
 | GW B2 | `gateway/gw-b2` | 8 | `unit 8` |
 | Gateway to the World B2 | `gateway/gateway-to-the-world-b2` | 2 | `unit 3` |
 | Gateway to the World B1 | `gateway/gateway-to-the-world-b1` | 0 | пока пусто, зарезервировано |
-| ЕГЭ 2027 | `ege-2027` | 17 | `1.Путешествие`, `Демо` |
+| ЕГЭ 2027 | `ege-2027` | 21 | `1.Путешествие`, `Демо` |
 | Oxford Phonics World 1–5 | `oxford-phonics/1`…`/5` | 0/0/1/0/0 | материал есть только в уровне 3 |
 | Placement tests | `placement-tests` | 2 | без подпапок |
 
-Итого в панели преподавателя: **68 материалов**.
+Итого в панели преподавателя: **72 материала**.
 
 Academy Stars (2–5) и Gateway (GW B2 / to the World B2 / to the World B1) сгруппированы
 в панели преподавателя через поле `family` в `site.config.json` — это даёт
