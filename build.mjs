@@ -242,13 +242,65 @@ ${extraScript}
 </html>
 `;
 
-const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.group || '')}">
+const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.group || '')}"
+     data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
     </div>
     <div class="meta"><span>Unit ${esc(m.unit)}</span>${m.tags ? `<span>${esc(m.tags)}</span>` : ''}</div>
   </a>`;
+
+/* Панель сортировки — переставляет карточки внутри контейнера по дате
+   (когда добавили материал), по имени или по теме (юниту). Разметка
+   одинаковая для страницы курса и панели преподавателя, скрипт общий
+   (см. sortScript), различается только то, какой контейнер он сортирует. */
+const sortToolbar = () => `  <div class="toolbar sort-toolbar">
+    <span class="sort-label">Сортировка:</span>
+    <button type="button" class="filter-btn" data-sort="date">🕓 По дате</button>
+    <button type="button" class="filter-btn" data-sort="title">🔤 По имени</button>
+    <button type="button" class="filter-btn" data-sort="unit">📚 По теме</button>
+  </div>
+`;
+
+/* containerSel — что переставляем местами, itemSel — что именно является
+   элементом списка внутри контейнера. Клик по уже активной кнопке меняет
+   направление на обратное; по дате по умолчанию сначала новые. */
+const sortScript = (containerSel, itemSel) => `<script>
+(function(){
+  var container = document.querySelector(${JSON.stringify(containerSel)});
+  var toolbar = document.querySelector('.sort-toolbar');
+  if(!container || !toolbar) return;
+  var btns = Array.prototype.slice.call(toolbar.querySelectorAll('.filter-btn'));
+  var state = { key: null, dir: 1 };
+
+  function compare(a, b){
+    var av = a.dataset[state.key] || '';
+    var bv = b.dataset[state.key] || '';
+    var res = state.key === 'date'
+      ? (av < bv ? -1 : av > bv ? 1 : 0)
+      : av.localeCompare(bv, 'ru', { numeric: true, sensitivity: 'base' });
+    return res * state.dir;
+  }
+
+  function apply(){
+    var items = Array.prototype.slice.call(container.querySelectorAll(${JSON.stringify(itemSel)}));
+    items.sort(compare);
+    items.forEach(function(el){ container.appendChild(el); });
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var key = b.dataset.sort;
+      if(state.key === key){ state.dir *= -1; }
+      else { state.key = key; state.dir = key === 'date' ? -1 : 1; }
+      btns.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      apply();
+    });
+  });
+})();
+</script>`;
 
 /* вкладки по подпапкам курса (unit 9, module 3, 1.Путешествие…) —
    показываются, только если у курса вообще есть такие подпапки */
@@ -320,9 +372,9 @@ for (const course of courses) {
     heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `${courseLinkRow(course)}${groupTabs(list)}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
+      ? `${courseLinkRow(course)}${groupTabs(list)}${sortToolbar()}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
-    extraScript: copyScript + (list.some((m) => m.group) ? groupScript : ''),
+    extraScript: copyScript + (list.some((m) => m.group) ? groupScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
   }));
 }
 
@@ -333,7 +385,8 @@ const staffCard = (m) => {
     : '';
   return `  <div class="staff-card${m.status === 'draft' ? ' is-draft' : ''}"
        data-search="${esc((m.title + ' ' + m.course + ' ' + (m.tags || '') + ' unit ' + m.unit).toLowerCase())}"
-       data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}">
+       data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}"
+       data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
@@ -536,13 +589,16 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   </div>
 ${subTabRows}
 ${courseGroupRows}
+${sortToolbar()}
   <p class="count" id="count"></p>
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
+  <div class="staff-list" id="staffList">
 ${materials.map(staffCard).join('\n')}
+  </div>
   <p class="note">Материалов всего: ${materials.length}.
   Чтобы добавить новый — попросите Claude, он положит папку в нужный курс, и она появится здесь
   сама после <code>Commit</code> и <code>Push</code> в GitHub.</p>`,
-  extraScript: copyScript + staffScript,
+  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
 }));
 
 /* --- машиночитаемый каталог для агентов --- */

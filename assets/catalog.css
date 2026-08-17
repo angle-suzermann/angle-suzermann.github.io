@@ -201,6 +201,16 @@ body{
 .filter-btn:hover{ background: rgba(254,213,0,0.22); border-color: rgba(254,213,0,0.6); transform: translateY(-1px); }
 .filter-btn.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); text-shadow: none; }
 
+/* сортировка материалов по дате / имени / теме — сами кнопки те же .filter-btn,
+   только с подписью слева */
+.sort-toolbar .sort-label{
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  margin-right: 2px;
+}
+
 .course-link-row{ display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -4px 0 18px; }
 
 .textbook-link{
