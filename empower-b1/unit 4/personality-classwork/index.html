@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 4 Personality — Classwork (SB pp.47–49, 150–151)</title>
+<title>Unit 4 — Vocabulary &amp; Grammar — Personality — Classwork</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="Empower B1+">
 <meta name="ws:course-id" content="empower-b1">
 <meta name="ws:unit"      content="4">
-<meta name="ws:title"     content="Unit 4 Personality — Classwork">
+<meta name="ws:title"     content="Unit 4 — Vocabulary &amp; Grammar — Personality — Classwork">
 <meta name="ws:emoji"     content="🧠">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mjgnlwdp">
 <meta name="ws:tags"      content="personality, introvert, extrovert">
-<meta name="robots"       content="noindex, nofollow">
 <style>
 :root{
   --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
@@ -26,7 +25,7 @@ body{
   margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text);
   background:var(--black);
 }
-.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/hero-photo.jpg'); background-size:cover; background-position:center 30%; opacity:0.35; }
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 30%; opacity:0.35; }
 .bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.65), rgba(45,25,60,.92)); }
 .page-wrap{ position:relative; z-index:2; max-width:880px; margin:0 auto; padding:24px 18px 90px; }
 
@@ -196,11 +195,11 @@ textarea{ width:100%; min-height:100px; font-family:inherit; font-size:14px; pad
     <span class="section-tag tag-reflect">discussion</span>
     <h2>Listening — Kate &amp; Alex</h2>
     <p class="sub">SB p.47, ex. 2a. Listen to track 04.05.</p>
-    <audio controls src="audio/track04-05.mp3"></audio>
+    <audio controls src="audio/audio1.mp3"></audio>
     <p>Do you think you can tell whether a person is an extrovert or an introvert from their appearance? Think about: body language, clothes, hairstyle, make-up.</p>
     <div class="img-row">
-      <img class="rect-photo" src="img/kate.png" alt="Kate">
-      <img class="rect-photo" src="img/alex.png" alt="Alex">
+      <img class="rect-photo" src="img/img2.png" alt="Kate">
+      <img class="rect-photo" src="img/img3.png" alt="Alex">
     </div>
     <p>Look at Kate and Alex. Which person seems outgoing and sociable, and which seems serious and reserved? Why?</p>
   </div>
@@ -275,10 +274,10 @@ textarea{ width:100%; min-height:100px; font-family:inherit; font-size:14px; pad
     <h2>Reading — Why the world needs introverts</h2>
     <p class="sub">SB p.48</p>
     <div class="img-row">
-      <img class="circ-photo" src="img/mahatma-gandhi.png" alt="Mahatma Gandhi">
-      <img class="circ-photo" src="img/rosa-parks.png" alt="Rosa Parks">
-      <img class="circ-photo" src="img/angelina-jolie.png" alt="Angelina Jolie">
-      <img class="circ-photo" src="img/lorde.png" alt="Lorde">
+      <img class="circ-photo" src="img/img4.png" alt="Mahatma Gandhi">
+      <img class="circ-photo" src="img/img5.png" alt="Rosa Parks">
+      <img class="circ-photo" src="img/img6.png" alt="Angelina Jolie">
+      <img class="circ-photo" src="img/img7.png" alt="Lorde">
     </div>
     <p>It's good to be sociable! It's good to be confident! It's good to be loud! In her book <i>Quiet</i>, Susan Cain points out how deeply this belief is held by society.</p>
     <p>Very often the qualities of extroverts — being active and lively, making quick decisions and working well in a team or group, for example — are valued more than the shy, serious and sensitive qualities of introverts.</p>
@@ -603,16 +602,54 @@ function fuzzyOK(value, acceptableList){
   return acceptableList.some(a => { const na = normalize(a); return v === na || v.includes(na) || na.includes(v); });
 }
 
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  const p = el.closest('p');
+  if(p){
+    const siblings = Array.from(p.querySelectorAll('select, input'));
+    const idx = siblings.indexOf(el) + 1;
+    if(siblings.length) return `gap ${idx} of ${siblings.length}`;
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+function chipLabels(card){
+  const legend = card.querySelector('.chip-legend');
+  if(!legend) return ['Group A','Group B'];
+  const matches = [...legend.textContent.matchAll(/=\s*([A-Za-z' ]+)/g)].map(m=>m[1].trim());
+  return matches.length>=2 ? matches : ['Group A','Group B'];
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
   let correct=0, total=0;
+  const wrongList = [];
 
   document.querySelectorAll('select.art[data-answer]').forEach(sel=>{
     total++;
     const ok = normalize(sel.value) === normalize(sel.dataset.answer);
     sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(sel, sel.value, sel.dataset.answer));
   });
 
   document.querySelectorAll('select.rule[data-answer]').forEach(sel=>{
@@ -620,14 +657,14 @@ async function submitAll(){
     const accepted = sel.dataset.answer.split(',').map(s=>s.trim().toLowerCase());
     const ok = accepted.includes(normalize(sel.value));
     sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(sel, sel.value, sel.dataset.answer.split(',').join(' / ')));
   });
 
   document.querySelectorAll('input.fib[data-answer]').forEach(inp=>{
     total++;
     const ok = normalize(inp.value) === normalize(inp.dataset.answer);
     inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
   });
 
   document.querySelectorAll('input.fuzzy[data-answers]').forEach(inp=>{
@@ -635,24 +672,40 @@ async function submitAll(){
     const list = inp.dataset.answers.split('|');
     const ok = fuzzyOK(inp.value, list);
     inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list.join(' / ')));
   });
 
   const vmc = document.getElementById('vocabMatchContainer');
   total += 8;
-  correct += parseInt(vmc.dataset.correctCount || 0);
+  const vmCorrect = parseInt(vmc.dataset.correctCount || 0);
+  correct += vmCorrect;
+  if(vmCorrect < 8){ wrongList.push(`${exTitle(vmc)} (vocabulary matching) — ${vmCorrect}/8 pairs matched correctly; review with student which pairs were tricky.`); }
 
   document.querySelectorAll('.chip[data-answer]').forEach(chip=>{
     total++;
     const ok = chip.dataset.state === chip.dataset.answer;
     chip.classList.toggle('is-correct', ok); chip.classList.toggle('is-wrong', !ok);
     if(ok) correct++;
+    else {
+      const card = chip.closest('.card');
+      const labels = chipLabels(card);
+      const saidIdx = chip.dataset.state === 'a' ? 0 : (chip.dataset.state === 'b' ? 1 : -1);
+      const correctIdx = chip.dataset.answer === 'a' ? 0 : 1;
+      const said = saidIdx === -1 ? '(not chosen)' : labels[saidIdx];
+      wrongList.push(`${exTitle(chip)} — "${chip.textContent.trim()}": answered "${said}", correct "${labels[correctIdx]}"`);
+    }
   });
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
     const chosen = g.querySelector('.opt.correct, .opt.wrong');
-    if(chosen && chosen.classList.contains('correct')) correct++;
+    const isRight = chosen && chosen.classList.contains('correct');
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -665,6 +718,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://formspree.io/f/mjgnlwdp', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';

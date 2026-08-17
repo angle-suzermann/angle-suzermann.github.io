@@ -3,21 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 8 — The Passive — Homework</title>
+<title>Unit 8 — Grammar — The Passive — Homework</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="GW B2">
 <meta name="ws:course-id" content="gateway/gw-b2">
 <meta name="ws:unit"      content="8">
-<meta name="ws:title"     content="Unit 8 — The Passive — Homework">
+<meta name="ws:title"     content="Unit 8 — Grammar — The Passive — Homework">
 <meta name="ws:emoji"     content="🏗️">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="xoeaqeyz">
 <meta name="ws:tags"      content="passive voice, grammar, homework">
-<meta name="robots"       content="noindex, nofollow">
 <style>
-    
-</style>
+  </style>
 <style>
 :root{
   --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
@@ -29,7 +27,7 @@ body{
   margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text);
   min-height:100vh;
 }
-.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.3; }
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 40%; opacity:0.3; }
 .bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.85)); }
 
 .topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.15); }
@@ -355,29 +353,59 @@ function initWordBank(bankSelector, groupSelector){
   });
 }
 
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  const p = item ? item.querySelector('p') : el.closest('p');
+  if(p){
+    const clone = p.cloneNode(true);
+    clone.querySelectorAll('select, input, button').forEach(x=>x.remove());
+    const txt = clone.textContent.replace(/\s+/g,' ').trim();
+    if(txt) return txt.slice(0,140);
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
   let correct=0, total=0;
+  const wrongList = [];
 
   document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
     total++;
     const ok = normalize(inp.value) === normalize(inp.dataset.answer);
     inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
   });
 
   document.querySelectorAll('.fib-fuzzy[data-answer]').forEach(inp=>{
     total++;
     const ok = fuzzyMatch(inp.value, inp.dataset.answer);
     inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer.split('||').join(' / ')));
   });
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
     const chosen = g.querySelector('.opt.chosen');
-    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -389,6 +417,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://formspree.io/f/xoeaqeyz', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
