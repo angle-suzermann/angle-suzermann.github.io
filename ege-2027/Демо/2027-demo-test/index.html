@@ -4,19 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ЕГЭ 2027. Английский язык — Демонстрационный вариант (тестовая часть)</title>
-
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Демо">
 <meta name="ws:title"     content="ЕГЭ 2027 — тестовая часть (демо)">
 <meta name="ws:emoji"     content="🎧">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-08-18">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mnjekjvq">
 <meta name="ws:tags"      content="ЕГЭ, аудирование, чтение, грамматика и лексика">
 <meta name="robots"       content="noindex, nofollow">
-
 <style>
 :root{
   --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
@@ -31,7 +29,7 @@ body{
   background:var(--purple-dark);
   line-height:1.5;
 }
-.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.55; }
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 40%; opacity:0.55; }
 .bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92)); }
 .angle-badge{ position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); filter:drop-shadow(0 1px 4px rgba(0,0,0,.55)); }
 .angle-badge .wordmark{ width:120px; height:auto; display:block; }
@@ -183,7 +181,7 @@ audio{ width:100%; margin:10px 0 4px; }
       <span class="timer-status" id="status-1"></span>
     </div>
     <p style="font-size:.9em;color:var(--muted)">Аудиозапись к разделу «Аудирование» (файл лежит в этой же папке рядом с тестом):</p>
-    <audio controls src="audio/listening.mp3">Ваш браузер не поддерживает воспроизведение аудио. Откройте файл «АЯ_ПЧ.mp3» отдельно.</audio>
+    <audio controls src="audio/audio1.mp3">Ваш браузер не поддерживает воспроизведение аудио. Откройте файл «АЯ_ПЧ.mp3» отдельно.</audio>
   </div>
 
   <div class="task">
@@ -756,19 +754,27 @@ const POINTS = {
   t19:1,t20:1,t21:1,t22:1,t23:1,t24:1,t25:1,t26:1,t27:1,t28:1,t29:1,
   t30:1,t31:1,t32:1,t33:1,t34:1,t35:1,t36:1
 };
+let wrongList = [];
 
 function scorePositional(prefix, positions){
   let wrong = 0;
   positions.forEach(p=>{
     const el = document.getElementById(prefix+'_'+p);
     const val = el ? el.value : '';
-    if(val !== KEY[prefix][p]) wrong++;
+    if(val !== KEY[prefix][p]){
+      wrong++;
+      wrongList.push(`Задание ${prefix.slice(1)} (соответствие), позиция ${p} — answered "${val || '(пусто)'}", correct "${KEY[prefix][p]}"`);
+    }
   });
   return Math.max(0, POINTS[prefix] - wrong);
 }
 function scoreSingle(id){
   const el = document.querySelector('input[name="'+id+'"]:checked');
+  const val = el ? el.value : '';
   const ok = el && el.value === KEY[id];
+  if(!ok){
+    wrongList.push(`Задание ${id.slice(1)} — answered "${val || '(не отвечено)'}", correct "${KEY[id]}"`);
+  }
   return ok ? POINTS[id] : 0;
 }
 function normalizeText(s){
@@ -780,6 +786,9 @@ function scoreFib(id){
   const ok = KEY[id].some(a=>normalizeText(a)===v);
   el.classList.toggle('is-correct', ok);
   el.classList.toggle('is-wrong', !ok && v.length>0);
+  if(!ok){
+    wrongList.push(`Задание ${id.slice(1)} — answered "${el.value.trim() || '(пусто)'}", correct "${KEY[id].join(' / ')}"`);
+  }
   return ok ? POINTS[id] : 0;
 }
 
@@ -792,6 +801,7 @@ function checkAll(){
     return;
   }
   nameInput.classList.remove('missing');
+  wrongList = [];
 
   // Раздел 1. Аудирование
   let listening = 0;
@@ -841,6 +851,7 @@ async function sendToTeacher(){
     fd.append('Чтение', document.getElementById('scoreReading').textContent);
     fd.append('Грамматика и лексика', document.getElementById('scoreGrammar').textContent);
     fd.append('Итого', document.getElementById('totalScore').textContent);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'Ошибок нет — все задания выполнены верно.');
     const res = await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
       status.textContent = 'Отправлено! Учитель получит результаты по почте.';

@@ -10,7 +10,7 @@
 <meta name="ws:unit"      content="9">
 <meta name="ws:title"     content="Unit 9: Water — Test">
 <meta name="ws:emoji"     content="🚰">
-<meta name="ws:date"      content="2026-08-17">
+<meta name="ws:date"      content="2026-08-18">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="xeeyrowk">
 <meta name="ws:tags"      content="water, verbs, vocabulary">
@@ -187,6 +187,22 @@ body{
 
 .score-summary{ margin-top:16px; padding:14px; background:var(--card-tint); border-radius:10px; font-size:15px; }
 .submit-status{ margin-top:10px; font-size:13.5px; color:var(--purple-dark); font-weight:600; min-height:18px; }
+
+.sticker-message{ text-align:center; font-weight:700; color:var(--purple); font-size:15.5px; margin:16px 0 6px; }
+.sticker-board{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:flex-end; margin:6px 0 4px; }
+.sticker-chip{
+  width:88px; height:88px; object-fit:contain;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));
+  animation:stickerPop .4s ease backwards;
+}
+.sticker-chip:nth-child(1){ transform:rotate(-8deg); animation-delay:.05s; }
+.sticker-chip:nth-child(2){ transform:rotate(6deg); animation-delay:.15s; }
+.sticker-chip:nth-child(3){ transform:rotate(-5deg); animation-delay:.25s; }
+.sticker-chip:nth-child(4){ transform:rotate(9deg); animation-delay:.35s; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.3) rotate(0deg); } to{ opacity:1; } }
+@media (max-width:480px){
+  .sticker-chip{ width:68px; height:68px; }
+}
 
 input.fib.is-correct{ border-color:var(--correct) !important; color:var(--correct); background:#eef8f1; }
 input.fib.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); background:#fdeeec; }
@@ -548,6 +564,8 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
       <p class="subtle">Check that your name is filled in at the top, then press the button below. Your answers will be checked automatically and the result sent to your teacher.</p>
       <button class="btn-submit" onclick="submitAll()">✓ Check &amp; Submit</button>
       <div class="score-summary" id="scoreSummary" hidden></div>
+      <div class="sticker-message" id="stickerMessage" hidden></div>
+      <div class="sticker-board" id="stickerBoard" hidden></div>
       <div class="submit-status" id="submitStatus"></div>
     </div>
     <div class="nav-btns">
@@ -650,6 +668,29 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
+const STICKER_SETS = {
+  top:  ['img/img13.png', 'img/img14.png'],
+  good: ['img/img15.png', 'img/img16.png'],
+  ok:   ['img/img17.png'],
+  low:  ['img/img18.png']
+};
+
+function renderStickers(pct){
+  const board = document.getElementById('stickerBoard');
+  const msg = document.getElementById('stickerMessage');
+  if(!board || !msg) return;
+  let key, text;
+  if(pct >= 90){ key='top'; text='Amazing! You\'re a real water expert!'; }
+  else if(pct >= 70){ key='good'; text='Fantastic!'; }
+  else if(pct >= 50){ key='ok'; text='Good effort - keep practising!'; }
+  else{ key='low'; text='Nice try! Let\'s review this unit together.'; }
+  const imgs = STICKER_SETS[key];
+  board.innerHTML = imgs.map(src=>`<img class="sticker-chip" src="${src}" alt="sticker">`).join('');
+  msg.textContent = text;
+  board.hidden = false;
+  msg.hidden = false;
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){
@@ -690,6 +731,7 @@ async function submitAll(){
   const summary = document.getElementById('scoreSummary');
   summary.innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   summary.hidden = false;
+  renderStickers(pct);
 
   const statusEl = document.getElementById('submitStatus');
   statusEl.textContent = 'Sending...';
