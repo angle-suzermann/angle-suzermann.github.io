@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Retrieval &amp; Reinforcement — Module 4</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Expert Advanced">
+<meta name="ws:course-id" content="expert-advanced">
+<meta name="ws:unit"      content="4">
+<meta name="ws:title"     content="Module 4 — Vocabulary — Retrieval &amp; Reinforcement">
+<meta name="ws:emoji"     content="📚">
+<meta name="ws:date"      content="2026-08-19">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mdaqrvdd">
+<meta name="ws:tags"      content="vocabulary, retrieval practice">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --correct-bg:#e5f3e7; --wrong:#d6503f; --wrong-bg:#fbe8e6;
+  --border:#e2dbea; --muted:#7a7288; --cream:#f7f6f4;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background-color:var(--cream);
+  background-image:linear-gradient(180deg, rgba(45,25,60,.55), rgba(69,52,88,.85)), url('img/img1.jpg');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  color:var(--text);
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  line-height:1.55;
+  min-height:100vh;
+}
+
+h1,h2,h3{font-family:inherit; font-weight:700; margin:0 0 12px;}
+p{margin:0 0 14px;}
+button, input, select, textarea{font-family:inherit;}
+
+/* ---------- Topbar ---------- */
+.topbar{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10);}
+.topbar-inner{max-width:920px; margin:0 auto; padding:14px 20px 12px;}
+.brand-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+.lesson-title{font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.4px; color:var(--purple);}
+.lesson-title .eyebrow{display:block; font-size:10px; font-weight:400; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-top:2px;}
+.namebar{display:flex; align-items:center; gap:8px;}
+.namebar label{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.3px; color:var(--muted);}
+.namebar input{border:1.5px solid var(--border); border-radius:12px; padding:8px 14px; font-size:14px; min-width:200px; color:var(--text); background:#fff; transition:border-color .2s ease, box-shadow .2s ease;}
+.namebar input:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(94,72,119,.12);}
+.progress-row{display:flex; align-items:center; gap:12px; margin-top:12px;}
+.progress-track{flex:1; height:8px; background:var(--card-tint); border-radius:999px; overflow:hidden;}
+.progress-fill{height:100%; background:linear-gradient(90deg,var(--yellow),var(--purple)); width:12.5%; border-radius:999px; transition:width .3s ease;}
+.progress-label{font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap;}
+.page-dots{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;}
+.page-dot{
+  width:28px; height:28px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; background:var(--card-tint); color:var(--muted);
+  cursor:pointer; border:1.5px solid var(--border); flex-shrink:0; transition:all .2s ease;
+}
+.page-dot.active{background:linear-gradient(135deg,var(--yellow),var(--purple)); color:#fff; border-color:var(--purple); box-shadow:0 3px 10px rgba(94,72,119,.35);}
+.page-dot.visited:not(.active){background:#fff; color:var(--purple); border-color:var(--purple);}
+
+/* ---------- Layout ---------- */
+.page-wrap{max-width:920px; margin:0 auto; padding:28px 20px 100px;}
+.page{display:none;}
+.page.active{display:block; animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.card{background:var(--card); border:1px solid var(--border); border-radius:22px; padding:26px 28px; margin-bottom:20px; box-shadow:0 10px 34px rgba(69,52,88,.10);}
+.card h2{
+  color:var(--purple); display:flex; align-items:center;
+  text-transform:uppercase; letter-spacing:.4px; font-size:19px;
+}
+.card h2::before{
+  content:""; display:inline-block; width:11px; height:11px; border-radius:50%;
+  background:var(--yellow); margin-right:12px; flex-shrink:0;
+  box-shadow:0 0 0 5px rgba(254,213,0,.22);
+}
+.card .instructions{background:var(--card-tint); border-radius:14px; border-left:4px solid var(--yellow); padding:12px 16px; font-size:14.5px; color:var(--purple-dark); margin-bottom:20px;}
+.card .instructions strong{color:var(--black);}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--black); color:var(--yellow); border:none; border-radius:999px;
+  padding:12px 24px; font-size:14px; font-weight:700; cursor:pointer;
+  text-transform:uppercase; letter-spacing:.3px; font-family:inherit;
+  box-shadow:0 6px 18px rgba(45,41,38,.22); transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover{background:var(--purple); color:#fff; transform:translateY(-1px); box-shadow:0 10px 22px rgba(94,72,119,.28);}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none;}
+.btn.secondary{background:rgba(255,255,255,.9); color:var(--purple); border:1.5px solid var(--purple); box-shadow:0 4px 14px rgba(45,25,60,.22); padding:11px 22px; backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);}
+.btn.secondary:hover{background:#fff; transform:translateY(-1px); box-shadow:0 6px 16px rgba(45,25,60,.28);}
+.btn.big{padding:16px 32px; font-size:16px;}
+
+.nav-btns{display:flex; justify-content:space-between; margin-top:8px; gap:12px;}
+.nav-btns .spacer{flex:1;}
+
+/* ---------- Welcome page ---------- */
+.welcome-lead{font-size:16px; color:var(--purple-dark);}
+.steps{margin:0; padding:0; list-style:none; counter-reset:step;}
+.steps li{counter-increment:step; position:relative; padding:8px 0 8px 40px; font-size:14.5px;}
+.steps li::before{
+  content:counter(step); position:absolute; left:0; top:6px;
+  width:26px; height:26px; border-radius:50%; background:var(--purple); color:#fff;
+  font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 3px 10px rgba(94,72,119,.3);
+}
+
+/* ---------- Vocab bank / flip cards ---------- */
+.vocab-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px;}
+.flip-card{perspective:1000px; height:210px; cursor:pointer;}
+.flip-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute; inset:0; backface-visibility:hidden; border:1.5px solid var(--border); border-radius:18px; padding:16px; display:flex; flex-direction:column; box-shadow:0 8px 24px rgba(69,52,88,.10);}
+.flip-front{background:var(--purple); color:#fff; justify-content:center; align-items:center; text-align:center;}
+.flip-front .word{font-size:17px; font-weight:800;}
+.flip-front .pos{font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--yellow); margin-top:6px;}
+.flip-front .hint{font-size:11px; color:rgba(255,255,255,.7); margin-top:14px;}
+.flip-back{background:#fff; transform:rotateY(180deg); overflow-y:auto;}
+.flip-back .def{font-size:13.5px; margin-bottom:8px;}
+.flip-back .example{font-size:12.5px; font-style:italic; color:var(--muted); margin-bottom:8px;}
+.flip-back .note{font-size:11.5px; color:var(--purple); background:var(--card-tint); border-radius:10px; padding:6px 10px; border-left:3px solid var(--yellow);}
+.card-speak{
+  position:absolute; top:8px; right:8px; border-radius:50%; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.5);
+  color:#fff; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px;
+}
+.flip-back .card-speak{background:var(--card-tint); border-color:var(--border); color:var(--purple);}
+
+/* ---------- Matching ---------- */
+.match-set{margin-bottom:26px;}
+.match-set-label{font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.3px; color:var(--muted); margin-bottom:10px;}
+.match-cols{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.match-col{display:flex; flex-direction:column; gap:8px;}
+.match{
+  text-align:left; background:var(--card-tint); border:1.5px solid var(--border); border-radius:14px; padding:11px 16px;
+  font-size:14px; cursor:pointer; color:var(--text); transition:all .15s ease;
+}
+.match.selected{border-color:var(--purple); background:#eee6f4; box-shadow:0 0 0 4px rgba(94,72,119,.12);}
+.match.matched-correct{background:var(--correct-bg); border-color:var(--correct); color:#2a5c2c; cursor:default;}
+.match.wrong-flash{background:var(--wrong-bg); border-color:var(--wrong);}
+
+/* ---------- Gap fill ---------- */
+.item{margin-bottom:18px;}
+p.q{font-size:15px;}
+.fib{border:none; border-bottom:2px solid var(--purple); border-radius:6px 6px 0 0; background:var(--card-tint); font-size:15px; font-weight:700; color:var(--purple-dark); padding:4px 10px; min-width:130px; text-align:center;}
+.fib:focus{outline:none; border-color:var(--yellow);}
+.fib.is-correct{border-color:var(--correct); background:var(--correct-bg); color:#2a5c2c;}
+.fib.is-wrong{border-color:var(--wrong); background:var(--wrong-bg); color:#8a2f26;}
+
+/* ---------- MCQ ---------- */
+.mcq{display:flex; flex-direction:column; gap:8px; margin-top:8px;}
+.opt{
+  text-align:left; background:var(--card-tint); border:1.5px solid var(--border); border-radius:14px; padding:11px 16px;
+  font-size:14.5px; cursor:pointer; color:var(--text); transition:all .15s ease;
+}
+.opt:hover{border-color:var(--purple); box-shadow:0 3px 12px rgba(94,72,119,.10);}
+.opt.correct{background:var(--correct-bg); border-color:var(--correct); color:#2a5c2c; font-weight:700;}
+.opt.wrong{background:var(--wrong-bg); border-color:var(--wrong); color:#8a2f26;}
+
+/* ---------- Categorize ---------- */
+.chip-bank{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; padding:16px; background:var(--card-tint); border-radius:18px; border:1.5px dashed var(--border); min-height:56px;}
+.chip{
+  background:var(--purple); color:#fff; border-radius:999px; padding:9px 18px; font-size:13.5px; font-weight:600;
+  cursor:pointer; border:1.5px solid var(--purple); transition:all .15s ease;
+}
+.chip.selected{background:var(--yellow); color:var(--black); border-color:var(--black); box-shadow:0 0 0 4px rgba(254,213,0,.22);}
+.chip.placed-correct{background:var(--correct); border-color:var(--correct); cursor:default;}
+.chip.placed-wrong{background:var(--wrong); border-color:var(--wrong); cursor:default;}
+.buckets{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.bucket{border:2px solid var(--border); border-radius:18px; background:#fff; padding:16px; min-height:140px;}
+.bucket h3{font-size:13px; text-transform:uppercase; letter-spacing:.3px; color:var(--purple); margin-bottom:10px;}
+.bucket-items{display:flex; flex-wrap:wrap; gap:8px; min-height:40px;}
+
+/* ---------- Production ---------- */
+.prod-item{margin-bottom:20px; padding:18px; background:var(--card-tint); border-radius:16px; border-left:4px solid var(--purple);}
+.prod-item .idiom{font-weight:800; color:var(--purple); text-transform:uppercase; font-size:13px; letter-spacing:.3px; margin-bottom:6px;}
+.prod-item .idiom-def{font-size:13px; color:var(--muted); margin-bottom:10px;}
+textarea.notes{width:100%; border:1.5px solid var(--border); border-radius:14px; padding:12px 14px; font-size:14px; min-height:70px; resize:vertical; font-family:inherit; transition:border-color .2s ease, box-shadow .2s ease;}
+textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(94,72,119,.12);}
+
+/* ---------- Results ---------- */
+.score-summary{background:var(--card-tint); border:2px solid var(--purple); border-radius:18px; padding:22px; text-align:center; margin:20px 0; font-size:16px; box-shadow:0 8px 24px rgba(94,72,119,.14);}
+.submit-status{margin-top:12px; font-size:13.5px; font-weight:700; color:var(--purple);}
+
+/* ---------- Sticky ANGLE badge ---------- */
+.angle-badge{
+  position:fixed; left:24px; bottom:20px; z-index:9999;
+  pointer-events:none; display:flex; flex-direction:column; align-items:flex-start;
+  color:var(--yellow); opacity:.9;
+}
+.angle-badge .wordmark{width:106px; height:auto; display:block;}
+.angle-badge .credit{margin-top:4px; margin-left:2px; font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:400; font-size:11.5px; letter-spacing:.2px;}
+
+@media (max-width:640px){
+  .match-cols{grid-template-columns:1fr;}
+  .buckets{grid-template-columns:1fr;}
+  .namebar input{min-width:150px;}
+  .angle-badge{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="lesson-title">Vocabulary Retrieval &amp; Reinforcement
+        <span class="eyebrow">Expert Advanced · Module 4 · Reading vocabulary hunt</span>
+      </div>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name" autocomplete="name">
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ================= PAGE 0 — WELCOME ================= -->
+<section class="page active" data-page="0">
+  <div class="card">
+    <h2>Welcome</h2>
+    <p class="welcome-lead">You met these twelve words and expressions during your Module 4 reading vocabulary hunt. Meeting a word once isn't enough for it to stick — this worksheet is built to bring each one back to memory several times, in different ways, so it moves from "I recognise this" to "I can actually use this."</p>
+    <ol class="steps">
+      <li>Type your name in the box at the top right — it stays there as you move through every page, so do it now before you forget.</li>
+      <li>Move between pages with the <strong>Back</strong> / <strong>Next</strong> buttons at the bottom of each page, or jump straight to any page by clicking its numbered dot at the top.</li>
+      <li>Page 2 is a reference bank of all twelve items. Visit it whenever you need a reminder — there's no expectation that you memorise it before starting the exercises.</li>
+      <li>On the checked exercises (matching, gap-fill, multiple choice, and the sorting task) your answers are marked automatically as you work and re-checked when you submit.</li>
+      <li>The writing task near the end is <strong>not</strong> auto-marked — I'll read what you write myself and give you personal feedback on it.</li>
+      <li>On the final page, press <strong>Check &amp; Submit</strong>. You'll see your score immediately, and I'll receive a copy — including a note of exactly which items to go back over — so we can talk about your trickiest ones together.</li>
+    </ol>
+  </div>
+  <div class="nav-btns"><span class="spacer"></span><button class="btn" onclick="nextPage()">Start →</button></div>
+</section>
+
+<!-- ================= PAGE 1 — VOCAB BANK ================= -->
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Vocabulary Bank</h2>
+    <p class="instructions">Click a card to flip it and see the definition, an example, and a usage note. Press <strong>🔊</strong> to hear the word read aloud.</p>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 2 — MATCH IT ================= -->
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Match It!</h2>
+    <p class="instructions">Click a word, then click the definition it belongs to. A correct pair turns green and locks in place; a wrong pair flashes red and resets — try again.</p>
+
+    <div class="match-set">
+      <div class="match-set-label">Set A</div>
+      <div class="match-cols" data-total-pairs="6" data-correct-count="0" id="matchSetA">
+        <div class="match-col" id="matchSetA-words"></div>
+        <div class="match-col" id="matchSetA-defs"></div>
+      </div>
+    </div>
+
+    <div class="match-set">
+      <div class="match-set-label">Set B</div>
+      <div class="match-cols" data-total-pairs="6" data-correct-count="0" id="matchSetB">
+        <div class="match-col" id="matchSetB-words"></div>
+        <div class="match-col" id="matchSetB-defs"></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 3 — FILL THE GAPS ================= -->
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Fill the Gaps</h2>
+    <p class="instructions">Complete each sentence with the correct word from Set A. Change the word's form if the grammar needs it (plural, past tense, etc.) — spelling is checked loosely, so don't worry about a single typo.</p>
+    <div id="gapFillItems"></div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 4 — CHOOSE THE RIGHT WORD ================= -->
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Choose the Right Word</h2>
+    <p class="instructions">Pick the option from Set B that fits each situation best.</p>
+    <div id="mcqItems"></div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 5 — WORD OR IDIOM ================= -->
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Word or Idiom?</h2>
+    <p class="instructions">Click a chip below, then click the box it belongs in: single words / literal phrases in one box, fixed idiomatic expressions in the other.</p>
+    <div class="chip-bank" id="chipBank"></div>
+    <div class="buckets">
+      <div class="bucket" data-bucket="literal">
+        <h3>Single word / literal phrase</h3>
+        <div class="bucket-items" id="bucketLiteral"></div>
+      </div>
+      <div class="bucket" data-bucket="idiom">
+        <h3>Idiomatic expression</h3>
+        <div class="bucket-items" id="bucketIdiom"></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 6 — MAKE IT YOURS ================= -->
+<section class="page" data-page="6">
+  <div class="card">
+    <h2>Make It Yours</h2>
+    <p class="instructions">Choose at least <strong>two</strong> of the expressions below and write one original sentence for each — make it about your own life, not a textbook example. This page isn't auto-graded; I'll read it myself and give you feedback.</p>
+    <div id="productionItems"></div>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ================= PAGE 7 — FINISH ================= -->
+<section class="page" data-page="7">
+  <div class="card">
+    <h2>Finish</h2>
+    <p class="instructions">Make sure your name is filled in at the top, then press the button below. Your score and a note of anything to review will be sent to me automatically.</p>
+    <div style="text-align:center; margin-top:8px;">
+      <button class="btn big" id="submitBtn" onclick="submitAll()">Check &amp; Submit</button>
+    </div>
+    <div class="score-summary" id="scoreSummary" hidden></div>
+    <p class="submit-status" id="submitStatus"></p>
+  </div>
+  <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><span class="spacer"></span></div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<!-- ================= STICKY ANGLE BADGE ================= -->
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE"><g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor"><path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/></g></svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const VOCAB = {
+  slumber: {pos:"noun, literary", def:"a deep, peaceful sleep", example:"I fell into a gentle slumber.", note:"Literary/formal register — used mostly in writing or poetic speech, not everyday conversation like \"sleep\".", set:"A", bucket:"literal", label:"slumber"},
+  chunk: {pos:"noun", def:"a part of something, especially a large part", example:"Three hours is quite a chunk out of my working day.", note:"Informal, quantifying: \"a chunk of time/money/land\" — \"a chunk out of X\" = a substantial amount taken from X.", set:"A", bucket:"literal", label:"a chunk"},
+  assemble: {pos:"verb", def:"to bring or come together in a single group, or to put together the parts of something", example:"Since she took over the department, she has assembled a talented team with a varied selection of skills.", note:"Formal. Works both for gathering people (\"assemble a team\") and constructing objects (\"assemble furniture\") — context tells them apart.", set:"A", bucket:"literal", label:"to assemble"},
+  nuisance: {pos:"noun", def:"something or someone that annoys you or causes trouble for you", example:"Local residents claimed that the noise was causing a public nuisance.", note:"\"a public nuisance\" is a set semi-legal phrase; \"make a nuisance of yourself\" = to deliberately annoy others.", set:"A", bucket:"literal", label:"nuisance"},
+  rebellion: {pos:"noun", def:"violent action organized by a group of people trying to change the political system in their country", example:"The government has brutally crushed the rebellion.", note:"Often paired with crush/suppress/quell. Can extend figuratively to any organised defiance of authority, e.g. \"a teenage rebellion\".", set:"A", bucket:"literal", label:"rebellion"},
+  "rush hour": {pos:"noun phrase", def:"the busy part of the day when towns and cities are crowded with commuters, morning or evening", example:"Take alternate routes during the morning rush hour.", note:"Almost always used with \"the\"; can be hyphenated before a noun — \"rush-hour traffic\".", set:"A", bucket:"literal", label:"rush hour"},
+  crammed: {pos:"adjective, passive", def:"very full of people or things", example:"The docks were crammed with / crammed full of people trying to board the boats.", note:"Near-synonym of \"packed\"/\"jam-packed\"; \"full of\" is an optional intensifier after it.", set:"B", bucket:"literal", label:"crammed"},
+  "grin and bear it": {pos:"idiom, informal", def:"to accept something unpleasant without complaining", example:"I really don't want to go, but I guess I'll just have to grin and bear it.", note:"Fixed idiom — the wording doesn't change. Implies stoic acceptance, not genuine positivity.", set:"B", bucket:"idiom", label:"grin and bear it"},
+  baffle: {pos:"verb", def:"to cause someone to be completely unable to understand or explain something", example:"She was completely baffled by his strange behaviour.", note:"Near-synonym of puzzle/bewilder, most often used in the passive: \"be baffled by\".", set:"B", bucket:"literal", label:"to baffle"},
+  "make a fuss of": {pos:"idiom, British English", def:"to give someone a lot of attention and treat them well", example:"She doesn't see her grandchildren very often so she makes a real fuss of them when she does.", note:"Don't confuse with \"make a fuss about something\" (= to complain/protest) — different meaning entirely.", set:"B", bucket:"idiom", label:"make a fuss of someone"},
+  "shout from the rooftops": {pos:"idiom", def:"to say or announce something publicly and enthusiastically", example:"I'm so in love I want to shout your name from the rooftops.", note:"Emphatic — usually about good news or strong feelings.", set:"B", bucket:"idiom", label:"shout something from the rooftops"},
+  "in your face": {pos:"idiom, informal", def:"if someone is in your face, they criticize or confront you persistently", example:"One of the managers is always in my face.", note:"Often carries a negative, confrontational tone. Don't confuse with the adjective \"in-your-face\" (= bold, confrontational style).", set:"B", bucket:"idiom", label:"to be in someone's face"}
+};
+
+const SET_A_ORDER = ["slumber","chunk","assemble","nuisance","rebellion","rush hour"];
+const SET_B_ORDER = ["crammed","grin and bear it","baffle","make a fuss of","shout from the rooftops","in your face"];
+const ALL_ORDER = SET_A_ORDER.concat(SET_B_ORDER);
+
+const GAP_FILL = [
+  {before:"The cat curled up by the fire, deep in peaceful ", after:".", answers:["slumber","slumbers"]},
+  {before:"Preparing for the exam took up a huge ", after:" of my weekend.", answers:["chunk"]},
+  {before:"The committee has ", after:" a panel of leading scientists to advise on the new policy.", answers:["assembled","assemble"]},
+  {before:"Barking dogs at night are a real ", after:" for the neighbours.", answers:["nuisance"]},
+  {before:"Historians still argue about what triggered the ", after:" against the monarchy.", answers:["rebellion"]},
+  {before:"If you want to avoid the crowds, don't travel during the morning ", after:".", answers:["rush hour","rush-hour"]}
+];
+
+const MCQ_ITEMS = [
+  {q:"The train was completely ___ — I could barely move, let alone find a seat.", opts:["crammed","assembled","baffled"], correct:"crammed"},
+  {q:"I didn't get the promotion I wanted, but there's nothing I can do about it — I'll just have to ___.", opts:["grin and bear it","make a fuss of it","shout it from the rooftops"], correct:"grin and bear it"},
+  {q:"Even the top engineers were ___ by the strange fault in the system.", opts:["crammed","baffled","in the manager's face"], correct:"baffled"},
+  {q:"Whenever her nephew visits, she always ___ him, cooking his favourite meals and buying him little gifts.", opts:["makes a fuss of","grins and bears","is in the face of"], correct:"makes a fuss of"},
+  {q:"She was so proud of her son's exam results that she wanted to ___.", opts:["shout it from the rooftops","grin and bear it","be in his face"], correct:"shout it from the rooftops"},
+  {q:"Ever since the new manager arrived, he's constantly ___, criticising every little mistake I make.", opts:["in my face","making a fuss of me","crammed with me"], correct:"in my face"}
+];
+
+const PRODUCTION_ITEMS = ["grin and bear it","make a fuss of","shout from the rooftops","in your face"];
+
+/* ================= PAGE NAV ================= */
+const PAGE_LABELS = ["Welcome","Vocab Bank","Match It","Fill the Gaps","Choose the Word","Word or Idiom?","Make It Yours","Finish"];
+let current = 0;
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className = 'page-dot' + (i===0 ? ' active visited' : '');
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>showPage(i);
+    wrap.appendChild(d);
+  });
+}
+
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>{
+    d.classList.toggle('active', i===current);
+    if(i===current) d.classList.add('visited');
+  });
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= TTS ================= */
+function speak(text){
+  try{
+    if(!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  }catch(e){ /* silently ignore unsupported browsers */ }
+}
+
+/* ================= PAGE 1: VOCAB BANK ================= */
+function buildVocabBank(){
+  const grid = document.getElementById('vocabGrid');
+  ALL_ORDER.forEach(key=>{
+    const v = VOCAB[key];
+    const card = document.createElement('div');
+    card.className = 'flip-card';
+    card.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-front">
+          <button class="card-speak" type="button" title="Listen">🔊</button>
+          <div class="word">${v.label}</div>
+          <div class="pos">${v.pos}</div>
+          <div class="hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <button class="card-speak" type="button" title="Listen">🔊</button>
+          <div class="def">${v.def}</div>
+          <div class="example">"${v.example}"</div>
+          <div class="note">${v.note}</div>
+        </div>
+      </div>`;
+    card.addEventListener('click', (e)=>{
+      if(e.target.closest('.card-speak')) return;
+      card.classList.toggle('flipped');
+    });
+    card.querySelectorAll('.card-speak').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); speak(v.label); });
+    });
+    grid.appendChild(card);
+  });
+}
+
+/* ================= PAGE 2: MATCH IT ================= */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildMatchSet(order, wordsElId, defsElId, containerElId){
+  const wordsEl = document.getElementById(wordsElId);
+  const defsEl = document.getElementById(defsElId);
+  const container = document.getElementById(containerElId);
+  const shuffledDefs = shuffle(order);
+
+  order.forEach(key=>{
+    const v = VOCAB[key];
+    const btn = document.createElement('button');
+    btn.className = 'match'; btn.type='button';
+    btn.dataset.id = key;
+    btn.dataset.answer = key;
+    btn.textContent = v.label;
+    wordsEl.appendChild(btn);
+  });
+  shuffledDefs.forEach(key=>{
+    const v = VOCAB[key];
+    const btn = document.createElement('button');
+    btn.className = 'match'; btn.type='button';
+    btn.dataset.id = key;
+    btn.textContent = v.def;
+    defsEl.appendChild(btn);
+  });
+
+  let firstPick = null;
+  container.querySelectorAll('.match').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(!firstPick){ firstPick = el; el.classList.add('selected'); return; }
+      if(firstPick === el){ firstPick.classList.remove('selected'); firstPick=null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if(isMatch){
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        container.dataset.correctCount = String(parseInt(container.dataset.correctCount||'0') + 1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{
+          [firstPick, el].forEach(x=>x.classList.remove('selected','wrong-flash'));
+        }, 550);
+      }
+      firstPick = null;
+    });
+  });
+}
+
+/* ================= PAGE 3: FILL THE GAPS ================= */
+function buildGapFill(){
+  const wrap = document.getElementById('gapFillItems');
+  GAP_FILL.forEach((g,i)=>{
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<p class="q">${i+1}. ${g.before}<input type="text" class="fib" name="gap${i+1}" autocomplete="off">${g.after}</p>`;
+    div.querySelector('.fib').dataset.answers = g.answers.join('|');
+    wrap.appendChild(div);
+  });
+}
+
+/* ================= PAGE 4: MCQ ================= */
+function buildMCQ(){
+  const wrap = document.getElementById('mcqItems');
+  MCQ_ITEMS.forEach((m,i)=>{
+    const div = document.createElement('div');
+    div.className = 'item';
+    const optsHtml = shuffle(m.opts).map(o=>`<button type="button" class="opt" data-val="${o}">${o}</button>`).join('');
+    div.innerHTML = `<p class="q">${i+1}. ${m.q}</p><div class="mcq" data-correct="${m.correct}">${optsHtml}</div>`;
+    wrap.appendChild(div);
+  });
+  wrap.querySelectorAll('.mcq .opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const group = btn.closest('.mcq');
+      if(group.dataset.done) return;
+      group.dataset.done = "1";
+      btn.classList.add('chosen');
+      const correct = group.dataset.correct;
+      group.querySelectorAll('.opt').forEach(o=>{
+        if(o.dataset.val === correct) o.classList.add('correct');
+        else if(o === btn) o.classList.add('wrong');
+      });
+    });
+  });
+}
+
+/* ================= PAGE 5: CATEGORIZE ================= */
+function buildCategorize(){
+  const bank = document.getElementById('chipBank');
+  const shuffled = shuffle(ALL_ORDER);
+  shuffled.forEach(key=>{
+    const v = VOCAB[key];
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.textContent = v.label;
+    chip.dataset.answer = v.bucket;
+    bank.appendChild(chip);
+  });
+
+  let selectedChip = null;
+  function selectChip(el){
+    if(el.classList.contains('placed-correct') || el.classList.contains('placed-wrong')) return;
+    if(selectedChip) selectedChip.classList.remove('selected');
+    selectedChip = el;
+    el.classList.add('selected');
+  }
+  function dropInto(bucketKey, zoneEl){
+    if(!selectedChip) return;
+    const ok = selectedChip.dataset.answer === bucketKey;
+    selectedChip.classList.remove('selected');
+    selectedChip.classList.add(ok ? 'placed-correct' : 'placed-wrong');
+    zoneEl.appendChild(selectedChip);
+    selectedChip = null;
+  }
+  bank.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('chip')) selectChip(e.target);
+  });
+  document.querySelectorAll('.bucket').forEach(bucketEl=>{
+    const zone = bucketEl.querySelector('.bucket-items');
+    bucketEl.addEventListener('click', ()=>{
+      // Any click inside the bucket (including on a chip already placed there)
+      // should drop whichever chip is currently selected in the bank.
+      dropInto(bucketEl.dataset.bucket, zone);
+    });
+  });
+}
+
+/* ================= PAGE 6: PRODUCTION ================= */
+function buildProduction(){
+  const wrap = document.getElementById('productionItems');
+  PRODUCTION_ITEMS.forEach((key,i)=>{
+    const v = VOCAB[key];
+    const div = document.createElement('div');
+    div.className = 'prod-item';
+    div.innerHTML = `
+      <div class="idiom">${v.label}</div>
+      <div class="idiom-def">${v.def}</div>
+      <textarea class="notes" data-idiom="${v.label}" placeholder="Write your own sentence here (optional if you've already written two elsewhere)..."></textarea>`;
+    wrap.appendChild(div);
+  });
+}
+
+/* ================= SCORING & SUBMISSION ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"]/g,'').replace(/\s+/g,' '); }
+
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,110);
+    }
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('Please type your name at the top before submitting.');
+    showPage(0);
+    return;
+  }
+
+  let correct = 0, total = 0;
+  const wrongList = [];
+
+  // Gap-fill (fuzzy against acceptable list)
+  document.querySelectorAll('.fib[data-answers]').forEach(inp=>{
+    total++;
+    const acceptable = inp.dataset.answers.split('|').map(normalize);
+    const val = normalize(inp.value);
+    const ok = acceptable.includes(val);
+    inp.classList.toggle('is-correct', ok);
+    inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++;
+    else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answers.split('|')[0]));
+  });
+
+  // MCQ
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const correctVal = g.dataset.correct;
+    const isRight = chosen && chosen.dataset.val === correctVal;
+    if(isRight) correct++;
+    else {
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(describeWrong(g, said, correctVal));
+    }
+  });
+
+  // Matching sets
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs || '0');
+    const cor = parseInt(c.dataset.correctCount || '0');
+    total += t; correct += cor;
+    if(cor < t){
+      wrongList.push(`Match It! — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`);
+    }
+  });
+
+  // Categorize chips
+  const chips = document.querySelectorAll('.chip');
+  if(chips.length){
+    total += chips.length;
+    chips.forEach(chip=>{
+      if(chip.classList.contains('placed-correct')) correct++;
+      else wrongList.push(`Word or Idiom? — "${chip.textContent.trim()}" was placed incorrectly or left unsorted.`);
+    });
+  }
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  // Production notes (not scored — collected as a courtesy for the teacher)
+  const productionNotes = [];
+  document.querySelectorAll('.notes[data-idiom]').forEach(ta=>{
+    const val = ta.value.trim();
+    if(val) productionNotes.push(`[${ta.dataset.idiom}] ${val}`);
+  });
+
+  try{
+    const fd = new FormData();
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('production_sentences', productionNotes.length ? productionNotes.join('\n') : '(none written)');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://formspree.io/f/mdaqrvdd', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+}
+
+/* ================= INIT ================= */
+buildDots();
+buildVocabBank();
+buildMatchSet(SET_A_ORDER, 'matchSetA-words', 'matchSetA-defs', 'matchSetA');
+buildMatchSet(SET_B_ORDER, 'matchSetB-words', 'matchSetB-defs', 'matchSetB');
+buildGapFill();
+buildMCQ();
+buildCategorize();
+buildProduction();
+showPage(0);
+</script>
+</body>
+</html>
