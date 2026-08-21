@@ -1227,7 +1227,7 @@ async function submitAll(){
   }
 
   var correct = 0, total = 0;
-  var wrongNumbers = [];
+  var wrongList = [];
 
   document.querySelectorAll('.mcq[data-correct]').forEach(function(g){
     total++;
@@ -1236,13 +1236,17 @@ async function submitAll(){
     if(chosen && chosen.dataset.val === g.dataset.correct){
       correct++;
     } else {
-      wrongNumbers.push(qnum);
+      var qP = g.querySelector('p');
+      var qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : ('Question ' + qnum);
+      var correctBtn = g.querySelector('.opt[data-val="' + g.dataset.correct + '"]');
+      var saidText = chosen ? chosen.textContent.trim() : '(\u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0435\u043d\u043e)';
+      var correctText = correctBtn ? correctBtn.textContent.trim() : g.dataset.correct;
+      wrongList.push('Q' + qnum + '. ' + qText + ' \u2014 answered "' + saidText + '", correct "' + correctText + '"');
     }
   });
 
   var pct = total ? Math.round(correct / total * 100) : 0;
   var level = levelFor(correct);
-  var wrongList = wrongNumbers.length ? wrongNumbers.join(', ') : 'None \u2014 perfect score!';
 
   var w1 = document.getElementById('writing1').value.trim();
   var w2 = document.getElementById('writing2').value.trim();
@@ -1266,7 +1270,7 @@ async function submitAll(){
     fd.append('student', nameInput.value.trim());
     fd.append('score', correct + '/' + total + ' (' + pct + '%)');
     fd.append('suggested_level', level);
-    fd.append('questions_with_mistakes', wrongList);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('writing_task_1_email', w1 + '\n\n[' + w1Words + ' words]');
     fd.append('writing_task_2_essay', w2 + '\n\n[' + w2Words + ' words]');
     fd.append('timestamp', new Date().toISOString());

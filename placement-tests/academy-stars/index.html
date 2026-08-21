@@ -1046,7 +1046,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   let total = 0;
   let correct = 0;
-  let wrongNumbers = [];
+  let wrongList = [];
 
   document.querySelectorAll('.item').forEach(function(item){
     total++;
@@ -1072,7 +1072,10 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
     if(isCorrect){
       correct++;
     } else {
-      wrongNumbers.push(total);
+      const qP = item.querySelector('p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : ('Question ' + total);
+      const saidText = userAnswer && userAnswer.trim() ? userAnswer : '(не отвечено)';
+      wrongList.push(qText + ' — answered "' + saidText + '", correct "' + item.dataset.answer + '"');
     }
 
     // visual feedback
@@ -1103,13 +1106,12 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   document.getElementById('submitBtn').textContent = 'Submitted';
 
   // Send to teacher via Formspree
-  const wrongList = wrongNumbers.length ? wrongNumbers.join(', ') : 'None — perfect score!';
   const fd = new FormData();
   fd.append('exercise', 'Academy Stars — Placement Test');
   fd.append('student', studentName);
   fd.append('score', correct + '/' + total);
   fd.append('suggested_level', level);
-  fd.append('questions_with_mistakes', wrongList);
+  fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
 
   fetch('https://formspree.io/f/maewykro', {
     method: 'POST',
