@@ -159,13 +159,36 @@ as4/ as5/ misc/       материалы по курсам
 
 ## Куда приходят результаты
 
-Formspree, ярлык на курс. Таблица — в `site.config.json`, поле `formspree`.
+Formspree, ярлык на курс. Таблица ниже сверена с `site.config.json` (поле
+`formspree` — единственное место, где это правится руками) 22 августа 2026;
+если правите ярлык, меняйте в `site.config.json`, а не здесь.
 
 | Курс | Ярлык |
 |---|---|
-| Academy Stars 4 | `mjgnbjkk` |
-| Academy Stars 5 | `mjgnbjkk` |
-| разминка debate-warmup | `mlgqeayn` — курс не уточнён, спросить у Виктории |
+| Academy Stars 2 | `mjgnlwkd` |
+| Academy Stars 3 | `xwleolev` |
+| Academy Stars 4 | `xeeyrowk` |
+| Academy Stars 5 | `mlgqeayn` |
+| Empower B1+ | `mjgnlwdp` |
+| Expert Advanced | `mdaqrvdd` |
+| GW B2 | `xoeaqeyz` |
+| Gateway to the World B2 | `xoeaqeyz` |
+| Gateway to the World B1 | — не задан (материалов с отправкой пока нет) |
+| ЕГЭ 2027 | `mnjekjvq` |
+| Oxford Phonics World 1–5 | `mlgqqwpk` (один ярлык на все пять уровней) |
+
+**Placement tests — особый случай.** У курса в `site.config.json` поле
+`formspree` пустое: ярлык задан не на уровне курса, а у каждого материала
+отдельно, в его собственном `ws:formspree`:
+
+| Материал | Ярлык |
+|---|---|
+| `placement-tests/academy-stars/` | `maewykro` |
+| `placement-tests/gateway-2nd-edition/` | `xoeavdkr` |
+
+(Разминка `debate-warmup` в Academy Stars 5, которая раньше значилась здесь
+без привязки к курсу, — это и есть `mlgqeayn`, ярлык AS5; курс был просто не
+дописан в прошлой версии таблицы.)
 
 Письмо приходит с полями: название теста, имя ученика, класс, процент, счёт,
 разбивка по заданиям, время отправки.

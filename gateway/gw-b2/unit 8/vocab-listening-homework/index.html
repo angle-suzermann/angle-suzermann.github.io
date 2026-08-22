@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8 — Developing Vocabulary and Listening — HOMEWORK</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="GW B2">
+<meta name="ws:course-id" content="gateway/gw-b2">
+<meta name="ws:unit"      content="8">
+<meta name="ws:title"     content="Unit 8 — Vocabulary &amp; Listening — Homework">
+<meta name="ws:emoji"     content="🎧">
+<meta name="ws:date"      content="2026-08-22">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="xoeaqeyz">
+<meta name="ws:tags"      content="vocabulary, listening, prepositions">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  </style>
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:#1c1420;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 40%; opacity:0.45; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.25), rgba(45,25,60,.45)); }
+
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.15);}
+.topbar-inner{ max-width:900px; margin:0 auto; padding:12px 20px 10px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.lesson-title{ font-weight:700; color:var(--purple); font-size:1.05rem; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.85rem; color:var(--muted); }
+.namebar input{ border:2px solid var(--border); border-radius:8px; padding:6px 10px; font-family:inherit; font-size:.9rem; min-width:200px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--yellow)); width:11%; transition:width .3s ease; }
+.progress-label{ font-size:.78rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); color:var(--purple); font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid transparent; }
+.page-dot.active{ background:var(--purple); color:#fff; }
+.page-dot:hover{ border-color:var(--purple); }
+
+.page-wrap{ position:relative; z-index:5; max-width:900px; margin:0 auto; padding:26px 20px 70px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:26px 28px; box-shadow:0 10px 30px rgba(0,0,0,.25); margin-bottom:18px; }
+.card h2{ color:var(--purple); margin-top:0; font-size:1.3rem; border-bottom:2px solid var(--border); padding-bottom:10px;}
+.card h3{ color:var(--purple-dark); font-size:1.02rem; }
+.instr{ background:var(--card-tint); border-left:4px solid var(--yellow); padding:12px 16px; border-radius:8px; font-size:.94rem; margin:12px 0 18px; }
+.instr b{ color:var(--purple); }
+
+.item{ margin:16px 0; padding:14px 16px; background:var(--card-tint); border-radius:10px; }
+p.q{ margin:0 0 8px; font-size:.98rem; }
+.blank-sentence{ line-height:2.1; font-size:1rem; }
+input.fib{ border:2px solid var(--border); border-radius:6px; padding:5px 8px; font-family:inherit; font-size:.95rem; width:150px; margin:0 3px; text-align:center; }
+input.fib.wide{ width:220px; }
+input.fib:focus{ outline:none; border-color:var(--purple);}
+input.fib.is-correct{ border-color:var(--correct); background:#eafaf1; }
+input.fib.is-wrong{ border-color:var(--wrong); background:#fdeceb; }
+.prep-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:8px 0; }
+.prep-verb{ font-weight:700; min-width:110px; }
+.example-input{ width:100%; border:1.5px dashed var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.88rem; margin-top:6px; }
+
+.mcq{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.mcq .opt{ border:2px solid var(--purple); background:#fff; color:var(--purple); border-radius:20px; padding:6px 16px; font-family:inherit; font-size:.88rem; cursor:pointer; }
+.mcq .opt.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
+.mcq .opt.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+.mcq .opt.chosen:not(.correct):not(.wrong){ background:var(--purple); color:#fff; }
+
+.match-wrap{ display:flex; gap:26px; margin-top:10px; flex-wrap:wrap; }
+.col-left, .col-right{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:8px; }
+button.match{ text-align:left; border:2px solid var(--purple); background:#fff; color:var(--purple); border-radius:8px; padding:9px 12px; font-family:inherit; font-size:.9rem; cursor:pointer; }
+button.match.selected{ background:var(--yellow); border-color:var(--yellow); color:var(--black); }
+button.match.matched-correct{ background:var(--correct); border-color:var(--correct); color:#fff; cursor:default; }
+button.match.wrong-flash{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+
+.vtag{ color:var(--purple-dark); font-weight:700; text-decoration:underline dotted; cursor:pointer; }
+.audio-box{ background:var(--purple); border-radius:12px; padding:16px; margin:14px 0; }
+.audio-box audio{ width:100%; }
+.audio-label{ color:#fff; font-size:.85rem; margin-bottom:8px; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:20px; }
+button.nav{ background:var(--purple); color:#fff; border:none; border-radius:10px; padding:11px 22px; font-family:inherit; font-weight:700; font-size:.92rem; cursor:pointer; }
+button.nav:hover{ background:var(--purple-dark); }
+button.nav.ghost{ background:transparent; border:2px solid var(--purple); color:var(--purple); }
+button.submit-btn{ background:var(--yellow); color:var(--black); border:none; border-radius:12px; padding:16px 30px; font-family:inherit; font-weight:700; font-size:1.05rem; cursor:pointer; width:100%; }
+button.submit-btn:hover{ filter:brightness(0.95); }
+
+#scoreSummary{ background:var(--card-tint); border-radius:10px; padding:16px; margin-top:16px; font-size:1.05rem; text-align:center; }
+#submitStatus{ text-align:center; margin-top:10px; font-weight:700; color:var(--purple); }
+
+/* flashcards */
+.flip-card{ width:100%; max-width:320px; height:180px; perspective:1000px; margin:16px auto; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front,.flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; display:flex; align-items:center; justify-content:center; text-align:center; padding:18px; font-size:1.1rem; }
+.flip-front{ background:var(--purple); color:#fff; font-weight:700; }
+.flip-back{ background:var(--yellow); color:var(--black); transform:rotateY(180deg); font-size:.92rem; }
+.deck-controls{ display:flex; justify-content:center; gap:10px; margin-top:8px; align-items:center; }
+.deck-controls button{ background:var(--card-tint); border:2px solid var(--purple); color:var(--purple); border-radius:8px; padding:6px 14px; font-family:inherit; cursor:pointer; }
+.deck-counter{ font-size:.85rem; color:var(--muted); }
+
+.vocab-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; margin-top:14px; }
+.vocab-card{ background:var(--card-tint); border-radius:10px; padding:12px 14px; border:1.5px solid var(--border); }
+.vocab-card b{ color:var(--purple); }
+.vocab-card .pos{ font-size:.72rem; color:var(--muted); display:block; margin-bottom:4px; }
+.vocab-card p{ font-size:.85rem; margin:6px 0 0; }
+.vocab-card .example{ font-style:italic; color:var(--purple-dark); }
+
+.popup-overlay{ position:fixed; inset:0; background:rgba(20,14,25,.6); z-index:200; display:none; align-items:center; justify-content:center; }
+.popup-overlay.open{ display:flex; }
+.popup-box{ background:#fff; border-radius:14px; padding:22px 26px; max-width:400px; width:90%; }
+.popup-box h3{ margin-top:0; color:var(--purple); }
+.popup-box .pos{ color:var(--muted); font-size:.8rem; }
+.popup-close{ float:right; background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--muted); }
+
+.needs-review{ border:2px dashed var(--yellow) !important; }
+textarea.notes{ width:100%; min-height:70px; border:2px solid var(--border); border-radius:8px; padding:8px; font-family:inherit; font-size:.9rem; }
+
+.script-turn{ margin:14px 0; }
+.script-speaker{ color:var(--purple); font-weight:700; font-size:.9rem; margin-bottom:2px; }
+.script-line{ font-size:.94rem; line-height:1.7; }
+.script-hl{ background:#FFE8A3; border-radius:3px; padding:0 2px; }
+.script-hl-grey{ background:#DCD7E3; border-radius:3px; padding:0 2px; }
+.script-tag{ color:var(--purple); font-weight:700; font-size:.68rem; margin-left:2px; }
+.script-legend{ font-size:.82rem; color:var(--muted); margin:8px 0 4px; }
+
+/* Live in-progress transcript viewer (available while doing Ex.3 / Ex.4) */
+.script-toggle{ background:var(--purple); color:#fff; border:none; padding:9px 16px; border-radius:20px; font-weight:700; cursor:pointer; font-family:inherit; font-size:.85rem; margin:6px 0 4px; }
+.script-toggle:hover{ background:var(--purple-dark); }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; margin-top:8px; font-family:inherit; }
+.proof-btn:hover{ background:var(--card-tint); }
+.proof-btn.seen{ border-color:var(--correct); color:var(--correct); }
+mark.ev{ background:transparent; color:inherit; padding:0; border-radius:3px; transition:background .3s ease, box-shadow .3s ease; }
+mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
+.script-overlay{ position:fixed; inset:0; background:rgba(20,14,25,.6); z-index:300; display:none; align-items:center; justify-content:center; padding:20px; }
+.script-overlay.open{ display:flex; }
+.script-panel{ background:#fff; border-radius:14px; padding:20px 22px; max-width:640px; width:100%; max-height:82vh; display:flex; flex-direction:column; }
+.script-panel-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-shrink:0; }
+.script-panel-header h3{ margin:0; color:var(--purple); }
+.script-box-live{ flex:1; overflow-y:auto; font-size:.92rem; line-height:1.7; padding-right:4px; }
+.script-box-live p{ margin:0 0 12px; }
+.script-box-live .who{ font-weight:700; color:var(--purple-dark); }
+
+.angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+
+@media (max-width:600px){
+  .card{ padding:18px 16px; }
+  .match-wrap{ flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Unit 8 — Developing Vocabulary and Listening (HOMEWORK)</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 9</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- PAGE 0: INSTRUCTIONS -->
+<section class="page active" data-page="0">
+  <div class="card">
+    <h2>Surviving Disaster — Homework</h2>
+    <div class="instr">
+      <b>Before you start:</b> type your full name at the top of the page. Work through the pages in order using the
+      <b>Next →</b> button, or click a numbered dot above to jump to a page. On the last page, click
+      <b>Check &amp; Submit</b> — your score and a note about any mistakes will be sent to your teacher automatically.
+    </div>
+    <p>This homework practises the vocabulary and listening from <b>Unit 8, page 69</b> of your Workbook —
+      <i>prepositional phrases with verbs</i> (agree with, believe in, rely on...) and the true story of two brothers,
+      Rob and Paul Forkan, who survived the 2004 tsunami.</p>
+    <h3>What's inside</h3>
+    <ul>
+      <li><b>Ex. 1</b> — fix the wrong prepositions</li>
+      <li><b>Ex. 2</b> — complete the sentences</li>
+      <li><b>Ex. 3 &amp; 4</b> — listen to the interview and answer the questions</li>
+      <li><b>Ex. 5 &amp; 6</b> — vocabulary extension: matching + a gap-fill text</li>
+      <li><b>Extra vocabulary practice</b> — flashcards and a reference card grid for all the chunks in this lesson</li>
+    </ul>
+    <p>Click any <span class="vtag" onclick="openPopup('agree with')">underlined word</span> at any point to see its
+      meaning and an example.</p>
+    <div class="nav-btns"><span></span><button class="nav" onclick="nextPage()">Start →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 1: EX 1 -->
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Ex. 1 — Fix the prepositions</h2>
+    <div class="instr">All of these verb–preposition combinations are <b>incorrect</b>. Type the <b>correct preposition</b> in each box. Then write one example sentence of your own for at least three of them (this part isn't auto-checked — your teacher will read it).</div>
+    <div id="ex1-list"></div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 2: EX 2 -->
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Ex. 2 — Complete the sentences</h2>
+    <div class="instr">Complete each sentence with the correct form of a verb <b>and</b> a preposition. (Type the full chunk, e.g. <i>believe in</i>.)</div>
+    <div id="ex2-list"></div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 3: EX 3 LISTENING NOTES -->
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Ex. 3 — Listening: the reporter's notes</h2>
+    <div class="instr">🎧 Listen to the interview about two brothers who survived the 2004 tsunami. Complete the reporter's notes below.</div>
+    <div class="audio-box">
+      <div class="audio-label">Workbook Unit 8, Track 20</div>
+      <audio controls id="audioTrack0"></audio>
+    </div>
+    <button class="script-toggle" onclick="toggleScriptLive()">📄 Show/hide full transcript</button>
+    <div id="ex3-list"></div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 4: EX 4 T/F/NM -->
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Ex. 4 — True, False, or Not Mentioned?</h2>
+    <div class="instr">Listen again. For each statement, decide if it is <b>True (T)</b>, <b>False (F)</b>, or if the information is <b>Not Mentioned (NM)</b> in the interview.</div>
+    <div class="audio-box">
+      <div class="audio-label">Workbook Unit 8, Track 20 (listen again)</div>
+      <audio controls id="audioTrack1"></audio>
+    </div>
+    <button class="script-toggle" onclick="toggleScriptLive()">📄 Show/hide full transcript</button>
+    <div id="ex4-list"></div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 5: EX 5 MATCHING -->
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Ex. 5 — Vocabulary extension: matching</h2>
+    <div class="instr">Click a verb chunk on the left, then click the phrase on the right that goes with it.</div>
+    <div class="match-wrap" data-total-pairs="7" data-correct-count="0" id="ex5-match">
+      <div class="col-left" id="ex5-left"></div>
+      <div class="col-right" id="ex5-right"></div>
+    </div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 6: EX 6 CLOZE -->
+<section class="page" data-page="6">
+  <div class="card">
+    <h2>Ex. 6 — Complete the text</h2>
+    <div class="instr">Use the verb chunks from Ex. 5 to complete this text about a volcano trip.</div>
+    <p class="blank-sentence" id="ex6-text"></p>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 7: EXTRA VOCAB PRACTICE -->
+<section class="page" data-page="7">
+  <div class="card">
+    <h2>Extra vocabulary practice</h2>
+    <div class="instr">A quick flashcard review of all 12 prepositional phrases from this lesson. Click a card to flip it, then use the arrows to move on. This page isn't scored — it's just for practice.</div>
+    <div class="flip-card" id="flipCard" onclick="flipCard()">
+      <div class="flip-inner">
+        <div class="flip-front" id="cardFront"></div>
+        <div class="flip-back" id="cardBack"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <button onclick="deckNav(-1)">← Prev</button>
+      <span class="deck-counter" id="deckCounter"></span>
+      <button onclick="deckNav(1)">Next →</button>
+      <button onclick="shuffleDeck()">🔀 Shuffle</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Reference: all the chunks in this lesson</h3>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+  <div class="card">
+    <h3>Try it yourself</h3>
+    <div class="instr">Write one sentence of your own using any <b>two</b> of the chunks above. Your teacher will read this — it isn't auto-graded.</div>
+    <textarea class="notes" id="ownSentence" placeholder="Type your sentence here..."></textarea>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><button class="nav" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 8: FINISH -->
+<section class="page" data-page="8">
+  <div class="card">
+    <h2>Finish — Check &amp; Submit</h2>
+    <div class="instr">Make sure your name is typed at the top of the page, then click the button below. Your score and a short note about any mistakes will be sent to your teacher automatically.</div>
+    <button class="submit-btn" onclick="submitAll()">✓ Check &amp; Submit</button>
+    <div id="scoreSummary" hidden></div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="nav ghost" onclick="prevPage()">← Back</button><span></span></div>
+  </div>
+
+  <div class="card" id="scriptSection">
+    <h2>Audio script — check your answers against the source</h2>
+    <div class="instr">This is the full script of the interview (Track 20). <b>Yellow</b> marks the sentence that gives you an answer;
+      <b>grey</b> marks a spot that was worth checking but doesn't actually confirm anything — that's exactly why that
+      item is False or Not Mentioned. The small purple tag shows which exercise/item each highlight belongs to.</div>
+    <button class="nav ghost" onclick="toggleScript()" id="scriptToggleBtn">📜 Show audio script</button>
+    <div id="scriptBody" hidden></div>
+  </div>
+</section>
+
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<div class="popup-overlay" id="popup-overlay" onclick="if(event.target===this) closePopup()">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <h3 id="popup-word"></h3>
+    <span class="pos" id="popup-pos"></span>
+    <p id="popup-def"></p>
+    <p class="example" id="popup-example"></p>
+  </div>
+</div>
+
+<div class="script-overlay" id="script-overlay" onclick="if(event.target===this) closeScriptLive()">
+  <div class="script-panel">
+    <div class="script-panel-header">
+      <h3>📄 Audio script — Track 20</h3>
+      <button class="popup-close" onclick="closeScriptLive()">✕</button>
+    </div>
+    <div class="script-box-live" id="scriptBoxLive"></div>
+  </div>
+</div>
+
+<script>
+/* ================= VOCAB DATA ================= */
+const VOCAB = {
+  "agree with": { pos:"verb + preposition", def:"to have the same opinion as someone", example:"I agree with you — that film was fantastic.", collocations:["agree with someone","agree with an idea"], note:"can also be 'agree to' a plan/proposal" },
+  "apologise for": { pos:"verb + preposition", def:"to say sorry for something you did", example:"The bank apologised for their mistake.", collocations:["apologise for being late","apologise for a mistake"], note:"UK spelling; US = apologize for" },
+  "believe in": { pos:"verb + preposition", def:"to be confident that something/someone is good, right, or real", example:"I really believe in you.", collocations:["believe in yourself","believe in ghosts"], note:"" },
+  "belong to": { pos:"verb + preposition", def:"to be a member of a group, or to be owned by someone", example:"This tennis club belongs to the whole town.", collocations:["belong to a club","belong to someone"], note:"" },
+  "complain about": { pos:"verb + preposition", def:"to say you are unhappy or dissatisfied about something", example:"I complained about being charged twice.", collocations:["complain about the noise","complain about a service"], note:"" },
+  "depend on": { pos:"verb + preposition", def:"to be decided or influenced by; to rely on for support", example:"It depends on what your parents think.", collocations:["depend on the weather","depend on someone"], note:"" },
+  "dream of": { pos:"verb + preposition", def:"to imagine or hope for something you want", example:"Many people dream of having more free time.", collocations:["dream of travelling","dream of success"], note:"can also be 'dream about'" },
+  "listen to": { pos:"verb + preposition", def:"to pay attention to a sound, or to someone's opinion", example:"They listened to both sides of the argument.", collocations:["listen to music","listen to advice"], note:"" },
+  "protect from": { pos:"verb + object + preposition", def:"to keep someone or something safe from harm or danger", example:"His older brother protected him from the bully.", collocations:["protect someone from danger","protect skin from the sun"], note:"" },
+  "rely on": { pos:"verb + preposition", def:"to trust or depend on someone or something", example:"When I was young, I used to rely on my older brother.", collocations:["rely on a friend","rely on public transport"], note:"" },
+  "spend on": { pos:"verb + preposition", def:"to use money or time on something", example:"They wanted free time to spend on travelling.", collocations:["spend money on clothes","spend time on a hobby"], note:"" },
+  "wait for": { pos:"verb + preposition", def:"to stay in one place, or delay acting, until something happens", example:"I'm still waiting for a vacancy at the club.", collocations:["wait for the bus","wait for an answer"], note:"" },
+  "learn about": { pos:"verb + preposition (extension)", def:"to gain knowledge about a topic, often formally", example:"You can learn about volcanoes from experts.", collocations:["learn about something in a lesson"], note:"" },
+  "hear about": { pos:"verb + preposition (extension)", def:"to receive news or information about something", example:"As soon as I heard about these holidays, I wanted to go.", collocations:["hear about an event or fact"], note:"" },
+  "cover with": { pos:"verb + preposition (extension)", def:"to put a layer of something over the surface of something else", example:"The rocks had been covered with sulphur.", collocations:["cover something with plastic"], note:"" },
+  "search for": { pos:"verb + preposition (extension)", def:"to look carefully for something", example:"She searched for the answer on the Internet.", collocations:["search for something online"], note:"" },
+  "feel like walking on air": { pos:"idiom (extension)", def:"to feel extremely happy", example:"After the good news, she felt like she was walking on air.", collocations:["feel like walking on air"], note:"informal idiom" },
+  "crash into": { pos:"verb + preposition (extension)", def:"to hit something hard while moving", example:"The car crashed into a wall.", collocations:["crash into a wall/vehicle"], note:"" },
+  "name after": { pos:"verb + preposition (extension)", def:"to give someone or something the same name as another person", example:"The volcano was named after him.", collocations:["name a baby after a grandparent"], note:"" }
+};
+const VOCAB_LIST = Object.keys(VOCAB).map(k=>({chunk:k, ...VOCAB[k]}));
+const CORE_12 = ["agree with","apologise for","believe in","belong to","complain about","depend on","dream of","listen to","protect from","rely on","spend on","wait for"];
+
+/* ================= POPUP ================= */
+function openPopup(word){
+  const v = VOCAB[word];
+  if(!v) return;
+  document.getElementById('popup-word').textContent = word;
+  document.getElementById('popup-pos').textContent = v.pos;
+  document.getElementById('popup-def').textContent = v.def;
+  document.getElementById('popup-example').textContent = '"' + v.example + '"';
+  document.getElementById('popup-overlay').classList.add('open');
+}
+function closePopup(){ document.getElementById('popup-overlay').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePopup(); });
+
+/* ================= PAGES ================= */
+const PAGE_LABELS = ["Instructions","Ex.1 Prepositions","Ex.2 Sentences","Ex.3 Listening notes","Ex.4 True/False/NM","Ex.5 Matching","Ex.6 Gap-fill text","Vocab practice","Finish"];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= EX 1 ================= */
+const EX1 = [
+  {verb:"agree", wrong:"for", answer:"with|to"},
+  {verb:"apologise", wrong:"with", answer:"for"},
+  {verb:"believe", wrong:"about", answer:"in"},
+  {verb:"belong", wrong:"on", answer:"to"},
+  {verb:"complain", wrong:"in", answer:"about"},
+  {verb:"depend", wrong:"to", answer:"on"},
+  {verb:"dream", wrong:"on", answer:"of|about"},
+  {verb:"listen", wrong:"on", answer:"to"},
+  {verb:"protect (somebody)", wrong:"of", answer:"from"},
+  {verb:"rely", wrong:"to", answer:"on"},
+  {verb:"spend", wrong:"for", answer:"on"},
+  {verb:"wait", wrong:"on", answer:"for"}
+];
+function buildEx1(){
+  const wrap = document.getElementById('ex1-list');
+  EX1.forEach((it,i)=>{
+    const div = document.createElement('div'); div.className='item';
+    div.innerHTML = `<div class="prep-row"><span class="prep-verb">${it.verb}</span>
+      <span style="color:var(--wrong); text-decoration:line-through;">${it.wrong}</span> →
+      <input type="text" class="fib" data-answer="${it.answer}" id="ex1-${i}" placeholder="?">
+    </div>
+    <input type="text" class="example-input" id="ex1-ex-${i}" placeholder="Your example sentence (optional, teacher-checked)...">`;
+    wrap.appendChild(div);
+  });
+}
+
+/* ================= EX 2 ================= */
+const EX2 = [
+  { text:"The bank ___1___ their mistake when I ___2___ being charged twice for the same thing.", answers:["apologised for|apologized for","complained about"] },
+  { text:"The students ___1___ both sides of the argument and then decided which one they ___2___ most.", answers:["listened to","agreed with"] },
+  { text:"Many people ___1___ having more free time to ___2___ travelling and pursuing their hobbies.", answers:["dream of|dream about","spend on"] },
+  { text:"Some of my friends ___1___ the tennis club in my town, but I'm still ___2___ a vacancy so I can join — it's full at the moment.", answers:["belong to","waiting for"] },
+  { text:"The ideas you ___1___ may ___2___ what your parents think.", answers:["believe in","depend on"] }
+];
+const EX2_S6 = { before:"When I was young, I used to ___1___ my older brother to ___2___ me ___3___", after:"a bully in my class.", answers:["rely on","protect","from"] };
+function buildEx2(){
+  const wrap = document.getElementById('ex2-list');
+  EX2.forEach((s,i)=>{
+    const parts = s.text.split(/___1___|___2___/);
+    const div = document.createElement('div'); div.className='item';
+    div.innerHTML = `<p class="q blank-sentence">${parts[0]}
+      <input type="text" class="fib wide" data-answer="${s.answers[0]}" id="ex2-${i}-0">
+      ${parts[1]}
+      <input type="text" class="fib wide" data-answer="${s.answers[1]}" id="ex2-${i}-1">
+      ${parts[2]}</p>`;
+    wrap.appendChild(div);
+  });
+  const div6 = document.createElement('div'); div6.className='item';
+  div6.innerHTML = `<p class="q blank-sentence">${EX2_S6.before}
+    <input type="text" class="fib" data-answer="${EX2_S6.answers[0]}" id="ex2-5-0">
+    <input type="text" class="fib" data-answer="${EX2_S6.answers[1]}" id="ex2-5-1">
+    me
+    <input type="text" class="fib" data-answer="${EX2_S6.answers[2]}" id="ex2-5-2">
+    ${EX2_S6.after}</p>`;
+  wrap.appendChild(div6);
+}
+
+/* ================= EX 3 (listening notes) ================= */
+const EX3 = [
+  { label:"Brothers' names:", answer:"Rob and Paul|Rob & Paul" },
+  { label:"Location when the tsunami hit:", answer:"Sri Lanka" },
+  { label:"Ages when it hit:", answer:"17 and 15|15 and 17" },
+  { label:"Their business sells:", answer:"flip flops|flip-flops" },
+  { label:"Name of their charity:", answer:"Orphans for Orphans" }
+];
+const EX3_EV = ["ev-ex3a","ev-ex3b","ev-ex3c","ev-ex3d","ev-ex3e"];
+function buildEx3(){
+  const wrap = document.getElementById('ex3-list');
+  EX3.forEach((it,i)=>{
+    const div = document.createElement('div'); div.className='item';
+    div.innerHTML = `<p class="q">${it.label} <input type="text" class="fib wide" data-answer="${it.answer}" id="ex3-${i}"></p>
+      <button class="proof-btn" onclick="showProofLive('${EX3_EV[i]}', this)">🔍 Show proof in transcript</button>`;
+    wrap.appendChild(div);
+  });
+}
+
+/* ================= EX 4 (T/F/NM) ================= */
+const EX4 = [
+  { text:"The family was living in Sri Lanka when the tsunami hit.", answer:"f" },
+  { text:"Rob and his brother were in a separate bungalow from their parents.", answer:"t" },
+  { text:"They felt that their experience of travelling helped them in this situation.", answer:"t" },
+  { text:"They later found their sister in a local hostel.", answer:"nm" },
+  { text:"They immediately wanted to take their sister to a hospital.", answer:"f" },
+  { text:"They later met the businessman, who had secretly paid for their expenses.", answer:"nm" },
+  { text:"They give part of the money from their business to their charity.", answer:"t" },
+  { text:"They've already built schools in Sri Lanka and in India.", answer:"f" }
+];
+function buildEx4(){
+  const wrap = document.getElementById('ex4-list');
+  EX4.forEach((it,i)=>{
+    const div = document.createElement('div'); div.className='item';
+    div.innerHTML = `<p class="q">${i+1}. ${it.text}</p>
+      <div class="mcq" data-correct="${it.answer}">
+        <button class="opt" data-val="t">True</button>
+        <button class="opt" data-val="f">False</button>
+        <button class="opt" data-val="nm">Not Mentioned</button>
+      </div>
+      <button class="proof-btn" onclick="showProofLive('ev-ex4-${i+1}', this)">🔍 Show proof in transcript</button>`;
+    wrap.appendChild(div);
+  });
+  document.querySelectorAll('#ex4-list .mcq .opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const group = btn.closest('.mcq');
+      if (group.dataset.done) return;
+      group.dataset.done = "1";
+      group.querySelectorAll('.opt').forEach(o=>o.classList.add('chosen-check'));
+      btn.classList.add('chosen');
+    };
+  });
+}
+
+/* ================= EX 5 (matching) ================= */
+const EX5_LEFT = ["learn about","hear about","cover with","search for","feel like","crash into","name after"];
+const EX5_RIGHT_BY_ID = { "1":"an interesting event or fact", "2":"something on the Internet", "3":"your grandparent", "4":"plastic", "5":"something in a lesson", "6":"a wall", "7":"walking on air" };
+// mapping: left index (0-based item 1..7) -> right id
+const EX5_KEY = { 0:"5", 1:"1", 2:"4", 3:"2", 4:"7", 5:"6", 6:"3" }; // learn about->e(5), hear about->a(1), cover with->d(4), search for->b(2), feel like->g(7), crash into->f(6), name after->c(3)
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildEx5(){
+  const leftWrap = document.getElementById('ex5-left');
+  const rightWrap = document.getElementById('ex5-right');
+  EX5_LEFT.forEach((chunk,i)=>{
+    const b = document.createElement('button'); b.className='match'; b.dataset.id = EX5_KEY[i]; b.textContent = chunk;
+    leftWrap.appendChild(b);
+  });
+  const rightIds = shuffle(Object.keys(EX5_RIGHT_BY_ID));
+  rightIds.forEach(id=>{
+    const b = document.createElement('button'); b.className='match'; b.dataset.id = id; b.textContent = EX5_RIGHT_BY_ID[id];
+    rightWrap.appendChild(b);
+  });
+  let firstPick = null;
+  const container = document.getElementById('ex5-match');
+  document.querySelectorAll('#ex5-match .match').forEach(el=>{
+    el.onclick = ()=>{
+      if (el.classList.contains('matched-correct')) return;
+      if (!firstPick) { firstPick = el; el.classList.add('selected'); return; }
+      if (firstPick === el){ firstPick.classList.remove('selected'); firstPick=null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if (isMatch){
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        container.dataset.correctCount = String(parseInt(container.dataset.correctCount||0)+1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>[firstPick, el].forEach(x=>{ x.classList.remove('selected','wrong-flash'); }), 600);
+      }
+      firstPick = null;
+    };
+  });
+}
+
+/* ================= EX 6 (cloze) ================= */
+const EX6_ANSWERS = ["learn about","heard about","named after","feel like","covered with"];
+function buildEx6(){
+  const html = `Did you know you can go on organised holidays to watch volcanic eruptions and
+    <input type="text" class="fib" data-answer="${EX6_ANSWERS[0]}" id="ex6-0"> volcanoes from experts?
+    As soon as I <input type="text" class="fib" data-answer="${EX6_ANSWERS[1]}" id="ex6-1"> these holidays, I wanted to go on one.
+    So I went on a 'volcano trip' to Iceland. Our guide was a volcano specialist who'd had a volcano
+    <input type="text" class="fib" data-answer="${EX6_ANSWERS[2]}" id="ex6-2"> him.
+    Standing near a volcano is amazing. We all had to wear special suits to protect us from the intense heat.
+    But even with these suits, when you are standing very near the crater of a volcano, you do
+    <input type="text" class="fib" data-answer="${EX6_ANSWERS[3]}" id="ex6-3"> you're on fire.
+    Looking into a volcano was nothing like I expected it to be: for example, the rocks were often bright yellow
+    because they had been <input type="text" class="fib" data-answer="${EX6_ANSWERS[4]}" id="ex6-4"> sulphur from the volcano's activity.`;
+  document.getElementById('ex6-text').innerHTML = html;
+}
+
+/* ================= FLASHCARDS ================= */
+let deckOrder = CORE_12.slice();
+let deckIndex = 0;
+function renderCard(){
+  const chunk = deckOrder[deckIndex];
+  const v = VOCAB[chunk];
+  document.getElementById('cardFront').textContent = chunk;
+  document.getElementById('cardBack').textContent = v.def + ' — "' + v.example + '"';
+  document.getElementById('deckCounter').textContent = `Card ${deckIndex+1} / ${deckOrder.length}`;
+  document.getElementById('flipCard').classList.remove('flipped');
+}
+function flipCard(){ document.getElementById('flipCard').classList.toggle('flipped'); }
+function deckNav(dir){ deckIndex = (deckIndex + dir + deckOrder.length) % deckOrder.length; renderCard(); }
+function shuffleDeck(){ deckOrder = shuffle(CORE_12); deckIndex = 0; renderCard(); }
+
+function buildVocabGrid(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML = VOCAB_LIST.map(v=>`
+    <div class="vocab-card"><b>${v.chunk}</b><span class="pos">${v.pos}</span>
+      <p>${v.def}</p><p class="example">"${v.example}"</p></div>`).join('');
+}
+
+/* ================= SCORING & SUBMISSION ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' ').replace(/-/g,' '); }
+function matchesAnswer(value, answerSpec){
+  const v = normalize(value);
+  if(!v) return false;
+  const options = answerSpec.split('|').map(normalize);
+  return options.includes(v);
+}
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal.split('|')[0]}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('input.fib[data-answer]').forEach(inp=>{
+    total++;
+    const ok = matchesAnswer(inp.value, inp.dataset.answer);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
+  });
+
+  document.querySelectorAll('#ex4-list .mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    g.querySelectorAll('.opt').forEach(o=>{
+      if (o.dataset.val === g.dataset.correct) o.classList.add('correct');
+      else if (o === chosen) o.classList.add('wrong');
+    });
+    if(isRight) correct++;
+    else {
+      const correctLabel = {t:'True',f:'False',nm:'Not Mentioned'}[g.dataset.correct];
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctLabel}"`);
+    }
+  });
+
+  const matchContainer = document.getElementById('ex5-match');
+  const totalPairs = parseInt(matchContainer.dataset.totalPairs||0);
+  const correctPairs = parseInt(matchContainer.dataset.correctCount||0);
+  total += totalPairs; correct += correctPairs;
+  if(correctPairs < totalPairs){
+    wrongList.push(`Ex. 5 — Vocabulary extension: matching (matching) — ${correctPairs}/${totalPairs} pairs matched correctly; review with student which pairs were tricky.`);
+  }
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+  document.getElementById('scriptSection').hidden = false;
+
+  const ownSentence = document.getElementById('ownSentence').value.trim();
+  const ex1Examples = EX1.map((it,i)=>document.getElementById('ex1-ex-'+i).value.trim()).filter(Boolean);
+
+  try{
+    const fd = new FormData();
+    fd.append('lesson', document.title);
+    fd.append('exercise', 'Unit 8 - Developing Vocabulary and Listening - Homework');
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    if(ownSentence) fd.append('own_sentence_for_review', ownSentence);
+    if(ex1Examples.length) fd.append('ex1_examples_for_review', ex1Examples.join('\n'));
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://formspree.io/f/xoeaqeyz', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+}
+
+/* ================= LIVE TRANSCRIPT VIEWER (available while doing Ex.3 / Ex.4) ================= */
+const SCRIPT_HTML_LIVE = `
+<p><span class="who">Presenter:</span> Last week, we heard the story of Petra Němcová, and how she turned her experience of the 2004 tsunami in Thailand to good. Today, we have another story to tell you. This time, it involves two brothers, <mark class="ev" id="ev-ex3a">Rob and Paul Forkan</mark>. Here to tell us about them is our Asian correspondent Mike Shepherd. Mike, where were the boys when the tsunami hit?</p>
+<p><span class="who">Mike:</span> Hi. <mark class="ev" id="ev-ex3b">They were in Sri Lanka at the time.</mark> You see, up until about four years before the tsunami hit, the Forkans were a normal family living in London. But the boys' parents had always dreamt of a different life so they sold their house and business and <mark class="ev" id="ev-ex4-1">took Rob, Paul, and their younger brother and sister to live in India.</mark> There were two older sisters, but they stayed behind in London.</p>
+<p><span class="who">Presenter:</span> So why were they in Sri Lanka then?</p>
+<p><span class="who">Mike:</span> Well, after four years living and volunteering in Goa, the family went back to London with the idea of staying there, but they needed to go back to India to organise things. So <mark class="ev" id="ev-ex4-1b">the holiday in Sri Lanka was just a last family holiday</mark> before they went back to live in London for good.</p>
+<p><span class="who">Presenter:</span> And what happened on that day, in 2004?</p>
+<p><span class="who">Mike:</span> Well, it was about 8 o'clock in the morning. <mark class="ev" id="ev-ex4-2">Rob and Paul were still in bed in their bungalow – the others were in another bungalow nearby</mark> – when Rob woke to see some water coming under the door. Then they heard a loud noise, a loud bang, and water poured into their room. They just had time to escape and climb onto the roof before the room was completely flooded.</p>
+<p><span class="who">Presenter:</span> They must have been terrified!</p>
+<p><span class="who">Mike:</span> I think they were, but <mark class="ev" id="ev-ex4-3">they said the fact that they'd travelled a lot before meant they were able to stay calm while everyone else was panicking.</mark> Still, there was incredible destruction everywhere, trees torn up and buildings swept away.</p>
+<p><span class="who">Presenter:</span> So what happened next?</p>
+<p><span class="who">Mike:</span> Well, by chance, they saw a child in a tree, and luckily, it turned out to be their younger brother. So they were able to rescue him, and <mark class="ev" id="ev-ex4-4">then a little later they found their sister.</mark> But they couldn't find their parents anywhere. Their sister was injured, so <mark class="ev" id="ev-ex4-5">they had a difficult decision to make. They could wait to see if their parents turned up, or take her to a hospital.</mark> They both knew that their parents would want them to take their sister to a hospital, so they decided to leave. They didn't have any money or passports, but they managed to get a lift to the nearest city, and from there, they were eventually flown back home, back to London.</p>
+<p><span class="who">Presenter:</span> That shows a lot of courage. How old were the boys at this time?</p>
+<p><span class="who">Mike:</span> They were only teenagers. <mark class="ev" id="ev-ex3c">Rob was 17 and Paul just 15.</mark> When they got back home, they all went to live with one of their older sisters. And this is where the story gets even more incredible. During that time, someone mysteriously paid for an extension on the house, and also paid for books, beds, and so on. <mark class="ev" id="ev-ex4-6">The boys later found out that a businessman in London had heard their story and had been so moved by it that he secretly decided to pay all their expenses.</mark></p>
+<p><span class="who">Presenter:</span> That's amazing! So what are the boys doing now?</p>
+<p><span class="who">Mike:</span> Well, after travelling again for a while, Rob and Paul decided to set up a business together, <mark class="ev" id="ev-ex3d">selling flip flops.</mark> They'd worn flip flops all the time while they were in India, they said.</p>
+<p><span class="who">Presenter:</span> That's a cool idea.</p>
+<p><span class="who">Mike:</span> Yes. They wanted to do something they believed in, and they've been very successful, too. The business is thought to have a turnover of over a million pounds. They've also set up a charity called <mark class="ev" id="ev-ex3e">Orphans for Orphans</mark> which helps other children who've lost their parents. <mark class="ev" id="ev-ex4-7">They give 10% of all the profits from their business to this charity.</mark> <mark class="ev" id="ev-ex4-8">So far they've built a school in Sri Lanka and they're hoping to build schools in India and other places, too.</mark></p>
+<p><span class="who">Presenter:</span> That's really great!</p>
+<p><span class="who">Mike:</span> But the boys still wear their flip flops. They even wore them to Buckingham Palace when they met Prince Harry. He had a good laugh about it apparently. They've written a book about their experience. It's called <i>Tsunami Kids: Our Journey from Survival to Success</i>. I recommend it.</p>
+<p><span class="who">Presenter:</span> Well, that really is an incredible story, Mike. Thanks for telling us about it.</p>
+<p><span class="who">Mike:</span> Thank you.</p>
+`;
+
+function toggleScriptLive(){
+  const overlay = document.getElementById('script-overlay');
+  const box = document.getElementById('scriptBoxLive');
+  if(!box.innerHTML.trim()) box.innerHTML = SCRIPT_HTML_LIVE;
+  overlay.classList.toggle('open');
+}
+function closeScriptLive(){ document.getElementById('script-overlay').classList.remove('open'); }
+function showProofLive(evId, btn){
+  const overlay = document.getElementById('script-overlay');
+  const box = document.getElementById('scriptBoxLive');
+  if(!box.innerHTML.trim()) box.innerHTML = SCRIPT_HTML_LIVE;
+  overlay.classList.add('open');
+  document.querySelectorAll('#scriptBoxLive mark.ev.lit').forEach(m=>m.classList.remove('lit'));
+  const target = document.getElementById(evId);
+  if(target){
+    target.classList.add('lit');
+    target.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  if(btn){ btn.classList.add('seen'); btn.textContent = '🔍 Proof shown ✓'; }
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeScriptLive(); });
+
+/* ================= AUDIO SCRIPT (with evidence highlighted) ================= */
+function hl(text){ return `<span class="script-hl">${text}</span>`; }
+function hlg(text){ return `<span class="script-hl-grey">${text}</span>`; }
+function tag(label){ return `<span class="script-tag">[${label}]</span>`; }
+
+const SCRIPT_TURNS = [
+ ["Presenter", "Last week, we heard the story of Petra Němcová, and how she turned her experience of the 2004 " +
+   "tsunami in Thailand to good. Today, we have another story to tell you. This time, it involves two brothers, " +
+   hl("Rob and Paul Forkan") + tag("Ex.3a") + ". Here to tell us about them is our Asian correspondent Mike Shepherd. " +
+   "Mike, where were the boys when the tsunami hit?"],
+ ["Mike", hl("They were in Sri Lanka at the time.") + tag("Ex.3b") + " You see, up until about four years before " +
+   "the tsunami hit, " + hl("the Forkans were a normal family living in London.") + " But the boys' parents had always " +
+   "dreamt of a different life so they sold their house and business and " + hl("took Rob, Paul, and their younger " +
+   "brother and sister to live in India.") + tag("Ex.4 #1") + " There were two older sisters, but they stayed " +
+   "behind in London."],
+ ["Presenter", "So why were they in Sri Lanka then?"],
+ ["Mike", "Well, after four years living and volunteering in Goa, the family went back to London with the idea of " +
+   "staying there, but they needed to go back to India to organise things. So " + hl("the holiday in Sri Lanka was " +
+   "just a last family holiday") + tag("Ex.4 #1 cont.") + " before they went back to live in London for good."],
+ ["Presenter", "And what happened on that day, in 2004?"],
+ ["Mike", "Well, it was about 8 o'clock in the morning. " + hl("Rob and Paul were still in bed in their bungalow " +
+   "– the others were in another bungalow nearby") + tag("Ex.4 #2") + " – when Rob woke to see some water " +
+   "coming under the door. Then they heard a loud noise, a loud bang, and water poured into their room. They just " +
+   "had time to escape and climb onto the roof before the room was completely flooded."],
+ ["Presenter", "They must have been terrified!"],
+ ["Mike", "I think they were, but " + hl("they said the fact that they'd travelled a lot before meant they were " +
+   "able to stay calm while everyone else was panicking.") + tag("Ex.4 #3") + " Still, there was incredible " +
+   "destruction everywhere, trees torn up and buildings swept away."],
+ ["Presenter", "So what happened next?"],
+ ["Mike", "Well, by chance, they saw a child in a tree, and luckily, it turned out to be their younger brother. So " +
+   "they were able to rescue him, and " + hlg("then a little later they found their sister.") + tag(
+   "Ex.4 #4 — no hostel mentioned → NM") + " But they couldn't find their parents anywhere. Their sister was " +
+   "injured, so " + hl("they had a difficult decision to make. They could wait to see if their parents turned up, " +
+   "or take her to a hospital.") + tag("Ex.4 #5 — not immediate → F") + " They both knew that their parents " +
+   "would want them to take their sister to a hospital, so they decided to leave. They didn't have any money or " +
+   "passports, but they managed to get a lift to the nearest city, and from there, they were eventually flown back " +
+   "home, back to London."],
+ ["Presenter", "That shows a lot of courage. How old were the boys at this time?"],
+ ["Mike", "They were only teenagers. " + hl("Rob was 17 and Paul just 15.") + tag("Ex.3c") + " When they got " +
+   "back home, they all went to live with one of their older sisters. And this is where the story gets even more " +
+   "incredible. During that time, someone mysteriously paid for an extension on the house, and also paid for books, " +
+   "beds, and so on. " + hlg("The boys later found out that a businessman in London had heard their story and had " +
+   "been so moved by it that he secretly decided to pay all their expenses.") + tag(
+   "Ex.4 #6 — found out about him, never said they met → NM")],
+ ["Presenter", "That's amazing! So what are the boys doing now?"],
+ ["Mike", "Well, after travelling again for a while, Rob and Paul decided to set up a business together, " +
+   hl("selling flip flops.") + tag("Ex.3d") + " They'd worn flip flops all the time while they were in India, they said."],
+ ["Presenter", "That's a cool idea."],
+ ["Mike", "Yes. They wanted to do something they believed in, and they've been very successful, too. The business " +
+   "is thought to have a turnover of over a million pounds. They've also set up a charity called " +
+   hl("Orphans for Orphans") + tag("Ex.3e") + " which helps other children who've lost their parents. " +
+   hl("They give 10% of all the profits from their business to this charity.") + tag("Ex.4 #7") + " " +
+   hl("So far they've built a school in Sri Lanka and they're hoping to build schools in India and other " +
+   "places, too.") + tag("Ex.4 #8 — only Sri Lanka is built → F")],
+ ["Presenter", "That's really great!"],
+ ["Mike", "But the boys still wear their flip flops. They even wore them to Buckingham Palace when they met Prince " +
+   "Harry. He had a good laugh about it apparently. They've written a book about their experience. It's called " +
+   "<i>Tsunami Kids: Our Journey from Survival to Success</i>. I recommend it."],
+ ["Presenter", "Well, that really is an incredible story, Mike. Thanks for telling us about it."],
+ ["Mike", "Thank you."]
+];
+
+function buildScript(){
+  const body = document.getElementById('scriptBody');
+  body.innerHTML = SCRIPT_TURNS.map(([speaker,text])=>
+    `<div class="script-turn"><div class="script-speaker">${speaker}:</div><div class="script-line">${text}</div></div>`
+  ).join('');
+}
+function toggleScript(){
+  const body = document.getElementById('scriptBody');
+  const btn = document.getElementById('scriptToggleBtn');
+  body.hidden = !body.hidden;
+  btn.textContent = body.hidden ? '📜 Show audio script' : '📜 Hide audio script';
+}
+
+/* ================= INIT ================= */
+buildDots();
+buildEx1();
+buildEx2();
+buildEx3();
+buildEx4();
+buildEx5();
+buildScript();
+buildEx6();
+renderCard();
+buildVocabGrid();
+showPage(0);
+</script>
+
+<script id="audioDataScript">
+(function(){
+  var AUDIO_SRC = "audio/audio1.mp3";
+  document.querySelectorAll('audio[id^="audioTrack"]').forEach(function(a){ a.src = AUDIO_SRC; });
+})();
+</script>
+</body>
+</html>
