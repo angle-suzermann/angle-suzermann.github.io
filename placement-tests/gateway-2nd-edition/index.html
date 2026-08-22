@@ -10,13 +10,12 @@
 <meta name="ws:unit"      content="Gateway">
 <meta name="ws:title"     content="Gateway 2nd Edition — Placement Test">
 <meta name="ws:emoji"     content="🎯">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-08-22">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="xoeavdkr">
 <meta name="ws:tags"      content="placement test, gateway">
 <meta name="robots"       content="noindex, nofollow">
 <style>
-    
   :root{
     --purple:#5E4877;
     --purple-dark:#453458;
@@ -43,7 +42,7 @@
     position:fixed;
     inset:0;
     z-index:-2;
-    background-image:url('img/bg-photo.jpg');
+    background-image:url('img/img1.jpg');
     background-size:cover;
     background-position:center 40%;
     opacity:0.4;
@@ -205,6 +204,7 @@
   .mcq .opt.chosen{border-color:var(--purple);background:var(--card-tint);font-weight:700;}
   .mcq .opt.correct{border-color:var(--correct);background:rgba(63,166,107,0.14);color:var(--correct);font-weight:800;}
   .mcq .opt.wrong{border-color:var(--wrong);background:rgba(214,80,63,0.14);color:var(--wrong);}
+  .mcq.answered .opt{pointer-events:none;}
 
   /* ---- Reading ---- */
   .reading-passage{
@@ -1178,7 +1178,8 @@ function prevPage(){ showPage(current - 1); }
 document.querySelectorAll('.mcq .opt').forEach(function(btn){
   btn.onclick = function(){
     var group = btn.closest('.mcq');
-    group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('chosen','correct','wrong'); });
+    if(group.classList.contains('answered')) return; // already answered — lock in the first choice
+    group.classList.add('answered');
     btn.classList.add('chosen');
     var correct = group.dataset.correct;
     group.querySelectorAll('.opt').forEach(function(o){
