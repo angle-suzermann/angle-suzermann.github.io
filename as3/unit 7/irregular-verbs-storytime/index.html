@@ -769,16 +769,24 @@ startMatchTimer();
 /* ======================= SONG CLOZE ======================= */
 function checkCloze(){
   let allOk = true, correct = 0, total = 0;
+  const mistakes = [];
   document.querySelectorAll('.cloze-gap').forEach(inp=>{
     total++;
     const ok = inp.value.trim().toLowerCase() === inp.dataset.answer.toLowerCase();
     inp.classList.toggle('correct', ok);
     inp.classList.toggle('wrong', !ok);
-    if(ok) correct++; else allOk = false;
+    if(ok){
+      correct++;
+    } else {
+      allOk = false;
+      const line = inp.closest('.cloze-line');
+      const label = line ? line.textContent.replace(/\s+/g,' ').trim() : 'Song cloze';
+      mistakes.push('Song cloze: "' + label + '" → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
   document.getElementById('clozeResult').textContent = allOk ? '🎉 All correct!' : 'Almost — check the red boxes.';
   document.getElementById('clozeResult').style.color = allOk ? 'var(--correct)' : 'var(--wrong)';
-  return {correct, total};
+  return {correct, total, mistakes};
 }
 
 /* ======================= LUKE'S DAY ======================= */
@@ -789,32 +797,48 @@ function setPredict(btn, val){
 }
 function checkLuke(){
   let allOk = true, correct = 0, total = 0;
+  const mistakes = [];
   document.querySelectorAll('.luke-gap').forEach(inp=>{
     total++;
     const norm = s => s.trim().toLowerCase().replace(/\s+/g,' ').replace(/[’']/g,"'");
     const ok = norm(inp.value) === norm(inp.dataset.answer);
     inp.classList.toggle('correct', ok);
     inp.classList.toggle('wrong', !ok);
-    if(ok) correct++; else allOk = false;
+    if(ok){
+      correct++;
+    } else {
+      allOk = false;
+      const line = inp.closest('.gap-sentence');
+      const label = line ? line.textContent.replace(/\s+/g,' ').trim() : "Luke's diary";
+      mistakes.push("Luke's diary: \"" + label + '" → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
   document.getElementById('lukeResult').textContent = allOk ? '🎉 Luke\'s diary is complete!' : 'Check the red boxes and try again.';
   document.getElementById('lukeResult').style.color = allOk ? 'var(--correct)' : 'var(--wrong)';
-  return {correct, total};
+  return {correct, total, mistakes};
 }
 
 /* ======================= GRAMMAR 2 ======================= */
 function checkPairs(){
   let allOk = true, correct = 0, total = 0;
+  const mistakes = [];
   document.querySelectorAll('.pair-gap').forEach(inp=>{
     total++;
     const ok = inp.value.trim().toLowerCase() === inp.dataset.answer.toLowerCase();
     inp.classList.toggle('correct', ok);
     inp.classList.toggle('wrong', !ok);
-    if(ok) correct++; else allOk = false;
+    if(ok){
+      correct++;
+    } else {
+      allOk = false;
+      const line = inp.closest('.gap-sentence');
+      const label = line ? line.textContent.replace(/\s+/g,' ').trim() : 'Verb lab';
+      mistakes.push('Verb lab: "' + label + '" → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
   document.getElementById('pairResult').textContent = allOk ? '🎉 All correct!' : 'Almost — check the red boxes.';
   document.getElementById('pairResult').style.color = allOk ? 'var(--correct)' : 'var(--wrong)';
-  return {correct, total};
+  return {correct, total, mistakes};
 }
 document.getElementById('freeWriteBank').innerHTML = VOCAB.slice(0,10).map(v=>`<span class="wb-chip">${v.p}</span>`).join('');
 function checkFreeWrite(){
@@ -870,12 +894,16 @@ function chooseOpt(el, idx){
 }
 function finishQuiz(){
   let correct = 0;
+  const mistakes = [];
   document.querySelectorAll('.quiz-item').forEach(item=>{
     const type = item.dataset.type;
     const ans = item.dataset.correct.toLowerCase();
+    const qText = item.querySelector('.quiz-q') ? item.querySelector('.quiz-q').textContent.trim() : 'Final quiz';
     let isRight = false;
+    let givenAnswer = '';
     if(type === 'mc'){
       const chosen = item.querySelector('.opt.chosen');
+      givenAnswer = chosen ? chosen.dataset.val : '';
       isRight = chosen && chosen.dataset.val.toLowerCase() === ans;
       item.querySelectorAll('.opt').forEach(o=>{
         if(o.dataset.val.toLowerCase() === ans) o.classList.add('correct-reveal');
@@ -883,17 +911,22 @@ function finishQuiz(){
       });
     } else {
       const inp = item.querySelector('.qtext');
-      isRight = inp.value.trim().toLowerCase() === ans;
+      givenAnswer = inp.value.trim();
+      isRight = givenAnswer.toLowerCase() === ans;
       inp.classList.toggle('correct', isRight);
       inp.classList.toggle('wrong', !isRight);
     }
-    if(isRight) correct++;
+    if(isRight){
+      correct++;
+    } else {
+      mistakes.push('Final quiz: "' + qText + '" → answered "' + (givenAnswer || '(not answered)') + '", correct "' + item.dataset.correct + '"');
+    }
   });
   const pct = Math.round(correct/QUIZ.length*100);
   const pill = document.getElementById('quizPill');
   pill.style.display = 'block';
   pill.textContent = `⭐ Quiz: ${correct} / ${QUIZ.length} (${pct}%) — ${pct>=80?'You are a real storyteller!':'Nice try — flip through the cards again and have another go!'}`;
-  return {correct, total: QUIZ.length};
+  return {correct, total: QUIZ.length, mistakes};
 }
 buildQuiz();
 
@@ -911,10 +944,19 @@ async function submitAll(){
   const pairRes  = checkPairs();
   const quizRes  = finishQuiz();
   const matchRes = { correct: matchedCount, total: VOCAB.length };
+  const matchMistakes = [];
+  document.querySelectorAll('.match-btn[data-side="left"]').forEach(btn=>{
+    if (!btn.classList.contains('matched-correct')){
+      const item = VOCAB[parseInt(btn.dataset.id, 10)];
+      matchMistakes.push('Match game: "' + (item ? item.v : btn.textContent) + '" → not matched, correct "' + (item ? item.p : '?') + '"');
+    }
+  });
 
   const total   = clozeRes.total + lukeRes.total + pairRes.total + quizRes.total + matchRes.total;
   const correct = clozeRes.correct + lukeRes.correct + pairRes.correct + quizRes.correct + matchRes.correct;
   const pct = total ? Math.round(correct/total*100) : 0;
+
+  const mistakes = [].concat(clozeRes.mistakes, lukeRes.mistakes, pairRes.mistakes, quizRes.mistakes, matchMistakes);
 
   const summaryEl = document.getElementById('scoreSummary');
   summaryEl.style.display = 'block';
@@ -930,6 +972,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     statusEl.textContent = 'Sent to your teacher ✓';

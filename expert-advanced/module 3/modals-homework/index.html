@@ -446,6 +446,45 @@ reportBox.addEventListener('input', ()=>{
   hint.textContent = words+' word'+(words===1?'':'s')+' · '+hits+' / '+MODAL_TRIGGERS.length+' modal forms spotted'+(hits>=6 ? ' — solid range!' : ' — try to widen your range a little.');
 });
 
+/* ---------- Mistake collection (for teacher breakdown) ---------- */
+function collectMistakes(){
+  const mistakes = [];
+
+  const mcqDivs = mcqContainer.querySelectorAll('.mcq-item');
+  mcqDivs.forEach((div, i)=>{
+    const item = MCQ_ITEMS[i];
+    const group = div.querySelector('.mcq-opts');
+    const wrongBtn = group.querySelector('button.wrong');
+    const answered = !!group.dataset.done;
+    const isOk = answered && !wrongBtn;
+    if(!isOk){
+      mistakes.push('Quickfire ' + (i+1) + '. ' + item.q + ' → answered "' +
+        (wrongBtn ? wrongBtn.textContent.trim() : '(not answered)') +
+        '", correct "' + item.correct + '"');
+    }
+  });
+
+  T2_ITEMS.forEach(it=>{
+    const input = document.getElementById(it.id);
+    const ok = fuzzyMatch(input.value, it.accept);
+    if(!ok){
+      mistakes.push('Transform: ' + it.prompt + ' → answered "' + (input.value.trim() || '(blank)') +
+        '", correct "' + it.stem + ' ' + it.accept[0] + ' ' + it.tail + '"');
+    }
+  });
+
+  T3_ITEMS.forEach(it=>{
+    const input = document.getElementById(it.id);
+    const ok = fuzzyMatch(input.value, it.accept);
+    if(!ok){
+      mistakes.push('Error Hunt: "' + it.wrong + '" → answered "' + (input.value.trim() || '(blank)') +
+        '", correct "' + it.accept[0] + '"');
+    }
+  });
+
+  return mistakes;
+}
+
 /* ---------- Submit to teacher ---------- */
 async function submitCase(){
   const name = document.getElementById('studentName').value.trim();
@@ -471,6 +510,8 @@ async function submitCase(){
   fd.append('timestamp', new Date().toISOString());
   fd.append('scores_summary', JSON.stringify(summary));
   fd.append('case_report_text', reportBox.value.trim());
+  const mistakesArr = collectMistakes();
+  fd.append('mistakes', mistakesArr.length ? mistakesArr.join('\n') : 'No mistakes — all items correct.');
 
   try{
     const res = await fetch('https://api.web3forms.com/submit', {

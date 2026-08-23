@@ -571,6 +571,57 @@
       true_false: tfScore + " / " + tfTotal,
       postcard_answer: document.getElementById("postcardInput").value.trim() || "(not answered)"
     };
+
+    // ---- collect detailed mistakes (postcard is free-response, not itemized) ----
+    const mistakes = [];
+
+    mcqData.forEach(function(item, i){
+      const el = document.querySelector('.mcq-item[data-idx="' + i + '"]');
+      const wrongBtn = el ? el.querySelector('.opt.wrong') : null;
+      if(!el || !el.dataset.done){
+        mistakes.push('Quick Recall: "' + item.q + '" → answered "(not answered)", correct "' + item.correct + '"');
+      } else if(wrongBtn){
+        mistakes.push('Quick Recall: "' + item.q + '" → answered "' + wrongBtn.textContent.trim() +
+          '", correct "' + item.correct + '"');
+      }
+    });
+
+    clozeAnswers.forEach(function(accepted, i){
+      const input = document.getElementById('c' + (i + 1));
+      const ok = fuzzyMatch(input.value, accepted);
+      if(!ok){
+        mistakes.push('New Story gap #' + (i + 1) + ' → answered "' + (input.value.trim() || '(blank)') +
+          '", correct "' + accepted[0] + '"');
+      }
+    });
+
+    Object.keys(VOCAB).forEach(function(key){
+      const correctBucket = VOCAB[key].bucket;
+      const placed = placement[key];
+      if(placed !== correctBucket){
+        mistakes.push('Sort It: "' + key + '" → answered "' + (placed || '(not placed)') +
+          '", correct "' + correctBucket + '"');
+      }
+    });
+
+    const TF_LABEL = { T: 'True', F: 'False' };
+    document.querySelectorAll('.tf-group').forEach(function(g){
+      const correct = g.dataset.correct;
+      const statementText = g.querySelector('p').textContent.trim();
+      const correctLabel = TF_LABEL[correct] || correct;
+      if(!g.dataset.done){
+        mistakes.push('True/False: "' + statementText + '" → answered "(not answered)", correct "' + correctLabel + '"');
+      } else {
+        const wrongBtn = g.querySelector('.tf-opt.wrong');
+        if(wrongBtn){
+          const chosenLabel = TF_LABEL[wrongBtn.dataset.val] || wrongBtn.dataset.val;
+          mistakes.push('True/False: "' + statementText + '" → answered "' + chosenLabel + '", correct "' + correctLabel + '"');
+        }
+      }
+    });
+
+    const mistakesText = mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.';
+
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
@@ -581,6 +632,7 @@
     fd.append("new_story_cloze", summary.new_story_cloze);
     fd.append("sort_it", summary.sort_it);
     fd.append("true_false", summary.true_false);
+    fd.append("mistakes", mistakesText);
     fd.append("postcard_answer", summary.postcard_answer);
     fd.append("summary_json", JSON.stringify(summary));
 

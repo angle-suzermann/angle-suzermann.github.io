@@ -456,17 +456,36 @@ async function submitAll(){
     return;
   }
   let correct=0, total=0;
+  const mistakes = [];
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
     const chosen = g.querySelector('.opt.chosen');
-    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    const correctVal = g.dataset.correct;
+    const isOk = chosen && chosen.dataset.val === correctVal;
+    if(isOk){
+      correct++;
+    } else {
+      const correctBtn = g.querySelector('.opt[data-val="' + correctVal + '"]');
+      const correctText = correctBtn ? correctBtn.textContent.trim() : correctVal;
+      const qEl = g.querySelector('p');
+      const qText = qEl ? qEl.textContent.trim() : '';
+      mistakes.push(qText + ' → answered "' + (chosen ? chosen.textContent.trim() : '(not answered)') + '", correct "' + correctText + '"');
+    }
   });
 
   const chips = document.querySelectorAll('.chip');
   if(chips.length){
     total += chips.length;
-    correct += document.querySelectorAll('.chip.placed-correct').length;
+    chips.forEach(chip=>{
+      if(chip.classList.contains('placed-correct')){
+        correct++;
+      } else {
+        const zone = chip.closest('.zone');
+        const answeredCat = zone ? zone.dataset.cat : '(not answered)';
+        mistakes.push('Word family: "' + chip.textContent.trim() + '" → answered "' + answeredCat + '", correct "' + chip.dataset.cat + '"');
+      }
+    });
   }
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -480,6 +499,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';

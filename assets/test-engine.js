@@ -111,9 +111,27 @@
 
   /* ---------- проверка ---------- */
 
+  /* человекочитаемая подпись элемента для разбивки ошибок:
+     если рядом есть .item с .item-number — берём "секция, №N (data-q)",
+     иначе просто "секция — data-q/data-group id". Ничего в разметке
+     это не требует, деградирует мягко на любой странице. */
+  function itemLabel(el, fallbackId){
+    var section = el.closest('section.card[id]');
+    var sectionName = section ? (section.getAttribute('data-name') || section.id) : '';
+    var item = el.closest('.item');
+    var num  = item ? item.querySelector('.item-number') : null;
+    if(num){
+      var n = num.textContent.replace(/[^\d]/g, '');
+      return (sectionName || 'Без секции') + (n ? ', №' + n : '') +
+        (fallbackId ? ' (' + fallbackId + ')' : '');
+    }
+    return (sectionName ? sectionName + ' — ' : '') + fallbackId;
+  }
+
   function check(){
     var correctCount = 0;
     var score = {};
+    var wrongList = [];
     sections.forEach(function(s){ score[s.id] = { correct: 0, total: 0 }; });
 
     function tally(sec, isCorrect){
@@ -124,6 +142,9 @@
 
     inputs().forEach(function(el){
       var ok;
+      var answerText = el.hasAttribute('data-ans-list')
+        ? el.getAttribute('data-ans-list').split('|')[0]
+        : el.getAttribute('data-ans');
       if(el.hasAttribute('data-ans-list')){
         ok = el.getAttribute('data-ans-list').split('|').map(normalize)
                .indexOf(normalize(el.value)) !== -1;
@@ -133,6 +154,10 @@
       el.classList.toggle('correct', ok);
       el.classList.toggle('incorrect', !ok);
       tally(sectionOf(el), ok);
+      if(!ok){
+        wrongList.push(itemLabel(el, el.getAttribute('data-q')) +
+          ' → answered "' + (el.value.trim() || '(blank)') + '", correct "' + answerText + '"');
+      }
     });
 
     selects().forEach(function(el){
@@ -140,6 +165,10 @@
       el.classList.toggle('correct', ok);
       el.classList.toggle('incorrect', !ok);
       tally(sectionOf(el), ok);
+      if(!ok){
+        wrongList.push(itemLabel(el, el.getAttribute('data-q')) +
+          ' → answered "' + (el.value || '(blank)') + '", correct "' + el.getAttribute('data-ans') + '"');
+      }
     });
 
     groups().forEach(function(g){
@@ -158,6 +187,10 @@
         if(ok) selected.classList.remove('reveal-correct');
       }
       tally(sectionOf(g), ok);
+      if(!ok){
+        wrongList.push(itemLabel(g, g.getAttribute('data-group')) +
+          ' → answered "' + (selected ? selected.dataset.val : '(blank)') + '", correct "' + key + '"');
+      }
     });
 
     var percent = TOTAL ? Math.round((correctCount / TOTAL) * 100) : 0;
@@ -184,7 +217,8 @@
           correct: score[s.id].correct,
           total:   score[s.id].total
         };
-      })
+      }),
+      mistakes: wrongList
     };
 
     resetSendUI();
@@ -240,6 +274,9 @@
       breakdown:      lastResults.sections.map(function(s){
                         return s.name + ': ' + s.correct + '/' + s.total;
                       }).join('\n'),
+      mistakes:       lastResults.mistakes.length
+                        ? lastResults.mistakes.join('\n')
+                        : 'No mistakes — all items correct.',
       submitted_at:   new Date().toLocaleString('ru-RU')
     };
 

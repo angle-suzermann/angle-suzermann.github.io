@@ -653,6 +653,54 @@ function computeResults(){
   document.getElementById('praiseText').textContent = name ? `${name} — ${praise}` : praise;
 }
 
+/* ---------- Mistake collection (for teacher report) ---------- */
+function collectListenMistakes(){
+  const out = [];
+  document.querySelectorAll('.listen-item').forEach(item=>{
+    if (item.dataset.result !== 'correct'){
+      const answer = item.dataset.answer;
+      const wrongBtn = item.querySelector('.opt-word.wrong');
+      out.push('Listen & Choose: word "' + answer + '" → answered "' + (wrongBtn ? wrongBtn.dataset.val : '(not answered)') + '", correct "' + answer + '"');
+    }
+  });
+  return out;
+}
+function collectFillMistakes(){
+  const out = [];
+  document.querySelectorAll('.fill-input').forEach(inp=>{
+    if (inp.dataset.result !== 'correct'){
+      const item = inp.closest('.fill-item');
+      const pattern = item ? item.querySelector('.word-pattern').textContent.trim() : inp.dataset.answer;
+      out.push('Fill in the Magic E: "' + pattern + '" → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
+  });
+  return out;
+}
+function collectReadMistakes(){
+  const out = [];
+  document.querySelectorAll('.read-item').forEach(item=>{
+    if (item.dataset.result !== 'correct'){
+      const q = item.querySelector('p') ? item.querySelector('p').textContent.trim() : 'Read & Answer question';
+      const correctVal = item.dataset.correct;
+      const correctBtn = item.querySelector('.opt-letter[data-val="' + correctVal + '"]');
+      const wrongBtn = item.querySelector('.opt-letter.wrong');
+      out.push('Read & Answer: "' + q + '" → answered "' + (wrongBtn ? wrongBtn.textContent : '(not answered)') + '", correct "' + (correctBtn ? correctBtn.textContent : '?') + '"');
+    }
+  });
+  return out;
+}
+function collectRhymeMistakes(){
+  const out = [];
+  document.querySelectorAll('#matchLeft .rhyme-word').forEach(btn=>{
+    if (!btn.classList.contains('matched-correct')){
+      const id = parseInt(btn.dataset.id, 10);
+      const pair = RHYME_PAIRS[id];
+      out.push('Match the Rhymes: "' + btn.textContent + '" → not matched, correct rhyme "' + (pair ? pair[1] : '?') + '"');
+    }
+  });
+  return out;
+}
+
 /* ---------- Submit results to teacher ---------- */
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
@@ -673,6 +721,13 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${document.getElementById('scoreFrac').textContent} (${document.getElementById('scorePct').textContent})`);
+    const mistakes = [].concat(
+      collectListenMistakes(),
+      collectFillMistakes(),
+      collectRhymeMistakes(),
+      collectReadMistakes()
+    );
+    fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',

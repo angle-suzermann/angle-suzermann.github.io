@@ -720,6 +720,44 @@ function computeSelectScore(containerId){
   return {correct: correct, total: sel.length};
 }
 
+function collectSelectMistakes(containerId, data){
+  const out = [];
+  data.forEach(function(item, idx){
+    const sel = document.getElementById(containerId + '-sel-' + idx);
+    if(!sel) return;
+    if(sel.value !== item.answer){
+      const label = item.text.replace('___', '____');
+      out.push('Ex.' + (containerId === 'ex2' ? '2' : '3') + ' — "' + label + '" → answered "' + (sel.value || '(not answered)') + '", correct "' + item.answer + '"');
+    }
+  });
+  return out;
+}
+
+function collectPrepMistakes(){
+  const out = [];
+  ex4data.forEach(function(item, idx){
+    const group = document.getElementById('prep-' + idx);
+    if(!group) return;
+    const chosen = group.querySelector('.prep-btn.correct') || group.querySelector('.prep-btn.wrong');
+    if(!chosen || chosen.classList.contains('wrong')){
+      out.push('Ex.4 — "' + item.text + '" → answered "' + (chosen ? chosen.dataset.value : '(not answered)') + '", correct "' + item.correct.join(' / ') + '"');
+    }
+  });
+  return out;
+}
+
+function collectMatchMistakes(){
+  const out = [];
+  document.querySelectorAll('#words-wrap .chip').forEach(function(chip){
+    if(!chip.classList.contains('correct')){
+      const wordId = parseInt(chip.dataset.wordId, 10);
+      const def = defs.find(function(d){ return d.wordId === wordId; });
+      out.push('Ex.1 (matching) — "' + chip.textContent + '" → not matched, correct definition: "' + (def ? def.text : '?') + '"');
+    }
+  });
+  return out;
+}
+
 function sendResults(){
   checkSelects('ex2');
   checkSelects('ex3');
@@ -735,6 +773,13 @@ function sendResults(){
   const totalCorrect = matchedCount + ex2s.correct + ex3s.correct + prepCorrect;
   const totalQuestions = words.length + ex2s.total + ex3s.total + ex4data.length;
 
+  const mistakes = [].concat(
+    collectMatchMistakes(),
+    collectSelectMistakes('ex2', ex2data),
+    collectSelectMistakes('ex3', ex3data),
+    collectPrepMistakes()
+  );
+
   const statusEl = document.getElementById('sendStatus');
   statusEl.textContent = 'Отправляю…';
 
@@ -749,6 +794,7 @@ function sendResults(){
   fd.append('ex3_gaps', ex3s.correct + '/' + ex3s.total);
   fd.append('ex4_prepositions', prepCorrect + '/' + ex4data.length);
   fd.append('ex5_personal_answers', personal);
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
 
   fetch('https://api.web3forms.com/submit', { method: 'POST', headers: {'Accept': 'application/json'}, body: fd })
     .then(function(res){

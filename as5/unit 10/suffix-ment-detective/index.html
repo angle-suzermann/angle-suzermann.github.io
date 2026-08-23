@@ -507,6 +507,8 @@ const state = {
   act4: { checked:false, score:0 },
   sort: { placement:{}, selected:null, checked:false, score:0 }
 };
+// mistakeLog: human-readable wrong-answer lines per activity, for the teacher's report.
+const mistakeLog = { act1:[], act2:[], act3:[], act4:[], sort:[] };
 
 /* ============ PAGES ============ */
 let current = 0;
@@ -601,9 +603,11 @@ function a1Select(i,isYes){
 }
 function checkAct1(){
   let score = 0;
+  let localMistakes = [];
   ACT1_ITEMS.forEach((it,i)=>{
     const pick = state.act1.picks[i];
-    const val = normalise(document.getElementById(`a1-input-${i}`).value);
+    const rawVal = document.getElementById(`a1-input-${i}`).value;
+    const val = normalise(rawVal);
     let ok;
     if (it.takesMent){ ok = (pick===true) && (val === it.noun); }
     else { ok = (pick===false); }
@@ -612,9 +616,15 @@ function checkAct1(){
     document.getElementById(`a1-row-${i}`).classList.toggle('incorrect', !ok);
     document.getElementById(`a1-input-${i}`).classList.toggle('correct', ok && it.takesMent);
     document.getElementById(`a1-input-${i}`).classList.toggle('incorrect', !ok && it.takesMent && pick===true);
+    if (!ok){
+      const userDesc = pick===true ? ('✓ ' + (rawVal.trim() || '(blank)')) : pick===false ? '✗' : '(not answered)';
+      const correctDesc = it.takesMent ? ('✓ ' + it.noun) : '✗ (does not take -ment)';
+      localMistakes.push('Evidence 1 — "' + it.verb + '" → answered "' + userDesc + '", correct "' + correctDesc + '"');
+    }
   });
   state.act1.checked = true;
   state.act1.score = score;
+  mistakeLog.act1 = localMistakes;
   showAct1Result();
 }
 function showAct1Result(){
@@ -662,13 +672,20 @@ function a2Toggle(w){
 }
 function checkAct2(){
   let score = 0;
+  let localMistakes = [];
   ACT2_WORDS.forEach(w=>{
     const should = ACT2_CORRECT.has(w);
     const picked = state.act2.picked.has(w);
     if (should === picked) score++;
+    else {
+      const userDesc = picked ? 'selected (takes -ment)' : 'not selected';
+      const correctDesc = should ? 'takes -ment' : 'does not take -ment';
+      localMistakes.push('Evidence 2 — "' + w + '" → answered "' + userDesc + '", correct "' + correctDesc + '"');
+    }
   });
   state.act2.checked = true;
   state.act2.score = score;
+  mistakeLog.act2 = localMistakes;
   initAct2();
   showAct2Result();
 }
@@ -731,10 +748,22 @@ function resetAct3(){
 }
 function checkAct3(){
   let score = 0;
+  let localMistakes = [];
   const correctSet = new Set(ACT3_BOUNDARIES);
   correctSet.forEach(pos=>{ if (state.act3.cuts.has(pos)) score++; });
+  for (let i=1;i<ACT3_STRING.length;i++){
+    const has = state.act3.cuts.has(i);
+    const should = correctSet.has(i);
+    if (has !== should){
+      const context = ACT3_STRING.slice(Math.max(0,i-4), i) + '‸' + ACT3_STRING.slice(i, i+4);
+      const userDesc = has ? 'cut placed here' : 'no cut placed here';
+      const correctDesc = should ? 'a word boundary belongs here' : 'no word boundary here';
+      localMistakes.push('Evidence 3 — near "...' + context + '..." → answered "' + userDesc + '", correct "' + correctDesc + '"');
+    }
+  }
   state.act3.checked = true;
   state.act3.score = score;
+  mistakeLog.act3 = localMistakes;
   paintAct3Result();
 }
 function paintAct3Result(){
@@ -788,16 +817,23 @@ function initAct4(){
 }
 function checkAct4(){
   let total = 0, score = 0;
+  let localMistakes = [];
   document.querySelectorAll('.blank-input[data-answer]').forEach(inp=>{
     total++;
     const ok = normalise(inp.value) === normalise(inp.dataset.answer);
     if (ok) score++;
     inp.classList.toggle('correct', ok);
     inp.classList.toggle('incorrect', !ok);
+    if (!ok){
+      const block = inp.closest('.sentence-block');
+      const label = block ? block.textContent.replace(/\s+/g,' ').trim() : ('blank ' + inp.id);
+      localMistakes.push('Evidence 4 — "' + label + '" → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
   state.act4.checked = true;
   state.act4.score = score;
   state.act4.total = total;
+  mistakeLog.act4 = localMistakes;
   showAct4Result();
 }
 function showAct4Result(){
@@ -900,13 +936,19 @@ function resetSort(){
 }
 function checkSort(){
   let score = 0;
+  let localMistakes = [];
   SORT_VERBS.forEach(item=>{
     const zone = state.sort.placement[item.v];
     const correctZone = item.yes ? 'yes' : 'no';
     if (zone === correctZone) score++;
+    else {
+      const zoneLabel = z => z === 'yes' ? 'Takes -ment' : z === 'no' ? 'No -ment' : '(not sorted)';
+      localMistakes.push('Sort the clues — "' + item.v + '" → answered "' + zoneLabel(zone) + '", correct "' + zoneLabel(correctZone) + '"');
+    }
   });
   state.sort.checked = true;
   state.sort.score = score;
+  mistakeLog.sort = localMistakes;
   renderSort();
   const el = document.getElementById('sort-result');
   el.textContent = `Score: ${score} / ${SORT_VERBS.length}`;
@@ -1004,6 +1046,10 @@ async function sendCompletion(){
     fd.append('report_1', state.rep0 || '');
     fd.append('report_2', state.rep1 || '');
     fd.append('report_3', state.rep2 || '');
+    const allMistakes = [].concat(
+      mistakeLog.act1, mistakeLog.act2, mistakeLog.act3, mistakeLog.act4, mistakeLog.sort
+    );
+    fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     status.textContent = res.ok ? 'Sent to your teacher!' : "Couldn't send — check your connection.";
   }catch(e){

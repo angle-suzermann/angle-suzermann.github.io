@@ -762,10 +762,26 @@
   document.querySelectorAll('input.freetext').forEach(i=> i.addEventListener('input', updateProgress));
 
   function scoreAll(){
+    const mistakes = [];
+
     let s1correct = 0, s1total = 0;
     document.querySelectorAll('#section1 .mcq').forEach(g=>{
       s1total++;
-      if (g.dataset.done && g.querySelector('.opt.correct') && !g.querySelector('.opt.wrong')) s1correct++;
+      const item = g.closest('.item');
+      const qnum = item.querySelector('.qnum') ? item.querySelector('.qnum').textContent.trim() : '';
+      const promptEl = item.querySelector('.prompt');
+      const promptText = promptEl ? promptEl.textContent.trim() : '';
+      const correctBtn = g.querySelector('.opt[data-val="' + g.dataset.correct + '"]');
+      const correctText = correctBtn ? correctBtn.textContent.trim() : g.dataset.correct;
+      const wrongBtn = g.querySelector('.opt.wrong');
+      const isOk = g.dataset.done && g.querySelector('.opt.correct') && !wrongBtn;
+      if (isOk){
+        s1correct++;
+      } else {
+        mistakes.push(qnum + ' ' + promptText + ' → answered "' +
+          (wrongBtn ? wrongBtn.textContent.trim() : '(not answered)') +
+          '", correct "' + correctText + '"');
+      }
     });
 
     let s2correct = 0, s2total = EX2.length;
@@ -784,7 +800,15 @@
       fb.style.display = 'block';
       fb.className = 'fb-icon ' + (ok ? 'ok' : 'no');
       fb.textContent = ok ? '✓ Correct' : '✗ Check the word order and the answer';
-      if (ok) s2correct++;
+      if (ok){
+        s2correct++;
+      } else {
+        const qnum = item.querySelector('.qnum') ? item.querySelector('.qnum').textContent.trim() : '';
+        mistakes.push(qnum + ' (question + answer) → answered "' +
+          (qEl.value.trim() || '(blank)') + ' / ' + (aEl.value.trim() || '(blank)') +
+          '", expected question with: ' + EX2[idx].required.join(' ') +
+          '; expected answer: "' + EX2[idx].answers[0] + '"');
+      }
     });
 
     let s3correct = 0, s3total = EX3.length;
@@ -798,14 +822,20 @@
       fb.style.display = 'block';
       fb.className = 'fb-icon ' + (ok ? 'ok' : 'no');
       fb.textContent = ok ? '✓ Correct' : '✗ Try rephrasing as a question with \"What happens if...?\"';
-      if (ok) s3correct++;
+      if (ok){
+        s3correct++;
+      } else {
+        const qnum = item.querySelector('.qnum') ? item.querySelector('.qnum').textContent.trim() : '';
+        mistakes.push(qnum + ' → answered "' + (qEl.value.trim() || '(blank)') +
+          '", expected question with: ' + EX3[idx].required.join(' '));
+      }
     });
 
     const total = s1total + s2total + s3total;
     const correct = s1correct + s2correct + s3correct;
     const pct = Math.round((correct/total)*100);
 
-    return { pct, s1correct, s1total, s2correct, s2total, s3correct, s3total, correct, total };
+    return { pct, s1correct, s1total, s2correct, s2total, s3correct, s3total, correct, total, mistakes };
   }
 
   function messageFor(pct){
@@ -855,6 +885,7 @@
       group: group,
       score_percent: lastResult.pct,
       breakdown: `Ex.1: ${lastResult.s1correct}/${lastResult.s1total}; Ex.2: ${lastResult.s2correct}/${lastResult.s2total}; Ex.3: ${lastResult.s3correct}/${lastResult.s3total}`,
+      mistakes: lastResult.mistakes.length ? lastResult.mistakes.join('\n') : 'No mistakes — all items correct.',
       timestamp: new Date().toISOString()
     };
 

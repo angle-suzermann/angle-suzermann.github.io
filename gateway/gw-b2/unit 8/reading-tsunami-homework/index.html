@@ -542,31 +542,63 @@ async function submitAll(){
     return;
   }
   let correct=0, total=0;
+  const mistakes = [];
 
   document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
     total++;
     const ok = normalize(inp.value) === normalize(inp.dataset.answer);
     inp.classList.toggle('is-correct', ok);
     inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok){
+      correct++;
+    } else {
+      const label = inp.closest('p') ? inp.closest('p').textContent.replace(/\s+/g,' ').trim() : '';
+      mistakes.push(label + ' → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
     const chosen = g.querySelector('.opt.chosen');
-    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    const correctVal = g.dataset.correct;
+    const isOk = chosen && chosen.dataset.val === correctVal;
+    if(isOk){
+      correct++;
+    } else {
+      const correctBtn = g.querySelector('.opt[data-val="' + correctVal + '"]');
+      const correctText = correctBtn ? correctBtn.textContent.trim() : correctVal;
+      const qEl = g.querySelector('p');
+      const qText = qEl ? qEl.textContent.trim() : '';
+      mistakes.push(qText + ' → answered "' + (chosen ? chosen.textContent.trim() : '(not answered)') + '", correct "' + correctText + '"');
+    }
   });
 
   document.querySelectorAll('[data-total-pairs]').forEach(c=>{
     const t = parseInt(c.dataset.totalPairs || 0);
     const cc = parseInt(c.dataset.correctCount || 0);
     total += t; correct += cc;
+    if(cc < t){
+      c.querySelectorAll('.match:not(.matched-correct)').forEach(el=>{
+        const defItem = DEF_TASK.find(function(d){ return d.id === el.dataset.id; });
+        const label = defItem ? defItem.word : el.textContent.trim();
+        const correctDef = defItem ? defItem.def : '';
+        mistakes.push('Match the words to the definitions: "' + label + '" → answered "(not matched)", correct "' + correctDef + '"');
+      });
+    }
   });
 
   document.querySelectorAll('.fo-item[data-answer]').forEach(row=>{
     total++;
     const chosen = row.querySelector('.fo-btn.chosen');
-    if(chosen && chosen.dataset.val === row.dataset.answer) correct++;
+    const correctVal = row.dataset.answer;
+    const isOk = chosen && chosen.dataset.val === correctVal;
+    if(isOk){
+      correct++;
+    } else {
+      const sEl = row.querySelector('span');
+      const sText = sEl ? sEl.textContent.trim() : '';
+      mistakes.push(sText + ' → answered "' + (chosen ? chosen.textContent.trim() : '(not answered)') + '", correct "' + (correctVal === 'F' ? 'Fact' : 'Opinion') + '"');
+    }
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -580,6 +612,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';

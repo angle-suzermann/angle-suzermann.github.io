@@ -364,6 +364,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   let total = 0;
   let correct = 0;
   let reviewLines = [];
+  let mistakes = [];
 
   document.querySelectorAll('.item').forEach(function(item){
     total++;
@@ -395,6 +396,10 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
     item.appendChild(icon);
 
     reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+
+    if (!isCorrect){
+      mistakes.push(item.querySelector('p').textContent.trim() + ' → answered "' + (userAnswer || '(not answered)') + '", correct "' + answer + '"');
+    }
   });
 
   const pct = Math.round((correct/total)*100);
@@ -416,6 +421,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   fd.append('exercise', 'Polina — Relative Clauses, Ability Modals & Mechanics');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('details', reviewLines.join('\n'));
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
 
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',

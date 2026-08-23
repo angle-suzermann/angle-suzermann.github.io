@@ -759,6 +759,46 @@
       gap_fill: document.getElementById("gapScorePill").textContent,
       speak_up_answer: document.getElementById("prodInput").value.trim() || "(not answered)"
     };
+
+    // ---- collect detailed mistakes (auto-graded sections only; speak-up is free-response) ----
+    const mistakes = [];
+
+    document.querySelectorAll('[data-page="2"] .match-col:first-child .match').forEach(function(defBtn){
+      if(!defBtn.classList.contains('matched-correct')){
+        const id = defBtn.dataset.id;
+        const pairBtn = document.querySelector('[data-page="2"] .match-col:last-child .match[data-id="'+id+'"]');
+        mistakes.push('Matching: "' + defBtn.textContent.trim() + '" → answered "(not matched)", correct "' +
+          (pairBtn ? pairBtn.textContent.trim() : '?') + '"');
+      }
+    });
+
+    const TFN_LABEL = { T: 'True', F: 'False', NS: 'Not Stated' };
+    document.querySelectorAll('.tfn-group').forEach(function(g){
+      const correct = g.dataset.correct;
+      const statementText = g.querySelector('p').textContent.trim();
+      const correctLabel = TFN_LABEL[correct] || correct;
+      if(!g.dataset.done){
+        mistakes.push('T/F/NS: "' + statementText + '" → answered "(not answered)", correct "' + correctLabel + '"');
+      } else {
+        const wrongBtn = g.querySelector('.opt.wrong');
+        if(wrongBtn){
+          const chosenLabel = TFN_LABEL[wrongBtn.dataset.val] || wrongBtn.dataset.val;
+          mistakes.push('T/F/NS: "' + statementText + '" → answered "' + chosenLabel + '", correct "' + correctLabel + '"');
+        }
+      }
+    });
+
+    gapAnswers.forEach(function(accepted, i){
+      const input = document.getElementById('g' + (i + 1));
+      const ok = fuzzyMatch(input.value, accepted);
+      if(!ok){
+        mistakes.push('Gap-fill #' + (i + 1) + ' → answered "' + (input.value.trim() || '(blank)') +
+          '", correct "' + accepted[0] + '"');
+      }
+    });
+
+    const mistakesText = mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.';
+
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
@@ -768,6 +808,7 @@
     fd.append("matching", summary.matching);
     fd.append("true_false_not_stated", summary.true_false_not_stated);
     fd.append("gap_fill", summary.gap_fill);
+    fd.append("mistakes", mistakesText);
     fd.append("speak_up_answer", summary.speak_up_answer);
     fd.append("summary_json", JSON.stringify(summary));
 

@@ -736,10 +736,12 @@ document.addEventListener('click', function(e){
 
 function checkMatching(){
   let correctCount = 0;
+  const mistakes = [];
   document.querySelectorAll('.match-item').forEach(item=>{
     const answer = item.dataset.answer;
     const selected = item.querySelector('.abcde-chip.selected');
     const fb = item.querySelector('.match-feedback');
+    const qText = item.querySelector('.match-text').textContent.trim();
     item.querySelectorAll('.abcde-chip').forEach(c=>{
       c.classList.remove('selected');
       if(c.dataset.val===answer) c.classList.add('correct');
@@ -752,15 +754,18 @@ function checkMatching(){
       selected.classList.add('incorrect');
       fb.textContent = 'Not quite — correct answer highlighted in green.';
       fb.style.color = 'var(--wrong)';
+      mistakes.push(qText + ' → answered "' + selected.dataset.val + '", correct "' + answer + '"');
     } else {
       fb.textContent = 'No answer selected — correct answer highlighted in green.';
       fb.style.color = 'var(--wrong)';
+      mistakes.push(qText + ' → answered "(not answered)", correct "' + answer + '"');
     }
   });
   const pill = document.getElementById('matchScore');
   pill.style.display = 'inline-block';
   pill.textContent = correctCount + ' / ' + MATCHING.length + ' correct';
   window.lastReadingScore = correctCount + '/' + MATCHING.length;
+  window.readingMistakes = mistakes;
 }
 
 /* ===================== FLASHCARDS ===================== */
@@ -811,19 +816,29 @@ document.addEventListener('click', function(e){
 
 function checkBuckets(){
   let correct = 0, total = VOCAB.length;
+  const mistakes = [];
+  const catLabel = {};
+  BUCKETS.forEach(b=>{ catLabel[b.id] = b.label; });
   document.querySelectorAll('.bucket').forEach(b=>{
     const cat = b.dataset.cat;
     b.querySelectorAll('.chip-list .word-chip').forEach(chip=>{
       chip.classList.remove('right','wrong');
       if(chip.dataset.cat===cat){ chip.classList.add('right'); correct++; }
-      else { chip.classList.add('wrong'); }
+      else {
+        chip.classList.add('wrong');
+        mistakes.push(chip.textContent.trim() + ' → placed in "' + catLabel[cat] + '", correct "' + catLabel[chip.dataset.cat] + '"');
+      }
     });
+  });
+  document.querySelectorAll('#bank .word-chip').forEach(chip=>{
+    mistakes.push(chip.textContent.trim() + ' → answered "(not placed)", correct "' + catLabel[chip.dataset.cat] + '"');
   });
   const placed = document.querySelectorAll('.bucket .word-chip').length;
   const pill = document.getElementById('bucketScore');
   pill.style.display = 'inline-block';
   pill.textContent = correct + ' / ' + total + ' correct (' + placed + ' placed)';
   window.lastPracticeScore = correct + '/' + total;
+  window.practiceMistakes = mistakes;
 }
 
 /* ===================== SEND TO TEACHER ===================== */
@@ -847,6 +862,8 @@ async function sendCompletion(){
     fd.append('difficulty', document.getElementById('difficulty').value.trim());
     fd.append('reading_score', window.lastReadingScore || 'not attempted');
     fd.append('practice_score', window.lastPracticeScore || 'not attempted');
+    const allMistakes = (window.readingMistakes || []).concat(window.practiceMistakes || []);
+    fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',

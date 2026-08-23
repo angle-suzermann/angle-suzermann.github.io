@@ -462,30 +462,61 @@ async function submitAll(){
     return;
   }
   let correct=0, total=0;
+  const mistakes = [];
 
   document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
     total++;
     const ok = normalize(inp.value) === normalize(inp.dataset.answer);
     inp.classList.toggle('is-correct', ok);
     inp.classList.toggle('is-wrong', !ok);
-    if(ok) correct++;
+    if(ok){
+      correct++;
+    } else {
+      const label = 'Gap ' + (inp.title || '');
+      mistakes.push(label + ' → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + inp.dataset.answer + '"');
+    }
   });
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
     const chosen = g.querySelector('.opt.chosen');
-    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    const correctVal = g.dataset.correct;
+    const isOk = chosen && chosen.dataset.val === correctVal;
+    if(isOk){
+      correct++;
+    } else {
+      const correctBtn = g.querySelector('.opt[data-val="' + correctVal + '"]');
+      const correctText = correctBtn ? correctBtn.textContent.trim() : correctVal;
+      const qEl = g.querySelector('p');
+      const qText = qEl ? qEl.textContent.trim() : '';
+      mistakes.push(qText + ' → answered "' + (chosen ? chosen.textContent.trim() : '(not answered)') + '", correct "' + correctText + '"');
+    }
   });
 
   document.querySelectorAll('[data-total-pairs]').forEach(c=>{
     const t = parseInt(c.dataset.totalPairs || 0);
     const cc = parseInt(c.dataset.correctCount || 0);
     total += t; correct += cc;
+    if(cc < t){
+      c.querySelectorAll('.match:not(.matched-correct)').forEach(el=>{
+        const item = HALVES.find(function(h){ return h.id === el.dataset.id; });
+        const label = item ? item.left : el.textContent.trim();
+        const correctInfo = item ? item.right : '';
+        mistakes.push('Match the sentence halves: "' + label + '" → answered "(not matched)", correct "' + correctInfo + '"');
+      });
+    }
   });
 
   document.querySelectorAll('.prod-item').forEach(item=>{
     total++;
-    if(checkProduction(item)) correct++;
+    const ok = checkProduction(item);
+    if(ok){
+      correct++;
+    } else {
+      const ta = item.querySelector('textarea');
+      const chunk = item.dataset.chunk;
+      mistakes.push('Write a sentence with "' + chunk + '" → answered "' + (ta.value.trim() || '(blank)') + '", correct "a sentence of 6+ words that uses the phrase \'' + chunk + '\'"');
+    }
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -499,6 +530,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';

@@ -302,6 +302,10 @@ const results = {
   quiz:{correct:0,total:QUIZ.length,done:false},
   cloze:{correct:0,total:Object.keys(CLOZE_ANSWERS).length,done:false}
 };
+// mistakeLog: human-readable wrong-answer lines per section, for the teacher's report.
+// (The "Who's Who" matching game forces the student to retry until correct, so it
+// never leaves a final wrong answer to report — it is intentionally not tracked here.)
+const mistakeLog = { location:[], reasons:[], tf:[], order:[], quiz:[], cloze:[] };
 
 function shuffle(arr){
   const a=[...arr];
@@ -431,6 +435,7 @@ function renderLocations(){
 }
 function checkLocations(){
   let correctNow = 0;
+  let localMistakes = [];
   Object.keys(LOCATION_ANSWERS).forEach((name,i)=>{
     const sel = document.getElementById('locSel'+i);
     const row = document.getElementById('locRow'+i);
@@ -438,9 +443,11 @@ function checkLocations(){
     row.classList.toggle('ok', ok);
     row.classList.toggle('bad', !ok);
     if(ok) correctNow++;
+    else localMistakes.push('Where Were They? — ' + name + ' → answered "' + (sel.value || '(blank)') + '", correct "' + LOCATION_ANSWERS[name] + '"');
   });
   results.location.correct = correctNow;
   results.location.done = true;
+  mistakeLog.location = localMistakes;
   updateScorePill();
 }
 
@@ -482,15 +489,19 @@ function placeReason(i){
 }
 function checkReasons(){
   let correctNow = 0;
+  let localMistakes = [];
   Object.keys(REASON_ANSWERS).forEach((name,i)=>{
     const blank = document.getElementById('reasonBlank'+i);
-    const ok = (blank.dataset.filled||"").toLowerCase() === REASON_ANSWERS[name].toLowerCase();
+    const filled = blank.dataset.filled || "";
+    const ok = filled.toLowerCase() === REASON_ANSWERS[name].toLowerCase();
     blank.classList.toggle('ok', ok);
     blank.classList.toggle('bad', !ok);
     if(ok) correctNow++;
+    else localMistakes.push('Alibis — ' + name + ' → answered "' + (filled || '(blank)') + '", correct "' + REASON_ANSWERS[name] + '"');
   });
   results.reasons.correct = correctNow;
   results.reasons.done = true;
+  mistakeLog.reasons = localMistakes;
   updateScorePill();
 }
 
@@ -521,6 +532,9 @@ function answerTF(i, chosen){
     else if(isTrueBtn === chosen) b.classList.add('wrong');
   });
   if(chosen === correctAns){ results.tf.correct++; }
+  else {
+    mistakeLog.tf.push('True/False #' + (i+1) + ' "' + TF_ITEMS[i].text + '" → answered "' + (chosen ? 'True' : 'False') + '", correct "' + (correctAns ? 'True' : 'False') + '"');
+  }
   results.tf.done = true;
   updateScorePill();
 }
@@ -563,15 +577,22 @@ function resetOrder(){
 function checkOrder(){
   if(orderClicks.length < ORDER_EVENTS.length) return;
   let correctNow = 0;
+  let localMistakes = [];
   orderClicks.forEach((id, idx)=>{
     const item = document.getElementById('orderItem'+id);
     const ok = id === (idx+1);
     item.classList.toggle('correct-pos', ok);
     item.classList.toggle('wrong-pos', !ok);
     if(ok) correctNow++;
+    else {
+      const correctEvent = ORDER_EVENTS.find(ev=>ev.id === (idx+1));
+      const chosenEvent = ORDER_EVENTS.find(ev=>ev.id === id);
+      localMistakes.push('Timeline position ' + (idx+1) + ' → placed "' + (chosenEvent ? chosenEvent.text : id) + '", correct "' + (correctEvent ? correctEvent.text : (idx+1)) + '"');
+    }
   });
   results.order.correct = correctNow;
   results.order.done = true;
+  mistakeLog.order = localMistakes;
   updateScorePill();
 }
 
@@ -621,6 +642,9 @@ function answerQuiz(i, chosenIdx){
     else if(bi === chosenIdx) b.classList.add('wrong');
   });
   if(chosenIdx === correctIdx){ results.quiz.correct++; }
+  else {
+    mistakeLog.quiz.push('Solve It Q' + (i+1) + ' "' + QUIZ[i].q + '" → answered "' + QUIZ[i].opts[chosenIdx] + '", correct "' + QUIZ[i].opts[correctIdx] + '"');
+  }
   results.quiz.done = true;
   updateScorePill();
 }
@@ -642,15 +666,19 @@ function placeCloze(key){
 }
 function checkSolve(){
   let correctNow = 0;
+  let localMistakes = [];
   Object.keys(CLOZE_ANSWERS).forEach(key=>{
     const blank = document.getElementById('clozeBlank'+key);
-    const ok = (blank.dataset.filled||"").toLowerCase() === CLOZE_ANSWERS[key].toLowerCase();
+    const filled = blank.dataset.filled || "";
+    const ok = filled.toLowerCase() === CLOZE_ANSWERS[key].toLowerCase();
     blank.classList.toggle('ok', ok);
     blank.classList.toggle('bad', !ok);
     if(ok) correctNow++;
+    else localMistakes.push('Final report blank (' + key + ') → answered "' + (filled || '(blank)') + '", correct "' + CLOZE_ANSWERS[key] + '"');
   });
   results.cloze.correct = correctNow;
   results.cloze.done = true;
+  mistakeLog.cloze = localMistakes;
   updateScorePill();
 }
 
@@ -747,6 +775,12 @@ async function submitCase(){
   fd.append('score_breakdown', JSON.stringify(breakdown));
   fd.append('discussion_1', discuss1Text.trim());
   fd.append('discussion_2', discuss2Text.trim());
+
+  const allMistakes = [].concat(
+    mistakeLog.location, mistakeLog.reasons, mistakeLog.tf,
+    mistakeLog.order, mistakeLog.quiz, mistakeLog.cloze
+  );
+  fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
 
   try{
     const res = await fetch('https://api.web3forms.com/submit', {

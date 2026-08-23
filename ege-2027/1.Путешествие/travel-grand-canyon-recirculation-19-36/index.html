@@ -413,6 +413,7 @@ async function submitAll(){
   const nameInput = document.getElementById("studentName");
   if(!nameInput.value.trim()){ nameInput.focus(); alert("Please type your name at the top before submitting."); showPage(0); return; }
   let correct=0, total=0;
+  const mistakes = [];
 
   document.querySelectorAll(".fib[data-answer]").forEach(inp=>{
     total++;
@@ -420,6 +421,12 @@ async function submitAll(){
     inp.classList.toggle("is-correct", ok);
     inp.classList.toggle("is-wrong", !ok);
     if(ok) correct++;
+    else {
+      const supEl = inp.previousElementSibling;
+      const label = supEl && supEl.classList.contains("gap-num") ? "Gap " + supEl.textContent.trim() : inp.name;
+      const correctAns = inp.dataset.answer.split("|")[0];
+      mistakes.push(label + ' → answered "' + (inp.value.trim() || '(blank)') + '", correct "' + correctAns + '"');
+    }
   });
 
   document.querySelectorAll(".mcq[data-correct]").forEach(g=>{
@@ -433,8 +440,14 @@ async function submitAll(){
     });
     g.closest(".item").classList.add("checked");
     if(ok) correct++;
+    else {
+      const item = g.closest(".item");
+      const promptText = item && item.querySelector("p") ? item.querySelector("p").textContent.trim() : "";
+      mistakes.push(promptText + ' → answered "' + (chosen ? chosen.dataset.val : '(not answered)') + '", correct "' + g.dataset.correct + '"');
+    }
   });
 
+  const mistakesText = mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.';
   const pct = total ? Math.round(correct/total*100) : 0;
   document.getElementById("scoreSummary").innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById("scoreSummary").hidden = false;
@@ -447,6 +460,7 @@ async function submitAll(){
     fd.append("exercise", "Travel & Grand Canyon Recirculation - EGE 19-36");
     fd.append("student", nameInput.value.trim());
     fd.append("score", `${correct} / ${total} (${pct}%)`);
+    fd.append("mistakes", mistakesText);
     fd.append("timestamp", new Date().toISOString());
     await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{"Accept":"application/json"}, body: fd });
     document.getElementById("submitStatus").textContent = "Sent to your teacher ✓";

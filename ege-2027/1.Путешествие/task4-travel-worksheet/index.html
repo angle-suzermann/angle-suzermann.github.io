@@ -680,6 +680,7 @@ function dropWord(bucketName){
 }
 function checkTask2(){
   let correct = 0, total = TASK2_WORDS.length;
+  const task2Mistakes = [];
   ['photo1','both','photo2'].forEach(cat=>{
     document.querySelectorAll('#bucket-' + cat + ' .chip.word').forEach(chip=>{
       const idx = chip.dataset.idx;
@@ -687,11 +688,19 @@ function checkTask2(){
       chip.classList.toggle('correct-mark', isCorrect);
       chip.classList.toggle('wrong-mark', !isCorrect);
       if(isCorrect) correct++;
+      else {
+        task2Mistakes.push('Task 2: "' + TASK2_WORDS[idx].text + '" → placed in "' + cat + '", correct "' + TASK2_WORDS[idx].cat + '"');
+      }
     });
+  });
+  document.querySelectorAll('#wordBank .chip.word:not(.placed)').forEach(chip=>{
+    const idx = chip.dataset.idx;
+    task2Mistakes.push('Task 2: "' + TASK2_WORDS[idx].text + '" → not placed in any column, correct "' + TASK2_WORDS[idx].cat + '"');
   });
   document.getElementById('task2note').innerHTML =
     `Результат самопроверки: <b>${correct} / ${total}</b> совпадений с предложенным вариантом (авторский вариант, не официальный ключ ФИПИ). Зелёным отмечены совпадения, красным — расхождения.`;
   window.task2Score = {correct, total};
+  window.task2Mistakes = task2Mistakes;
 }
 
 /* ===== Text-to-speech ===== */
@@ -717,6 +726,8 @@ async function submitAll(){
   if(!window.task2Score){ checkTask2(); }
   const {correct, total} = window.task2Score || {correct:0,total:TASK2_WORDS.length};
   const pct = total ? Math.round(correct/total*100) : 0;
+  const task2Mistakes = window.task2Mistakes || [];
+  const mistakesText = task2Mistakes.length ? task2Mistakes.join('\n') : 'No mistakes — all items correct.';
 
   const box = document.getElementById('scoreSummary');
   box.classList.remove('hidden');
@@ -729,6 +740,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('task2_score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', mistakesText);
     fd.append('task1_answers', [1,2,3].map(i=>document.getElementById('ans'+i).value).join(' ||| '));
     fd.append('task3_advantages', document.getElementById('adv').value);
     fd.append('task3_disadvantages', document.getElementById('disadv').value);

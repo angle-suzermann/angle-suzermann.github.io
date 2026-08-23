@@ -255,6 +255,7 @@ function renderPage(){
 function goTo(n){ current = n; renderPage(); }
 
 window.setScores = {};
+window.setMistakes = {};
 
 function toggleHint(n){
   document.getElementById('hint-'+n).classList.toggle('show');
@@ -263,6 +264,7 @@ function toggleHint(n){
 function checkSet(setIdx){
   const items = SETS[setIdx];
   let correct = 0;
+  const mistakes = [];
   items.forEach(it=>{
     const input = document.querySelector('[data-input="'+it.n+'"]');
     const fb = document.getElementById('fb-'+it.n);
@@ -270,9 +272,13 @@ function checkSet(setIdx){
     input.classList.toggle('correct', ok);
     input.classList.toggle('incorrect', !ok);
     if(ok){ correct++; fb.textContent = 'Correct!'; fb.style.color = 'var(--correct)'; }
-    else { fb.textContent = 'Not quite — correct answer: ' + it.acc[0]; fb.style.color = 'var(--wrong)'; }
+    else {
+      fb.textContent = 'Not quite — correct answer: ' + it.acc[0]; fb.style.color = 'var(--wrong)';
+      mistakes.push(it.n + '. ' + it.s + ' → answered "' + (input.value.trim() || '(blank)') + '", correct "' + it.acc[0] + '"');
+    }
   });
   window.setScores[setIdx] = correct;
+  window.setMistakes[setIdx] = mistakes;
   const pill = document.getElementById('setScore-'+setIdx);
   pill.style.display = 'inline-block';
   pill.textContent = correct + ' / ' + items.length + ' correct';
@@ -304,6 +310,8 @@ async function doSend(total, totalItems){
     fd.append('student', name);
     fd.append('score', total + '/' + totalItems);
     fd.append('sets_checked', Object.keys(window.setScores).length + '/4');
+    const allMistakes = Object.values(window.setMistakes).reduce((a,b)=>a.concat(b),[]);
+    fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',

@@ -562,15 +562,27 @@ function showResults(){
   // walk each quiz page's data directly instead of relying on live DOM state.
   const allQuiz = [...QUIZ_A, ...QUIZ_B, ...QUIZ_C];
   let mcqCorrect = 0;
+  const mistakes = [];
   allQuiz.forEach(q=>{
     const stored = ANSWERS[q.id];
-    if(stored === q.answer) mcqCorrect++;
+    if(stored === q.answer){
+      mcqCorrect++;
+    } else {
+      mistakes.push(q.text + ' ___ → answered "' + (stored || '(not answered)') + '", correct "' + q.answer + '"');
+    }
   });
   const mcqTotal = allQuiz.length;
 
   const hlTotal = HEAVY_LIGHT.length;
   let hlCorrect = 0;
-  Object.values(PLACEMENTS).forEach(p=>{ if(p.correct) hlCorrect++; });
+  HEAVY_LIGHT.forEach(item=>{
+    const placed = PLACEMENTS[item.id];
+    if(placed && placed.correct){
+      hlCorrect++;
+    } else {
+      mistakes.push(item.label + ' (heavy or light?) → answered "' + (placed ? placed.bucket : '(not answered)') + '", correct "' + item.answer + '"');
+    }
+  });
 
   const totalCorrect = mcqCorrect + hlCorrect;
   const totalItems = mcqTotal + hlTotal;
@@ -585,7 +597,7 @@ function showResults(){
     </div>
   `;
 
-  lastSummary = { mcqCorrect, mcqTotal, hlCorrect, hlTotal, totalCorrect, totalItems, pct };
+  lastSummary = { mcqCorrect, mcqTotal, hlCorrect, hlTotal, totalCorrect, totalItems, pct, mistakes };
   document.getElementById('submitBtn').style.display = 'block';
 }
 
@@ -611,6 +623,7 @@ async function sendCompletion(){
   fd.append('timestamp', new Date().toISOString());
   fd.append('score', lastSummary.totalCorrect + ' / ' + lastSummary.totalItems + ' (' + lastSummary.pct + '%)');
   fd.append('summary', JSON.stringify(lastSummary));
+  fd.append('mistakes', lastSummary.mistakes.length ? lastSummary.mistakes.join('\n') : 'No mistakes — all items correct.');
 
   try{
     const res = await fetch('https://api.web3forms.com/submit', {
