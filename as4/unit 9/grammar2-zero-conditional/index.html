@@ -703,7 +703,7 @@
 </div>
 
 <script>
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeeyrowk";
+  const FORMSPREE_ENDPOINT = "https://api.web3forms.com/submit";
 
   function normalise(s){
     return s.trim().toLowerCase()
@@ -848,6 +848,8 @@
     }
 
     const payload = {
+      access_key: '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234',
+      course: 'Academy Stars 4',
       exercise: 'Unit 9 · Grammar 2 — What happens if...?',
       student_name: name,
       group: group,

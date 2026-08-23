@@ -1107,13 +1107,15 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   // Send to teacher via Formspree
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Placement tests');
   fd.append('exercise', 'Academy Stars — Placement Test');
   fd.append('student', studentName);
   fd.append('score', correct + '/' + total);
   fd.append('suggested_level', level);
   fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
 
-  fetch('https://formspree.io/f/maewykro', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Accept': 'application/json'},
     body: fd

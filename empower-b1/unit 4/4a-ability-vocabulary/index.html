@@ -739,6 +739,8 @@ function sendResults(){
   statusEl.textContent = 'Отправляю…';
 
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Empower B1+');
   fd.append('material', '4A Vocabulary Check: Ability');
   fd.append('student', name);
   fd.append('score', totalCorrect + ' / ' + totalQuestions);
@@ -748,7 +750,7 @@ function sendResults(){
   fd.append('ex4_prepositions', prepCorrect + '/' + ex4data.length);
   fd.append('ex5_personal_answers', personal);
 
-  fetch('https://formspree.io/f/mjgnlwdp', { method: 'POST', headers: {'Accept': 'application/json'}, body: fd })
+  fetch('https://api.web3forms.com/submit', { method: 'POST', headers: {'Accept': 'application/json'}, body: fd })
     .then(function(res){
       statusEl.textContent = res.ok ? 'Отправлено учителю ✓' : 'Не получилось отправить — сделайте скриншот и пришлите его.';
     })

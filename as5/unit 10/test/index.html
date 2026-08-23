@@ -729,6 +729,8 @@ async function submitAll(){
 
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 5');
     fd.append('exercise', 'AS5 Unit 10 — It\'s a Mystery Test');
     fd.append('student', nameInput.value.trim());
     fd.append('group', document.getElementById('studentGroup').value.trim());
@@ -736,7 +738,7 @@ async function submitAll(){
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://formspree.io/f/mlgqeayn', {
+    await fetch('https://api.web3forms.com/submit', {
       method:'POST',
       headers:{'Accept':'application/json'},
       body: fd

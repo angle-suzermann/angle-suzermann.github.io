@@ -876,6 +876,8 @@ async function submitCase(){
     total: (t1Correct+t2Score+t3Score+t4Score)+' / 26'
   };
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Expert Advanced');
   fd.append('lesson', document.title);
   fd.append('student_name', name);
   fd.append('timestamp', new Date().toISOString());
@@ -883,7 +885,7 @@ async function submitCase(){
   fd.append('case_report_reflection', reflectionBox.value.trim());
 
   try{
-    const res = await fetch('https://formspree.io/f/mdaqrvdd', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',
       headers:{'Accept':'application/json'},
       body:fd

@@ -604,6 +604,8 @@ async function sendCompletion(){
   btn.textContent = 'Sending...';
 
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 4');
   fd.append('lesson', document.title);
   fd.append('student', getStudentName());
   fd.append('timestamp', new Date().toISOString());
@@ -611,7 +613,7 @@ async function sendCompletion(){
   fd.append('summary', JSON.stringify(lastSummary));
 
   try{
-    const res = await fetch('https://formspree.io/f/xeeyrowk', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {'Accept': 'application/json'},
       body: fd

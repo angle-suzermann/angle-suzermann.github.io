@@ -490,11 +490,13 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   // Send to teacher via Formspree
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Expert Advanced');
   fd.append('exercise', 'Advanced Expert — Module 1 Test');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('details', reviewLines.join('\n'));
 
-  fetch('https://formspree.io/f/mdaqrvdd', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Accept': 'application/json'},
     body: fd

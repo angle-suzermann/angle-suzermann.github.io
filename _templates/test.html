@@ -13,14 +13,14 @@
      formspree : ярлык курса из site.config.json; пусто = без отправки
      =========================================================== -->
 <meta name="ws:type"       content="test">
-<meta name="ws:course"     content="Academy Stars 5">
-<meta name="ws:course-id"  content="as5">
+<meta name="ws:course"     content="ЗАМЕНИТЕ — название курса">
+<meta name="ws:course-id"  content="ЗАМЕНИТЕ — id папки курса">
 <meta name="ws:unit"       content="N">
 <meta name="ws:title"      content="Unit N — тема юнита">
 <meta name="ws:emoji"      content="📖">
 <meta name="ws:date"       content="2026-01-01">
 <meta name="ws:status"     content="draft">
-<meta name="ws:formspree"  content="mjgnbjkk">
+<meta name="ws:formspree"  content="">
 <meta name="ws:tags"       content="грамматика, лексика">
 <meta name="robots"        content="noindex, nofollow">
 
@@ -114,8 +114,11 @@
   </div>
 
   <!-- ===== РЕЗУЛЬТАТ =====
-       Чтобы сделать тест без отправки учителю — удалите .send-btn
-       и .send-status, и очистите ws:formspree. -->
+       Отправка теперь идёт на общий Web3Forms-адрес (ключ зашит в
+       assets/test-engine.js), а не по ws:formspree — этот тег остался
+       только как метка курса в письме. Чтобы сделать тест БЕЗ отправки
+       учителю — удалите .send-btn и .send-status целиком (пустой
+       ws:formspree теперь не отключает отправку, только убирает метку). -->
   <div class="results-panel" id="resultsPanel">
     <div class="big" id="resultsPercent">0%</div>
     <div class="sub" id="resultsFraction">0 / 0 correct</div>

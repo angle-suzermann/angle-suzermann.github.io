@@ -469,12 +469,14 @@ async function sendToTeacher(){
   status.style.color = 'var(--muted)';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'ЕГЭ 2027');
     fd.append('Файл', 'ЕГЭ 2027 — письменная речь');
     fd.append('Имя', name);
     fd.append('Дата', new Date().toLocaleString('ru-RU'));
     fd.append('Задание 37 (email, '+countWords(t37)+' слов)', t37);
     fd.append('Задание '+choice+' (эссе, '+countWords(t38)+' слов)', t38);
-    const res = await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
       status.textContent = 'Отправлено! Учитель получит письмо и эссе по почте.';
       status.style.color = 'var(--correct)';

@@ -762,11 +762,13 @@ async function submitAll(){
 
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'GW B2');
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://formspree.io/f/xoeaqeyz', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
   } catch(e){
     document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';

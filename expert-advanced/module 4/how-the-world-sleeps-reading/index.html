@@ -839,6 +839,8 @@ async function sendCompletion(){
   status.textContent = 'Sending...';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Expert Advanced');
     fd.append('lesson', document.title);
     fd.append('student', name);
     fd.append('new_word', document.getElementById('newWord').value.trim());
@@ -846,7 +848,7 @@ async function sendCompletion(){
     fd.append('reading_score', window.lastReadingScore || 'not attempted');
     fd.append('practice_score', window.lastPracticeScore || 'not attempted');
     fd.append('timestamp', new Date().toISOString());
-    const res = await fetch('https://formspree.io/f/mdaqrvdd', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',
       headers:{'Accept':'application/json'},
       body: fd

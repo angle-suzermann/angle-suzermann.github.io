@@ -11,7 +11,7 @@
 <meta name="ws:emoji"     content="🔍">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
-<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:formspree" content="mlgqeayn">
 <meta name="ws:tags"      content="suffixes, word formation">
 <meta name="robots"       content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -991,6 +991,8 @@ async function sendCompletion(){
   status.textContent = 'Sending...';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 5');
     fd.append('lesson', document.title);
     fd.append('exercise', 'Unit 10 — Suffixes -ment (Detective Case File)');
     fd.append('timestamp', new Date().toISOString());
@@ -1002,7 +1004,7 @@ async function sendCompletion(){
     fd.append('report_1', state.rep0 || '');
     fd.append('report_2', state.rep1 || '');
     fd.append('report_3', state.rep2 || '');
-    const res = await fetch('https://formspree.io/f/mlgqeayn', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     status.textContent = res.ok ? 'Sent to your teacher!' : "Couldn't send — check your connection.";
   }catch(e){
     status.textContent = "Couldn't send — check your connection.";

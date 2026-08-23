@@ -668,11 +668,13 @@ async function submitAll(){
   statusEl.textContent = 'Sending...';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Oxford Phonics World 3');
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${document.getElementById('scoreFrac').textContent} (${document.getElementById('scorePct').textContent})`);
     fd.append('timestamp', new Date().toISOString());
-    const res = await fetch('https://formspree.io/f/mlgqqwpk', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',
       headers:{'Accept':'application/json'},
       body: fd

@@ -44,6 +44,7 @@
 
   var TEST_TITLE = meta('ws:title') || document.title;
   var FORMSPREE  = meta('ws:formspree');
+  var WEB3FORMS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 
   var sections = Array.prototype.slice.call(
     document.querySelectorAll('section.card[id]')
@@ -209,9 +210,9 @@
 
     if(!lastResults){ return fail('Сначала нажмите «Проверить ответы».'); }
 
-    if(!FORMSPREE){
-      return fail('Для этого материала не настроен адрес отправки (ws:formspree).');
-    }
+    // ws:formspree теперь используется только как метка курса в письме (course_id),
+    // а не как отдельный адрес доставки — реальный адрес один для всего сайта (Web3Forms).
+    // Если тег не заполнен, отправка всё равно проходит, просто без метки курса.
 
     var name  = $('studentName').value.trim();
     var group = $('studentGroup') ? $('studentGroup').value.trim() : '';
@@ -228,6 +229,9 @@
     status.className = 'send-status';
 
     var payload = {
+      access_key:     WEB3FORMS_KEY,
+      course_id:      FORMSPREE,
+      subject:        'ANGLE — результат: ' + TEST_TITLE,
       test:           TEST_TITLE,
       student_name:   name,
       group:          group || '—',
@@ -239,7 +243,7 @@
       submitted_at:   new Date().toLocaleString('ru-RU')
     };
 
-    fetch('https://formspree.io/f/' + FORMSPREE, {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)

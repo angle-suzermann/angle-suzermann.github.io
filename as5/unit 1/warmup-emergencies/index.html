@@ -11,7 +11,7 @@
 <meta name="ws:emoji"     content="🚨">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
-<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:formspree" content="mlgqeayn">
 <meta name="ws:tags"      content="emergencies, past simple, past continuous">
 <meta name="robots"       content="noindex, nofollow">
 <style>
@@ -389,11 +389,13 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   // Send to teacher via Formspree
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 5');
   fd.append('exercise', 'Warm-up: Emergencies Vocabulary & Past Simple vs Past Continuous');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('details', reviewLines.join('\n'));
 
-  fetch('https://formspree.io/f/mlgqeayn', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Accept': 'application/json'},
     body: fd

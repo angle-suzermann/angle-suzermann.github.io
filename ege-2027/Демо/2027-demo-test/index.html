@@ -844,6 +844,8 @@ async function sendToTeacher(){
   status.style.color = 'var(--muted)';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'ЕГЭ 2027');
     fd.append('Файл', 'ЕГЭ 2027 — тестовая часть');
     fd.append('Имя', name);
     fd.append('Дата', new Date().toLocaleString('ru-RU'));
@@ -852,7 +854,7 @@ async function sendToTeacher(){
     fd.append('Грамматика и лексика', document.getElementById('scoreGrammar').textContent);
     fd.append('Итого', document.getElementById('totalScore').textContent);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'Ошибок нет — все задания выполнены верно.');
-    const res = await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
       status.textContent = 'Отправлено! Учитель получит результаты по почте.';
       status.style.color = 'var(--correct)';

@@ -409,13 +409,15 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   // Send to teacher via Formspree
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 4');
   fd.append('student_name', studentName || '(not entered)');
   fd.append('student_group', studentGroup || '(not entered)');
   fd.append('exercise', 'Warm-Up: Water & Weather Review');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('details', reviewLines.join('\n'));
 
-  fetch('https://formspree.io/f/xeeyrowk', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Accept': 'application/json'},
     body: fd

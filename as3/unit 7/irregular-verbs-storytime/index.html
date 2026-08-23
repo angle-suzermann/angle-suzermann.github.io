@@ -925,11 +925,13 @@ async function submitAll(){
   statusEl.style.color = 'var(--muted)';
   try{
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 3');
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://formspree.io/f/xwleolev', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     statusEl.textContent = 'Sent to your teacher ✓';
     statusEl.style.color = 'var(--correct)';
   } catch(e){

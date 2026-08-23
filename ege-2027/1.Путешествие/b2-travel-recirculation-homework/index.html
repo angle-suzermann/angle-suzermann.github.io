@@ -572,6 +572,8 @@
       postcard_answer: document.getElementById("postcardInput").value.trim() || "(not answered)"
     };
     const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'ЕГЭ 2027');
     fd.append("lesson", document.title);
     fd.append("student", name);
     fd.append("timestamp", new Date().toISOString());
@@ -582,7 +584,7 @@
     fd.append("postcard_answer", summary.postcard_answer);
     fd.append("summary_json", JSON.stringify(summary));
 
-    fetch("https://formspree.io/f/mnjekjvq", {
+    fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Accept": "application/json" },
       body: fd

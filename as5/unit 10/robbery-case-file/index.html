@@ -12,7 +12,7 @@
 <meta name="ws:emoji"     content="🕵️">
 <meta name="ws:date"      content="2026-08-15">
 <meta name="ws:status"    content="published">
-<meta name="ws:formspree" content="mjgnbjkk">
+<meta name="ws:formspree" content="mlgqeayn">
 <meta name="ws:tags"      content="past simple, detective story">
 <meta name="robots"       content="noindex, nofollow">
 <style>
@@ -738,6 +738,8 @@ async function submitCase(){
   note.textContent = "Sending your case file...";
 
   const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 5');
   fd.append('name', name);
   fd.append('lesson', document.title);
   fd.append('timestamp', new Date().toISOString());
@@ -747,7 +749,7 @@ async function submitCase(){
   fd.append('discussion_2', discuss2Text.trim());
 
   try{
-    const res = await fetch('https://formspree.io/f/mlgqeayn', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method:'POST',
       headers:{'Accept':'application/json'},
       body: fd
