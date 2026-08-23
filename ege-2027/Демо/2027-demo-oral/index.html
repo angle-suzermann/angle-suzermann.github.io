@@ -531,7 +531,7 @@ async function toggleRec(id){
   }
 }
 
-// ---------- Send recordings to teacher (Formspree) ----------
+// ---------- Send recordings to teacher (Basin) ----------
 async function sendToTeacher(){
   const nameInput = document.getElementById('studentName');
   const name = nameInput.value.trim();
@@ -567,7 +567,7 @@ async function sendToTeacher(){
       btn.disabled = false;
       return;
     }
-    const res = await fetch('https://formspree.io/f/mnjekjvq', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    const res = await fetch('https://usebasin.com/f/6e8f507d4a7d', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
       status.textContent = 'Отправлено! Учитель получит записи ('+attached+' из 4 заданий) по почте.';
       status.style.color = 'var(--correct)';
