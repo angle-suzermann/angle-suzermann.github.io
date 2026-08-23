@@ -178,12 +178,23 @@ for (const course of courses) {
        если материал лежит не прямо в папке курса, а на уровень глубже */
     const group = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : null;
 
+    /* реальный адрес доставки определяем по коду страницы, а не по ws:formspree —
+       этот тег остался только меткой курса в письме и легко расходится с правдой
+       (см. историю с mjgnbjkk). Так строка в панели не может протухнуть. */
+    const backend =
+      /usebasin\.com\/f\//.test(html) ? 'Basin (файлы)' :
+      /api\.web3forms\.com/.test(html) ? 'Web3Forms' :
+      /test-engine\.js/.test(html) ? 'Web3Forms (через test-engine.js)' :
+      /formspree\.io\/f\//.test(html) ? 'Formspree — ' + (meta.formspree || '?') :
+      null;
+
     materials.push({
       ...meta,
       url: `${BASE}/${rel}/`,
       dir: rel,
       group,
       courseCfg: course,
+      backend,
       bytes: Buffer.byteLength(html),
     });
   }
@@ -394,7 +405,7 @@ const staffCard = (m) => {
     </div>
     <div class="meta">
       <span>${esc(m.course)}</span><span>Unit ${esc(m.unit)}</span><span>${esc(m.date)}</span>
-      <span>${m.formspree ? 'сабмиты → ' + esc(m.formspree) : 'без отправки'}</span>
+      <span>${m.backend ? 'сабмиты → ' + esc(m.backend) : 'без отправки'}</span>
       <span>${(m.bytes / 1024).toFixed(0)} КБ</span>
     </div>
     <div class="actions">
