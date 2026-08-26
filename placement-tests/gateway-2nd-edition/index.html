@@ -330,6 +330,11 @@
     font-size:11px;
     letter-spacing:0.3px;
   }
+
+  .save-indicator{ font-size:0.72em; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:0.88em; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:0.78em; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -351,6 +356,7 @@
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -363,6 +369,10 @@
 
 <div class="page-wrap">
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
   <div class="card">
     <h2>Grammar &amp; Vocabulary &mdash; Part 1</h2>
     <p class="instructions">For questions 1&ndash;36, choose the best word or phrase (A, B or C).</p>
@@ -1290,8 +1300,94 @@ async function submitAll(){
   }
 }
 
+/* ---- Progress persistence (save & resume) ---- */
+var PROGRESS_KEY = 'angle_progress::placement-tests-gateway-2nd-edition';
+var isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    var state = { savedAt: new Date().toISOString(), page: current };
+    var ni = document.getElementById('studentName');
+    state.name = ni ? ni.value : '';
+    state.mcq = Array.prototype.map.call(document.querySelectorAll('.mcq'), function(g){
+      var chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.textareas = Array.prototype.map.call(document.querySelectorAll('textarea'), function(el){ return el.value; });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+var saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  var el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function restoreProgress(){
+  var raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  var state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ var ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  var mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq || []).forEach(function(val, i){
+    if(val == null) return;
+    var g = mcqGroups[i]; if(!g) return;
+    var btn = g.querySelector('.opt[data-val="' + val + '"]');
+    if(btn){
+      g.classList.add('answered');
+      btn.classList.add('chosen');
+      var correctVal = g.dataset.correct;
+      g.querySelectorAll('.opt').forEach(function(o){
+        if(o.dataset.val === correctVal) o.classList.add('correct');
+        else if(o === btn) o.classList.add('wrong');
+      });
+    }
+  });
+
+  var tas = document.querySelectorAll('textarea');
+  (state.textareas || []).forEach(function(v, i){
+    if(tas[i] && v){
+      tas[i].value = v;
+      tas[i].dispatchEvent(new Event('input', {bubbles:true}));
+    }
+  });
+
+  var hasContent = (state.mcq && state.mcq.some(function(v){ return v != null; }))
+    || (state.textareas && state.textareas.some(function(v){ return v; }));
+  if(hasContent){
+    var note = document.getElementById('restoreNote');
+    if(note){
+      var when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = 'We found saved answers from ' + (when || 'an earlier session') + " — they've been filled back in.";
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', function(e){ if(e.target.matches('textarea, #studentName')) scheduleSave(); });
+document.addEventListener('click', function(e){ if(e.target.closest('.mcq .opt')) scheduleSave(); });
+
 buildDots();
 showPage(0);
+restoreProgress();
 </script>
 </body>
 </html>

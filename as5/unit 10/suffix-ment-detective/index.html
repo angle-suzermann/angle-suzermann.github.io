@@ -399,6 +399,11 @@
     .stage{ padding:18px 14px 24px; }
     .verb{ min-width:60px; }
   }
+
+  .save-indicator{ font-family:'Libre Franklin', sans-serif; font-size:.7rem; color:var(--green); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fff8e2; border:1.5px solid var(--gold); border-radius:8px; padding:10px 14px; font-size:.85rem; margin:10px 0; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--navy); color:var(--navy); font-weight:700; font-size:.75rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -419,12 +424,19 @@
   </header>
 
   <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved progress)</button>
+  </div>
+
   <nav class="tabs" id="tabs"></nav>
   <main class="stage" id="stage"></main>
 
   <div class="controls">
     <button class="nav-btn" id="prevBtn" onclick="prevPage()">&larr; Back</button>
     <span class="score-pill" id="scorePill">Case progress: 0%</span>
+    <span class="save-indicator" id="saveIndicator"></span>
     <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next &rarr;</button>
   </div>
 
@@ -1075,6 +1087,74 @@ function goTo(i){ current=i; renderStage(); }
 
 document.getElementById('tabs').innerHTML = PAGES.map((p,i)=>`<button class="tab" onclick="goTo(${i})">${p.tab}</button>`).join('');
 renderStage();
+
+/* ============ PROGRESS PERSISTENCE (save & resume) ============ */
+const PROGRESS_KEY = 'angle_progress::as5-unit10-suffix-ment-detective';
+let isRestoring = false;
+let saveTimer = null;
+
+function setReplacer(key, value){ return value instanceof Set ? { __set: Array.from(value) } : value; }
+function setReviver(key, value){ return (value && typeof value === 'object' && Array.isArray(value.__set)) ? new Set(value.__set) : value; }
+
+function scheduleSave(){
+  if (isRestoring) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveProgress, 400);
+}
+function saveProgress(){
+  if (isRestoring) return;
+  try{
+    const payload = { savedAt: new Date().toISOString(), current, state };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(payload, setReplacer));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if (!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function hasAnyProgress(s){
+  return Object.keys(s.act1.picks).length>0 || s.act2.picked.size>0 || s.act3.cuts.size>0
+    || s.act1.checked || s.act2.checked || s.act3.checked || s.act4.checked || s.sort.checked
+    || Object.keys(s.sort.placement).length>0 || !!s.rep0 || !!s.rep1 || !!s.rep2;
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if (!raw) return;
+  let payload; try{ payload = JSON.parse(raw, setReviver); } catch(e){ return; }
+  isRestoring = true;
+
+  if (payload.state){
+    Object.keys(payload.state).forEach(k=>{ state[k] = payload.state[k]; });
+  }
+  const targetPage = (typeof payload.current === 'number' && payload.current >= 0 && payload.current < PAGES.length) ? payload.current : 0;
+  current = targetPage;
+  renderStage();
+
+  if (hasAnyProgress(state)){
+    const note = document.getElementById('restoreNote');
+    if (note){
+      const when = payload.savedAt ? new Date(payload.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved progress from ${when || 'an earlier session'} — it's been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+function clearProgress(){
+  if (!confirm('This will erase all your saved progress on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', function(){ scheduleSave(); });
+document.addEventListener('click', function(){ scheduleSave(); });
+
+restoreProgress();
 </script>
 </body>
 </html>

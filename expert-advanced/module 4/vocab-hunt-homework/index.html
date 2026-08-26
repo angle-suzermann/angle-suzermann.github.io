@@ -88,6 +88,11 @@
   }
   .angle-badge.on-dark{ color:#fff; }
   .angle-badge.on-light{ color:#2D2926; }
+
+  .save-indicator{font-size:12px; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:10px; font-weight:700;}
+  .save-indicator.show{opacity:1;}
+  .restore-note{background:#faf7e6; border:1.5px solid var(--yellow); border-radius:0; padding:10px 14px; font-size:13.5px; margin:0 0 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--black);}
+  .restore-note button{background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:12px; padding:6px 12px; border-radius:0; cursor:pointer; font-family:inherit; white-space:nowrap; text-transform:uppercase; letter-spacing:.3px;}
 </style>
 </head>
 <body>
@@ -185,6 +190,10 @@ function pageIntro(){
     <div class="kicker">Homework · Module 4</div>
     <h1 class="page-title">Vocabulary revision</h1>
     <p class="lede">31 words and phrases from Module 4 (sleep vocabulary, phrasal verbs, and idiomatic expressions). Complete each gap with the correct word or phrase, then check your answers. Use the hint if you get stuck.</p>
+    <div class="restore-note" id="restoreNote" hidden>
+      <span id="restoreNoteText"></span>
+      <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+    </div>
     <div class="nav-row">
       <span></span>
       <button class="btn accent" onclick="goTo(1)">Start →</button>
@@ -225,7 +234,7 @@ function pageFinish(){
     <h1 class="page-title">All done!</h1>
     <p class="lede">Total score across all four sets: <b id="totalScoreText">not checked yet</b>. Make sure you've pressed "Check this set" on every page before sending.</p>
     <div class="reflect-box">
-      <label>Your name</label>
+      <label>Your name <span class="save-indicator" id="saveIndicator"></span></label>
       <input type="text" id="studentName" placeholder="First name / group">
     </div>
     <div class="send-row">
@@ -331,7 +340,115 @@ async function doSend(total, totalItems){
   }
 }
 
+/* ================= PROGRESS PERSISTENCE (save & resume) ================= */
+var PROGRESS_KEY = 'angle_progress::expertadvanced-module4-vocab-hunt-homework';
+var isRestoring = false;
+var savedAnswers = {};
+var savedName = '';
+var lastRestoreTimestamp = '';
+var saveTimer = null;
+
+function scheduleSave(){ if(isRestoring) return; clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    var state = {
+      savedAt: new Date().toISOString(),
+      page: current,
+      name: savedName,
+      answers: savedAnswers,
+      setScores: window.setScores,
+      setMistakes: window.setMistakes
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+
+function showSavedIndicator(){
+  var el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function applyRestoreToCurrentPage(){
+  var ni = document.getElementById('studentName');
+  if(ni && savedName) ni.value = savedName;
+
+  document.querySelectorAll('[data-input]').forEach(function(inp){
+    var n = inp.dataset.input;
+    if(savedAnswers[n] !== undefined) inp.value = savedAnswers[n];
+  });
+
+  var setIdx = current - 1;
+  if(setIdx >= 0 && setIdx < SETS.length && window.setScores && window.setScores[setIdx] !== undefined){
+    checkSet(setIdx);
+  }
+
+  if(current === PAGES.length - 1 && window.setScores && Object.keys(window.setScores).length){
+    var total = Object.values(window.setScores).reduce(function(a,b){ return a+b; }, 0);
+    var totalText = document.getElementById('totalScoreText');
+    if(totalText) totalText.textContent = total + ' / ' + ITEMS.length;
+  }
+
+  if(current === 0){
+    var hasContent = savedName || Object.keys(savedAnswers).some(function(k){ return savedAnswers[k]; });
+    var note = document.getElementById('restoreNote');
+    if(note && hasContent && lastRestoreTimestamp){
+      document.getElementById('restoreNoteText').textContent = 'We found saved answers from ' + lastRestoreTimestamp + " — they've been filled back in.";
+      note.hidden = false;
+    }
+  }
+}
+
+function restoreProgress(){
+  var raw;
+  try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  var state;
+  try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  savedAnswers = state.answers || {};
+  savedName = state.name || '';
+  window.setScores = state.setScores || {};
+  window.setMistakes = state.setMistakes || {};
+  lastRestoreTimestamp = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+  var targetPage = (typeof state.page === 'number') ? state.page : 0;
+  goTo(targetPage);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+var _origGoTo = goTo;
+goTo = function(n){ _origGoTo(n); if(!isRestoring) scheduleSave(); };
+
+var _origCheckSet = checkSet;
+checkSet = function(setIdx){ _origCheckSet(setIdx); if(!isRestoring) scheduleSave(); };
+
+var _origRenderPage = renderPage;
+renderPage = function(){ _origRenderPage(); applyRestoreToCurrentPage(); };
+
+document.addEventListener('input', function(e){
+  if(e.target.matches('[data-input]')){
+    savedAnswers[e.target.dataset.input] = e.target.value;
+    scheduleSave();
+  } else if(e.target.id === 'studentName'){
+    savedName = e.target.value;
+    scheduleSave();
+  }
+});
+
 renderPage();
+restoreProgress();
 
 (function(){
   var badge = document.querySelector('.angle-badge');

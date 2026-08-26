@@ -127,6 +127,11 @@ textarea{ width:100%; min-height:100px; font-family:inherit; font-size:14px; pad
 .angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; font-weight:400; font-size:10px; }
 
 @media(max-width:600px){ .card{padding:16px;} .hero h1{font-size:21px;} }
+
+.save-indicator{ font-size:11px; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:6px; padding:10px 14px; font-size:13.5px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:12.5px; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -137,7 +142,7 @@ textarea{ width:100%; min-height:100px; font-family:inherit; font-size:14px; pad
   <div class="topbar-inner">
     <div class="brand-row">
       <span class="lesson-title">Unit 4 · Personality — Recycling</span>
-      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
       <button class="topbar-submit" onclick="quickSubmit()">Submit answers</button>
     </div>
     <div class="progress-row">
@@ -151,6 +156,10 @@ textarea{ width:100%; min-height:100px; font-family:inherit; font-size:14px; pad
 <div class="page-wrap">
 
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
   <div class="hero">
     <div class="badge-yellow">Recycling &amp; reinforcement · SB Review &amp; Extension p.52, Grammar Focus 4B p.150</div>
     <h1>Personality Adjectives &amp; Articles — Recap</h1>
@@ -489,10 +498,98 @@ async function submitAll(){
   }
 }
 
+const PROGRESS_KEY = 'angle_progress::empower-b1-unit4-personality-recycling-adjectives-articles';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current, flashIdx: flashIdx };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.artSelects = [...document.querySelectorAll('select.art[data-answer]')].map(el=>el.value);
+    state.art2Selects = [...document.querySelectorAll('select.art2[data-opts]')].map(el=>el.value);
+    state.fuzzyInputs = [...document.querySelectorAll('input.fuzzy')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.correct, .opt.wrong');
+      return chosen ? chosen.dataset.val : null;
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  if(typeof state.flashIdx === 'number' && state.flashIdx >= 0 && state.flashIdx < FLASHCARDS.length){
+    flashIdx = state.flashIdx; renderFlash();
+  }
+
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const artSels = document.querySelectorAll('select.art[data-answer]');
+  (state.artSelects||[]).forEach((v,i)=>{ if(artSels[i] && v) artSels[i].value = v; });
+
+  const art2Sels = document.querySelectorAll('select.art2[data-opts]');
+  (state.art2Selects||[]).forEach((v,i)=>{ if(art2Sels[i] && v) art2Sels[i].value = v; });
+
+  const fuzzyInputs = document.querySelectorAll('input.fuzzy');
+  (state.fuzzyInputs||[]).forEach((v,i)=>{ if(fuzzyInputs[i] && v) fuzzyInputs[i].value = v; });
+
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g || g.dataset.done) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn) pickMcq(btn);
+  });
+
+  const hasContent = state.textareas?.some(v=>v) || state.artSelects?.some(v=>v) || state.art2Selects?.some(v=>v)
+    || state.fuzzyInputs?.some(v=>v) || state.mcq?.some(v=>v!=null);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      const noteText = document.getElementById('restoreNoteText');
+      if(noteText) noteText.textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fuzzy, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select.art, select.art2')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt')) scheduleSave(); });
+
 renderFlash();
 initArticleSelects();
 buildDots();
 showPage(0);
+restoreProgress();
 </script>
 </body>
 </html>

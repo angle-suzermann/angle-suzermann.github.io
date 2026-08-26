@@ -209,6 +209,11 @@
     text-align:center;
     white-space:nowrap;
   }
+
+  .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; display:inline-block; margin-left:10px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:6px; padding:10px 14px; font-size:.88rem; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -227,6 +232,14 @@
 
 <div class="wrap">
 
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
+
+<div style="text-align:right;margin:-6px 0 8px;">
+  <span class="save-indicator" id="saveIndicator"></span>
+</div>
 
 <form id="quizForm">
 
@@ -288,6 +301,68 @@
 </div>
 
 <script>
+const PROGRESS_KEY = 'angle_progress::as5-unit9-true-or-false-power-of-stories';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.mc = [...document.querySelectorAll('.item[data-type="mc"]')].map(item=>{
+      const checked = item.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : null;
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  const items = document.querySelectorAll('.item[data-type="mc"]');
+  (state.mc||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const item = items[i]; if(!item) return;
+    const radio = item.querySelector('input[type="radio"][value="'+val+'"]');
+    if(radio) radio.checked = true;
+  });
+
+  const hasContent = (state.mc||[]).some(v=>v!=null);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('change', function(e){
+  if(e.target.matches('input[type="radio"]')) scheduleSave();
+});
+
 document.getElementById('quizForm').addEventListener('submit', function(e){
   e.preventDefault();
 
@@ -368,6 +443,8 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
 });
+
+restoreProgress();
 </script>
 
 </body>

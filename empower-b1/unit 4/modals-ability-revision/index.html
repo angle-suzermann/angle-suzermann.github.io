@@ -375,6 +375,12 @@
 
   ul.plain{margin:6px 0 0 0;padding-left:20px;}
   ul.plain li{margin-bottom:4px;}
+
+  .save-indicator-wrap{max-width:900px;margin:6px auto 0;padding:0 20px;text-align:right;}
+  .save-indicator{font-size:.72rem;color:var(--gold);opacity:0;transition:opacity .3s ease;white-space:nowrap;}
+  .save-indicator.show{opacity:1;}
+  .restore-note{background:#FFF9DB;border:1px solid #EBD98A;border-radius:8px;padding:10px 14px;font-size:.88rem;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .restore-note button{background:#fff;border:1.5px solid var(--accent);color:var(--accent);font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -406,12 +412,17 @@
   <button class="nav-pill" data-page="6">7 · Speaking</button>
   </nav>
 </div>
+<div class="save-indicator-wrap"><span class="save-indicator" id="saveIndicator"></span></div>
 
 <div class="app">
 <main>
 
   <!-- PAGE 0: WARM-UP -->
   <section class="page active" id="page-0">
+    <div class="restore-note" id="restoreNote" hidden>
+      <span id="restoreNoteText"></span>
+      <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+    </div>
     <div class="card">
       <span class="tag">Warm-up · trust your instinct</span>
       <h2>Before we explain anything...</h2>
@@ -597,18 +608,18 @@
       <p class="lead">Sort all twelve phrases into the four categories from the concept map.</p>
 
       <div class="chipbank" id="chipBank">
-        <button class="chip" data-bucket="present">can cook Thai food</button>
-        <button class="chip" data-bucket="present">can't drive a manual car</button>
-        <button class="chip" data-bucket="present">can speak up in meetings now</button>
-        <button class="chip" data-bucket="past">could read before starting school</button>
-        <button class="chip" data-bucket="past">couldn't swim as a child</button>
-        <button class="chip" data-bucket="past">could always make people laugh</button>
-        <button class="chip" data-bucket="specific">managed to catch the last train</button>
-        <button class="chip" data-bucket="specific">was able to fix the leak herself</button>
-        <button class="chip" data-bucket="specific">couldn't get through to customer service</button>
-        <button class="chip" data-bucket="other">will be able to travel more next year</button>
-        <button class="chip" data-bucket="other">has been able to work from home since March</button>
-        <button class="chip" data-bucket="other">needs to be able to use Excel for the job</button>
+        <button class="chip" data-bucket="present" data-cid="1">can cook Thai food</button>
+        <button class="chip" data-bucket="present" data-cid="2">can't drive a manual car</button>
+        <button class="chip" data-bucket="present" data-cid="3">can speak up in meetings now</button>
+        <button class="chip" data-bucket="past" data-cid="4">could read before starting school</button>
+        <button class="chip" data-bucket="past" data-cid="5">couldn't swim as a child</button>
+        <button class="chip" data-bucket="past" data-cid="6">could always make people laugh</button>
+        <button class="chip" data-bucket="specific" data-cid="7">managed to catch the last train</button>
+        <button class="chip" data-bucket="specific" data-cid="8">was able to fix the leak herself</button>
+        <button class="chip" data-bucket="specific" data-cid="9">couldn't get through to customer service</button>
+        <button class="chip" data-bucket="other" data-cid="10">will be able to travel more next year</button>
+        <button class="chip" data-bucket="other" data-cid="11">has been able to work from home since March</button>
+        <button class="chip" data-bucket="other" data-cid="12">needs to be able to use Excel for the job</button>
       </div>
 
       <div class="buckets">
@@ -800,6 +811,7 @@ document.querySelectorAll('.mcq-item').forEach(item=>{
     btn.addEventListener('click', ()=>{
       if(item.dataset.done) return;
       item.dataset.done = "1";
+      item.dataset.chosen = btn.dataset.val;
       const correctVal = WARMUP_ANSWERS[qid];
       item.querySelectorAll('.opt-btn').forEach(o=>{
         if(o.dataset.val === correctVal) o.classList.add('correct');
@@ -968,6 +980,7 @@ function answerD(i, choice){
   const item = document.getElementById('d-item-'+i);
   if(item.dataset.done) return;
   item.dataset.done = "1";
+  item.dataset.chosen = choice;
   dAnswered++;
   document.getElementById('scoreD').textContent = dAnswered + ' / 11 answered';
   const correct = PRACTICE_D[i].correct;
@@ -1066,12 +1079,109 @@ function resetTimer(){
   renderTimer();
 }
 
+/* ---------- PROGRESS PERSISTENCE (save & resume) ---------- */
+
+const PROGRESS_KEY = 'angle_progress::empowerb1-modals-ability-revision';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: currentPage };
+    state.warmup = [...document.querySelectorAll('.mcq-item')].map(item=>item.dataset.chosen || null);
+    state.a = Object.keys(PRACTICE_A).map(id=>document.getElementById(id).value);
+    state.b = Object.keys(PRACTICE_B).map(id=>document.getElementById(id).value);
+    state.buckets = [...document.querySelectorAll('.chip[data-cid]')].map(chip=>{
+      const bucket = chip.closest('.bucket');
+      return bucket ? bucket.dataset.zone : null;
+    });
+    state.d = PRACTICE_D.map((q,i)=>{
+      const item = document.getElementById('d-item-'+i);
+      return item ? (item.dataset.chosen || null) : null;
+    });
+    state.checklist = [...document.querySelectorAll('#checklist input[type="checkbox"]')].map(cb=>cb.checked);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  const warmupItems = document.querySelectorAll('.mcq-item');
+  (state.warmup||[]).forEach((val,i)=>{
+    if(!val) return;
+    const item = warmupItems[i]; if(!item || item.dataset.done) return;
+    const btn = item.querySelector(`.opt-btn[data-val="${val}"]`);
+    if(btn) btn.click();
+  });
+
+  const aIds = Object.keys(PRACTICE_A);
+  (state.a||[]).forEach((v,i)=>{ if(v){ const el = document.getElementById(aIds[i]); if(el) el.value = v; } });
+  const bIds = Object.keys(PRACTICE_B);
+  (state.b||[]).forEach((v,i)=>{ if(v){ const el = document.getElementById(bIds[i]); if(el) el.value = v; } });
+
+  (state.buckets||[]).forEach((zone, i)=>{
+    if(!zone) return;
+    const chip = document.querySelector(`.chip[data-cid="${i+1}"]`);
+    const bucket = document.querySelector(`.bucket[data-zone="${zone}"]`);
+    if(chip && bucket) bucket.querySelector('.chipzone').appendChild(chip);
+  });
+
+  (state.d||[]).forEach((val,i)=>{
+    if(!val) return;
+    const item = document.getElementById('d-item-'+i);
+    if(item && !item.dataset.done) answerD(i, val);
+  });
+
+  const checks = document.querySelectorAll('#checklist input[type="checkbox"]');
+  (state.checklist||[]).forEach((v,i)=>{
+    if(checks[i]){ checks[i].checked = !!v; checks[i].closest('label').classList.toggle('ticked', !!v); }
+  });
+
+  const hasContent = (state.warmup||[]).some(v=>v) || (state.a||[]).some(v=>v) || (state.b||[]).some(v=>v)
+    || (state.buckets||[]).some(v=>v) || (state.d||[]).some(v=>v) || (state.checklist||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') goPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input.gap')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq-item .opt-btn, .chip, .bucket, #checklist input[type="checkbox"]')) scheduleSave(); });
+
 /* ---------- INIT ---------- */
 buildTiles();
 buildCheat();
 buildPracticeD();
 renderCard();
 renderTimer();
+restoreProgress();
 </script>
 </body>
 </html>

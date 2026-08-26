@@ -115,6 +115,11 @@ audio{ width:100%; margin:10px 0 4px; }
 
 .note-box{ background:var(--card-tint); border:1px solid var(--border); border-radius:8px; padding:12px 16px; font-size:.88em; color:var(--muted); margin-top:14px; }
 
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
 @media(max-width:600px){
   .mtable th, .mtable td{ min-width:30px; padding:4px 2px; }
 }
@@ -140,7 +145,7 @@ audio{ width:100%; margin:10px 0 4px; }
         <div class="lesson-title">ЕГЭ 2027 · Английский язык · 11 класс</div>
         <div class="lesson-sub">Демонстрационный вариант ФИПИ — тестовая часть: Аудирование, Чтение, Грамматика и лексика</div>
       </div>
-      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required></div>
+      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required><span class="save-indicator" id="saveIndicator"></span></div>
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -154,6 +159,10 @@ audio{ width:100%; margin:10px 0 4px; }
 
 <!-- ================= PAGE 0: INTRO ================= -->
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Начать заново (стереть сохранённые ответы)</button>
+  </div>
   <div class="card">
     <h2>Инструкция по выполнению работы</h2>
     <p>Экзаменационная работа по английскому языку состоит из четырёх разделов («Аудирование», «Чтение», «Грамматика и лексика», «Письменная речь»). В этом демо-тесте представлена только <b>тестовая часть</b> — задания 1–36 (разделы «Аудирование», «Чтение», «Грамматика и лексика»). Задания 37 и 38 («Письменная речь») и устная часть в этот файл не включены — они проверяются отдельно, по критериям экспертной оценки.</p>
@@ -869,6 +878,101 @@ async function sendToTeacher(){
     btn.disabled = false;
   }
 }
+
+/* ---------- PROGRESS PERSISTENCE (save & resume) ---------- */
+const PROGRESS_KEY = 'angle_progress::ege2027-demo-test';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+
+    state.selects = {};
+    document.querySelectorAll('table.mtable select[id]').forEach(sel=>{
+      state.selects[sel.id] = sel.value;
+    });
+
+    state.radios = {};
+    const radioNames = new Set();
+    document.querySelectorAll('input[type="radio"][name]').forEach(r=>radioNames.add(r.name));
+    radioNames.forEach(name=>{
+      const checked = document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"]:checked`);
+      state.radios[name] = checked ? checked.value : null;
+    });
+
+    state.fib = {};
+    document.querySelectorAll('input.fib[id]').forEach(inp=>{
+      state.fib[inp.id] = inp.value;
+    });
+
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  let hasContent = false;
+
+  Object.keys(state.selects||{}).forEach(id=>{
+    const val = state.selects[id];
+    const sel = document.getElementById(id);
+    if(sel && val){ sel.value = val; hasContent = true; }
+  });
+
+  Object.keys(state.radios||{}).forEach(name=>{
+    const val = state.radios[name];
+    if(val==null) return;
+    const radio = document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"][value="${CSS.escape(val)}"]`);
+    if(radio){ radio.checked = true; hasContent = true; }
+  });
+
+  Object.keys(state.fib||{}).forEach(id=>{
+    const val = state.fib[id];
+    const inp = document.getElementById(id);
+    if(inp && val){ inp.value = val; hasContent = true; }
+  });
+
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Найдены сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') goToPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Все сохранённые на этом устройстве ответы будут удалены. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select, input[type="radio"]')) scheduleSave(); });
+
+restoreProgress();
 </script>
 </body>
 </html>

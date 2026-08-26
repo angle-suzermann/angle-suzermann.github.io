@@ -205,6 +205,11 @@
     margin:0;
     white-space:nowrap;
   }
+
+  .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; display:inline-block; margin-left:10px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:6px; padding:10px 14px; font-size:.88rem; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -220,6 +225,10 @@
 
 <div class="wrap">
 
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
 
 <form id="quizForm">
 
@@ -375,6 +384,7 @@
   </div>
 
   <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+  <span class="save-indicator" id="saveIndicator"></span>
 </form>
 
 <div id="result">
@@ -467,6 +477,91 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 
   window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
 });
+
+// ---- Progress persistence (save & resume) ----
+const PROGRESS_KEY = 'angle_progress::as5-unit9-debate-warmup-higher';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), items: [] };
+    document.querySelectorAll('.item').forEach(function(item){
+      const type = item.dataset.type;
+      if(type === 'mc'){
+        const checked = item.querySelector('input[type="radio"]:checked');
+        state.items.push(checked ? checked.value : null);
+      } else if(type === 'dd'){
+        const sel = item.querySelector('select');
+        state.items.push(sel ? sel.value : null);
+      } else if(type === 'fib'){
+        const inp = item.querySelector('input[type="text"]');
+        state.items.push(inp ? inp.value : null);
+      } else {
+        state.items.push(null);
+      }
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  const items = document.querySelectorAll('.item');
+  let hasContent = false;
+  (state.items || []).forEach(function(val, i){
+    if(val === null || val === undefined || val === '') return;
+    const item = items[i];
+    if(!item) return;
+    const type = item.dataset.type;
+    if(type === 'mc'){
+      const radio = item.querySelector('input[type="radio"][value="' + CSS.escape(val) + '"]');
+      if(radio){ radio.checked = true; hasContent = true; }
+    } else if(type === 'dd'){
+      const sel = item.querySelector('select');
+      if(sel){ sel.value = val; hasContent = true; }
+    } else if(type === 'fib'){
+      const inp = item.querySelector('input[type="text"]');
+      if(inp){ inp.value = val; hasContent = true; }
+    }
+  });
+
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = 'We found saved answers from ' + (when || 'an earlier session') + ' — they’ve been filled back in.';
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', function(e){ if(e.target.matches('input[type="text"]')) scheduleSave(); });
+document.addEventListener('change', function(e){ if(e.target.matches('input[type="radio"], select')) scheduleSave(); });
+
+restoreProgress();
 </script>
 
 </body>

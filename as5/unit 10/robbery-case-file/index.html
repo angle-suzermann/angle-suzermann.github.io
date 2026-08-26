@@ -180,6 +180,11 @@
 
   .hint{font-size:.78rem; color:var(--muted); margin-top:4px;}
   .center{text-align:center;}
+
+  .save-indicator{ font-size:.7rem; color:var(--green); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:8px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:0; padding:10px 14px; font-size:.85rem; margin-top:12px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.75rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -194,8 +199,13 @@
       <div class="sub">Unit 10 &middot; Academy Stars 5 &middot; Reading skill: scan for details</div>
     </div>
   </header>
-  <div class="meta-bar"><div class="score-pill" id="scorePill">0 / 0 clues found</div></div>
+  <div class="meta-bar"><div class="score-pill" id="scorePill">0 / 0 clues found</div><span class="save-indicator" id="saveIndicator"></span></div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved progress)</button>
+  </div>
 
   <nav class="stagenav" id="stagenav"></nav>
 
@@ -695,13 +705,13 @@ function renderVerdict(){
 
     <div class="card-box">
       <label for="studentName" style="display:block; font-weight:800; color:var(--purple); margin-bottom:6px; text-transform:uppercase; font-size:.78rem;">Detective's name</label>
-      <input type="text" id="studentName" class="name-input" placeholder="Type your full name" value="${studentName.replace(/"/g,'&quot;')}" oninput="studentName=this.value">
+      <input type="text" id="studentName" class="name-input" placeholder="Type your full name" value="${studentName.replace(/"/g,'&quot;')}" oninput="studentName=this.value; scheduleSave();">
     </div>
 
     <p class="lead"><b>Discuss and write:</b> Do you think Sue Snaps meant to steal the egg? What do you think will happen to her?</p>
-    <textarea class="discuss" id="discuss1" oninput="discuss1Text=this.value" placeholder="Write your answer here (at least 2 sentences)...">${discuss1Text}</textarea>
+    <textarea class="discuss" id="discuss1" oninput="discuss1Text=this.value; scheduleSave();" placeholder="Write your answer here (at least 2 sentences)...">${discuss1Text}</textarea>
     <p class="lead" style="margin-top:16px;"><b>Discuss and write:</b> Was Inspector Fox a good detective? Which clue helped him solve the case the most?</p>
-    <textarea class="discuss" id="discuss2" oninput="discuss2Text=this.value" placeholder="Write your answer here (at least 2 sentences)...">${discuss2Text}</textarea>
+    <textarea class="discuss" id="discuss2" oninput="discuss2Text=this.value; scheduleSave();" placeholder="Write your answer here (at least 2 sentences)...">${discuss2Text}</textarea>
     <div class="controls" style="margin-top:10px;">
       <span></span>
       <button class="btn gold" onclick="saveDiscussion()">Save my answers</button>
@@ -824,11 +834,84 @@ function updateScorePill(){
   let c=0,t=0;
   Object.values(results).forEach(r=>{ c+=r.correct; t+=r.total; });
   document.getElementById('scorePill').textContent = `${c} / ${t} clues found`;
+  scheduleSave();
+}
+
+/* ============ PROGRESS PERSISTENCE (save & resume) ============ */
+const PROGRESS_KEY = 'angle_progress::as5-unit10-robbery-case-file';
+let isRestoring = false;
+let saveTimer = null;
+function scheduleSave(){
+  if(isRestoring) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveProgress, 400);
+}
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = {
+      savedAt: new Date().toISOString(),
+      current, studentName, discuss1Text, discuss2Text,
+      results, mistakeLog
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.results){
+    Object.keys(results).forEach(k=>{
+      if(state.results[k]){
+        results[k].correct = state.results[k].correct || 0;
+        results[k].done = !!state.results[k].done;
+      }
+    });
+  }
+  if(state.mistakeLog){
+    Object.keys(mistakeLog).forEach(k=>{ if(Array.isArray(state.mistakeLog[k])) mistakeLog[k] = state.mistakeLog[k]; });
+  }
+  studentName = state.studentName || "";
+  discuss1Text = state.discuss1Text || "";
+  discuss2Text = state.discuss2Text || "";
+
+  const targetPage = (typeof state.current === 'number' && state.current >= 0 && state.current < pages.length) ? state.current : 0;
+  goToPage(targetPage);
+  updateScorePill();
+
+  const hasContent = !!studentName || !!discuss1Text || !!discuss2Text || Object.values(results).some(r=>r.correct>0);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved progress from ${when || 'an earlier session'} — it's been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved progress on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
 }
 
 buildNav();
 goToPage(0);
 updateScorePill();
+restoreProgress();
 </script>
 </body>
 </html>

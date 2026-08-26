@@ -391,6 +391,17 @@
     margin-top:26px;
   }
 
+  .save-indicator{ font-size:11px; color:var(--correct); font-weight:600; opacity:0; transition:opacity .3s ease; margin-top:4px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{
+    background:var(--clay-pale); border:1px solid #e8d98a; border-radius:0; padding:10px 14px; font-size:13px;
+    margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--ink);
+  }
+  .restore-note button{
+    background:#fff; border:1.5px solid var(--accent); color:var(--accent); font-weight:600; font-size:12px;
+    padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap;
+  }
+
   @media (max-width:600px){
     header{ flex-direction:column; text-align:center; clip-path:none; padding:20px 16px 26px; }
     .logo-block{ width:110px; }
@@ -512,6 +523,11 @@
     <div class="caption">Surface tension: how a feather stays afloat</div>
   </div>
 
+  <div class="restore-note" id="restoreNote" hidden data-badge-contrast="light">
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Начать заново (очистить сохранённое)</button>
+  </div>
+
   <div class="info-box" data-badge-contrast="light">
     <div class="info-field">
       <label for="stuName">ИМЯ УЧЕНИКА</label>
@@ -520,6 +536,7 @@
     <div class="info-field">
       <label for="stuGroup">ГРУППА / КЛАСС</label>
       <input type="text" id="stuGroup" placeholder="Например, 4B">
+      <span class="save-indicator" id="saveIndicator"></span>
     </div>
   </div>
 
@@ -911,6 +928,94 @@
       statusEl.style.color = 'var(--wrong)';
     }
   });
+</script>
+
+<script>
+// --- Progress persistence (save & resume) ---
+const PROGRESS_KEY = 'angle_progress::as4-unit9-grammar2-zero-conditional';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.name = document.getElementById('stuName')?.value || '';
+    state.group = document.getElementById('stuGroup')?.value || '';
+    state.mcq = [...document.querySelectorAll('#section1 .mcq')].map(g=>{
+      const wrongBtn = g.querySelector('.opt.wrong');
+      if(wrongBtn) return wrongBtn.dataset.val;
+      if(g.dataset.done) return g.dataset.correct;
+      return null;
+    });
+    state.q2 = [...document.querySelectorAll('[data-kind="ex2"] .q-input')].map(el=>el.value);
+    state.a2 = [...document.querySelectorAll('[data-kind="ex2"] .a-input')].map(el=>el.value);
+    state.q3 = [...document.querySelectorAll('[data-kind="ex3"] .q3-input')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('stuName'); if(ni) ni.value = state.name; }
+  if(state.group){ const gi = document.getElementById('stuGroup'); if(gi) gi.value = state.group; }
+
+  const mcqGroups = document.querySelectorAll('#section1 .mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g || g.dataset.done) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn) btn.click();
+  });
+  const q2s = document.querySelectorAll('[data-kind="ex2"] .q-input');
+  (state.q2||[]).forEach((v,i)=>{ if(q2s[i] && v) q2s[i].value = v; });
+  const a2s = document.querySelectorAll('[data-kind="ex2"] .a-input');
+  (state.a2||[]).forEach((v,i)=>{ if(a2s[i] && v) a2s[i].value = v; });
+  const q3s = document.querySelectorAll('[data-kind="ex3"] .q3-input');
+  (state.q3||[]).forEach((v,i)=>{ if(q3s[i] && v) q3s[i].value = v; });
+
+  updateProgress();
+
+  const hasContent = (state.mcq||[]).some(v=>v!=null) || (state.q2||[]).some(v=>v) || (state.a2||[]).some(v=>v) || (state.q3||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Мы нашли сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Это удалит все сохранённые ответы на этом устройстве. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{
+  if(e.target.matches('#stuName, #stuGroup, .q-input, .a-input, .q3-input')) scheduleSave();
+});
+document.addEventListener('click', e=>{
+  if(e.target.closest('#section1 .mcq .opt')) scheduleSave();
+});
+
+restoreProgress();
 </script>
 
 <script>

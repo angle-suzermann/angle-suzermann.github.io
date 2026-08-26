@@ -1,4 +1,4 @@
-writing file changed bytes: 7 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -131,6 +131,11 @@ textarea.essay:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0
   .mtable th, .mtable td{ font-size:.82em; padding:5px 6px; }
   .pie-wrap{ flex-direction:column; align-items:flex-start; }
 }
+
+.save-indicator{ font-size:.78em; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:6px; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88em; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78em; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -153,7 +158,7 @@ textarea.essay:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0
         <div class="lesson-title">ЕГЭ 2027 · Английский язык · 11 класс</div>
         <div class="lesson-sub">Демонстрационный вариант ФИПИ — письменная речь: задания 37–38 (часть 2 из 2)</div>
       </div>
-      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required></div>
+      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required><span class="save-indicator" id="saveIndicator"></span></div>
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -167,6 +172,10 @@ textarea.essay:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0
 
 <!-- ================= PAGE 0: INTRO ================= -->
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Начать заново (стереть ответы)</button>
+  </div>
   <div class="card">
     <h2>Раздел 4. Письменная речь — инструкция</h2>
     <p>Это вторая часть демо-теста. Первая часть (Аудирование, Чтение, Грамматика и лексика) проверяется автоматически. Письменная речь так не работает — её нужно оценивать по официальным критериям вручную, поэтому здесь нет счётчика баллов.</p>
@@ -372,6 +381,7 @@ function goToPage(n){
     document.getElementById('final-wc38').textContent = countWords(document.getElementById('essay38').value);
   }
   window.scrollTo(0,0);
+  if(!isRestoring) scheduleSave();
 }
 buildDots();
 
@@ -422,6 +432,7 @@ function selectSubtask(n){
   document.getElementById('sub38-2').style.display = n===2 ? 'block':'none';
   document.getElementById('choice-label-1').classList.toggle('active', n===1);
   document.getElementById('choice-label-2').classList.toggle('active', n===2);
+  if(!isRestoring) scheduleSave();
 }
 
 // ---------- Download ----------
@@ -491,6 +502,77 @@ async function sendToTeacher(){
     btn.disabled = false;
   }
 }
+
+// ---------- Progress persistence (save & resume) ----------
+const PROGRESS_KEY = 'angle_progress::ege2027-demo-2027-demo-written';
+let isRestoring = false;
+let saveTimer = null;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.essay37 = document.getElementById('essay37')?.value || '';
+    state.essay38 = document.getElementById('essay38')?.value || '';
+    const checked = document.querySelector('input[name="task38choice"]:checked');
+    state.task38choice = checked ? checked.value : '38.1';
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  if(state.essay37){
+    document.getElementById('essay37').value = state.essay37;
+    updateWordCount('essay37',100,140,'wc37');
+  }
+  if(state.essay38){
+    document.getElementById('essay38').value = state.essay38;
+    updateWordCount('essay38',200,250,'wc38');
+  }
+  if(state.task38choice){
+    const radio = document.querySelector('input[name="task38choice"][value="' + state.task38choice + '"]');
+    if(radio){ radio.checked = true; selectSubtask(state.task38choice === '38.1' ? 1 : 2); }
+  }
+
+  const hasContent = !!(state.essay37 || state.essay38);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Мы нашли сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') goToPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Все сохранённые ответы на этом устройстве будут удалены. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('.essay, #studentName')) scheduleSave(); });
+
+restoreProgress();
 </script>
 
 </body>

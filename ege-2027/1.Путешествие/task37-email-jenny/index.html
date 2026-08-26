@@ -145,11 +145,19 @@
     pointer-events:none;
   }
   .toast.show{opacity:1;}
+  .save-indicator{ font-size:.78rem; color:var(--ok); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:10px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--accent); color:var(--accent); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>1_Кейс ЕГЭ 2023_Путешествие_Электронное письмо_авторская 4</h1>
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
 
   <!-- Original email from Jenny -->
   <div class="card">
@@ -202,13 +210,16 @@
   <div class="save-bar">
     <button class="main-btn" id="saveBtn">Save answers</button>
     <button class="main-btn secondary" id="clearAllBtn">Clear all</button>
+    <span class="save-indicator" id="saveIndicator"></span>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  const STORAGE_KEY = 'ege_email_avtorskaya4_jenny_v1';
+  const PROGRESS_KEY = 'angle_progress::ege2027-task37-email-jenny';
+  let isRestoring = false;
+  let saveTimer = null;
 
   const mainEmail = document.getElementById('mainEmail');
   const mainCount = document.getElementById('mainCount');
@@ -242,29 +253,64 @@
     setTimeout(() => t.classList.remove('show'), 1800);
   }
 
-  function saveState(){
-    try{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        mainEmail: mainEmail.value,
-        grandmaQ: grandmaQ.value,
-        brotherQ: brotherQ.value
-      }));
-      showToast('Saved');
-    }catch(e){
-      showToast('Could not save');
-    }
+  function collectState(){
+    return {
+      mainEmail: mainEmail.value,
+      grandmaQ: grandmaQ.value,
+      brotherQ: brotherQ.value
+    };
   }
 
-  function loadState(){
+  function showSavedIndicator(){
+    const el = document.getElementById('saveIndicator');
+    if(!el) return;
+    el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    el.classList.add('show');
+    clearTimeout(showSavedIndicator._t);
+    showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+  }
+
+  function saveProgress(){
+    if(isRestoring) return;
     try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return;
-      const data = JSON.parse(raw);
-      mainEmail.value = data.mainEmail || '';
-      grandmaQ.value = data.grandmaQ || '';
-      brotherQ.value = data.brotherQ || '';
-      updateCount();
-    }catch(e){}
+      const state = collectState();
+      state.savedAt = new Date().toISOString();
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+      showSavedIndicator();
+    }catch(e){ /* localStorage unavailable — fail silently */ }
+  }
+  function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+  function saveState(){
+    saveProgress();
+    showToast('Saved');
+  }
+
+  function restoreProgress(){
+    let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+    if(!raw) return;
+    let data; try{ data = JSON.parse(raw); }catch(e){ return; }
+    isRestoring = true;
+    mainEmail.value = data.mainEmail || '';
+    grandmaQ.value = data.grandmaQ || '';
+    brotherQ.value = data.brotherQ || '';
+    updateCount();
+    const hasContent = !!(data.mainEmail || data.grandmaQ || data.brotherQ);
+    if(hasContent){
+      const note = document.getElementById('restoreNote');
+      if(note){
+        const when = data.savedAt ? new Date(data.savedAt).toLocaleString() : '';
+        document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+        note.hidden = false;
+      }
+    }
+    isRestoring = false;
+  }
+
+  function clearProgress(){
+    if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+    try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+    location.reload();
   }
 
   document.getElementById('saveBtn').addEventListener('click', saveState);
@@ -273,12 +319,14 @@
     mainEmail.value = '';
     grandmaQ.value = '';
     brotherQ.value = '';
-    localStorage.removeItem(STORAGE_KEY);
+    try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
     updateCount();
     showToast('Cleared');
   });
 
-  loadState();
+  document.addEventListener('input', e=>{ if(e.target.matches('textarea')) scheduleSave(); });
+
+  restoreProgress();
   updateCount();
 </script>
 </body>

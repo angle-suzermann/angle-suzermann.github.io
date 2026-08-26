@@ -139,6 +139,11 @@
   .bar-value{ margin-left:8px; font-size:12.5px; font-weight:700; color:var(--black); white-space:nowrap; }
 
   footer.done-msg{ text-align:center; color:rgba(255,255,255,.85); font-size:12px; margin-top:26px; }
+
+  .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
   @media(max-width:700px){ .bar-label{width:120px; font-size:11px;} }
   @media(max-width:600px){
     .namebar input{width:120px;} .lesson-title{font-size:13px;} h1{font-size:18px;}
@@ -159,6 +164,7 @@
         <label for="studentName">Имя:</label>
         <input type="text" id="studentName" placeholder="Впиши имя">
         <span class="score-pill" id="scorePill">0 / 0</span>
+        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -173,6 +179,10 @@
 
 <!-- PAGE 0 — COVER -->
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Начать заново (стереть сохранённые ответы)</button>
+  </div>
   <div class="card">
     <span class="tag">Как пользоваться тренажёром</span>
     <h1>Задание 38: комментарий к данным + своё мнение</h1>
@@ -689,10 +699,87 @@ function showPage(n){
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
   document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
   if(current===12) updateScorePill();
+  if(typeof isRestoring === 'undefined' || !isRestoring) scheduleSave();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }
 updateScorePill();
+
+/* ---------- progress persistence (save & resume) ---------- */
+const PROGRESS_KEY = 'angle_progress::ege2027-essay-38';
+let isRestoring = false;
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.texts = [...document.querySelectorAll('input[type=text]')].map(el=>el.value);
+    state.selects = [...document.querySelectorAll('select')].map(el=>el.value);
+    state.checks = [...document.querySelectorAll('input[type=checkbox]')].map(el=>el.checked);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  const texts = document.querySelectorAll('input[type=text]');
+  (state.texts||[]).forEach((v,i)=>{ if(texts[i] && v) texts[i].value = v; });
+
+  const selects = document.querySelectorAll('select');
+  (state.selects||[]).forEach((v,i)=>{ if(selects[i] && v) selects[i].value = v; });
+
+  const checks = document.querySelectorAll('input[type=checkbox]');
+  (state.checks||[]).forEach((v,i)=>{ if(checks[i] && v) checks[i].checked = true; });
+
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{
+    if(tas[i] && v){
+      tas[i].value = v;
+      if(tas[i].id === 'essayA') updateWordCount('essayA','wcA',200,250);
+      if(tas[i].id === 'essayB') updateWordCount('essayB','wcB',200,250);
+    }
+  });
+
+  const hasContent = state.texts?.some(v=>v) || state.selects?.some(v=>v) || state.checks?.some(v=>v) || state.textareas?.some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Найдены сохранённые ответы от ${when || 'предыдущей сессии'} — они уже заполнены.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Это сотрёт все сохранённые ответы на этом устройстве. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input[type=text], textarea')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select, input[type=checkbox]')) scheduleSave(); });
+
+restoreProgress();
 </script>
 </body>
 </html>

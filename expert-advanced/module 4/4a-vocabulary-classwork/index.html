@@ -197,6 +197,12 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
 .angle-badge .wordmark{width:106px; height:auto; display:block;}
 .angle-badge .credit{margin-top:4px; margin-left:2px; font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:400; font-size:11.5px; letter-spacing:.2px;}
 
+/* ---------- Save & resume ---------- */
+.save-indicator{font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap;}
+.save-indicator.show{opacity:1;}
+.restore-note{background:#fffbe6; border:1px solid #f0dd8a; border-radius:14px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--purple-dark);}
+.restore-note button{background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap;}
+
 @media (max-width:640px){
   .match-cols{grid-template-columns:1fr;}
   .buckets{grid-template-columns:1fr;}
@@ -219,6 +225,7 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your full name" autocomplete="name">
+        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -233,6 +240,10 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
 
 <!-- ================= PAGE 0 — WELCOME ================= -->
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
   <div class="card">
     <h2>Welcome</h2>
     <p class="welcome-lead">Today's lesson works through the Module 4A vocabulary set — sleep words, easily-confused near-synonyms, idiom word pairs and phrasal nouns — step by step: first we work out the meanings together, then you practise using the language, first in a controlled way and then more freely.</p>
@@ -515,9 +526,11 @@ function buildMCQInto(containerId, items, startNum){
 }
 
 /* ---------- Categorize (generic, supports multiple independent widgets per file) ---------- */
+const CATEGORIZE_REGISTRY = {}; // bankElId -> { label: chipEl } — lets restoreProgress find shuffled chips by stable label
 function buildCategorizeGeneric(bankElId, chipsData){
   const bank = document.getElementById(bankElId);
   const shuffled = shuffle(chipsData);
+  const registry = CATEGORIZE_REGISTRY[bankElId] = {};
   shuffled.forEach(c=>{
     const chip = document.createElement('button');
     chip.type = 'button';
@@ -525,6 +538,7 @@ function buildCategorizeGeneric(bankElId, chipsData){
     chip.textContent = c.label;
     chip.dataset.answer = c.bucket;
     bank.appendChild(chip);
+    registry[c.label] = chip;
   });
 
   let selectedChip = null;
@@ -689,6 +703,138 @@ async function submitAll(){
 }
 
 
+/* ---------- Progress persistence: save & resume ---------- */
+const PROGRESS_KEY = 'angle_progress::expert-advanced-m4-4a-vocabulary-classwork';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = Array.from(document.querySelectorAll('.fib')).map(el=>el.value);
+    state.mcq = Array.from(document.querySelectorAll('.mcq')).map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.matched = {};
+    document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+      state.matched[c.id] = Array.from(new Set(
+        Array.from(c.querySelectorAll('.matched-correct')).map(x=>x.dataset.id)
+      ));
+    });
+    state.chips = {};
+    Object.keys(CATEGORIZE_REGISTRY).forEach(bankId=>{
+      const registry = CATEGORIZE_REGISTRY[bankId];
+      const entries = [];
+      Object.keys(registry).forEach(label=>{
+        const chip = registry[label];
+        if(chip.classList.contains('placed-correct') || chip.classList.contains('placed-wrong')){
+          const bucketEl = chip.closest('.bucket');
+          entries.push({
+            label,
+            bucket: bucketEl ? bucketEl.dataset.bucket : chip.dataset.answer,
+            ok: chip.classList.contains('placed-correct')
+          });
+        }
+      });
+      if(entries.length) state.chips[bankId] = entries;
+    });
+    state.textareas = Array.from(document.querySelectorAll('textarea.notes')).map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g || g.dataset.done) return;
+    const btn = g.querySelector(`.opt[data-val="${CSS.escape(val)}"]`);
+    if(btn){
+      g.dataset.done = "1";
+      const correct = g.dataset.correct;
+      g.querySelectorAll('.opt').forEach(o=>{
+        if(o.dataset.val === correct) o.classList.add('correct');
+        else if(o.dataset.val === val) { o.classList.add('chosen'); o.classList.add('wrong'); }
+      });
+      if(val === correct) btn.classList.add('chosen');
+    }
+  });
+
+  Object.keys(state.matched||{}).forEach(containerId=>{
+    const container = document.getElementById(containerId); if(!container) return;
+    const ids = state.matched[containerId] || [];
+    ids.forEach(id=>{
+      container.querySelectorAll(`.match[data-id="${CSS.escape(id)}"]`).forEach(el=>{
+        el.classList.add('matched-correct');
+      });
+    });
+    container.dataset.correctCount = String(ids.length);
+  });
+
+  Object.keys(state.chips||{}).forEach(bankId=>{
+    const registry = CATEGORIZE_REGISTRY[bankId]; if(!registry) return;
+    (state.chips[bankId]||[]).forEach(entry=>{
+      const chip = registry[entry.label]; if(!chip) return;
+      if(chip.classList.contains('placed-correct') || chip.classList.contains('placed-wrong')) return;
+      chip.classList.add(entry.ok ? 'placed-correct' : 'placed-wrong');
+      const bank = document.getElementById(bankId);
+      const card = bank ? bank.closest('.card') : chip.closest('.card');
+      const bucketEl = card ? card.querySelector(`.bucket[data-bucket="${CSS.escape(entry.bucket)}"]`) : null;
+      const zone = bucketEl ? bucketEl.querySelector('.bucket-items') : null;
+      if(zone) zone.appendChild(chip);
+    });
+  });
+
+  const tas = document.querySelectorAll('textarea.notes');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const hasContent = (state.fib||[]).some(v=>v) || (state.mcq||[]).some(v=>v!=null)
+    || (state.textareas||[]).some(v=>v) || Object.values(state.matched||{}).some(a=>a.length)
+    || Object.values(state.chips||{}).some(a=>a.length);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, .bucket, .chip')) scheduleSave(); });
+
 buildDots();
 buildMCQInto('sleepMCQ', SLEEP_MCQ, 1);
 buildCategorizeGeneric('sleepPVBank', SLEEP_PV_CHIPS);
@@ -699,6 +845,7 @@ buildDiscussionInto('idiomDiscussItems', IDIOM_DISCUSS, 1);
 buildCategorizeGeneric('phrasalNounBank', PHRASAL_NOUN_CHIPS);
 buildGapFillInto('phrasalNounFib', PHRASAL_NOUN_FIB, 1);
 showPage(0);
+restoreProgress();
 
 </script>
 </body>

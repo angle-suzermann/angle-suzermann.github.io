@@ -327,6 +327,11 @@
     .toolbar, .check-btn, .reset-btn{display:none;}
     body{background:#fff;}
   }
+
+  .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; display:inline-block; margin-left:8px; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:4px; padding:10px 14px; font-size:.88rem; margin:16px 0 0; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -342,9 +347,15 @@
 
 <div class="wrap">
 
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
+
 <div class="student-info">
   <label for="studentName">Ваше имя:</label>
   <input type="text" id="studentName" placeholder="Впишите имя, чтобы учитель узнал результат">
+  <span class="save-indicator" id="saveIndicator"></span>
 </div>
 
 <h2>1&nbsp; Match the word to its meaning</h2>
@@ -805,6 +816,100 @@ function sendResults(){
     });
 }
 
+/* ================= PROGRESS PERSISTENCE (save & resume) ================= */
+
+const PROGRESS_KEY = 'angle_progress::empowerb1-4a-ability-vocabulary';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.matched = [...document.querySelectorAll('#words-wrap .chip.correct')].map(el=>el.dataset.wordId);
+    state.ex2 = [...document.querySelectorAll('#ex2 select.gap')].map(el=>el.value);
+    state.ex3 = [...document.querySelectorAll('#ex3 select.gap')].map(el=>el.value);
+    state.ex4 = ex4data.map((item, idx)=>{
+      const group = document.getElementById('prep-' + idx);
+      const chosen = group ? group.querySelector('.prep-btn.selected, .prep-btn.correct, .prep-btn.wrong') : null;
+      return chosen ? chosen.dataset.value : null;
+    });
+    state.ex5 = [...document.querySelectorAll('#ex5 textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  (state.matched||[]).forEach(wid=>{
+    const wordBtn = document.querySelector('#words-wrap .chip[data-word-id="'+wid+'"]');
+    const defBtn = document.querySelector('#defs-wrap .def-chip[data-word-id="'+wid+'"]');
+    if(wordBtn && defBtn){
+      wordBtn.classList.add('correct','disabled');
+      defBtn.classList.add('correct','disabled');
+      matchedCount++;
+    }
+  });
+  if((state.matched||[]).length){
+    document.getElementById('match-score').textContent = 'Matched: ' + matchedCount + ' of ' + words.length;
+  }
+
+  const ex2sels = document.querySelectorAll('#ex2 select.gap');
+  (state.ex2||[]).forEach((v,i)=>{ if(ex2sels[i] && v) ex2sels[i].value = v; });
+  const ex3sels = document.querySelectorAll('#ex3 select.gap');
+  (state.ex3||[]).forEach((v,i)=>{ if(ex3sels[i] && v) ex3sels[i].value = v; });
+
+  (state.ex4||[]).forEach((v,idx)=>{
+    if(!v) return;
+    const group = document.getElementById('prep-' + idx);
+    if(!group) return;
+    const btn = group.querySelector('.prep-btn[data-value="'+v+'"]');
+    if(btn) btn.classList.add('selected');
+  });
+
+  const ex5tas = document.querySelectorAll('#ex5 textarea');
+  (state.ex5||[]).forEach((v,i)=>{ if(ex5tas[i] && v) ex5tas[i].value = v; });
+
+  const hasContent = (state.matched||[]).length || (state.ex2||[]).some(v=>v) || (state.ex3||[]).some(v=>v)
+    || (state.ex4||[]).some(v=>v) || (state.ex5||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('#ex5 textarea, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select.gap')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('#words-wrap .chip, #defs-wrap .def-chip, .prep-btn, .reset-btn')) scheduleSave(); });
+
 /* ================= INIT ================= */
 
 renderMatch();
@@ -812,6 +917,7 @@ renderSelectExercise("ex2", ex2data);
 renderSelectExercise("ex3", ex3data);
 renderPrep();
 renderPersonal();
+restoreProgress();
 </script>
 </body>
 </html>

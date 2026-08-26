@@ -163,6 +163,11 @@ ul.criteria li{ margin-bottom:6px; }
 .angle-badge .wordmark{ width:130px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; font-weight:400; font-size:11px; letter-spacing:.3px; }
 @media (max-width:600px){ .angle-badge{ left:14px; bottom:14px; } .angle-badge .wordmark{ width:96px; } }
+
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -187,6 +192,7 @@ ul.criteria li{ margin-bottom:6px; }
       <div class="namebar">
         <label for="studentName">Имя:</label>
         <input type="text" id="studentName" placeholder="Впишите имя">
+        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -201,6 +207,10 @@ ul.criteria li{ margin-bottom:6px; }
 
 <!-- PAGE 0: COVER -->
 <section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Начать заново (стереть ответы)</button>
+  </div>
   <div class="card">
     <span class="tag">ЕГЭ · Говорение · Задание 4</span>
     <h1>Путешествие по своей стране и за рубежом.<br>Осмотр достопримечательностей</h1>
@@ -617,6 +627,7 @@ function showPage(n){
     if(i<=current) d.classList.add('visited');
   });
   window.scrollTo(0,0);
+  if(!isRestoring) scheduleSave();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }
@@ -626,6 +637,7 @@ function insertChip(el, targetId){
   const word = el.textContent;
   ta.value = ta.value.trim().length ? (ta.value.trim() + ' ' + word) : word;
   ta.focus();
+  if(!isRestoring) scheduleSave();
 }
 
 /* ===== Task 2: categorize ===== */
@@ -673,10 +685,29 @@ function dropWord(bucketName){
   const clone = selectedWord.cloneNode(true);
   clone.classList.remove('selected');
   clone.dataset.assigned = bucketName;
-  clone.onclick = (e)=>{ e.stopPropagation(); clone.remove(); selectedWord.classList.remove('placed'); };
+  const bankChip = selectedWord;
+  clone.onclick = (e)=>{ e.stopPropagation(); clone.remove(); bankChip.classList.remove('placed'); if(!isRestoring) scheduleSave(); };
   target.appendChild(clone);
   selectedWord.classList.add('placed');
   selectedWord = null;
+  if(!isRestoring) scheduleSave();
+}
+
+function restoreTask2(task2){
+  if(!task2) return;
+  Object.keys(task2).forEach(idx=>{
+    const cat = task2[idx];
+    const bankChip = document.querySelector('#wordBank .chip.word[data-idx="' + idx + '"]');
+    if(!bankChip || bankChip.classList.contains('placed')) return;
+    const target = document.getElementById('bucket-' + cat);
+    if(!target) return;
+    const clone = bankChip.cloneNode(true);
+    clone.classList.remove('selected');
+    clone.dataset.assigned = cat;
+    clone.onclick = (e)=>{ e.stopPropagation(); clone.remove(); bankChip.classList.remove('placed'); if(!isRestoring) scheduleSave(); };
+    target.appendChild(clone);
+    bankChip.classList.add('placed');
+  });
 }
 function checkTask2(){
   let correct = 0, total = TASK2_WORDS.length;
@@ -752,9 +783,78 @@ async function submitAll(){
   }
 }
 
+/* ===== Progress persistence (save & resume) ===== */
+const PROGRESS_KEY = 'angle_progress::ege2027-task4-travel-worksheet';
+let isRestoring = false;
+let saveTimer = null;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.answers = [...document.querySelectorAll('textarea.answer')].map(el=>el.value);
+    state.blankRow = [...document.querySelectorAll('.blank-row textarea')].map(el=>el.value);
+    const task2 = {};
+    ['photo1','both','photo2'].forEach(cat=>{
+      document.querySelectorAll('#bucket-' + cat + ' .chip.word').forEach(chip=>{
+        task2[chip.dataset.idx] = cat;
+      });
+    });
+    state.task2 = task2;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const answers = document.querySelectorAll('textarea.answer');
+  (state.answers||[]).forEach((v,i)=>{ if(answers[i] && v) answers[i].value = v; });
+  const blankRows = document.querySelectorAll('.blank-row textarea');
+  (state.blankRow||[]).forEach((v,i)=>{ if(blankRows[i] && v) blankRows[i].value = v; });
+  restoreTask2(state.task2);
+
+  const hasContent = (state.answers||[]).some(v=>v) || (state.blankRow||[]).some(v=>v)
+    || (state.task2 && Object.keys(state.task2).length);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Мы нашли сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Все сохранённые ответы на этом устройстве будут удалены. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea.answer, .blank-row textarea, #studentName')) scheduleSave(); });
+
 buildDots();
 buildWordBank();
 showPage(0);
+restoreProgress();
 </script>
 
 </body>

@@ -163,12 +163,21 @@
     color: #a30000;
     display: none;
   }
+  .save-indicator{ font-size: 13px; color: #a30000; opacity: 0; transition: opacity .3s ease; white-space: nowrap; align-self: center; }
+  .save-indicator.show{ opacity: 1; }
+  .restore-note{ background: #fdf0f0; border: 1px solid #e3a3a3; border-radius: 6px; padding: 10px 18px; font-size: 14px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .restore-note button{ background: #fff; border: 1.5px solid #a30000; color: #a30000; font-weight: bold; font-size: 13px; padding: 6px 12px; border-radius: 16px; cursor: pointer; font-family: inherit; white-space: nowrap; }
 </style>
 </head>
 <body>
 
 <h1>Future forms worksheet</h1>
 <p class="subtitle">Will, going to, present continuous and present simple for future</p>
+
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
 
 <h2>1&nbsp; Circle the correct answer.</h2>
 <div class="instructions">Click on the answer you think is correct (<b>a</b> or <b>b</b>).</div>
@@ -181,6 +190,7 @@
 <div class="buttons">
   <button onclick="checkAnswers()">Check my answers</button>
   <button class="secondary" onclick="resetWorksheet()">Reset</button>
+  <span class="save-indicator" id="saveIndicator"></span>
 </div>
 <div id="score"></div>
 
@@ -291,6 +301,64 @@ function resetWorksheet() {
   });
   document.getElementById('score').style.display = 'none';
 }
+
+/* ============ Progress persistence (save & resume) ============ */
+const PROGRESS_KEY = 'angle_progress::gtwb2-unit3-future-tenses-worksheet';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.mc = mcItems.map((item, i) => selections[i] || null);
+    state.gap = [...document.querySelectorAll('input.gap')].map(el => el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  (state.mc||[]).forEach((choice, i)=>{ if(choice) selectOption(i, choice); });
+  const gaps = document.querySelectorAll('input.gap');
+  (state.gap||[]).forEach((v,i)=>{ if(gaps[i] && v) gaps[i].value = v; });
+
+  const hasContent = state.mc?.some(v=>v) || state.gap?.some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input.gap')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.option')) scheduleSave(); });
+
+restoreProgress();
 </script>
 
 </body>

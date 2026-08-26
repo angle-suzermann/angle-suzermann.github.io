@@ -219,6 +219,12 @@
     text-align:center;
     white-space:nowrap;
   }
+
+  /* save & resume */
+  .save-indicator{position:fixed;top:10px;right:10px;z-index:1001;font-size:0.72em;color:var(--correct);opacity:0;transition:opacity .3s ease;white-space:nowrap;background:#fff;padding:4px 10px;border-radius:12px;border:1px solid var(--neutral-border);pointer-events:none;}
+  .save-indicator.show{opacity:1;}
+  .restore-note{background:#fffbe6;border:1px solid #f0dd8a;padding:10px 14px;font-size:0.88em;margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--black);}
+  .restore-note button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:0.78em;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -237,6 +243,11 @@
 
 <div class="wrap">
 
+<span class="save-indicator" id="saveIndicator"></span>
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
 
 <form id="quizForm">
 
@@ -490,8 +501,81 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   }
   window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
   window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  window.angleShowSection = function(i){ idx = Math.max(0, Math.min(total-1, i)); show(idx); };
+  window.angleGetSection = function(){ return idx; };
   show(idx);
 })();
+</script>
+
+<script>
+/* ---------- Progress persistence: save & resume ---------- */
+const PROGRESS_KEY = 'angle_progress::expert-advanced-m4-test';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.section = typeof window.angleGetSection === 'function' ? window.angleGetSection() : 0;
+    state.mc = Array.from(document.querySelectorAll('.item[data-type="mc"]')).map(item=>{
+      const checked = item.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : null;
+    });
+    state.fib = Array.from(document.querySelectorAll('.item[data-type="fib"] input[type="text"]')).map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  document.querySelectorAll('.item[data-type="mc"]').forEach((item,i)=>{
+    const val = (state.mc||[])[i];
+    if(!val) return;
+    const radio = item.querySelector('input[type="radio"][value="' + CSS.escape(val) + '"]');
+    if(radio) radio.checked = true;
+  });
+  document.querySelectorAll('.item[data-type="fib"] input[type="text"]').forEach((el,i)=>{
+    const v = (state.fib||[])[i]; if(v) el.value = v;
+  });
+
+  const hasContent = (state.mc||[]).some(v=>v) || (state.fib||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.section === 'number' && typeof window.angleShowSection === 'function') window.angleShowSection(state.section);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input[type="text"]')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('input[type="radio"], select')) scheduleSave(); });
+
+restoreProgress();
 </script>
 
 </body>

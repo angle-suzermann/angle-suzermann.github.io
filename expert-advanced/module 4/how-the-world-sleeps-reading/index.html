@@ -252,6 +252,13 @@
   }
   .angle-badge.on-dark{ color:#fff; }
   .angle-badge.on-light{ color:#2D2926; }
+
+  /* ---------- Save & resume ---------- */
+  .save-indicator{position:absolute; right:0; top:0; font-size:11px; color:var(--yellow); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700;}
+  .save-indicator.show{opacity:1;}
+  .progress-inner{position:relative;}
+  .restore-note{background:#fffbe6; border:1.5px solid #f0dd8a; border-radius:0; padding:10px 14px; font-size:13.5px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--black);}
+  .restore-note button{background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:800; font-size:12px; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:'Apercu Pro',sans-serif; white-space:nowrap; text-transform:uppercase; letter-spacing:.3px;}
 </style>
 
 <style>
@@ -325,6 +332,7 @@ input, textarea{
 </header>
 <div class="progress-strip" data-badge-contrast="dark">
   <div class="progress-inner">
+    <span class="save-indicator" id="saveIndicator"></span>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <div class="dots" id="dots"></div>
   </div>
@@ -709,6 +717,7 @@ function renderPage(){
   document.getElementById('progressFill').style.width = ((current+1)/PAGES.length*100)+'%';
   renderDots();
   if(PAGES[current].label==="Vocabulary"){ cardIndex=0; cardFlipped=false; renderCard(); }
+  if(typeof applyPageState === 'function') applyPageState(current);
   window.scrollTo(0,0);
 }
 
@@ -731,6 +740,8 @@ document.addEventListener('click', function(e){
     const row = abc.closest('.abcde-row');
     row.querySelectorAll('.abcde-chip').forEach(c=>c.classList.remove('selected'));
     abc.classList.add('selected');
+    const item = abc.closest('.match-item');
+    if(item) item.dataset.chosen = abc.dataset.val; // survives the class swap once Check is pressed — used for save/restore
   }
 });
 
@@ -766,6 +777,7 @@ function checkMatching(){
   pill.textContent = correctCount + ' / ' + MATCHING.length + ' correct';
   window.lastReadingScore = correctCount + '/' + MATCHING.length;
   window.readingMistakes = mistakes;
+  if(typeof scheduleSave === 'function') scheduleSave();
 }
 
 /* ===================== FLASHCARDS ===================== */
@@ -839,6 +851,7 @@ function checkBuckets(){
   pill.textContent = correct + ' / ' + total + ' correct (' + placed + ' placed)';
   window.lastPracticeScore = correct + '/' + total;
   window.practiceMistakes = mistakes;
+  if(typeof scheduleSave === 'function') scheduleSave();
 }
 
 /* ===================== SEND TO TEACHER ===================== */
@@ -883,8 +896,175 @@ async function sendCompletion(){
   }
 }
 
+/* ===================== Progress persistence: save & resume ===================== */
+const PROGRESS_KEY = 'angle_progress::expert-advanced-m4-how-the-world-sleeps-reading';
+let isRestoring = false;
+let progressState = {}; // keyed by PAGES[].label — each page's DOM is rebuilt on every navigation, so state is captured/replayed per page
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if(!raw) return;
+    const parsed = JSON.parse(raw);
+    progressState = parsed.pages || {};
+    if(typeof parsed.page === 'number' && PAGES[parsed.page]) current = parsed.page;
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+
+function stateHasContent(){
+  return Object.keys(progressState).some(label=>{
+    const s = progressState[label];
+    if(!s) return false;
+    if(s.ratings && s.ratings.some(v=>v!=null)) return true;
+    if(s.textareas && s.textareas.some(v=>v)) return true;
+    if(s.text) return true;
+    if(s.matching && s.matching.some(v=>v)) return true;
+    if(s.placed && s.placed.length) return true;
+    if(s.name || s.newWord || s.difficulty) return true;
+    return false;
+  });
+}
+
+function captureCurrentPageState(){
+  const label = PAGES[current].label;
+  if(label === 'Warm-up'){
+    const rows = document.querySelectorAll('.rate-row');
+    const ratings = Array.from(rows).map(row=>{
+      const sel = row.querySelector('.rate-chip.selected');
+      return sel ? sel.dataset.val : null;
+    });
+    const textareas = Array.from(document.querySelectorAll('.reflect-box textarea')).map(t=>t.value);
+    return { ratings, textareas };
+  }
+  if(label === 'Lead-in'){
+    const ta = document.querySelector('.reflect-box textarea');
+    return { text: ta ? ta.value : '' };
+  }
+  if(label === 'Reading'){
+    const matching = Array.from(document.querySelectorAll('.match-item')).map(item=>item.dataset.chosen || null);
+    const checked = !!(document.getElementById('matchScore') && document.getElementById('matchScore').style.display !== 'none');
+    return { matching, checked };
+  }
+  if(label === 'Discussion'){
+    const textareas = Array.from(document.querySelectorAll('.disc-card textarea')).map(t=>t.value);
+    return { textareas };
+  }
+  if(label === 'Practice'){
+    const placed = [];
+    document.querySelectorAll('.bucket').forEach(b=>{
+      const cat = b.dataset.cat;
+      b.querySelectorAll('.chip-list .word-chip').forEach(chip=>{
+        placed.push({ idx: chip.dataset.idx, bucket: cat });
+      });
+    });
+    const checked = !!(document.getElementById('bucketScore') && document.getElementById('bucketScore').style.display !== 'none');
+    return { placed, checked };
+  }
+  if(label === 'Finish'){
+    return {
+      name: document.getElementById('studentName')?.value || '',
+      newWord: document.getElementById('newWord')?.value || '',
+      difficulty: document.getElementById('difficulty')?.value || ''
+    };
+  }
+  return null;
+}
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const label = PAGES[current].label;
+    const slice = captureCurrentPageState();
+    if(slice) progressState[label] = slice;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify({ savedAt: new Date().toISOString(), page: current, pages: progressState }));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function applyPageState(idx){
+  const label = PAGES[idx].label;
+  const saved = progressState[label];
+  if(!saved) return;
+  isRestoring = true;
+
+  if(label === 'Warm-up'){
+    (saved.ratings||[]).forEach((val,i)=>{
+      if(val==null) return;
+      const row = document.querySelector(`.rate-row[data-stmt="${i}"]`);
+      const chip = row ? row.querySelector(`.rate-chip[data-val="${val}"]`) : null;
+      if(chip) chip.classList.add('selected');
+    });
+    const tas = document.querySelectorAll('.reflect-box textarea');
+    (saved.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  } else if(label === 'Lead-in'){
+    const ta = document.querySelector('.reflect-box textarea');
+    if(ta && saved.text) ta.value = saved.text;
+  } else if(label === 'Reading'){
+    const items = document.querySelectorAll('.match-item');
+    (saved.matching||[]).forEach((val,i)=>{
+      if(!val) return;
+      const item = items[i]; if(!item) return;
+      const chip = item.querySelector(`.abcde-chip[data-val="${CSS.escape(val)}"]`);
+      if(chip){ chip.classList.add('selected'); item.dataset.chosen = val; }
+    });
+    if(saved.checked) checkMatching();
+  } else if(label === 'Discussion'){
+    const tas = document.querySelectorAll('.disc-card textarea');
+    (saved.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  } else if(label === 'Practice'){
+    (saved.placed||[]).forEach(entry=>{
+      const chip = document.querySelector(`.word-chip[data-idx="${entry.idx}"]`);
+      const bucketEl = document.querySelector(`.bucket[data-cat="${entry.bucket}"]`);
+      const zone = bucketEl ? bucketEl.querySelector('.chip-list') : null;
+      if(chip && zone) zone.appendChild(chip);
+    });
+    if(saved.checked) checkBuckets();
+  } else if(label === 'Finish'){
+    const ni = document.getElementById('studentName'); if(ni && saved.name) ni.value = saved.name;
+    const nw = document.getElementById('newWord'); if(nw && saved.newWord) nw.value = saved.newWord;
+    const df = document.getElementById('difficulty'); if(df && saved.difficulty) df.value = saved.difficulty;
+  }
+  isRestoring = false;
+}
+
+function showRestoreBanner(){
+  const card = document.querySelector('#stage .card');
+  if(!card) return;
+  const note = document.createElement('div');
+  note.className = 'restore-note';
+  const span = document.createElement('span');
+  span.textContent = "We found saved answers from an earlier session — they've been filled back in.";
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Start over (clear saved answers)';
+  btn.onclick = clearProgress;
+  note.appendChild(span); note.appendChild(btn);
+  card.insertBefore(note, card.firstChild);
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input[type=text]')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.rate-chip, .abcde-chip, .word-chip, .bucket')) scheduleSave(); });
+
 /* ===================== INIT ===================== */
+loadProgress();
 renderPage();
+if(stateHasContent()) showRestoreBanner();
 
 (function(){
   var badge = document.querySelector('.angle-badge');

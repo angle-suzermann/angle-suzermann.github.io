@@ -219,11 +219,16 @@
     text-align:center;
     white-space:nowrap;
   }
+
+  .save-indicator{ position:fixed; top:10px; right:14px; z-index:1000; font-size:.72rem; color:var(--correct); background:#fff; padding:4px 10px; border-radius:12px; box-shadow:0 2px 10px rgba(45,41,38,.2); opacity:0; transition:opacity .3s ease; white-space:nowrap; pointer-events:none; }
+  .save-indicator.show{ opacity:1; }
+  .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin:0 0 18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
 
-
+<span class="save-indicator" id="saveIndicator"></span>
 
 <header>
 <div class="logo-block">
@@ -237,6 +242,10 @@
 
 <div class="wrap">
 
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button type="button" onclick="angleClearProgress()">Start over (clear saved answers)</button>
+</div>
 
 <form id="quizForm">
 
@@ -454,7 +463,106 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   }
   window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
   window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
+  window.angleGetPage = function(){ return idx; };
+  window.angleSetPage = function(n){ if(n>=0 && n<total){ idx = n; show(idx); } };
   show(idx);
+})();
+</script>
+
+<script>
+(function(){
+  var PROGRESS_KEY = 'angle_progress::expert-advanced-module-6-test';
+  var isRestoring = false;
+  var saveTimer = null;
+
+  function collectAnswers(){
+    var answers = {};
+    document.querySelectorAll('.item').forEach(function(item){
+      var type = item.dataset.type;
+      if(type === 'mc'){
+        var checked = item.querySelector('input[type="radio"]:checked');
+        if(checked) answers[checked.name] = checked.value;
+      } else if(type === 'dd'){
+        var sel = item.querySelector('select');
+        if(sel && sel.name) answers[sel.name] = sel.value;
+      } else if(type === 'fib'){
+        var inp = item.querySelector('input[type="text"]');
+        if(inp && inp.name) answers[inp.name] = inp.value;
+      }
+    });
+    return answers;
+  }
+
+  function showSavedIndicator(){
+    var el = document.getElementById('saveIndicator');
+    if(!el) return;
+    el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    el.classList.add('show');
+    clearTimeout(showSavedIndicator._t);
+    showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+  }
+
+  function saveProgress(){
+    if(isRestoring) return;
+    try{
+      var state = { savedAt: new Date().toISOString(), answers: collectAnswers() };
+      if(typeof window.angleGetPage === 'function') state.page = window.angleGetPage();
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+      showSavedIndicator();
+    } catch(e){ /* localStorage unavailable — fail silently */ }
+  }
+  function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+  function restoreProgress(){
+    var raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+    if(!raw) return;
+    var state; try{ state = JSON.parse(raw); } catch(e){ return; }
+    isRestoring = true;
+    var hasContent = false;
+    var answers = state.answers || {};
+    Object.keys(answers).forEach(function(name){
+      var val = answers[name];
+      if(!val) return;
+      var els = document.getElementsByName(name);
+      if(!els || !els.length) return;
+      if(els[0].type === 'radio'){
+        for(var i=0;i<els.length;i++){
+          if(els[i].value === val){ els[i].checked = true; hasContent = true; }
+        }
+      } else {
+        els[0].value = val; hasContent = true;
+      }
+    });
+    if(typeof state.page === 'number' && typeof window.angleSetPage === 'function'){
+      window.angleSetPage(state.page);
+    }
+    if(hasContent){
+      var note = document.getElementById('restoreNote');
+      if(note){
+        var when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+        var textEl = document.getElementById('restoreNoteText');
+        if(textEl) textEl.textContent = 'We found saved answers from ' + (when || 'an earlier session') + ' — they\'ve been filled back in.';
+        note.hidden = false;
+      }
+    }
+    isRestoring = false;
+  }
+
+  window.angleClearProgress = function(){
+    if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+    try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+    location.reload();
+  };
+
+  document.addEventListener('input', function(e){
+    if(e.target.matches('input[type="text"]')) scheduleSave();
+  });
+  document.addEventListener('change', function(e){
+    if(e.target.matches('select, input[type="radio"]')) scheduleSave();
+  });
+
+  // restoreProgress must run last, after the pagination IIFE above has rendered the initial page
+  restoreProgress();
 })();
 </script>
 

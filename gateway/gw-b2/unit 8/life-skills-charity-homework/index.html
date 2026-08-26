@@ -182,6 +182,12 @@ audio{ width:100%; max-width:480px; }
   .angle-badge{ left:14px; bottom:14px; }
   .angle-badge .wordmark{ width:90px; }
 }
+
+/* Progress persistence */
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -193,7 +199,7 @@ audio{ width:100%; max-width:480px; }
   <div class="topbar-inner">
     <div class="brand-row">
       <span class="lesson-title">Gateway B2 · Unit 8 — Life Skills<span class="lesson-sub">Helping a Charity — Homework</span></span>
-      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -212,25 +218,29 @@ audio{ width:100%; max-width:480px; }
     <h1>Helping a Charity</h1>
     <p>This homework follows on from the Unit 8 Life Skills video, "Helping a charity". Work through it at your own pace — most exercises check themselves, and a few just want your own ideas.</p>
   </div>
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
   <div class="card">
     <h2>Warm-up: The Charity Challenge</h2>
     <div class="instructions">Give yourself <b>three minutes</b>. Write down whatever comes to mind for each list — there's no single correct answer here, so don't overthink it. We'll come back to some of these ideas on the last page.</div>
     <div class="challenge-grid">
       <div class="challenge-box">
         <h4>1. Three different types of charity</h4>
-        <input type="text" placeholder="1"><input type="text" placeholder="2"><input type="text" placeholder="3">
+        <input type="text" class="warmup" placeholder="1"><input type="text" class="warmup" placeholder="2"><input type="text" class="warmup" placeholder="3">
       </div>
       <div class="challenge-box">
         <h4>2. Three ways to raise money</h4>
-        <input type="text" placeholder="1"><input type="text" placeholder="2"><input type="text" placeholder="3">
+        <input type="text" class="warmup" placeholder="1"><input type="text" class="warmup" placeholder="2"><input type="text" class="warmup" placeholder="3">
       </div>
       <div class="challenge-box">
         <h4>3. Three ways to make donations</h4>
-        <input type="text" placeholder="1"><input type="text" placeholder="2"><input type="text" placeholder="3">
+        <input type="text" class="warmup" placeholder="1"><input type="text" class="warmup" placeholder="2"><input type="text" class="warmup" placeholder="3">
       </div>
       <div class="challenge-box">
         <h4>4. Three ways a charity can promote itself</h4>
-        <input type="text" placeholder="1"><input type="text" placeholder="2"><input type="text" placeholder="3">
+        <input type="text" class="warmup" placeholder="1"><input type="text" class="warmup" placeholder="2"><input type="text" class="warmup" placeholder="3">
       </div>
     </div>
     <div class="nav-btns"><button class="nav primary" onclick="nextPage()">Next →</button></div>
@@ -806,9 +816,145 @@ async function submitAll(){
   }
 }
 
+/* ---------- Progress persistence — save & resume ---------- */
+const PROGRESS_KEY = 'angle_progress::gw-b2-unit8-life-skills-charity-homework';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.warmup = [...document.querySelectorAll('.warmup')].map(el=>el.value);
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
+    state.fibFuzzy = [...document.querySelectorAll('.fib-fuzzy')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.chipGroups = [...document.querySelectorAll('.chip-group')].map(g=>
+      [...g.querySelectorAll('.chip.chosen')].map(c=>c.dataset.val));
+    state.whoItems = [...document.querySelectorAll('.who-item')].map(item=>
+      [...item.querySelectorAll('.who-chip.chosen')].map(c=>c.dataset.val));
+    state.matched = {};
+    document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+      state.matched[c.id] = [...c.querySelectorAll('.matched-correct')].map(x=>x.dataset.id);
+    });
+    state.checkboxes = [...document.querySelectorAll('.step-list input[type="checkbox"]')].map(el=>el.checked);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  const warmupInputs = document.querySelectorAll('.warmup');
+  (state.warmup||[]).forEach((v,i)=>{ if(warmupInputs[i] && v) warmupInputs[i].value = v; });
+
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v){ fibs[i].value = v; fibs[i].dataset.filled = "1"; } });
+  document.querySelectorAll('.token').forEach(tok=>{
+    if([...document.querySelectorAll('.fib')].some(f=>f.value === tok.dataset.word)) tok.classList.add('used');
+  });
+
+  const fibFuzzies = document.querySelectorAll('.fib-fuzzy');
+  (state.fibFuzzy||[]).forEach((v,i)=>{ if(fibFuzzies[i] && v) fibFuzzies[i].value = v; });
+
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = [...g.querySelectorAll('.opt')].find(o=>o.dataset.val===val);
+    if(btn){ g.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen')); btn.classList.add('chosen'); }
+    if(g.id === 'charityYN') toggleYN(val);
+  });
+
+  const chipGroups = document.querySelectorAll('.chip-group');
+  (state.chipGroups||[]).forEach((vals,i)=>{
+    const g = chipGroups[i]; if(!g || !vals) return;
+    vals.forEach(v=>{
+      const chip = [...g.querySelectorAll('.chip')].find(c=>c.dataset.val===v);
+      if(chip) chip.classList.add('chosen');
+    });
+  });
+
+  const whoItems = document.querySelectorAll('.who-item');
+  (state.whoItems||[]).forEach((vals,i)=>{
+    const item = whoItems[i]; if(!item || !vals) return;
+    vals.forEach(v=>{
+      const chip = [...item.querySelectorAll('.who-chip')].find(c=>c.dataset.val===v);
+      if(chip) chip.classList.add('chosen');
+    });
+  });
+
+  Object.keys(state.matched||{}).forEach(containerId=>{
+    const container = document.getElementById(containerId); if(!container) return;
+    const ids = state.matched[containerId] || [];
+    ids.forEach(id=>{
+      document.querySelectorAll('.match').forEach(el=>{
+        if(el.dataset.id === id) el.classList.add('matched-correct');
+      });
+    });
+    // this container (matchWrap) wraps BOTH match columns, so a matched pair leaves two
+    // .matched-correct elements sharing one data-id — count unique ids, not raw length
+    const pairCount = new Set(ids).size;
+    container.dataset.correctCount = pairCount;
+    if(containerId === 'matchWrap') matchPairsCorrect = pairCount;
+  });
+
+  const checkboxes = document.querySelectorAll('.step-list input[type="checkbox"]');
+  (state.checkboxes||[]).forEach((v,i)=>{ if(checkboxes[i]) checkboxes[i].checked = !!v; });
+
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const hasContent = state.warmup?.some(v=>v) || state.fib?.some(v=>v) || state.fibFuzzy?.some(v=>v)
+    || state.mcq?.some(v=>v!=null) || state.chipGroups?.some(a=>a.length) || state.whoItems?.some(a=>a.length)
+    || state.checkboxes?.some(v=>v) || state.textareas?.some(v=>v) || Object.values(state.matched||{}).some(a=>a.length);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib:not([readonly]), input.fib-fuzzy, input.warmup, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .chip-group .chip, .who-chip, .match, .token, .step-list input[type="checkbox"]')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('.step-list input[type="checkbox"]')) scheduleSave(); });
+
 /* ---------- init ---------- */
 buildDots();
 showPage(0);
+// restoreProgress must run last, after every render*() call above has built the DOM
+restoreProgress();
 </script>
 </body>
 </html>
