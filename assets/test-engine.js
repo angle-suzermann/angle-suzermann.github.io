@@ -318,6 +318,99 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ---------- сохранение и восстановление прогресса ---------- */
+
+  var PROGRESS_KEY = 'angle_progress::' + location.pathname;
+  var isRestoring = false;
+  var saveTimer = null;
+
+  function saveProgress(){
+    if(isRestoring) return;
+    try{
+      var state = { savedAt: new Date().toISOString() };
+      state.name  = $('studentName') ? $('studentName').value : '';
+      state.group = $('studentGroup') ? $('studentGroup').value : '';
+      state.inputs = Array.prototype.map.call(inputs(), function(el){ return el.value; });
+      state.selects = Array.prototype.map.call(selects(), function(el){ return el.value; });
+      state.groups = Array.prototype.map.call(groups(), function(g){
+        var sel = g.querySelector('.choice-btn.selected');
+        return sel ? sel.dataset.val : null;
+      });
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+      showSavedIndicator();
+    } catch(e){ /* localStorage unavailable — fail silently */ }
+  }
+  function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+  function showSavedIndicator(){
+    var el = $('saveIndicator');
+    if(!el) return;
+    el.textContent = '✓ Saved ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
+    el.classList.add('show');
+    clearTimeout(showSavedIndicator._t);
+    showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+  }
+
+  function restoreProgress(){
+    var raw;
+    try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+    if(!raw) return;
+    var state;
+    try{ state = JSON.parse(raw); } catch(e){ return; }
+    isRestoring = true;
+
+    if(state.name && $('studentName'))   $('studentName').value = state.name;
+    if(state.group && $('studentGroup')) $('studentGroup').value = state.group;
+
+    var inputEls = inputs();
+    (state.inputs || []).forEach(function(v, i){ if(inputEls[i] && v) inputEls[i].value = v; });
+
+    var selectEls = selects();
+    (state.selects || []).forEach(function(v, i){ if(selectEls[i] && v) selectEls[i].value = v; });
+
+    var groupEls = groups();
+    (state.groups || []).forEach(function(val, i){
+      if(val == null || !groupEls[i]) return;
+      var btn = groupEls[i].querySelector('.choice-btn[data-val="' + val + '"]');
+      if(btn){
+        groupEls[i].querySelectorAll('.choice-btn').forEach(function(b){ b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      }
+    });
+
+    var hasContent = (state.inputs && state.inputs.some(function(v){ return v; }))
+      || (state.selects && state.selects.some(function(v){ return v; }))
+      || (state.groups && state.groups.some(function(v){ return v != null; }));
+    if(hasContent){
+      var note = $('restoreNote');
+      if(note){
+        var when = state.savedAt ? new Date(state.savedAt).toLocaleString('ru-RU') : '';
+        var noteText = $('restoreNoteText');
+        if(noteText) noteText.textContent = 'Мы нашли сохранённые ответы' + (when ? ' от ' + when : '') + ' — вписали их обратно.';
+        note.hidden = false;
+      }
+    }
+
+    updateProgress();
+    isRestoring = false;
+  }
+
+  function clearProgress(){
+    if(!confirm('Это сотрёт все сохранённые на этом устройстве ответы. Продолжить?')) return;
+    try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+    location.reload();
+  }
+  window.clearProgress = clearProgress;
+
+  document.addEventListener('input', function(e){
+    if(e.target.matches('input[data-q], #studentName, #studentGroup')) scheduleSave();
+  });
+  document.addEventListener('change', function(e){
+    if(e.target.matches('select[data-q]')) scheduleSave();
+  });
+  document.addEventListener('click', function(e){
+    if(e.target.closest('[data-group] .choice-btn')) scheduleSave();
+  });
+
   /* ---------- запуск ---------- */
 
   $('checkBtn').addEventListener('click', check);
@@ -325,4 +418,5 @@
   if($('resetLink')) $('resetLink').addEventListener('click', reset);
 
   updateProgress();
+  restoreProgress();
 })();

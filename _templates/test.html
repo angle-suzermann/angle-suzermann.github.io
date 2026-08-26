@@ -51,9 +51,15 @@
 <body>
 <div class="wrap">
 
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+
   <div class="info-box">
     <label for="studentName">Student's name</label>
     <input type="text" id="studentName" placeholder="Write your name here">
+    <span class="save-indicator" id="saveIndicator"></span>
     <div class="info-box-group">
       <label for="studentGroup">Group / Class</label>
       <input type="text" id="studentGroup" placeholder="e.g. 5B">

@@ -92,6 +92,11 @@ body{
 .info-box > input{ flex: 1 1 240px; min-width: 200px; }
 .info-box-group{ flex: 0 0 140px; display: flex; flex-direction: column; }
 .info-box input:focus{ outline: none; border-color: var(--moss); }
+.save-indicator{ font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #3fa66b; opacity: 0; transition: opacity .3s ease; white-space: nowrap; margin-left: 10px; }
+.save-indicator.show{ opacity: 1; }
+.restore-note{ background: #fffbe6; border: 1.5px solid #e8d27a; border-radius: var(--radius); padding: 10px 16px; font-size: 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.restore-note button{ background: #fff; border: 1.5px solid var(--ink); color: var(--ink); font-weight: 600; font-size: 12px; padding: 6px 12px; border-radius: 16px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; white-space: nowrap; }
+.restore-note button:hover{ background: var(--line); }
 
 /* ---- шапка теста ---- */
 
