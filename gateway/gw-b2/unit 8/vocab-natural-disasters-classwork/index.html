@@ -671,7 +671,7 @@ function renderFamilies(){
   shuffled.forEach(item=>{
     const c = document.createElement('div');
     c.className='chip'; c.dataset.cat=item.cat; c.textContent=item.word;
-    c.onclick = ()=>selectChip(c);
+    c.onclick = (e)=>{ e.stopPropagation(); selectChip(c); };
     bank.appendChild(c);
   });
   ["verb","noun","adjective"].forEach(cat=>{
@@ -690,9 +690,8 @@ function dropInto(zoneEl){
   if(!selectedChip) return;
   const ok = selectedChip.dataset.cat === zoneEl.dataset.cat;
   zoneEl.querySelector('.zone-items').appendChild(selectedChip);
-  selectedChip.classList.remove('selected');
+  selectedChip.classList.remove('selected', 'placed-correct', 'placed-wrong');
   selectedChip.classList.add(ok ? 'placed-correct':'placed-wrong');
-  selectedChip.onclick = null;
   selectedChip = null;
 }
 

@@ -588,29 +588,39 @@ function buildCategorize(){
 
   let selectedChip = null;
   function selectChip(el){
-    if(el.classList.contains('placed-correct') || el.classList.contains('placed-wrong')) return;
     if(selectedChip) selectedChip.classList.remove('selected');
     selectedChip = el;
     el.classList.add('selected');
   }
   function dropInto(bucketKey, zoneEl){
     if(!selectedChip) return;
-    const ok = selectedChip.dataset.answer === bucketKey;
-    selectedChip.classList.remove('selected');
-    selectedChip.classList.add(ok ? 'placed-correct' : 'placed-wrong');
-    zoneEl.appendChild(selectedChip);
+    const chip = selectedChip;
+    const ok = chip.dataset.answer === bucketKey;
+    chip.classList.remove('selected', 'placed-correct', 'placed-wrong');
+    chip.classList.add(ok ? 'placed-correct' : 'placed-wrong');
+    zoneEl.appendChild(chip);
     selectedChip = null;
   }
-  bank.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('chip')) selectChip(e.target);
+  const card = bank.closest('.card');
+  card.addEventListener('click', (e)=>{
+    const chip = e.target.closest('.chip');
+    if(chip) selectChip(chip);
   });
   document.querySelectorAll('.bucket').forEach(bucketEl=>{
     const zone = bucketEl.querySelector('.bucket-items');
-    bucketEl.addEventListener('click', ()=>{
-      // Any click inside the bucket (including on a chip already placed there)
-      // should drop whichever chip is currently selected in the bank.
+    bucketEl.addEventListener('click', (e)=>{
+      // Clicks on a chip already sitting in this bucket are handled by the
+      // card-level listener above (re-select, so it can be moved elsewhere);
+      // only an empty-area click here should drop the currently selected chip.
+      if(e.target.closest('.chip')) return;
       dropInto(bucketEl.dataset.bucket, zone);
     });
+  });
+  bank.addEventListener('click', (e)=>{
+    if(e.target !== bank || !selectedChip) return;
+    selectedChip.classList.remove('selected', 'placed-correct', 'placed-wrong');
+    bank.appendChild(selectedChip);
+    selectedChip = null;
   });
 }
 

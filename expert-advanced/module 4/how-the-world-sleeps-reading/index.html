@@ -812,8 +812,7 @@ function shuffleDeck(){ deckOrder = shuffle(VOCAB.map((v,i)=>i)); cardIndex = 0;
 document.addEventListener('click', function(e){
   const chip = e.target.closest('.word-chip');
   if(chip && chip.closest('#bank, .bucket')){
-    if(chip.closest('.bucket')) return; // already placed, ignore
-    document.querySelectorAll('#bank .word-chip').forEach(c=>c.classList.remove('picked'));
+    document.querySelectorAll('.word-chip').forEach(c=>c.classList.remove('picked'));
     chip.classList.add('picked');
     pickedChip = chip;
     return;

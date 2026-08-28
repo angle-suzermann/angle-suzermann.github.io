@@ -486,9 +486,10 @@
   function renderChips(){
     const tray = document.getElementById("chipTray");
     const keys = Object.keys(VOCAB);
-    tray.innerHTML = keys.map(k => `<button class="chip" data-key="${k}" onclick="selectChip(this)">${k}</button>`).join("");
+    tray.innerHTML = keys.map(k => `<button class="chip" data-key="${k}" onclick="selectChip(event,this)">${k}</button>`).join("");
   }
-  function selectChip(el){
+  function selectChip(e, el){
+    e.stopPropagation();
     if(el.classList.contains("placed-correct") || el.classList.contains("placed-wrong")) return;
     document.querySelectorAll(".chip").forEach(c=>c.classList.remove("selected"));
     selectedChip = el;

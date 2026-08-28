@@ -480,7 +480,7 @@ function renderPracticeBC(){
 
 function renderHeavyLight(){
   const chips = HEAVY_LIGHT.map(it=>
-    `<button class="chip" id="chip-${it.id}" onclick="selectChip('${it.id}')"><span class="chip-icon">${it.icon}</span><span>${it.label}</span></button>`
+    `<button class="chip" id="chip-${it.id}" onclick="selectChip(event,'${it.id}')"><span class="chip-icon">${it.icon}</span><span>${it.label}</span></button>`
   ).join('');
   return `<div class="page-inner">
     <h2>Heavy or light?</h2>
@@ -542,9 +542,9 @@ function goTo(n){ current=n; renderPage(); }
 function nextPage(){ if(current<pages.length-1){ current++; renderPage(); } }
 function prevPage(){ if(current>0){ current--; renderPage(); } }
 
-function selectChip(id){
+function selectChip(e, id){
+  if(e) e.stopPropagation();
   const chip = document.getElementById(`chip-${id}`);
-  if(chip.classList.contains('placed')) return;
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
   chip.classList.add('selected');
   selectedChipId = id;
@@ -555,7 +555,7 @@ function dropInto(bucket){
   const chip = document.getElementById(`chip-${selectedChipId}`);
   const item = HEAVY_LIGHT.find(h=>h.id===selectedChipId);
   const isCorrect = item.answer === bucket;
-  chip.classList.remove('selected');
+  chip.classList.remove('selected', 'correct', 'wrong');
   chip.classList.add('placed', isCorrect ? 'correct' : 'wrong');
   document.getElementById(`bucket-${bucket}-items`).appendChild(chip);
   PLACEMENTS[selectedChipId] = {bucket, correct:isCorrect};

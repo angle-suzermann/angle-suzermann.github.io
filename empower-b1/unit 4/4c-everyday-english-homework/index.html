@@ -436,7 +436,6 @@ function initBucketGroup(wrap){
   let selectedChip = null;
   wrap.querySelectorAll('.chip').forEach(chip=>{
     chip.onclick = ()=>{
-      if (chip.classList.contains('placed')) return;
       wrap.querySelectorAll('.chip').forEach(c=>c.classList.remove('picked'));
       selectedChip = chip; chip.classList.add('picked');
     };
@@ -461,7 +460,7 @@ function initBucketGroup(wrap){
 function placeChip(chip, bucket){
   const correctGroup = chip.dataset.group;
   const bucketGroup = bucket.dataset.group;
-  chip.classList.remove('picked');
+  chip.classList.remove('picked', 'placed-correct', 'placed-wrong');
   chip.classList.add('placed');
   chip.classList.add(correctGroup === bucketGroup ? 'placed-correct' : 'placed-wrong');
   bucket.querySelector('.bucket-drop').appendChild(chip);
