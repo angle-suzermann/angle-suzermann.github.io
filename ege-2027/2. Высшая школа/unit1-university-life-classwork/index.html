@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Life &amp; Higher Education — Vocabulary Classwork</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Высшая школа">
+<meta name="ws:title"     content="University Life &amp; Higher Education — Vocabulary Classwork">
+<meta name="ws:emoji"     content="🎓">
+<meta name="ws:date"      content="2026-08-30">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, университет, лексика">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  position:relative;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 38%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.72), rgba(45,25,60,.92)); }
+
+/* ---------- Topbar ---------- */
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 14px rgba(0,0,0,.12); }
+.topbar-inner{ max-width:940px; margin:0 auto; padding:12px 20px 10px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; letter-spacing:.2px; }
+.lesson-title small{ display:block; font-weight:400; color:var(--muted); font-size:.72rem; margin-top:2px; letter-spacing:.3px; text-transform:uppercase; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.82rem; color:var(--muted); font-weight:700; }
+.namebar input{ font-family:inherit; font-size:.88rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; width:190px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.save-indicator{ font-size:.68rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:12px; margin-top:9px; }
+.progress-track{ flex:1; height:7px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--purple-dark)); width:11%; transition:width .3s ease; }
+.progress-label{ font-size:.74rem; color:var(--muted); font-weight:700; white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); color:var(--purple); font-size:.68rem; font-weight:800; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1.5px solid var(--border); transition:.15s; }
+.page-dot:hover{ border-color:var(--purple); }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.page-dot.done{ background:var(--correct); color:#fff; border-color:var(--correct); }
+
+/* ---------- Page layout ---------- */
+.page-wrap{ position:relative; z-index:5; max-width:940px; margin:0 auto; padding:26px 18px 180px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .3s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:26px 28px; box-shadow:0 12px 32px rgba(20,10,30,.28); margin-bottom:18px; }
+.card h1{ color:var(--purple); font-size:1.5rem; margin:0 0 10px; }
+.card h2{ color:var(--purple); font-size:1.12rem; margin:0 0 6px; display:flex; align-items:center; gap:10px; }
+.card h3{ color:var(--purple-dark); font-size:.98rem; margin:18px 0 8px; }
+.card p{ line-height:1.62; margin:0 0 12px; }
+.task-num{ flex:none; width:30px; height:30px; border-radius:50%; background:var(--black); color:var(--yellow); font-size:.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.instructions{ font-style:italic; color:var(--muted); font-size:.92rem; margin:0 0 14px; }
+.hint{ font-size:.82rem; color:var(--muted); margin-top:4px; }
+
+.exercise{ margin-bottom:26px; }
+.exercise:last-child{ margin-bottom:6px; }
+
+.did-you-know{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:14px 18px; font-size:.92rem; margin-top:14px; }
+.did-you-know b{ color:var(--purple); }
+
+/* buttons */
+.btn{ font-family:inherit; font-weight:800; border:none; border-radius:24px; padding:11px 22px; cursor:pointer; font-size:.88rem; letter-spacing:.3px; transition:.15s transform; }
+.btn:active{ transform:scale(.97); }
+.btn-primary{ background:var(--black); color:var(--yellow); }
+.btn-primary:hover{ background:var(--purple); color:#fff; }
+.btn-ghost{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); }
+.btn-ghost:hover{ background:var(--card-tint); }
+.btn-cta{ background:var(--yellow); color:var(--black); font-size:1rem; padding:13px 30px; }
+.btn-cta:hover{ background:#f0c700; }
+.btn[disabled]{ opacity:.4; cursor:not-allowed; }
+
+.nav-btns{ display:flex; justify-content:flex-end; gap:10px; margin-top:8px; }
+.nav-btns.split{ justify-content:space-between; }
+
+/* MC / TF */
+.mcq{ display:flex; flex-wrap:wrap; gap:9px; margin:8px 0 4px; }
+.mcq .opt{ font-family:inherit; background:#fff; border:1.6px solid var(--border); border-radius:10px; padding:9px 15px; cursor:pointer; font-size:.9rem; color:var(--text); transition:.15s; text-align:left; }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--card-tint); font-weight:700; }
+.mcq.checked .opt.is-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); font-weight:700; }
+.mcq.checked .opt.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--wrong); }
+.q-text{ font-weight:600; margin-bottom:2px; }
+.item{ margin-bottom:16px; }
+.item:last-child{ margin-bottom:0; }
+
+/* Bank / slot matching */
+.bank{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; padding:14px; background:var(--card-tint); border-radius:10px; }
+.token{ font-family:inherit; background:#fff; border:1.6px solid var(--purple); color:var(--purple); border-radius:20px; padding:8px 14px; font-size:.85rem; font-weight:700; cursor:pointer; transition:.15s; max-width:100%; text-align:left; }
+.token:hover{ background:var(--purple); color:#fff; }
+.token.selected{ background:var(--yellow); border-color:var(--yellow); color:var(--black); }
+.token.used{ opacity:.28; cursor:default; background:#fff; color:var(--purple); }
+.token.used:hover{ background:#fff; color:var(--purple); }
+.slot{ display:inline-flex; align-items:center; justify-content:center; min-width:96px; height:30px; padding:0 10px; border-bottom:2.5px dashed var(--purple); border-radius:4px; font-weight:800; color:var(--purple-dark); cursor:pointer; background:rgba(94,72,119,.06); margin:0 3px; vertical-align:middle; }
+.slot:empty::after{ content:'\2026'; color:var(--muted); font-weight:400; }
+.slot.filled{ border-style:solid; background:var(--card-tint); }
+.slot.checked.is-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); }
+.slot.checked.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--wrong); }
+.slot-letter{ display:inline-flex; min-width:40px; height:40px; }
+.reading-text{ background:var(--card-tint); border-radius:10px; padding:18px 20px; font-size:.95rem; line-height:1.75; }
+.reading-text .vword{ font-weight:800; color:var(--purple); }
+
+/* option box for gap-match style */
+.option-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:12px; font-size:.88rem; }
+.option-box .bank .token{ flex:1 1 100%; text-align:left; }
+
+.halves-row{ display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+.halves-row .stem{ min-width:220px; }
+
+/* Vocab grid */
+.tabs{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.tab{ font-family:inherit; background:#fff; border:1.6px solid var(--border); border-radius:20px; padding:7px 16px; font-size:.82rem; font-weight:700; color:var(--muted); cursor:pointer; }
+.tab.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.vocab-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+.vocab-card{ background:var(--card-tint); border-radius:10px; padding:14px 16px; border:1px solid var(--border); }
+.vocab-card b{ color:var(--purple); font-size:.98rem; }
+.vocab-card .pos{ font-size:.72rem; color:var(--muted); font-style:italic; margin-left:6px; }
+.vocab-card p{ font-size:.84rem; margin:6px 0 0; line-height:1.5; }
+.vocab-card .ex{ font-size:.8rem; color:var(--muted); font-style:italic; margin-top:5px; }
+
+/* Flashcards */
+.deck-wrap{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+.flip-card{ width:100%; max-width:460px; height:230px; perspective:1200px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front,.flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:22px; text-align:center; box-shadow:0 10px 26px rgba(20,10,30,.22); }
+.flip-front{ background:var(--purple); color:#fff; }
+.flip-front .term{ font-size:1.5rem; font-weight:800; }
+.flip-front .pos{ font-size:.8rem; opacity:.8; margin-top:8px; font-style:italic; }
+.flip-back{ background:#fff; border:2px solid var(--purple); transform:rotateY(180deg); }
+.flip-back .def{ font-size:1rem; line-height:1.5; }
+.flip-back .ex{ font-size:.85rem; color:var(--muted); font-style:italic; margin-top:10px; }
+.card-speak{ position:absolute; top:10px; right:10px; background:rgba(255,255,255,.2); border:none; color:#fff; width:34px; height:34px; border-radius:50%; font-size:1rem; cursor:pointer; }
+.flip-back .card-speak{ background:var(--card-tint); color:var(--purple); }
+.deck-controls{ display:flex; align-items:center; gap:14px; }
+.deck-counter{ font-weight:700; color:var(--purple); font-size:.9rem; min-width:70px; text-align:center; }
+
+/* Results */
+.score-pill{ display:inline-block; background:var(--card-tint); color:var(--purple); font-weight:800; border-radius:20px; padding:6px 16px; font-size:.85rem; }
+#resultsPanel{ margin-top:18px; }
+.result-hero{ text-align:center; padding:20px 0; }
+.result-hero .pct{ font-size:3rem; font-weight:900; color:var(--purple); }
+.breakdown-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); font-size:.88rem; }
+.breakdown-row:last-child{ border-bottom:none; }
+.breakdown-row b{ color:var(--purple); }
+textarea.notes{ width:100%; min-height:90px; font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:10px; padding:12px; resize:vertical; }
+textarea.notes:focus{ outline:none; border-color:var(--purple); }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; font-size:.85rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.76rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+/* Sticky ANGLE badge */
+.angle-badge{ position:fixed; left:24px; bottom:20px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:118px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; font-weight:400; font-size:11px; letter-spacing:.3px; }
+
+@media(max-width:600px){
+  .card{ padding:20px 18px; }
+  .namebar input{ width:130px; }
+  .flip-card{ height:210px; }
+  .angle-badge{ left:14px; bottom:14px; }
+  .angle-badge .wordmark{ width:88px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="lesson-title">University Life &amp; Higher Education<small>Unit 1 · Vocabulary classwork</small></div>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 9</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ============ PAGE 0 — WARM-UP ============ -->
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card">
+    <h1>University Life &amp; Higher Education</h1>
+    <p>Look at the photo behind this page: a lecture hall, full of students. This classwork is about the words we use to talk about studying at university — from your very first lecture to your final exams.</p>
+    <p>You'll work through vocabulary, two short reading texts about real universities, and a set of flashcards for revision. At the end, click <b>Check my answers</b> to see your score.</p>
+    <div class="exercise" data-name="Warm-up discussion">
+      <h2><span class="task-num">1</span> Warm-up: discuss with a partner</h2>
+      <p class="instructions">Before we start, talk about these questions. Jot down a few notes if you like — this part isn't checked.</p>
+      <ul>
+        <li>Would you rather study close to home or in a different city / country? Why?</li>
+        <li>What do you imagine a typical day at university looks like?</li>
+        <li>What's one thing you're looking forward to (or worried about) in higher education?</li>
+      </ul>
+      <textarea class="notes" placeholder="Optional notes..."></textarea>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 1 — VOCABULARY PRESENTATION ============ -->
+<section class="page" data-page="1">
+  <div class="card">
+    <h2><span class="task-num">2</span> Key vocabulary</h2>
+    <p class="instructions">Read through the words below before you start the exercises. Use the tabs to filter by topic.</p>
+    <div class="tabs" id="vocabTabs"></div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 2 — MULTIPLE CHOICE ============ -->
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="exercise" data-name="Practice 1: multiple choice">
+      <h2><span class="task-num">3</span> Choose the correct option, a, b or c</h2>
+      <p class="instructions">Task in the style of the ЕГЭ grammar &amp; vocabulary section: one word fits the sentence, the other two don't.</p>
+
+      <div class="item">
+        <p class="q-text">1. After I graduate, I'd like to continue studying and do ___.</p>
+        <div class="mcq" data-correct="c">
+          <button class="opt" data-val="a">a) a degree</button>
+          <button class="opt" data-val="b">b) undergraduate</button>
+          <button class="opt" data-val="c">c) a master's</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">2. Our history ___ starts at 2.30 and finishes at 4.00 this afternoon.</p>
+        <div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a) tutor</button>
+          <button class="opt" data-val="b">b) lecture</button>
+          <button class="opt" data-val="c">c) course</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">3. Katie can't come out tonight because she has to ___ for an exam tomorrow.</p>
+        <div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a) revise</button>
+          <button class="opt" data-val="b">b) resit</button>
+          <button class="opt" data-val="c">c) mark</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">4. My brother is studying for a ___ in physics at university.</p>
+        <div class="mcq" data-correct="c">
+          <button class="opt" data-val="a">a) graduate</button>
+          <button class="opt" data-val="b">b) grade</button>
+          <button class="opt" data-val="c">c) degree</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">5. When I read the ___ that I took in my tutorial, I couldn't understand them!</p>
+        <div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a) notes</button>
+          <button class="opt" data-val="b">b) coursework</button>
+          <button class="opt" data-val="c">c) assignments</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">6. I can't afford to pay for university, so I've got a student ___.</p>
+        <div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a) facilities</button>
+          <button class="opt" data-val="b">b) loan</button>
+          <button class="opt" data-val="c">c) tutor</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">7. I work very hard on my assignments, and I've got good ___ so far.</p>
+        <div class="mcq" data-correct="c">
+          <button class="opt" data-val="a">a) coursework</button>
+          <button class="opt" data-val="b">b) tutors</button>
+          <button class="opt" data-val="c">c) grades</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 3 — GAP-FILL WORD BANK ============ -->
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="exercise" data-name="Practice 2: gap-fill">
+      <h2><span class="task-num">4</span> Complete the sentences with a word from the box</h2>
+      <p class="instructions">Click a word in the box, then click the gap where it belongs. Click a filled gap to undo.</p>
+      <div class="bank" id="bank-gapfill">
+        <button class="token" data-group="gapfill" data-val="abroad">abroad</button>
+        <button class="token" data-group="gapfill" data-val="friends">friends</button>
+        <button class="token" data-group="gapfill" data-val="independent">independent</button>
+        <button class="token" data-group="gapfill" data-val="residence">residence</button>
+        <button class="token" data-group="gapfill" data-val="loan">loan</button>
+        <button class="token" data-group="gapfill" data-val="activities">activities</button>
+        <button class="token" data-group="gapfill" data-val="facilities">facilities</button>
+      </div>
+      <div class="item"><p>1. Some people don't want to study in their own country. They want to study <span class="slot" data-group="gapfill" data-answer="abroad"></span>.</p></div>
+      <div class="item"><p>2. At university it's usually easy to make new <span class="slot" data-group="gapfill" data-answer="friends"></span>.</p></div>
+      <div class="item"><p>3. When you live away from home, you become more <span class="slot" data-group="gapfill" data-answer="independent"></span>.</p></div>
+      <div class="item"><p>4. Students who don't live at home often live in a hall of <span class="slot" data-group="gapfill" data-answer="residence"></span>.</p></div>
+      <div class="item"><p>5. If you haven't got enough money to pay for your studies, you can apply for a student <span class="slot" data-group="gapfill" data-answer="loan"></span>.</p></div>
+      <div class="item"><p>6. At university there are lots of clubs that organise extracurricular <span class="slot" data-group="gapfill" data-answer="activities"></span>.</p></div>
+      <div class="item"><p>7. Universities have gyms, libraries, language centres and other <span class="slot" data-group="gapfill" data-answer="facilities"></span>.</p></div>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 4 — READING: HARVARD ============ -->
+<section class="page" data-page="4">
+  <div class="card">
+    <h2><span class="task-num">5</span> Reading: Harvard University</h2>
+    <p class="instructions">Read the text. Some words are highlighted — you'll need them for Task 5 below.</p>
+    <div class="reading-text">
+      <p>Harvard University is a private university in Cambridge, Massachusetts, and a member of the Ivy League, with about 6,700 <span class="vword">undergraduate</span> students and about 13,100 <span class="vword">postgraduate</span> students.</p>
+      <p>The term <i>Ivy League</i> is used to refer to eight schools as a group of elite colleges beyond the sports context. The eight members are Brown University, Columbia University, Cornell University, Dartmouth College, Harvard University, the University of Pennsylvania, Princeton University and Yale University.</p>
+      <p>Harvard was started on September 8, 1636, which makes it the oldest <span class="vword">institution</span> of higher learning in the United States. It was named after its first <span class="vword">benefactor</span>, the clergyman John Harvard. Eight Presidents of the United States have graduated from Harvard <span class="vword">college</span> and its schools.</p>
+      <p>Harvard is on the Charles River. Some students go there for rowing; on the other side of the river is the city of Boston. Most of Harvard's schools are in Cambridge, though some of its graduate schools are in Boston — together, they make up Harvard University. The school colour is crimson, a dark red.</p>
+      <p>Harvard is devoted to excellence in teaching, learning and <span class="vword">research</span>, and to developing leaders who make a difference globally. The <span class="vword">university</span> has an <span class="vword">enrolment</span> of over 20,000 degree candidates, including undergraduate, graduate and professional students. Harvard has more than 360,000 <span class="vword">alumni</span> (singular: <i>alumnus</i>) around the world.</p>
+    </div>
+
+    <div class="did-you-know">
+      <b>Did you know?</b> In the USA, "school" can mean almost any place of learning — even a university. A two-year college gives an associate's degree; a four-year college or university gives a bachelor's degree (this level is called <i>undergraduate</i>). A university also has <i>graduate</i> (postgraduate) schools, offering a master's or a doctorate — so a university covers both levels, while "college" in everyday US speech usually means the undergraduate level only.
+    </div>
+
+    <div class="exercise" data-name="Reading (Harvard): vocabulary match" style="margin-top:24px;">
+      <h2><span class="task-num">6</span> Match the highlighted words with their definitions</h2>
+      <p class="instructions">Click a word in the box, then click the gap next to its definition.</p>
+      <div class="bank" id="bank-harvard">
+        <button class="token" data-group="harvard" data-val="alumni">alumnus / alumni</button>
+        <button class="token" data-group="harvard" data-val="enrolment">enrolment</button>
+        <button class="token" data-group="harvard" data-val="research">research</button>
+        <button class="token" data-group="harvard" data-val="college">college</button>
+        <button class="token" data-group="harvard" data-val="benefactor">benefactor</button>
+        <button class="token" data-group="harvard" data-val="postgraduate">postgraduate</button>
+        <button class="token" data-group="harvard" data-val="undergraduate">undergraduate</button>
+        <button class="token" data-group="harvard" data-val="university">university</button>
+      </div>
+      <div class="item"><p>1. a former pupil or student of a particular school, college or university — <span class="slot" data-group="harvard" data-answer="alumni"></span></p></div>
+      <div class="item"><p>2. the number of students officially registered as members of a course or institution — <span class="slot" data-group="harvard" data-answer="enrolment"></span></p></div>
+      <div class="item"><p>3. systematic investigation into materials and sources in order to establish facts and reach new conclusions — <span class="slot" data-group="harvard" data-answer="research"></span></p></div>
+      <div class="item"><p>4. an educational institution providing higher education, in particular one offering an undergraduate degree — <span class="slot" data-group="harvard" data-answer="college"></span></p></div>
+      <div class="item"><p>5. a person who gives money or other help to a person or a cause — <span class="slot" data-group="harvard" data-answer="benefactor"></span></p></div>
+      <div class="item"><p>6. relating to a course of study undertaken after completing a first degree — <span class="slot" data-group="harvard" data-answer="postgraduate"></span></p></div>
+      <div class="item"><p>7. a university student who has not yet taken a first degree — <span class="slot" data-group="harvard" data-answer="undergraduate"></span></p></div>
+      <div class="item"><p>8. a high-level educational institution where students study for degrees and academic research is carried out — <span class="slot" data-group="harvard" data-answer="university"></span></p></div>
+    </div>
+
+    <div class="exercise" data-name="Reading (Harvard): comprehension" style="margin-top:24px;">
+      <h2><span class="task-num">7</span> Reading comprehension</h2>
+      <div class="item">
+        <p class="q-text">1. What is Harvard best known for?</p>
+        <div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a) Being the oldest university in the US and a member of the Ivy League</button>
+          <button class="opt" data-val="b">b) Having the largest football stadium in the US</button>
+          <button class="opt" data-val="c">c) Being a technology company</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">2. What does the term "Ivy League" mean?</p>
+        <div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a) A student basketball league</button>
+          <button class="opt" data-val="b">b) A group of eight elite, prestigious universities in the northeastern US</button>
+          <button class="opt" data-val="c">c) A type of student accommodation</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">3. Why is Harvard named after John Harvard?</p>
+        <div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a) He was the first president of the United States</button>
+          <button class="opt" data-val="b">b) He was Harvard's first benefactor, who left it his books and money</button>
+          <button class="opt" data-val="c">c) He designed the university campus</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">4. When was Harvard founded?</p>
+        <div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a) 1636</button>
+          <button class="opt" data-val="b">b) 1776</button>
+          <button class="opt" data-val="c">c) 1865</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q-text">5. Where is Harvard situated?</p>
+        <div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a) On the Charles River, in Cambridge, Massachusetts</button>
+          <button class="opt" data-val="b">b) In New York City</button>
+          <button class="opt" data-val="c">c) In Washington, D.C.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 5 — READING: UK UNIVERSITIES (GAP MATCH) ============ -->
+<section class="page" data-page="5">
+  <div class="card">
+    <h2><span class="task-num">8</span> Reading: University Life in the UK</h2>
+    <p class="instructions">Five sentences have been removed from the text. In the style of the ЕГЭ reading section, match each gap (1–5) with the sentence (A–E) that fits it. Click a sentence in the box, then click the gap.</p>
+    <div class="exercise" data-name="Reading (UK universities): gap-match">
+      <div class="reading-text">
+        <p>There are over 1.5 million full-time university students in the UK, studying at over 100 universities across the country.</p>
+        <p>Students usually require three or four good A-level grades to get a place at university. For most courses, students apply in the January of their final year of school. <span class="slot" data-group="ukgap" data-answer="D"></span></p>
+        <p>Most degree courses are three years long, but four-year courses are becoming more popular, with one year spent either abroad or working in industry.</p>
+        <p>Most British campus universities were built in the 1960s and 70s. Traditionally, universities had grown in the centres of cities. <span class="slot" data-group="ukgap" data-answer="A"></span></p>
+        <p>At campus universities, students' social lives centre mainly around the student union. Wednesday afternoons are usually reserved for sport at UK universities, with inter-university league matches happening across the country in a wide range of sports.</p>
+        <p><span class="slot" data-group="ukgap" data-answer="C"></span> Large lecture theatres can hold up to 300 students. Students may also attend smaller lectures and seminars, where more student participation is encouraged.</p>
+        <p>Students rely more and more on online learning as part of their university studies these days. <span class="slot" data-group="ukgap" data-answer="E"></span></p>
+        <p>Most UK students attend universities quite far away from their home towns. At campus universities, most first-year students live on-site in halls of residence. The accommodation is owned by the university, and students usually have their own room, with internet access. <span class="slot" data-group="ukgap" data-answer="B"></span></p>
+        <p>In the UK, university is often seen as a stepping-stone to adulthood, and is considered to be as much about life experience as it is about getting a degree.</p>
+      </div>
+      <div class="option-box">
+        <b>Sentences A–E</b>
+        <div class="bank" id="bank-ukgap">
+          <button class="token" data-group="ukgap" data-val="A">A) The new universities were built outside the cities.</button>
+          <button class="token" data-group="ukgap" data-val="B">B) They have to share a bathroom and kitchen with several other students.</button>
+          <button class="token" data-group="ukgap" data-val="C">C) University teaching methods vary from course to course.</button>
+          <button class="token" data-group="ukgap" data-val="D">D) They don't find out if they have got a place until the exam results are published in August.</button>
+          <button class="token" data-group="ukgap" data-val="E">E) Universities are adapting their study facilities to help students with these needs.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 6 — READING: UK UNIVERSITIES (T/F + HALVES) ============ -->
+<section class="page" data-page="6">
+  <div class="card">
+    <h2><span class="task-num">9</span> True or false?</h2>
+    <p class="instructions">Based on the text on the previous page, are these statements true (T) or false (F)?</p>
+    <div class="exercise" data-name="Reading (UK universities): true or false">
+      <div class="item">
+        <p class="q-text">1. There are over 1.5 million full-time university students in the United Kingdom.</p>
+        <div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q-text">2. There are about 100 universities in the UK.</p>
+        <div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q-text">3. Students need two or three good A-level results for most degree courses in the UK.</p>
+        <div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q-text">4. Students study at British universities for three or four years.</p>
+        <div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q-text">5. All UK students work abroad or in industry for a year.</p>
+        <div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q-text">6. Most UK students go to a university near their family home.</p>
+        <div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="task-num">10</span> Match the beginnings and endings of the sentences</h2>
+    <p class="instructions">Click an ending in the box, then click the gap at the end of its matching sentence beginning.</p>
+    <div class="exercise" data-name="Reading (UK universities): sentence halves">
+      <div class="bank" id="bank-halves">
+        <button class="token" data-group="halves" data-val="a">a) course starts in September.</button>
+        <button class="token" data-group="halves" data-val="b">b) seminar on Thursday.</button>
+        <button class="token" data-group="halves" data-val="c">c) grades.</button>
+        <button class="token" data-group="halves" data-val="d">d) online.</button>
+        <button class="token" data-group="halves" data-val="e">e) a place at university.</button>
+        <button class="token" data-group="halves" data-val="f">f) facilities.</button>
+        <button class="token" data-group="halves" data-val="g">g) university in the USA.</button>
+      </div>
+      <div class="item halves-row"><span class="stem">1. I'm applying for</span><span class="slot" data-group="halves" data-answer="e"></span></div>
+      <div class="item halves-row"><span class="stem">2. He needs good A-level</span><span class="slot" data-group="halves" data-answer="c"></span></div>
+      <div class="item halves-row"><span class="stem">3. My degree</span><span class="slot" data-group="halves" data-answer="a"></span></div>
+      <div class="item halves-row"><span class="stem">4. There are excellent study</span><span class="slot" data-group="halves" data-answer="f"></span></div>
+      <div class="item halves-row"><span class="stem">5. She studied at a campus</span><span class="slot" data-group="halves" data-answer="g"></span></div>
+      <div class="item halves-row"><span class="stem">6. More students are choosing to study</span><span class="slot" data-group="halves" data-answer="d"></span></div>
+      <div class="item halves-row"><span class="stem">7. Six students can attend the</span><span class="slot" data-group="halves" data-answer="b"></span></div>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 7 — FLASHCARDS ============ -->
+<section class="page" data-page="7">
+  <div class="card">
+    <h2><span class="task-num">11</span> Vocabulary retrieval: flip cards</h2>
+    <p class="instructions">Try to recall the definition before you flip the card. Click the card to flip it, use Shuffle to mix the deck, and 🔊 to hear the word.</p>
+    <div class="deck-wrap">
+      <div class="flip-card" id="flipCard" onclick="flipCurrentCard(event)">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <button class="card-speak" onclick="speakCurrent(event)">🔊</button>
+            <div class="term" id="cardTerm"></div>
+            <div class="pos" id="cardPos"></div>
+          </div>
+          <div class="flip-back">
+            <button class="card-speak" onclick="speakCurrent(event)">🔊</button>
+            <div class="def" id="cardDef"></div>
+            <div class="ex" id="cardEx"></div>
+          </div>
+        </div>
+      </div>
+      <div class="deck-controls">
+        <button class="btn btn-ghost" onclick="prevCard()">← Prev</button>
+        <span class="deck-counter" id="deckCounter">1 / 24</span>
+        <button class="btn btn-ghost" onclick="nextCard()">Next →</button>
+      </div>
+      <button class="btn btn-primary" onclick="shuffleDeck()">🔀 Shuffle</button>
+    </div>
+  </div>
+  <div class="nav-btns split"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 8 — RESULTS ============ -->
+<section class="page" data-page="8">
+  <div class="card">
+    <h2>Check your answers</h2>
+    <p>You've reached the end of the classwork. Make sure your name is filled in at the top, then check your answers below.</p>
+    <div class="exercise" data-name="Reflection">
+      <h3>Before you check: quick reflection</h3>
+      <p class="instructions">Pick 3 words from today's lesson and use them in one or two sentences about your own plans after school. (Not scored — your teacher may read this.)</p>
+      <textarea class="notes" id="reflection" placeholder="Example: I would like to study abroad and live in a hall of residence..."></textarea>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <button class="btn btn-cta" onclick="submitAll()">✓ Check my answers</button>
+    </div>
+    <div id="resultsPanel" hidden>
+      <div class="result-hero">
+        <div class="pct" id="resultsPercent">0%</div>
+        <div class="score-pill" id="resultsFraction">0 / 0 correct</div>
+      </div>
+      <div id="resultsBreakdown"></div>
+      <p class="hint" style="text-align:center; margin-top:14px;">Scroll back through the pages — wrong or empty answers are marked in red, correct ones in green.</p>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button></div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+const PAGE_LABELS = ["Warm-up","Vocabulary","Practice: MC","Practice: gap-fill","Reading: Harvard","Reading: UK (gaps)","Reading: UK (T/F)","Flashcards","Results"];
+let current = 0;
+const PROGRESS_KEY = 'angle_progress::unit1-university-life-classwork';
+let isRestoring = false;
+
+/* ===================== VOCAB DATA ===================== */
+const VOCAB = [
+ {term:"undergraduate", cat:"people", pos:"noun", def:"a university student who has not yet taken their first degree", example:"Most of the students I've met so far are undergraduates."},
+ {term:"postgraduate", cat:"people", pos:"noun / adj", def:"a student (or course) continuing study after a first degree, towards a second degree or a master's", example:"There are others who've already graduated and are studying to get a second degree or a master's."},
+ {term:"degree", cat:"study", pos:"noun", def:"a qualification awarded by a university or college after a course of study", example:"My brother is studying for a degree in physics."},
+ {term:"master's (degree)", cat:"study", pos:"noun", def:"a postgraduate degree, higher than a first (bachelor's) degree", example:"After I graduate, I'd like to continue studying and do a master's."},
+ {term:"lecture", cat:"study", pos:"noun", def:"a talk given to a group of students, usually as part of a university course", example:"Our history lecture starts at 2.30 and finishes at 4.00."},
+ {term:"tutorial", cat:"study", pos:"noun", def:"a small-group or one-to-one teaching session with a tutor, for discussing coursework", example:"On my course I attend a couple of tutorials every week."},
+ {term:"tutor", cat:"people", pos:"noun", def:"a teacher responsible for a student's academic progress, often through small-group teaching", example:"My tutor gives me a grade for each piece of work."},
+ {term:"coursework", cat:"study", pos:"noun", def:"work done during a course of study that counts towards the final grade", example:"There's continuous assessment of our coursework and assignments."},
+ {term:"assignment", cat:"study", pos:"noun", def:"a piece of work given to a student as part of a course of study", example:"I need to hand in my assignment by Friday."},
+ {term:"grade / mark", cat:"study", pos:"noun", def:"a score or letter given to show how good a piece of work is", example:"My tutor gives me a grade or mark for each piece of work."},
+ {term:"exam", cat:"study", pos:"noun", def:"a formal test of knowledge or ability in a subject", example:"There are usually exams too, so I need to revise."},
+ {term:"resit", cat:"study", pos:"verb", def:"to take an examination again, usually after failing it", example:"If you fail an exam, you can resit it."},
+ {term:"revise", cat:"study", pos:"verb", def:"to study material again, especially in preparation for an exam", example:"I need to keep my notes up to date and revise."},
+ {term:"study abroad", cat:"life", pos:"phrase", def:"to study in a foreign country rather than your own", example:"Some people want to study abroad rather than at home."},
+ {term:"independent", cat:"life", pos:"adjective", def:"able to look after yourself and make your own decisions, without relying on others", example:"When you live away from home, you become more independent."},
+ {term:"hall of residence", cat:"life", pos:"noun (UK)", def:"a building owned by a university where students live, especially in their first year", example:"Students who don't live at home often live in a hall of residence."},
+ {term:"student loan", cat:"life", pos:"noun", def:"money borrowed to pay for university studies, which is paid back later", example:"If you can't afford university, you can apply for a student loan."},
+ {term:"extracurricular activities", cat:"life", pos:"noun phrase", def:"clubs and activities organised outside the normal academic course", example:"At university there are lots of clubs that organise extracurricular activities."},
+ {term:"facilities", cat:"life", pos:"noun (plural)", def:"buildings, equipment or services provided for a particular purpose", example:"Universities have gyms, libraries, language centres and other facilities."},
+ {term:"alumnus / alumni", cat:"people", pos:"noun", def:"a former student of a particular school, college or university (plural: alumni)", example:"Harvard has more than 360,000 alumni around the world."},
+ {term:"enrolment", cat:"study", pos:"noun", def:"the number of students officially registered as members of a course or institution", example:"Harvard has an enrolment of over 20,000 degree candidates."},
+ {term:"research", cat:"study", pos:"noun", def:"systematic investigation into materials and sources to establish facts and reach new conclusions", example:"Harvard is devoted to excellence in teaching, learning and research."},
+ {term:"institution", cat:"study", pos:"noun", def:"an organisation founded for a particular purpose, especially one providing education", example:"Harvard is the United States' oldest institution of higher learning."},
+ {term:"benefactor", cat:"people", pos:"noun", def:"a person who gives money or other help to a person or cause", example:"Harvard was named for its first benefactor, clergyman John Harvard."}
+];
+const CATS = [["all","All words"],["people","People"],["study","Study & assessment"],["life","University life"]];
+
+function renderVocabTabs(){
+  const wrap = document.getElementById('vocabTabs');
+  CATS.forEach(([key,label],i)=>{
+    const b = document.createElement('button');
+    b.className = 'tab' + (i===0?' active':'');
+    b.textContent = label;
+    b.dataset.cat = key;
+    b.onclick = ()=>{
+      document.querySelectorAll('#vocabTabs .tab').forEach(t=>t.classList.remove('active'));
+      b.classList.add('active');
+      renderVocabGrid(key);
+    };
+    wrap.appendChild(b);
+  });
+}
+function renderVocabGrid(filter){
+  const grid = document.getElementById('vocabGrid');
+  const list = (!filter || filter==='all') ? VOCAB : VOCAB.filter(v=>v.cat===filter);
+  grid.innerHTML = list.map(v=>`<div class="vocab-card"><b>${v.term}</b><span class="pos">${v.pos}</span><p>${v.def}</p><p class="ex">"${v.example}"</p></div>`).join('');
+}
+
+/* ===================== PAGINATION ===================== */
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  window.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ===================== MC / TF ===================== */
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.mcq .opt');
+  if(btn){
+    const group = btn.closest('.mcq');
+    group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    scheduleSave();
+  }
+});
+
+/* ===================== BANK / SLOT MATCHING ===================== */
+let selectedToken = null;
+document.addEventListener('click', e=>{
+  const tok = e.target.closest('.token');
+  if(tok){
+    if(tok.classList.contains('used')) return;
+    if(selectedToken){ selectedToken.classList.remove('selected'); }
+    if(selectedToken === tok){ selectedToken = null; return; }
+    selectedToken = tok; tok.classList.add('selected');
+    return;
+  }
+  const slot = e.target.closest('.slot');
+  if(slot){
+    if(slot.classList.contains('filled')){
+      const val = slot.dataset.placed;
+      const group = slot.dataset.group;
+      const tok2 = document.querySelector(`.token[data-group="${group}"][data-val="${cssVal(val)}"]`);
+      if(tok2){ tok2.classList.remove('used'); }
+      slot.dataset.placed=''; slot.classList.remove('filled'); slot.textContent='';
+      scheduleSave();
+      return;
+    }
+    if(!selectedToken) return;
+    if(selectedToken.dataset.group !== slot.dataset.group) return;
+    slot.dataset.placed = selectedToken.dataset.val;
+    slot.textContent = selectedToken.dataset.val;
+    slot.classList.add('filled');
+    selectedToken.classList.add('used');
+    selectedToken.classList.remove('selected');
+    selectedToken = null;
+    scheduleSave();
+  }
+});
+function cssVal(v){ return String(v).replace(/"/g,'\\"'); }
+
+/* ===================== FLASHCARDS ===================== */
+let deckOrder = VOCAB.map((_,i)=>i);
+let cardIndex = 0;
+function renderCard(){
+  const v = VOCAB[deckOrder[cardIndex]];
+  document.getElementById('cardTerm').textContent = v.term;
+  document.getElementById('cardPos').textContent = v.pos;
+  document.getElementById('cardDef').textContent = v.def;
+  document.getElementById('cardEx').textContent = '"'+v.example+'"';
+  document.getElementById('deckCounter').textContent = `${cardIndex+1} / ${deckOrder.length}`;
+  document.getElementById('flipCard').classList.remove('flipped');
+}
+function flipCurrentCard(e){ document.getElementById('flipCard').classList.toggle('flipped'); }
+function nextCard(){ cardIndex = (cardIndex+1) % deckOrder.length; renderCard(); }
+function prevCard(){ cardIndex = (cardIndex-1+deckOrder.length) % deckOrder.length; renderCard(); }
+function shuffleDeck(){
+  for(let i=deckOrder.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [deckOrder[i],deckOrder[j]]=[deckOrder[j],deckOrder[i]]; }
+  cardIndex = 0; renderCard();
+}
+function speakCurrent(e){
+  e.stopPropagation();
+  const v = VOCAB[deckOrder[cardIndex]];
+  const u = new SpeechSynthesisUtterance(v.term.replace(/\(.*?\)/g,''));
+  u.lang = 'en-GB'; u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+/* ===================== SCORING ===================== */
+function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before checking your answers.'); return; }
+  let correct=0, total=0;
+  const bySection = {};
+  function bump(name, ok){ bySection[name] = bySection[name] || {c:0,t:0}; bySection[name].t++; if(ok) bySection[name].c++; }
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const ok = !!(chosen && chosen.dataset.val === g.dataset.correct);
+    const name = g.closest('.exercise')?.dataset.name || 'Exercise';
+    bump(name, ok);
+    g.classList.add('checked');
+    g.querySelectorAll('.opt').forEach(o=>{
+      if(o.dataset.val === g.dataset.correct) o.classList.add('is-correct');
+      else if(o===chosen) o.classList.add('is-wrong');
+    });
+    if(ok) correct++;
+  });
+
+  document.querySelectorAll('.slot[data-answer]').forEach(s=>{
+    total++;
+    const ok = s.dataset.placed === s.dataset.answer;
+    const name = s.closest('.exercise')?.dataset.name || 'Exercise';
+    bump(name, ok);
+    s.classList.add('checked');
+    s.classList.toggle('is-correct', ok);
+    s.classList.toggle('is-wrong', !ok);
+    if(ok) correct++;
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('resultsPercent').textContent = pct+'%';
+  document.getElementById('resultsFraction').textContent = `${correct} / ${total} correct`;
+  const bd = document.getElementById('resultsBreakdown');
+  bd.innerHTML = Object.keys(bySection).map(name=>{
+    const s = bySection[name];
+    return `<div class="breakdown-row"><span>${name}</span><b>${s.c} / ${s.t}</b></div>`;
+  }).join('');
+  document.getElementById('resultsPanel').hidden = false;
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+
+/* ===================== SAVE / RESTORE ===================== */
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.reflection = document.getElementById('reflection')?.value || '';
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.slots = [...document.querySelectorAll('.slot')].map(s=>s.dataset.placed || '');
+    state.notes = [...document.querySelectorAll('textarea.notes')].map(t=>t.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* storage unavailable */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 350); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  if(state.reflection){ const r = document.getElementById('reflection'); if(r) r.value = state.reflection; }
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${cssVal(val)}"]`);
+    if(btn){ btn.classList.add('chosen'); }
+  });
+  const slots = document.querySelectorAll('.slot');
+  (state.slots||[]).forEach((val,i)=>{
+    if(!val) return;
+    const s = slots[i]; if(!s) return;
+    s.dataset.placed = val; s.textContent = val; s.classList.add('filled');
+    const tok = document.querySelector(`.token[data-group="${s.dataset.group}"][data-val="${cssVal(val)}"]`);
+    if(tok) tok.classList.add('used');
+  });
+  const notesEls = document.querySelectorAll('textarea.notes');
+  (state.notes||[]).forEach((v,i)=>{ if(notesEls[i] && v) notesEls[i].value = v; });
+
+  const hasContent = (state.mcq||[]).some(v=>v!=null) || (state.slots||[]).some(v=>v) || (state.notes||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, #studentName')) scheduleSave(); });
+
+/* ===================== INIT ===================== */
+buildDots();
+renderVocabTabs();
+renderVocabGrid('all');
+renderCard();
+restoreProgress();
+</script>
+
+</body>
+</html>
