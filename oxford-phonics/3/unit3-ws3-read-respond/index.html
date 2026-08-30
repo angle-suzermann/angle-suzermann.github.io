@@ -1,0 +1,819 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Read &amp; Respond — o_e &amp; u_e | ANGLE</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Oxford Phonics World 3">
+<meta name="ws:course-id" content="oxford-phonics/3">
+<meta name="ws:unit"      content="3">
+<meta name="ws:title"     content="Read &amp; Respond — o_e &amp; u_e">
+<meta name="ws:emoji"     content="📖">
+<meta name="ws:date"      content="2026-08-30">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mlgqqwpk">
+<meta name="ws:tags"      content="phonics, magic e, o_e, u_e, reading">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint);
+  min-height:100vh; position:relative;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(246,242,250,.35), rgba(246,242,250,.55)); }
+
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px 12px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:700; color:var(--purple); font-size:1.02rem; line-height:1.25; }
+.lesson-title small{ display:block; font-weight:400; color:var(--muted); font-size:.76rem; margin-top:2px; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.82rem; color:var(--muted); }
+.namebar input{ font-family:inherit; border:1.5px solid var(--border); border-radius:8px; padding:5px 9px; font-size:.85rem; width:150px; }
+.namebar input:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+.save-indicator{ font-size:.7rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:4px;}
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; border:1px solid var(--border);}
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--purple-dark)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.72rem; color:var(--muted); white-space:nowrap; font-weight:600;}
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:26px; height:26px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:var(--muted); cursor:pointer; }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.page-dot:hover{ border-color:var(--purple); }
+
+.page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:24px 18px 70px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:22px 22px 24px; box-shadow:0 4px 22px rgba(45,25,60,.10); margin-bottom:18px; border:1px solid var(--border);}
+.card h2{ color:var(--purple); font-size:1.18rem; margin:0 0 6px; }
+.card .sub{ color:var(--muted); font-size:.9rem; margin:0 0 16px; line-height:1.5;}
+.badge-sound{ display:inline-block; background:var(--yellow); color:var(--black); font-weight:700; border-radius:20px; padding:3px 12px; font-size:.78rem; margin-right:6px;}
+
+.item{ margin-bottom:18px; }
+.item:last-child{ margin-bottom:0;}
+p.q{ font-size:1rem; margin:0 0 10px; line-height:1.55;}
+
+.hero-card{ text-align:center; padding:34px 22px; }
+.hero-card h1{ color:var(--purple); font-size:1.5rem; margin:0 0 8px; }
+.hero-card p{ color:var(--muted); font-size:.95rem; max-width:520px; margin:0 auto 6px; line-height:1.6;}
+
+.btn{ font-family:inherit; border:none; border-radius:24px; padding:11px 22px; font-weight:700; font-size:.92rem; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; }
+.btn:active{ transform:scale(.97); }
+.btn-primary{ background:var(--purple); color:#fff; }
+.btn-primary:hover{ background:var(--purple-dark); }
+.btn-gold{ background:var(--yellow); color:var(--black); }
+.btn-gold:hover{ filter:brightness(.95); }
+.btn-ghost{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); }
+.btn-ghost:hover{ background:var(--card-tint); }
+.btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; gap:10px; }
+.nav-btns .spacer{ flex:1; }
+
+.speak-btn{ display:inline-flex; align-items:center; gap:5px; background:var(--card-tint); border:1.5px solid var(--border); color:var(--purple); border-radius:20px; padding:5px 12px; font-size:.82rem; font-weight:700; cursor:pointer; font-family:inherit;}
+.speak-btn:hover{ border-color:var(--purple); }
+
+/* MCQ / true-false */
+.mcq{ display:flex; gap:10px; flex-wrap:wrap; }
+.mcq .opt{ font-family:inherit; background:#fff; border:1.5px solid var(--border); border-radius:12px; padding:9px 16px; font-size:.92rem; cursor:pointer; font-weight:600; color:var(--text); }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--card-tint); }
+.mcq .opt.correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
+.mcq .opt.wrong{ background:#fbeae7; border-color:var(--wrong); color:var(--wrong); }
+
+/* Fill in the blank */
+input.fib{ font-family:inherit; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; font-size:.95rem; width:110px; text-align:center; font-weight:700; }
+input.fib:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+input.fib.is-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); }
+input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--wrong); }
+
+/* categorize */
+.chipbank{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px; }
+.chip{ background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:8px 16px; font-weight:700; font-size:.92rem; cursor:pointer; }
+.chip:hover{ border-color:var(--purple); }
+.chip.selected{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.chip[hidden]{ display:none; }
+.buckets{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.buckets.b3{ grid-template-columns:1fr 1fr 1fr; }
+.bucket{ min-height:110px; background:var(--card-tint); border:2px dashed var(--border); border-radius:12px; padding:12px; }
+.bucket h3{ margin:0 0 8px; font-size:.86rem; color:var(--purple); text-align:center; }
+.bucket-items{ display:flex; flex-wrap:wrap; gap:7px; min-height:34px; }
+.bucket-items .chip{ cursor:default; font-size:.84rem; padding:6px 12px;}
+.bucket-items .chip.placed-correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
+.bucket-items .chip.placed-wrong{ background:#fbeae7; border-color:var(--wrong); color:var(--wrong); }
+
+/* match columns */
+.match-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.col-left, .col-right{ display:flex; flex-direction:column; gap:9px; }
+.match{ font-family:inherit; text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 13px; font-size:.88rem; cursor:pointer; font-weight:600; }
+.match:hover{ border-color:var(--purple); }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fbeae7; color:var(--wrong); }
+
+/* order */
+.order-list{ display:flex; flex-direction:column; gap:9px; }
+.order-item{ display:flex; align-items:center; gap:10px; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; cursor:pointer; font-size:.92rem; }
+.order-item:hover{ border-color:var(--purple); }
+.order-num{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.76rem; font-weight:700; color:var(--muted); flex-shrink:0;}
+.order-item.picked .order-num{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.order-item.order-correct{ border-color:var(--correct); }
+.order-item.order-wrong{ border-color:var(--wrong); }
+
+/* word bank */
+.wordbank{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; padding:12px; background:var(--card-tint); border-radius:12px; }
+.wbtoken{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); border-radius:16px; padding:6px 14px; font-weight:700; font-size:.86rem; cursor:pointer; }
+.wbtoken:hover{ background:var(--purple); color:#fff; }
+.wbtoken.used{ opacity:.35; cursor:not-allowed; background:var(--card-tint); color:var(--muted); border-color:var(--border); }
+
+/* flip cards */
+.flip-deck{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.flip-card{ width:100%; max-width:340px; height:170px; perspective:1000px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front, .flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; }
+.flip-front{ background:var(--purple); color:#fff; font-size:1.3rem; font-weight:700; }
+.flip-back{ background:var(--card-tint); border:1.5px solid var(--purple); transform:rotateY(180deg); font-size:.92rem; }
+.flip-back .pos{ color:var(--purple); font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:4px;}
+.card-speak{ margin-top:8px; }
+.deck-controls{ display:flex; gap:10px; align-items:center; }
+.deck-counter{ font-size:.82rem; color:var(--muted); font-weight:700;}
+
+/* passage / find-words */
+.passage{ font-size:1.02rem; line-height:2; background:var(--card-tint); border-radius:12px; padding:18px 20px; }
+.findword{ cursor:pointer; padding:1px 3px; border-radius:5px; }
+.findword:hover{ background:#efe6f7; }
+.findword.picked{ background:var(--yellow); font-weight:700; }
+.findword.found-correct{ background:#cdeedb; color:var(--correct); font-weight:700; }
+.findword.found-wrong{ background:#f6d3cd; color:var(--wrong); }
+.findword.missed{ outline:2px dashed var(--wrong); outline-offset:1px; }
+
+/* dialog lines */
+.dialog-line{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.dialog-name{ font-weight:700; color:var(--purple); min-width:56px; }
+.choice-btn{ font-family:inherit; background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:6px 14px; font-size:.86rem; cursor:pointer; font-weight:600; }
+.choice-btn:hover{ border-color:var(--purple); }
+.choice-btn.chosen{ background:var(--card-tint); border-color:var(--purple);}
+.choice-btn.correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct);}
+.choice-btn.wrong{ background:#fbeae7; border-color:var(--wrong); color:var(--wrong);}
+
+/* results */
+.score-pill{ display:inline-flex; align-items:center; gap:6px; background:var(--card-tint); border:1.5px solid var(--purple); color:var(--purple); border-radius:20px; padding:7px 16px; font-weight:700; font-size:.9rem; }
+.results-big{ font-size:2.6rem; font-weight:800; color:var(--purple); text-align:center; margin:6px 0;}
+.results-fraction{ text-align:center; color:var(--muted); font-weight:700; margin-bottom:14px;}
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:11px 15px; font-size:.86rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.76rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.hint{ font-size:.8rem; color:var(--muted); margin-top:8px; }
+.feedback-msg{ font-size:.86rem; font-weight:700; margin-top:8px; min-height:1.2em; }
+.feedback-msg.ok{ color:var(--correct); }
+.feedback-msg.no{ color:var(--wrong); }
+
+ul.clean{ margin:0; padding-left:20px; }
+ul.clean li{ margin-bottom:6px; }
+
+@media(max-width:600px){
+  .buckets{ grid-template-columns:1fr; }
+  .buckets.b3{ grid-template-columns:1fr; }
+  .match-wrap{ grid-template-columns:1fr; }
+  .lesson-title{ font-size:.92rem; }
+}
+
+</style>
+<style>
+  
+  
+
+</style>
+<style>
+
+.angle-badge{
+  position:fixed; left:28px; bottom:24px; z-index:9999;
+  pointer-events:none;
+  display:flex; flex-direction:column; align-items:flex-start;
+  opacity:0.9;
+}
+.angle-badge .wordmark{ width:130px; height:auto; display:block; color:var(--yellow); }
+.angle-badge .credit{
+  margin-top:4px; margin-left:3px;
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  font-weight:400; font-size:11px; letter-spacing:0.3px;
+  color:var(--yellow);
+}
+.page-wrap{ padding-bottom:130px; }
+@media(max-width:600px){
+  .angle-badge .wordmark{ width:104px; }
+  .angle-badge{ left:16px; bottom:16px; }
+}
+
+</style>
+</head>
+<body>
+<div class="angle-badge"><svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg><div class="credit">by Viktoria Syuzyova</div></div>
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Unit 3 · Worksheet 3<small>Read &amp; Respond — o_e &amp; u_e</small></span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 5</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card hero-card">
+    <h1>📖 Read &amp; Respond</h1>
+    <p>Six short sentences tell a story about June and her huge mule. Read each one carefully — some questions are trickier than they look!</p>
+    <p style="margin-top:14px;"><button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊 Hear an example sentence</button></p>
+  </div>
+  <div class="nav-btns"><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
+</section>
+
+
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>📗 Read the Story</h2>
+    <p class="sub">Read each sentence, listen if you like, then answer the question below it.</p>
+    <div class="item"><p class="q"><b>1.</b> June has a huge, gray mule. <button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊</button></p><p class="q" style="margin-top:8px;">The mule is huge.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>2.</b> The mule likes to eat a bone and a rose. <button class="speak-btn" onclick="speak('The mule likes to eat a bone and a rose.')">🔊</button></p><p class="q" style="margin-top:8px;">What does the mule eat?</p><div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a bone and a rose</button>
+          <button class="opt" data-val="b">a phone and a nose</button>
+          <button class="opt" data-val="c">a cube and a flute</button>
+        </div></div>
+      <div class="item"><p class="q"><b>3.</b> June and the mule go home in June. <button class="speak-btn" onclick="speak('June and the mule go home in June.')">🔊</button></p><p class="q" style="margin-top:8px;">They go home in December.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>4.</b> At home, June gets a cute flute and a shiny cube. <button class="speak-btn" onclick="speak('At home, June gets a cute flute and a shiny cube.')">🔊</button></p><p class="q" style="margin-top:8px;">What two things does June get at home?</p><div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a joke and a rope</button>
+          <button class="opt" data-val="b">a flute and a cube</button>
+          <button class="opt" data-val="c">a bone and a rose</button>
+        </div></div>
+      <div class="item"><p class="q"><b>5.</b> The mule blows on the flute — what a huge joke! <button class="speak-btn" onclick="speak('The mule blows on the flute — what a huge joke!')">🔊</button></p><p class="q" style="margin-top:8px;">The mule can play the flute.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>6.</b> June and the mule smile. Home is fun. <button class="speak-btn" onclick="speak('June and the mule smile. Home is fun.')">🔊</button></p><p class="q" style="margin-top:8px;">June and the mule are sad.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+  </div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>🔢 Put It in Order</h2>
+    <p class="sub">Tap the sentences in the order the story really happens — first to last.</p>
+    <div class="order-list" id="orderList" data-order-correct="0">
+      <div class="order-item" data-id="s3" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule go home in June.</span></div>
+      <div class="order-item" data-id="s5" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule blows on the flute — what a huge joke!</span></div>
+      <div class="order-item" data-id="s1" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June has a huge, gray mule.</span></div>
+      <div class="order-item" data-id="s6" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule smile. Home is fun.</span></div>
+      <div class="order-item" data-id="s2" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule likes to eat a bone and a rose.</span></div>
+      <div class="order-item" data-id="s4" onclick="orderClickWrap(this)"><span class="order-num"></span><span>At home, June gets a cute flute and a shiny cube.</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="checkStoryOrder()">Check order</button>
+      <button class="btn btn-ghost" onclick="resetOrder(document.getElementById('orderList'))">Reset</button>
+    </div>
+    <div class="feedback-msg" id="orderFeedback"></div>
+  </div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>💬 Fill the Dialogue</h2>
+    <p class="sub">Kate and Luke are talking. Tap the word that fits best.</p>
+    <div class="dialog-line" data-ans="cube"><span class="dialog-name">Kate:</span><span>Do you want to see my </span>
+        <button class="choice-btn" data-val="cube">cube</button>
+        <button class="choice-btn" data-val="rain">rain</button>
+        <button class="choice-btn" data-val="cake">cake</button>
+        <span>?</span></div>
+      <div class="dialog-line" data-ans="huge"><span class="dialog-name">Luke:</span><span>Yes! Is it </span>
+        <button class="choice-btn" data-val="huge">huge</button>
+        <button class="choice-btn" data-val="small">small</button>
+        <button class="choice-btn" data-val="rude">rude</button>
+        <span>?</span></div>
+      <div class="dialog-line" data-ans="flute"><span class="dialog-name">Kate:</span><span>Yes, and I have a </span>
+        <button class="choice-btn" data-val="flute">flute</button>
+        <button class="choice-btn" data-val="phone">phone</button>
+        <button class="choice-btn" data-val="boat">boat</button>
+        <span> too!</span></div>
+      <div class="dialog-line" data-ans="tune"><span class="dialog-name">Luke:</span><span>Can you play a </span>
+        <button class="choice-btn" data-val="tune">tune</button>
+        <button class="choice-btn" data-val="rope">rope</button>
+        <button class="choice-btn" data-val="kite">kite</button>
+        <span> for me?</span></div>
+      <div class="dialog-line" data-ans="home"><span class="dialog-name">Kate:</span><span>Sure! Let's go </span>
+        <button class="choice-btn" data-val="home">home</button>
+        <button class="choice-btn" data-val="hot">hot</button>
+        <button class="choice-btn" data-val="rain">rain</button>
+        <span>.</span></div>
+  </div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Finish →</button></div>
+</section>
+
+
+<section class="page" data-page="4">
+  <div class="card hero-card">
+    <h1>👏 Great reading!</h1>
+    <p>You read six sentences, rebuilt the story in order, and finished a dialogue — all with o_e / u_e words.</p>
+    <button class="btn btn-gold" onclick="showResults()">Show my score</button>
+    <div id="resultsPanel" hidden>
+      <div class="results-big" id="resultsPercent">0%</div>
+      <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
+    </div>
+    <p class="hint">Next up: Worksheet 4 — <b>Story Time: Home in June</b>, a full short text to read.</p>
+  </div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div></div>
+</section>
+
+</div>
+
+<script>
+
+// ===== Generic ANGLE worksheet engine (Unit 3: o_e / u_e) =====
+const PAGE_LABELS = ['Warm-up', 'Read the Story', 'Put It in Order', 'Fill the Dialogue', 'Finish'];
+let current = 0;
+let isRestoring = false;
+const PROGRESS_KEY = 'angle_progress::unit3-ws3-read-respond';
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = ((current+1)/pages.length*100) + '%';
+  document.getElementById('progressLabel').textContent = 'Page ' + (current+1) + ' / ' + pages.length;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+function speak(text, rate){
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = rate || 0.92;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+// ---- MCQ / true-false ----
+function initMCQ(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const group = btn.closest('.mcq');
+      if (group.dataset.done) return;
+      group.dataset.done = "1";
+      const correct = group.dataset.correct;
+      group.querySelectorAll('.opt').forEach(o=>{
+        o.classList.add('chosen');
+        if (o === btn) o.classList.add(o.dataset.val === correct ? 'correct' : 'wrong');
+        if (o.dataset.val === correct && o !== btn) o.classList.add('correct');
+      });
+      scheduleSave();
+    };
+  });
+}
+
+// ---- FIB exact match ----
+function checkFib(container){
+  let total=0, correct=0;
+  container.querySelectorAll('input.fib').forEach(inp=>{
+    total++;
+    const ans = (inp.dataset.answer||'').trim().toLowerCase();
+    const val = inp.value.trim().toLowerCase();
+    const ok = val === ans;
+    inp.classList.toggle('is-correct', ok);
+    inp.classList.toggle('is-wrong', !ok && val.length>0);
+    if(ok) correct++;
+  });
+  return {total, correct};
+}
+
+// ---- Categorize (chip -> bucket) ----
+let selectedChip = null;
+function selectChip(el){
+  if(el.classList.contains('placed-correct') || el.classList.contains('placed-wrong')) return;
+  document.querySelectorAll('.chip.selected').forEach(c=>c.classList.remove('selected'));
+  selectedChip = el; el.classList.add('selected');
+}
+function dropInto(zoneEl){
+  if(!selectedChip) return;
+  const correctZone = selectedChip.dataset.zone;
+  const isRight = correctZone === zoneEl.dataset.zone;
+  selectedChip.classList.remove('selected');
+  selectedChip.classList.add(isRight ? 'placed-correct' : 'placed-wrong');
+  selectedChip.dataset.locked = "1";
+  zoneEl.querySelector('.bucket-items').appendChild(selectedChip);
+  selectedChip = null;
+  scheduleSave();
+}
+
+// ---- Click-to-match ----
+let firstPick = null;
+function initMatch(){
+  document.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if (el.classList.contains('matched-correct')) return;
+      if (!firstPick) { firstPick = el; el.classList.add('selected'); return; }
+      if (firstPick === el) { firstPick.classList.remove('selected'); firstPick = null; return; }
+      const isMatchOk = firstPick.dataset.id === el.dataset.id;
+      if (isMatchOk) {
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        const container = firstPick.closest('.match-wrap');
+        const total = parseInt(container.dataset.totalPairs||0);
+        container.dataset.correctCount = (parseInt(container.dataset.correctCount||0)+1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{ [firstPick, el].forEach(x=>{x.classList.remove('selected','wrong-flash');}); }, 550);
+      }
+      firstPick = null;
+      scheduleSave();
+    };
+  });
+}
+
+// ---- Click-to-order ----
+let orderClicks = [];
+function initOrder(container){
+  container.querySelectorAll('.order-item').forEach(el=>{
+    el.onclick = ()=>{
+      if (el.dataset.picked) return;
+      el.dataset.picked = "1";
+      el.classList.add('picked');
+      orderClicks.push(el.dataset.id);
+      el.querySelector('.order-num').textContent = orderClicks.length;
+      scheduleSave();
+    };
+  });
+}
+function checkOrder(container, correctOrder){
+  const items = [...container.querySelectorAll('.order-item')];
+  let allCorrect = orderClicks.length === correctOrder.length;
+  orderClicks.forEach((id,i)=>{
+    const el = container.querySelector('.order-item[data-id="'+id+'"]');
+    const ok = correctOrder[i] === id;
+    if(!ok) allCorrect = false;
+    el.classList.add(ok ? 'order-correct' : 'order-wrong');
+  });
+  container.dataset.orderCorrect = allCorrect ? "1" : "0";
+  return allCorrect;
+}
+function resetOrder(container){
+  orderClicks = [];
+  container.querySelectorAll('.order-item').forEach(el=>{
+    delete el.dataset.picked;
+    el.classList.remove('picked','order-correct','order-wrong');
+    el.querySelector('.order-num').textContent = '';
+  });
+}
+
+// ---- Word bank fill ----
+function useToken(tokenEl, targetInput){
+  if (tokenEl.classList.contains('used')) return;
+  if (targetInput.value.trim().length > 0) return;
+  targetInput.value = tokenEl.textContent.trim();
+  tokenEl.classList.add('used');
+  scheduleSave();
+}
+function clearTokenFor(targetInput, bankId){
+  const bank = document.getElementById(bankId);
+  if(!bank) return;
+  bank.querySelectorAll('.wbtoken').forEach(t=>{
+    if(t.classList.contains('used') && t.textContent.trim().toLowerCase() === targetInput.dataset.lastVal){
+      t.classList.remove('used');
+    }
+  });
+}
+
+// ---- Flip cards / flashcard deck ----
+function initFlipDeck(deckId, cards){
+  const deck = document.getElementById(deckId);
+  let order = cards.map((_,i)=>i);
+  let idx = 0;
+  function render(){
+    const c = cards[order[idx]];
+    deck.querySelector('.flip-card').classList.remove('flipped');
+    deck.querySelector('.flip-front').textContent = c.word;
+    deck.querySelector('.flip-back .pos').textContent = c.pos || '';
+    deck.querySelector('.flip-back .def').textContent = c.def;
+    deck.querySelector('.deck-counter').textContent = (idx+1) + ' / ' + cards.length;
+  }
+  deck.querySelector('.flip-card').onclick = (e)=>{
+    if(e.target.closest('.card-speak')) return;
+    deck.querySelector('.flip-card').classList.toggle('flipped');
+  };
+  deck.querySelector('.card-speak').onclick = (e)=>{ e.stopPropagation(); speak(cards[order[idx]].word); };
+  deck.querySelector('.deck-next').onclick = ()=>{ idx = (idx+1)%cards.length; render(); };
+  deck.querySelector('.deck-prev').onclick = ()=>{ idx = (idx-1+cards.length)%cards.length; render(); };
+  render();
+}
+
+// ---- Find words in passage ----
+function initFindWords(passageId){
+  const p = document.getElementById(passageId);
+  p.querySelectorAll('.findword').forEach(w=>{
+    w.onclick = ()=>{
+      if(w.classList.contains('found-correct') || w.classList.contains('found-wrong')) return;
+      w.classList.toggle('picked');
+      scheduleSave();
+    };
+  });
+}
+function checkFindWords(passageId, scoreElId){
+  const p = document.getElementById(passageId);
+  let correct=0, total=0, wrong=0;
+  p.querySelectorAll('.findword').forEach(w=>{
+    const isTarget = w.dataset.target === "1";
+    if(isTarget) total++;
+    if(w.classList.contains('picked')){
+      w.classList.remove('picked');
+      if(isTarget){ w.classList.add('found-correct'); correct++; }
+      else { w.classList.add('found-wrong'); wrong++; }
+    } else if(isTarget){
+      w.classList.add('missed');
+    }
+  });
+  if(scoreElId){
+    const el = document.getElementById(scoreElId);
+    if(el){ el.dataset.total = total; el.dataset.correct = correct; }
+  }
+  scheduleSave();
+  return {correct, total, wrong};
+}
+
+// ---- Save / restore (localStorage) ----
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName') ? document.getElementById('studentName').value : '';
+    state.fib = [...document.querySelectorAll('input.fib')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.dialog = [...document.querySelectorAll('.dialog-line[data-ans]')].map(g=>{
+      const chosen = g.querySelector('.choice-btn.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.chips = [...document.querySelectorAll('.chip[data-zone]')].map(c=>({
+      id: c.dataset.chipId, locked: c.dataset.locked || '', cls: c.classList.contains('placed-correct') ? 'correct' : (c.classList.contains('placed-wrong') ? 'wrong' : '')
+    }));
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(m=>m.dataset.id + '::' + m.dataset.side);
+    state.orderClicks = [...orderClicks];
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.foundWords = [...document.querySelectorAll('.findword')].map(w=>({
+      id: w.dataset.wid, cls: w.classList.contains('found-correct') ? 'fc' : (w.classList.contains('found-wrong') ? 'fw' : (w.classList.contains('missed') ? 'ms' : ''))
+    }));
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('input.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  document.querySelectorAll('.wbtoken').forEach(tok=>{
+    if([...document.querySelectorAll('input.fib')].some(f=>f.value.trim().toLowerCase() === tok.textContent.trim().toLowerCase() && f.value.trim().length>0)){
+      tok.classList.add('used');
+    }
+  });
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector('.opt[data-val="'+val+'"]');
+    if(btn){ g.dataset.done="1"; const correct=g.dataset.correct;
+      g.querySelectorAll('.opt').forEach(o=>{
+        o.classList.add('chosen');
+        if(o===btn) o.classList.add(o.dataset.val===correct?'correct':'wrong');
+        if(o.dataset.val===correct && o!==btn) o.classList.add('correct');
+      });
+    }
+  });
+  const dialogGroups = document.querySelectorAll('.dialog-line[data-ans]');
+  (state.dialog||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = dialogGroups[i]; if(!g) return;
+    const btn = g.querySelector('.choice-btn[data-val="'+val+'"]');
+    if(btn){ g.dataset.done="1"; const ans=g.dataset.ans;
+      g.querySelectorAll('.choice-btn').forEach(b=>{
+        if(b===btn) b.classList.add('chosen');
+        if(b.dataset.val===ans) b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+    }
+  });
+  (state.chips||[]).forEach(c=>{
+    if(!c.cls) return;
+    const chip = document.querySelector('.chip[data-chip-id="'+c.id+'"]');
+    if(chip){
+      chip.classList.add(c.cls==='correct'?'placed-correct':'placed-wrong');
+      chip.dataset.locked = '1';
+      const zone = document.querySelector('.bucket[data-zone="'+chip.dataset.zone+'"] .bucket-items');
+      if(zone) zone.appendChild(chip);
+    }
+  });
+  (state.matched||[]).forEach(pair=>{
+    const [id, side] = pair.split('::');
+    const el = document.querySelector('.match[data-id="'+id+'"][data-side="'+side+'"]');
+    if(el) el.classList.add('matched-correct');
+  });
+  document.querySelectorAll('.match-wrap[data-total-pairs]').forEach(c=>{
+    c.dataset.correctCount = c.querySelectorAll('.match.matched-correct').length / 2;
+  });
+  if(state.orderClicks && state.orderClicks.length){
+    orderClicks = [];
+    state.orderClicks.forEach(id=>{
+      const el = document.querySelector('.order-item[data-id="'+id+'"]');
+      if(el && !el.dataset.picked){ el.dataset.picked="1"; el.classList.add('picked'); orderClicks.push(id); el.querySelector('.order-num').textContent = orderClicks.length; }
+    });
+  }
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  (state.foundWords||[]).forEach(fw=>{
+    if(!fw.cls) return;
+    const w = document.querySelector('.findword[data-wid="'+fw.id+'"]');
+    if(w) w.classList.add(fw.cls==='fc'?'found-correct':(fw.cls==='fw'?'found-wrong':'missed'));
+  });
+  const hasContent = (state.fib||[]).some(v=>v) || (state.mcq||[]).some(v=>v!=null) || (state.textareas||[]).some(v=>v)
+    || (state.orderClicks||[]).length || (state.chips||[]).some(c=>c.cls) || (state.matched||[]).length || (state.foundWords||[]).some(f=>f.cls)
+    || (state.dialog||[]).some(v=>v!=null);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = 'We found saved answers from ' + (when || 'an earlier session') + ' — they\'ve been filled back in.';
+      note.hidden = false;
+    }
+  }
+  document.querySelectorAll('.findwords-score[data-passage]').forEach(scoreEl=>{
+    const passage = document.getElementById(scoreEl.dataset.passage);
+    if(!passage) return;
+    let total=0, correct=0;
+    passage.querySelectorAll('.findword').forEach(w=>{
+      if(w.dataset.target==="1") total++;
+      if(w.classList.contains('found-correct')) correct++;
+    });
+    scoreEl.dataset.total = total; scoreEl.dataset.correct = correct;
+  });
+  if(typeof state.page === 'number'){ showPage(state.page); }
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, .wbtoken, .order-item, .chip, .choice-btn, .findword')) scheduleSave(); });
+
+// ---- Aggregate scoring for the Finish page ----
+function computeScore(){
+  let total = 0, correct = 0;
+  document.querySelectorAll('.fib-group').forEach(g=>{
+    const r = checkFib(g);
+    total += r.total; correct += r.correct;
+  });
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+  });
+  document.querySelectorAll('.chip[data-zone]').forEach(c=>{
+    total++;
+    if(c.classList.contains('placed-correct')) correct++;
+  });
+  document.querySelectorAll('.match-wrap[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0);
+    const cor = parseInt(c.dataset.correctCount||0);
+    total += t; correct += Math.min(cor,t);
+  });
+  document.querySelectorAll('.order-list[data-order-correct]').forEach(c=>{
+    total++;
+    if(c.dataset.orderCorrect === "1") correct++;
+  });
+  document.querySelectorAll('.findwords-score').forEach(c=>{
+    const t = parseInt(c.dataset.total||0);
+    const cor = parseInt(c.dataset.correct||0);
+    total += t; correct += Math.min(cor,t);
+  });
+  document.querySelectorAll('.choice-btn.chosen').forEach(()=>{}); // choice-btn groups counted via dialog-line below
+  document.querySelectorAll('.dialog-line[data-ans]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.choice-btn.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.ans) correct++;
+  });
+  return {total, correct, pct: total ? Math.round(correct/total*100) : 0};
+}
+function showResults(){
+  const r = computeScore();
+  const pctEl = document.getElementById('resultsPercent');
+  const fracEl = document.getElementById('resultsFraction');
+  if(pctEl) pctEl.textContent = r.pct + '%';
+  if(fracEl) fracEl.textContent = r.correct + ' / ' + r.total + ' correct';
+  const panel = document.getElementById('resultsPanel');
+  if(panel) panel.hidden = false;
+  scheduleSave();
+}
+function initChoiceBtns(){
+  document.querySelectorAll('.dialog-line[data-ans] .choice-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      const line = btn.closest('.dialog-line');
+      if(line.dataset.done) return;
+      line.dataset.done = "1";
+      const ans = line.dataset.ans;
+      line.querySelectorAll('.choice-btn').forEach(b=>{
+        if(b===btn) b.classList.add('chosen');
+        if(b.dataset.val===ans) b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+      scheduleSave();
+    };
+  });
+}
+
+
+
+initMCQ();
+initChoiceBtns();
+function orderClickWrap(el){
+  if (el.dataset.picked) return;
+  el.dataset.picked = "1";
+  el.classList.add('picked');
+  orderClicks.push(el.dataset.id);
+  el.querySelector('.order-num').textContent = orderClicks.length;
+  scheduleSave();
+}
+function checkStoryOrder(){
+  const container = document.getElementById('orderList');
+  const correctOrder = ['s1', 's2', 's3', 's4', 's5', 's6'];
+  const ok = checkOrder(container, correctOrder);
+  const el = document.getElementById('orderFeedback');
+  el.textContent = ok ? 'Perfect! That\'s the right order. 🎉' : 'Not quite — the sentences with a red edge are out of place. Reset and try again.';
+  el.className = 'feedback-msg ' + (ok ? 'ok' : 'no');
+  scheduleSave();
+}
+
+
+buildDots();
+showPage(0);
+restoreProgress();
+</script>
+</body>
+</html>
