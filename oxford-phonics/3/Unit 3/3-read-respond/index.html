@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Story Time: Home in June — o_e &amp; u_e | ANGLE</title>
+<title>Lesson 3 — Read &amp; Respond — o_e &amp; u_e | ANGLE</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="Oxford Phonics World 3">
 <meta name="ws:course-id" content="oxford-phonics/3">
 <meta name="ws:unit"      content="3">
-<meta name="ws:title"     content="Story Time: Home in June — o_e &amp; u_e">
-<meta name="ws:emoji"     content="📚">
+<meta name="ws:title"     content="Lesson 3 — Read &amp; Respond — o_e &amp; u_e">
+<meta name="ws:emoji"     content="📖">
 <meta name="ws:date"      content="2026-08-30">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mlgqqwpk">
-<meta name="ws:tags"      content="phonics, magic e, o_e, u_e, story">
+<meta name="ws:tags"      content="phonics, magic e, o_e, u_e, reading">
 <meta name="robots"       content="noindex, nofollow">
 <style>
 
@@ -103,9 +103,6 @@ input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--w
 .chipbank{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px; }
 .chip{ background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:8px 16px; font-weight:700; font-size:.92rem; cursor:pointer; }
 .chip:hover{ border-color:var(--purple); }
-.chip.with-pic{ display:flex; flex-direction:column; align-items:center; gap:4px; border-radius:14px; padding:8px 12px 7px; }
-.chip-pic{ width:44px; height:44px; object-fit:contain; display:block; border-radius:8px; background:#faf8fc; }
-.word-pic-inline{ width:38px; height:38px; object-fit:contain; vertical-align:middle; margin:0 8px; border-radius:7px; background:#faf8fc; }
 .chip.selected{ background:var(--purple); color:#fff; border-color:var(--purple); }
 .chip[hidden]{ display:none; }
 .buckets{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -114,7 +111,6 @@ input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--w
 .bucket h3{ margin:0 0 8px; font-size:.86rem; color:var(--purple); text-align:center; }
 .bucket-items{ display:flex; flex-wrap:wrap; gap:7px; min-height:34px; }
 .bucket-items .chip{ cursor:default; font-size:.84rem; padding:6px 12px;}
-.bucket-items .chip-pic{ width:32px; height:32px; }
 .bucket-items .chip.placed-correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
 .bucket-items .chip.placed-wrong{ background:#fbeae7; border-color:var(--wrong); color:var(--wrong); }
 
@@ -145,8 +141,6 @@ input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--w
 /* flip cards */
 .flip-deck{ display:flex; flex-direction:column; align-items:center; gap:14px; }
 .flip-card{ width:100%; max-width:340px; height:170px; perspective:1000px; cursor:pointer; }
-.flip-card.has-pic{ height:230px; }
-.flip-pic{ width:72px; height:72px; object-fit:contain; border-radius:10px; background:#fff; margin-bottom:8px; }
 .flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
 .flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
 .flip-front, .flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; }
@@ -239,7 +233,7 @@ ul.clean li{ margin-bottom:6px; }
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-row">
-      <span class="lesson-title">Unit 3 · Worksheet 4<small>Story Time: Home in June — o_e &amp; u_e</small></span>
+      <span class="lesson-title">Unit 3 · Worksheet 3<small>Read &amp; Respond — o_e &amp; u_e</small></span>
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your name">
@@ -248,7 +242,7 @@ ul.clean li{ margin-bottom:6px; }
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">Page 1 / 6</span>
+      <span class="progress-label" id="progressLabel">Page 1 / 5</span>
     </div>
     <div class="page-dots" id="pageDots"></div>
   </div>
@@ -261,39 +255,33 @@ ul.clean li{ margin-bottom:6px; }
     <span id="restoreNoteText"></span>
     <button onclick="clearProgress()">Start over (clear saved answers)</button>
   </div>
-  <div class="card">
-    <h2>📚 Story Time: Home in June</h2>
-    <p class="sub">Before you read, meet five words from the story. Flip each card, then tap 🔊 to hear it.</p>
-    <div class="flip-deck" id="deck4">
-      <div class="flip-card"><div class="flip-inner">
-        <div class="flip-front"><img class="flip-pic" hidden><div class="flip-word"></div></div>
-        <div class="flip-back"><div class="pos"></div><div class="def"></div></div>
-      </div></div>
-      <div><button class="speak-btn card-speak">🔊 Say it</button></div>
-      <div class="deck-controls">
-        <button class="btn btn-ghost deck-prev">← Prev</button>
-        <span class="deck-counter">1 / 5</span>
-        <button class="btn btn-ghost deck-next">Next →</button>
-      </div>
-    </div>
+  <div class="card hero-card">
+    <h1>📖 Read &amp; Respond</h1>
+    <p>Six short sentences tell a story about June and her huge mule. Read each one carefully — some questions are trickier than they look!</p>
+    <p style="margin-top:14px;"><button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊 Hear an example sentence</button></p>
   </div>
-  <div class="nav-btns"><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Start reading →</button></div>
+  <div class="nav-btns"><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
 </section>
 
 
 <section class="page" data-page="1">
   <div class="card">
-    <h2>🔍 Read &amp; Find</h2>
-    <p class="sub">Read the story. Then tap <b>every</b> word that has the o_e / u_e magic-e sound. Watch out — a couple of words look similar but belong to a different sound!</p>
-    <div class="passage" id="passage4">
-      <p class="q">It is <span class="findword" data-wid="fw1" data-target="1" onclick="">June</span>, and Kate is <span class="findword" data-wid="fw2" data-target="1" onclick="">home</span>. She has a <span class="findword" data-wid="fw3" data-target="1" onclick="">huge</span> box with a blue ribbon. Inside the box, there is a <span class="findword" data-wid="fw4" data-target="1" onclick="">cute</span> <span class="findword" data-wid="fw5" data-target="1" onclick="">mule</span> toy, a shiny <span class="findword" data-wid="fw6" data-target="1" onclick="">cube</span>, and a small <span class="findword" data-wid="fw7" data-target="1" onclick="">flute</span>. Kate is so happy!</p><p class="q" style="margin-top:12px;">Her friend Luke comes to her <span class="findword" data-wid="fw8" data-target="1" onclick="">home</span>. Luke has a <span class="findword" data-wid="fw9" data-target="1" onclick="">joke</span>: &ldquo;A <span class="findword" data-wid="fw10" data-target="1" onclick="">mule</span> and a <span class="findword" data-wid="fw11" data-target="1" onclick="">flute</span> go for a walk&hellip;&rdquo; Kate <span class="findword" data-wid="fw12" data-target="0" onclick="">smiles</span>. She plays a <span class="findword" data-wid="fw13" data-target="1" onclick="">tune</span> on the flute. It is not a <span class="findword" data-wid="fw14" data-target="1" onclick="">rude</span> tune &mdash; it is a nice one!</p><p class="q" style="margin-top:12px;">Later, Kate and Luke eat a bowl of soup near the <span class="findword" data-wid="fw15" data-target="1" onclick="">stove</span>. Then they read a <span class="findword" data-wid="fw16" data-target="1" onclick="">note</span> from Grandma: &ldquo;I <span class="findword" data-wid="fw17" data-target="1" onclick="">hope</span> you have a <span class="findword" data-wid="fw18" data-target="1" onclick="">huge</span>, fun <span class="findword" data-wid="fw19" data-target="1" onclick="">June</span>! <span class="findword" data-wid="fw20" data-target="1" onclick="">Use</span> your new <span class="findword" data-wid="fw21" data-target="1" onclick="">cube</span> to build a <span class="findword" data-wid="fw22" data-target="1" onclick="">home</span> for your toys.&rdquo;</p><p class="q" style="margin-top:12px;">Kate and Luke <span class="findword" data-wid="fw23" data-target="0" onclick="">smile</span>. <span class="findword" data-wid="fw24" data-target="1" onclick="">June</span> is a <span class="findword" data-wid="fw25" data-target="1" onclick="">huge</span>, fun month!</p>
-    </div>
-    <div style="margin-top:14px;">
-      <button class="btn btn-primary" onclick="checkPassage()">Check my words</button>
-      <span class="findwords-score" id="passageScore" data-passage="passage4" data-total="0" data-correct="0" hidden></span>
-    </div>
-    <div class="feedback-msg" id="passageFeedback"></div>
-    <p class="hint">Green = correct find. Red = that word isn't o_e / u_e. A dashed outline = you missed one.</p>
+    <h2>📗 Read the Story</h2>
+    <p class="sub">Read each sentence, listen if you like, then answer the question below it.</p>
+    <div class="item"><p class="q"><b>1.</b> June has a huge, gray mule. <button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊</button></p><p class="q" style="margin-top:8px;">The mule is huge.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>2.</b> The mule likes to eat a bone and a rose. <button class="speak-btn" onclick="speak('The mule likes to eat a bone and a rose.')">🔊</button></p><p class="q" style="margin-top:8px;">What does the mule eat?</p><div class="mcq" data-correct="a">
+          <button class="opt" data-val="a">a bone and a rose</button>
+          <button class="opt" data-val="b">a phone and a nose</button>
+          <button class="opt" data-val="c">a cube and a flute</button>
+        </div></div>
+      <div class="item"><p class="q"><b>3.</b> June and the mule go home in June. <button class="speak-btn" onclick="speak('June and the mule go home in June.')">🔊</button></p><p class="q" style="margin-top:8px;">They go home in December.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>4.</b> At home, June gets a cute flute and a shiny cube. <button class="speak-btn" onclick="speak('At home, June gets a cute flute and a shiny cube.')">🔊</button></p><p class="q" style="margin-top:8px;">What two things does June get at home?</p><div class="mcq" data-correct="b">
+          <button class="opt" data-val="a">a joke and a rope</button>
+          <button class="opt" data-val="b">a flute and a cube</button>
+          <button class="opt" data-val="c">a bone and a rose</button>
+        </div></div>
+      <div class="item"><p class="q"><b>5.</b> The mule blows on the flute — what a huge joke! <button class="speak-btn" onclick="speak('The mule blows on the flute — what a huge joke!')">🔊</button></p><p class="q" style="margin-top:8px;">The mule can play the flute.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q"><b>6.</b> June and the mule smile. Home is fun. <button class="speak-btn" onclick="speak('June and the mule smile. Home is fun.')">🔊</button></p><p class="q" style="margin-top:8px;">June and the mule are sad.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
@@ -301,22 +289,21 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="2">
   <div class="card">
-    <h2>❓ Comprehension</h2>
-    <p class="sub">Answer based on the story you just read.</p>
-    <div class="item"><p class="q">1. Kate has a huge box.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q">2. The flute is rude.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q">3. Who comes to Kate's home?</p><div class="mcq" data-correct="a">
-        <button class="opt" data-val="a">Luke</button>
-        <button class="opt" data-val="b">Grandma</button>
-        <button class="opt" data-val="c">a mule</button>
-      </div></div>
-      <div class="item"><p class="q">4. Kate and Luke eat soup near the stove.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q">5. What does Grandma's note say?</p><div class="mcq" data-correct="b">
-        <button class="opt" data-val="a">Come home right now</button>
-        <button class="opt" data-val="b">Use your new cube to build a home for your toys</button>
-        <button class="opt" data-val="c">Play a rude tune</button>
-      </div></div>
-      <div class="item"><p class="q">6. The story says June is a huge, fun month.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+    <h2>🔢 Put It in Order</h2>
+    <p class="sub">Tap the sentences in the order the story really happens — first to last.</p>
+    <div class="order-list" id="orderList" data-order-correct="0">
+      <div class="order-item" data-id="s3" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule go home in June.</span></div>
+      <div class="order-item" data-id="s5" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule blows on the flute — what a huge joke!</span></div>
+      <div class="order-item" data-id="s1" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June has a huge, gray mule.</span></div>
+      <div class="order-item" data-id="s6" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule smile. Home is fun.</span></div>
+      <div class="order-item" data-id="s2" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule likes to eat a bone and a rose.</span></div>
+      <div class="order-item" data-id="s4" onclick="orderClickWrap(this)"><span class="order-num"></span><span>At home, June gets a cute flute and a shiny cube.</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="checkStoryOrder()">Check order</button>
+      <button class="btn btn-ghost" onclick="resetOrder(document.getElementById('orderList'))">Reset</button>
+    </div>
+    <div class="feedback-msg" id="orderFeedback"></div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
@@ -324,51 +311,48 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="3">
   <div class="card">
-    <h2>👂 Sound Sort — Three Ways to Say u_e (and o_e!)</h2>
-    <p class="sub">Here's the twist: <b>u_e</b> can sound like "yoo" (huge, cube) <i>or</i> "oo" (flute, June) — even though it's spelled the same! Sort these words from the story by their real sound.</p>
-    <div class="chipbank" id="sortBank3">
-      <button class="chip" data-zone="oh" data-chip-id="s3_home" onclick="selectChip(this)">home</button>
-      <button class="chip" data-zone="oh" data-chip-id="s3_joke" onclick="selectChip(this)">joke</button>
-      <button class="chip" data-zone="oh" data-chip-id="s3_stove" onclick="selectChip(this)">stove</button>
-      <button class="chip" data-zone="oh" data-chip-id="s3_note" onclick="selectChip(this)">note</button>
-      <button class="chip" data-zone="yoo" data-chip-id="s3_huge" onclick="selectChip(this)">huge</button>
-      <button class="chip" data-zone="yoo" data-chip-id="s3_mule" onclick="selectChip(this)">mule</button>
-      <button class="chip" data-zone="yoo" data-chip-id="s3_cube" onclick="selectChip(this)">cube</button>
-      <button class="chip" data-zone="yoo" data-chip-id="s3_use" onclick="selectChip(this)">use</button>
-      <button class="chip" data-zone="oo" data-chip-id="s3_flute" onclick="selectChip(this)">flute</button>
-      <button class="chip" data-zone="oo" data-chip-id="s3_tune" onclick="selectChip(this)">tune</button>
-      <button class="chip" data-zone="oo" data-chip-id="s3_rude" onclick="selectChip(this)">rude</button>
-      <button class="chip" data-zone="oo" data-chip-id="s3_june" onclick="selectChip(this)">June</button>
-    </div>
-    <div class="buckets b3">
-      <div class="bucket" data-zone="oh" onclick="dropInto(this)"><h3>"oh" — home</h3><div class="bucket-items"></div></div>
-      <div class="bucket" data-zone="yoo" onclick="dropInto(this)"><h3>"yoo" — huge</h3><div class="bucket-items"></div></div>
-      <div class="bucket" data-zone="oo" onclick="dropInto(this)"><h3>"oo" — flute</h3><div class="bucket-items"></div></div>
-    </div>
-  </div>
-  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
-</section>
-
-
-<section class="page" data-page="4">
-  <div class="card">
-    <h2>✍️ Your Turn</h2>
-    <p class="sub">Write your own sentence using one o_e or u_e word from this worksheet (not "home"). This part isn't scored — just have fun with it!</p>
-    <textarea rows="3" style="width:100%; font-family:inherit; font-size:.95rem; border:1.5px solid var(--border); border-radius:10px; padding:10px;" placeholder="Example: My huge dog likes to eat a bone in June."></textarea>
+    <h2>💬 Fill the Dialogue</h2>
+    <p class="sub">Kate and Luke are talking. Tap the word that fits best.</p>
+    <div class="dialog-line" data-ans="cube"><span class="dialog-name">Kate:</span><span>Do you want to see my </span>
+        <button class="choice-btn" data-val="cube">cube</button>
+        <button class="choice-btn" data-val="rain">rain</button>
+        <button class="choice-btn" data-val="cake">cake</button>
+        <span>?</span></div>
+      <div class="dialog-line" data-ans="huge"><span class="dialog-name">Luke:</span><span>Yes! Is it </span>
+        <button class="choice-btn" data-val="huge">huge</button>
+        <button class="choice-btn" data-val="small">small</button>
+        <button class="choice-btn" data-val="rude">rude</button>
+        <span>?</span></div>
+      <div class="dialog-line" data-ans="flute"><span class="dialog-name">Kate:</span><span>Yes, and I have a </span>
+        <button class="choice-btn" data-val="flute">flute</button>
+        <button class="choice-btn" data-val="phone">phone</button>
+        <button class="choice-btn" data-val="boat">boat</button>
+        <span> too!</span></div>
+      <div class="dialog-line" data-ans="tune"><span class="dialog-name">Luke:</span><span>Can you play a </span>
+        <button class="choice-btn" data-val="tune">tune</button>
+        <button class="choice-btn" data-val="rope">rope</button>
+        <button class="choice-btn" data-val="kite">kite</button>
+        <span> for me?</span></div>
+      <div class="dialog-line" data-ans="home"><span class="dialog-name">Kate:</span><span>Sure! Let's go </span>
+        <button class="choice-btn" data-val="home">home</button>
+        <button class="choice-btn" data-val="hot">hot</button>
+        <button class="choice-btn" data-val="rain">rain</button>
+        <span>.</span></div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Finish →</button></div>
 </section>
 
 
-<section class="page" data-page="5">
+<section class="page" data-page="4">
   <div class="card hero-card">
-    <h1>🏆 You finished all four worksheets!</h1>
-    <p>You read a full short story, found 23 o_e / u_e words inside it, and told "yoo" apart from "oo". That's advanced phonics reading.</p>
+    <h1>👏 Great reading!</h1>
+    <p>You read six sentences, rebuilt the story in order, and finished a dialogue — all with o_e / u_e words.</p>
     <button class="btn btn-gold" onclick="showResults()">Show my score</button>
     <div id="resultsPanel" hidden>
       <div class="results-big" id="resultsPercent">0%</div>
       <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
     </div>
+    <p class="hint">Next up: Worksheet 4 — <b>Story Time: Home in June</b>, a full short text to read.</p>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div></div>
 </section>
@@ -378,10 +362,10 @@ ul.clean li{ margin-bottom:6px; }
 <script>
 
 // ===== Generic ANGLE worksheet engine (Unit 3: o_e / u_e) =====
-const PAGE_LABELS = ['Pre-reading', 'Read & Find', 'Comprehension', 'Sound Sort', 'Your Turn', 'Finish'];
+const PAGE_LABELS = ['Warm-up', 'Read the Story', 'Put It in Order', 'Fill the Dialogue', 'Finish'];
 let current = 0;
 let isRestoring = false;
-const PROGRESS_KEY = 'angle_progress::unit3-ws4-story-time';
+const PROGRESS_KEY = 'angle_progress::unit3-ws3-read-respond';
 
 function buildDots(){
   const wrap = document.getElementById('pageDots');
@@ -548,12 +532,8 @@ function initFlipDeck(deckId, cards){
   let idx = 0;
   function render(){
     const c = cards[order[idx]];
-    const cardEl = deck.querySelector('.flip-card');
-    cardEl.classList.remove('flipped');
-    const img = deck.querySelector('.flip-pic');
-    if(c.img){ img.src = c.img; img.hidden = false; cardEl.classList.add('has-pic'); }
-    else { img.hidden = true; cardEl.classList.remove('has-pic'); }
-    deck.querySelector('.flip-word').textContent = c.word;
+    deck.querySelector('.flip-card').classList.remove('flipped');
+    deck.querySelector('.flip-front').textContent = c.word;
     deck.querySelector('.flip-back .pos').textContent = c.pos || '';
     deck.querySelector('.flip-back .def').textContent = c.def;
     deck.querySelector('.deck-counter').textContent = (idx+1) + ' / ' + cards.length;
@@ -810,14 +790,24 @@ function initChoiceBtns(){
 
 
 
-initFlipDeck('deck4', [{"word": "stove", "pos": "noun", "def": "you cook food on it", "img": "img/img2.png"}, {"word": "hope", "pos": "verb", "def": "to want something nice to happen"}, {"word": "use", "pos": "verb", "def": "to do something with a thing", "img": "img/img3.png"}, {"word": "joke", "pos": "noun", "def": "a funny story", "img": "img/img4.png"}, {"word": "note", "pos": "noun", "def": "a short message on paper", "img": "img/img5.png"}]);
 initMCQ();
-initFindWords('passage4');
-function checkPassage(){
-  const r = checkFindWords('passage4','passageScore');
-  const el = document.getElementById('passageFeedback');
-  el.textContent = r.correct + ' / ' + r.total + ' words found correctly.' + (r.wrong ? (' ' + r.wrong + ' word(s) picked that don\'t belong.') : '') + (r.correct===r.total && r.wrong===0 ? ' Amazing reading! 🎉' : '');
-  el.className = 'feedback-msg ' + (r.correct===r.total && r.wrong===0 ? 'ok' : 'no');
+initChoiceBtns();
+function orderClickWrap(el){
+  if (el.dataset.picked) return;
+  el.dataset.picked = "1";
+  el.classList.add('picked');
+  orderClicks.push(el.dataset.id);
+  el.querySelector('.order-num').textContent = orderClicks.length;
+  scheduleSave();
+}
+function checkStoryOrder(){
+  const container = document.getElementById('orderList');
+  const correctOrder = ['s1', 's2', 's3', 's4', 's5', 's6'];
+  const ok = checkOrder(container, correctOrder);
+  const el = document.getElementById('orderFeedback');
+  el.textContent = ok ? 'Perfect! That\'s the right order. 🎉' : 'Not quite — the sentences with a red edge are out of place. Reset and try again.';
+  el.className = 'feedback-msg ' + (ok ? 'ok' : 'no');
+  scheduleSave();
 }
 
 

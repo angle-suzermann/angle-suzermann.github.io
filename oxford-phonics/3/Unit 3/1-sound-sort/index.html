@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Read &amp; Respond — o_e &amp; u_e | ANGLE</title>
+<title>Lesson 1 — Magic E Sound Sort — o_e &amp; u_e | ANGLE</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="Oxford Phonics World 3">
 <meta name="ws:course-id" content="oxford-phonics/3">
 <meta name="ws:unit"      content="3">
-<meta name="ws:title"     content="Read &amp; Respond — o_e &amp; u_e">
-<meta name="ws:emoji"     content="📖">
+<meta name="ws:title"     content="Lesson 1 — Magic E Sound Sort — o_e &amp; u_e">
+<meta name="ws:emoji"     content="🔤">
 <meta name="ws:date"      content="2026-08-30">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mlgqqwpk">
-<meta name="ws:tags"      content="phonics, magic e, o_e, u_e, reading">
+<meta name="ws:tags"      content="phonics, magic e, o_e, u_e">
 <meta name="robots"       content="noindex, nofollow">
 <style>
 
@@ -103,6 +103,9 @@ input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--w
 .chipbank{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px; }
 .chip{ background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:8px 16px; font-weight:700; font-size:.92rem; cursor:pointer; }
 .chip:hover{ border-color:var(--purple); }
+.chip.with-pic{ display:flex; flex-direction:column; align-items:center; gap:4px; border-radius:14px; padding:8px 12px 7px; }
+.chip-pic{ width:44px; height:44px; object-fit:contain; display:block; border-radius:8px; background:#faf8fc; }
+.word-pic-inline{ width:38px; height:38px; object-fit:contain; vertical-align:middle; margin:0 8px; border-radius:7px; background:#faf8fc; }
 .chip.selected{ background:var(--purple); color:#fff; border-color:var(--purple); }
 .chip[hidden]{ display:none; }
 .buckets{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -111,6 +114,7 @@ input.fib.is-wrong{ border-color:var(--wrong); background:#fbeae7; color:var(--w
 .bucket h3{ margin:0 0 8px; font-size:.86rem; color:var(--purple); text-align:center; }
 .bucket-items{ display:flex; flex-wrap:wrap; gap:7px; min-height:34px; }
 .bucket-items .chip{ cursor:default; font-size:.84rem; padding:6px 12px;}
+.bucket-items .chip-pic{ width:32px; height:32px; }
 .bucket-items .chip.placed-correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
 .bucket-items .chip.placed-wrong{ background:#fbeae7; border-color:var(--wrong); color:var(--wrong); }
 
@@ -233,7 +237,7 @@ ul.clean li{ margin-bottom:6px; }
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-row">
-      <span class="lesson-title">Unit 3 · Worksheet 3<small>Read &amp; Respond — o_e &amp; u_e</small></span>
+      <span class="lesson-title">Unit 3 · Worksheet 1<small>Magic E Sound Sort — o_e &amp; u_e</small></span>
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your name">
@@ -256,9 +260,16 @@ ul.clean li{ margin-bottom:6px; }
     <button onclick="clearProgress()">Start over (clear saved answers)</button>
   </div>
   <div class="card hero-card">
-    <h1>📖 Read &amp; Respond</h1>
-    <p>Six short sentences tell a story about June and her huge mule. Read each one carefully — some questions are trickier than they look!</p>
-    <p style="margin-top:14px;"><button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊 Hear an example sentence</button></p>
+    <span class="badge-sound">o_e</span><span class="badge-sound">u_e</span>
+    <h1>Magic E Sound Sort</h1>
+    <p>Unit 3 has a superpower letter: a silent <b>e</b> at the end of a word. It jumps over one consonant and makes the vowel say its own name.</p>
+    <p><b>o_e</b> → the o says "oh": h<u>o</u>me, b<u>o</u>ne<br><b>u_e</b> → the u says "yoo" or "oo": c<u>u</u>te, J<u>u</u>ne</p>
+    <p style="margin-top:14px;">
+      <button class="speak-btn" onclick="speak('home')">🔊 home</button>
+      <button class="speak-btn" onclick="speak('cute')">🔊 cute</button>
+      <button class="speak-btn" onclick="speak('June')">🔊 June</button>
+    </p>
+    <p class="hint">4 short activities, easiest first. Your answers save automatically as you go.</p>
   </div>
   <div class="nav-btns"><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
 </section>
@@ -266,22 +277,32 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="1">
   <div class="card">
-    <h2>📗 Read the Story</h2>
-    <p class="sub">Read each sentence, listen if you like, then answer the question below it.</p>
-    <div class="item"><p class="q"><b>1.</b> June has a huge, gray mule. <button class="speak-btn" onclick="speak('June has a huge, gray mule.')">🔊</button></p><p class="q" style="margin-top:8px;">The mule is huge.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q"><b>2.</b> The mule likes to eat a bone and a rose. <button class="speak-btn" onclick="speak('The mule likes to eat a bone and a rose.')">🔊</button></p><p class="q" style="margin-top:8px;">What does the mule eat?</p><div class="mcq" data-correct="a">
-          <button class="opt" data-val="a">a bone and a rose</button>
-          <button class="opt" data-val="b">a phone and a nose</button>
-          <button class="opt" data-val="c">a cube and a flute</button>
-        </div></div>
-      <div class="item"><p class="q"><b>3.</b> June and the mule go home in June. <button class="speak-btn" onclick="speak('June and the mule go home in June.')">🔊</button></p><p class="q" style="margin-top:8px;">They go home in December.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q"><b>4.</b> At home, June gets a cute flute and a shiny cube. <button class="speak-btn" onclick="speak('At home, June gets a cute flute and a shiny cube.')">🔊</button></p><p class="q" style="margin-top:8px;">What two things does June get at home?</p><div class="mcq" data-correct="b">
-          <button class="opt" data-val="a">a joke and a rope</button>
-          <button class="opt" data-val="b">a flute and a cube</button>
-          <button class="opt" data-val="c">a bone and a rose</button>
-        </div></div>
-      <div class="item"><p class="q"><b>5.</b> The mule blows on the flute — what a huge joke! <button class="speak-btn" onclick="speak('The mule blows on the flute — what a huge joke!')">🔊</button></p><p class="q" style="margin-top:8px;">The mule can play the flute.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
-      <div class="item"><p class="q"><b>6.</b> June and the mule smile. Home is fun. <button class="speak-btn" onclick="speak('June and the mule smile. Home is fun.')">🔊</button></p><p class="q" style="margin-top:8px;">June and the mule are sad.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+    <h2>🔎 Sound Sort — o_e or u_e?</h2>
+    <p class="sub">Tap a word, then tap the bucket where it belongs. Say each word out loud first — do you hear "oh", or "yoo / oo"?</p>
+    <div class="chipbank" id="sortBank">
+      <button class="chip with-pic" data-zone="oe" data-chip-id="home" onclick="selectChip(this)"><img class="chip-pic" src="img/img2.jpg" alt="home"><span>home</span></button>
+      <button class="chip with-pic" data-zone="oe" data-chip-id="bone" onclick="selectChip(this)"><img class="chip-pic" src="img/img3.jpg" alt="bone"><span>bone</span></button>
+      <button class="chip with-pic" data-zone="oe" data-chip-id="cone" onclick="selectChip(this)"><img class="chip-pic" src="img/img4.jpg" alt="cone"><span>cone</span></button>
+      <button class="chip with-pic" data-zone="oe" data-chip-id="rope" onclick="selectChip(this)"><img class="chip-pic" src="img/img5.jpg" alt="rope"><span>rope</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="cube" onclick="selectChip(this)"><img class="chip-pic" src="img/img6.png" alt="cube"><span>cube</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="mute" onclick="selectChip(this)"><img class="chip-pic" src="img/img7.png" alt="mute"><span>mute</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="cute" onclick="selectChip(this)"><img class="chip-pic" src="img/img8.jpg" alt="cute"><span>cute</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="mule" onclick="selectChip(this)"><img class="chip-pic" src="img/img9.jpg" alt="mule"><span>mule</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="tube" onclick="selectChip(this)"><img class="chip-pic" src="img/img10.jpg" alt="tube"><span>tube</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="june" onclick="selectChip(this)"><img class="chip-pic" src="img/img11.jpg" alt="June"><span>June</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="tune" onclick="selectChip(this)"><img class="chip-pic" src="img/img12.jpg" alt="tune"><span>tune</span></button>
+      <button class="chip with-pic" data-zone="ue" data-chip-id="rule" onclick="selectChip(this)"><img class="chip-pic" src="img/img13.jpg" alt="rule"><span>rule</span></button>
+    </div>
+    <div class="buckets">
+      <div class="bucket" data-zone="oe" onclick="dropInto(this)">
+        <h3>o_e — long o (home)</h3>
+        <div class="bucket-items"></div>
+      </div>
+      <div class="bucket" data-zone="ue" onclick="dropInto(this)">
+        <h3>u_e — long u (cube / June)</h3>
+        <div class="bucket-items"></div>
+      </div>
+    </div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
@@ -289,21 +310,24 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="2">
   <div class="card">
-    <h2>🔢 Put It in Order</h2>
-    <p class="sub">Tap the sentences in the order the story really happens — first to last.</p>
-    <div class="order-list" id="orderList" data-order-correct="0">
-      <div class="order-item" data-id="s3" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule go home in June.</span></div>
-      <div class="order-item" data-id="s5" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule blows on the flute — what a huge joke!</span></div>
-      <div class="order-item" data-id="s1" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June has a huge, gray mule.</span></div>
-      <div class="order-item" data-id="s6" onclick="orderClickWrap(this)"><span class="order-num"></span><span>June and the mule smile. Home is fun.</span></div>
-      <div class="order-item" data-id="s2" onclick="orderClickWrap(this)"><span class="order-num"></span><span>The mule likes to eat a bone and a rose.</span></div>
-      <div class="order-item" data-id="s4" onclick="orderClickWrap(this)"><span class="order-num"></span><span>At home, June gets a cute flute and a shiny cube.</span></div>
+    <h2>✏️ Spell the Magic E</h2>
+    <p class="sub">Write the missing vowel — <b>o</b> or <b>u</b>. The silent <b>e</b> at the end is already there for you.</p>
+    <div class="fib-group" id="spellGroup">
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img14.jpg" alt="home">1. h <input type="text" class="fib" maxlength="1" data-answer="o" style="width:46px;"> me <button class="speak-btn" style="margin-left:8px;" onclick="speak('home')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img15.jpg" alt="bone">2. b <input type="text" class="fib" maxlength="1" data-answer="o" style="width:46px;"> ne <button class="speak-btn" style="margin-left:8px;" onclick="speak('bone')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img16.jpg" alt="cone">3. c <input type="text" class="fib" maxlength="1" data-answer="o" style="width:46px;"> ne <button class="speak-btn" style="margin-left:8px;" onclick="speak('cone')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img17.jpg" alt="rope">4. r <input type="text" class="fib" maxlength="1" data-answer="o" style="width:46px;"> pe <button class="speak-btn" style="margin-left:8px;" onclick="speak('rope')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img18.png" alt="cube">5. c <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> be <button class="speak-btn" style="margin-left:8px;" onclick="speak('cube')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img19.png" alt="mute">6. m <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> te <button class="speak-btn" style="margin-left:8px;" onclick="speak('mute')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img20.jpg" alt="cute">7. c <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> te <button class="speak-btn" style="margin-left:8px;" onclick="speak('cute')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img21.jpg" alt="June">8. J <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> ne <button class="speak-btn" style="margin-left:8px;" onclick="speak('June')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img22.jpg" alt="tube">9. t <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> be <button class="speak-btn" style="margin-left:8px;" onclick="speak('tube')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img23.jpg" alt="mule">10. m <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> le <button class="speak-btn" style="margin-left:8px;" onclick="speak('mule')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img24.jpg" alt="tune">11. t <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> ne <button class="speak-btn" style="margin-left:8px;" onclick="speak('tune')">🔊</button></p></div>
+      <div class="item"><p class="q"><img class="word-pic-inline" src="img/img25.jpg" alt="rule">12. r <input type="text" class="fib" maxlength="1" data-answer="u" style="width:46px;"> le <button class="speak-btn" style="margin-left:8px;" onclick="speak('rule')">🔊</button></p></div>
     </div>
-    <div style="margin-top:14px;">
-      <button class="btn btn-primary" onclick="checkStoryOrder()">Check order</button>
-      <button class="btn btn-ghost" onclick="resetOrder(document.getElementById('orderList'))">Reset</button>
-    </div>
-    <div class="feedback-msg" id="orderFeedback"></div>
+    <button class="btn btn-primary" onclick="checkSpell()">Check my spelling</button>
+    <div class="feedback-msg" id="spellFeedback"></div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
@@ -311,33 +335,14 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="3">
   <div class="card">
-    <h2>💬 Fill the Dialogue</h2>
-    <p class="sub">Kate and Luke are talking. Tap the word that fits best.</p>
-    <div class="dialog-line" data-ans="cube"><span class="dialog-name">Kate:</span><span>Do you want to see my </span>
-        <button class="choice-btn" data-val="cube">cube</button>
-        <button class="choice-btn" data-val="rain">rain</button>
-        <button class="choice-btn" data-val="cake">cake</button>
-        <span>?</span></div>
-      <div class="dialog-line" data-ans="huge"><span class="dialog-name">Luke:</span><span>Yes! Is it </span>
-        <button class="choice-btn" data-val="huge">huge</button>
-        <button class="choice-btn" data-val="small">small</button>
-        <button class="choice-btn" data-val="rude">rude</button>
-        <span>?</span></div>
-      <div class="dialog-line" data-ans="flute"><span class="dialog-name">Kate:</span><span>Yes, and I have a </span>
-        <button class="choice-btn" data-val="flute">flute</button>
-        <button class="choice-btn" data-val="phone">phone</button>
-        <button class="choice-btn" data-val="boat">boat</button>
-        <span> too!</span></div>
-      <div class="dialog-line" data-ans="tune"><span class="dialog-name">Luke:</span><span>Can you play a </span>
-        <button class="choice-btn" data-val="tune">tune</button>
-        <button class="choice-btn" data-val="rope">rope</button>
-        <button class="choice-btn" data-val="kite">kite</button>
-        <span> for me?</span></div>
-      <div class="dialog-line" data-ans="home"><span class="dialog-name">Kate:</span><span>Sure! Let's go </span>
-        <button class="choice-btn" data-val="home">home</button>
-        <button class="choice-btn" data-val="hot">hot</button>
-        <button class="choice-btn" data-val="rain">rain</button>
-        <span>.</span></div>
+    <h2>✅ Quick Check</h2>
+    <p class="sub">True or false? Tap your answer — it will turn green or red right away.</p>
+    <div class="item"><p class="q">1. A cone is something you eat ice cream from.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q">2. A mule is a type of fish.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q">3. A cube has 6 flat sides.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q">4. A rope is soft like water.</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q">5. June is the name of a month.</p><div class="mcq" data-correct="true"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
+      <div class="item"><p class="q">6. "Bone" is another word for "shoe".</p><div class="mcq" data-correct="false"><button class="opt" data-val="true">True</button><button class="opt" data-val="false">False</button></div></div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Finish →</button></div>
 </section>
@@ -345,14 +350,14 @@ ul.clean li{ margin-bottom:6px; }
 
 <section class="page" data-page="4">
   <div class="card hero-card">
-    <h1>👏 Great reading!</h1>
-    <p>You read six sentences, rebuilt the story in order, and finished a dialogue — all with o_e / u_e words.</p>
+    <h1>🎉 Nice work!</h1>
+    <p>You practised 12 o_e / u_e words from Unit 3. Tap below to see your score for this worksheet.</p>
     <button class="btn btn-gold" onclick="showResults()">Show my score</button>
     <div id="resultsPanel" hidden>
       <div class="results-big" id="resultsPercent">0%</div>
       <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
     </div>
-    <p class="hint">Next up: Worksheet 4 — <b>Story Time: Home in June</b>, a full short text to read.</p>
+    <p class="hint">Next up: Worksheet 2 — <b>New Words, Same Magic</b>, with words that aren't in your textbook.</p>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div></div>
 </section>
@@ -362,10 +367,10 @@ ul.clean li{ margin-bottom:6px; }
 <script>
 
 // ===== Generic ANGLE worksheet engine (Unit 3: o_e / u_e) =====
-const PAGE_LABELS = ['Warm-up', 'Read the Story', 'Put It in Order', 'Fill the Dialogue', 'Finish'];
+const PAGE_LABELS = ['Warm-up', 'Sound Sort', 'Spell It', 'Quick Check', 'Finish'];
 let current = 0;
 let isRestoring = false;
-const PROGRESS_KEY = 'angle_progress::unit3-ws3-read-respond';
+const PROGRESS_KEY = 'angle_progress::unit3-ws1-sound-sort';
 
 function buildDots(){
   const wrap = document.getElementById('pageDots');
@@ -790,25 +795,13 @@ function initChoiceBtns(){
 
 
 
+function checkSpell(){
+  const r = checkFib(document.getElementById('spellGroup'));
+  const el = document.getElementById('spellFeedback');
+  el.textContent = r.correct + ' / ' + r.total + ' correct.' + (r.correct===r.total ? ' Great spelling! 🎉' : ' Fix the red ones and check again.');
+  el.className = 'feedback-msg ' + (r.correct===r.total ? 'ok' : 'no');
+}
 initMCQ();
-initChoiceBtns();
-function orderClickWrap(el){
-  if (el.dataset.picked) return;
-  el.dataset.picked = "1";
-  el.classList.add('picked');
-  orderClicks.push(el.dataset.id);
-  el.querySelector('.order-num').textContent = orderClicks.length;
-  scheduleSave();
-}
-function checkStoryOrder(){
-  const container = document.getElementById('orderList');
-  const correctOrder = ['s1', 's2', 's3', 's4', 's5', 's6'];
-  const ok = checkOrder(container, correctOrder);
-  const el = document.getElementById('orderFeedback');
-  el.textContent = ok ? 'Perfect! That\'s the right order. 🎉' : 'Not quite — the sentences with a red edge are out of place. Reset and try again.';
-  el.className = 'feedback-msg ' + (ok ? 'ok' : 'no');
-  scheduleSave();
-}
 
 
 buildDots();
