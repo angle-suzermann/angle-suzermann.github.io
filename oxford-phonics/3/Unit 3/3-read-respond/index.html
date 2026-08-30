@@ -351,6 +351,7 @@ ul.clean li{ margin-bottom:6px; }
     <div id="resultsPanel" hidden>
       <div class="results-big" id="resultsPercent">0%</div>
       <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
+      <div id="submitStatus" style="text-align:center; margin-top:8px; font-size:.9rem; color:var(--muted);"></div>
     </div>
     <p class="hint">Next up: Worksheet 4 — <b>Story Time: Home in June</b>, a full short text to read.</p>
   </div>
@@ -761,6 +762,34 @@ function computeScore(){
   });
   return {total, correct, pct: total ? Math.round(correct/total*100) : 0};
 }
+function collectMistakes(){
+  const mistakes = [];
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    const chosen = g.querySelector('.opt.chosen');
+    const ok = chosen && chosen.dataset.val === g.dataset.correct;
+    if(!ok){
+      const qPs = g.closest('.item')?.querySelectorAll('p.q, p');
+      const qText = qPs && qPs.length ? qPs[qPs.length-1].textContent.replace(/\s+/g,' ').trim().slice(0,140) : 'Comprehension item';
+      const saidText = chosen ? chosen.textContent.trim() : '(not answered)';
+      mistakes.push('Comprehension — ' + qText + ' — answered "' + saidText + '", correct "' + g.dataset.correct + '"');
+    }
+  });
+  document.querySelectorAll('.order-list[data-order-correct]').forEach(o=>{
+    if(o.dataset.orderCorrect !== '1'){
+      mistakes.push('Put It in Order — sequence not fully correct');
+    }
+  });
+  document.querySelectorAll('.dialog-line[data-ans]').forEach(g=>{
+    const chosen = g.querySelector('.choice-btn.chosen');
+    const ok = chosen && chosen.dataset.val === g.dataset.ans;
+    if(!ok){
+      const speakerText = g.textContent.replace(/\s+/g,' ').trim().slice(0,120);
+      const saidText = chosen ? chosen.textContent.trim() : '(not answered)';
+      mistakes.push('Fill the Dialogue — ' + speakerText + ' — answered "' + saidText + '", correct "' + g.dataset.ans + '"');
+    }
+  });
+  return mistakes;
+}
 function showResults(){
   const r = computeScore();
   const pctEl = document.getElementById('resultsPercent');
@@ -770,6 +799,22 @@ function showResults(){
   const panel = document.getElementById('resultsPanel');
   if(panel) panel.hidden = false;
   scheduleSave();
+
+  const nameInput = document.getElementById('studentName');
+  const statusEl = document.getElementById('submitStatus');
+  const mistakes = collectMistakes();
+  const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Oxford Phonics World 3');
+  fd.append('lesson', document.title);
+  fd.append('student', (nameInput && nameInput.value.trim()) || '(no name entered)');
+  fd.append('score', r.correct + ' / ' + r.total + ' (' + r.pct + '%)');
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
+  fd.append('timestamp', new Date().toISOString());
+  if(statusEl) statusEl.textContent = 'Sending to your teacher…';
+  fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd })
+    .then(res=>{ if(statusEl) statusEl.textContent = res.ok ? 'Sent to your teacher ✓' : 'Score saved here, but sending failed — please screenshot this page.'; })
+    .catch(()=>{ if(statusEl) statusEl.textContent = 'Score saved here, but sending failed — please screenshot this page.'; });
 }
 function initChoiceBtns(){
   document.querySelectorAll('.dialog-line[data-ans] .choice-btn').forEach(btn=>{

@@ -562,6 +562,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
       </div>
       <div id="resultsBreakdown"></div>
       <p class="hint" style="text-align:center; margin-top:14px;">Scroll back through the pages — wrong or empty answers are marked in red, correct ones in green.</p>
+      <div id="submitStatus" style="text-align:center; margin-top:8px; font-size:.9rem; color:var(--muted);"></div>
     </div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button></div>
@@ -734,6 +735,7 @@ function submitAll(){
   if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before checking your answers.'); return; }
   let correct=0, total=0;
   const bySection = {};
+  const wrongList = [];
   function bump(name, ok){ bySection[name] = bySection[name] || {c:0,t:0}; bySection[name].t++; if(ok) bySection[name].c++; }
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
@@ -748,6 +750,14 @@ function submitAll(){
       else if(o===chosen) o.classList.add('is-wrong');
     });
     if(ok) correct++;
+    else{
+      const qP = g.closest('.item')?.querySelector('p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : 'Question';
+      const correctBtn = g.querySelector('.opt[data-val="'+g.dataset.correct+'"]');
+      const saidText = chosen ? chosen.textContent.trim() : '(not answered)';
+      const correctText = correctBtn ? correctBtn.textContent.trim() : g.dataset.correct;
+      wrongList.push(name + ' — ' + qText + ' — answered "' + saidText + '", correct "' + correctText + '"');
+    }
   });
 
   document.querySelectorAll('.slot[data-answer]').forEach(s=>{
@@ -759,6 +769,12 @@ function submitAll(){
     s.classList.toggle('is-correct', ok);
     s.classList.toggle('is-wrong', !ok);
     if(ok) correct++;
+    else{
+      const qP = s.closest('.item')?.querySelector('p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : 'Question';
+      const saidText = s.dataset.placed || '(not answered)';
+      wrongList.push(name + ' — ' + qText + ' — answered "' + saidText + '", correct "' + s.dataset.answer + '"');
+    }
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
@@ -772,6 +788,22 @@ function submitAll(){
   document.getElementById('resultsPanel').hidden = false;
   document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth', block:'start'});
   scheduleSave();
+
+  const statusEl = document.getElementById('submitStatus');
+  const reflection = document.getElementById('reflection')?.value.trim() || '';
+  const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'ЕГЭ 2027');
+  fd.append('lesson', document.title);
+  fd.append('student', nameInput.value.trim());
+  fd.append('score', `${correct} / ${total} (${pct}%)`);
+  fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+  if(reflection) fd.append('reflection', reflection);
+  fd.append('timestamp', new Date().toISOString());
+  if(statusEl) statusEl.textContent = 'Sending to your teacher…';
+  fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd })
+    .then(res=>{ if(statusEl) statusEl.textContent = res.ok ? 'Sent to your teacher ✓' : 'Score saved here, but sending failed — please screenshot this page.'; })
+    .catch(()=>{ if(statusEl) statusEl.textContent = 'Score saved here, but sending failed — please screenshot this page.'; });
 }
 
 /* ===================== SAVE / RESTORE ===================== */

@@ -391,6 +391,7 @@ ul.clean li{ margin-bottom:6px; }
     <div id="resultsPanel" hidden>
       <div class="results-big" id="resultsPercent">0%</div>
       <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
+      <div id="submitStatus" style="text-align:center; margin-top:8px; font-size:.9rem; color:var(--muted);"></div>
     </div>
     <p class="hint">Next up: Worksheet 3 — <b>Read &amp; Respond</b>, your first short story practice.</p>
   </div>
@@ -805,6 +806,39 @@ function computeScore(){
   });
   return {total, correct, pct: total ? Math.round(correct/total*100) : 0};
 }
+function collectMistakes(){
+  const mistakes = [];
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    const chosen = g.querySelector('.opt.chosen');
+    const ok = chosen && chosen.dataset.val === g.dataset.correct;
+    if(!ok){
+      const qP = g.closest('.item')?.querySelector('p.q, p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : 'Odd One Out item';
+      const saidText = chosen ? chosen.textContent.trim() : '(not answered)';
+      mistakes.push('Odd One Out — ' + qText + ' — answered "' + saidText + '", correct "' + g.dataset.correct + '"');
+    }
+  });
+  document.querySelectorAll('#bankGroup input.fib').forEach(inp=>{
+    const ans = (inp.dataset.answer||'').trim().toLowerCase();
+    const val = inp.value.trim().toLowerCase();
+    if(val !== ans){
+      const qP = inp.closest('p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim() : 'Word Bank item';
+      mistakes.push('Word Bank — ' + qText + ' — answered "' + (val || '(not answered)') + '", correct "' + ans + '"');
+    }
+  });
+  document.querySelectorAll('.match-wrap[data-total-pairs]').forEach(w=>{
+    const total = parseInt(w.dataset.totalPairs||0);
+    const cor = parseInt(w.dataset.correctCount||0);
+    if(cor < total){
+      mistakes.push('Match & Meaning — ' + cor + '/' + total + ' pairs matched correctly');
+      w.querySelectorAll('.match[data-side="left"]:not(.matched-correct)').forEach(m=>{
+        mistakes.push('Match & Meaning — "' + m.textContent.trim() + '" — not matched correctly');
+      });
+    }
+  });
+  return mistakes;
+}
 function showResults(){
   const r = computeScore();
   const pctEl = document.getElementById('resultsPercent');
@@ -814,6 +848,22 @@ function showResults(){
   const panel = document.getElementById('resultsPanel');
   if(panel) panel.hidden = false;
   scheduleSave();
+
+  const nameInput = document.getElementById('studentName');
+  const statusEl = document.getElementById('submitStatus');
+  const mistakes = collectMistakes();
+  const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Oxford Phonics World 3');
+  fd.append('lesson', document.title);
+  fd.append('student', (nameInput && nameInput.value.trim()) || '(no name entered)');
+  fd.append('score', r.correct + ' / ' + r.total + ' (' + r.pct + '%)');
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
+  fd.append('timestamp', new Date().toISOString());
+  if(statusEl) statusEl.textContent = 'Sending to your teacher…';
+  fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd })
+    .then(res=>{ if(statusEl) statusEl.textContent = res.ok ? 'Sent to your teacher ✓' : 'Score saved here, but sending failed — please screenshot this page.'; })
+    .catch(()=>{ if(statusEl) statusEl.textContent = 'Score saved here, but sending failed — please screenshot this page.'; });
 }
 function initChoiceBtns(){
   document.querySelectorAll('.dialog-line[data-ans] .choice-btn').forEach(btn=>{

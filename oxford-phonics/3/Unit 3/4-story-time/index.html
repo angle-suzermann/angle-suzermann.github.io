@@ -368,6 +368,7 @@ ul.clean li{ margin-bottom:6px; }
     <div id="resultsPanel" hidden>
       <div class="results-big" id="resultsPercent">0%</div>
       <div class="results-fraction" id="resultsFraction">0 / 0 correct</div>
+      <div id="submitStatus" style="text-align:center; margin-top:8px; font-size:.9rem; color:var(--muted);"></div>
     </div>
   </div>
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div></div>
@@ -781,6 +782,35 @@ function computeScore(){
   });
   return {total, correct, pct: total ? Math.round(correct/total*100) : 0};
 }
+function collectMistakes(){
+  const mistakes = [];
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    const chosen = g.querySelector('.opt.chosen');
+    const ok = chosen && chosen.dataset.val === g.dataset.correct;
+    if(!ok){
+      const qP = g.closest('.item')?.querySelector('p.q, p');
+      const qText = qP ? qP.textContent.replace(/\s+/g,' ').trim().slice(0,140) : 'Comprehension item';
+      const saidText = chosen ? chosen.textContent.trim() : '(not answered)';
+      mistakes.push('Comprehension — ' + qText + ' — answered "' + saidText + '", correct "' + g.dataset.correct + '"');
+    }
+  });
+  document.querySelectorAll('.findword').forEach(w=>{
+    if(w.classList.contains('missed')){
+      mistakes.push('Read & Find — missed the word "' + w.textContent.trim() + '"');
+    } else if(w.classList.contains('found-wrong')){
+      mistakes.push('Read & Find — wrongly picked "' + w.textContent.trim() + '" (not a magic-e word)');
+    }
+  });
+  document.querySelectorAll('.chip[data-zone]').forEach(c=>{
+    const word = c.textContent.trim() || 'word';
+    if(c.classList.contains('placed-wrong')){
+      mistakes.push('Sound Sort — "' + word + '" — placed in the wrong group, correct group "' + c.dataset.zone + '"');
+    } else if(!c.classList.contains('placed-correct')){
+      mistakes.push('Sound Sort — "' + word + '" — not sorted (left in the word bank)');
+    }
+  });
+  return mistakes;
+}
 function showResults(){
   const r = computeScore();
   const pctEl = document.getElementById('resultsPercent');
@@ -790,6 +820,22 @@ function showResults(){
   const panel = document.getElementById('resultsPanel');
   if(panel) panel.hidden = false;
   scheduleSave();
+
+  const nameInput = document.getElementById('studentName');
+  const statusEl = document.getElementById('submitStatus');
+  const mistakes = collectMistakes();
+  const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Oxford Phonics World 3');
+  fd.append('lesson', document.title);
+  fd.append('student', (nameInput && nameInput.value.trim()) || '(no name entered)');
+  fd.append('score', r.correct + ' / ' + r.total + ' (' + r.pct + '%)');
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
+  fd.append('timestamp', new Date().toISOString());
+  if(statusEl) statusEl.textContent = 'Sending to your teacher…';
+  fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd })
+    .then(res=>{ if(statusEl) statusEl.textContent = res.ok ? 'Sent to your teacher ✓' : 'Score saved here, but sending failed — please screenshot this page.'; })
+    .catch(()=>{ if(statusEl) statusEl.textContent = 'Score saved here, but sending failed — please screenshot this page.'; });
 }
 function initChoiceBtns(){
   document.querySelectorAll('.dialog-line[data-ans] .choice-btn').forEach(btn=>{
