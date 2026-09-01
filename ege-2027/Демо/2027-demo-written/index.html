@@ -482,11 +482,11 @@ async function sendToTeacher(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
-    fd.append('Файл', 'ЕГЭ 2027 — письменная речь');
-    fd.append('Имя', name);
-    fd.append('Дата', new Date().toLocaleString('ru-RU'));
-    fd.append('Задание 37 (email, '+countWords(t37)+' слов)', t37);
-    fd.append('Задание '+choice+' (эссе, '+countWords(t38)+' слов)', t38);
+    fd.append('exercise', 'ЕГЭ 2027 — письменная речь');
+    fd.append('student', name);
+    fd.append('date', new Date().toLocaleString('ru-RU'));
+    fd.append('task37_email', 'Слов: '+countWords(t37)+'\n\n'+t37);
+    fd.append('task38_essay_'+choice, 'Слов: '+countWords(t38)+'\n\n'+t38);
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
       status.textContent = 'Отправлено! Учитель получит письмо и эссе по почте.';

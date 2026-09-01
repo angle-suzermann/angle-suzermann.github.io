@@ -544,21 +544,24 @@ async function sendToTeacher(){
   }
   nameInput.classList.remove('missing');
   const taskLabels = { t39:'Задание 1 — чтение вслух', t40:'Задание 2 — диалог-расспрос', t41:'Задание 3 — интервью', t42:'Задание 4 — монолог по фото' };
+  // ASCII field names for FormData/Basin — a non-ASCII field NAME (not value) breaks the
+  // notification email's rendering (mojibake), so the Cyrillic label above is display-only.
+  const taskFieldNames = { t39:'task1_reading_aloud', t40:'task2_qa_dialogue', t41:'task3_interview', t42:'task4_photo_monologue' };
   btn.disabled = true;
   status.textContent = 'Отправляю…';
   status.style.color = 'var(--muted)';
   try{
     const fd = new FormData();
-    fd.append('Файл', 'ЕГЭ 2027 — устная часть');
-    fd.append('Имя', name);
-    fd.append('Дата', new Date().toLocaleString('ru-RU'));
+    fd.append('exercise', 'ЕГЭ 2027 — устная часть');
+    fd.append('student', name);
+    fd.append('date', new Date().toLocaleString('ru-RU'));
     let attached = 0;
     Object.keys(taskLabels).forEach(id=>{
       if(recordedBlobs[id]){
-        fd.append(taskLabels[id], recordedBlobs[id], name.replace(/\s+/g,'_')+'_'+id+'.webm');
+        fd.append(taskFieldNames[id], recordedBlobs[id], name.replace(/\s+/g,'_')+'_'+id+'.webm');
         attached++;
       } else {
-        fd.append(taskLabels[id], 'не записано');
+        fd.append(taskFieldNames[id], 'не записано: ' + taskLabels[id]);
       }
     });
     if(attached===0){
