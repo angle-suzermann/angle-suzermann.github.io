@@ -1,0 +1,1078 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Higher Education — Listening (Ауд 1, 2, 3-9) — Homework</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Высшая школа">
+<meta name="ws:title"     content="Higher Education — Listening (Ауд 1, 2, 3&ndash;9) — Homework">
+<meta name="ws:emoji"     content="🎧">
+<meta name="ws:date"      content="2026-09-02">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, аудирование, студенческий союз, listening">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  
+  
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text);
+  background:var(--card-tint);
+  min-height:100vh;
+  position:relative;
+}
+
+/* ---------- background photo + wash ---------- */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; transition:background-image .3s ease; }
+.bg-photo.bg-lecture{ background-image:url('img/img1.jpg'); }
+.bg-photo.bg-leaves{ background-image:url('img/img2.jpg'); }
+.bg-photo.bg-books{ background-image:url('img/img3.jpg'); }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+
+/* ---------- topbar ---------- */
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:12.5%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:26px; height:26px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.done{ border-color:var(--correct); color:var(--correct); }
+
+/* ---------- page shell ---------- */
+.page-wrap{ position:relative; z-index:5; max-width:980px; margin:0 auto; padding:24px 20px 90px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.hero-card{ background:rgba(255,255,255,.96); }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn.cta:hover{ background:#1b1816; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:70px; }
+input.fib, select.fib-select{ font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; margin:0 4px; }
+input.fib{ min-width:150px; }
+select.fib-select{ min-width:230px; }
+input.fib.is-correct, select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.fib.is-wrong, select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+
+/* mcq / choice buttons */
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--card-tint); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.mcq-3way{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.mcq-3way .opt{ flex:1; min-width:100px; }
+
+/* matching */
+.match-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.match-col{ display:flex; flex-direction:column; gap:8px; }
+.match{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 12px; font-size:.86rem; text-align:left; }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecec; }
+@media (max-width:640px){ .match-wrap{ grid-template-columns:1fr; } }
+
+/* flashcards */
+.flip-stage{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.flip-card{ width:100%; max-width:420px; height:230px; cursor:pointer; perspective:1000px; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front, .flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:22px; text-align:center; }
+.flip-front{ background:var(--purple); color:#fff; font-size:1.25rem; font-weight:800; }
+.flip-back{ background:var(--card-tint); color:var(--text); transform:rotateY(180deg); font-size:.92rem; }
+.flip-back .pos{ color:var(--purple); font-weight:700; text-transform:uppercase; font-size:.68rem; letter-spacing:.06em; margin-bottom:6px; }
+.flip-back .ex{ margin-top:8px; font-style:italic; color:var(--muted); font-size:.84rem; }
+.card-speak{ position:absolute; top:10px; right:12px; background:rgba(255,255,255,.2); border-radius:50%; width:30px; height:30px; color:#fff; font-size:1rem; }
+.flip-back .card-speak{ background:rgba(94,72,119,.12); color:var(--purple); }
+.flip-controls{ display:flex; gap:10px; align-items:center; }
+.flip-counter{ font-size:.82rem; color:var(--muted); font-weight:700; }
+
+/* audio */
+.listen-block{ background:var(--card-tint); border-radius:12px; padding:14px 16px; margin:10px 0 16px; }
+audio{ width:100%; margin-top:6px; }
+.variant-tabs{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.variant-tab{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:7px 16px; font-size:.84rem; font-weight:700; color:var(--muted); }
+.variant-tab.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.variant-pane{ display:none; }
+.variant-pane.active{ display:block; }
+
+/* script panel */
+.script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:260px; overflow-y:auto; font-size:.86rem; line-height:1.6; }
+.script-panel p{ margin:0 0 10px; }
+.script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
+.proof-btn:hover{ background:var(--card-tint); }
+.no-script-note{ font-size:.82rem; color:var(--muted); background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:8px 12px; margin-top:8px; }
+details.script-toggle{ margin-top:6px; }
+details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.85rem; }
+
+/* results */
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:6px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+/* vocab dictionary popup */
+.vtag{ color:var(--purple); font-weight:700; text-decoration:underline dotted; cursor:pointer; }
+#popup-overlay{ position:fixed; inset:0; background:rgba(20,10,30,.55); z-index:200; display:none; align-items:center; justify-content:center; padding:20px; }
+#popup-overlay.open{ display:flex; }
+.popup-box{ background:#fff; border-radius:16px; padding:22px 24px; max-width:420px; width:100%; }
+.popup-box .pos{ color:var(--purple); font-weight:700; text-transform:uppercase; font-size:.7rem; letter-spacing:.05em; }
+.popup-close{ float:right; background:none; color:var(--muted); font-size:1.1rem; }
+
+/* sticky ANGLE badge — fixed yellow, opacity .9, no auto-contrast JS (per project precedent) */
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){ .angle-badge{ display:none; } }
+
+@media (max-width:640px){
+  .card{ padding:18px 16px; }
+  .brand-row{ gap:8px; }
+  .lesson-title{ font-size:.92rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo bg-lecture" id="bgPhoto"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Higher Education — Listening Homework (Ауд 1, 2, 3&ndash;9)</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ============ PAGE 0 : WELCOME / WARM-UP ============ -->
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card hero-card">
+    <div class="eyebrow">ANGLE · ЕГЭ Listening · Higher Education</div>
+    <h2>University Life — Listening Classwork</h2>
+    <p>Today's classwork brings together three ЕГЭ listening tasks built around university life: student routines and revision, a conversation about a certain famous book series, and a look at student politics. You'll warm up with the vocabulary you'll meet in the recordings, then work through each listening task at your own pace.</p>
+    <p class="muted">Type your name at the top before you start — your answers are saved automatically in this browser as you go, so it's safe to close the tab and come back later.</p>
+    <h3>Roadmap</h3>
+    <span class="tag">1&ndash;3. Vocabulary</span><span class="tag">4. Listening — Задание 1</span><span class="tag">5. Listening — Задание 2</span><span class="tag">6. Listening — Задание 3&ndash;9</span><span class="tag">7. Results</span>
+    <h3>Warm-up</h3>
+    <div class="item">
+      <p class="q">1. What do you think are the three biggest differences between school and university?</p>
+      <textarea placeholder="Type a few sentences..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">2. Have you ever had to revise for an exam in a subject you didn't enjoy? What did you do?</p>
+      <textarea placeholder="Type a few sentences..."></textarea>
+    </div>
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 1 : VOCABULARY RETRIEVAL ============ -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="eyebrow">Vocabulary · Page 2 of 8</div>
+    <h2>Retrieval: which word is it?</h2>
+    <p>Read each definition and the example sentence with the word missing. Try to recall the word or phrase from memory before you check — this is the exact vocabulary you'll meet in today's recordings. Answers can be a little flexible in spelling/form.</p>
+    <div id="retrievalList"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2 : VOCABULARY PRACTICE ============ -->
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="eyebrow">Vocabulary · Page 3 of 8</div>
+    <h2>Practice: use the words in context</h2>
+    <h3>A. Fill in the gap</h3>
+    <p class="muted">Use the target word/phrase in each new sentence below (not the example you saw earlier).</p>
+    <div id="gapfillList"></div>
+  </div>
+  <div class="card">
+    <h3>B. Match the word to its meaning</h3>
+    <p class="muted">Click a word on the left, then click its meaning on the right.</p>
+    <div class="match-wrap" id="matchWrap" data-total-pairs="12" data-correct-count="0">
+      <div class="match-col" id="matchColLeft"></div>
+      <div class="match-col" id="matchColRight"></div>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3 : FLASHCARDS ============ -->
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="eyebrow">Vocabulary · Page 4 of 8</div>
+    <h2>Flashcards</h2>
+    <p class="muted">Click a card to flip it. Use 🔊 to hear the word read aloud. This page isn't scored — it's for review before the listening tasks.</p>
+    <div class="flip-stage">
+      <div class="flip-card" id="flipCard" onclick="flipCard(event)">
+        <div class="flip-inner">
+          <div class="flip-front"><button class="card-speak" onclick="speakCard(event)">🔊</button><span id="flipFrontText"></span></div>
+          <div class="flip-back"><button class="card-speak" onclick="speakCard(event)">🔊</button><div class="pos" id="flipPos"></div><div id="flipDefText"></div><div class="ex" id="flipExText"></div></div>
+        </div>
+      </div>
+      <div class="flip-controls">
+        <button class="btn ghost" onclick="prevCard()">← Prev</button>
+        <span class="flip-counter" id="flipCounter">1 / 24</span>
+        <button class="btn ghost" onclick="nextCard()">Next →</button>
+        <button class="btn ghost" onclick="shuffleCards()">🔀 Shuffle</button>
+      </div>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4 : AУД 1 (Задание 1, matching speakers) ============ -->
+<section class="page" data-page="4">
+  <div class="card">
+    <div class="eyebrow">Listening · Page 5 of 8</div>
+    <h2>Задание 1. Listen and match</h2>
+    <p>Прослушайте шесть высказываний. Установите соответствие между высказываниями каждого говорящего A&ndash;F и утверждениями, данными в списке 1&ndash;7. Используйте каждое утверждение только один раз — одно утверждение лишнее.</p>
+    <div class="no-script-note">🎧 Скрипт для этого задания недоступен в исходных материалах — работайте только с аудио, как на настоящем экзамене.</div>
+    <div class="variant-tabs" id="aud1Tabs"></div>
+    <div id="aud1Panes"></div>
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Задание 1')">📤 Отправить результат этого задания учителю</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 5 : AУД 2 (Задание 2, T/F/NS) ============ -->
+<section class="page" data-page="5">
+  <div class="card">
+    <div class="eyebrow">Listening · Page 6 of 8</div>
+    <h2>Задание 2. True / False / Not stated</h2>
+    <p>Вы услышите диалог. Определите, какие из приведённых утверждений соответствуют содержанию текста (True), какие не соответствуют (False), и о чём в тексте не сказано (Not stated).</p>
+    <div class="variant-tabs" id="aud2Tabs"></div>
+    <div id="aud2Panes"></div>
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Задание 2')">📤 Отправить результат этого задания учителю</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 6 : AУД 3-9 ============ -->
+<section class="page" data-page="6">
+  <div class="card">
+    <div class="eyebrow">Listening · Page 7 of 8</div>
+    <h2>Задание 3&ndash;9. The Student Union interview</h2>
+    <div class="listen-block">
+      <strong>Part 3.</strong> Listen to the interview.
+      <audio controls src="audio/audio1.mp3"></audio>
+    </div>
+    <h3>Task 1. Choose the right answer 1, 2 or 3</h3>
+    <div id="aud39mcq"></div>
+    <h3>Task 2. Listen again and fill in the gaps</h3>
+    <p class="muted">One or two words per gap.</p>
+    <div class="item"><p class="q" id="aud39gapText"></p></div>
+    <h3>Task 3. Post-listening — find proof in the script</h3>
+    <p class="muted">For each question in Task 1, click "🔍 Найти в скрипте" to see the exact part of the script that gives you the answer.</p>
+    <details class="script-toggle" open><summary>Show/hide full script</summary>
+      <div class="script-panel" id="aud39script"></div>
+    </details>
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Задание 3–9')">📤 Отправить результат этого задания учителю</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 7 : RESULTS ============ -->
+<section class="page" data-page="7">
+  <div class="card">
+    <div class="eyebrow">Page 8 of 8</div>
+    <h2>Results</h2>
+    <p class="muted">Press "Check &amp; Submit" on the previous page to see your score here.</p>
+    <div id="scoreSummary" hidden></div>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<div id="popup-overlay" onclick="if(event.target===this)closePopup()">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="pos" id="popup-pos"></div>
+    <h3 id="popup-word" style="margin:2px 0 8px;color:var(--purple);"></h3>
+    <div id="popup-def"></div>
+    <div class="ex" id="popup-example" style="margin-top:8px;font-style:italic;color:var(--muted);"></div>
+  </div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+/* ================================================================
+   DATA
+================================================================ */
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ — Высшая школа (Аудирование 1, 2, 3-9)';
+
+const VOCAB = {
+  get_on: {chunk:"get on (with)", pos:"phrasal verb", def:"to make progress, or to cope with a situation", example:"How are you {blank}? Are you enjoying your summer holidays?"},
+  out_of_work: {chunk:"be out of work", pos:"idiom", def:"to be unemployed", example:"While she was writing her first book, she {blank}, divorced and depressed."},
+  highest_earning: {chunk:"the highest earning", pos:"superlative phrase", def:"earning more money than anyone else in a group", example:"Today she is {blank} woman in Britain."},
+  quasi_political: {chunk:"quasi-political", pos:"adjective", def:"having some, but not all, of the features of a political organisation", example:"It is a {blank} body, elected from the student body."},
+  doubts_about: {chunk:"have doubts about", pos:"phrase", def:"to feel unsure or sceptical about something", example:"I {blank} their ability to represent me."},
+  canvass: {chunk:"canvass", pos:"verb", def:"to try to get support or votes before an election, e.g. by visiting people", example:"I did not make the effort to {blank}."},
+  rant_rave: {chunk:"rant and rave", pos:"idiom", def:"to complain loudly and angrily", example:"There is no way I could sit in an office with these people without {blank} at them."},
+  taxpayers_money: {chunk:"taxpayers' money", pos:"noun phrase", def:"public funds collected through taxation", example:"When I see {blank} wasted on these things, it makes me see red."},
+  commitment: {chunk:"commitment", pos:"noun", def:"a serious promise or obligation that takes time and effort", example:"I sold my house to finance this degree — it's a pretty major {blank} for me."},
+  revision_strategy: {chunk:"revision strategy", pos:"noun phrase", def:"a method used to review material before an exam", example:"One can invent personally useful {blank}."},
+  hostel: {chunk:"hostel", pos:"noun", def:"cheap, supervised accommodation, often used by students", example:"It is OK to live in a students' {blank}, even if there are some minuses."},
+  mature_student: {chunk:"mature student", pos:"noun phrase", def:"a student who is older than the typical age for their course", example:"I have doubts about their ability to represent me, and any other {blank} at that university."},
+  spot: {chunk:"spot", pos:"verb", def:"to notice something, especially a detail or a difference", example:"Have you {blank} many differences between the books and the films?"},
+  publishing_house: {chunk:"publishing house", pos:"noun phrase", def:"a company that publishes books", example:"She found a {blank} which agreed to publish her story."},
+  drop_by: {chunk:"drop by", pos:"phrasal verb", def:"to visit somewhere briefly, often without a formal arrangement", example:"{blank} in the evening and I'll give you a copy."},
+  represent: {chunk:"represent", pos:"verb", def:"to speak or act officially on behalf of a group of people", example:"...meant to {blank} the student body as a whole."},
+  run_for_office: {chunk:"run for office", pos:"phrase", def:"to be a candidate in an election", example:"This year I {blank} — I promised someone I would run."},
+  lax: {chunk:"lax", pos:"adjective", def:"not strict enough; careless", example:"I should feel worse than I do about my {blank} efforts."},
+  take_notice_of: {chunk:"take notice of", pos:"phrase", def:"to pay attention to something", example:"I did not actually {blank} the elections."},
+  jolly_good_time: {chunk:"a jolly good time", pos:"informal phrase (BrE)", def:"a very enjoyable time", example:"...nothing more than {blank} with their mates."},
+  exchange_programme: {chunk:"exchange programme", pos:"noun phrase", def:"a system that lets students study abroad for a period of time", example:"{blank}s are important for your studies."},
+  memorise_ready_made: {chunk:"memorise ready-made answers", pos:"phrase", def:"to learn prepared answers by heart instead of understanding the material", example:"{blank} isn't a wise revision strategy."},
+  discipline_policy: {chunk:"discipline policy", pos:"noun phrase", def:"official rules that govern behaviour, e.g. in a college", example:"College {blank} can be too tough."},
+  crucial: {chunk:"crucial", pos:"adjective", def:"extremely important", example:"Proper revision is {blank} before exams."}
+};
+const RETRIEVAL_ORDER = Object.keys(VOCAB);
+
+const GAPFILL_ITEMS = [
+  {id:'spot', sentence:"Can you ___ the difference between British and American spelling?", ans:["spot"]},
+  {id:'publishing_house', sentence:"After years of rejection, she finally found a ___ willing to print her novel.", ans:["publishing house"]},
+  {id:'drop_by', sentence:"Feel free to ___ my office any time this week if you have questions.", ans:["drop by"]},
+  {id:'represent', sentence:"Every year the students elect someone to ___ their interests to the university board.", ans:["represent"]},
+  {id:'run_for_office', sentence:"She decided to ___ in the student union elections.", ans:["run for office","run for the office"]},
+  {id:'lax', sentence:"The professor's attitude towards deadlines was surprisingly ___ this term.", ans:["lax"]},
+  {id:'take_notice_of', sentence:"Nobody seemed to ___ the small print at the bottom of the contract.", ans:["take notice of"]},
+  {id:'jolly_good_time', sentence:"Despite the rain, the students had ___ at the reunion.", ans:["a jolly good time","jolly good time"]},
+  {id:'exchange_programme', sentence:"Taking part in an ___ abroad really improved my language skills.", ans:["exchange programme","exchange program"]},
+  {id:'memorise_ready_made', sentence:"Simply trying to ___ won't help you if the exam questions are unpredictable.", ans:["memorise ready-made answers","memorize ready-made answers","memorising ready-made answers"]},
+  {id:'discipline_policy', sentence:"The college's strict ___ meant latecomers were locked out of lectures.", ans:["discipline policy"]},
+  {id:'crucial', sentence:"Getting enough sleep before an exam is ___ for concentration.", ans:["crucial"]}
+];
+
+const MATCH_IDS = ['get_on','out_of_work','highest_earning','quasi_political','doubts_about','canvass','rant_rave','taxpayers_money','commitment','revision_strategy','hostel','mature_student'];
+
+const AUD1 = {
+  variants: [
+    { key:'v1', label:'Вариант 1', audio:'audio/audio2.mp3',
+      statements:[
+        "University life is often too stressful.",
+        "People have different ideas of what young girls should do after school.",
+        "It is possible to change a professor's negative attitude.",
+        "Starting with a basic working position is OK for career development.",
+        "University focuses on students' interests more than school does.",
+        "He/she should arrange his/her life in a hostel better.",
+        "It is OK to live in a students' hostel, even if there are some minuses."
+      ],
+      answers:{A:4,B:2,C:3,D:5,E:4,F:6},
+      note:"⚠ В ключе исходника у говорящих A и E указано одно и то же утверждение (№4) — это противоречит условию «каждое утверждение только один раз». Возможна опечатка в исходном ключе; сверить с аудио перед уроком."
+    },
+    { key:'v2', label:'Вариант 2', audio:'audio/audio3.mp3',
+      statements:[
+        "Exchange programs are important for your studies.",
+        "Organizing your studies efficiently is important.",
+        "Education is never extra when you haven't yet chosen a career.",
+        "Speaking a foreign language is useful for exchange students.",
+        "College atmosphere motivates students to study.",
+        "Learning a foreign language is never extra.",
+        "College discipline policy can be too tough."
+      ],
+      answers:{A:3,B:6,C:2,D:7,E:5,F:4}
+    },
+    { key:'v3', label:'Вариант 3', audio:'audio/audio4.mp3',
+      statements:[
+        "Proper revision is crucial before exams.",
+        "Teachers can help with choosing effective revision strategies.",
+        "Tests should not test what you haven't learned yet.",
+        "Memorising ready-made answers isn't a wise revision strategy.",
+        "One can invent personally useful revision strategies.",
+        "Creativity can help to find a way out at exams.",
+        "It's hard to get good test results in a subject you don't like."
+      ],
+      answers:{A:1,B:7,C:6,D:5,E:4,F:3}
+    }
+  ]
+};
+
+const AUD2 = {
+  var1: {
+    key:'v1', label:'Вариант 1 — Harry Potter', audio:'audio/audio5.mp3', hasScript:true,
+    statements:[
+      {letter:'A', text:"Julie and Steve are about to end their academic year.", ans:2, proof:"It's good not to have to go to school every day. No homework. Life is great."},
+      {letter:'B', text:"Steve's brother Josh is younger than him.", ans:1, proof:"my brother Joss has just started watching Harry Potter movies. You know, he's only seven."},
+      {letter:'C', text:"Steve didn't read many books when he was a child.", ans:3, proof:null},
+      {letter:'D', text:"Steve compares Harry Potter books and films.", ans:2, proof:"Not really. At the same time, this is not my purpose. I just enjoy the story itself."},
+      {letter:'E', text:"Julie finds Harry Potter books very depressing.", ans:2, proof:"Yes, the story is very positive."},
+      {letter:'F', text:"Steve knows about Joanne Rowling's achievements.", ans:1, proof:"Today she is the highest earning woman in Britain."},
+      {letter:'G', text:"Julie did her project about Harry Potter a year ago.", ans:3, proof:"I actually did a school project about her."}
+    ],
+    script:[
+      "Hi Steve, how are you getting on? Are you enjoying your summer holidays?",
+      "Hello Julie, it's so nice to see you. I'm okay. It's good not to have to go to school every day. No homework. Life is great. I can understand you. I also enjoy doing nothing. Hey, you are reading something. I hope it's not a school textbook.",
+      "No, it isn't. It is a Harry Potter book, actually. Don't you think that this series of books is for kids? Not a person who is to leave school in a year?",
+      "Well, my brother Joss has just started watching Harry Potter movies. You know, he's only seven. And I have to look after him anyway, so I watched a couple of films with him and I got interested. Didn't you read about Harry Potter when you were younger?",
+      "No, I didn't. I'm probably the only person in the UK who hasn't read all the Harry Potter books. That's probably true. Well, have you spotted many differences between the books and the films? Not really. At the same time, this is not my purpose. I just enjoy the story itself.",
+      "Yes, the story is very positive. That's surprising indeed, considering that Joanne Rowling, you know, the lady who is the author of the Harry Potter series, well, while she was writing her first book, she was out of work, divorced and depressed. She completed her first book, but nobody wanted to publish it at first. Then she found a publishing house which agreed to publish her story.",
+      "Yes, I've heard about that. Well, if you don't succeed at first, try and try again, right? Today she is the highest earning woman in Britain. She's also the first person ever to become a billionaire from writing books. That's true. The books have been translated into more than 60 languages as far as I know. You seem to know a lot about Joanne Rowling, don't you?",
+      "I actually did a school project about her. Oh Julie, can I please see it? I'm so interested in everything which is connected with Harry Potter now. Perhaps I'll be able to tell my brother some interesting facts about Harry Potter after reading your project paper.",
+      "Okay. Drop by in the evening and I'll give you a copy. Thanks Julie, you're a star.",
+      "You're welcome Steve."
+    ]
+  },
+  var2: {
+    key:'v2', label:'Вариант 2 — Victor & Anna', audio:'audio/audio6.mp3', hasScript:false,
+    statements:[
+      {letter:'A', text:"Victor and Anna are students of the same department.", ans:3},
+      {letter:'B', text:"Anna has always been keen on history.", ans:2},
+      {letter:'C', text:"Anna believes the course with Dr. Jones gives real understanding of history.", ans:1},
+      {letter:'D', text:"At first Victor thinks that the test system of Dr. Jones is very easy.", ans:1},
+      {letter:'E', text:"The students in the course with Dr. Jones are not passive listeners.", ans:1},
+      {letter:'F', text:"Anna approved of all the professor's demands, including test grading for spelling.", ans:3},
+      {letter:'G', text:"Anna managed to persuade Victor to register for the course of Dr Jones.", ans:2}
+    ]
+  }
+};
+
+const AUD39 = {
+  mcq:[
+    {n:3, q:"The narrator says that the Union is a body which", opts:["includes both — the students and the teachers.","is of a political character.","does not represent all groups of students."], ans:3,
+     proof:"It is a quasi-political body, elected from the student body and meant to represent the student body as a whole. However, I have doubts about their ability to represent me, and any other mature student at that university."},
+    {n:4, q:"According to the narrator the behavior of the Union members shows", opts:["a high level of intellect.","a lack of maturity.","a sense of responsibility."], ans:2,
+     proof:"Let me begin by saying that this year's President likes to be called “Gravy”. The behavior of the Union on the whole reflects this level of maturity."},
+    {n:5, q:"The narrator ran for the office because", opts:["he had supporters.","he wanted the position.","he was sure he would make it."], ans:1,
+     proof:"A random meeting with next year's President and a rant about how ineffectual I thought the Union was brought this about, and I must say, my mates gave me a lot of support. However, I did not make the effort to canvass, I did not want the position."},
+    {n:6, q:"The narrator is not happy about the Union because the members", opts:["are not aware of the current political situation in the world.","are too young to understand the interests of mature students.","tend to discuss their private affairs and problems."], ans:2,
+     proof:"How can a body of 19 and 20 year olds represent a student body that ranges from 18 to 80?"},
+    {n:7, q:"The narrator thinks that the Union should", opts:["be abolished.","do its work better.","attract more attention."], ans:2,
+     proof:"The Union has a very important job to do, and unfortunately it does not do it very well at all."},
+    {n:8, q:"The narrator believes that the Union members are interested in", opts:["getting more money for their work.","increasing their experience.","having fun together."], ans:3,
+     proof:"rather than young and inexperienced people who want nothing more than a jolly good time with their mates, and something to put on their CV."},
+    {n:9, q:"For the narrator the university is a place to", opts:["entertain himself.","study hard.","make friends."], ans:2,
+     proof:"I am there for a reason, to learn. I sold my house to finance this degree, it is a pretty major commitment for me, so of course I am going to take it seriously."}
+  ],
+  gapAnswers:{1:["elected from"],2:["have doubts about"],3:["level of maturity"],4:["ineffectual"],5:["experienced people"],6:["ranges from"],7:["is meant to"],8:["take any notice of","took any notice of"],9:["unfortunately"],10:["on occasions"],11:["for a reason"],12:["take it seriously"]},
+  script:[
+    "Again, I'm not sure how this works in any other part of the world. At my university we have a student-elected body of representatives called “The Union”. It is a quasi-political body, elected from the student body and meant to represent the student body as a whole. However, I have doubts about their ability to represent me, and any other mature student at that university.",
+    "Let me begin by saying that this year's President likes to be called “Gravy”. The behavior of the Union on the whole reflects this level of maturity. This year I ran for the office, I promised someone that I would run. A random meeting with next year's President and a rant about how ineffectual I thought the Union was brought this about, and I must say, my mates gave me a lot of support. However, I did not make the effort to canvass, I did not want the position.",
+    "Yes, if more mature and experienced people do not join, what hope is there of this body being more representative? I should feel worse than I do about my lax efforts, but there is no way in the world I could sit in an office with these people without ranting and raving at them. How can a body of 19 and 20 year olds represent a student body that ranges from 18 to 80? In the UK, more and more mature students are returning to study every year. If the body that is meant to represent them discusses issues like the ethics of every single product in the Union shop, or whether not allowing Al-Qaeda to operate from the university is discrimination or not … they are simply not represented. How can I present problems specific to a mature student to someone with little or no life experience themselves?",
+    "This became evident in a short time and I did not actually take any notice of the elections because these were not elections based on any kind of merit, but on how popular someone is, or how much attention they can draw to themselves during the elections by dressing up. When I see taxpayers' money wasted on these things (and yes, it is that money that is used) it makes me see red. The Union has a very important job to do, and unfortunately it does not do it very well at all. The Union would perform better as a non-elected body where people with experience of the issues and methods do the work, rather than young and inexperienced people who want nothing more than a jolly good time with their mates, and something to put on their CV.",
+    "I have overheard some people talking about this on occasions. They think that there is something wrong with the situation. In my opinion, there's definitely something wrong with it.",
+    "I never thought that this was what university would be about. I am there for a reason, to learn. I sold my house to finance this degree, it is a pretty major commitment for me, so of course I am going to take it seriously."
+  ],
+  gapTemplate:"Again, I'm not sure how this works in any other part of the world. At my university we have a student-elected body of representatives called “The Union”. It is a quasi-political body, [[1]] the student body and meant to represent the student body as a whole. However, I [[2]] their ability to represent me, and any other mature student at that university. Let me begin by saying that this year's President likes to be called “Gravy”. The behavior of the Union on the whole reflects this [[3]]. This year I ran for the office, I promised someone that I would run. A random meeting with next year's President and a rant about how [[4]] I thought the Union was brought this about, and I must say, my mates gave me a lot of support. However, I did not make the effort to canvass, I did not want the position. Yes, if more mature and [[5]] do not join, what hope is there of this body being more representative? I should feel worse than I do about my lax efforts, but there is no way in the world I could sit in an office with these people without ranting and raving at them. How can a body of 19 and 20 year olds represent a student body that [[6]] 18 to 80? In the UK, more and more mature students are returning to study every year. If the body that [[7]] represent them discusses issues like the ethics of every single product in the Union shop, or whether not allowing Al-Qaeda to operate from the university is discrimination or not … they are simply not represented. How can I present problems specific to a mature student to someone with little or no life experience themselves? This became evident in a short time and I did not actually [[8]] the elections because these were not elections based on any kind of merit, but on how popular someone is, or how much attention they can draw to themselves during the elections by dressing up. When I see taxpayers' money wasted on these things (and yes, it is that money that is used) it makes me see red. The Union has a very important job to do, and [[9]] it does not do it very well at all. The Union would perform better as a non-elected body where people with experience of the issues and methods do the work, rather than young and inexperienced people who want nothing more than a jolly good time with their mates, and something to put on their CV. I have overheard some people talking about this [[10]]. They think that there is something wrong with the situation. In my opinion, there's definitely something wrong with it. I never thought that this was what university would be about. I am there [[11]], to learn. I sold my house to finance this degree, it is a pretty major commitment for me, so of course I am going to [[12]]."
+};
+
+const PAGE_LABELS = ["Старт","Vocab: retrieval","Vocab: practice","Flashcards","Listening 1","Listening 2","Listening 3–9","Итоги"];
+const PAGE_BG = ['bg-lecture','bg-leaves','bg-leaves','bg-leaves','bg-lecture','bg-books','bg-books','bg-lecture'];
+
+/* ================================================================
+   HELPERS
+================================================================ */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function fuzzyMatch(value, list){
+  const v = normalize(value);
+  if(!v) return false;
+  return list.some(a=>{ const na=normalize(a); return v===na; });
+}
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function speak(text, lang, rate){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang || 'en-GB'; u.rate = rate || 0.92;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ================================================================
+   NAVIGATION
+================================================================ */
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const bg = document.getElementById('bgPhoto');
+  bg.className = 'bg-photo ' + (PAGE_BG[current]||'bg-lecture');
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================================================================
+   RENDER: vocabulary retrieval
+================================================================ */
+function renderRetrieval(){
+  const wrap = document.getElementById('retrievalList');
+  wrap.innerHTML = RETRIEVAL_ORDER.map((id,i)=>{
+    const v = VOCAB[id];
+    const exampleHtml = esc(v.example).replace('{blank}', '<input type="text" class="fib retrieval-fib" data-fuzzy="1" data-answer-list="'+esc(v.chunk)+'" data-id="'+id+'" placeholder="word / phrase">');
+    return `<div class="item"><p class="q"><b>${i+1}.</b> <i>${esc(v.pos)}</i> — ${esc(v.def)}</p><p class="q">"${exampleHtml}"</p></div>`;
+  }).join('');
+}
+
+/* ================================================================
+   RENDER: vocabulary practice (gap-fill + matching)
+================================================================ */
+function renderGapfill(){
+  const wrap = document.getElementById('gapfillList');
+  wrap.innerHTML = GAPFILL_ITEMS.map((g,i)=>{
+    const html = esc(g.sentence).replace('___', '<input type="text" class="fib" data-fuzzy="1" data-answer-list="'+g.ans.map(esc).join('|')+'" data-id="gf_'+g.id+'">');
+    return `<div class="item"><p class="q"><b>${i+1}.</b> ${html}</p></div>`;
+  }).join('');
+}
+let matchFirstPick = null;
+function renderMatch(){
+  const left = document.getElementById('matchColLeft');
+  const right = document.getElementById('matchColRight');
+  const shuffledRight = [...MATCH_IDS].sort(()=>Math.random()-0.5);
+  left.innerHTML = MATCH_IDS.map(id=>`<button type="button" class="match" data-id="${id}">${esc(VOCAB[id].chunk)}</button>`).join('');
+  right.innerHTML = shuffledRight.map(id=>`<button type="button" class="match" data-id="${id}">${esc(VOCAB[id].def)}</button>`).join('');
+  document.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(!matchFirstPick){ matchFirstPick = el; el.classList.add('selected'); return; }
+      if(matchFirstPick === el){ matchFirstPick.classList.remove('selected'); matchFirstPick=null; return; }
+      const isMatch = matchFirstPick.dataset.id === el.dataset.id;
+      if(isMatch){
+        [matchFirstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.disabled = true; });
+        const wrap = document.getElementById('matchWrap');
+        wrap.dataset.correctCount = document.querySelectorAll('.match.matched-correct').length/2;
+      } else {
+        [matchFirstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{ [matchFirstPick, el].forEach(x=>{x.classList.remove('selected','wrong-flash');}); }, 550);
+      }
+      matchFirstPick = null;
+      scheduleSave();
+    };
+  });
+}
+
+/* ================================================================
+   RENDER: flashcards
+================================================================ */
+let flashOrder = [...RETRIEVAL_ORDER];
+let flashIndex = 0;
+function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderFlashcard(){
+  const id = flashOrder[flashIndex];
+  const v = VOCAB[id];
+  document.getElementById('flipFrontText').textContent = v.chunk;
+  document.getElementById('flipPos').textContent = v.pos;
+  document.getElementById('flipDefText').textContent = v.def;
+  document.getElementById('flipExText').textContent = '"' + v.example.replace('{blank}', v.chunk) + '"';
+  document.getElementById('flipCounter').textContent = (flashIndex+1) + ' / ' + flashOrder.length;
+  document.getElementById('flipCard').classList.remove('flipped');
+}
+function flipCard(e){ document.getElementById('flipCard').classList.toggle('flipped'); }
+function speakCard(e){ e.stopPropagation(); speak(VOCAB[flashOrder[flashIndex]].chunk); }
+function nextCard(){ flashIndex = (flashIndex+1) % flashOrder.length; renderFlashcard(); }
+function prevCard(){ flashIndex = (flashIndex-1+flashOrder.length) % flashOrder.length; renderFlashcard(); }
+function shuffleCards(){ shuffleArr(flashOrder); flashIndex = 0; renderFlashcard(); }
+
+/* ================================================================
+   RENDER: Ауд 1
+================================================================ */
+function renderAud1(){
+  const tabs = document.getElementById('aud1Tabs');
+  const panes = document.getElementById('aud1Panes');
+  tabs.innerHTML = AUD1.variants.map((v,i)=>`<button type="button" class="variant-tab${i===0?' active':''}" data-tab="${v.key}">${v.label}</button>`).join('');
+  panes.innerHTML = AUD1.variants.map((v,i)=>{
+    const letters = ['A','B','C','D','E','F'];
+    const selects = letters.map(L=>{
+      const opts = v.statements.map((s,idx)=>`<option value="${idx+1}">${idx+1}. ${esc(s)}</option>`).join('');
+      return `<div class="item"><p class="q"><b>Говорящий ${L}</b></p><select class="fib-select" data-answer="${v.answers[L]}" data-id="aud1_${v.key}_${L}"><option value="">— choose —</option>${opts}</select></div>`;
+    }).join('');
+    return `<div class="variant-pane${i===0?' active':''}" data-tab="${v.key}">
+      <div class="listen-block"><strong>${v.label}</strong><audio controls src="${v.audio}"></audio></div>
+      ${v.note ? '<div class="no-script-note">'+esc(v.note)+'</div>' : ''}
+      <div class="match-wrap" style="grid-template-columns:1fr;">${selects}</div>
+    </div>`;
+  }).join('');
+  tabs.querySelectorAll('.variant-tab').forEach(btn=>{
+    btn.onclick = ()=>{
+      tabs.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active', b===btn));
+      panes.querySelectorAll('.variant-pane').forEach(p=>p.classList.toggle('active', p.dataset.tab===btn.dataset.tab));
+    };
+  });
+}
+
+/* ================================================================
+   RENDER: Ауд 2
+================================================================ */
+function highlightScript(panelId, proofText){
+  const panel = document.getElementById(panelId);
+  if(!panel || !proofText) return;
+  const details = panel.closest('details');
+  if(details) details.open = true;
+  // undo any previous highlight in this panel (restore plain paragraphs)
+  panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  const paras = panel.querySelectorAll('p');
+  let hitEl = null;
+  for(const p of paras){
+    const text = p.textContent;
+    const idx = text.indexOf(proofText);
+    if(idx !== -1){
+      const before = text.slice(0, idx);
+      const match = text.slice(idx, idx+proofText.length);
+      const after = text.slice(idx+proofText.length);
+      p.innerHTML = esc(before) + '<mark>' + esc(match) + '</mark>' + esc(after);
+      hitEl = p.querySelector('mark');
+      break;
+    }
+  }
+  if(hitEl){ hitEl.scrollIntoView({block:'center', behavior:'smooth'}); }
+}
+function renderAud2(){
+  const tabs = document.getElementById('aud2Tabs');
+  const panes = document.getElementById('aud2Panes');
+  const vars = [AUD2.var1, AUD2.var2];
+  tabs.innerHTML = vars.map((v,i)=>`<button type="button" class="variant-tab${i===0?' active':''}" data-tab="${v.key}">${v.label}</button>`).join('');
+  panes.innerHTML = vars.map((v,i)=>{
+    const items = v.statements.map(st=>{
+      const proofBtn = (v.hasScript && st.proof) ? `<button type="button" class="proof-btn" data-panel="script_${v.key}" data-proof="${esc(st.proof)}">🔍 Найти в скрипте</button>` :
+        (v.hasScript ? `<span class="muted" style="font-size:.76rem;">(в скрипте это прямо не сказано)</span>` : '');
+      return `<div class="item"><p class="q"><b>${st.letter}.</b> ${esc(st.text)} ${proofBtn}</p>
+        <div class="mcq mcq-3way" data-correct="${st.ans}" data-id="aud2_${v.key}_${st.letter}">
+          <button type="button" class="opt" data-val="1">True</button>
+          <button type="button" class="opt" data-val="2">False</button>
+          <button type="button" class="opt" data-val="3">Not stated</button>
+        </div></div>`;
+    }).join('');
+    const scriptHtml = v.hasScript
+      ? `<details class="script-toggle" open><summary>Script</summary><div class="script-panel" id="script_${v.key}">${v.script.map(p=>`<p>${esc(p)}</p>`).join('')}</div></details>`
+      : `<div class="no-script-note">🎧 Скрипт для этого варианта недоступен в исходных материалах — работайте только с аудио.</div>`;
+    return `<div class="variant-pane${i===0?' active':''}" data-tab="${v.key}">
+      <div class="listen-block"><strong>${v.label}</strong><audio controls src="${v.audio}"></audio></div>
+      ${items}
+      ${scriptHtml}
+    </div>`;
+  }).join('');
+  tabs.querySelectorAll('.variant-tab').forEach(btn=>{
+    btn.onclick = ()=>{
+      tabs.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active', b===btn));
+      panes.querySelectorAll('.variant-pane').forEach(p=>p.classList.toggle('active', p.dataset.tab===btn.dataset.tab));
+    };
+  });
+  bindMcqHandlers();
+  bindProofButtons();
+}
+
+/* ================================================================
+   RENDER: Ауд 3-9
+================================================================ */
+function renderAud39(){
+  const wrap = document.getElementById('aud39mcq');
+  wrap.innerHTML = AUD39.mcq.map(item=>{
+    const opts = item.opts.map((o,i)=>`<button type="button" class="opt" data-val="${i+1}">${i+1}) ${esc(o)}</button>`).join('');
+    return `<div class="item"><p class="q"><b>${item.n}.</b> ${esc(item.q)}
+      <button type="button" class="proof-btn" data-panel="aud39script" data-proof="${esc(item.proof)}">🔍 Найти в скрипте</button></p>
+      <div class="mcq" data-correct="${item.ans}" data-id="aud39_q${item.n}">${opts}</div></div>`;
+  }).join('');
+
+  const gapWrap = document.getElementById('aud39gapText');
+  let html = esc(AUD39.gapTemplate);
+  for(let n=1;n<=12;n++){
+    const marker = '[['+n+']]';
+    html = html.replace(marker, `<input type="text" class="fib" data-fuzzy="1" data-answer-list="${AUD39.gapAnswers[n].map(esc).join('|')}" data-id="aud39_gap${n}">`);
+  }
+  gapWrap.innerHTML = html;
+
+  document.getElementById('aud39script').innerHTML = AUD39.script.map(p=>`<p>${esc(p)}</p>`).join('');
+  bindMcqHandlers();
+  bindProofButtons();
+}
+
+function bindProofButtons(){
+  document.querySelectorAll('.proof-btn[data-proof]').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.onclick = ()=> highlightScript(btn.dataset.panel, btn.dataset.proof);
+  });
+}
+function bindMcqHandlers(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.onclick = ()=>{
+      const group = btn.closest('.mcq');
+      group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      scheduleSave();
+    };
+  });
+}
+
+/* ================================================================
+   SCORING / SUBMIT
+================================================================ */
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input, button').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  const p = el.closest('p');
+  if(p){
+    const siblings = Array.from(p.querySelectorAll('input.fib'));
+    const idx = siblings.indexOf(el) + 1;
+    if(siblings.length) return `gap ${idx} of ${siblings.length}`;
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  // text inputs (.fib) — exact or fuzzy against data-answer-list
+  document.querySelectorAll('input.fib[data-answer-list]').forEach(inp=>{
+    total++;
+    const list = inp.dataset.answerList.split('|');
+    const ok = fuzzyMatch(inp.value, list);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list[0]));
+  });
+
+  // select matching (Ауд 1)
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    const ok = normalize(sel.value) === normalize(sel.dataset.answer);
+    sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+    if(ok) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      wrongList.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct option #${sel.dataset.answer}`);
+    }
+  });
+
+  // mcq groups (Ауд 2 T/F/NS + Ауд 3-9 MC)
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    g.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong'));
+    if(isRight){ correct++; if(chosen) chosen.classList.add('is-correct'); }
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      if(correctBtn) correctBtn.classList.add('is-correct');
+      if(chosen) chosen.classList.add('is-wrong');
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  // matching pairs (vocab practice)
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs || 0);
+    const cor = parseInt(c.dataset.correctCount || 0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching words↔meanings) — ${cor}/${t} pairs matched correctly.`); }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = correct + ' / ' + total + ' correct';
+  document.getElementById('resultsBreakdown').innerHTML = wrongList.length
+    ? '<h3>Items to review</h3><ul>' + wrongList.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;">All auto-checked items correct 🎉</p>';
+  showPage(7);
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  scheduleSave();
+}
+
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); showPage(0); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  let correct=0, total=0;
+  const wrongList = [];
+
+  scope.querySelectorAll('input.fib[data-answer-list]').forEach(inp=>{
+    total++;
+    const list = inp.dataset.answerList.split('|');
+    const ok = fuzzyMatch(inp.value, list);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list[0]));
+  });
+
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    const ok = normalize(sel.value) === normalize(sel.dataset.answer);
+    if(ok) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      wrongList.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct option #${sel.dataset.answer}`);
+    }
+  });
+
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs || 0);
+    const cor = parseInt(c.dataset.correctCount || 0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching) — ${cor}/${t} pairs matched correctly.`); }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  btn.disabled = true;
+  if(statusEl) statusEl.textContent = 'Отправляю…';
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title + ' — ' + taskLabel + ' (частичная отправка после задания)');
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    if(statusEl) statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+  } catch(e){
+    if(statusEl) statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ================================================================
+   PROGRESS PERSISTENCE
+================================================================ */
+const PROGRESS_KEY = 'angle_progress::higher-education-listening-homework';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('input.fib')].map(el=>el.value);
+    state.select = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('input.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  const sels = document.querySelectorAll('select.fib-select');
+  (state.select||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const mcqGroups = document.querySelectorAll('.mcq[data-correct]');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn) btn.classList.add('chosen');
+  });
+  (state.matched||[]).forEach(id=>{
+    document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); el.disabled = true; });
+  });
+  const pairsWrap = document.getElementById('matchWrap');
+  if(pairsWrap) pairsWrap.dataset.correctCount = document.querySelectorAll('.match.matched-correct').length/2;
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const hasContent = (state.fib||[]).some(v=>v) || (state.select||[]).some(v=>v) || (state.mcq||[]).some(v=>v!=null) || (state.textareas||[]).some(v=>v) || (state.matched||[]).length;
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, select.fib-select, #studentName')) scheduleSave(); });
+
+/* ================================================================
+   VOCAB POPUP (unused hook, kept for consistency) + INIT
+================================================================ */
+function closePopup(){ document.getElementById('popup-overlay').classList.remove('open'); }
+
+function init(){
+  buildDots();
+  renderRetrieval();
+  renderGapfill();
+  renderMatch();
+  renderFlashcard();
+  renderAud1();
+  renderAud2();
+  renderAud39();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
