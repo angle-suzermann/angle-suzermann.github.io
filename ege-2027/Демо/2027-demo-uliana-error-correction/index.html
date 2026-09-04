@@ -1,0 +1,878 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ульяна — работа над ошибками (интерактив, тестовая часть v2)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Демо">
+<meta name="ws:title"     content="Работа над ошибками — Ульяна (тестовая часть, демо)">
+<meta name="ws:emoji"     content="📝">
+<meta name="ws:date"      content="2026-09-04">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, работа над ошибками, демо, индивидуальная работа">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  
+  
+
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#2f8a55; --wrong:#c23f30; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); font-size:15px; line-height:1.55;
+}
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple);
+  box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:880px; margin:0 auto; padding:10px 20px 12px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; text-transform:uppercase; letter-spacing:.2px; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--muted); }
+.namebar input{ font-family:inherit; font-size:.9rem; padding:6px 10px; border:1.5px solid var(--border);
+  border-radius:8px; width:190px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1 1 auto; height:7px; background:var(--border); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--yellow)); width:12.5%; transition:width .3s ease; }
+.progress-label{ font-size:.78rem; color:var(--muted); white-space:nowrap; font-weight:700; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border);
+  color:var(--muted); font-size:.72rem; font-weight:800; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; user-select:none; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.done{ border-color:var(--correct); color:var(--correct); }
+
+.page-wrap{ max-width:880px; margin:0 auto; padding:20px 20px 60px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin:0 0 18px;
+  box-shadow:0 2px 10px rgba(45,25,60,.05); }
+.card h2{ color:var(--purple); font-size:1.15rem; font-weight:800; text-transform:uppercase; letter-spacing:.2px;
+  margin:0 0 6px; padding-bottom:8px; border-bottom:2px solid var(--border); display:flex; align-items:center; gap:8px; }
+.card h2::before{ content:""; display:inline-block; width:0; height:0; border-left:7px solid transparent;
+  border-right:7px solid transparent; border-bottom:12px solid var(--yellow); flex:0 0 auto; }
+.card h3{ color:var(--black); font-size:.98rem; font-weight:700; margin:16px 0 6px; }
+.card p{ margin:0 0 10px; }
+.intro-hero h1{ color:var(--purple); font-size:1.4rem; margin:0 0 8px; }
+.score-pill{ display:inline-block; background:var(--black); color:var(--yellow); font-weight:800; font-size:.78rem;
+  padding:4px 12px; border-radius:20px; letter-spacing:.3px; margin-left:8px; }
+
+.quote-box{ background:var(--card-tint); border:1px solid var(--border); border-left:4px solid var(--purple);
+  padding:12px 15px; font-style:italic; color:#3a3536; margin:8px 0 12px; font-size:.93rem; }
+.small-note{ font-size:.82rem; color:var(--muted); margin:2px 0 10px; }
+table{ width:100%; border-collapse:collapse; margin:8px 0 14px; font-size:.88rem; }
+th{ background:var(--purple); color:#fff; font-weight:700; text-align:left; padding:7px 9px; font-size:.78rem;
+  text-transform:uppercase; letter-spacing:.2px; }
+td{ padding:7px 9px; border:1px solid var(--border); vertical-align:top; }
+tr:nth-child(even) td{ background:var(--card-tint); }
+.center{ text-align:center; }
+
+.reveal-note{ display:none; background:#fffbe8; border:1px solid #f0e2a3; border-left:4px solid var(--yellow);
+  padding:10px 13px; margin:8px 0 4px; font-size:.86rem; color:#3a3536; }
+.reveal-note.show{ display:block; animation:fadein .25s ease; }
+.reveal-note b{ color:var(--purple-dark); }
+
+.item{ margin:0 0 14px; }
+.item p.q{ margin:0 0 6px; }
+
+select.q-select{ font-family:inherit; font-size:.92rem; padding:7px 10px; border:1.5px solid var(--border);
+  border-radius:8px; background:#fff; min-width:150px; }
+select.q-select:focus{ outline:none; border-color:var(--purple); }
+select.q-select.is-correct{ border-color:var(--correct); background:#eaf7ef; color:var(--correct); font-weight:700; }
+select.q-select.is-wrong{ border-color:var(--wrong); background:#fbeceb; color:var(--wrong); font-weight:700; }
+
+input.fib{ font-family:inherit; font-size:.95rem; padding:6px 10px; border:none; border-bottom:2px solid var(--muted);
+  background:transparent; min-width:160px; }
+input.fib:focus{ outline:none; border-bottom-color:var(--purple); }
+input.fib.is-correct{ border-bottom-color:var(--correct); color:var(--correct); font-weight:700; }
+input.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); font-weight:700; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin:8px 0 4px; }
+.mcq .opt{ text-align:left; font-family:inherit; font-size:.92rem; padding:9px 13px; border:1.5px solid var(--border);
+  border-radius:9px; background:#fff; cursor:pointer; transition:.15s; }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--card-tint); }
+.mcq .opt.correct{ border-color:var(--correct); background:#eaf7ef; color:var(--correct); font-weight:700; }
+.mcq .opt.wrong{ border-color:var(--wrong); background:#fbeceb; color:var(--wrong); font-weight:700; }
+.mcq.mcq-row{ flex-direction:row; flex-wrap:wrap; }
+.mcq.mcq-row .opt{ flex:1 1 140px; text-align:center; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; }
+.nav-btns button{ font-family:inherit; font-weight:700; font-size:.9rem; padding:10px 22px; border-radius:24px;
+  border:none; cursor:pointer; }
+.btn-primary{ background:var(--purple); color:#fff; }
+.btn-primary:hover{ background:var(--purple-dark); }
+.btn-ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple) !important; }
+.btn-check{ background:var(--yellow); color:var(--black); font-weight:800; }
+.btn-check:hover{ filter:brightness(0.95); }
+
+.restore-note{ max-width:880px; margin:14px auto 0; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px;
+  padding:10px 16px; font-size:.86rem; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700;
+  font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.tag{ display:inline-block; background:var(--yellow); color:var(--black); font-size:.68rem; font-weight:800;
+  text-transform:uppercase; padding:2px 9px; border-radius:5px; margin-bottom:6px; letter-spacing:.3px; }
+
+.finish-score{ text-align:center; padding:20px 0; }
+.finish-score .big{ font-size:3rem; font-weight:800; color:var(--purple); }
+.finish-score .big span{ font-size:1.4rem; color:var(--muted); font-weight:400; }
+#breakdownList{ margin:14px 0 0; padding:0; list-style:none; }
+#breakdownList li{ display:flex; justify-content:space-between; padding:8px 4px; border-bottom:1px solid var(--border);
+  font-size:.9rem; }
+#breakdownList li b{ color:var(--purple); }
+
+.angle-foot{ text-align:center; font-size:.72rem; color:var(--muted); margin:26px 0 0; }
+
+.angle-badge{
+  position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none;
+  display:flex; flex-direction:column; align-items:flex-start;
+  opacity:0.9; color:var(--purple);
+}
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  font-weight:400; font-size:10.5px; letter-spacing:.3px; }
+
+.teacher-send{ margin-top:22px; padding-top:18px; border-top:1px solid var(--border); text-align:center; }
+.teacher-send p{ font-size:.85rem; color:var(--muted); margin:0 0 10px; }
+#sendStatus{ display:block; margin-top:8px; font-size:.85rem; font-weight:700; color:var(--purple); min-height:1.2em; }
+
+</style>
+</head>
+<body>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Ульяна &middot; работа над ошибками (интерактив)</span>
+      <div class="namebar">
+        <label for="studentName">Имя:</label>
+        <input type="text" id="studentName" placeholder="необязательно">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Стр. 1 / 8</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+<div class="page-wrap">
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Начать заново (стереть сохранённое)</button>
+  </div>
+  <div class="card intro-hero">
+    <h1>Ульяна, работа над ошибками &middot; тестовая часть</h1>
+    <p>ЕГЭ-2027 &middot; интерактивная версия, на реальных текстах официальной демоверсии ФИПИ 2026
+    (АЯ-11 ЕГЭ 2026 ДЕМО_ПЧ.pdf, из папки «демо 26»).</p>
+    <p class="small-note">Полный аудиофайл к письменной части (АЯ_ПЧ.mp3) лежит в той же папке — для заданий
+    1 и 2 полезно ещё и переслушать оригинал, а не только читать текст ниже.</p>
+    <p>Как это работает: сначала пробуешь ответить сама (текст и варианты настоящие, из демоверсии), потом
+    смотришь, что получилось &mdash; поле или выпадающий список сразу подсвечивается зелёным или красным,
+    и появляется короткое объяснение. Можно менять ответ и пробовать ещё раз сколько угодно. Прогресс
+    сохраняется в этом браузере автоматически, так что можно закрыть вкладку и вернуться позже.</p>
+    <p><b>7 заданий, 6 страниц.</b> Начнём?</p>
+  </div>
+  <div class="nav-btns"><span></span><button class="btn-primary" onclick="nextPage()">Начать &rarr;</button></div>
+</section>
+
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Аудирование &middot; Задание 1 <span class="score-pill" data-pill="1">0 / 6</span></h2>
+    <p>Соотнеси говорящих A&ndash;F с утверждениями 1&ndash;7 (одно утверждение лишнее). Раньше здесь была
+    перепутана пара A/B &mdash; зеркальная ошибка, значит содержание понято верно, просто перепутаны местами
+    два конкретных ответа.</p>
+    <table>
+      <tr><th style="width:8%">№</th><th>Утверждение</th></tr>
+      <tr><td>1</td><td>Snacks may help you handle your negative emotions.</td></tr>
+      <tr><td>2</td><td>Having snacks can have a lot of advantages.</td></tr>
+      <tr><td>3</td><td>Snacks are a way out when you're under pressure.</td></tr>
+      <tr><td>4</td><td>All snacks are unhealthy and lead to weight problems.</td></tr>
+      <tr><td>5</td><td>A snack may be a reward for some achievements.</td></tr>
+      <tr><td>6</td><td>It's possible to have a healthy snack.</td></tr>
+      <tr><td>7</td><td>Some people have snacks because they're bored.</td></tr>
+    </table>
+
+    <div class="item">
+      <p class="q"><b>Speaker A</b></p>
+      <div class="quote-box">I'm going to have my A-levels this year, so life is pretty stressful for me at the
+      moment. When confronted with stress, all I want to do is to get rid of my anxieties, so I often turn to
+      snacks to cope. You see, food is familiar, and it's a comforting option in uncomfortable situations.
+      I'm now trying to break this unhealthy habit.</div>
+      <select class="q-select" data-q="t1_A" data-ans="3">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_A"><b>Верно: 3.</b> «turn to snacks to cope» со стрессом = «a way out
+      when you're under pressure» (экзамены = давление, стресс).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>Speaker B</b></p>
+      <div class="quote-box">Being a teenage girl, I'm often down in the dumps. When I'm feeling down, usually
+      for no reason, I often have a snack. Life doesn't seem so bad to me after a packet of crisps. Snacks help
+      me distract myself. I know it's bad as it means I use food as an outlet for my feelings.</div>
+      <select class="q-select" data-q="t1_B" data-ans="1">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_B"><b>Верно: 1.</b> «feeling down» / «outlet for my feelings» =
+      «handle your negative emotions». Это грусть без причины, а не давление (давление &mdash; это A).</div>
+    </div>
+
+    <h3>Остальные говорящие</h3>
+    <div class="item">
+      <p class="q">C. Болела дома, от скуки смотрела сериалы и ела чипсы</p>
+      <select class="q-select" data-q="t1_C" data-ans="7">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_C"><b>Верно: 7</b> (bored &rarr; «because they're bored»).</div>
+    </div>
+    <div class="item">
+      <p class="q">D. Снек как награда за хороший результат (сравнивает себя с собакой)</p>
+      <select class="q-select" data-q="t1_D" data-ans="5">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_D"><b>Верно: 5</b> (reward for achievements).</div>
+    </div>
+    <div class="item">
+      <p class="q">E. Не все снеки вредны, можно выбрать полезные (овощи, орехи)</p>
+      <select class="q-select" data-q="t1_E" data-ans="6">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_E"><b>Верно: 6</b> (a healthy snack is possible).</div>
+    </div>
+    <div class="item">
+      <p class="q">F. У снеков есть польза (витамины, снижают холестерин)</p>
+      <select class="q-select" data-q="t1_F" data-ans="2">
+        <option value="">&mdash; выбери номер &mdash;</option>
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t1_F"><b>Верно: 2</b> (a lot of advantages).</div>
+    </div>
+    <p class="small-note">Вариант 4 («All snacks are unhealthy...») &mdash; лишний, никуда не подходит.</p>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">Дальше &rarr;</button></div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Аудирование &middot; Задание 2 <span class="score-pill" data-pill="2">0 / 7</span></h2>
+    <p>Диалог Питера и Джейн о поездке в Италию. Для каждого утверждения выбери True / False / Not stated.</p>
+    <div class="quote-box">
+    Peter: Hi, Jane! Long time, no see! You look gorgeous... Jane: Yes, I've just come back from Italy. I was
+    there with my parents. I spent two wonderful weeks there. Peter: Did you stay in one place, or did you
+    travel around? Jane: We travelled from city to city because my parents wanted to see as much as possible...
+    by the end of our trip we were exhausted! Peter: What place did you like most? Jane: No doubt, it was
+    Pompeii... Peter: How awful! Many people must have died. Jane: Well, in 1748 the buried city was found...
+    We got the train to Pompeii from the station here in Naples. It only took us half an hour. Peter: I bet a
+    tour costs a fortune. Jane: Not really. The tickets were really cheap, only &euro;1.80 for a single! Peter:
+    How about the language barrier? Jane: Unfortunately, I don't speak Italian... Luckily, our guide spoke good
+    English. Peter: Was yours good? Jane: She was fantastic. She showed us lots of things that weren't in the
+    guide book.
+    </div>
+
+    
+    <div class="item">
+      <p class="q"><b>A.</b> Jane spent a month in Italy.</p>
+      <div class="mcq mcq-row" data-group="t2_A" data-correct="false">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_A"><b>Верно: False.</b> две недели, не месяц.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>B.</b> Jane and her parents had a lazy vacation in Italy.</p>
+      <div class="mcq mcq-row" data-group="t2_B" data-correct="false">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_B"><b>Верно: False.</b> устали от насыщенной поездки.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>C.</b> Jane knows some facts about the history of Pompeii.</p>
+      <div class="mcq mcq-row" data-group="t2_C" data-correct="true">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_C"><b>Верно: True.</b> знает про 1748 год.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>D.</b> Jane got to Pompeii by bus.</p>
+      <div class="mcq mcq-row" data-group="t2_D" data-correct="false">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_D"><b>Верно: False.</b> на поезде.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>E.</b> Jane thinks the ticket to Pompeii wasn't expensive.</p>
+      <div class="mcq mcq-row" data-group="t2_E" data-correct="true">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_E"><b>Верно: True.</b> билет дёшево, &euro;1.80 &mdash; сказано прямо, значит True, не Not stated.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>F.</b> Jane is always lucky to have good guides.</p>
+      <div class="mcq mcq-row" data-group="t2_F" data-correct="notstated">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_F"><b>Верно: Not stated.</b> гид был один, «always» ничем не подтвердить.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>G.</b> Peter is going to Italy next summer.</p>
+      <div class="mcq mcq-row" data-group="t2_G" data-correct="notstated">
+        <button class="opt" data-val="true">True</button>
+        <button class="opt" data-val="false">False</button>
+        <button class="opt" data-val="notstated">Not stated</button>
+      </div>
+      <div class="reveal-note" data-note="t2_G"><b>Верно: Not stated.</b> в тексте вообще не упомянуто.</div>
+    </div>
+
+    <p class="small-note">Правило: «False» &mdash; только если текст прямо противоречит утверждению. Если просто
+    не упомянуто &mdash; это «Not stated», а не «False». И наоборот: если сказано между делом, но прямо &mdash;
+    это «True».</p>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">Дальше &rarr;</button></div>
+</section>
+
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Чтение &middot; Задание 11 <span class="score-pill" data-pill="3a">0 / 6</span></h2>
+    <p>Текст «Reusable bags» с пропусками A&ndash;F. Один вариант лишний.</p>
+    <div class="quote-box">
+    People can continue to consume excessively... <b>[A]</b> a more environmentally-friendly lifestyle. Plastic
+    bags do not easily decompose... This is another reason <b>[B]</b> to landfill sites. This results in huge
+    piles of garbage <b>[C]</b>, releasing bad smells throughout the day... There are many reasons <b>[D]</b>,
+    and it is necessary to switch to reusable bags... Besides, the nature around us is polluted by plastic bags
+    <b>[E]</b> or get into animals' homes. Sometimes animals try to eat these bags, thinking they are part of
+    nature, <b>[F]</b>.
+    </div>
+    <table>
+      <tr><th style="width:6%">№</th><th>Вариант</th></tr>
+      <tr><td>1</td><td>because they often fly away into trees</td></tr>
+      <tr><td>2</td><td>or they can make changes to adopt</td></tr>
+      <tr><td>3</td><td>why plastic bags are not ideal at all</td></tr>
+      <tr><td>4</td><td>because they want to protect nature</td></tr>
+      <tr><td>5</td><td>which may simply lead to their death</td></tr>
+      <tr><td>6</td><td>why most plastic bags find their way</td></tr>
+      <tr><td>7</td><td>that can be easily seen across the city</td></tr>
+    </table>
+    
+    <div class="item">
+      <p class="q"><b>[A]</b></p>
+      <select class="q-select" data-q="t11_A" data-ans="2">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_A"><b>Верно: 2</b> (or they can make changes to adopt).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>[B]</b></p>
+      <select class="q-select" data-q="t11_B" data-ans="6">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_B"><b>Верно: 6</b> (why most plastic bags find their way).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>[C]</b></p>
+      <select class="q-select" data-q="t11_C" data-ans="7">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_C"><b>Верно: 7</b> (that can be easily seen across the city).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>[D]</b></p>
+      <select class="q-select" data-q="t11_D" data-ans="3">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_D"><b>Верно: 3</b> (why plastic bags are not ideal at all).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>[E]</b></p>
+      <select class="q-select" data-q="t11_E" data-ans="1">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_E"><b>Верно: 1</b> (because they often fly away into trees).</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>[F]</b></p>
+      <select class="q-select" data-q="t11_F" data-ans="5">
+        <option value="">&mdash; выбери номер &mdash;</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+      </select>
+      <div class="reveal-note" data-note="t11_F"><b>Верно: 5</b> (which may simply lead to their death).</div>
+    </div>
+    <p class="small-note">Вариант 4 лишний, никуда не подходит. Ловушка в C/E: оба варианта (1 и 7) грамматически
+    годятся в оба места, но по смыслу E требует причину (улетают в деревья ИЛИ попадают в дома животных &mdash;
+    два параллельных действия), а C требует описание (горы мусора, которые видно по всему городу).</p>
+  </div>
+
+  <div class="card">
+    <h2>Чтение &middot; Задание 13 <span class="score-pill" data-pill="3b">0 / 1</span></h2>
+    <p>Вопрос по тексту про тренировки: «What is the best summary of the advice given in paragraph 2?»</p>
+    <div class="mcq" data-group="t13" data-correct="2">
+      <button class="opt" data-val="1">1. Put regular exercise into your schedule on the phone.</button>
+      <button class="opt" data-val="2">2. It's vital to make a plan for an efficient workout.</button>
+      <button class="opt" data-val="3">3. A trainer can make your time exercising more effective.</button>
+      <button class="opt" data-val="4">4. A short workout is better than a longer session.</button>
+    </div>
+    <div class="reveal-note" data-note="t13"><b>Верно: 2.</b> Абзац 2 говорит про планирование тренировки
+    (расписание, структура), а не про её длительность &mdash; вариант 4 звучит правдоподобно, но отвечает не на
+    тот вопрос.</div>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">Дальше &rarr;</button></div>
+</section>
+
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Грамматика &middot; Задание 21 <span class="score-pill" data-pill="4">0 / 4</span></h2>
+    <div class="quote-box">Millions of tourists <b>___</b> (VISIT) Yaroslavl so far, and a lot of them want to
+    come to this city again.</div>
+    <div class="item">
+      <p class="q">Впиши правильную форму глагола VISIT:</p>
+      <input type="text" class="fib" data-q="t21_main" data-answer-list="have visited|havevisited" placeholder="have visited">
+      <div class="reveal-note" data-note="t21_main"><b>Верно: have visited.</b> Сигнальное слово «so far»
+      требует Present Perfect, а не Future Simple (было: willvisit).</div>
+    </div>
+
+    <h3>Ещё немного той же грамматики</h3>
+    <div class="item">
+      <p class="q">1. She ___ (already / finish) her homework, so she can go out now.</p>
+      <input type="text" class="fib" data-q="t21_d1" data-answer-list="has already finished|already has finished">
+      <div class="reveal-note" data-note="t21_d1"><b>Верно: has already finished.</b></div>
+    </div>
+    <div class="item">
+      <p class="q">2. Next year we ___ (visit) our relatives in another city.</p>
+      <input type="text" class="fib" data-q="t21_d2" data-answer="will visit">
+      <div class="reveal-note" data-note="t21_d2"><b>Верно: will visit.</b></div>
+    </div>
+    <div class="item">
+      <p class="q">3. If the weather is nice tomorrow, we ___ (go) for a walk.</p>
+      <input type="text" class="fib" data-q="t21_d3" data-answer="will go">
+      <div class="reveal-note" data-note="t21_d3"><b>Верно: will go.</b></div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">Дальше &rarr;</button></div>
+</section>
+
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Лексика/грамматика &middot; Задания 25, 27, 29 <span class="score-pill" data-pill="5">0 / 6</span></h2>
+    <p>Из текста «From the history of libraries»:</p>
+    <div class="quote-box">
+    The first libraries appeared in around 2600 BC in Sumer. There were no paper books at that time &mdash;
+    people used clay tablets. They were stored in <b>__25__</b> (CONTAIN) in special rooms. Such rooms were
+    usually located in temples. However, more and more information needed to be stored, that is why people
+    decided they needed separate <b>__27__</b> (BUILD) for the clay tablets and later for manuscripts. Around
+    500 BC libraries stored not only government orders and records, but also works on mathematics, history,
+    astronomy, philosophy and medicine. Libraries of the ancient Roman Empire had <b>__29__</b> (COUNT)
+    manuscripts of the best scholars of that time, so an early form of a catalogue system was introduced and
+    librarians were needed.
+    </div>
+    <div class="item">
+      <p class="q">25. CONTAIN &rarr;</p>
+      <input type="text" class="fib" data-q="t25" data-answer="containers">
+      <div class="reveal-note" data-note="t25"><b>Верно: containers.</b> Число существительного не сверено с
+      контекстом (в комнатах хранили не один контейнер).</div>
+    </div>
+    <div class="item">
+      <p class="q">27. BUILD &rarr;</p>
+      <input type="text" class="fib" data-q="t27" data-answer="buildings">
+      <div class="reveal-note" data-note="t27"><b>Верно: buildings.</b> Тот же паттерн, что в 25.</div>
+    </div>
+    <div class="item">
+      <p class="q">29. COUNT &rarr;</p>
+      <input type="text" class="fib" data-q="t29" data-answer="countless">
+      <div class="reveal-note" data-note="t29"><b>Верно: countless.</b> Countable и countless однокоренные, но
+      разные по смыслу: countable = «исчисляемый» (грамматический термин), countless = «бесчисленный, очень
+      много» &mdash; тут нужен именно этот смысл.</div>
+    </div>
+
+    <h3>Ещё немного той же лексики</h3>
+    <div class="item">
+      <p class="q">1. This shop sells plastic ___ for food storage.</p>
+      <input type="text" class="fib" data-q="lexd_1" data-answer="containers">
+      <div class="reveal-note" data-note="lexd_1"><b>Верно: containers.</b></div>
+    </div>
+    <div class="item">
+      <p class="q">2. There are many tall ___ in the city centre.</p>
+      <input type="text" class="fib" data-q="lexd_2" data-answer="buildings">
+      <div class="reveal-note" data-note="lexd_2"><b>Верно: buildings.</b></div>
+    </div>
+    <div class="item">
+      <p class="q">3. She has made ___ mistakes while learning English, but she never gives up.</p>
+      <input type="text" class="fib" data-q="lexd_3" data-answer-list="countless|countable">
+      <div class="reveal-note" data-note="lexd_3"><b>Верно: countless</b> (бесчисленные, очень много ошибок).</div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">Дальше &rarr;</button></div>
+</section>
+
+<section class="page" data-page="6">
+  <div class="card">
+    <h2>Лексика/грамматика &middot; Задания 35, 36 <span class="score-pill" data-pill="6">0 / 2</span></h2>
+    <p>Отрывок из рассказа «Sandy» (Дан Аткинс, литературный агент):</p>
+    <div class="quote-box">
+    ...He had a long, unkempt beard, a mane of wild white hair that <i>reminded</i> Sally of Albert Einstein. He
+    was wearing jeans, a sweater with holes in it, and tennis shoes. Sandy could <b>___35___</b> figure out his
+    age. He seemed to be about seventy, <b>___36___</b> Berta told her later that he was only sixty.
+    </div>
+
+    <div class="item">
+      <p class="q"><b>35.</b></p>
+      <div class="mcq" data-group="t35" data-correct="3">
+        <button class="opt" data-val="1">1. really</button>
+        <button class="opt" data-val="2">2. rarely</button>
+        <button class="opt" data-val="3">3. hardly</button>
+        <button class="opt" data-val="4">4. nearly</button>
+      </div>
+      <div class="reveal-note" data-note="t35"><b>Верно: 3, hardly.</b> «could hardly figure out» = «едва могла
+      понять» (его возраст трудно было определить) &mdash; именно то, что нужно по смыслу. «Nearly» (почти) сюда
+      не подходит грамматически: «could nearly figure out» не означает «почти поняла», это не устойчивое
+      сочетание.</div>
+    </div>
+
+    <div class="item">
+      <p class="q"><b>36.</b></p>
+      <div class="mcq" data-group="t36" data-correct="3">
+        <button class="opt" data-val="1">1. nevertheless</button>
+        <button class="opt" data-val="2">2. therefore</button>
+        <button class="opt" data-val="3">3. although</button>
+        <button class="opt" data-val="4">4. moreover</button>
+      </div>
+      <div class="reveal-note" data-note="t36"><b>Верно: 3, although.</b> Нужен союз внутри одного предложения,
+      соединяющий два противоречащих факта («казался семидесятилетним, хотя ему было шестьдесят»). «Nevertheless»
+      (тем не менее) грамматически начинает новое предложение, а не встраивается в середину как одиночный союз.</div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button>
+  <button class="btn-primary" onclick="nextPage()">К итогам &rarr;</button></div>
+</section>
+
+<section class="page" data-page="7">
+  <div class="card">
+    <h2>Итоги</h2>
+    <div class="finish-score">
+      <button class="btn-check" onclick="checkAll()">Проверить всё и посчитать итог</button>
+      <div id="finishSummary" style="margin-top:18px;">
+        <div class="big" id="finishBig">&ndash; / &ndash;</div>
+        <ul id="breakdownList"></ul>
+      </div>
+    </div>
+    <p class="small-note">Это подсчёт по всем 6 заданиям на этих страницах (без учёта дополнительных
+    тренировочных упражнений в 21 и 25/27/29 — они для практики, не для итогового счёта). Прогресс сохраняется
+    в этом браузере, так что можно вернуться к любому заданию и попробовать снова.</p>
+
+    <div class="teacher-send">
+      <p>Когда закончишь &mdash; можно отправить результат учителю (нужно вписать имя вверху страницы).</p>
+      <button class="btn-check" id="sendTeacherBtn" onclick="sendToTeacher()">Отправить результат учителю</button>
+      <span id="sendStatus"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-ghost" onclick="prevPage()">&larr; Назад</button><span></span></div>
+  <p class="angle-foot">ANGLE &mdash; студия системного английского &middot; by Viktoria Syuzyova</p>
+</section>
+</div>
+<script>
+
+const WEB3FORMS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ANGLE \u00b7 \u0415\u0413\u042d-2027 (\u0423\u043b\u044c\u044f\u043d\u0430) \u00b7 \u0440\u0430\u0431\u043e\u0442\u0430 \u043d\u0430\u0434 \u043e\u0448\u0438\u0431\u043a\u0430\u043c\u0438, \u0442\u0435\u0441\u0442\u043e\u0432\u0430\u044f \u0447\u0430\u0441\u0442\u044c';
+
+async function sendToTeacher(){
+  const nameInput = document.getElementById('studentName');
+  const btn = document.getElementById('sendTeacherBtn');
+  const statusEl = document.getElementById('sendStatus');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Впиши, пожалуйста, своё имя вверху страницы перед отправкой.'); return; }
+  checkAll();
+  const scoreText = document.getElementById('finishBig').textContent.replace(/\s+/g,' ').trim();
+  const breakdown = [...document.querySelectorAll('#breakdownList li')].map(li=>li.textContent.trim()).join('\n');
+  btn.disabled = true;
+  statusEl.textContent = 'Отправляю...';
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', scoreText);
+    fd.append('breakdown', breakdown || 'не подсчитано');
+    fd.append('timestamp', new Date().toISOString());
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: {'Accept':'application/json'}, body: fd
+    });
+    const data = await res.json().catch(()=>({success:false}));
+    if(res.ok && data.success !== false){
+      statusEl.textContent = 'Отправлено учителю ✓';
+    } else {
+      statusEl.textContent = 'Не получилось отправить, попробуй ещё раз чуть позже.';
+    }
+  } catch(e){
+    statusEl.textContent = 'Не получилось отправить — проверь интернет и попробуй снова.';
+  }
+  btn.disabled = false;
+}
+
+const PAGE_LABELS = ["Старт","Аудио 1","Аудио 2","Чтение","Грамматика 21","Лексика 25-29","Лексика 35-36","Итоги"];
+let current = 0;
+const PROGRESS_KEY = 'angle_progress::uliana-test-rework-v2-interactive';
+let isRestoring = false;
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Стр. ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  window.scrollTo({top:0, behavior:'smooth'});
+  saveProgress();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+
+function matchFib(input){
+  const val = normalize(input.value);
+  if(!val) return null;
+  const list = input.dataset.answerList ? input.dataset.answerList.split('|') : [input.dataset.answer];
+  return list.some(a=>normalize(a)===val);
+}
+
+function checkFib(input){
+  const ok = matchFib(input);
+  if(ok===null){ input.classList.remove('is-correct','is-wrong'); return; }
+  input.classList.toggle('is-correct', ok);
+  input.classList.toggle('is-wrong', !ok);
+  const note = document.querySelector(`.reveal-note[data-note="${input.dataset.q}"]`);
+  if(note) note.classList.add('show');
+  updatePillsFor(input);
+  scheduleSave();
+}
+function checkSelect(sel){
+  if(!sel.value){ sel.classList.remove('is-correct','is-wrong'); return; }
+  const ok = sel.value === sel.dataset.ans;
+  sel.classList.toggle('is-correct', ok);
+  sel.classList.toggle('is-wrong', !ok);
+  const note = document.querySelector(`.reveal-note[data-note="${sel.dataset.q}"]`);
+  if(note) note.classList.add('show');
+  updatePillsFor(sel);
+  scheduleSave();
+}
+document.addEventListener('blur', e=>{
+  if(e.target.matches && e.target.matches('input.fib')) checkFib(e.target);
+}, true);
+document.addEventListener('keydown', e=>{
+  if(e.target.matches && e.target.matches('input.fib') && e.key==='Enter'){ e.preventDefault(); checkFib(e.target); }
+});
+document.addEventListener('change', e=>{
+  if(e.target.matches && e.target.matches('select.q-select')) checkSelect(e.target);
+});
+
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.mcq .opt');
+  if(!btn) return;
+  const group = btn.closest('.mcq');
+  if(group.dataset.done) return;
+  group.dataset.done = "1";
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>{
+    if(o.dataset.val === correct) o.classList.add('correct');
+    else if(o===btn) o.classList.add('wrong');
+  });
+  const gname = group.dataset.group;
+  const note = document.querySelector(`.reveal-note[data-note="${gname}"]`);
+  if(note) note.classList.add('show');
+  updatePillsFor(group);
+  scheduleSave();
+});
+
+// which fib/select/mcq belong to which score-pill group, by data-q / data-group prefix
+const PILL_MAP = {
+  't1_': '1', 't2_': '2', 't11_': '3a', 't13': '3b',
+  't21_main': '4', 't25': '5', 't27': '5', 't29': '5',
+  't35': '6', 't36': '6'
+};
+function pillFor(key){
+  if(PILL_MAP[key]) return PILL_MAP[key];
+  for(const prefix in PILL_MAP){ if(key.indexOf(prefix)===0) return PILL_MAP[prefix]; }
+  return null;
+}
+const PILL_TOTALS = { '1':6, '2':7, '3a':6, '3b':1, '4':1, '5':3, '6':2 };
+
+function updatePillsFor(el){
+  const key = el.dataset.q || el.dataset.group;
+  const pill = pillFor(key);
+  if(!pill) return;
+  recomputePill(pill);
+}
+function recomputePill(pill){
+  let correct = 0;
+  document.querySelectorAll('input.fib.is-correct, select.q-select.is-correct').forEach(el=>{
+    if(pillFor(el.dataset.q)===pill) correct++;
+  });
+  document.querySelectorAll('.mcq[data-group]').forEach(g=>{
+    if(pillFor(g.dataset.group)===pill && g.querySelector('.opt.correct')) correct++;
+  });
+  const el = document.querySelector(`.score-pill[data-pill="${pill}"]`);
+  if(el) el.textContent = `${correct} / ${PILL_TOTALS[pill]}`;
+}
+function recomputeAllPills(){ Object.keys(PILL_TOTALS).forEach(recomputePill); }
+
+function checkAll(){
+  let correct=0, total=0;
+  const breakdown = [];
+  const groups = {'1':'Аудио 1','2':'Аудио 2','3a':'Чтение 11','3b':'Чтение 13','4':'Грамматика 21 (основной)','5':'Лексика 25/27/29','6':'Лексика 35/36'};
+  Object.keys(PILL_TOTALS).forEach(p=>{
+    let c=0;
+    document.querySelectorAll('input.fib.is-correct, select.q-select.is-correct').forEach(el=>{ if(pillFor(el.dataset.q)===p) c++; });
+    document.querySelectorAll('.mcq[data-group]').forEach(g=>{ if(pillFor(g.dataset.group)===p && g.querySelector('.opt.correct')) c++; });
+    // only main task21 item counts toward pill 4 (drills excluded)
+    correct += c; total += PILL_TOTALS[p];
+    breakdown.push({label: groups[p], score: `${c} / ${PILL_TOTALS[p]}`});
+  });
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('finishBig').innerHTML = `${correct}<span> / ${total}</span>`;
+  const list = document.getElementById('breakdownList');
+  list.innerHTML = breakdown.map(b=>`<li><span>${b.label}</span><b>${b.score}</b></li>`).join('');
+  scheduleSave();
+}
+
+// ---- save & restore ----
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('input.fib')].map(el=>el.value);
+    state.select = [...document.querySelectorAll('select.q-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen, .opt.correct, .opt.wrong');
+      return g.dataset.done ? (g.querySelector('.opt.wrong') ? g.querySelector('.opt.wrong').dataset.val : g.dataset.correct) : null;
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){ /* storage unavailable, fail silently */ }
+}
+let saveTimer=null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveProgress, 400); }
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni=document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('input.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v){ fibs[i].value = v; checkFib(fibs[i]); } });
+  const sels = document.querySelectorAll('select.q-select');
+  (state.select||[]).forEach((v,i)=>{ if(sels[i] && v){ sels[i].value = v; checkSelect(sels[i]); } });
+  const groups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = groups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn){ btn.click(); }
+  });
+  const hasContent = (state.fib||[]).some(v=>v) || (state.select||[]).some(v=>v) || (state.mcq||[]).some(v=>v!=null);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Нашли сохранённые ответы от ${when || 'прошлого раза'} — вернули их на место.`;
+      note.hidden = false;
+    }
+  }
+  recomputeAllPills();
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('Это сотрёт все сохранённые ответы на этом устройстве. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.id==='studentName') scheduleSave(); });
+
+window.addEventListener('DOMContentLoaded', ()=>{
+  buildDots();
+  showPage(0);
+  restoreProgress();
+});
+
+</script>
+</body>
+</html>
