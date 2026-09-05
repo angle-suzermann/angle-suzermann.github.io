@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 — Personality Vocabulary (Classwork)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Gateway to the World B2">
+<meta name="ws:course-id" content="gateway/gateway-to-the-world-b2">
+<meta name="ws:unit"      content="4">
+<meta name="ws:title"     content="Unit 4 — Personality Vocabulary — Classwork">
+<meta name="ws:emoji"     content="🎭">
+<meta name="ws:date"      content="2026-09-05">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="xoeaqeyz">
+<meta name="ws:tags"      content="vocabulary, personality adjectives, idioms, Big Five">
+<meta name="robots"       content="noindex, nofollow">
+
+<link rel="stylesheet" href="/assets/angle.css">
+
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); min-height:100vh; position:relative;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(40,20,55,.55), rgba(94,72,119,.88)); }
+
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:920px; margin:0 auto; padding:12px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:900; color:var(--purple); font-size:1.05rem; }
+.lesson-sub{ font-weight:400; color:var(--muted); font-size:.78rem; display:block; margin-top:2px; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.82rem; font-weight:700; color:var(--black); }
+.namebar input{ font-family:inherit; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; min-width:180px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:6px; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; font-weight:700; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:26px; height:26px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; z-index:5; max-width:920px; margin:0 auto; padding:28px 20px 80px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:26px 28px; margin-bottom:20px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h1{ color:var(--purple); font-size:1.5rem; margin:0 0 6px; }
+.card h2{ color:var(--purple); font-size:1.15rem; margin:0 0 14px; }
+.card p.lead{ color:var(--muted); margin-top:0; }
+.instr{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:10px 14px; font-size:.9rem; margin-bottom:18px; }
+.instr b{ color:var(--purple-dark); }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; padding:12px; border:1.5px solid var(--border); border-radius:10px; resize:vertical; min-height:70px; }
+textarea:focus, input:focus{ outline:2px solid var(--purple); outline-offset:1px; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; }
+.nav-btns button{ font-family:inherit; font-weight:700; font-size:.9rem; padding:10px 20px; border-radius:24px; border:none; cursor:pointer; }
+.nav-btns .back-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); }
+.nav-btns .next-btn{ background:var(--purple); color:#fff; margin-left:auto; }
+.nav-btns .submit-btn{ background:var(--yellow); color:var(--black); margin-left:auto; }
+
+/* Flashcards */
+.flip-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-bottom:6px; }
+.flip-card{ perspective:1000px; height:150px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front,.flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; padding:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.flip-front{ background:var(--purple); color:#fff; font-weight:900; font-size:1.05rem; }
+.flip-back{ background:var(--card-tint); border:1.5px solid var(--border); transform:rotateY(180deg); font-size:.8rem; }
+.flip-back .pos{ color:var(--muted); font-size:.7rem; font-style:italic; margin-bottom:4px; }
+.flip-back .ex{ color:var(--purple-dark); font-size:.74rem; margin-top:6px; }
+.card-speak{ margin-top:6px; background:#fff; border:1.5px solid var(--purple); color:var(--purple); border-radius:50%; width:26px; height:26px; font-size:.85rem; cursor:pointer; }
+
+/* Word bank fill */
+.blank-sentence{ line-height:2.1; font-size:.98rem; }
+.blank-sentence .fib{ width:150px; text-align:center; border:none; border-bottom:2px solid var(--purple); background:transparent; font-family:inherit; font-weight:700; color:var(--purple-dark); padding:2px 4px; cursor:pointer; }
+.blank-sentence .fib.is-correct{ color:var(--correct); border-color:var(--correct); }
+.blank-sentence .fib.is-wrong{ color:var(--wrong); border-color:var(--wrong); }
+.word-bank{ display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; padding:12px; background:var(--card-tint); border-radius:10px; }
+.word-bank span{ background:#fff; border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-weight:700; color:var(--purple-dark); font-size:.85rem; cursor:pointer; user-select:none; }
+.word-bank span.used{ opacity:.4; cursor:pointer; text-decoration:line-through; }
+.word-bank span.used:hover{ opacity:.7; }
+.hint{ font-size:.78rem; color:var(--muted); margin-bottom:10px; }
+
+/* Matching */
+.match-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.match-col{ display:flex; flex-direction:column; gap:10px; }
+.match{ font-family:inherit; text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; font-size:.88rem; cursor:pointer; }
+.match.selected{ border-color:var(--yellow); background:#fffbe6; }
+.match.matched-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdeceb; }
+
+.score-pill{ display:inline-block; background:var(--card-tint); border-radius:20px; padding:6px 16px; font-weight:700; color:var(--purple); font-size:.85rem; }
+#scoreSummary{ margin-top:16px; font-size:1rem; }
+#submitStatus{ font-size:.85rem; color:var(--muted); margin-top:8px; }
+
+.angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:0.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+
+@media (max-width:600px){
+  .match-grid{ grid-template-columns:1fr; }
+  .namebar input{ min-width:130px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Unit 4 — Our Strengths
+        <span class="lesson-sub">Personality vocabulary · Classwork</span>
+      </span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 7</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- PAGE 0: Welcome + warm-up -->
+  <section class="page active" data-page="0">
+    <div class="restore-note" id="restoreNote" hidden>
+      <span id="restoreNoteText"></span>
+      <button onclick="clearProgress()">Start over (clear saved answers)</button>
+    </div>
+    <div class="card">
+      <h1>Our Strengths: Personality Vocabulary</h1>
+      <p class="lead">In this lesson you'll learn adjectives and idioms we use to describe people's personalities — then use them to talk about the Big Five personality traits.</p>
+      <div class="instr"><b>Instructions:</b> Type your name at the top of the page. Work through each page in order. You can go back with the <i>Back</i> button at any time — your answers are saved automatically.</div>
+      <h2>Warm-up</h2>
+      <p>Before we start: write down three personality adjectives you already know in English (they don't have to be from today's lesson).</p>
+      <textarea id="warmup" placeholder="e.g. friendly, honest, funny..."></textarea>
+    </div>
+    <div class="nav-btns"><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 1: Vocab set 1 flashcards -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <h2>Personality adjectives 1</h2>
+      <p class="lead">Click each card to reveal the meaning and an example. Press the 🔊 button to hear the word.</p>
+      <div class="flip-grid" id="flipGrid1"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 2: Gap-fill OCEAN sections O, C, E -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <h2>Task 1 — The Big Five (part 1)</h2>
+      <div class="instr"><b>Student instructions:</b> Click an empty gap, then click the correct word from the bank below to fill it in. Changed your mind? Click the filled gap, or click the greyed-out word in the bank, to put it back and choose again.</div>
+      <div class="hint">Sections: <b>O</b>penness to experience · <b>C</b>onscientiousness · <b>E</b>xtroversion</div>
+      <div id="oceanPart1"></div>
+      <div class="word-bank" id="bank1"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 3: Vocab set 2 flashcards -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <h2>Personality adjectives 2</h2>
+      <p class="lead">Click each card to reveal the meaning and an example.</p>
+      <div class="flip-grid" id="flipGrid2"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 4: Gap-fill OCEAN sections A, N -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <h2>Task 2 — The Big Five (part 2)</h2>
+      <div class="instr"><b>Student instructions:</b> Same as before — click a gap, then click the matching word from the bank.</div>
+      <div class="hint">Sections: <b>A</b>greeableness · <b>N</b>euroticism</div>
+      <div id="oceanPart2"></div>
+      <div class="word-bank" id="bank2"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 5: Idioms matching -->
+  <section class="page" data-page="5">
+    <div class="card" id="idiomsCard">
+      <h2>Task 3 — Idioms connected with personality</h2>
+      <div class="instr"><b>Student instructions:</b> Click an idiom on the left, then click its meaning on the right, to match them. Correct pairs turn green.</div>
+      <div class="match-grid" id="idiomsGrid" data-total-pairs="8" data-correct-count="0"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
+  </section>
+
+  <!-- PAGE 6: Submit -->
+  <section class="page" data-page="6">
+    <div class="card">
+      <h2>Check your work</h2>
+      <p class="lead">When you're ready, submit your answers. Your teacher will automatically receive your score.</p>
+      <div class="nav-btns" style="margin-bottom:14px;"><button class="submit-btn" onclick="submitAll()">✓ Check &amp; Submit</button></div>
+      <div id="scoreSummary" hidden></div>
+      <div id="submitStatus"></div>
+    </div>
+    <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button></div>
+  </section>
+
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+<path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
+const COURSE_NAME = "Gateway to the world B2";
+const PAGE_LABELS = ["Warm-up","Vocab 1","Task 1","Vocab 2","Task 2","Idioms","Submit"];
+let current = 0;
+
+/* ---------- Vocabulary data ---------- */
+const VOCAB1 = {
+  "broad-minded": {pos:"adjective", def:"willing to accept beliefs, ways of life and behaviour that are different from your own", example:"Dan's parents are very broad-minded. He's dyed his hair green, but that isn't a problem for them."},
+  "down-to-earth": {pos:"adjective", def:"practical and sensible; not thinking you are more special or important than you are", example:"Beth is very down-to-earth. She says what she thinks, and she doesn't think she's cool or very important."},
+  "impetuous": {pos:"adjective", def:"acting or done quickly, without thinking carefully first", example:"Jack is very impetuous. He doesn't think before he acts."},
+  "laid-back": {pos:"adjective", def:"relaxed and calm; not usually worried or anxious", example:"Nothing ever stresses him out — he's the most laid-back person on the team."},
+  "outgoing": {pos:"adjective", def:"sociable and enjoying being with and talking to other people", example:"She's so outgoing — she made friends with everyone at the party in five minutes."},
+  "reserved": {pos:"adjective", def:"shy and not showing your feelings or thoughts easily", example:"Abby is quite shy and reserved. She doesn't usually say or show how she feels or what she thinks."},
+  "resourceful": {pos:"adjective", def:"good at finding quick and clever ways to solve problems or overcome difficulties", example:"Tom is very resourceful. When there's a difficult situation, he'll always find a solution."}
+};
+const VOCAB2 = {
+  "considerate": {pos:"adjective", def:"always thinking about other people's feelings and needs", example:"George is always very kind, and he thinks of other people. He's very considerate."},
+  "insecure": {pos:"adjective", def:"not confident about yourself or your abilities", example:"After the criticism, she felt insecure about her work for weeks."},
+  "moody": {pos:"adjective", def:"often changing mood suddenly, becoming unhappy or angry with no obvious reason", example:"You never know which mood you'll get with him — he's so moody."},
+  "resilient": {pos:"adjective", def:"able to recover quickly and stay positive after something difficult happens", example:"When something bad happens to Ella, she always gets up again and stays positive. She's very resilient."},
+  "self-confident": {pos:"adjective", def:"sure of your own abilities, qualities and judgment", example:"He walked into the interview completely self-confident."},
+  "selfish": {pos:"adjective", def:"caring only about yourself, not about other people", example:"He never shares — he's honestly quite selfish."},
+  "tactful": {pos:"adjective", def:"careful not to say or do anything that could upset someone", example:"Conor always says the right thing, and he never offends people. He's very tactful."},
+  "untrustworthy": {pos:"adjective", def:"not able to be trusted or relied on", example:"I would never lend Laura money or tell her a secret. She's really untrustworthy."}
+};
+
+function speak(text, lang='en-GB', rate=0.92){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang; u.rate = rate;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+function buildFlipGrid(containerId, vocabObj){
+  const grid = document.getElementById(containerId);
+  grid.innerHTML = Object.entries(vocabObj).map(([word,v])=>`
+    <div class="flip-card" onclick="if(!event.target.closest('.card-speak'))this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front">${word}</div>
+        <div class="flip-back">
+          <div class="pos">${v.pos}</div>
+          <div>${v.def}</div>
+          <div class="ex">"${v.example}"</div>
+          <button class="card-speak" onclick="event.stopPropagation(); speak('${word.replace(/'/g,"\\'")}')">🔊</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* ---------- OCEAN gap-fill (word-bank fill component) ---------- */
+const OCEAN_PART1 = [
+  {before:"People who have high scores in this factor are usually curious and ", answer:"broad-minded", after:", so they like new, interesting experiences. They are also creative and clever. People with low scores tend to be practical and ", id:"a"},
+  {before:"", answer:"down-to-earth", after:" than imaginative, preferring to be sensible rather than led by their feelings.", id:"b"},
+];
+// Sections O, C, E — 7 blanks (a-g), word bank = VOCAB1 words
+const OCEAN_SENTENCES_1 = [
+  {label:"O — Openness to experience", text:"People who have high scores in this factor are usually curious and (a) ___, so they like new, interesting experiences. They are also creative and clever. People with low scores tend to be practical and (b) ___ rather than imaginative.", blanks:["a","b"], answers:{a:"broad-minded", b:"down-to-earth"}},
+  {label:"C — Conscientiousness", text:"People with a high score in this factor are usually very (c) ___ and good at finding ways to deal with problems. They are also usually reliable and hard-working. People with low scores are often (d) ___, doing things without thinking of the consequences, and also very relaxed and (e) ___.", blanks:["c","d","e"], answers:{c:"resourceful", d:"impetuous", e:"laid-back"}},
+  {label:"E — Extroversion", text:"Extroverted people tend to be (f) ___ and talkative, generally enjoying interacting with others. Introverts tend to be quiet and (g) ___, preferring reading a book alone to going out partying.", blanks:["f","g"], answers:{f:"outgoing", g:"reserved"}}
+];
+const OCEAN_SENTENCES_2 = [
+  {label:"A — Agreeableness", text:"People with a high score in agreeableness are usually (h) ___ and diplomatic. They are also kind and (i) ___, thinking of others' feelings. They often tend to be modest, too. People with a low score are often (j) ___, thinking more about themselves. They can also be (k) ___ and difficult to rely on.", blanks:["h","i","j","k"], answers:{h:"tactful", i:"considerate", j:"selfish", k:"untrustworthy"}},
+  {label:"N — Neuroticism", text:"This is a question of not feeling (l) ___, not believing that you can do things well. People with a high score may well be (m) ___, needing more confidence in themselves. They may also be (n) ___ and become serious or angry for no reason. On the other hand, a low score suggests that a person is calm and (o) ___, able to come back strong after a problem.", blanks:["l","m","n","o"], answers:{l:"self-confident", m:"insecure", n:"moody", o:"resilient"}}
+];
+
+function renderOceanSection(containerId, sentences){
+  const el = document.getElementById(containerId);
+  el.innerHTML = sentences.map(s=>{
+    let txt = s.text;
+    s.blanks.forEach(b=>{
+      txt = txt.replace(`(${b}) ___`, `(${b}) <input type="text" class="fib" data-blank="${b}" readonly placeholder="?">`);
+    });
+    return `<p class="blank-sentence"><b>${s.label}.</b> ${txt}</p>`;
+  }).join('');
+}
+
+function buildWordBank(bankId, words){
+  const bank = document.getElementById(bankId);
+  const shuffled = [...words].sort(()=>Math.random()-0.5);
+  bank.innerHTML = shuffled.map(w=>`<span data-token="${w}" onclick="useToken(this)">${w}</span>`).join('');
+}
+
+let activeGap = null;
+function useToken(tokenEl){
+  const bank = tokenEl.closest('.word-bank');
+  if (tokenEl.classList.contains('used')) {
+    const gap = [...document.querySelectorAll('.fib[readonly]')].find(inp => inp.value === tokenEl.dataset.token);
+    if (gap) { gap.value = ''; gap.classList.remove('is-correct','is-wrong'); if (activeGap === gap) activeGap = null; }
+    tokenEl.classList.remove('used');
+    scheduleSave();
+    return;
+  }
+  if (!activeGap) { alert('First click an empty gap in the text above, then click a word from the bank below.'); return; }
+  if (activeGap.value) {
+    const prevToken = [...bank.children].find(t => t.dataset.token === activeGap.value && t.classList.contains('used'));
+    if (prevToken) prevToken.classList.remove('used');
+  }
+  activeGap.value = tokenEl.dataset.token;
+  tokenEl.classList.add('used');
+  activeGap.style.borderBottomColor = '';
+  activeGap.classList.remove('is-correct','is-wrong');
+  activeGap = null;
+  scheduleSave();
+}
+
+function wireGaps(){
+  document.querySelectorAll('.fib[readonly]').forEach(inp=>{
+    inp.onclick = ()=>{
+      if (activeGap && activeGap !== inp) activeGap.style.borderBottomColor = '';
+      if (inp.value) {
+        const banks = document.querySelectorAll('.word-bank');
+        banks.forEach(bank=>{
+          const usedToken = [...bank.children].find(t => t.dataset.token === inp.value && t.classList.contains('used'));
+          if (usedToken) usedToken.classList.remove('used');
+        });
+        inp.value = '';
+        inp.classList.remove('is-correct','is-wrong');
+      }
+      activeGap = inp;
+      inp.style.borderBottomColor = 'var(--yellow)';
+    };
+  });
+}
+
+/* ---------- Idioms matching ---------- */
+const IDIOMS = [
+  {id:"1", idiom:"a party animal", def:"someone who enjoys going to lots of parties"},
+  {id:"2", idiom:"a pain in the neck", def:"someone who is very annoying or irritating"},
+  {id:"3", idiom:"a great laugh", def:"someone who is very funny"},
+  {id:"4", idiom:"a wallflower", def:"someone at a social event who has no one to talk to or dance with because they are shy"},
+  {id:"5", idiom:"a big mouth", def:"someone who says things they shouldn't"},
+  {id:"6", idiom:"a bright spark", def:"someone who is clever or has a clever idea (often used to mean the opposite!)"},
+  {id:"7", idiom:"a live wire", def:"someone who has a lot of energy and is interesting to be with"},
+  {id:"8", idiom:"a social butterfly", def:"someone who is very sociable and goes to lots of different social events with lots of different people"}
+];
+
+function buildIdiomsGrid(){
+  const left = [...IDIOMS].sort(()=>Math.random()-0.5);
+  const right = [...IDIOMS].sort(()=>Math.random()-0.5);
+  const grid = document.getElementById('idiomsGrid');
+  grid.innerHTML = `
+    <div class="match-col">${left.map(i=>`<button class="match" data-id="${i.id}" onclick="matchClick(this)">${i.idiom}</button>`).join('')}</div>
+    <div class="match-col">${right.map(i=>`<button class="match" data-id="${i.id}" onclick="matchClick(this)">${i.def}</button>`).join('')}</div>`;
+}
+let firstPick = null;
+function matchClick(el){
+  if (el.classList.contains('matched-correct')) return;
+  if (!firstPick) { firstPick = el; el.classList.add('selected'); return; }
+  if (firstPick === el) { firstPick.classList.remove('selected'); firstPick = null; return; }
+  const isMatch = firstPick.dataset.id === el.dataset.id;
+  [firstPick, el].forEach(x=>x.classList.remove('selected'));
+  if (isMatch){
+    [firstPick, el].forEach(x=>{ x.classList.add('matched-correct'); });
+    const card = document.getElementById('idiomsGrid');
+    card.dataset.correctCount = (parseInt(card.dataset.correctCount||0) + 1);
+  } else {
+    [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+    const a=firstPick, b=el;
+    setTimeout(()=>{ a.classList.remove('wrong-flash'); b.classList.remove('wrong-flash'); }, 600);
+  }
+  firstPick = null;
+  scheduleSave();
+}
+
+/* ---------- Navigation ---------- */
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  if(!isRestoring) scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ---------- Scoring helpers ---------- */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function exTitle(el){ const card = el.closest('.card'); const h2 = card ? card.querySelector('h2') : null; return h2 ? h2.textContent.trim() : ''; }
+function itemContext(el){
+  const p = el.closest('p');
+  if(p){
+    const clone = p.cloneNode(true);
+    clone.querySelectorAll('input').forEach(x=>x.remove());
+    const txt = clone.textContent.replace(/\s+/g,' ').trim();
+    if(txt) return txt.slice(0,90);
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.fib[data-blank]').forEach(inp=>{
+    total++;
+    const blank = inp.dataset.blank;
+    const answers = {...OCEAN_SENTENCES_1.reduce((a,s)=>({...a,...s.answers}),{}), ...OCEAN_SENTENCES_2.reduce((a,s)=>({...a,...s.answers}),{})};
+    const correctVal = answers[blank];
+    const ok = normalize(inp.value) === normalize(correctVal);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, correctVal));
+  });
+
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs || 0);
+    const cor = parseInt(c.dataset.correctCount || 0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`Idioms matching — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`); }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%) <span class="score-pill">${pct}%</span>`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  scheduleSave();
+}
+
+/* ---------- Progress persistence ---------- */
+const PROGRESS_KEY = 'angle_progress::unit4-personality-classwork';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.warmup = document.getElementById('warmup')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib[data-blank]')].map(el=>({blank:el.dataset.blank, val:el.value}));
+    state.idiomsMatched = [...document.querySelectorAll('#idiomsGrid .matched-correct')].map(x=>x.dataset.id);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  if(state.warmup){ const wa = document.getElementById('warmup'); if(wa) wa.value = state.warmup; }
+
+  (state.fib||[]).forEach(item=>{
+    const inp = document.querySelector(`.fib[data-blank="${item.blank}"]`);
+    if(inp && item.val) inp.value = item.val;
+  });
+  document.querySelectorAll('.word-bank').forEach(bank=>{
+    bank.querySelectorAll('span').forEach(tok=>{
+      if([...document.querySelectorAll('.fib[data-blank]')].some(f=>f.value === tok.dataset.token)) tok.classList.add('used');
+    });
+  });
+  (state.idiomsMatched||[]).forEach(id=>{
+    document.querySelectorAll(`#idiomsGrid .match[data-id="${id}"]`).forEach(el=>el.classList.add('matched-correct'));
+  });
+  if((state.idiomsMatched||[]).length){
+    document.getElementById('idiomsGrid').dataset.correctCount = state.idiomsMatched.length;
+  }
+
+  const hasContent = (state.fib||[]).some(f=>f.val) || (state.idiomsMatched||[]).length || state.warmup;
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, #studentName')) scheduleSave(); });
+
+/* ---------- Init ---------- */
+buildDots();
+buildFlipGrid('flipGrid1', VOCAB1);
+buildFlipGrid('flipGrid2', VOCAB2);
+renderOceanSection('oceanPart1', OCEAN_SENTENCES_1);
+renderOceanSection('oceanPart2', OCEAN_SENTENCES_2);
+buildWordBank('bank1', Object.keys(VOCAB1));
+buildWordBank('bank2', Object.keys(VOCAB2));
+wireGaps();
+buildIdiomsGrid();
+showPage(0);
+restoreProgress();
+</script>
+</body>
+</html>
