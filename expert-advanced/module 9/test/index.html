@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -223,6 +223,7 @@
   .save-indicator{ position:fixed; top:10px; right:14px; z-index:1000; font-size:.72rem; color:var(--correct); background:#fff; padding:4px 10px; border-radius:12px; box-shadow:0 2px 10px rgba(45,41,38,.2); opacity:0; transition:opacity .3s ease; white-space:nowrap; pointer-events:none; }
   .save-indicator.show{ opacity:1; }
   .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin:0 0 18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none; }
   .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 </style>
 </head>
