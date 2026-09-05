@@ -1,0 +1,917 @@
+﻿<title>Unit 4D — No experience needed: Writing (Classwork)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Empower B1+">
+<meta name="ws:course-id" content="empower-b1">
+<meta name="ws:unit"      content="4">
+<meta name="ws:title"     content="Unit 4D — No Experience Needed — Writing (Classwork)">
+<meta name="ws:emoji"     content="💼">
+<meta name="ws:date"      content="2026-09-05">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mjgnlwdp">
+<meta name="ws:tags"      content="writing, job application, unit 4">
+<meta name="robots"       content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  
+  
+
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); line-height:1.5;
+}
+h1,h2,h3{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--purple); margin:0 0 .5em;}
+h2{font-size:1.3rem; display:flex; align-items:center; gap:.5em;}
+h2::before{content:''; width:0; height:0; border-left:11px solid var(--yellow); border-top:7px solid transparent; border-bottom:7px solid transparent; flex:0 0 auto;}
+p{margin:0 0 .8em;}
+button{font-family:inherit;}
+
+/* background photo + wash */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+
+/* topbar */
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px 12px; }
+.brand-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.lesson-title{ font-weight:700; color:var(--purple); font-size:1.05rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.9rem; }
+.namebar input{ border:2px solid var(--border); border-radius:4px; padding:7px 10px; font-size:.95rem; min-width:180px; font-family:inherit; }
+.namebar input:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:10px; border-radius:6px; background:var(--border); overflow:hidden; }
+.progress-fill{ height:100%; width:0%; border-radius:6px; background:linear-gradient(90deg, var(--yellow), var(--purple)); transition:width .3s ease; }
+.progress-label{ font-size:.8rem; color:var(--muted); white-space:nowrap; font-weight:700; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:26px; height:26px; border-radius:50%; background:var(--card-tint); border:2px solid var(--border); color:var(--muted); font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.page-dot.active{ background:linear-gradient(135deg, var(--yellow), var(--purple)); border-color:var(--purple); color:var(--black); }
+
+/* autosave row */
+.autosave-row{ display:flex; align-items:center; gap:10px; margin-top:6px; font-size:.78rem; color:var(--muted); flex-wrap:wrap; }
+.autosave-row #autosaveIndicator{ font-weight:700; }
+.autosave-row .clear-link{ background:none; border:none; color:var(--muted); text-decoration:underline; cursor:pointer; font-size:.78rem; padding:0; font-family:inherit; }
+.autosave-row .clear-link:hover{ color:var(--wrong); }
+
+/* page shell */
+.page-wrap{ position:relative; z-index:5; max-width:900px; margin:0 auto; padding:26px 18px 80px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+.card{ background:var(--card); border-radius:14px; padding:24px 24px 20px; box-shadow:0 10px 30px rgba(20,10,30,.25); margin-bottom:18px; }
+.card p.lead{ color:var(--muted); font-size:.95rem; }
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; }
+.nav-btns button{ border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:.95rem; cursor:pointer; min-height:46px; }
+.btn-back{ background:var(--card-tint); color:var(--purple); border:2px solid var(--border) !important; }
+.btn-next{ background:var(--purple); color:#fff; }
+.btn-submit{ background:var(--yellow); color:var(--black); }
+.nav-btns .spacer{ flex:1; }
+
+/* items */
+.item{ margin-bottom:16px; padding:14px 16px; background:var(--card-tint); border-radius:10px; border:1px solid var(--border); }
+.item p.q{ font-weight:600; margin-bottom:.5em; }
+input.fib, select.fib{ border:2px solid var(--border); border-radius:6px; padding:8px 10px; font-size:1rem; font-family:inherit; min-height:44px; margin:0 4px; }
+input.fib{ min-width:140px; }
+input.fib.is-correct, select.fib.is-correct{ border-color:var(--correct); background:#eafaf1; }
+input.fib.is-wrong, select.fib.is-wrong{ border-color:var(--wrong); background:#fdecea; }
+.blank-sentence{ line-height:2.4; }
+
+.mcq{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+.mcq .opt{ border:2px solid var(--border); background:#fff; border-radius:8px; padding:10px 16px; font-size:.95rem; cursor:pointer; min-height:44px; }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--purple); color:#fff; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf1; color:var(--correct); font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecea; color:var(--wrong); }
+
+.match-cols{ display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; margin-top:10px; }
+.match{ display:block; width:100%; border:2px solid var(--border); background:#fff; border-radius:8px; padding:10px 12px; font-size:.9rem; cursor:pointer; margin-bottom:8px; min-height:44px; text-align:left; }
+.match.selected{ border-color:var(--purple); background:#f1ecf7; }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf1; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecea; }
+
+.bucket-wrap{ margin-top:12px; }
+.buckets-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.chip-bank{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; }
+.chip{ border:2px solid var(--purple); background:#fff; color:var(--purple); border-radius:20px; padding:8px 14px; font-size:.88rem; cursor:pointer; min-height:40px; }
+.chip.placed{ opacity:.4; cursor:default; }
+.chip.placed-correct{ border-color:var(--correct); }
+.chip.placed-wrong{ border-color:var(--wrong); }
+.bucket{ min-height:120px; border:2px dashed var(--border); border-radius:10px; padding:10px; background:var(--card-tint); }
+.bucket h3{ font-size:.95rem; color:var(--purple); margin-bottom:8px; }
+.bucket .chip{ display:block; margin-bottom:6px; cursor:default; }
+
+.flip-card{ perspective:1000px; width:100%; max-width:320px; height:150px; margin:0 auto 14px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front,.flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; font-size:1.02rem; }
+.flip-front{ background:var(--purple); color:#fff; font-weight:700; }
+.flip-back{ background:var(--yellow); color:var(--black); transform:rotateY(180deg); font-size:.92rem; }
+.flip-controls{ display:flex; justify-content:center; gap:14px; margin-top:6px; font-size:.85rem; color:var(--muted); }
+
+audio{ width:100%; margin:10px 0; }
+.play-row{ display:flex; align-items:center; gap:10px; margin:10px 0; flex-wrap:wrap; }
+.tag{ display:inline-block; background:var(--purple); color:#fff; font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:12px; letter-spacing:.03em; }
+
+.tick-row{ display:flex; gap:18px; align-items:center; margin-top:8px; font-size:.9rem; flex-wrap:wrap; }
+.tick-row label{ display:flex; align-items:center; gap:6px; cursor:pointer; }
+.tick-row input[type=checkbox]{ width:20px; height:20px; }
+
+textarea.notes, textarea.prod{ width:100%; min-height:90px; border:2px solid var(--border); border-radius:8px; padding:10px; font-family:inherit; font-size:.95rem; }
+textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
+
+.score-pill{ display:inline-block; background:var(--purple); color:#fff; border-radius:20px; padding:6px 14px; font-size:.85rem; font-weight:700; }
+#scoreSummary{ background:var(--card); border-radius:12px; padding:16px 20px; margin-top:10px; border:2px solid var(--purple); font-size:1.05rem; }
+#submitStatus{ margin-top:8px; font-weight:700; color:var(--purple); }
+
+.rule-table{ width:100%; border-collapse:collapse; margin:10px 0; font-size:.92rem; }
+.rule-table td{ border:1px solid var(--border); padding:8px 10px; vertical-align:top; }
+.rule-table td.num{ width:26px; font-weight:700; color:var(--purple); }
+
+.advert-card{ border:2px solid var(--border); border-radius:12px; padding:16px 18px; margin:12px 0; background:#fbfaf9; }
+.advert-card .advert-heading{ font-weight:700; color:var(--purple); font-size:1rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.advert-card .advert-nav{ font-size:.72rem; color:var(--muted); border-bottom:1px solid var(--border); padding-bottom:6px; margin-bottom:8px; }
+.advert-card.informal{ border-left:5px solid var(--yellow); }
+.advert-card.formal{ border-left:5px solid var(--purple); }
+.book-photo{ width:100%; max-height:220px; object-fit:cover; border-radius:12px; margin-bottom:12px; }
+
+/* sticky badge */
+.angle-badge{ position:fixed; left:20px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; }
+.angle-badge .wordmark{ width:100px; height:auto; display:block; color:var(--yellow); }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; color:var(--yellow); }
+
+@media (max-width:600px){
+  .match-cols, .buckets-row{ grid-template-columns:1fr; }
+  .lesson-title{ font-size:.95rem; }
+  .angle-badge .wordmark{ width:78px; }
+}
+
+</style>
+
+<div class="bg-photo" style="background-image:url('img/bg-photo.jpg');"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Unit 4D · No experience needed (Classwork)</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+    <div class="autosave-row">
+      <span id="autosaveIndicator">Autosave on</span>
+      <button class="clear-link" onclick="clearAutosave()">Clear saved answers / Очистить сохранённое</button>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<section class="page active" data-page="0">
+  <div class="card">
+    <h2>Warm-up: finding things online</h2>
+    <p class="lead">Before we read some online adverts, let's think about how we use the internet to find things.</p>
+    <div class="item">
+      <p class="q">1. Which of these things do you usually prefer to do on the internet, and which offline? buy / sell things &middot; book trips &middot; meet people / join groups &middot; find work</p>
+      <textarea class="notes" placeholder="Write a sentence or two in English..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">2. What are the advantages and disadvantages of using the internet for these things?</p>
+      <textarea class="notes" placeholder="e.g. It's quick, but sometimes you can't trust the information..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">3. Have you ever answered a "wanted" advert, or written one yourself? What was it for?</p>
+      <textarea class="notes" placeholder="Write a sentence or two in English..."></textarea>
+    </div>
+  </div>
+  <div class="nav-btns"><span class="spacer"></span><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Three people, three websites</h2>
+    <p class="lead">Sheena, Alya and Brad each used a different website. Read what they say, then answer the questions. (Note for teacher: original SB task 04.14 is a listening — we don't have the audio file, so here it's a reading version of the same authentic script.)</p>
+
+    <div class="advert-card informal">
+      <div class="advert-heading">🗣️ Sheena</div>
+      <p>"Last year, I had some free time and a bit of money to spend. I'd always wanted to go walking and climbing in the Himalayas, but I didn't want to go on my own and none of my friends wanted to go. So I found a website called Travel Groups, where you can contact other people who want to go to the same places as you, and you can join up and go together as a group. Anyway, I found three other people to go with and we all met in Delhi in North India and we travelled together. It worked out really well. I'm quite self-confident and I think I'm an extrovert, so I think I'm quite good at getting on with people and making friends."</p>
+    </div>
+    <div class="advert-card informal">
+      <div class="advert-heading">🗣️ Alya</div>
+      <p>"I had a few months off after university, so I looked on the internet for volunteer work and found a really good website for last-minute volunteer jobs called the Volunteer Community Project. It was good because you can arrange things straight away and they pay your fares, and you get basic accommodation and food. You don't earn money, but you don't really spend much either. I went to London and worked there with young children from problem families. I didn't have any experience, but that doesn't matter. Actually it seems like I've got a natural talent for teaching children."</p>
+    </div>
+    <div class="advert-card informal">
+      <div class="advert-heading">🗣️ Brad</div>
+      <p>"I really needed to earn some money and I couldn't get a proper job. Someone told me about this website called Short Work, where people offer short-term jobs for a few days or a couple of weeks. I'm quite good at things like that, and I know a bit about electricity and plumbing. I found this advert for a family who've got a large house and needed someone to do some basic work on it. I think they could see that I was quite serious about it, and I was determined to work hard."</p>
+    </div>
+
+    <p class="q" style="margin-top:10px;">Match each website with its purpose.</p>
+    <div class="match-cols">
+      <div>
+        <button class="match" data-id="w1">Travel Groups</button>
+        <button class="match" data-id="w2">Volunteer Community Project</button>
+        <button class="match" data-id="w3">Short Work</button>
+      </div>
+      <div>
+        <button class="match" data-id="w3">to advertise and find temporary, short-term jobs</button>
+        <button class="match" data-id="w1">to contact and make plans with people who want to travel to the same places as you</button>
+        <button class="match" data-id="w2">to advertise and find volunteering jobs</button>
+      </div>
+    </div>
+
+    <div class="item">
+      <p class="q">1. How did Sheena travel in India?</p>
+      <div class="mcq" data-correct="group">
+        <button class="opt" data-val="own">she travelled on her own</button>
+<button class="opt" data-val="group">she travelled with a group of people she found on a website</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">2. How does Sheena describe her own personality?</p>
+      <div class="mcq" data-correct="confident extrovert">
+        <button class="opt" data-val="confident extrovert">self-confident and an extrovert</button>
+<button class="opt" data-val="shy introvert">shy and an introvert</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">3. Does Alya earn money doing volunteer work?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="no">No, you don’t earn money as a volunteer</button>
+<button class="opt" data-val="yes">Yes, volunteers are paid well</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">4. What does Alya discover about herself?</p>
+      <div class="mcq" data-correct="talent">
+        <button class="opt" data-val="talent">she has a natural talent for teaching children</button>
+<button class="opt" data-val="bored">she found working with children boring</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">5. What are Brad's skills?</p>
+      <div class="mcq" data-correct="fixing">
+        <button class="opt" data-val="fixing">he’s good at fixing things and knows about electricity and plumbing</button>
+<button class="opt" data-val="cooking">he’s good at cooking and cleaning</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">6. Why did the family give Brad the job?</p>
+      <div class="mcq" data-correct="serious">
+        <button class="opt" data-val="serious">they could see he was serious and determined to work hard</button>
+<button class="opt" data-val="funny">they thought he was very funny</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Reading: three online adverts</h2>
+    <p class="lead">Read adverts a, b and c, then answer the questions about each one.</p>
+
+    <div class="advert-card informal">
+      <div class="advert-nav">Home &nbsp;&rsaquo;&nbsp; Profile &nbsp;&rsaquo;&nbsp; Account</div>
+      <div class="advert-heading">a &nbsp;TRAVELGROUPS</div>
+      <p><b>North India and the Himalayas – come and join us in October!</b></p>
+      <p>Hi there, we're planning a trip to North India and the Himalayas this October and we're looking for people to join us. We'll be doing some climbing (not too much!) and also travelling around North India. We're meeting up in Delhi in mid-October and spending about four weeks on the road.<br><br>
+      We're looking for one or two people, male or female, under 30, reasonably fit, and able to live cheaply. Climbing experience preferred (and experience in India would be good, too). Ideally you should be sociable and not too serious.<br><br>
+      If this sounds like the trip for you, send a reply plus a photo and we'll get back to you!<br>
+      <i>Cristina, Matt and Rob</i></p>
+    </div>
+
+    <div class="item">
+      <p class="q">1. Where is the trip?</p>
+      <div class="mcq" data-correct="north india">
+        <button class="opt" data-val="north india">North India and the Himalayas</button>
+<button class="opt" data-val="south america">South America</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">2. How many people are they looking for?</p>
+      <div class="mcq" data-correct="one or two">
+        <button class="opt" data-val="one or two">one or two people</button>
+<button class="opt" data-val="ten">ten people</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">3. What kind of person are they looking for?</p>
+      <div class="mcq" data-correct="sociable">
+        <button class="opt" data-val="sociable">under 30, fit, sociable, not too serious</button>
+<button class="opt" data-val="shy">shy, over 50, doesn’t like sport</button>
+      </div>
+    </div>
+    <div class="advert-card formal">
+      <div class="advert-nav">home &nbsp;&rsaquo;&nbsp; about us &nbsp;&rsaquo;&nbsp; community projects &nbsp;&rsaquo;&nbsp; accommodation &nbsp;&rsaquo;&nbsp; applications</div>
+      <div class="advert-heading">b &nbsp;Volunteer Community Project</div>
+      <p><b>Volunteer needed</b></p>
+      <p>Please send a CV and a short personal profile. Duties include teaching English, art, maths, etc., as well as leading educational play groups. Support will be given by local teachers or project staff. Occasionally, volunteers will be asked to help with domestic duties such as preparing meals and keeping the classrooms and gardens clean to help create a happy and healthy atmosphere for the children.<br><br>
+      Volunteers should be available to start work next month. No qualifications required, but candidates should have a positive and outgoing personality and be good with young children.</p>
+    </div>
+
+    <div class="item">
+      <p class="q">1. What are the main responsibilities of the job?</p>
+      <div class="mcq" data-correct="teaching">
+        <button class="opt" data-val="teaching">teaching, leading educational play groups</button>
+<button class="opt" data-val="driving">driving a bus</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">2. When does the work start?</p>
+      <div class="mcq" data-correct="next month">
+        <button class="opt" data-val="next month">next month</button>
+<button class="opt" data-val="next year">next year</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">3. What kind of person are they looking for?</p>
+      <div class="mcq" data-correct="positive">
+        <button class="opt" data-val="positive">positive, outgoing, good with young children</button>
+<button class="opt" data-val="quiet">quiet and prefers to work alone</button>
+      </div>
+    </div>
+    <div class="advert-card informal">
+      <div class="advert-nav">Home</div>
+      <div class="advert-heading">c &nbsp;Wanted — help with garden and house work</div>
+      <p>We're a big family (three small children) and we need help with work on our garden and house for two weeks. Jobs that need doing include general work in the garden, painting in the house and fixing minor electrical problems.<br><br>
+      No experience needed, but you should be good at fixing things and willing to work hard. Payment to be arranged.</p>
+    </div>
+
+    <div class="item">
+      <p class="q">1. What does the job involve?</p>
+      <div class="mcq" data-correct="garden">
+        <button class="opt" data-val="garden">general garden work, painting, fixing electrical problems</button>
+<button class="opt" data-val="office">office administration</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">2. What experience is needed?</p>
+      <div class="mcq" data-correct="none">
+        <button class="opt" data-val="none">none — no experience needed</button>
+<button class="opt" data-val="years">several years of experience</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">3. How long is the job for?</p>
+      <div class="mcq" data-correct="two weeks">
+        <button class="opt" data-val="two weeks">two weeks</button>
+<button class="opt" data-val="two years">two years</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">Discuss: would you use websites like these? Why / why not?</p>
+      <textarea class="notes" placeholder="Write your answer in English..."></textarea>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Writing skills: the language of adverts</h2>
+    <p class="lead">Look back at adverts a, b and c on the previous page while you do these tasks.</p>
+
+    <p class="q">Match each language feature with the advert(s) it describes. (Sentence 1 is done for you: it describes adverts a and c.)</p>
+    <div class="match-cols">
+      <div>
+        <button class="match" data-id="s2">2. Sentences start with impersonal nouns like <i>jobs</i> or <i>duties</i>.</button>
+        <button class="match" data-id="s3">3. Sentences use formal words like <i>candidates</i> or <i>volunteers</i>.</button>
+        <button class="match" data-id="s4">4. Passive verb forms are often used.</button>
+        <button class="match" data-id="s5">5. The advert uses conversational expressions (e.g., <i>Hi there</i>, <i>get back to</i>, <i>fixing things</i>).</button>
+        <button class="match" data-id="s6">6. Some sentences and phrases end in exclamation marks!</button>
+      </div>
+      <div>
+        <button class="match" data-id="s6">Advert a</button>
+        <button class="match" data-id="s4">Adverts b, c</button>
+        <button class="match" data-id="s3">Advert b (only)</button>
+        <button class="match" data-id="s5">Adverts a, c</button>
+        <button class="match" data-id="s2">Adverts b, c</button>
+      </div>
+    </div>
+
+    <p class="q" style="margin-top:18px;">Sort the sentences (1, 2, 3, 4, 5, 6) into the group that describes the effect they create. Drag the numbers into the right box.</p>
+    <div class="bucket-wrap">
+      <div class="chip-bank">
+        <div class="chip" data-group="personal">1</div>
+        <div class="chip" data-group="impersonal">2</div>
+        <div class="chip" data-group="impersonal">3</div>
+        <div class="chip" data-group="impersonal">4</div>
+        <div class="chip" data-group="personal">5</div>
+        <div class="chip" data-group="personal">6</div>
+      </div>
+      <div class="buckets-row">
+        <div class="bucket" data-group="personal"><h3>more personal &amp; friendly</h3><div class="bucket-drop"></div></div>
+        <div class="bucket" data-group="impersonal"><h3>more impersonal &amp; official</h3><div class="bucket-drop"></div></div>
+      </div>
+    </div>
+
+    <p class="q" style="margin-top:18px;">Look at advert a again. Match sections 1-4 with their purpose.</p>
+    <div class="match-cols">
+      <div>
+        <button class="match" data-id="p1">1. Heading: "North India and the Himalayas – come and join us in October!"</button>
+        <button class="match" data-id="p2">2. "We're planning a trip... spending about four weeks on the road."</button>
+        <button class="match" data-id="p3">3. "We're looking for one or two people... not too serious."</button>
+        <button class="match" data-id="p4">4. "If this sounds like the trip for you, send a reply..."</button>
+      </div>
+      <div>
+        <button class="match" data-id="p4">tells the reader what to do next</button>
+        <button class="match" data-id="p2">gives details of the situation (work, travel, plans, etc.)</button>
+        <button class="match" data-id="p1">shows briefly what the advert is about</button>
+        <button class="match" data-id="p3">says what kind of person they're looking for</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Reduced expressions</h2>
+    <p class="lead">Adverts often use "reduced" expressions — short phrases that leave out words like <i>is/are</i> and <i>a/the</i> to sound direct and attention-grabbing.</p>
+    <p class="q">Find the reduced expression in the adverts that means the same as each sentence below.</p>
+<div class="item"><p class="blank-sentence">1. You don’t need any experience. → <input class="fib" type="text" data-answer="No experience needed." data-accept='["no experience needed","no experience is needed"]'></p></div><div class="item"><p class="blank-sentence">2. We’d prefer a person with climbing experience. → <input class="fib" type="text" data-answer="Climbing experience preferred." data-accept='["climbing experience preferred","climbing experience is preferred"]'></p></div><div class="item"><p class="blank-sentence">3. We need a volunteer. → <input class="fib" type="text" data-answer="Volunteer needed." data-accept='["volunteer needed","a volunteer is needed"]'></p></div><div class="item"><p class="blank-sentence">4. We don’t require you to have any qualifications. → <input class="fib" type="text" data-answer="No qualifications required." data-accept='["no qualifications required","no qualifications are required"]'></p></div>
+    <p class="q" style="margin-top:18px;">Now do the opposite: expand each reduced expression into a full sentence. (These are checked by your teacher, not automatically — there's more than one good answer.)</p>
+    <div class="item">
+      <p class="q">5. Assistance urgently needed.</p>
+      <textarea class="prod" data-minwords="3" data-targets='["assistance","need"]' placeholder="We urgently need..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">6. Driving licence required.</p>
+      <textarea class="prod" data-minwords="3" data-targets='["driving licence","driving license"]' placeholder="You must have..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">7. Male or female under 40 preferred.</p>
+      <textarea class="prod" data-minwords="3" data-targets='["male","female","40"]' placeholder="We prefer..."></textarea>
+    </div>
+    <div class="item">
+      <p class="q">8. Accommodation included.</p>
+      <textarea class="prod" data-minwords="3" data-targets='["accommodation","housing"]' placeholder="Your..."></textarea>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Writing: an informal online advert</h2>
+    <p class="lead">Now write your own "wanted" / "looking for" advert. Choose one situation:</p>
+    <div class="tick-row" style="flex-direction:column; align-items:flex-start; gap:8px;">
+      <label><input type="checkbox"> You're travelling somewhere and want more people to join your group.</label>
+      <label><input type="checkbox"> You're organising charity/volunteer work and need volunteers.</label>
+      <label><input type="checkbox"> You want to employ someone to work for you for a couple of weeks.</label>
+    </div>
+    <p class="q" style="margin-top:14px;">Follow the plan:</p>
+    <ol style="margin:0 0 14px; padding-left:20px;">
+      <li>Create a heading to draw attention to the advert.</li>
+      <li>Describe the situation (the job, your plans, etc.).</li>
+      <li>Say what kind of person you're looking for.</li>
+      <li>Ask for a reply.</li>
+    </ol>
+    <textarea class="prod" data-minwords="30" data-targets='["needed","looking for","wanted","join","volunteer","help"]' placeholder="Write your advert here (at least 30 words)..." style="min-height:160px;"></textarea>
+
+    <p class="q" style="margin-top:14px;">Check your advert:</p>
+    <div class="tick-row" style="flex-direction:column; align-items:flex-start; gap:8px;">
+      <label><input type="checkbox"> Is it about the right level of formality for your situation?</label>
+      <label><input type="checkbox"> Did you use at least one reduced expression (e.g., "No experience needed")?</label>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="6">
+  <div class="card">
+    <h2>Writing: reply to an advert</h2>
+    <p class="lead">Imagine you'd like the job in advert c ("Wanted — help with garden and house work", page 3). Write a reply.</p>
+    <ol style="margin:0 0 14px; padding-left:20px;">
+      <li>Say you're interested.</li>
+      <li>Give details about yourself (skills, experience, availability).</li>
+      <li>Ask any further questions.</li>
+    </ol>
+    <textarea class="prod" data-minwords="25" data-targets='["interested","experience","available","garden","house"]' placeholder="Dear ..., I saw your advert and..." style="min-height:150px;"></textarea>
+    <p class="lead" style="font-size:.82rem;">This isn't auto-scored — your teacher will read it and give feedback.</p>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+</section>
+
+<section class="page" data-page="7">
+  <div class="card">
+    <h2>Check your work</h2>
+    <p class="lead">Make sure your name is filled in at the top, then check your answers. Your results (and any mistakes) go straight to your teacher.</p>
+    <div id="scoreSummary" hidden></div>
+    <div id="submitStatus"></div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-submit" onclick="submitAll()">Check &amp; Submit ✓</button></div>
+</section>
+
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+const PAGE_LABELS = ['Warm-up', 'Listening', 'Reading: adverts', 'Language of adverts', 'Reduced expressions', 'Write an advert', 'Write a reply', 'Finish'];
+
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function nextPage(){ showPage(current+1); scheduleSave(); }
+function prevPage(){ showPage(current-1); scheduleSave(); }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  buildDots();
+  showPage(0);
+  initInteractions();
+  loadAutosave();
+  initAutosaveListeners();
+});
+
+
+function initInteractions(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const group = btn.closest('.mcq');
+      group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      scheduleSave();
+    };
+  });
+
+  document.querySelectorAll('.match-cols').forEach(initMatchGroup);
+  document.querySelectorAll('.bucket-wrap').forEach(initBucketGroup);
+
+  document.querySelectorAll('.flip-card').forEach(card=>{
+    card.addEventListener('click', (e)=>{
+      if (e.target.closest('.card-speak')) return;
+      card.classList.toggle('flipped');
+    });
+  });
+
+  document.querySelectorAll('.card-speak').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      speak(btn.dataset.speak || '');
+    });
+  });
+
+  document.querySelectorAll('textarea.prod').forEach(ta=>{
+    ta.addEventListener('blur', ()=>checkProduction(ta));
+  });
+}
+
+function speak(text, lang='en-GB', rate=0.92){
+  if(!window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang; u.rate = rate;
+  speechSynthesis.speak(u);
+}
+
+function initMatchGroup(wrap){
+  const items = wrap.querySelectorAll('.match');
+  const total = items.length / 2;
+  wrap.dataset.totalPairs = total;
+  wrap.dataset.correctCount = 0;
+  let firstPick = null;
+  items.forEach(el=>{
+    el.onclick = ()=>{
+      if (el.classList.contains('matched-correct')) return;
+      if (!firstPick) { firstPick = el; el.classList.add('selected'); return; }
+      if (firstPick === el) { firstPick.classList.remove('selected'); firstPick = null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if (isMatch) {
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.onclick=null; });
+        wrap.dataset.correctCount = parseInt(wrap.dataset.correctCount) + 1;
+        scheduleSave();
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>[firstPick, el].forEach(x=>x.classList.remove('selected','wrong-flash')), 550);
+      }
+      firstPick = null;
+    };
+  });
+}
+
+function initBucketGroup(wrap){
+  let selectedChip = null;
+  wrap.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = ()=>{
+      if (chip.classList.contains('placed')) return;
+      wrap.querySelectorAll('.chip').forEach(c=>c.classList.remove('picked'));
+      selectedChip = chip; chip.classList.add('picked');
+    };
+  });
+  wrap.querySelectorAll('.bucket').forEach(bucket=>{
+    bucket.addEventListener('click', (e)=>{
+      if (e.target !== bucket && !e.target.classList.contains('bucket-drop')) return;
+      if (!selectedChip) return;
+      placeChip(selectedChip, bucket);
+      selectedChip = null;
+    });
+  });
+  // also allow clicking chip then bucket heading area via a dedicated drop zone
+  wrap.querySelectorAll('.bucket-drop').forEach(zone=>{
+    zone.addEventListener('click', ()=>{
+      if (!selectedChip) return;
+      placeChip(selectedChip, zone.closest('.bucket'));
+      selectedChip = null;
+    });
+  });
+}
+function placeChip(chip, bucket){
+  const correctGroup = chip.dataset.group;
+  const bucketGroup = bucket.dataset.group;
+  chip.classList.remove('picked');
+  chip.classList.add('placed');
+  chip.classList.add(correctGroup === bucketGroup ? 'placed-correct' : 'placed-wrong');
+  bucket.querySelector('.bucket-drop').appendChild(chip);
+  scheduleSave();
+}
+
+function checkProduction(ta){
+  const targets = ta.dataset.targets ? JSON.parse(ta.dataset.targets) : [];
+  const minWords = parseInt(ta.dataset.minwords || '4');
+  const text = normalize(ta.value);
+  const hasTarget = targets.length === 0 || targets.some(t=>text.includes(normalize(t)));
+  const longEnough = ta.value.trim().split(/\s+/).filter(Boolean).length >= minWords;
+  ta.classList.toggle('needs-review', !(hasTarget && longEnough));
+}
+
+
+const AUTOSAVE_KEY = 'angle_4d_classwork_v1';
+let autosaveTimer = null;
+
+function collectAutosaveState(){
+  const state = { name:'', page: current, fib:[], mcq:[], match:[], chips:[], prod:[], ticks:[] };
+  const nameInput = document.getElementById('studentName');
+  state.name = nameInput ? nameInput.value : '';
+  document.querySelectorAll('.fib').forEach(el=> state.fib.push(el.value));
+  document.querySelectorAll('.mcq').forEach(g=>{
+    const chosen = g.querySelector('.opt.chosen');
+    state.mcq.push(chosen ? chosen.dataset.val : null);
+  });
+  document.querySelectorAll('.match-cols').forEach(wrap=>{
+    const ids = Array.from(wrap.querySelectorAll('.match.matched-correct')).map(el=>el.dataset.id);
+    state.match.push([...new Set(ids)]);
+  });
+  document.querySelectorAll('.bucket-wrap').forEach(wrap=>{
+    const placements = [];
+    wrap.querySelectorAll('.chip').forEach(chip=>{
+      const bucketEl = chip.closest('.bucket');
+      const cls = chip.classList.contains('placed-correct') ? 'correct' : (chip.classList.contains('placed-wrong') ? 'wrong' : null);
+      placements.push({ text: chip.textContent.trim(), group: chip.dataset.group, bucketGroup: (cls && bucketEl) ? bucketEl.dataset.group : null, cls: cls });
+    });
+    state.chips.push(placements);
+  });
+  document.querySelectorAll('textarea.prod, textarea.notes').forEach(ta=> state.prod.push(ta.value));
+  document.querySelectorAll('.tick-row input[type=checkbox]').forEach(cb=> state.ticks.push(cb.checked));
+  return state;
+}
+
+function restoreAutosaveState(state){
+  if(!state) return;
+  const nameInput = document.getElementById('studentName');
+  if(nameInput && state.name) nameInput.value = state.name;
+
+  document.querySelectorAll('.fib').forEach((el,i)=>{ if(state.fib && state.fib[i]) el.value = state.fib[i]; });
+
+  document.querySelectorAll('.mcq').forEach((g,i)=>{
+    const val = state.mcq ? state.mcq[i] : null;
+    if(!val) return;
+    const opts = Array.from(g.querySelectorAll('.opt'));
+    const opt = opts.find(o=>o.dataset.val === val);
+    if(opt){ opts.forEach(o=>o.classList.remove('chosen')); opt.classList.add('chosen'); }
+  });
+
+  document.querySelectorAll('.match-cols').forEach((wrap,i)=>{
+    const ids = state.match ? state.match[i] : [];
+    if(!ids || !ids.length) return;
+    ids.forEach(id=>{
+      const els = Array.from(wrap.querySelectorAll('.match')).filter(el=>el.dataset.id===id);
+      if(els.length === 2){
+        els.forEach(el=>{ el.classList.remove('selected'); el.classList.add('matched-correct'); el.onclick=null; });
+        wrap.dataset.correctCount = parseInt(wrap.dataset.correctCount || 0) + 1;
+      }
+    });
+  });
+
+  document.querySelectorAll('.bucket-wrap').forEach((wrap,i)=>{
+    const placements = state.chips ? state.chips[i] : [];
+    if(!placements || !placements.length) return;
+    placements.forEach(p=>{
+      if(!p.cls) return;
+      const chip = Array.from(wrap.querySelectorAll('.chip')).find(c=> !c.classList.contains('placed') && c.textContent.trim()===p.text && c.dataset.group===p.group);
+      if(!chip) return;
+      const bucket = Array.from(wrap.querySelectorAll('.bucket')).find(b=>b.dataset.group === p.bucketGroup);
+      if(!bucket) return;
+      chip.classList.remove('picked');
+      chip.classList.add('placed');
+      chip.classList.add(p.cls === 'correct' ? 'placed-correct' : 'placed-wrong');
+      const drop = bucket.querySelector('.bucket-drop');
+      if(drop) drop.appendChild(chip);
+    });
+  });
+
+  document.querySelectorAll('textarea.prod, textarea.notes').forEach((ta,i)=>{
+    if(state.prod && state.prod[i]){ ta.value = state.prod[i]; if(ta.classList.contains('prod')) checkProduction(ta); }
+  });
+
+  document.querySelectorAll('.tick-row input[type=checkbox]').forEach((cb,i)=>{
+    if(state.ticks && typeof state.ticks[i] === 'boolean') cb.checked = state.ticks[i];
+  });
+
+  if(typeof state.page === 'number' && state.page > 0) showPage(state.page);
+}
+
+function saveNow(){
+  try{
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(collectAutosaveState()));
+    const ind = document.getElementById('autosaveIndicator');
+    if(ind){
+      const t = new Date();
+      const hh = t.getHours().toString().padStart(2,'0');
+      const mm = t.getMinutes().toString().padStart(2,'0');
+      ind.textContent = 'Saved ✓ ' + hh + ':' + mm + ' / Сохранено ✓ ' + hh + ':' + mm;
+    }
+  } catch(e){ /* storage unavailable (private browsing etc.) - fail silently */ }
+}
+function scheduleSave(){
+  clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(saveNow, 600);
+}
+function loadAutosave(){
+  try{
+    const raw = localStorage.getItem(AUTOSAVE_KEY);
+    if(!raw) return;
+    const state = JSON.parse(raw);
+    restoreAutosaveState(state);
+    const ind = document.getElementById('autosaveIndicator');
+    if(ind) ind.textContent = 'Restored previous answers / Восстановлены предыдущие ответы';
+  } catch(e){ /* ignore */ }
+}
+function clearAutosave(){
+  if(!confirm('Clear all your saved answers and start this worksheet over? / Очистить все сохранённые ответы и начать заново?')) return;
+  try{ localStorage.removeItem(AUTOSAVE_KEY); } catch(e){}
+  location.reload();
+}
+function initAutosaveListeners(){
+  document.addEventListener('input', (e)=>{
+    if(e.target.matches('.fib, textarea.prod, textarea.notes, #studentName')) scheduleSave();
+  });
+  document.addEventListener('change', (e)=>{
+    if(e.target.matches('.tick-row input[type=checkbox]')) scheduleSave();
+  });
+  window.addEventListener('beforeunload', saveNow);
+}
+
+
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function fuzzyMatch(value, acceptableList){
+  const v = normalize(value);
+  if(!v) return false;
+  return acceptableList.some(a => v === normalize(a) || (v.length>2 && v.includes(normalize(a))) || (normalize(a).length>2 && normalize(a).includes(v)));
+}
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q') || item.querySelector('p.blank-sentence');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  const p = el.closest('p');
+  if(p){
+    const siblings = Array.from(p.querySelectorAll('select, input'));
+    const idx = siblings.indexOf(el) + 1;
+    if(siblings.length) return `gap ${idx} of ${siblings.length}`;
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
+    total++;
+    let ok;
+    if(inp.dataset.accept){
+      ok = fuzzyMatch(inp.value, JSON.parse(inp.dataset.accept));
+    } else {
+      ok = normalize(inp.value) === normalize(inp.dataset.answer) && normalize(inp.value) !== '';
+    }
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
+  });
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    g.querySelectorAll('.opt').forEach(o=>{
+      if (o.dataset.val === g.dataset.correct) o.classList.add('is-correct');
+      else if (o === chosen) o.classList.add('is-wrong');
+    });
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs || 0);
+    const cor = parseInt(c.dataset.correctCount || 0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching) — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`); }
+  });
+
+  document.querySelectorAll('.bucket-wrap').forEach(wrap=>{
+    const chips = wrap.querySelectorAll('.chip');
+    if(!chips.length) return;
+    total += chips.length;
+    let corHere = 0;
+    chips.forEach(chip=>{
+      if(chip.classList.contains('placed-correct')) corHere++;
+      else if(!chip.classList.contains('placed-correct') && !chip.classList.contains('placed-wrong')){
+        // not placed at all -> count as wrong/blank
+      }
+    });
+    correct += corHere;
+    chips.forEach(chip=>{
+      if(!chip.classList.contains('placed-correct')){
+        wrongList.push(`${exTitle(chip)} — "${chip.textContent.trim()}" ${chip.classList.contains('placed-wrong') ? 'was placed in the wrong group.' : 'was not placed.'}`);
+      }
+    });
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+  showPage(document.querySelectorAll('.page').length - 1);
+  saveNow();
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+    fd.append('subject', document.title);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    const result = await res.json().catch(()=>({success:false}));
+    if(res.ok && result.success){
+      document.getElementById('submitStatus').textContent = 'Отправлено учителю ✓ / Sent to your teacher ✓';
+    } else {
+      document.getElementById('submitStatus').textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
+    }
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
+  }
+}
+
+</script>
