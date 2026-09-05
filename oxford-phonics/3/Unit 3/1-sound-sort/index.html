@@ -224,6 +224,18 @@ ul.clean li{ margin-bottom:6px; }
 }
 
 </style>
+<style>
+/* Voice recording widget — read the task aloud (added by Claude) */
+.rec-box{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:16px 0; padding:14px 16px; background:var(--card-tint); border:2px dashed var(--purple); border-radius:14px; }
+.rec-box .rec-label{ font-weight:800; color:var(--purple-dark); width:100%; margin-bottom:2px; }
+.rec-btn{ background:var(--wrong); color:#fff; border:none; border-radius:20px; padding:9px 18px; font-weight:800; cursor:pointer; font-size:.88em; font-family:inherit; }
+.rec-btn.recording{ background:#a83c2b; animation:rec-pulse 1.2s infinite; }
+@keyframes rec-pulse{ 0%,100%{opacity:1;} 50%{opacity:.6;} }
+audio.rec-playback{ display:none; height:34px; }
+.send-rec-btn{ background:var(--purple); color:#fff; border:none; border-radius:20px; padding:9px 18px; font-weight:800; cursor:pointer; font-size:.88em; font-family:inherit; }
+.send-rec-btn:disabled{ opacity:.5; cursor:not-allowed; }
+.rec-status{ width:100%; font-size:.85em; font-weight:700; color:var(--muted); }
+</style>
 </head>
 <body>
 <div class="angle-badge"><svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -303,8 +315,15 @@ ul.clean li{ margin-bottom:6px; }
         <div class="bucket-items"></div>
       </div>
     </div>
-  </div>
-  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+  <div class="rec-box">
+        <div class="rec-label">🎤 Now record yourself saying all 12 words above!</div>
+        <button class="rec-btn" id="voiceRec-recbtn" onclick="toggleVoiceRec()">🎤 Record</button>
+        <audio class="rec-playback" id="voiceRec-playback" controls></audio>
+        <button class="send-rec-btn" id="voiceRec-sendbtn" onclick="sendVoiceRecording()">📤 Send my recording</button>
+        <div class="rec-status" id="voiceRec-status"></div>
+      </div>
+</div>
+        <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
 
 
@@ -855,6 +874,79 @@ initMCQ();
 buildDots();
 showPage(0);
 restoreProgress();
+</script>
+<script>
+/* Voice recording widget — read the task aloud, send via Basin (added by Claude) */
+const BASIN_ENDPOINT = 'https://usebasin.com/f/6e8f507d4a7d';
+let voiceRecorder = null;
+let voiceBlob = null;
+async function toggleVoiceRec(){
+  const btn = document.getElementById('voiceRec-recbtn');
+  if(voiceRecorder && voiceRecorder.state==='recording'){
+    voiceRecorder.stop();
+    btn.textContent = '🎤 Record';
+    btn.classList.remove('recording');
+    return;
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const mr = new MediaRecorder(stream);
+    const chunks = [];
+    mr.ondataavailable = e=>{ if(e.data.size>0) chunks.push(e.data); };
+    mr.onstop = ()=>{
+      voiceBlob = new Blob(chunks, {type:'audio/webm'});
+      const url = URL.createObjectURL(voiceBlob);
+      const audioEl = document.getElementById('voiceRec-playback');
+      audioEl.src = url;
+      audioEl.style.display = 'inline-block';
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mr.start();
+    voiceRecorder = mr;
+    btn.textContent = '⏺ Recording… (tap to stop)';
+    btn.classList.add('recording');
+  }catch(err){
+    alert('Could not access the microphone: '+err.message+'\n\nTry a different browser, or ask your teacher for help.');
+  }
+}
+async function sendVoiceRecording(){
+  const nameInput = document.getElementById('studentName');
+  const name = (nameInput && nameInput.value.trim()) || '';
+  const status = document.getElementById('voiceRec-status');
+  const btn = document.getElementById('voiceRec-sendbtn');
+  if(!name){
+    if(nameInput) nameInput.focus();
+    alert('Please type your name at the top before sending your recording.');
+    return;
+  }
+  if(!voiceBlob){
+    status.textContent = 'Record your voice first — tap 🎤 Record above.';
+    status.style.color = 'var(--wrong)';
+    return;
+  }
+  btn.disabled = true;
+  status.style.color = 'var(--muted)';
+  status.textContent = 'Sending…';
+  try{
+    const fd = new FormData();
+    fd.append('course', 'Oxford Phonics World 3');
+    fd.append('exercise', document.title);
+    fd.append('student', name);
+    fd.append('date', new Date().toLocaleString('ru-RU'));
+    fd.append('reading_aloud', voiceBlob, name.replace(/\s+/g,'_')+'_reading_aloud.webm');
+    const res = await fetch(BASIN_ENDPOINT, { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    if(res.ok){
+      status.textContent = 'Sent to your teacher ✓';
+      status.style.color = 'var(--correct)';
+    } else {
+      throw new Error('bad response');
+    }
+  }catch(err){
+    status.textContent = 'Could not send — check your internet connection and try again.';
+    status.style.color = 'var(--wrong)';
+    btn.disabled = false;
+  }
+}
 </script>
 </body>
 </html>
