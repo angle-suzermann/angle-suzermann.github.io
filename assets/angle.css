@@ -70,6 +70,15 @@ header{
   clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
   text-align:center;
 }
+/* Материалы нового формата (пагинация, прогресс-бар, точки страниц) используют
+   свой белый липкий <header class="topbar">, а не фирменный фиолетовый блок
+   выше. Без этого сброса они наследуют его паддинг (96px/34px) и диагональную
+   обрезку — из-за этого шапка получается вдвое выше нужного. */
+header.topbar{
+  padding:0;
+  clip-path:none;
+  text-align:left;
+}
 header h1{
   font-size:var(--angle-h1-size);
   font-weight:800;
