@@ -51,6 +51,50 @@
   );
   var lastResults = null;
 
+  /* ---------- тиированный стикер результата (eggdog) ---------- */
+  /* Требует assets/sticker-data.js, подключённый ДО этого файла
+     (объект STICKER_DATA — base64 PNG по ключу стикера). Если его нет —
+     функции просто ничего не делают. */
+
+  var RESULT_TIERS = [
+    { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+    { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+    { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+    { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+    { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+    { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+  ];
+  var SILENT_STICKERS = { 'strawberry-a':1, 'strawberry-b':1, 'plain':1, 'strawberry-full':1 };
+
+  function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+  function getResultTier(pct){
+    for(var i=0;i<RESULT_TIERS.length;i++){ if(pct >= RESULT_TIERS[i].min) return RESULT_TIERS[i]; }
+    return RESULT_TIERS[RESULT_TIERS.length-1];
+  }
+
+  function renderResultSticker(pct){
+    var wrap = $('completionStickers');
+    if(!wrap || typeof STICKER_DATA === 'undefined') return;
+    var tier = getResultTier(pct);
+    var chosen = pickRandom(tier.stickers);
+
+    var imgs = wrap.querySelectorAll('.completion-sticker');
+    imgs.forEach(function(img){
+      var isBonus = img.getAttribute('data-tier') === 'awesome_is_banned';
+      var show = isBonus ? !!tier.bonus : (img.getAttribute('data-tier') === chosen);
+      if(show){
+        var key = img.getAttribute('data-tier');
+        if(STICKER_DATA[key]) img.src = STICKER_DATA[key];
+        img.hidden = false;
+      } else {
+        img.hidden = true;
+      }
+    });
+
+    var capEl = $('resultCaption');
+    if(capEl) capEl.textContent = SILENT_STICKERS[chosen] ? (tier.caption || '') : '';
+  }
+
   function normalize(str){
     return (str || '')
       .toLowerCase()
@@ -207,6 +251,8 @@
       breakdown.appendChild(span);
     });
 
+    renderResultSticker(percent);
+
     lastResults = {
       percent: percent,
       correct: correctCount,
@@ -271,6 +317,7 @@
       group:          group || '—',
       score_percent:  lastResults.percent + '%',
       score_fraction: lastResults.correct + ' / ' + lastResults.total,
+      result_tier:    getResultTier(lastResults.percent).label,
       breakdown:      lastResults.sections.map(function(s){
                         return s.name + ': ' + s.correct + '/' + s.total;
                       }).join('\n'),

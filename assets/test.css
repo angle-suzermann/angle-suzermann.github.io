@@ -423,6 +423,16 @@ img.pic-full{ width: 100%; max-width: 420px; height: auto; margin: 4px 0 16px; }
   border-radius: 8px;
 }
 
+/* ---- тиированный стикер результата (eggdog) ---- */
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:#F3F6EE; opacity:.85; margin-top:6px; }
+
 /* ---- отправка результата учителю ---- */
 
 .send-btn{
