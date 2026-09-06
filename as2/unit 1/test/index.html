@@ -130,15 +130,18 @@ input.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); }
 .as-sticker{ position:fixed; right:20px; bottom:20px; z-index:9999; pointer-events:none; width:96px; filter:drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
 .as-sticker img{ width:100%; height:auto; display:block; }
 
-.completion-sticker{ display:none; justify-content:center; margin:16px 0 4px; }
-.completion-sticker.show{ display:flex; animation:eggpop .6s cubic-bezier(.34,1.56,.64,1); }
-.completion-sticker img{ width:160px; height:auto; filter:drop-shadow(0 8px 18px rgba(0,0,0,.28)); }
-@keyframes eggpop{ 0%{ transform:scale(0) rotate(-8deg); opacity:0; } 60%{ transform:scale(1.12) rotate(3deg); opacity:1; } 100%{ transform:scale(1) rotate(0deg); opacity:1; } }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
 @media (max-width:600px){
   .match-cols{ gap:16px; }
   .as-sticker{ width:68px; right:12px; bottom:12px; }
-  .completion-sticker img{ width:120px; }
   .angle-badge .wordmark{ width:90px; }
 }
 </style>
@@ -325,7 +328,31 @@ input.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); }
         <div class="results-percent" id="resultsPercent"></div>
         <div class="results-fraction" id="resultsFraction"></div>
         <div class="results-breakdown" id="resultsBreakdown"></div>
-        <div class="completion-sticker" id="completionSticker"><img id="completionStickerImg" src="" alt=""></div>
+        <div class="completion-stickers" id="completionStickers">
+          <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+          <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+          <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+          <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+          <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+          <img class="completion-sticker" data-tier="fire" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+          <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+          <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+        </div>
+        <p id="resultCaption" class="result-caption"></p>
       </div>
       <div id="submitStatus"></div>
       <div class="nav-btns" style="margin-top:18px;"><a href="#" id="resetLink" onclick="clearProgress();return false;" style="font-size:.8rem;color:var(--muted);">Start over (clear saved answers)</a></div>
@@ -345,6 +372,7 @@ input.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); }
 
 <div class="as-sticker"><img src="img/img10.png" alt="Academy Stars — Second Edition"></div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
 const COURSE_NAME = "Academy Stars 2";
 const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
@@ -437,16 +465,30 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
-function showCompletionSticker(pct){
-  const img = document.getElementById('completionStickerImg');
-  const wrap = document.getElementById('completionSticker');
-  if(!img || !wrap) return;
-  let file, alt;
-  if(pct >= 90){ file = 'img/img11.png'; alt = 'Eggcellent! Great job!'; }
-  else if(pct >= 60){ file = 'img/img12.png'; alt = 'Good vibes — nice work!'; }
-  else { file = 'img/img13.png'; alt = 'Keep practising — you can do it!'; }
-  img.src = file; img.alt = alt;
-  wrap.classList.remove('show'); void wrap.offsetWidth; wrap.classList.add('show');
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const wrap = document.getElementById('completionStickers');
+  if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+    else { img.hidden = true; }
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
 }
 
 async function submitAll(){
@@ -493,7 +535,7 @@ async function submitAll(){
   document.getElementById('resultsFraction').textContent = `${nameInput.value.trim()} — score: ${correct} / ${total}`;
   // Mistake breakdown is not shown to the student — it goes to the teacher by email only.
   document.getElementById('resultsPanel').classList.add('show');
-  showCompletionSticker(pct);
+  renderResultSticker(pct);
 
   try{
     const fd = new FormData();
@@ -502,6 +544,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
