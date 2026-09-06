@@ -105,7 +105,14 @@ textarea.prod.is-wrong{ border-color:var(--wrong); background:#fdf3f2; }
 .angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
 .angle-badge .wordmark{ width:120px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
-@media (max-width:600px){ .angle-badge .wordmark{ width:90px; } }
+.as-sticker{ position:fixed; right:20px; bottom:20px; z-index:9999; pointer-events:none; width:96px; filter:drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
+.as-sticker img{ width:100%; height:auto; display:block; }
+
+.completion-sticker{ display:none; justify-content:center; margin:16px 0 4px; }
+.completion-sticker.show{ display:flex; animation:eggpop .6s cubic-bezier(.34,1.56,.64,1); }
+.completion-sticker img{ width:160px; height:auto; filter:drop-shadow(0 8px 18px rgba(0,0,0,.28)); }
+@keyframes eggpop{ 0%{ transform:scale(0) rotate(-8deg); opacity:0; } 60%{ transform:scale(1.12) rotate(3deg); opacity:1; } 100%{ transform:scale(1) rotate(0deg); opacity:1; } }
+@media (max-width:600px){ .angle-badge .wordmark{ width:90px; } .as-sticker{ width:68px; right:12px; bottom:12px; } .completion-sticker img{ width:120px; } }
 </style>
 </head>
 <body>
@@ -270,6 +277,7 @@ textarea.prod.is-wrong{ border-color:var(--wrong); background:#fdf3f2; }
         <div class="results-percent" id="resultsPercent"></div>
         <div class="results-fraction" id="resultsFraction"></div>
         <div class="results-breakdown" id="resultsBreakdown"></div>
+        <div class="completion-sticker" id="completionSticker"><img id="completionStickerImg" src="" alt=""></div>
       </div>
       <div id="submitStatus"></div>
       <div class="nav-btns" style="margin-top:18px;"><a href="#" id="resetLink" onclick="clearProgress();return false;" style="font-size:.8rem;color:var(--muted);">Start over (clear saved answers)</a></div>
@@ -286,6 +294,8 @@ textarea.prod.is-wrong{ border-color:var(--wrong); background:#fdf3f2; }
   </svg>
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
+
+<div class="as-sticker"><img src="img/img3.png" alt="Academy Stars — Second Edition"></div>
 
 <script>
 const COURSE_NAME = "Academy Stars 5";
@@ -350,6 +360,18 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
+function showCompletionSticker(pct){
+  const img = document.getElementById('completionStickerImg');
+  const wrap = document.getElementById('completionSticker');
+  if(!img || !wrap) return;
+  let file, alt;
+  if(pct >= 90){ file = 'img/img4.png'; alt = 'Eggcellent! Great job!'; }
+  else if(pct >= 60){ file = 'img/img5.png'; alt = 'Good vibes — nice work!'; }
+  else { file = 'img/img6.png'; alt = 'Keep practising — you can do it!'; }
+  img.src = file; img.alt = alt;
+  wrap.classList.remove('show'); void wrap.offsetWidth; wrap.classList.add('show');
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); showPage(0); alert('Please type your name at the top before submitting.'); return; }
@@ -398,8 +420,9 @@ async function submitAll(){
   const pct = total ? Math.round(correct/total*100) : 0;
   document.getElementById('resultsPercent').textContent = pct + '%';
   document.getElementById('resultsFraction').textContent = `${nameInput.value.trim()} — score: ${correct} / ${total}`;
-  document.getElementById('resultsBreakdown').textContent = wrongList.length ? 'To review:\n' + wrongList.join('\n') : 'All correct — well done!';
+  // Mistake breakdown is not shown to the student — it goes to the teacher by email only.
   document.getElementById('resultsPanel').classList.add('show');
+  showCompletionSticker(pct);
 
   try{
     const fd = new FormData();

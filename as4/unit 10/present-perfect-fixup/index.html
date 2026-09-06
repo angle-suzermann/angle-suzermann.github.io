@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Present Perfect — Verb Form Fix-Up</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 4">
+<meta name="ws:course-id" content="as4">
+<meta name="ws:unit"      content="10">
+<meta name="ws:title"     content="Unit 10 — Present Perfect — Verb Form Fix-Up">
+<meta name="ws:emoji"     content="🛠️">
+<meta name="ws:date"      content="2026-09-06">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xeeyrowk">
+<meta name="ws:tags"      content="present perfect, grammar, verb forms, unit 10">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  
+  
+
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  background:var(--black); color:var(--text); line-height:1.55; min-height:100vh;
+}
+.bg-photo{
+  position:fixed; inset:0; z-index:0;
+  background-image:url('img/img1.jpg');
+  background-size:cover; background-position:center 42%; opacity:0.5;
+}
+.bg-wash{
+  position:fixed; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(20,14,25,.4), rgba(69,52,88,.8));
+}
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:820px; margin:0 auto; padding:6px 18px 11px; }
+h1{ color:#5E4877; font-size:13pt; font-weight:800; margin:3px 0 0; padding-bottom:1px; border-bottom:2px solid #FED500; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.lesson-title{ font-weight:700; color:#5E4877; font-size:1.02rem; display:block; }
+.lesson-sub{ font-weight:400; color:#453458; font-size:.78rem; display:block; }
+.hero{ color:#fff; text-align:center; padding:30px 10px 6px; }
+.hero .tag{
+  display:inline-block; background:var(--yellow); color:var(--black); font-weight:700; font-size:.72rem;
+  padding:3px 10px; border-radius:20px; letter-spacing:.03em; text-transform:uppercase;
+}
+.hero h1{ font-size:1.8rem; margin:10px 0 6px; color:#fff; border:none; padding:0; text-shadow:0 2px 12px rgba(0,0,0,.5); }
+.hero p{ color:#f0e9f7; font-size:.95rem; margin:0; }
+h2{ color:#5E4877; font-size:13.5pt; font-weight:700; margin:0 0 4px; border-left:4px solid #FED500; padding-left:10px; }
+h3{ color:#453458; font-size:11.5pt; font-weight:700; margin:0 0 4px; }
+.util-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:2px; flex-wrap:wrap; }
+.namebar{ display:flex; align-items:center; gap:5px; font-size:.72rem; }
+.namebar label{ color:var(--muted); }
+.namebar input{
+  font-family:inherit; font-size:.78rem; padding:3px 8px; border:1.5px solid var(--border);
+  border-radius:6px; outline:none; min-width:130px;
+}
+.namebar input:focus{ border-color:var(--purple); }
+.save-indicator{ font-size:.64rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+.progress-track{ flex:1; height:5px; background:var(--border); border-radius:4px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:25%; transition:width .3s ease; }
+.progress-label{ font-size:.64rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:7px; margin-top:6px; flex-wrap:wrap; }
+.page-dot{
+  width:27px; height:27px; border-radius:50%; background:var(--border); color:var(--purple-dark);
+  font-size:.85rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; border:1.5px solid transparent;
+}
+.page-dot.active{ background:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; z-index:2; max-width:820px; margin:0 auto; padding:22px 18px 60px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  padding:22px 24px; margin-bottom:18px; box-shadow:0 2px 10px rgba(45,25,60,.05);
+}
+.card h2{ color:#5E4877; margin:0 0 4px; font-size:13.5pt; font-weight:700; border-left:4px solid #FED500; padding-left:10px; }
+.card .lead{ color:var(--muted); font-size:.92rem; margin:0 0 16px; }
+
+.rule-box{
+  background:var(--card-tint); border:1.5px solid var(--purple); border-radius:10px;
+  padding:14px 16px; margin:14px 0; font-size:.94rem;
+}
+.rule-box b{ color:var(--purple-dark); }
+.rule-box .no{ color:var(--wrong); font-weight:700; }
+.rule-box .yes{ color:var(--correct); font-weight:700; }
+
+.compare-row{ display:flex; gap:14px; flex-wrap:wrap; margin:12px 0; }
+.compare-item{
+  flex:1; min-width:220px; border-radius:10px; padding:12px 14px; font-size:.94rem;
+  border:1.5px solid var(--border);
+}
+.compare-item.bad{ background:#fdf0ee; border-color:#f0c4bc; }
+.compare-item.good{ background:#eef8f1; border-color:#bfe4cb; }
+.compare-item .tag{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; display:block; margin-bottom:4px; }
+.compare-item.bad .tag{ color:var(--wrong); }
+.compare-item.good .tag{ color:var(--correct); }
+.compare-item .sent{ font-weight:600; display:block; }
+.compare-item .why{ font-size:.8rem; color:var(--muted); margin-top:4px; display:block; }
+
+.item{ margin:14px 0; padding:12px 0; border-bottom:1px solid var(--border); }
+.item:last-child{ border-bottom:none; }
+p.q{ margin:0 0 8px; }
+.qnum{ color:var(--purple); font-weight:700; margin-right:4px; }
+.orig{ font-size:.82rem; color:var(--muted); font-style:italic; margin:2px 0 8px; }
+.orig .strike{ text-decoration:line-through; color:var(--wrong); }
+
+input.fib{
+  font-family:inherit; font-size:.95rem; padding:5px 9px; border:none; border-bottom:2.5px solid var(--purple);
+  background:transparent; width:130px; text-align:center; outline:none; color:var(--text); font-weight:600;
+}
+input.fib:focus{ border-bottom-color:var(--yellow); background:var(--card-tint); }
+input.fib.is-correct{ border-bottom-color:var(--correct); background:#eef8f1; }
+input.fib.is-wrong{ border-bottom-color:var(--wrong); background:#fdf0ee; }
+
+.mcq{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+.opt{
+  font-family:inherit; font-size:.88rem; padding:8px 14px; border-radius:20px; border:1.5px solid var(--border);
+  background:#fff; cursor:pointer; color:var(--text); font-weight:600;
+}
+.opt:hover{ border-color:var(--purple); }
+.opt.chosen{ border-color:var(--purple); background:var(--card-tint); }
+.opt.correct{ background:#eef8f1; border-color:var(--correct); color:var(--correct); }
+.opt.wrong{ background:#fdf0ee; border-color:var(--wrong); color:var(--wrong); }
+
+textarea{
+  width:100%; min-height:64px; font-family:inherit; font-size:.92rem; padding:10px 12px;
+  border:1.5px solid var(--border); border-radius:8px; resize:vertical; outline:none;
+}
+textarea:focus{ border-color:var(--purple); }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; }
+button.nav{
+  font-family:inherit; font-weight:700; font-size:.9rem; padding:10px 20px; border-radius:24px;
+  border:1.5px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer;
+}
+button.nav.primary{ background:var(--purple); color:#fff; }
+button.nav:hover{ opacity:.88; }
+button.nav[disabled]{ visibility:hidden; }
+
+.check-bar{ text-align:center; margin-top:8px; }
+button.check-btn{
+  font-family:inherit; font-weight:800; font-size:1rem; padding:14px 30px; border-radius:28px;
+  border:none; background:var(--yellow); color:var(--black); cursor:pointer;
+}
+button.check-btn:hover{ opacity:.9; }
+
+#scoreSummary{
+  background:#fff; border:2px solid var(--purple); border-radius:12px; padding:16px 20px;
+  margin-top:16px; font-size:1.05rem; text-align:center;
+}
+#submitStatus{ text-align:center; font-size:.85rem; color:var(--muted); margin-top:8px; }
+.completion-sticker{ display:block; margin:8px auto 0; width:190px; height:auto; opacity:0; }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker.show{ animation:stickerPop .5s cubic-bezier(.34,1.56,.64,1) forwards; }
+@keyframes stickerPop{
+  0%{ opacity:0; transform:scale(.35) rotate(-10deg); }
+  60%{ opacity:1; transform:scale(1.08) rotate(3deg); }
+  100%{ opacity:1; transform:scale(1) rotate(0deg); }
+}
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.hint{ font-size:.78rem; color:var(--muted); margin-top:4px; }
+
+/* Graphic Grammar-style block diagram (same visual language as Academy Stars 4's
+   own Graphic Grammar reference, Unit 10) */
+:root{
+  --gg-pronoun:#B9A6E0; --gg-verb:#5BC8E8; --gg-neg:#EF6152; --gg-noun:#FFD34D;
+  --gg-poss:#2E9E93; --gg-art:#4CAF7D; --gg-conj:#E0609A; --gg-ink:#2D2926;
+}
+.gg-panel{ background:#eef4f2; border:1px solid #d7e6e1; border-radius:12px; padding:16px 18px 18px; margin:16px 0; }
+.gg-panel .gg-intro{ font-size:.86rem; color:var(--muted); margin:0 0 12px; }
+.gg-key{ display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:16px; font-size:.72rem; color:var(--muted); }
+.gg-key span{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+.gg-key i{ width:13px; height:13px; border-radius:3px; display:inline-block; }
+.gg-row-label{ font-size:11.5pt; font-weight:700; color:#453458; margin:14px 0 6px; text-transform:uppercase; letter-spacing:.03em; }
+.gg-row-label:first-of-type{ margin-top:0; }
+.gg-sentence{ display:flex; flex-wrap:wrap; align-items:center; margin:6px 0; row-gap:8px; }
+.gg-clause{ display:inline-flex; flex-wrap:nowrap; align-items:center; }
+.gg-block{
+  display:inline-flex; align-items:center; white-space:nowrap;
+  font-weight:800; font-size:.85rem; color:var(--gg-ink);
+  padding:7px 20px 7px 15px; position:relative;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+}
+.gg-block + .gg-block{ margin-left:-9px; }
+.gg-arrow{ margin:0 12px; color:var(--purple); font-size:1.2rem; font-weight:700; align-self:center; }
+
+/* ANGLE sticky badge (opt-in, added on request) */
+.angle-badge{
+  position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none;
+  display:flex; flex-direction:column; align-items:flex-start; opacity:0.9;
+  transition:color 0.15s ease;
+}
+.angle-badge.on-light{ color:var(--purple); }
+.angle-badge.on-dark{ color:var(--yellow); }
+.angle-badge .wordmark{ width:96px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; font-weight:400; font-size:10px; letter-spacing:.2px; }
+
+/* Course logo sticker, bottom-right (mirrors the ANGLE badge, opt-in per course) */
+.course-badge{
+  position:fixed; right:18px; bottom:14px; z-index:9998; pointer-events:none;
+  width:104px; height:auto; display:block;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+</style>
+</head>
+<body>
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div>
+        <span class="lesson-title">Present Perfect: fix the verb form</span>
+        <span class="lesson-sub">Academy Stars 4 · Unit 10</span>
+      </div>
+      <div class="util-row">
+        <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"></div>
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 4</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap" data-badge-contrast="light">
+
+<div class="restore-note" id="restoreNote" hidden>
+  <span id="restoreNoteText"></span>
+  <button onclick="clearProgress()">Start over (clear saved answers)</button>
+</div>
+
+<!-- PAGE 0: Notice the pattern -->
+<section class="page active" data-page="0">
+  <div class="hero" data-badge-contrast="dark">
+    <span class="tag">ANGLE · студия системного английского</span>
+    <h1>Present Perfect: fix the verb form</h1>
+    <p>Academy Stars 4 · Unit 10 · Practice after Workbook p.105 — ANGLE</p>
+  </div>
+  <div class="card">
+    <h2>Что пошло не так?</h2>
+    <p class="lead">В домашке про список дел Вики закралась одна и та же ошибка несколько раз. Давай найдём закономерность.</p>
+
+    <div class="compare-row">
+      <div class="compare-item bad"><span class="tag">В тетради</span><span class="sent">she's phone Jane</span></div>
+      <div class="compare-item good"><span class="tag">Правильно</span><span class="sent">she's phoned Jane</span><span class="why">phone → phoned (просто +ed)</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-item bad"><span class="tag">В тетради</span><span class="sent">Peter and Freddy have play football</span></div>
+      <div class="compare-item good"><span class="tag">Правильно</span><span class="sent">Peter and Freddy have played football</span><span class="why">play → played (просто +ed)</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-item bad"><span class="tag">В тетради</span><span class="sent">Jane has find a butterfly</span></div>
+      <div class="compare-item good"><span class="tag">Правильно</span><span class="sent">Jane has found a butterfly</span><span class="why">find → found (не по правилу! это неправильный глагол)</span></div>
+    </div>
+
+    <div class="rule-box">
+      <b>Present Perfect = have / has + 3-я форма глагола (Past Participle)</b><br><br>
+      Правильные (regular) глаголы: просто добавляем <b>-ed</b><br>
+      phone → phon<b>ed</b> · play → play<b>ed</b> · wash → wash<b>ed</b> · clean → clean<b>ed</b> · finish → finish<b>ed</b><br><br>
+      Неправильные (irregular) глаголы: особая форма, её нужно запомнить<br>
+      find → <b>found</b> · make → <b>made</b> · read → <b>read</b><br><br>
+      <span class="no">✗ После have/has НЕЛЬЗЯ оставлять глагол в начальной форме:</span> have find, has phone, have play<br>
+      <span class="yes">✓ Только 3-я форма:</span> have found, has phoned, have played
+    </div>
+
+    <div class="rule-box">
+      <b>Отрицание — тоже не то же самое, что с to be</b><br><br>
+      <span class="no">✗ she's not read her English book</span> — так делают отрицание у to be/Present Continuous, но не у Present Perfect<br>
+      <span class="yes">✓ she hasn't read her English book</span><br><br>
+      she/he/it → <b>hasn't</b> (has not) · I/you/we/they → <b>haven't</b> (have not)
+    </div>
+
+    <div class="gg-panel">
+      <p class="gg-intro">Точно так же это устройство показано в грамматическом справочнике твоего учебника (<i>Academy Stars 4</i>, Graphic Grammar reference, Unit 10):</p>
+      <div class="gg-key">
+        <span><i style="background:var(--gg-pronoun)"></i>pronoun</span>
+        <span><i style="background:var(--gg-verb)"></i>verb</span>
+        <span><i style="background:var(--gg-neg)"></i>negative verb</span>
+        <span><i style="background:var(--gg-noun)"></i>noun</span>
+        <span><i style="background:var(--gg-poss)"></i>possessive adj.</span>
+        <span><i style="background:var(--gg-art)"></i>article</span>
+        <span><i style="background:var(--gg-conj)"></i>conjunction</span>
+      </div>
+
+      <div class="gg-row-label">he / she</div>
+      <div class="gg-sentence">
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-pronoun); z-index:3">She</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">has</span><span class="gg-block" style="background:var(--gg-verb); z-index:1">phoned</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">Jane</span><span>.</span></span>
+        <span class="gg-arrow">➜</span>
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-pronoun); z-index:3">She's</span><span class="gg-block" style="background:var(--gg-verb); z-index:1">phoned</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">Jane</span><span>.</span></span>
+      </div>
+      <div class="gg-sentence">
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-pronoun); z-index:5">She</span><span class="gg-block" style="background:var(--gg-verb); z-index:4">has</span><span class="gg-block" style="background:var(--gg-neg); z-index:3">not</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">read</span><span class="gg-block" style="background:var(--gg-poss); z-index:1">her</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">book</span><span>.</span></span>
+        <span class="gg-arrow">➜</span>
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-pronoun); z-index:5">She</span><span class="gg-block" style="background:var(--gg-neg); z-index:4">hasn't</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">read</span><span class="gg-block" style="background:var(--gg-poss); z-index:1">her</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">book</span><span>.</span></span>
+      </div>
+
+      <div class="gg-row-label">Peter and Freddy (they)</div>
+      <div class="gg-sentence">
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-noun); z-index:6">Peter</span><span class="gg-block" style="background:var(--gg-conj); z-index:5">and</span><span class="gg-block" style="background:var(--gg-noun); z-index:4">Freddy</span><span class="gg-block" style="background:var(--gg-verb); z-index:3">have</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">played</span><span class="gg-block" style="background:var(--gg-noun); z-index:1">football</span><span>.</span></span>
+      </div>
+      <div class="gg-sentence">
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-noun); z-index:7">Peter</span><span class="gg-block" style="background:var(--gg-conj); z-index:6">and</span><span class="gg-block" style="background:var(--gg-noun); z-index:5">Freddy</span><span class="gg-block" style="background:var(--gg-verb); z-index:4">have</span><span class="gg-block" style="background:var(--gg-neg); z-index:3">not</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">found</span><span class="gg-block" style="background:var(--gg-art); z-index:1">the</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">butterfly</span><span>.</span></span>
+        <span class="gg-arrow">➜</span>
+        <span class="gg-clause"><span class="gg-block" style="background:var(--gg-noun); z-index:7">Peter</span><span class="gg-block" style="background:var(--gg-conj); z-index:6">and</span><span class="gg-block" style="background:var(--gg-noun); z-index:5">Freddy</span><span class="gg-block" style="background:var(--gg-neg); z-index:4">haven't</span><span class="gg-block" style="background:var(--gg-verb); z-index:2">found</span><span class="gg-block" style="background:var(--gg-art); z-index:1">the</span><span class="gg-block" style="background:var(--gg-noun); z-index:0">butterfly</span><span>.</span></span>
+      </div>
+    </div>
+
+    <p style="font-weight:600; color:var(--purple-dark); margin-top:16px;">Выбери правильный вариант:</p>
+    <div class="item">
+      <p class="q"><span class="qnum">1.</span> She ___ her homework.</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">has finish</button>
+        <button class="opt" data-val="b">has finished</button>
+        <button class="opt" data-val="c">have finished</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">2.</span> She ___ her book yet.</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">isn't read</button>
+        <button class="opt" data-val="b">hasn't read</button>
+        <button class="opt" data-val="c">doesn't read</button>
+      </div>
+    </div>
+
+    <div class="nav-btns"><button class="nav" disabled>← Back</button><button class="nav primary" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 1: Practice with the same verbs -->
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Задание 1. Выбери правильную форму</h2>
+    <p class="lead">Те же глаголы, что были в домашке — потренируемся ещё раз.</p>
+
+    <div class="item">
+      <p class="q"><span class="qnum">1.</span> He ___ Jane already.</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">has phone</button>
+        <button class="opt" data-val="b">has phoned</button>
+        <button class="opt" data-val="c">have phoned</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">2.</span> They ___ football yet.</p>
+      <div class="mcq" data-correct="c">
+        <button class="opt" data-val="a">haven't play</button>
+        <button class="opt" data-val="b">hasn't played</button>
+        <button class="opt" data-val="c">haven't played</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">3.</span> We ___ a great cake!</p>
+      <div class="mcq" data-correct="a">
+        <button class="opt" data-val="a">have made</button>
+        <button class="opt" data-val="b">have make</button>
+        <button class="opt" data-val="c">has made</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">4.</span> She ___ her goggles anywhere.</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">hasn't find</button>
+        <button class="opt" data-val="b">hasn't found</button>
+        <button class="opt" data-val="c">haven't found</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">5.</span> They ___ an interesting butterfly.</p>
+      <div class="mcq" data-correct="c">
+        <button class="opt" data-val="a">has find</button>
+        <button class="opt" data-val="b">have find</button>
+        <button class="opt" data-val="c">have found</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">6.</span> I ___ my room — it's still messy.</p>
+      <div class="mcq" data-correct="a">
+        <button class="opt" data-val="a">haven't cleaned</button>
+        <button class="opt" data-val="b">hasn't cleaned</button>
+        <button class="opt" data-val="c">haven't clean</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">7.</span> She ___ the car — look how shiny it is!</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">has wash</button>
+        <button class="opt" data-val="b">has washed</button>
+        <button class="opt" data-val="c">have washed</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">8.</span> <i>Хитрый вопрос:</i> she ___ her English book yet.</p>
+      <div class="mcq" data-correct="a">
+        <button class="opt" data-val="a">hasn't read</button>
+        <button class="opt" data-val="b">hasn't readed</button>
+        <button class="opt" data-val="c">haven't read</button>
+      </div>
+      <p class="hint">read → read (пишется одинаково в обеих формах, но 3-я форма читается как «red»)</p>
+    </div>
+
+    <div class="nav-btns"><button class="nav" onclick="prevPage()">← Back</button><button class="nav primary" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 2: Fix Vicky's real sentences -->
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Задание 2. Исправь предложения из домашки</h2>
+    <p class="lead">Это твои настоящие предложения про список дел Вики и про Питера с Фредди. Вспомогательный глагол (has/hasn't/have/haven't) уже правильный — впиши только верную форму глагола в скобках.</p>
+
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">she's not read her English book</span></p>
+      <p class="q"><span class="qnum">1.</span> She hasn't <input type="text" class="fib" data-answer="read" style="width:110px"> (read) her English book yet.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">she's phone Jane</span></p>
+      <p class="q"><span class="qnum">2.</span> She's <input type="text" class="fib" data-answer="phoned" style="width:110px"> (phone) Jane.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">she's not find my goggles</span></p>
+      <p class="q"><span class="qnum">3.</span> She hasn't <input type="text" class="fib" data-answer="found" style="width:110px"> (find) my goggles.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">Jane hasn't playng footbal</span></p>
+      <p class="q"><span class="qnum">4.</span> Jane hasn't <input type="text" class="fib" data-answer="played" style="width:110px"> (play) football.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">Peter and Freddy have play footbal</span> — а тут почти всё верно!</p>
+      <p class="q"><span class="qnum">5.</span> Peter and Freddy have <input type="text" class="fib" data-answer="played" style="width:110px"> (play) football.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">Jane has find an interesting butterfly</span></p>
+      <p class="q"><span class="qnum">6.</span> Jane has <input type="text" class="fib" data-answer="found" style="width:110px"> (find) an interesting butterfly.</p>
+    </div>
+    <div class="item">
+      <p class="orig">Было в тетради: <span class="strike">Peter and Freddy haven't find an interesting butterfly</span></p>
+      <p class="q"><span class="qnum">7.</span> Peter and Freddy haven't <input type="text" class="fib" data-answer="found" style="width:110px"> (find) an interesting butterfly.</p>
+    </div>
+
+    <div class="nav-btns"><button class="nav" onclick="prevPage()">← Back</button><button class="nav primary" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- PAGE 3: Free production + submit -->
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Задание 3. Придумай сам(а)</h2>
+    <p class="lead">Напиши одно предложение в Present Perfect с каждым глаголом. Не забудь про правильную форму!</p>
+
+    <div class="item">
+      <p class="q"><span class="qnum">1.</span> Придумай предложение с глаголом <b>clean</b> (regular — не забудь -ed):</p>
+      <textarea data-prod="clean" placeholder="e.g. I have cleaned my room."></textarea>
+    </div>
+    <div class="item">
+      <p class="q"><span class="qnum">2.</span> Придумай предложение с глаголом <b>find</b> (irregular! find → found):</p>
+      <textarea data-prod="find" placeholder="e.g. She has found her keys."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="check-bar">
+      <button class="check-btn" onclick="submitAll()">Проверить и отправить учителю</button>
+    </div>
+    <div id="scoreSummary" hidden></div>
+    <div id="submitStatus"></div>
+    <img id="stickerHigh" class="completion-sticker" alt="Eggcellent!" hidden src="img/img2.png">
+    <img id="stickerMid" class="completion-sticker" alt="Good vibes!" hidden src="img/img3.png">
+    <img id="stickerLow" class="completion-sticker" alt="Keep going" hidden src="img/img4.png">
+  </div>
+
+  <div class="nav-btns"><button class="nav" onclick="prevPage()">← Back</button><button class="nav" disabled>Next →</button></div>
+</section>
+
+</div>
+
+<script>
+const PAGE_LABELS = ["Заметили закономерность","Тренировка","Исправь свою домашку","Придумай сам(а)"];
+let current = 0;
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+document.querySelectorAll('.mcq .opt').forEach(btn=>{
+  btn.onclick = ()=>{
+    const group = btn.closest('.mcq');
+    group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen','correct','wrong'));
+    btn.classList.add('chosen');
+    const correctVal = group.dataset.correct;
+    if(btn.dataset.val === correctVal){
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      const correctBtn = group.querySelector(`.opt[data-val="${correctVal}"]`);
+      if(correctBtn) correctBtn.classList.add('correct');
+    }
+    scheduleSave();
+  };
+});
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ANGLE — Academy Stars 4, Unit 10 (Present Perfect verb-form drill)';
+
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Сначала впиши своё имя вверху страницы.'); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
+    total++;
+    const ok = normalize(inp.value) === normalize(inp.dataset.answer);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
+  });
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+      g.querySelectorAll('.opt').forEach(o=>{
+        if (o.dataset.val === g.dataset.correct) o.classList.add('correct');
+        else if (o === chosen) o.classList.add('wrong');
+      });
+    }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — результат: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  const stickerId = pct >= 90 ? 'stickerHigh' : pct >= 60 ? 'stickerMid' : 'stickerLow';
+  const sticker = document.getElementById(stickerId);
+  sticker.hidden = false;
+  // restart the pop-in animation even if this is a second submit
+  sticker.classList.remove('show');
+  void sticker.offsetWidth;
+  sticker.classList.add('show');
+
+  const productions = [...document.querySelectorAll('textarea[data-prod]')].map(t=>`${t.dataset.prod}: ${t.value.trim() || '(пусто)'}`).join('\n');
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('own_sentences', productions);
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Отправлено учителю ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Не получилось отправить — проверь интернет и попробуй ещё раз.';
+  }
+  scheduleSave();
+}
+
+const PROGRESS_KEY = 'angle_progress::present-perfect-verb-form-drill';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn){
+      g.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen','correct','wrong'));
+      btn.classList.add('chosen');
+      const correctVal = g.dataset.correct;
+      if(val === correctVal){
+        btn.classList.add('correct');
+      } else {
+        btn.classList.add('wrong');
+        const correctBtn = g.querySelector(`.opt[data-val="${correctVal}"]`);
+        if(correctBtn) correctBtn.classList.add('correct');
+      }
+    }
+  });
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const hasContent = state.fib?.some(v=>v) || state.mcq?.some(v=>v!=null) || state.textareas?.some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Нашли сохранённые ответы от ${when || 'предыдущей сессии'} — заполнили их обратно.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('Все сохранённые ответы на этом устройстве будут удалены. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt')) scheduleSave(); });
+
+buildDots();
+showPage(0);
+restoreProgress();
+
+document.addEventListener('DOMContentLoaded', function(){
+  // The badge markup sits after this script in the HTML, so its lookup
+  // must wait until the DOM is parsed. The page background (photo + wash)
+  // is fixed and dark everywhere; only the white .card islands (inside
+  // .page-wrap) are light. The badge sits in the page's own left margin
+  // on wide screens, so a purely vertical "which section's band contains
+  // the badge" check is wrong — it must check the actual point (x and y),
+  // since page-wrap is a centered, narrower column and does not span the
+  // full viewport width.
+  var badge = document.querySelector('.angle-badge');
+  if (!badge) return;
+  function update(){
+    var r = badge.getBoundingClientRect();
+    var px = r.left + r.width/2;
+    var py = r.top + r.height/2;
+    var el = document.elementFromPoint(px, py);
+    var hit = el ? el.closest('[data-badge-contrast]') : null;
+    var mode = hit ? hit.getAttribute('data-badge-contrast') : 'dark';
+    badge.classList.toggle('on-light', mode === 'light');
+    badge.classList.toggle('on-dark', mode === 'dark');
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+});
+</script>
+
+<div class="angle-badge on-light">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+      <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+<img class="course-badge" alt="Academy Stars 4 · Second Edition" src="img/img5.png">
+
+</body>
+</html>
