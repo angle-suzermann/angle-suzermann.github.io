@@ -464,3 +464,6 @@ img.pic-full{ width: 100%; max-width: 420px; height: auto; margin: 4px 0 16px; }
   header.hero h1{ font-size: 24px; }
   section.card{ padding: 18px 16px 20px; }
 }
+
+/* Плашка-логотип курса, правый нижний угол (опционально, добавляется в материале) */
+.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }

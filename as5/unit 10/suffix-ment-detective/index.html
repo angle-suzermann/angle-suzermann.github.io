@@ -405,6 +405,7 @@
   .restore-note{ background:#fff8e2; border:1.5px solid var(--gold); border-radius:8px; padding:10px 14px; font-size:.85rem; margin:10px 0; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
 .restore-note[hidden]{ display:none; }
   .restore-note button{ background:#fff; border:1.5px solid var(--navy); color:var(--navy); font-weight:700; font-size:.75rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 </style>
 </head>
 <body>
@@ -1157,5 +1158,6 @@ document.addEventListener('click', function(){ scheduleSave(); });
 
 restoreProgress();
 </script>
+<img class="course-badge" alt="Academy Stars 5 · Second Edition" src="/assets/brand/academy-stars-badge.png">
 </body>
 </html>
