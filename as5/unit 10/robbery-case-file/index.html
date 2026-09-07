@@ -177,6 +177,14 @@
   .final-score .big{font-family:inherit; font-size:2.4rem; color:var(--yellow); font-weight:800;}
   .breakdown{text-align:left; max-width:360px; margin:14px auto 0; font-size:.85rem;}
   .breakdown div{display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed rgba(255,255,255,.2);}
+  .completion-stickers{ text-align:center; }
+  .completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+  .completion-sticker[hidden]{ display:none; }
+  .completion-sticker--medium{ max-width:170px; }
+  .completion-sticker--icon{ max-width:110px; }
+  .completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+  @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+  .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
   .hint{font-size:.78rem; color:var(--muted); margin-top:4px;}
   .center{text-align:center;}
@@ -207,7 +215,34 @@
   </div>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const wrap = document.getElementById('completionStickers');
+  if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+    else { img.hidden = true; }
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
 /* ============ DATA MODEL ============ */
 const CHARACTERS = [
   {name:"Inspector Fox", role:"Police officer"},
@@ -714,6 +749,31 @@ function renderVerdict(){
       <div>${totalCorrect} / ${totalPossible} clues correct</div>
       <div class="breakdown">${rows}</div>
     </div>
+    <div class="completion-stickers" id="completionStickers">
+      <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+      <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+      <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+      <img class="completion-sticker" data-tier="fire" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+      <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+      <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+    </div>
+    <p id="resultCaption" class="result-caption"></p>
 
     <div class="controls" style="margin-top:18px;">
       <span></span>
@@ -773,6 +833,7 @@ async function submitCase(){
   fd.append('lesson', document.title);
   fd.append('timestamp', new Date().toISOString());
   fd.append('score_percent', pct + '%');
+  fd.append('result_tier', getResultTier(pct).label);
   fd.append('score_breakdown', JSON.stringify(breakdown));
   fd.append('discussion_1', discuss1Text.trim());
   fd.append('discussion_2', discuss2Text.trim());
@@ -816,6 +877,8 @@ function goToPage(n){
   document.getElementById('progressFill').style.width = `${((current+1)/pages.length)*100}%`;
   document.getElementById('prevBtn').disabled = current===0;
   document.getElementById('nextBtn').textContent = current===pages.length-1 ? "Finish" : "Next →";
+  const bigScore = document.querySelector('.final-score .big');
+  if(bigScore){ renderResultSticker(parseInt(bigScore.textContent, 10) || 0); }
   window.scrollTo(0,0);
 }
 function nextPage(){ if(current < pages.length-1) goToPage(current+1); }
