@@ -161,14 +161,14 @@ button.check-btn:hover{ opacity:.9; }
   margin-top:16px; font-size:1.05rem; text-align:center;
 }
 #submitStatus{ text-align:center; font-size:.85rem; color:var(--muted); margin-top:8px; }
-.completion-sticker{ display:block; margin:8px auto 0; width:190px; height:auto; opacity:0; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
 .completion-sticker[hidden]{ display:none; }
-.completion-sticker.show{ animation:stickerPop .5s cubic-bezier(.34,1.56,.64,1) forwards; }
-@keyframes stickerPop{
-  0%{ opacity:0; transform:scale(.35) rotate(-10deg); }
-  60%{ opacity:1; transform:scale(1.08) rotate(3deg); }
-  100%{ opacity:1; transform:scale(1) rotate(0deg); }
-}
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
 .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
 .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
@@ -483,10 +483,32 @@ button.check-btn:hover{ opacity:.9; }
       <button class="check-btn" onclick="submitAll()">Проверить и отправить учителю</button>
     </div>
     <div id="scoreSummary" hidden></div>
+    <div class="completion-stickers" id="completionStickers">
+      <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+      <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+      <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+      <img class="completion-sticker" data-tier="fire" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+      <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+      <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+    </div>
+    <p id="resultCaption" class="result-caption"></p>
     <div id="submitStatus"></div>
-    <img id="stickerHigh" class="completion-sticker" alt="Eggcellent!" hidden src="img/img2.png">
-    <img id="stickerMid" class="completion-sticker" alt="Good vibes!" hidden src="img/img3.png">
-    <img id="stickerLow" class="completion-sticker" alt="Keep going" hidden src="img/img4.png">
   </div>
 
   <div class="nav-btns"><button class="nav" onclick="prevPage()">← Back</button><button class="nav" disabled>Next →</button></div>
@@ -494,6 +516,7 @@ button.check-btn:hover{ opacity:.9; }
 
 </div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
 const PAGE_LABELS = ["Заметили закономерность","Тренировка","Исправь свою домашку","Придумай сам(а)"];
 let current = 0;
@@ -565,6 +588,32 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const wrap = document.getElementById('completionStickers');
+  if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+    else { img.hidden = true; }
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); alert('Сначала впиши своё имя вверху страницы.'); return; }
@@ -598,13 +647,7 @@ async function submitAll(){
   document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — результат: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary').hidden = false;
 
-  const stickerId = pct >= 90 ? 'stickerHigh' : pct >= 60 ? 'stickerMid' : 'stickerLow';
-  const sticker = document.getElementById(stickerId);
-  sticker.hidden = false;
-  // restart the pop-in animation even if this is a second submit
-  sticker.classList.remove('show');
-  void sticker.offsetWidth;
-  sticker.classList.add('show');
+  renderResultSticker(pct);
 
   const productions = [...document.querySelectorAll('textarea[data-prod]')].map(t=>`${t.dataset.prod}: ${t.value.trim() || '(пусто)'}`).join('\n');
 
@@ -615,6 +658,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('own_sentences', productions);
     fd.append('timestamp', new Date().toISOString());

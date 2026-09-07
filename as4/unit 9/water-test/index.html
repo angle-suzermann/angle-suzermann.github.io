@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -188,21 +188,14 @@ body{
 .score-summary{ margin-top:16px; padding:14px; background:var(--card-tint); border-radius:10px; font-size:15px; }
 .submit-status{ margin-top:10px; font-size:13.5px; color:var(--purple-dark); font-weight:600; min-height:18px; }
 
-.sticker-message{ text-align:center; font-weight:700; color:var(--purple); font-size:15.5px; margin:16px 0 6px; }
-.sticker-board{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:flex-end; margin:6px 0 4px; }
-.sticker-chip{
-  width:88px; height:88px; object-fit:contain;
-  filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));
-  animation:stickerPop .4s ease backwards;
-}
-.sticker-chip:nth-child(1){ transform:rotate(-8deg); animation-delay:.05s; }
-.sticker-chip:nth-child(2){ transform:rotate(6deg); animation-delay:.15s; }
-.sticker-chip:nth-child(3){ transform:rotate(-5deg); animation-delay:.25s; }
-.sticker-chip:nth-child(4){ transform:rotate(9deg); animation-delay:.35s; }
-@keyframes stickerPop{ from{ opacity:0; transform:scale(.3) rotate(0deg); } to{ opacity:1; } }
-@media (max-width:480px){
-  .sticker-chip{ width:68px; height:68px; }
-}
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--purple-dark); margin-top:6px; }
 
 input.fib.is-correct{ border-color:var(--correct) !important; color:var(--correct); background:#eef8f1; }
 input.fib.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); background:#fdeeec; }
@@ -238,19 +231,6 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
   .angle-badge{ left:10px; bottom:10px; }
   .nav-btns button{ padding:11px 14px; font-size:13.5px; }
 }
-
-.save-indicator{ font-size:10.5px; color:var(--correct); font-weight:700; opacity:0; transition:opacity .3s ease; white-space:nowrap; }
-.save-indicator.show{ opacity:1; }
-.restore-note{
-  background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:10px 14px; font-size:13px;
-  margin:0 0 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-}
-.restore-note[hidden]{ display:none; }
-.restore-note button{
-  background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:12px;
-  padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap;
-}
-.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 </style>
 </head>
 <body>
@@ -265,7 +245,6 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your full name" autocomplete="name">
-        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -277,11 +256,6 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
 </header>
 
 <div class="page-wrap">
-
-  <div class="restore-note" id="restoreNote" hidden>
-    <span id="restoreNoteText"></span>
-    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
-  </div>
 
   <!-- PAGE 0: INTRO -->
   <section class="page active" data-page="0">
@@ -583,8 +557,31 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
       <p class="subtle">Check that your name is filled in at the top, then press the button below. Your answers will be checked automatically and the result sent to your teacher.</p>
       <button class="btn-submit" onclick="submitAll()">✓ Check &amp; Submit</button>
       <div class="score-summary" id="scoreSummary" hidden></div>
-      <div class="sticker-message" id="stickerMessage" hidden></div>
-      <div class="sticker-board" id="stickerBoard" hidden></div>
+      <div class="completion-stickers" id="completionStickers">
+        <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+        <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+        <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+        <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+        <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+        <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+        <img class="completion-sticker" data-tier="fire" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+        <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+        <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+        <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+      </div>
+      <p id="resultCaption" class="result-caption"></p>
       <div class="submit-status" id="submitStatus"></div>
     </div>
     <div class="nav-btns">
@@ -604,6 +601,7 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
 const PAGE_LABELS = ["Start","Vocabulary","Grammar","Sentences","Verb forms","Match","Questions","Finish"];
 let current = 0;
@@ -631,7 +629,6 @@ function showPage(n){
     d.classList.toggle('done', i<current);
   });
   document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
-  if(typeof scheduleSave === 'function') scheduleSave();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }
@@ -688,27 +685,30 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
-const STICKER_SETS = {
-  top:  ['img/img13.png', 'img/img14.png'],
-  good: ['img/img15.png', 'img/img16.png'],
-  ok:   ['img/img17.png'],
-  low:  ['img/img18.png']
-};
-
-function renderStickers(pct){
-  const board = document.getElementById('stickerBoard');
-  const msg = document.getElementById('stickerMessage');
-  if(!board || !msg) return;
-  let key, text;
-  if(pct >= 90){ key='top'; text='Amazing! You\'re a real water expert!'; }
-  else if(pct >= 70){ key='good'; text='Fantastic!'; }
-  else if(pct >= 50){ key='ok'; text='Good effort - keep practising!'; }
-  else{ key='low'; text='Nice try! Let\'s review this unit together.'; }
-  const imgs = STICKER_SETS[key];
-  board.innerHTML = imgs.map(src=>`<img class="sticker-chip" src="${src}" alt="sticker">`).join('');
-  msg.textContent = text;
-  board.hidden = false;
-  msg.hidden = false;
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const wrap = document.getElementById('completionStickers');
+  if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+    else { img.hidden = true; }
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
 }
 
 async function submitAll(){
@@ -751,7 +751,7 @@ async function submitAll(){
   const summary = document.getElementById('scoreSummary');
   summary.innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   summary.hidden = false;
-  renderStickers(pct);
+  renderResultSticker(pct);
 
   const statusEl = document.getElementById('submitStatus');
   statusEl.textContent = 'Sending...';
@@ -760,11 +760,13 @@ async function submitAll(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Academy Stars 4');
+  fd.append('subject', 'Academy Stars 4 — AS4 Unit 9 — Water Test');
     fd.append('exercise', 'AS4 Unit 9 — Water Test');
     fd.append('student', nameInput.value.trim());
     fd.append('group', document.getElementById('studentGroup').value.trim());
     fd.append('date', document.getElementById('studentDate').value);
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', {
@@ -778,79 +780,8 @@ async function submitAll(){
   }
 }
 
-/* ======================= PROGRESS PERSISTENCE (save & resume) ======================= */
-const PROGRESS_KEY = 'angle_progress::as4-unit9-water-test';
-let isRestoring = false;
-
-function saveProgress(){
-  if(isRestoring) return;
-  try{
-    const state = { savedAt: new Date().toISOString(), page: current };
-    state.name = document.getElementById('studentName')?.value || '';
-    state.group = document.getElementById('studentGroup')?.value || '';
-    state.date = document.getElementById('studentDate')?.value || '';
-    state.fib = [...document.querySelectorAll('input.fib')].map(el=>el.value);
-    state.dd = [...document.querySelectorAll('select.dd')].map(el=>el.value);
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
-    showSavedIndicator();
-  } catch(e){ /* localStorage unavailable — fail silently */ }
-}
-let saveTimer = null;
-function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
-function showSavedIndicator(){
-  const el = document.getElementById('saveIndicator');
-  if(!el) return;
-  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-  el.classList.add('show');
-  clearTimeout(showSavedIndicator._t);
-  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
-}
-
-function restoreProgress(){
-  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
-  if(!raw) return;
-  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
-  isRestoring = true;
-
-  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
-  if(state.group){ const gi = document.getElementById('studentGroup'); if(gi) gi.value = state.group; }
-  if(state.date){ const di = document.getElementById('studentDate'); if(di) di.value = state.date; }
-
-  const fibs = document.querySelectorAll('input.fib');
-  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
-  const dds = document.querySelectorAll('select.dd');
-  (state.dd||[]).forEach((v,i)=>{ if(dds[i] && v) dds[i].value = v; });
-
-  const hasContent = (state.fib||[]).some(v=>v) || (state.dd||[]).some(v=>v);
-  if(hasContent){
-    const note = document.getElementById('restoreNote');
-    if(note){
-      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
-      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
-      note.hidden = false;
-    }
-  }
-  if(typeof state.page === 'number') showPage(state.page);
-  isRestoring = false;
-}
-
-function clearProgress(){
-  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
-  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
-  location.reload();
-}
-
-document.addEventListener('input', e=>{
-  if(e.target.matches('input.fib, #studentName, #studentGroup, #studentDate')) scheduleSave();
-});
-document.addEventListener('change', e=>{
-  if(e.target.matches('select.dd, #studentDate')) scheduleSave();
-});
-
 buildDots();
 showPage(0);
-restoreProgress();
 </script>
-<img class="course-badge" alt="Academy Stars 4 · Second Edition" src="/assets/brand/academy-stars-badge.png">
 </body>
 </html>

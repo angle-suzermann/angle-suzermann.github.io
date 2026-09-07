@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -118,7 +118,6 @@ audio{ width:100%; margin:10px 0 4px; }
 .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
 .save-indicator.show{ opacity:1; }
 .restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
-.restore-note[hidden]{ display:none; }
 .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 
 @media(max-width:600px){
@@ -856,6 +855,7 @@ async function sendToTeacher(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
+  fd.append('subject', 'ЕГЭ 2027 — тестовая часть');
     fd.append('exercise', 'ЕГЭ 2027 — тестовая часть');
     fd.append('student', name);
     fd.append('date', new Date().toLocaleString('ru-RU'));

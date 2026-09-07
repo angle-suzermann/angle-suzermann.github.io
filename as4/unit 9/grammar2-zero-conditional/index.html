@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -376,6 +376,15 @@
   }
   .results .breakdown b{ color:var(--accent-deep); }
 
+  .completion-stickers{ text-align:center; }
+  .completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+  .completion-sticker[hidden]{ display:none; }
+  .completion-sticker--medium{ max-width:170px; }
+  .completion-sticker--icon{ max-width:110px; }
+  .completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+  @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+  .result-caption{ text-align:center; font-size:.92rem; color:var(--ink-soft); margin-top:6px; }
+
   .send-status{
     font-size:12.5px;
     margin-top:10px;
@@ -389,18 +398,6 @@
     font-size:11px;
     color:var(--ink-soft);
     margin-top:26px;
-  }
-
-  .save-indicator{ font-size:11px; color:var(--correct); font-weight:600; opacity:0; transition:opacity .3s ease; margin-top:4px; }
-  .save-indicator.show{ opacity:1; }
-  .restore-note{
-    background:var(--clay-pale); border:1px solid #e8d98a; border-radius:0; padding:10px 14px; font-size:13px;
-    margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--ink);
-  }
-.restore-note[hidden]{ display:none; }
-  .restore-note button{
-    background:#fff; border:1.5px solid var(--accent); color:var(--accent); font-weight:600; font-size:12px;
-    padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap;
   }
 
   @media (max-width:600px){
@@ -489,7 +486,6 @@
     .as-badge{ padding:5px 8px; bottom:12px; right:12px; }
     .as-badge img{ height:26px; }
   }
-.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 </style>
 </head>
 <body>
@@ -525,11 +521,6 @@
     <div class="caption">Surface tension: how a feather stays afloat</div>
   </div>
 
-  <div class="restore-note" id="restoreNote" hidden data-badge-contrast="light">
-    <span id="restoreNoteText"></span>
-    <button type="button" onclick="clearProgress()">Начать заново (очистить сохранённое)</button>
-  </div>
-
   <div class="info-box" data-badge-contrast="light">
     <div class="info-field">
       <label for="stuName">ИМЯ УЧЕНИКА</label>
@@ -538,7 +529,6 @@
     <div class="info-field">
       <label for="stuGroup">ГРУППА / КЛАСС</label>
       <input type="text" id="stuGroup" placeholder="Например, 4B">
-      <span class="save-indicator" id="saveIndicator"></span>
     </div>
   </div>
 
@@ -714,6 +704,31 @@
     <div class="pct" id="resultsPct">—</div>
     <div class="msg" id="resultsMsg"></div>
     <div class="breakdown" id="resultsBreakdown"></div>
+    <div class="completion-stickers" id="completionStickers">
+      <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+      <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+      <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+      <img class="completion-sticker" data-tier="fire" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+      <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+      <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+    </div>
+    <p id="resultCaption" class="result-caption"></p>
     <div class="send-status" id="sendStatus"></div>
   </div>
 
@@ -721,6 +736,7 @@
 
 </div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
   const FORMSPREE_ENDPOINT = "https://api.web3forms.com/submit";
 
@@ -864,6 +880,32 @@
     return "Let's go over this together next lesson.";
   }
 
+  const RESULT_TIERS = [
+    { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+    { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+    { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+    { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+    { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+    { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+  ];
+  const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+  function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+  function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+  function renderResultSticker(pct){
+    const wrap = document.getElementById('completionStickers');
+    if(!wrap || typeof STICKER_DATA === 'undefined') return;
+    const tier = getResultTier(pct);
+    const chosen = pickRandom(tier.stickers);
+    wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+      const isBonus = img.dataset.tier === 'awesome_is_banned';
+      const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+      if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+      else { img.hidden = true; }
+    });
+    const capEl = document.getElementById('resultCaption');
+    if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+  }
+
   let lastResult = null;
 
   document.getElementById('checkBtn').addEventListener('click', ()=>{
@@ -873,6 +915,7 @@
     document.getElementById('resultsMsg').textContent = messageFor(r.pct);
     document.getElementById('resultsBreakdown').innerHTML =
       `Ex.1: <b>${r.s1correct}/${r.s1total}</b> &nbsp;·&nbsp; Ex.2: <b>${r.s2correct}/${r.s2total}</b> &nbsp;·&nbsp; Ex.3: <b>${r.s3correct}/${r.s3total}</b>`;
+    renderResultSticker(r.pct);
     document.getElementById('resultsBox').classList.add('show');
     document.getElementById('sendBtn').disabled = false;
     updateProgress();
@@ -899,10 +942,12 @@
     const payload = {
       access_key: '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234',
       course: 'Academy Stars 4',
+      subject: 'Academy Stars 4 — Unit 9 · Grammar 2 — What happens if...?',
       exercise: 'Unit 9 · Grammar 2 — What happens if...?',
       student_name: name,
       group: group,
       score_percent: lastResult.pct,
+      result_tier: getResultTier(lastResult.pct).label,
       breakdown: `Ex.1: ${lastResult.s1correct}/${lastResult.s1total}; Ex.2: ${lastResult.s2correct}/${lastResult.s2total}; Ex.3: ${lastResult.s3correct}/${lastResult.s3total}`,
       mistakes: lastResult.mistakes.length ? lastResult.mistakes.join('\n') : 'No mistakes — all items correct.',
       timestamp: new Date().toISOString()
@@ -933,94 +978,6 @@
 </script>
 
 <script>
-// --- Progress persistence (save & resume) ---
-const PROGRESS_KEY = 'angle_progress::as4-unit9-grammar2-zero-conditional';
-let isRestoring = false;
-
-function saveProgress(){
-  if(isRestoring) return;
-  try{
-    const state = { savedAt: new Date().toISOString() };
-    state.name = document.getElementById('stuName')?.value || '';
-    state.group = document.getElementById('stuGroup')?.value || '';
-    state.mcq = [...document.querySelectorAll('#section1 .mcq')].map(g=>{
-      const wrongBtn = g.querySelector('.opt.wrong');
-      if(wrongBtn) return wrongBtn.dataset.val;
-      if(g.dataset.done) return g.dataset.correct;
-      return null;
-    });
-    state.q2 = [...document.querySelectorAll('[data-kind="ex2"] .q-input')].map(el=>el.value);
-    state.a2 = [...document.querySelectorAll('[data-kind="ex2"] .a-input')].map(el=>el.value);
-    state.q3 = [...document.querySelectorAll('[data-kind="ex3"] .q3-input')].map(el=>el.value);
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
-    showSavedIndicator();
-  } catch(e){ /* localStorage unavailable — fail silently */ }
-}
-let saveTimer = null;
-function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
-function showSavedIndicator(){
-  const el = document.getElementById('saveIndicator');
-  if(!el) return;
-  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-  el.classList.add('show');
-  clearTimeout(showSavedIndicator._t);
-  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
-}
-
-function restoreProgress(){
-  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
-  if(!raw) return;
-  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
-  isRestoring = true;
-
-  if(state.name){ const ni = document.getElementById('stuName'); if(ni) ni.value = state.name; }
-  if(state.group){ const gi = document.getElementById('stuGroup'); if(gi) gi.value = state.group; }
-
-  const mcqGroups = document.querySelectorAll('#section1 .mcq');
-  (state.mcq||[]).forEach((val,i)=>{
-    if(val==null) return;
-    const g = mcqGroups[i]; if(!g || g.dataset.done) return;
-    const btn = g.querySelector(`.opt[data-val="${val}"]`);
-    if(btn) btn.click();
-  });
-  const q2s = document.querySelectorAll('[data-kind="ex2"] .q-input');
-  (state.q2||[]).forEach((v,i)=>{ if(q2s[i] && v) q2s[i].value = v; });
-  const a2s = document.querySelectorAll('[data-kind="ex2"] .a-input');
-  (state.a2||[]).forEach((v,i)=>{ if(a2s[i] && v) a2s[i].value = v; });
-  const q3s = document.querySelectorAll('[data-kind="ex3"] .q3-input');
-  (state.q3||[]).forEach((v,i)=>{ if(q3s[i] && v) q3s[i].value = v; });
-
-  updateProgress();
-
-  const hasContent = (state.mcq||[]).some(v=>v!=null) || (state.q2||[]).some(v=>v) || (state.a2||[]).some(v=>v) || (state.q3||[]).some(v=>v);
-  if(hasContent){
-    const note = document.getElementById('restoreNote');
-    if(note){
-      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
-      document.getElementById('restoreNoteText').textContent = `Мы нашли сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
-      note.hidden = false;
-    }
-  }
-  isRestoring = false;
-}
-
-function clearProgress(){
-  if(!confirm('Это удалит все сохранённые ответы на этом устройстве. Продолжить?')) return;
-  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
-  location.reload();
-}
-
-document.addEventListener('input', e=>{
-  if(e.target.matches('#stuName, #stuGroup, .q-input, .a-input, .q3-input')) scheduleSave();
-});
-document.addEventListener('click', e=>{
-  if(e.target.closest('#section1 .mcq .opt')) scheduleSave();
-});
-
-restoreProgress();
-</script>
-
-<script>
 (function(){
   var badge = document.querySelector('.angle-badge');
   var sections = document.querySelectorAll('[data-badge-contrast]');
@@ -1044,6 +1001,5 @@ restoreProgress();
 })();
 </script>
 
-<img class="course-badge" alt="Academy Stars 4 · Second Edition" src="/assets/brand/academy-stars-badge.png">
 </body>
 </html>

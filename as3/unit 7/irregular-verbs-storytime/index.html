@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -266,6 +266,14 @@
     display:none; text-align:center; font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:700; color:var(--maroon-deep);
     background:var(--gold); border-radius:14px; padding:16px; margin-top:14px;
   }
+  .completion-stickers{ text-align:center; }
+  .completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+  .completion-sticker[hidden]{ display:none; }
+  .completion-sticker--medium{ max-width:170px; }
+  .completion-sticker--icon{ max-width:110px; }
+  .completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+  @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+  .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
   /* ---------- ANGLE sticky badge (brand purple) ---------- */
   .angle-badge{
@@ -279,20 +287,6 @@
     font-weight:800; font-size:10px; letter-spacing:.02em; color:#5E4877;
   }
   @media (max-width:640px){ .angle-badge{ left:12px; bottom:12px; } .angle-badge .wordmark{ width:80px; } }
-
-  /* ---------- progress persistence ---------- */
-  .save-indicator{ font-size:.72rem; color:var(--correct); font-weight:800; opacity:0; transition:opacity .3s ease; white-space:nowrap; }
-  .save-indicator.show{ opacity:1; }
-  .restore-note{
-    background:#fffbe6; border:1px solid #f0dd8a; border-radius:12px; padding:10px 16px; font-size:.86rem;
-    margin:0 0 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--ink);
-  }
-.restore-note[hidden]{ display:none; }
-  .restore-note button{
-    background:#fff; border:1.5px solid var(--maroon); color:var(--maroon); font-weight:800; font-size:.76rem;
-    padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap;
-  }
-.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 </style>
 </head>
 <body>
@@ -311,7 +305,6 @@
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your full name">
-        <span class="save-indicator" id="saveIndicator"></span>
       </div>
     </div>
     <div class="progress-row">
@@ -323,11 +316,6 @@
 </header>
 
 <div class="page-wrap">
-
-  <div class="restore-note" id="restoreNote" hidden>
-    <span id="restoreNoteText"></span>
-    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
-  </div>
 
   <!-- PAGE 0: WARM-UP -->
   <section class="page active" data-page="0">
@@ -600,6 +588,31 @@
       <div style="margin-top:22px;padding-top:18px;border-top:2px dashed var(--border);">
         <button class="btn btn-gold" onclick="submitAll()">✅ Check &amp; Submit</button>
         <div class="score-pill" id="scoreSummary"></div>
+        <div class="completion-stickers" id="completionStickers">
+          <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+          <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+          <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+          <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+          <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+          <img class="completion-sticker" data-tier="fire" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+          <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+          <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+          <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+          <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+        </div>
+        <p id="resultCaption" class="result-caption"></p>
         <div id="submitStatus" style="margin-top:8px;font-weight:800;color:var(--muted);"></div>
       </div>
     </div>
@@ -621,6 +634,7 @@
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
 <script>
 /* ======================= DATA ======================= */
 const FC_PDF = "AS_TRC3_U7_FC.pdf";
@@ -666,7 +680,6 @@ function showPage(n){
     d.classList.toggle('visited', visited.has(i) && i!==current);
   });
   window.scrollTo({top:0, behavior:'smooth'});
-  if(typeof scheduleSave === 'function') scheduleSave();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }
@@ -952,6 +965,32 @@ function finishQuiz(){
 buildQuiz();
 
 /* ======================= CHECK & SUBMIT (whole lesson) ======================= */
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const wrap = document.getElementById('completionStickers');
+  if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
+    else { img.hidden = true; }
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){
@@ -982,6 +1021,7 @@ async function submitAll(){
   const summaryEl = document.getElementById('scoreSummary');
   summaryEl.style.display = 'block';
   summaryEl.innerHTML = `<strong>${nameInput.value.trim()}</strong><br>Total score: ${correct} / ${total} (${pct}%)`;
+  renderResultSticker(pct);
 
   const statusEl = document.getElementById('submitStatus');
   statusEl.textContent = 'Sending...';
@@ -990,9 +1030,11 @@ async function submitAll(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Academy Stars 3');
+  fd.append('subject', 'Academy Stars 3 — ' + document.title);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
@@ -1011,130 +1053,10 @@ document.getElementById('refGrid').innerHTML = VOCAB.map(v=>`
     <div class="ex">${v.icon} "${v.ex}"</div>
   </div>`).join('');
 
-/* ======================= PROGRESS PERSISTENCE (save & resume) ======================= */
-const PROGRESS_KEY = 'angle_progress::as3-unit7-irregular-verbs-storytime';
-let isRestoring = false;
-
-function saveProgress(){
-  if(isRestoring) return;
-  try{
-    const state = { savedAt: new Date().toISOString(), page: current };
-    state.name = document.getElementById('studentName')?.value || '';
-    state.cloze = [...document.querySelectorAll('.cloze-gap')].map(el=>el.value);
-    state.luke  = [...document.querySelectorAll('.luke-gap')].map(el=>el.value);
-    state.pair  = [...document.querySelectorAll('.pair-gap')].map(el=>el.value);
-    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
-    state.predict = [...document.querySelectorAll('.predict-toggle')].map(g=>{
-      const btns = g.querySelectorAll('button');
-      if(btns[0] && btns[0].classList.contains('sel-true')) return true;
-      if(btns[1] && btns[1].classList.contains('sel-false')) return false;
-      return null;
-    });
-    state.quiz = [...document.querySelectorAll('.quiz-item')].map(item=>{
-      if(item.dataset.type === 'mc'){
-        const chosen = item.querySelector('.opt.chosen');
-        return chosen ? chosen.dataset.val : null;
-      }
-      const inp = item.querySelector('.qtext');
-      return inp ? inp.value : '';
-    });
-    state.matched = [...document.querySelectorAll('.match-btn[data-side="left"].matched-correct')].map(el=>el.dataset.id);
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
-    showSavedIndicator();
-  } catch(e){ /* localStorage unavailable — fail silently */ }
-}
-let saveTimer = null;
-function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
-function showSavedIndicator(){
-  const el = document.getElementById('saveIndicator');
-  if(!el) return;
-  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-  el.classList.add('show');
-  clearTimeout(showSavedIndicator._t);
-  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
-}
-
-function restoreProgress(){
-  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
-  if(!raw) return;
-  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
-  isRestoring = true;
-
-  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
-
-  const clozeEls = document.querySelectorAll('.cloze-gap');
-  (state.cloze||[]).forEach((v,i)=>{ if(clozeEls[i] && v) clozeEls[i].value = v; });
-  const lukeEls = document.querySelectorAll('.luke-gap');
-  (state.luke||[]).forEach((v,i)=>{ if(lukeEls[i] && v) lukeEls[i].value = v; });
-  const pairEls = document.querySelectorAll('.pair-gap');
-  (state.pair||[]).forEach((v,i)=>{ if(pairEls[i] && v) pairEls[i].value = v; });
-  const tas = document.querySelectorAll('textarea');
-  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
-
-  const predictGroups = document.querySelectorAll('.predict-toggle');
-  (state.predict||[]).forEach((val,i)=>{
-    if(val==null) return;
-    const g = predictGroups[i]; if(!g) return;
-    const btns = g.querySelectorAll('button');
-    if(val === true && btns[0]) setPredict(btns[0], true);
-    else if(val === false && btns[1]) setPredict(btns[1], false);
-  });
-
-  const quizItems = document.querySelectorAll('.quiz-item');
-  (state.quiz||[]).forEach((val,i)=>{
-    if(val==null || val==='') return;
-    const item = quizItems[i]; if(!item) return;
-    if(item.dataset.type === 'mc'){
-      const btn = item.querySelector(`.opt[data-val="${val}"]`);
-      if(btn){ item.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen')); btn.classList.add('chosen'); }
-    } else {
-      const inp = item.querySelector('.qtext');
-      if(inp) inp.value = val;
-    }
-  });
-
-  (state.matched||[]).forEach(id=>{
-    document.querySelectorAll(`.match-btn[data-id="${id}"]`).forEach(el=>el.classList.add('matched-correct'));
-  });
-  if((state.matched||[]).length){
-    matchedCount = state.matched.length;
-    if(matchedCount === VOCAB.length) finishMatch();
-  }
-
-  const hasContent = (state.cloze||[]).some(v=>v) || (state.luke||[]).some(v=>v) || (state.pair||[]).some(v=>v)
-    || (state.textareas||[]).some(v=>v) || (state.predict||[]).some(v=>v!=null)
-    || (state.quiz||[]).some(v=>v) || (state.matched||[]).length;
-  if(hasContent){
-    const note = document.getElementById('restoreNote');
-    if(note){
-      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
-      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
-      note.hidden = false;
-    }
-  }
-  if(typeof state.page === 'number') showPage(state.page);
-  isRestoring = false;
-}
-
-function clearProgress(){
-  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
-  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
-  location.reload();
-}
-
-document.addEventListener('input', e=>{
-  if(e.target.matches('.cloze-gap, .luke-gap, .pair-gap, textarea, #studentName, .qtext')) scheduleSave();
-});
-document.addEventListener('click', e=>{
-  if(e.target.closest('.match-btn, .quiz-item .opt, .predict-toggle button')) scheduleSave();
-});
-
 /* ======================= INIT ======================= */
 buildDots();
 showPage(0);
-restoreProgress();
 </script>
 
-<img class="course-badge" alt="Academy Stars 3 · Second Edition" src="/assets/brand/academy-stars-badge.png">
 </body>
 </html>

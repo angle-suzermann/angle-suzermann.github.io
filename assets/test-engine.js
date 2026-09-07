@@ -43,6 +43,7 @@
   };
 
   var TEST_TITLE = meta('ws:title') || document.title;
+  var COURSE     = meta('ws:course') || '';
   var FORMSPREE  = meta('ws:formspree');
   var WEB3FORMS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 
@@ -50,50 +51,6 @@
     document.querySelectorAll('section.card[id]')
   );
   var lastResults = null;
-
-  /* ---------- тиированный стикер результата (eggdog) ---------- */
-  /* Требует assets/sticker-data.js, подключённый ДО этого файла
-     (объект STICKER_DATA — base64 PNG по ключу стикера). Если его нет —
-     функции просто ничего не делают. */
-
-  var RESULT_TIERS = [
-    { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
-    { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
-    { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-    { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-    { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
-    { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
-  ];
-  var SILENT_STICKERS = { 'strawberry-a':1, 'strawberry-b':1, 'plain':1, 'strawberry-full':1 };
-
-  function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-  function getResultTier(pct){
-    for(var i=0;i<RESULT_TIERS.length;i++){ if(pct >= RESULT_TIERS[i].min) return RESULT_TIERS[i]; }
-    return RESULT_TIERS[RESULT_TIERS.length-1];
-  }
-
-  function renderResultSticker(pct){
-    var wrap = $('completionStickers');
-    if(!wrap || typeof STICKER_DATA === 'undefined') return;
-    var tier = getResultTier(pct);
-    var chosen = pickRandom(tier.stickers);
-
-    var imgs = wrap.querySelectorAll('.completion-sticker');
-    imgs.forEach(function(img){
-      var isBonus = img.getAttribute('data-tier') === 'awesome_is_banned';
-      var show = isBonus ? !!tier.bonus : (img.getAttribute('data-tier') === chosen);
-      if(show){
-        var key = img.getAttribute('data-tier');
-        if(STICKER_DATA[key]) img.src = STICKER_DATA[key];
-        img.hidden = false;
-      } else {
-        img.hidden = true;
-      }
-    });
-
-    var capEl = $('resultCaption');
-    if(capEl) capEl.textContent = SILENT_STICKERS[chosen] ? (tier.caption || '') : '';
-  }
 
   function normalize(str){
     return (str || '')
@@ -251,8 +208,6 @@
       breakdown.appendChild(span);
     });
 
-    renderResultSticker(percent);
-
     lastResults = {
       percent: percent,
       correct: correctCount,
@@ -310,14 +265,14 @@
 
     var payload = {
       access_key:     WEB3FORMS_KEY,
+      course:         COURSE,
       course_id:      FORMSPREE,
-      subject:        'ANGLE — результат: ' + TEST_TITLE,
+      subject:        (COURSE ? COURSE + ' — ' : '') + TEST_TITLE,
       test:           TEST_TITLE,
       student_name:   name,
       group:          group || '—',
       score_percent:  lastResults.percent + '%',
       score_fraction: lastResults.correct + ' / ' + lastResults.total,
-      result_tier:    getResultTier(lastResults.percent).label,
       breakdown:      lastResults.sections.map(function(s){
                         return s.name + ': ' + s.correct + '/' + s.total;
                       }).join('\n'),
@@ -365,99 +320,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  /* ---------- сохранение и восстановление прогресса ---------- */
-
-  var PROGRESS_KEY = 'angle_progress::' + location.pathname;
-  var isRestoring = false;
-  var saveTimer = null;
-
-  function saveProgress(){
-    if(isRestoring) return;
-    try{
-      var state = { savedAt: new Date().toISOString() };
-      state.name  = $('studentName') ? $('studentName').value : '';
-      state.group = $('studentGroup') ? $('studentGroup').value : '';
-      state.inputs = Array.prototype.map.call(inputs(), function(el){ return el.value; });
-      state.selects = Array.prototype.map.call(selects(), function(el){ return el.value; });
-      state.groups = Array.prototype.map.call(groups(), function(g){
-        var sel = g.querySelector('.choice-btn.selected');
-        return sel ? sel.dataset.val : null;
-      });
-      localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
-      showSavedIndicator();
-    } catch(e){ /* localStorage unavailable — fail silently */ }
-  }
-  function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
-  function showSavedIndicator(){
-    var el = $('saveIndicator');
-    if(!el) return;
-    el.textContent = '✓ Saved ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
-    el.classList.add('show');
-    clearTimeout(showSavedIndicator._t);
-    showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
-  }
-
-  function restoreProgress(){
-    var raw;
-    try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
-    if(!raw) return;
-    var state;
-    try{ state = JSON.parse(raw); } catch(e){ return; }
-    isRestoring = true;
-
-    if(state.name && $('studentName'))   $('studentName').value = state.name;
-    if(state.group && $('studentGroup')) $('studentGroup').value = state.group;
-
-    var inputEls = inputs();
-    (state.inputs || []).forEach(function(v, i){ if(inputEls[i] && v) inputEls[i].value = v; });
-
-    var selectEls = selects();
-    (state.selects || []).forEach(function(v, i){ if(selectEls[i] && v) selectEls[i].value = v; });
-
-    var groupEls = groups();
-    (state.groups || []).forEach(function(val, i){
-      if(val == null || !groupEls[i]) return;
-      var btn = groupEls[i].querySelector('.choice-btn[data-val="' + val + '"]');
-      if(btn){
-        groupEls[i].querySelectorAll('.choice-btn').forEach(function(b){ b.classList.remove('selected'); });
-        btn.classList.add('selected');
-      }
-    });
-
-    var hasContent = (state.inputs && state.inputs.some(function(v){ return v; }))
-      || (state.selects && state.selects.some(function(v){ return v; }))
-      || (state.groups && state.groups.some(function(v){ return v != null; }));
-    if(hasContent){
-      var note = $('restoreNote');
-      if(note){
-        var when = state.savedAt ? new Date(state.savedAt).toLocaleString('ru-RU') : '';
-        var noteText = $('restoreNoteText');
-        if(noteText) noteText.textContent = 'Мы нашли сохранённые ответы' + (when ? ' от ' + when : '') + ' — вписали их обратно.';
-        note.hidden = false;
-      }
-    }
-
-    updateProgress();
-    isRestoring = false;
-  }
-
-  function clearProgress(){
-    if(!confirm('Это сотрёт все сохранённые на этом устройстве ответы. Продолжить?')) return;
-    try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
-    location.reload();
-  }
-  window.clearProgress = clearProgress;
-
-  document.addEventListener('input', function(e){
-    if(e.target.matches('input[data-q], #studentName, #studentGroup')) scheduleSave();
-  });
-  document.addEventListener('change', function(e){
-    if(e.target.matches('select[data-q]')) scheduleSave();
-  });
-  document.addEventListener('click', function(e){
-    if(e.target.closest('[data-group] .choice-btn')) scheduleSave();
-  });
-
   /* ---------- запуск ---------- */
 
   $('checkBtn').addEventListener('click', check);
@@ -465,5 +327,4 @@
   if($('resetLink')) $('resetLink').addEventListener('click', reset);
 
   updateProgress();
-  restoreProgress();
 })();
