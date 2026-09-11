@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8 — Developing Speaking — Talking about Statistics — Homework</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="GW B2">
+<meta name="ws:course-id" content="gateway/gw-b2">
+<meta name="ws:unit"      content="8">
+<meta name="ws:title"     content="Unit 8 — Developing Speaking — Talking about Statistics — Homework">
+<meta name="ws:emoji"     content="🗣️">
+<meta name="ws:date"      content="2026-09-11">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="xoeaqeyz">
+<meta name="ws:tags"      content="speaking, statistics, listening, homework">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); min-height:100vh; position:relative;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 45%; opacity:0.3; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(28,18,38,.55), rgba(69,52,88,.88)); }
+
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+.topbar-inner{ max-width:920px; margin:0 auto; padding:10px 18px 8px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; line-height:1.25; }
+.lesson-title small{ display:block; font-weight:600; color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.82rem; font-weight:700; color:var(--purple-dark); }
+.namebar input{ font-family:inherit; font-size:.9rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:6px; min-width:190px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; border-radius:5px; background:var(--card-tint); overflow:hidden; border:1px solid var(--border); }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--yellow)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; font-weight:700; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:5px; margin-top:7px; flex-wrap:wrap; }
+.page-dot{ width:22px; height:22px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); font-size:.68rem; font-weight:800; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.done{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
+
+.page-wrap{ position:relative; z-index:2; max-width:920px; margin:0 auto; padding:22px 16px 60px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:#fff; border-radius:14px; padding:22px 22px 24px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); border:1px solid var(--border); }
+.card h1{ color:var(--purple); font-size:1.5rem; margin:0 0 10px; }
+.card h2{ color:var(--purple); font-size:1.15rem; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.card .ex-sub{ color:var(--muted); font-size:.85rem; margin:0 0 14px; }
+.card p{ line-height:1.55; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:12px 14px; font-size:.92rem; margin:10px 0 16px; }
+.badge-pill{ display:inline-block; background:var(--purple); color:#fff; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:3px 10px; border-radius:20px; margin-bottom:8px; }
+.badge-pill.ungraded{ background:var(--muted); }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.item{ margin:14px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; border:1px solid var(--border); }
+.item p.q{ margin:0 0 8px; font-weight:600; }
+.item .ex-hint{ color:var(--muted); font-size:.82rem; margin:0 0 6px; }
+.fib{ font-family:inherit; font-size:.95rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:6px; min-width:160px; }
+.fib:focus{ outline:none; border-color:var(--purple); }
+.fib.is-correct{ border-color:var(--correct); background:#f0faf4; }
+.fib.is-wrong{ border-color:var(--wrong); background:#fdf1ef; }
+.example-note{ font-size:.8rem; color:var(--muted); font-style:italic; margin-top:4px; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+.mcq .opt{ text-align:left; font-family:inherit; font-size:.92rem; padding:10px 14px; border:1.5px solid var(--border); border-radius:8px; background:#fff; cursor:pointer; transition:.15s; }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-color:var(--purple); }
+.mcq .opt.correct{ border-color:var(--correct); background:#e8f7ee; color:#245c3f; font-weight:700; }
+.mcq .opt.wrong{ border-color:var(--wrong); background:#fdeceb; color:#8a3226; }
+
+.imgwrap{ text-align:center; margin:12px 0; }
+.imgwrap img{ max-width:100%; border-radius:10px; border:1px solid var(--border); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.imgwrap .cap{ font-size:.78rem; color:var(--muted); margin-top:6px; }
+
+audio{ width:100%; margin:10px 0; }
+
+.script-toggle, .proof-btn{ font-family:inherit; font-size:.8rem; font-weight:700; border-radius:20px; cursor:pointer; padding:6px 13px; border:1.5px solid var(--purple); background:#fff; color:var(--purple); }
+.script-toggle{ margin:4px 0 12px; }
+.proof-btn{ margin-top:8px; font-size:.75rem; padding:5px 11px; }
+.proof-btn.seen{ background:#e8f7ee; border-color:var(--correct); color:#245c3f; }
+.script-overlay{ position:fixed; inset:0; background:rgba(20,12,28,.6); z-index:200; display:none; align-items:center; justify-content:center; padding:20px; }
+.script-overlay.open{ display:flex; }
+.script-panel{ background:#fff; border-radius:14px; max-width:640px; width:100%; max-height:82vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+.script-panel-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:2px solid var(--border); }
+.script-panel-head h3{ margin:0; color:var(--purple); font-size:1rem; }
+.script-panel-head button{ background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--muted); line-height:1; }
+.script-box, .script-box-live{ padding:16px 20px; overflow-y:auto; font-size:.92rem; line-height:1.7; }
+.script-turn{ margin:0 0 10px; }
+.script-speaker{ font-weight:800; color:var(--purple-dark); }
+mark.ev{ background:transparent; padding:1px 3px; border-radius:4px; transition:.2s; }
+mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
+mark.script-hl{ background:var(--yellow); padding:1px 3px; border-radius:4px; }
+mark.script-hl-grey{ background:#ddd6e6; padding:1px 3px; border-radius:4px; }
+.ev-tag{ font-size:.68rem; font-weight:800; color:var(--purple); background:var(--card-tint); border-radius:8px; padding:1px 6px; margin-left:4px; }
+
+.match-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:10px; }
+.col-left, .col-right{ display:flex; flex-direction:column; gap:8px; }
+.match{ font-family:inherit; font-size:.88rem; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; background:#fff; cursor:pointer; text-align:left; }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdeceb; }
+@media (max-width:600px){ .match-grid{ grid-template-columns:1fr; } }
+
+.vocab-tabs{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.vocab-tab{ font-family:inherit; font-size:.8rem; font-weight:700; padding:6px 14px; border-radius:20px; border:1.5px solid var(--border); background:#fff; cursor:pointer; color:var(--purple-dark); }
+.vocab-tab.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.vocab-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.vocab-card{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+.vocab-card b{ color:var(--purple-dark); display:block; margin-bottom:2px; }
+.vocab-card .pos{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.03em; }
+.vocab-card p{ margin:6px 0 0; font-size:.85rem; }
+.vocab-card .example{ font-style:italic; color:var(--purple-dark); font-size:.82rem; margin-top:4px; }
+@media (max-width:600px){ .vocab-grid{ grid-template-columns:1fr; } }
+
+.flip-deck{ display:flex; align-items:center; justify-content:center; gap:16px; margin-top:14px; flex-wrap:wrap; }
+.flip-card{ width:220px; height:140px; perspective:1000px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front, .flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; display:flex; align-items:center; justify-content:center; text-align:center; padding:14px; font-weight:700; }
+.flip-front{ background:var(--purple); color:#fff; font-size:1.05rem; }
+.flip-back{ background:var(--yellow); color:var(--black); transform:rotateY(180deg); font-size:.85rem; font-weight:600; }
+.deck-controls{ display:flex; align-items:center; justify-content:center; gap:12px; margin-top:10px; }
+.deck-controls button{ font-family:inherit; font-weight:700; border:1.5px solid var(--purple); background:#fff; color:var(--purple); border-radius:20px; padding:6px 14px; cursor:pointer; }
+.card-speak{ position:absolute; top:6px; right:8px; background:rgba(255,255,255,.25); border:none; border-radius:50%; width:26px; height:26px; cursor:pointer; font-size:.9rem; }
+
+textarea.notes{ width:100%; min-height:90px; font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:10px; resize:vertical; }
+.speaking-cues{ list-style:none; margin:10px 0; padding:0; }
+.speaking-cues li{ padding:8px 10px; background:var(--card-tint); border-radius:8px; margin-bottom:6px; font-size:.9rem; }
+.speaking-cues li::before{ content:"▸ "; color:var(--purple); font-weight:800; }
+.hint-toggle{ font-family:inherit; font-size:.8rem; font-weight:700; color:var(--purple); background:none; border:1.5px solid var(--purple); border-radius:20px; padding:6px 14px; cursor:pointer; margin-top:8px; }
+.hint-box{ margin-top:10px; background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; gap:10px; }
+.nav-btns button{ font-family:inherit; font-weight:800; font-size:.92rem; padding:11px 22px; border-radius:24px; border:none; cursor:pointer; }
+.nav-btns .btn-back{ background:#fff; border:2px solid var(--purple); color:var(--purple); }
+.nav-btns .btn-next{ background:var(--purple); color:#fff; }
+.nav-btns .btn-submit{ background:var(--yellow); color:var(--black); font-weight:900; }
+
+.check-bar{ text-align:center; margin-top:8px; }
+#submitStatus{ font-size:.85rem; margin-top:8px; font-weight:700; color:var(--purple-dark); }
+#scoreSummary{ text-align:center; font-size:1.15rem; margin:14px 0; }
+.breakdown-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:12px; font-size:.88rem; }
+.breakdown-box ul{ margin:6px 0 0; padding-left:18px; }
+.breakdown-box li{ margin-bottom:5px; }
+.tier-caption{ text-align:center; color:var(--muted); font-size:.9rem; margin-top:6px; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+
+.angle-badge{ position:fixed; left:24px; bottom:20px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:0.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+
+@media (max-width:600px){
+  .card{ padding:16px 16px 18px; }
+  .namebar input{ min-width:140px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="lesson-title"><small>Gateway B2 · Unit 8 · Homework</small>Surviving Disaster — Talking about Statistics</div>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 9</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- PAGE 0: WELCOME -->
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card">
+    <h1>Surviving Disaster: Talking about Statistics</h1>
+    <p class="ex-sub">Gateway B2, Workbook p.71 — Developing speaking</p>
+    <div class="instructions">
+      <p style="margin:0 0 8px;"><b>Before you start:</b></p>
+      <p style="margin:0 0 6px;">1. Type your name at the top of the page — it stays there while you work through every page.</p>
+      <p style="margin:0 0 6px;">2. Work through the pages in order using the <b>Next →</b> button. You can also click the numbered dots above to jump between pages.</p>
+      <p style="margin:0 0 6px;">3. Your answers are saved automatically on this device as you type, so it's safe to close the tab and come back later.</p>
+      <p style="margin:0;">4. On the last page, click <b>Check &amp; Submit</b> to see your score and send it to your teacher.</p>
+    </div>
+    <p>In this homework you will practise the language of statistics — talking about numbers, proportions and trends — using the pie charts and graph from your Workbook, plus a short listening task. There's also an extra vocabulary page and a speaking-practice page to help you prepare to talk about the statistics yourself.</p>
+  </div>
+  <div class="nav-btns" style="justify-content:flex-end;">
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 1: EX 1 NUMBERS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <span class="badge-pill">Exercise 1 · scored</span>
+    <h2>📊 Write the numbers as we say them</h2>
+    <p class="ex-sub">Workbook p.71, exercise 1</p>
+    <div class="item">
+      <p class="q">1. 2/3</p>
+      <input class="fib" value="two-thirds" disabled style="background:#f0faf4;border-color:var(--correct);color:#245c3f;font-weight:700;">
+      <p class="example-note">Given as an example — you don't need to answer this one.</p>
+    </div>
+    <div class="item"><p class="q">2. 1/4</p><input class="fib" data-answer-list="a quarter|one quarter|one-quarter" placeholder="type your answer"></div>
+    <div class="item"><p class="q">3. 3/4</p><input class="fib" data-answer-list="three-quarters|three quarters" placeholder="type your answer"></div>
+    <div class="item"><p class="q">4. 1/10</p><input class="fib" data-answer-list="a tenth|one tenth|one-tenth" placeholder="type your answer"></div>
+    <div class="item"><p class="q">5. 66%</p><input class="fib" data-answer-list="sixty-six per cent|sixty-six percent|sixty six per cent" placeholder="type your answer"></div>
+    <div class="item"><p class="q">6. 1:3</p><input class="fib" data-answer-list="one in three|1 in 3" placeholder="type your answer"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 2: VOCAB BOOST -->
+<section class="page" data-page="2">
+  <div class="card">
+    <span class="badge-pill">Extra vocabulary</span>
+    <h2>🧠 Vocabulary boost: talking about trends</h2>
+    <p class="ex-sub">Not in your Workbook — extra practice with the "Speaking bank" language</p>
+    <div class="instructions">Look through the reference cards below, then complete the matching task and the gap-fill task that follow. Click a card-type tab to filter.</div>
+    <div class="vocab-tabs">
+      <button class="vocab-tab active" data-filter="all" onclick="filterVocab('all', this)">All</button>
+      <button class="vocab-tab" data-filter="trend" onclick="filterVocab('trend', this)">Trends &amp; numbers</button>
+      <button class="vocab-tab" data-filter="disaster" onclick="filterVocab('disaster', this)">Disaster words</button>
+    </div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Match the word to its meaning</h2>
+    <p class="ex-sub">Click one word, then click its matching definition</p>
+    <div class="match-grid" data-total-pairs="6" data-correct-count="0" id="matchTrend">
+      <div class="col-left" id="matchLeft"></div>
+      <div class="col-right" id="matchRight"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ Complete the sentences</h2>
+    <p class="ex-sub">Use a word or phrase from the vocabulary above. The meaning you need is given in brackets.</p>
+    <div class="item"><p class="q">1. Last year the number of volcanic eruptions worldwide <input class="fib" style="min-width:150px" data-answer-list="tripled" placeholder="..."> (= multiplied by three).</p></div>
+    <div class="item"><p class="q">2. Between 2005 and 2010 the number of earthquakes <input class="fib" style="min-width:150px" data-answer-list="fluctuated" placeholder="..."> (= changed frequently, up and down).</p></div>
+    <div class="item"><p class="q">3. According to the report, <input class="fib" style="min-width:150px" data-answer-list="the majority|majority" placeholder="..."> (= more than half) of all disasters recorded were weather-related.</p></div>
+    <div class="item"><p class="q">4. The number of forest fires rose <input class="fib" style="min-width:150px" data-answer-list="gradually" placeholder="..."> (= slowly, over a long period), not suddenly.</p></div>
+    <div class="item"><p class="q">5. Just <input class="fib" style="min-width:150px" data-answer-list="one in ten|1 in 10" placeholder="..."> (= 1 out of every 10) natural disasters in 2012 were volcanic eruptions.</p></div>
+  </div>
+
+  <div class="card">
+    <span class="badge-pill ungraded">Ungraded review</span>
+    <h2>🔁 Flashcards — quick recall</h2>
+    <p class="ex-sub">Click a card to flip it. Use the 🔊 button to hear the word.</p>
+    <div class="flip-deck" id="flipDeck"></div>
+    <div class="deck-controls">
+      <button onclick="deckNav(-1)">← Prev</button>
+      <span id="deckCounter">1 / 8</span>
+      <button onclick="deckNav(1)">Next →</button>
+      <button onclick="shuffleDeck()">🔀 Shuffle</button>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 3: EX 2 PIE CHARTS -->
+<section class="page" data-page="3">
+  <div class="card">
+    <span class="badge-pill">Exercise 2 · scored</span>
+    <h2>🥧 Look at the pie charts and find the following</h2>
+    <p class="ex-sub">Workbook p.71, exercise 2</p>
+    <div class="imgwrap">
+      <img src="img/pie-charts.png" alt="World Disasters 2012-2013 pie charts">
+      <p class="cap">World Disasters 2012–2013 — Source: Oxfam, EM-DAT</p>
+    </div>
+    <div class="item"><p class="q">1. The subject of the pie charts</p><input class="fib" data-answer-list="number of natural disasters|natural disasters" placeholder="type your answer"></div>
+    <div class="item"><p class="q">2. The most frequent natural disaster</p><input class="fib" data-answer-list="floods|flood" placeholder="type your answer"></div>
+    <div class="item"><p class="q">3. The least frequent</p><input class="fib" data-answer-list="volcanic eruptions|volcanic eruption" placeholder="type your answer"></div>
+    <div class="item"><p class="q">4. The biggest increase between the two years</p><input class="fib" data-answer-list="windstorms|windstorm" placeholder="type your answer"></div>
+    <div class="item"><p class="q">5. The biggest decrease between the two years</p><input class="fib" data-answer-list="droughts|drought" placeholder="type your answer"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 4: EX 3 GRAPH -->
+<section class="page" data-page="4">
+  <div class="card">
+    <span class="badge-pill">Exercise 3 · scored</span>
+    <h2>📈 Look at the graph and answer the questions</h2>
+    <p class="ex-sub">Workbook p.71, exercise 3</p>
+    <div class="imgwrap">
+      <img src="img/graph.png" alt="Number of reported disasters graph, 1980-2010">
+    </div>
+    <div class="item"><p class="q">1. Did the number of disasters increase or decrease between 1980 and 2010?</p><input class="fib" data-answer-list="it increased|increased" placeholder="type your answer"></div>
+    <div class="item"><p class="q">2. When did weather-related events rise most dramatically?</p><input class="fib" data-answer-list="in 1990|1990" placeholder="type your answer"></div>
+    <div class="item"><p class="q">3. When did the number of floods fall sharply?</p><input class="fib" data-answer-list="between 2005 and 2010|2005-2010|2005 to 2010" placeholder="type your answer"></div>
+    <div class="item"><p class="q">4. What happened to the number of droughts?</p><input class="fib" data-answer-list="it fluctuated|fluctuated" placeholder="type your answer"></div>
+    <div class="item"><p class="q">5. When did the number of geophysical events stay the same?</p><input class="fib" data-answer-list="between 1984 and 1989|1984-1989|1984 to 1989" placeholder="type your answer"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 5: EX 4 LISTENING GIST -->
+<section class="page" data-page="5">
+  <div class="card">
+    <span class="badge-pill">Exercise 4 · scored · Listening</span>
+    <h2>🎧 Listen to two students discussing the statistics</h2>
+    <p class="ex-sub">Workbook p.71, exercise 4 — Track 21</p>
+    <div class="imgwrap">
+      <img src="img/listening-task.png" alt="Listening task: number of reported disasters graph">
+    </div>
+    <audio controls id="audioEx4"><source src="audio/audio1.mp3" type="audio/mpeg"></audio>
+    <button class="script-toggle" onclick="toggleScript()">📄 Show/hide full transcript</button>
+    <div class="item">
+      <p class="q">What do they decide is the biggest problem we face?</p>
+      <div class="mcq" data-correct="b">
+        <button class="opt" data-val="a">Disasters caused by geophysical activity, like earthquakes and eruptions</button>
+        <button class="opt" data-val="b">Disasters related to the weather, especially storms and floods</button>
+        <button class="opt" data-val="c">Disasters caused by human activity</button>
+        <button class="opt" data-val="d">It's impossible to know from the statistics</button>
+      </div>
+      <button class="proof-btn" onclick="showProofLive('ev-ex4', this)">🔍 Show proof in transcript</button>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 6: EX 5 LISTENING MISTAKES -->
+<section class="page" data-page="6">
+  <div class="card">
+    <span class="badge-pill">Exercise 5 · scored · Listening</span>
+    <h2>🎧 Listen again and correct the summary</h2>
+    <p class="ex-sub">Workbook p.71, exercise 5 — Track 21. There are eight mistakes in the summary below. Each wrong word/phrase has been removed — listen and type the correct word or phrase in each gap.</p>
+    <audio controls id="audioEx5"><source src="audio/audio1.mp3" type="audio/mpeg"></audio>
+    <button class="script-toggle" onclick="toggleScript()">📄 Show/hide full transcript</button>
+    <div class="item">
+      <p class="q" style="font-weight:400;">
+        The graph shows that there has been a
+        <input class="fib" style="width:120px" data-answer-list="dramatic" placeholder="1"> increase in the number of weather-related disasters in recent years. The number
+        <input class="fib" style="width:100px" data-answer-list="tripled" placeholder="2"> between 1980 and 2010. The biggest
+        <input class="fib" style="width:110px" data-answer-list="increase" placeholder="3"> was in the number of storms. If we look at the pie charts, we can see a
+        <input class="fib" style="width:80px" data-answer-list="rise" placeholder="4"> in the number of windstorms between 2012 and 2013, too. There was a
+        <input class="fib" style="width:100px" data-answer-list="steady" placeholder="5"> increase in the number of floods between 1980 and 2010, and the number rose between 2012 and 2013, but the number of droughts
+        <input class="fib" style="width:80px" data-answer-list="fell" placeholder="6">. The number of geophysical disasters
+        <input class="fib" style="width:120px" data-answer-list="fluctuated" placeholder="7"> between 1980 and 2010. The pie charts also show that there was a
+        <input class="fib" style="width:90px" data-answer-list="little" placeholder="8"> change in the number of earthquakes and volcanic eruptions between 2012 and 2013.
+      </p>
+      <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:6px;">
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-1', this)">🔍 Gap 1</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-2', this)">🔍 Gap 2</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-3', this)">🔍 Gap 3</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-4', this)">🔍 Gap 4</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-5', this)">🔍 Gap 5</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-6', this)">🔍 Gap 6</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-7', this)">🔍 Gap 7</button>
+        <button class="proof-btn" onclick="showProofLive('ev-ex5-8', this)">🔍 Gap 8</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 7: SPEAKING PRACTICE + STUDY SKILLS -->
+<section class="page" data-page="7">
+  <div class="card">
+    <span class="badge-pill ungraded">Speaking practice · ungraded</span>
+    <h2>🗣️ Practise talking about the statistics</h2>
+    <p class="ex-sub">Workbook p.71, exercise 6</p>
+    <p>Use the pie charts, the graph, and the corrected information from Exercise 5 to talk about the statistics out loud (to yourself, a classmate, or record yourself). Use these cues to help structure what you say:</p>
+    <ul class="speaking-cues">
+      <li>Start with the overall trend: "The graph shows that..."</li>
+      <li>Give a number or proportion: "...tripled / a quarter / one in three..."</li>
+      <li>Compare the two pie charts (2012 vs 2013): "If we compare the two years..."</li>
+      <li>Use at least three trend words from the Vocabulary boost page (e.g. <i>fluctuated, steadily, the majority</i>).</li>
+      <li>Finish with your own opinion: "I think the biggest problem is... because..."</li>
+    </ul>
+    <textarea class="notes" placeholder="Optional: jot down notes here before you speak..."></textarea>
+  </div>
+  <div class="card">
+    <span class="badge-pill ungraded">Study skills · ungraded</span>
+    <h2>💡 Study skills</h2>
+    <p class="q" style="font-weight:600;">How can you cope if you can't remember a word while speaking?</p>
+    <textarea class="notes" placeholder="Write your own ideas here..."></textarea>
+    <button class="hint-toggle" onclick="toggleHint()">Show strategies</button>
+    <div class="hint-box" id="hintBox" hidden>
+      Try: describing what the word means in other words (paraphrasing) · using a more general word instead (e.g. "a kind of natural disaster") · using gesture or drawing · saying "it's like..." and giving an example · asking your partner/teacher "How do you say...?"
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <button class="btn-next" onclick="nextPage()">Next →</button>
+  </div>
+</section>
+
+<!-- PAGE 8: FINISH -->
+<section class="page" data-page="8">
+  <div class="card">
+    <h2>✅ Check &amp; Submit</h2>
+    <p>Make sure your name is filled in at the top, then click the button below to check your answers and send your result to your teacher.</p>
+    <div class="check-bar">
+      <button class="nav-btns btn-submit" style="padding:13px 30px;" onclick="submitAll()">Check &amp; Submit</button>
+      <div id="submitStatus"></div>
+    </div>
+    <div id="scoreSummary" hidden></div>
+    <div class="completion-stickers" id="completionStickers">
+      <img class="completion-sticker" data-tier="eggcellent-a" src="img/sticker-eggcellent-a.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="img/sticker-eggcellent-b.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="img/sticker-perfect.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="img/sticker-excellent.png" hidden alt="">
+      <img class="completion-sticker" data-tier="amazing_work" src="img/sticker-amazing-work.png" hidden alt="">
+      <img class="completion-sticker" data-tier="i_love_it" src="img/sticker-i-love-it.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="img/sticker-awesome.png" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-a" src="img/sticker-too-cool-a.png" hidden alt="">
+      <img class="completion-sticker" data-tier="too_cool-b" src="img/sticker-too-cool-b.png" hidden alt="">
+      <img class="completion-sticker" data-tier="fire" src="img/sticker-fire.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="img/sticker-great-work.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="img/sticker-good-job.png" hidden alt="">
+      <img class="completion-sticker" data-tier="good_vibes" src="img/sticker-good-vibes.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="img/sticker-nice.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="img/sticker-not-bad.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="img/sticker-strawberry-a.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="img/sticker-strawberry-b.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="img/sticker-keep-going.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="img/sticker-you-tried.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="img/sticker-plain.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="img/sticker-strawberry-full.png" hidden alt="">
+      <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="img/sticker-awesome-is-banned.png" hidden alt="">
+    </div>
+    <p id="resultCaption" class="tier-caption"></p>
+    <div class="breakdown-box" id="resultsBreakdown" hidden></div>
+  </div>
+  <div class="card" id="fullReviewCard" hidden>
+    <h2>📄 Full transcript review</h2>
+    <p class="ex-sub">Every listening answer, highlighted in the transcript for review.</p>
+    <div class="script-box" id="fullReviewScript"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="prevPage()">← Back</button>
+    <span></span>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<!-- Transcript overlay -->
+<div class="script-overlay" id="scriptOverlay">
+  <div class="script-panel">
+    <div class="script-panel-head">
+      <h3>📄 Audioscript — Track 21</h3>
+      <button onclick="toggleScript()">✕</button>
+    </div>
+    <div class="script-box-live" id="scriptBoxLive"></div>
+  </div>
+</div>
+
+<!-- ANGLE sticky badge -->
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+// ============ CONSTANTS ============
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'Gateway B2 (2nd ed.)';
+const PROGRESS_KEY = 'angle_progress::gwb2-u8-speaking-homework';
+const PAGE_LABELS = ["Start","Ex.1 Numbers","Vocab boost","Ex.2 Pie charts","Ex.3 Graph","Ex.4 Listening","Ex.5 Mistakes","Speaking & study skills","Finish"];
+let current = 0;
+let isRestoring = false;
+
+// ============ AUDIOSCRIPT (Track 21) ============
+const SCRIPT_TURNS = [
+  {sp:'Girl', html:'Well, the graph shows that there has been a <mark class="ev" id="ev-ex5-1">dramatic increase in the number of weather-related disasters in recent years</mark>.'},
+  {sp:'Boy', html:'Yes, in fact, the <mark class="ev" id="ev-ex5-2">number tripled between 1980 and 2010</mark>. There were fewer than 150 weather-related disasters in 1980, but in 2005, there were nearly 450.'},
+  {sp:'Girl', html:'That\u2019s right. <mark class="ev" id="ev-ex5-3">The biggest increase was in the number of storms.</mark>'},
+  {sp:'Boy', html:'Yes, and if we look at the pie charts, <mark class="ev" id="ev-ex5-4">we can see a rise in the number of windstorms between 2012 and 2013</mark>, too.'},
+  {sp:'Girl', html:'<mark class="ev" id="ev-ex5-5">There was a steady increase in the number of floods between 1980 and 2010</mark>, and the number rose between 2012 and 2013.'},
+  {sp:'Boy', html:'But <mark class="ev" id="ev-ex5-6">the number of droughts fell.</mark>'},
+  {sp:'Girl', html:'At the same time, <mark class="ev" id="ev-ex5-7">the number of geophysical disasters fluctuated between 1980 and 2010.</mark>'},
+  {sp:'Boy', html:'Yes, the pie charts show that <mark class="ev" id="ev-ex5-8">there was little change in the number of earthquakes and volcanic eruptions between 2012 and 2013.</mark>'},
+  {sp:'Girl', html:'<mark class="ev" id="ev-ex4">So it seems that disasters related to weather are the biggest problem we face at the moment. In particular, problems related to storms and floods.</mark>'},
+  {sp:'Boy', html:'That\u2019s right, because the number of geophysical disasters has stayed more or less the same.'}
+];
+
+function buildScriptHTML(forFullReview){
+  return SCRIPT_TURNS.map(t=>{
+    let html = t.html;
+    if(forFullReview){
+      html = html.replace(/<mark class="ev" id="([^"]+)">/g, '<mark class="script-hl" id="rev-$1">').replace(/<\/mark>/g,'</mark>');
+    }
+    return `<p class="script-turn"><span class="script-speaker">${t.sp}:</span> ${html}</p>`;
+  }).join('');
+}
+
+function toggleScript(){
+  const ov = document.getElementById('scriptOverlay');
+  const box = document.getElementById('scriptBoxLive');
+  if(!ov.classList.contains('open') && !box.dataset.filled){
+    box.innerHTML = buildScriptHTML(false);
+    box.dataset.filled = '1';
+  }
+  ov.classList.toggle('open');
+}
+function showProofLive(evId, btn){
+  const ov = document.getElementById('scriptOverlay');
+  const box = document.getElementById('scriptBoxLive');
+  if(!box.dataset.filled){ box.innerHTML = buildScriptHTML(false); box.dataset.filled = '1'; }
+  if(!ov.classList.contains('open')) ov.classList.add('open');
+  document.querySelectorAll('mark.ev.lit').forEach(m=>m.classList.remove('lit'));
+  const target = document.getElementById(evId);
+  if(target){
+    target.classList.add('lit');
+    target.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  btn.textContent = btn.textContent.replace('🔍', '🔍').replace('Show proof in transcript','Proof shown ✓');
+  if(!btn.textContent.includes('✓') && !/Gap \d/.test(btn.textContent)) btn.textContent = '🔍 Proof shown ✓';
+  if(/Gap \d/.test(btn.textContent) && !btn.textContent.includes('✓')) btn.textContent = btn.textContent + ' ✓';
+  btn.classList.add('seen');
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ document.getElementById('scriptOverlay').classList.remove('open'); } });
+document.getElementById('scriptOverlay').addEventListener('click', e=>{ if(e.target.id==='scriptOverlay') toggleScript(); });
+
+// ============ VOCAB DATA ============
+const VOCAB = [
+  {word:"rise / increase", type:"trend", pos:"verb / noun", def:"to become higher in number or amount", example:"The number of floods rose gradually between 1980 and 2010.", matchDef:"to become higher in number or amount"},
+  {word:"fall / decrease", type:"trend", pos:"verb / noun", def:"to become lower in number or amount", example:"The number of droughts fell between 2012 and 2013.", matchDef:"to become lower in number or amount"},
+  {word:"fluctuate", type:"trend", pos:"verb", def:"to change frequently and irregularly, up and down", example:"The number of geophysical disasters fluctuated between 1980 and 2010.", matchDef:"to change frequently and irregularly, up and down"},
+  {word:"stay the same / change little", type:"trend", pos:"phrase", def:"to remain at the same level, with little or no change", example:"The number of earthquakes stayed the same between 2012 and 2013.", matchDef:"to remain at the same level, with little or no change"},
+  {word:"gradually / steadily", type:"trend", pos:"adverb", def:"happening slowly and evenly over a period of time", example:"There was a steady increase in the number of floods.", matchDef:"happening slowly and evenly over a period of time"},
+  {word:"sharply / dramatically / significantly", type:"trend", pos:"adverb", def:"in a big, sudden and noticeable way", example:"There was a sharp increase in the number of storms between 1988 and 1990.", matchDef:"in a big, sudden and noticeable way"},
+  {word:"double / triple", type:"trend", pos:"verb", def:"to become two / three times as big", example:"The number of weather-related disasters tripled between 1980 and 2010.", matchDef:null},
+  {word:"a third / a quarter / a tenth", type:"trend", pos:"phrase", def:"fractions used to describe part of a whole (1/3, 1/4, 1/10)", example:"A quarter of the disasters were droughts.", matchDef:null},
+  {word:"the majority", type:"trend", pos:"noun phrase", def:"more than half of a group of people or things", example:"The majority of natural disasters in 2012 were floods.", matchDef:null},
+  {word:"one in three / one in ten", type:"trend", pos:"phrase", def:"a way of describing a proportion, e.g. 1 out of every 3", example:"One in three people were affected by storms.", matchDef:null},
+  {word:"drought", type:"disaster", pos:"noun", def:"a long period of time with little or no rain, so crops die", example:"There were 30 droughts reported worldwide in 2012.", matchDef:null},
+  {word:"windstorm", type:"disaster", pos:"noun", def:"a storm with very strong winds", example:"Windstorms made up 31.5% of natural disasters in 2013.", matchDef:null},
+  {word:"geophysical event", type:"disaster", pos:"noun phrase", def:"a disaster caused by the physical structure of the Earth, e.g. an earthquake or volcanic eruption", example:"Geophysical events include earthquakes and volcanic eruptions.", matchDef:null},
+  {word:"weather-related event", type:"disaster", pos:"noun phrase", def:"a disaster caused by weather, e.g. storms, floods, droughts, wildfires", example:"Storms and floods are the most common weather-related events.", matchDef:null}
+];
+
+function renderVocab(filter){
+  const grid = document.getElementById('vocabGrid');
+  const list = filter==='all' ? VOCAB : VOCAB.filter(v=>v.type===filter);
+  grid.innerHTML = list.map(v=>`
+    <div class="vocab-card"><b>${v.word}</b><span class="pos">${v.pos}</span>
+      <p>${v.def}</p><p class="example">"${v.example}"</p></div>`).join('');
+}
+function filterVocab(type, btn){
+  document.querySelectorAll('.vocab-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderVocab(type);
+}
+
+// ============ MATCHING EXERCISE ============
+const MATCH_PAIRS = VOCAB.filter(v=>v.matchDef).map((v,i)=>({id:'m'+i, word:v.word, def:v.matchDef}));
+function renderMatch(){
+  const left = document.getElementById('matchLeft');
+  const right = document.getElementById('matchRight');
+  const shuffledRight = [...MATCH_PAIRS].sort(()=>Math.random()-0.5);
+  left.innerHTML = MATCH_PAIRS.map(p=>`<button class="match" data-id="${p.id}">${p.word}</button>`).join('');
+  right.innerHTML = shuffledRight.map(p=>`<button class="match" data-id="${p.id}">${p.def}</button>`).join('');
+  wireMatch();
+}
+let firstPick = null;
+function wireMatch(){
+  document.querySelectorAll('#matchTrend .match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(!firstPick){ firstPick = el; el.classList.add('selected'); return; }
+      if(firstPick === el){ firstPick.classList.remove('selected'); firstPick = null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if(isMatch){
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        const container = document.getElementById('matchTrend');
+        container.dataset.correctCount = (parseInt(container.dataset.correctCount||0)+1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{ [firstPick, el].forEach(x=>{ x.classList.remove('selected','wrong-flash'); }); }, 600);
+      }
+      firstPick = null;
+      scheduleSave();
+    };
+  });
+}
+
+// ============ FLASHCARDS ============
+let deckOrder = [0,1,2,3,4,5,10,11];
+let deckIndex = 0;
+function renderDeck(){
+  const wrap = document.getElementById('flipDeck');
+  const v = VOCAB[deckOrder[deckIndex]];
+  wrap.innerHTML = `
+    <div class="flip-card" id="curFlipCard" onclick="flipCurrentCard(event)">
+      <div class="flip-inner">
+        <div class="flip-front">${v.word}<button class="card-speak" onclick="speakCard(event,'${v.word.split(' / ')[0].replace(/'/g,"\\'")}')">🔊</button></div>
+        <div class="flip-back">${v.def}</div>
+      </div>
+    </div>`;
+  document.getElementById('deckCounter').textContent = `${deckIndex+1} / ${deckOrder.length}`;
+}
+function flipCurrentCard(e){
+  if(e.target.closest('.card-speak')) return;
+  document.getElementById('curFlipCard').classList.toggle('flipped');
+}
+function speakCard(e, text){
+  e.stopPropagation();
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.95;
+    speechSynthesis.speak(u);
+  }catch(err){}
+}
+function deckNav(dir){
+  deckIndex = (deckIndex + dir + deckOrder.length) % deckOrder.length;
+  renderDeck();
+}
+function shuffleDeck(){
+  deckOrder.sort(()=>Math.random()-0.5);
+  deckIndex = 0;
+  renderDeck();
+}
+
+// ============ HINT TOGGLE ============
+function toggleHint(){ document.getElementById('hintBox').hidden = !document.getElementById('hintBox').hidden; }
+
+// ============ PAGINATION ============
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+// ============ MCQ ============
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('correct'); }
+  else{
+    btn.classList.add('wrong');
+    const correctBtn = group.querySelector(`.opt[data-val="${correct}"]`);
+    if(correctBtn) correctBtn.classList.add('correct');
+  }
+}
+document.querySelectorAll('.mcq .opt').forEach(btn=>{
+  btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+});
+
+// ============ SCORING HELPERS ============
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' ').replace(/[.,!?]+$/,''); }
+function matchAnswer(val, dataset){
+  const v = normalize(val);
+  if(!v) return false;
+  const list = (dataset.answerList || dataset.answer || '').split('|').map(normalize);
+  return list.includes(v);
+}
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  const p = el.closest('p');
+  if(p){
+    const siblings = Array.from(p.querySelectorAll('input.fib'));
+    const idx = siblings.indexOf(el) + 1;
+    if(siblings.length) return `gap ${idx} of ${siblings.length}`;
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+// ============ TIERED COMPLETION STICKER ============
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+  });
+  const capEl = document.getElementById('resultCaption');
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
+// ============ FULL TRANSCRIPT REVIEW ============
+function buildFullReview(mistakeEvIds, ex4Correct){
+  const box = document.getElementById('fullReviewScript');
+  let html = buildScriptHTML(true);
+  mistakeEvIds.forEach(id=>{
+    html = html.replace(`id="rev-${id}"`, `id="rev-${id}" class="script-hl"`);
+  });
+  box.innerHTML = html;
+  document.getElementById('fullReviewCard').hidden = false;
+}
+
+// ============ SUBMIT ============
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.fib[data-answer-list], .fib[data-answer]').forEach(inp=>{
+    total++;
+    const ok = matchAnswer(inp.value, inp.dataset);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    const correctDisplay = (inp.dataset.answerList||inp.dataset.answer||'').split('|')[0];
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, correctDisplay));
+  });
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else{
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0);
+    const cor = parseInt(c.dataset.correctCount||0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching) — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`); }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const nameVal = nameInput.value.trim();
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameVal}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  const tier = getResultTier(pct);
+  renderResultSticker(pct);
+
+  const breakdown = document.getElementById('resultsBreakdown');
+  breakdown.hidden = false;
+  breakdown.innerHTML = wrongList.length
+    ? `<b>Items to review:</b><ul>${wrongList.map(w=>`<li>${w}</li>`).join('')}</ul>`
+    : `<b>All auto-checked items correct — well done!</b>`;
+
+  // Full transcript review — always show ev-ex4 + all ev-ex5-N as reviewed evidence
+  buildFullReview(['ev-ex4','ev-ex5-1','ev-ex5-2','ev-ex5-3','ev-ex5-4','ev-ex5-5','ev-ex5-6','ev-ex5-7','ev-ex5-8']);
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title);
+    fd.append('student', nameVal);
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', tier.label);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  }catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  scheduleSave();
+}
+
+// ============ PROGRESS PERSISTENCE ============
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib:not([disabled])')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.matched = [...document.querySelectorAll('#matchTrend .matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.hintOpen = !document.getElementById('hintBox').hidden;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('.fib:not([disabled])');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn) highlightMcq(g, btn);
+  });
+
+  (state.matched||[]).forEach(id=>{
+    document.querySelectorAll(`#matchTrend .match[data-id="${id}"]`).forEach(el=>{
+      el.classList.add('matched-correct');
+    });
+  });
+  if((state.matched||[]).length){
+    document.getElementById('matchTrend').dataset.correctCount = state.matched.length;
+  }
+
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  if(state.hintOpen){ document.getElementById('hintBox').hidden = false; }
+
+  const hasContent = state.fib?.some(v=>v) || state.mcq?.some(v=>v!=null) || state.textareas?.some(v=>v) || (state.matched||[]).length;
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, .flip-card')) scheduleSave(); });
+
+// ============ INIT ============
+buildDots();
+renderVocab('all');
+renderMatch();
+renderDeck();
+restoreProgress();
+</script>
+</body>
+</html>
