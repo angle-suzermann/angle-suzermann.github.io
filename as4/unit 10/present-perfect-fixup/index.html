@@ -26,7 +26,6 @@
   --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
 }
 *{box-sizing:border-box;}
-html, body{ overflow-x:hidden; max-width:100%; }
 body{
   margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
   background:var(--black); color:var(--text); line-height:1.55; min-height:100vh;
@@ -182,7 +181,7 @@ button.check-btn:hover{ opacity:.9; }
   --gg-pronoun:#B9A6E0; --gg-verb:#5BC8E8; --gg-neg:#EF6152; --gg-noun:#FFD34D;
   --gg-poss:#2E9E93; --gg-art:#4CAF7D; --gg-conj:#E0609A; --gg-ink:#2D2926;
 }
-.gg-panel{ background:#eef4f2; border:1px solid #d7e6e1; border-radius:12px; padding:16px 18px 18px; margin:16px 0; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.gg-panel{ background:#eef4f2; border:1px solid #d7e6e1; border-radius:12px; padding:16px 18px 18px; margin:16px 0; }
 .gg-panel .gg-intro{ font-size:.86rem; color:var(--muted); margin:0 0 12px; }
 .gg-key{ display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:16px; font-size:.72rem; color:var(--muted); }
 .gg-key span{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
@@ -656,6 +655,7 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
+    fd.append('subject', COURSE_NAME + ' — ' + document.title);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);

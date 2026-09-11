@@ -541,6 +541,7 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);

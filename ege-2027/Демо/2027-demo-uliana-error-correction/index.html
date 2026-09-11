@@ -651,6 +651,7 @@ async function sendToTeacher(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_KEY);
     fd.append('course', COURSE_NAME);
+    fd.append('subject', COURSE_NAME + ' — ' + document.title);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', scoreText);

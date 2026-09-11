@@ -390,6 +390,7 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
+    fd.append('subject', LESSON_NAME);
     fd.append('lesson', LESSON_NAME);
     fd.append('student', nameInput.value.trim());
     fd.append('group', document.getElementById('studentGroup').value.trim());
