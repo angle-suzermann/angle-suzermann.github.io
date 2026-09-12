@@ -29,11 +29,15 @@ body{
   min-height:100vh;
   position:relative;
 }
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 38%; opacity:0.5; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.72), rgba(45,25,60,.92)); }
 
 /* ---------- Topbar ---------- */
-.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 14px rgba(0,0,0,.12); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 14px rgba(0,0,0,.12); }
 .topbar-inner{ max-width:940px; margin:0 auto; padding:12px 20px 10px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; letter-spacing:.2px; }
@@ -182,6 +186,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
 </head>
 <body>
 
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 
@@ -203,6 +208,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
 <!-- ============ PAGE 0 — WARM-UP ============ -->
@@ -569,7 +575,9 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
   <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button></div>
 </section>
 
-</div><!-- /page-wrap -->
+</div></div>
+</div>
+<!-- /page-wrap -->
 
 <div class="angle-badge">
   <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">

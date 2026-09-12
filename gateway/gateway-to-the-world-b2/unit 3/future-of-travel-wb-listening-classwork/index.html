@@ -26,9 +26,13 @@
 *{box-sizing:border-box;}
 button, input, select, textarea{font-family:inherit;}
 body{margin:0;font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text);background:var(--black);}
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .bg-photo{position:absolute;inset:0;z-index:0;background-image:url('img/img1.jpg');background-size:cover;background-position:center 42%;opacity:0.5;}
 .bg-wash{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92));}
-.topbar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:3px solid var(--purple);box-shadow:0 2px 10px rgba(0,0,0,.15); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.15); }
 .topbar-inner{max-width:920px;margin:0 auto;padding:10px 18px 8px;}
 .brand-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .lesson-title{font-weight:700;color:var(--purple-dark);font-size:1.05rem;}
@@ -119,6 +123,7 @@ textarea.notes{width:100%;min-height:80px;border-radius:8px;border:1.5px solid v
 </head>
 <body>
 
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 
@@ -139,6 +144,7 @@ textarea.notes{width:100%;min-height:80px;border-radius:8px;border:1.5px solid v
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
   <!-- PAGE 0: Welcome -->
@@ -259,7 +265,9 @@ textarea.notes{width:100%;min-height:80px;border-radius:8px;border:1.5px solid v
     <div class="nav-btns"><button class="ghost" onclick="prevPage()">← Back</button><span></span></div>
   </section>
 
+</div></div>
 </div>
+
 
 <div class="angle-badge">
   <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -643,7 +651,7 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }

@@ -38,7 +38,11 @@
     background:#1a1420;
     padding:0;
   }
-  .bg-photo{
+  /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.bg-photo{
     position:absolute;
     inset:0;
     z-index:-2;
@@ -55,14 +59,7 @@
   }
 
   /* ---- Sticky top bar ---- */
-  .topbar{
-    position:sticky;
-    top:0;
-    z-index:60;
-    background:#fff;
-    border-bottom:none;
-    box-shadow:0 6px 14px -4px rgba(20,14,25,0.35);
-    padding:14px 20px 20px; transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:none; box-shadow:0 6px 14px -4px rgba(20,14,25,0.35); padding:14px 20px 20px; }
   .topbar-inner{max-width:820px;margin:0 auto;}
   .brand-row{
     display:flex;
@@ -330,6 +327,7 @@
 </style>
 </head>
 <body>
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 <div class="angle-badge">
@@ -358,6 +356,7 @@
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 <section class="page active" data-page="0">
   <div class="card">
@@ -1138,7 +1137,9 @@
 <div id="scoreSummary" hidden></div>
 <div id="submitStatus"></div>
 
+</div></div>
 </div>
+
 
 <script>
 var PAGE_LABELS = ["Grammar 1", "Grammar 2", "Grammar 3", "Grammar 4", "Grammar 5", "Reading 1", "Reading 2", "Reading 3", "Writing 1", "Writing 2"];
@@ -1166,7 +1167,7 @@ function showPage(n){
     d.classList.toggle('active', i === current);
     d.classList.toggle('visited', i < current);
   });
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
 }
 function nextPage(){ showPage(current + 1); }
 function prevPage(){ showPage(current - 1); }

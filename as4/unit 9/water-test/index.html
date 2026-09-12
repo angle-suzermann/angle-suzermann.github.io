@@ -29,6 +29,10 @@ body{
   min-height:100vh;
   position:relative;
 }
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .bg-photo{
   position:absolute; inset:0; z-index:-2;
   background-image:url('img/img1.jpg');
@@ -41,10 +45,7 @@ body{
 }
 
 /* ---------- Topbar ---------- */
-.topbar{
-  position:sticky; top:0; z-index:60;
-  background:#fff; border-bottom:3px solid var(--purple);
-  box-shadow:0 2px 10px rgba(0,0,0,.15); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.15); }
 .topbar-inner{ max-width:820px; margin:0 auto; padding:10px 16px 12px; }
 .brand-row{
   display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;
@@ -234,6 +235,7 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
 </head>
 <body>
 
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 
@@ -254,6 +256,7 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
   <!-- PAGE 0: INTRO -->
@@ -589,7 +592,9 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
     </div>
   </section>
 
+</div></div>
 </div>
+
 
 <div class="angle-badge">
 <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -627,7 +632,7 @@ function showPage(n){
     d.classList.toggle('active', i===current);
     d.classList.toggle('done', i<current);
   });
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }

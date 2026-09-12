@@ -35,6 +35,10 @@ body{
 }
 
 /* ---------- background photo + wash ---------- */
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; transition:background-image .3s ease; }
 .bg-photo.bg-lecture{ background-image:url('img/img1.jpg'); }
 .bg-photo.bg-leaves{ background-image:url('img/img2.jpg'); }
@@ -42,7 +46,7 @@ body{
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
 /* ---------- topbar ---------- */
-.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
 .topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; }
@@ -183,6 +187,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 <body>
 
 <div class="bg-photo bg-lecture" id="bgPhoto"></div>
+<div class="app-shell">
 <div class="bg-wash"></div>
 
 <header class="topbar">
@@ -203,6 +208,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
 <!-- ============ PAGE 0 : WELCOME / WARM-UP ============ -->
@@ -364,7 +370,9 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
   </div>
 </section>
 
-</div><!-- /page-wrap -->
+</div></div>
+</div>
+<!-- /page-wrap -->
 
 <div id="popup-overlay" onclick="if(event.target===this)closePopup()">
   <div class="popup-box">
@@ -588,7 +596,7 @@ function showPage(n){
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
   const bg = document.getElementById('bgPhoto');
   bg.className = 'bg-photo ' + (PAGE_BG[current]||'bg-lecture');
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
   scheduleSave();
 }
 function nextPage(){ showPage(current+1); }

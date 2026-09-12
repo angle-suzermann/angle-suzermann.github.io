@@ -31,6 +31,10 @@ body{
   margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
   background:var(--black); color:var(--text); line-height:1.55; min-height:100vh;
 }
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .bg-photo{
   position:absolute; inset:0; z-index:0;
   background-image:url('img/img1.jpg');
@@ -40,7 +44,7 @@ body{
   position:absolute; inset:0; z-index:1;
   background:linear-gradient(180deg, rgba(20,14,25,.4), rgba(69,52,88,.8));
 }
-.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
 .topbar-inner{ max-width:820px; margin:0 auto; padding:6px 18px 11px; }
 h1{ color:#5E4877; font-size:13pt; font-weight:800; margin:3px 0 0; padding-bottom:1px; border-bottom:2px solid #FED500; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
@@ -220,6 +224,7 @@ button.check-btn:hover{ opacity:.9; }
 </style>
 </head>
 <body>
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 
@@ -243,6 +248,7 @@ button.check-btn:hover{ opacity:.9; }
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap" data-badge-contrast="light">
 
 <div class="restore-note" id="restoreNote" hidden>
@@ -515,7 +521,9 @@ button.check-btn:hover{ opacity:.9; }
   <div class="nav-btns"><button class="nav" onclick="prevPage()">← Back</button><button class="nav" disabled>Next →</button></div>
 </section>
 
+</div></div>
 </div>
+
 
 <script src="/assets/sticker-data.js"></script>
 <script>
@@ -536,7 +544,7 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
   scheduleSave();
 }
 function nextPage(){ showPage(current+1); }

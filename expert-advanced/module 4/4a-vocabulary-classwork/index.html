@@ -43,7 +43,11 @@ p{margin:0 0 14px;}
 button, input, select, textarea{font-family:inherit;}
 
 /* ---------- Topbar ---------- */
-.topbar{position:sticky; top:0; z-index:60; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10); }
 .topbar-inner{max-width:920px; margin:0 auto; padding:14px 20px 12px;}
 .brand-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
 .lesson-title{font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.4px; color:var(--purple);}
@@ -210,6 +214,7 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
 <body>
 
 <!-- ================= TOPBAR ================= -->
+<div class="app-shell">
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-row">
@@ -229,6 +234,7 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
 <!-- ================= PAGE 0 — WELCOME ================= -->
@@ -356,7 +362,9 @@ textarea.notes:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Back</button><span class="spacer"></span></div>
 </section>
 
-</div><!-- /page-wrap -->
+</div></div>
+</div>
+<!-- /page-wrap -->
 
 <!-- ================= STICKY ANGLE BADGE ================= -->
 <div class="angle-badge">
@@ -412,7 +420,7 @@ function showPage(n){
     d.classList.toggle('active', i===current);
     if(i===current) d.classList.add('visited');
   });
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
 }
 function nextPage(){ showPage(current+1); }
 function prevPage(){ showPage(current-1); }

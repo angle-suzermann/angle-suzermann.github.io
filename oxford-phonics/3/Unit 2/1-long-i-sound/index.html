@@ -44,7 +44,11 @@
   p{ line-height:1.55; }
 
   /* ---- Background photo + brand wash ---- */
-  .bg-photo{
+  /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.bg-photo{
     position:absolute; inset:0; z-index:0;
     background-image:url('img/bg-photo.jpg');
     background-size:cover; background-position:center 25%;
@@ -55,12 +59,7 @@
     background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92));
   }
 
-  header.topbar{
-    position:sticky; top:0; z-index:50;
-    background:var(--purple);
-    color:#fff;
-    padding:14px 20px;
-    box-shadow:0 3px 10px rgba(0,0,0,.25); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
+  header.topbar{ position:relative; flex:0 0 auto; z-index:50; background:var(--purple); color:#fff; padding:14px 20px; box-shadow:0 3px 10px rgba(0,0,0,.25); }
   .topbar-inner{ max-width:900px; margin:0 auto; }
   .brand-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
   .brand-row .title{ font-weight:800; font-size:1.15rem; }
@@ -257,6 +256,7 @@ audio.rec-playback{ display:none; height:34px; }
 </head>
 <body>
 
+<div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
 
@@ -275,6 +275,7 @@ audio.rec-playback{ display:none; height:34px; }
   </div>
 </header>
 
+<div class="scroll-area" id="scrollArea">
 <div class="wrap">
 
   <!-- PAGE 0: WELCOME / SOUND FOCUS -->
@@ -412,7 +413,9 @@ audio.rec-playback{ display:none; height:34px; }
     <div class="nav-btns"><button class="nav-btn ghost" onclick="prevPage()">← Back</button><span></span></div>
   </section>
 
+</div></div>
 </div>
+
 
 <!-- ANGLE sticky badge -->
 <div class="angle-badge">
