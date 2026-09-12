@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2 Key for Schools — Mock Test 6</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="A2 Key for Schools">
+<meta name="ws:course-id" content="a2-key-for-schools">
+<meta name="ws:unit"      content="Test 6">
+<meta name="ws:title"     content="A2 Key for Schools — Mock Test 6">
+<meta name="ws:emoji"     content="🔑">
+<meta name="ws:date"      content="2026-09-12">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="efmiykcu">
+<meta name="ws:tags"      content="A2 Key, Cambridge, reading, writing, listening, mock test">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  </style>
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ height:100%; }
+body{
+  margin:0; color:var(--text);
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  padding-bottom:60px;
+  position:relative;
+}
+.bg-photo{
+  position:fixed; inset:0; z-index:-2;
+  background-size:cover; background-position:center;
+  opacity:0.5;
+}
+.bg-wash{
+  position:fixed; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(69,52,88,0.88) 0%, rgba(45,41,38,0.92) 100%);
+}
+.topbar{ position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.86); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); box-shadow:0 2px 14px rgba(0,0,0,0.18); border-bottom:none; }
+.topbar-inner{ max-width:860px; margin:0 auto; padding:10px 20px 8px; }
+.brand-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+.lesson-title{ font-weight:700; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.82rem; }
+.namebar input{ font-family:inherit; padding:5px 9px; border:1.5px solid var(--border); border-radius:6px; font-size:.85rem; width:180px; }
+.namebar input.missing{ border-color:var(--wrong); }
+.save-indicator{ font-size:.7rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:6px; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:7px; background:var(--border); border-radius:5px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:6%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:5px; margin-top:7px; flex-wrap:wrap; }
+.page-dot{ width:20px; height:20px; border-radius:50%; background:var(--border); color:var(--purple-dark); font-size:.62rem; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:700; }
+.page-dot.active{ background:var(--purple); color:#fff; }
+
+.page-wrap{ max-width:860px; margin:0 auto; padding:22px 20px 10px; position:relative; z-index:2; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:22px 24px; margin-bottom:18px; box-shadow:0 6px 24px rgba(0,0,0,0.12); }
+.card h2{ color:var(--purple); font-size:1.15rem; margin-top:0; border-left:4px solid var(--yellow); padding-left:10px; }
+.card p{ line-height:1.55; font-size:.96rem; }
+
+.note-box{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:9px; padding:12px 16px; font-size:.9rem; margin:12px 0; }
+.note-box.purple{ background:var(--card-tint); border-color:var(--border); color:var(--purple-dark); }
+
+.task-item{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:14px 0; }
+.task-img{ max-width:100%; height:auto; border-radius:8px; display:block; margin:8px 0; background:#fff; }
+.item-q{ margin:4px 0 8px; font-size:.95rem; }
+.opt-group{ display:flex; flex-direction:column; gap:6px; }
+.opt{ display:flex; align-items:flex-start; gap:8px; font-size:.92rem; padding:6px 10px; border-radius:8px; cursor:pointer; border:1px solid transparent; }
+.opt:hover{ background:#ece4f4; }
+.opt input{ margin-top:3px; accent-color:var(--purple); }
+.opt.correct{ background:#e3f5ea; border-color:var(--correct); }
+.opt.wrong{ background:#fbe8e5; border-color:var(--wrong); }
+.item-feedback{ font-size:.82rem; margin-top:6px; font-weight:700; min-height:1.1em; }
+.item-feedback.ok{ color:var(--correct); }
+.item-feedback.no{ color:var(--wrong); }
+
+.sel-answer{ font-family:inherit; font-size:.9rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; width:220px; max-width:100%; }
+.sel-answer.correct{ border-color:var(--correct); background:#e3f5ea; }
+.sel-answer.wrong{ border-color:var(--wrong); background:#fbe8e5; }
+
+.people-texts{ display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
+.people-text{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:12px 16px; }
+.people-text p{ margin:6px 0 0; font-size:.9rem; }
+
+.email-block{ margin:14px 0; }
+.email-head{ font-weight:700; color:var(--purple-dark); font-size:.85rem; margin-bottom:6px; }
+.gap-row{ display:flex; flex-wrap:wrap; gap:10px 16px; margin:14px 0; }
+.gap-inline{ display:inline-flex; align-items:center; gap:6px; font-size:.9rem; }
+.gap-input{ font-family:inherit; font-size:.9rem; padding:6px 9px; border:1.5px solid var(--border); border-radius:7px; width:110px; }
+.gap-input.correct{ border-color:var(--correct); background:#e3f5ea; }
+.gap-input.wrong{ border-color:var(--wrong); background:#fbe8e5; }
+.gap-tag{ display:inline-block; background:var(--purple); color:#fff; font-size:.75rem; font-weight:700; padding:1px 7px; border-radius:10px; margin:0 2px; }
+
+.reading-text{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin:12px 0 18px; }
+.reading-text h3{ color:var(--purple); margin-top:0; font-size:1rem; }
+.reading-text p{ font-size:.9rem; line-height:1.6; }
+
+.prompt-box{ background:var(--purple); color:#fff; border-radius:10px; padding:16px 18px; margin:14px 0; font-size:.95rem; line-height:1.6; }
+.prompt-box ul{ margin:8px 0 0; padding-left:20px; }
+.prompt-box li{ margin:4px 0; }
+
+textarea.story-input{
+  width:100%; min-height:140px; font-family:inherit; font-size:.98rem; line-height:1.6;
+  padding:14px; border:1.5px solid var(--border); border-radius:10px; resize:vertical; color:var(--text);
+}
+textarea.story-input:focus{ outline:none; border-color:var(--purple); }
+.wc-row{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; flex-wrap:wrap; gap:8px; }
+.wc-count{ font-size:.85rem; font-weight:700; padding:4px 12px; border-radius:14px; background:var(--border); color:var(--purple-dark); }
+.wc-count.ok{ background:#e3f5ea; color:var(--correct); }
+.wc-count.low, .wc-count.high{ background:#fbe8e5; color:var(--wrong); }
+.wc-hint{ font-size:.78rem; color:var(--muted); }
+
+.audio-box{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin:12px 0 18px; }
+.audio-label{ font-weight:700; color:var(--purple-dark); font-size:.85rem; white-space:nowrap; }
+.audio-box audio{ flex:1; min-width:220px; }
+
+.notes-card{ background:var(--card-tint); border:1.5px dashed var(--purple); border-radius:10px; padding:16px 18px; margin:12px 0 18px; }
+.notes-title{ font-weight:700; color:var(--purple); margin-bottom:8px; }
+.notes-fixed{ font-size:.9rem; color:var(--muted); margin-bottom:8px; }
+.gapline{ font-size:.92rem; margin:8px 0; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.gap-suffix{ color:var(--muted); font-size:.85rem; }
+
+.score-box{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin:14px 0; font-size:.95rem; }
+.score-box table{ width:100%; border-collapse:collapse; }
+.score-box td{ padding:5px 4px; font-size:.9rem; }
+.score-box tr.total td{ font-weight:700; color:var(--purple); border-top:1.5px solid var(--border); padding-top:9px; }
+.a2-notice{ border-radius:10px; padding:16px 20px; margin:14px 0; font-size:1rem; font-weight:700; text-align:center; }
+.a2-notice.pass-merit{ background:#e3f5ea; color:#237a4c; }
+.a2-notice.pass{ background:#e3f5ea; color:#237a4c; }
+.a2-notice.narrow{ background:#fff3cd; color:#8a6d1a; }
+.a2-notice.fail{ background:#fbe8e5; color:var(--wrong); }
+
+.chip-bank{ display:flex; flex-wrap:wrap; gap:7px; margin:10px 0 4px; }
+.checklist{ list-style:none; padding:0; margin:10px 0 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:16px; gap:10px; flex-wrap:wrap; }
+.btn{ font-family:inherit; font-weight:700; border-radius:22px; padding:10px 22px; font-size:.9rem; cursor:pointer; border:none; }
+.btn-primary{ background:var(--purple); color:#fff; }
+.btn-primary:hover{ background:var(--purple-dark); }
+.btn-ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn-cta{ background:var(--yellow); color:var(--black); font-size:.98rem; padding:12px 28px; }
+.btn-cta:hover{ filter:brightness(0.96); }
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.85rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.75rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.send-status{ font-size:.85rem; margin-top:10px; color:var(--purple-dark); min-height:1.2em; }
+.finish-card{ text-align:center; }
+
+.angle-badge{
+  position:fixed; left:18px; bottom:16px; z-index:9999;
+  pointer-events:none; display:flex; flex-direction:column; align-items:flex-start;
+  color:var(--yellow); opacity:0.9;
+}
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{
+  margin-top:4px; margin-left:2px;
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  font-weight:400; font-size:10px; letter-spacing:0.3px; color:var(--yellow);
+}
+@media (max-width:480px){
+  .angle-badge .wordmark{ width:90px; }
+  .angle-badge{ left:12px; bottom:10px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-photo" style="background-image:url('img/bg-photo.jpg');"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">A2 Key for Schools · Mock Test 6</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Student name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 15</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over</button>
+  </div>
+
+<section class="page active" data-page="0" id="page-intro">
+
+<div class="card">
+  <h2>A2 Key for Schools — Mock Test 6</h2>
+  <p>This is a practice version of the A2 Key for Schools exam (Test 6), arranged in the task order used by Wiseman Skills Teens A2: Reading&nbsp;&amp;&nbsp;Writing (7 tasks) and Listening (5 tasks). Speaking is not included in this version.</p>
+  <div class="note-box">
+    <b>Before you start:</b> enter your name in the field at the top of the page — without a name, results cannot be saved or sent to the teacher.
+  </div>
+  <ul class="checklist" style="list-style:disc; padding-left:20px;">
+    <li style="display:list-item;">Reading&nbsp;&amp;&nbsp;Writing: Tasks 1–5 are checked automatically; Tasks 6–7 (the email and the story) are sent to the teacher for marking.</li>
+    <li style="display:list-item;">Listening: 5 tasks with real audio recordings, also auto-checked. You can listen to the audio as many times as you need.</li>
+    <li style="display:list-item;">Answers are saved automatically in this browser — you can close the page and come back later.</li>
+  </ul>
+  <div class="nav-btns"><span></span><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="1" id="page-rw1">
+
+    <div class="card">
+      <h2>Task 1 — Signs & messages</h2>
+      <p>Read the short notices, messages and emails. Choose the correct answer A, B or C.</p>
+      
+        <div class="task-item" data-qid="r1">
+          <img class="task-img" src="img/reading-r1.png" alt="task image 1">
+          <p class="item-q"><b>1</b> Where might you see this?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r1" value="A"> <b>A</b> in a cafe</label><label class="opt"><input type="radio" name="r1" value="B"> <b>B</b> in a library</label><label class="opt"><input type="radio" name="r1" value="C"> <b>C</b> in a picnic area</label></div>
+          <div class="item-feedback" id="fb-r1"></div>
+        </div>
+        <div class="task-item" data-qid="r2">
+          <img class="task-img" src="img/reading-r2.png" alt="task image 2">
+          <p class="item-q"><b>2</b> Speak to Mrs Thompson if</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r2" value="A"> <b>A</b> you’ve got an extra key.</label><label class="opt"><input type="radio" name="r2" value="B"> <b>B</b> you have lost something.</label><label class="opt"><input type="radio" name="r2" value="C"> <b>C</b> you know where the bag is.</label></div>
+          <div class="item-feedback" id="fb-r2"></div>
+        </div>
+        <div class="task-item" data-qid="r3">
+          <img class="task-img" src="img/reading-r3.png" alt="task image 3">
+          <p class="item-q"><b>3</b> Zeta has written to</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r3" value="A"> <b>A</b> invite Linda to go and see a film.</label><label class="opt"><input type="radio" name="r3" value="B"> <b>B</b> ask Linda what films she’s interested in.</label><label class="opt"><input type="radio" name="r3" value="C"> <b>C</b> tell Linda where to meet Jim tomorrow.</label></div>
+          <div class="item-feedback" id="fb-r3"></div>
+        </div>
+        <div class="task-item" data-qid="r4">
+          <img class="task-img" src="img/reading-r4.png" alt="task image 4">
+          <p class="item-q"><b>4</b> What has Tony just done?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r4" value="A"> <b>A</b> met Flora</label><label class="opt"><input type="radio" name="r4" value="B"> <b>B</b> had a birthday</label><label class="opt"><input type="radio" name="r4" value="C"> <b>C</b> done well in an exam</label></div>
+          <div class="item-feedback" id="fb-r4"></div>
+        </div>
+        <div class="task-item" data-qid="r5">
+          <img class="task-img" src="img/reading-r5.png" alt="task image 5">
+          <p class="item-q"><b>5</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r5" value="A"> <b>A</b> Please go to the science room now.</label><label class="opt"><input type="radio" name="r5" value="B"> <b>B</b> You can’t go out through this door.</label><label class="opt"><input type="radio" name="r5" value="C"> <b>C</b> The science laboratory is being used by other people today.</label></div>
+          <div class="item-feedback" id="fb-r5"></div>
+        </div>
+        <div class="task-item" data-qid="r6">
+          <img class="task-img" src="img/reading-r6.png" alt="task image 6">
+          <p class="item-q"><b>6</b> Tom is writing about</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r6" value="A"> <b>A</b> a party that he had.</label><label class="opt"><input type="radio" name="r6" value="B"> <b>B</b> a picture that he saw.</label><label class="opt"><input type="radio" name="r6" value="C"> <b>C</b> some people that he has just met.</label></div>
+          <div class="item-feedback" id="fb-r6"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="2" id="page-rw2">
+
+    <div class="card">
+      <h2>Task 2 — Three teenagers describe their hobbies</h2>
+      <p>Read the texts about three teenagers and their hobbies. For each question, choose who it refers to: Melissa, Sharon or Latifa.</p>
+      <div class="people-texts"><div class="people-text"><b>Melissa, runner</b><p>I started running about a year ago. At first, I just ran 1 or 2 kilometres, but I now do about 10. My speed is improving too. I’ve joined a running club in the town centre. I didn’t know any of the members before, but now most of them are my mates. My dad was a keen runner when he was younger — he was really fit, but he stopped when he hurt his leg. Actually, I need to order some new running shoes — just a simple pair. I don’t think the expensive ones make you run faster!</p></div><div class="people-text"><b>Sharon, skateboarder</b><p>I go skateboarding most evenings in the park. I suppose that’s quite a lot, but the park is only a minute or two from our apartment, and I only stay there half an hour or so. Although I stay longer when my friends are there. Sometimes my cousin’s there too. He’s a beginner, and I’m teaching him a few moves. He’s starting to get really good!</p></div><div class="people-text"><b>Latifa, rock climber</b><p>Two of my best friends suggested I should start rock climbing, so now the three of us do it together. The mother of one of them takes us once or twice a month, but I’d like to do it every week. When I started, I didn’t know you need to get so much stuff — and it isn’t exactly cheap! I really love it. I don’t think I’ll ever get bored of climbing!</p></div></div>
+      
+        <div class="task-item" data-qid="r7">
+          <p class="item-q"><b>7</b> Which person has made new friends because of her hobby?</p>
+          <select class="sel-answer" id="r7"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r7"></div>
+        </div>
+        <div class="task-item" data-qid="r8">
+          <p class="item-q"><b>8</b> Which person does her hobby near her home?</p>
+          <select class="sel-answer" id="r8"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r8"></div>
+        </div>
+        <div class="task-item" data-qid="r9">
+          <p class="item-q"><b>9</b> Which person says she is getting better at her hobby?</p>
+          <select class="sel-answer" id="r9"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r9"></div>
+        </div>
+        <div class="task-item" data-qid="r10">
+          <p class="item-q"><b>10</b> Which person does her hobby with a family member?</p>
+          <select class="sel-answer" id="r10"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r10"></div>
+        </div>
+        <div class="task-item" data-qid="r11">
+          <p class="item-q"><b>11</b> Which person wants to do her hobby more often?</p>
+          <select class="sel-answer" id="r11"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r11"></div>
+        </div>
+        <div class="task-item" data-qid="r12">
+          <p class="item-q"><b>12</b> Which person needs to buy something for her hobby?</p>
+          <select class="sel-answer" id="r12"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r12"></div>
+        </div>
+        <div class="task-item" data-qid="r13">
+          <p class="item-q"><b>13</b> Which person says her hobby was more expensive than she thought?</p>
+          <select class="sel-answer" id="r13"><option value="">— choose —</option><option value="melissa">Melissa</option><option value="sharon">Sharon</option><option value="latifa">Latifa</option></select>
+          <div class="item-feedback" id="fb-r13"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="3" id="page-rw3">
+
+    <div class="card">
+      <h2>Task 3 — Open cloze: two emails</h2>
+      <p>Read the two emails. Write ONE word in each gap.</p>
+      <div class="email-block">
+        <div class="email-head">From: Mrs Hammond · To: Class 9</div>
+        <img class="task-img" src="img/email-mrs-hammond.png" alt="email 1">
+      </div>
+      <div class="email-block">
+        <div class="email-head">From: Andrew · To: Mrs Hammond</div>
+        <img class="task-img" src="img/email-andrew.png" alt="email 2">
+      </div>
+      <div class="note-box purple">Example: <b>(0) ARE</b> is already given in the email. Write the answers for gaps 25–30 below:</div>
+      <div class="gap-row"><span class="gap-inline"><b>(25)</b> <input type="text" class="gap-input" id="r25" autocomplete="off"></span> <span class="gap-inline"><b>(26)</b> <input type="text" class="gap-input" id="r26" autocomplete="off"></span> <span class="gap-inline"><b>(27)</b> <input type="text" class="gap-input" id="r27" autocomplete="off"></span> <span class="gap-inline"><b>(28)</b> <input type="text" class="gap-input" id="r28" autocomplete="off"></span> <span class="gap-inline"><b>(29)</b> <input type="text" class="gap-input" id="r29" autocomplete="off"></span> <span class="gap-inline"><b>(30)</b> <input type="text" class="gap-input" id="r30" autocomplete="off"></span> </div>
+      <div class="item-feedback" id="fb-task3"></div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="4" id="page-rw4">
+
+    <div class="card">
+      <h2>Task 4 — Would you like to be an astronaut?</h2>
+      <p>Read the text. For each question, choose the correct answer A, B or C.</p>
+      <div class="reading-text"><h3>Would you like to be an astronaut?</h3><p>You don’t have to be Superman to fly in space. Many men and women from many different countries have done it. For example, the European Space Agency (ESA) now has 14 astronauts from 8 different countries.</p><p>The first thing is this — you need to be sure it’s the job that you really want to do. It requires a lot of hard work and several years of study at university before astronaut training even begins. Most people start this between 27 and 37 years of age. Many astronauts also train to become pilots first.</p><p>Astronauts come from all over Europe and the world, and it’s important that they can speak the same languages. They have to speak English, and they are given Russian lessons. Some also learn another language, for example Japanese, as a number of astronauts are Japanese speakers.</p><p>If you are still at school and you’d like to be an astronaut when you’re older, it’s not too early to start developing the skills you will need. Playing video games is a great thing to do, as it helps you to think quickly and clearly. This is what you will need to do when you travel in space.</p><p>Another good thing to do is sports, especially team sports. They make you fit, of course, but more importantly, they help you learn how to do things together with your colleagues. So, maybe planning a game of football for next weekend isn’t a bad idea?</p></div>
+      
+        <div class="task-item" data-qid="r14">
+          <p class="item-q"><b>14</b> The first paragraph says that</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r14" value="A"> <b>A</b> lots of people can be an astronaut.</label><label class="opt"><input type="radio" name="r14" value="B"> <b>B</b> there are astronauts from all countries.</label><label class="opt"><input type="radio" name="r14" value="C"> <b>C</b> only 14 people from Europe have become astronauts.</label></div>
+          <div class="item-feedback" id="fb-r14"></div>
+        </div>
+        <div class="task-item" data-qid="r15">
+          <p class="item-q"><b>15</b> The writer says</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r15" value="A"> <b>A</b> you need to be a pilot before you become an astronaut.</label><label class="opt"><input type="radio" name="r15" value="B"> <b>B</b> it’s important to know that being an astronaut is right for you.</label><label class="opt"><input type="radio" name="r15" value="C"> <b>C</b> when you start training to be an astronaut, you must be between 27 and 37.</label></div>
+          <div class="item-feedback" id="fb-r15"></div>
+        </div>
+        <div class="task-item" data-qid="r16">
+          <p class="item-q"><b>16</b> Which languages do ESA astronauts know how to speak after training?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r16" value="A"> <b>A</b> English and Russian</label><label class="opt"><input type="radio" name="r16" value="B"> <b>B</b> English and Japanese</label><label class="opt"><input type="radio" name="r16" value="C"> <b>C</b> English, Japanese and Russian</label></div>
+          <div class="item-feedback" id="fb-r16"></div>
+        </div>
+        <div class="task-item" data-qid="r17">
+          <p class="item-q"><b>17</b> Why can playing video games be useful if you want to be an astronaut?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r17" value="A"> <b>A</b> There are many video games about space travel.</label><label class="opt"><input type="radio" name="r17" value="B"> <b>B</b> Video games can teach you to think fast.</label><label class="opt"><input type="radio" name="r17" value="C"> <b>C</b> Video games help you to understand how computers work.</label></div>
+          <div class="item-feedback" id="fb-r17"></div>
+        </div>
+        <div class="task-item" data-qid="r18">
+          <p class="item-q"><b>18</b> How can sports help you to become an astronaut?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r18" value="A"> <b>A</b> They help you to get fit.</label><label class="opt"><input type="radio" name="r18" value="B"> <b>B</b> They give you something to do in your free time.</label><label class="opt"><input type="radio" name="r18" value="C"> <b>C</b> They help you to work well with other people.</label></div>
+          <div class="item-feedback" id="fb-r18"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="5" id="page-rw5">
+
+    <div class="card">
+      <h2>Task 5 — Cello player wins music competition</h2>
+      <p>Read the text. For each gap, choose the correct word A, B or C.</p>
+      <div class="reading-text"><h3>Cello player wins music competition</h3><p>A 17-year-old musician has won the Young Musician of the Year Prize. Alex Guo was competing <span class="gap-tag">(19)</span> her brother and four other musicians under the <span class="gap-tag">(20)</span> of 21 to win the prize. The winner was <span class="gap-tag">(21)</span> after the young musicians each played on stage with a band. When she <span class="gap-tag">(22)</span> that she was the winner, she was so excited. ‘I just couldn’t <span class="gap-tag">(23)</span> it,’ she said. ‘Music has always been a <span class="gap-tag">(24)</span>, but now I want it to be my job, too.’</p></div>
+      
+        <div class="task-item" data-qid="r19">
+          <p class="item-q"><b>19</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r19" value="A"> <b>A</b> over</label><label class="opt"><input type="radio" name="r19" value="B"> <b>B</b> against</label><label class="opt"><input type="radio" name="r19" value="C"> <b>C</b> after</label></div>
+          <div class="item-feedback" id="fb-r19"></div>
+        </div>
+        <div class="task-item" data-qid="r20">
+          <p class="item-q"><b>20</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r20" value="A"> <b>A</b> age</label><label class="opt"><input type="radio" name="r20" value="B"> <b>B</b> years</label><label class="opt"><input type="radio" name="r20" value="C"> <b>C</b> time</label></div>
+          <div class="item-feedback" id="fb-r20"></div>
+        </div>
+        <div class="task-item" data-qid="r21">
+          <p class="item-q"><b>21</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r21" value="A"> <b>A</b> taken</label><label class="opt"><input type="radio" name="r21" value="B"> <b>B</b> found</label><label class="opt"><input type="radio" name="r21" value="C"> <b>C</b> chosen</label></div>
+          <div class="item-feedback" id="fb-r21"></div>
+        </div>
+        <div class="task-item" data-qid="r22">
+          <p class="item-q"><b>22</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r22" value="A"> <b>A</b> heard</label><label class="opt"><input type="radio" name="r22" value="B"> <b>B</b> listened</label><label class="opt"><input type="radio" name="r22" value="C"> <b>C</b> agreed</label></div>
+          <div class="item-feedback" id="fb-r22"></div>
+        </div>
+        <div class="task-item" data-qid="r23">
+          <p class="item-q"><b>23</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r23" value="A"> <b>A</b> guess</label><label class="opt"><input type="radio" name="r23" value="B"> <b>B</b> believe</label><label class="opt"><input type="radio" name="r23" value="C"> <b>C</b> thank</label></div>
+          <div class="item-feedback" id="fb-r23"></div>
+        </div>
+        <div class="task-item" data-qid="r24">
+          <p class="item-q"><b>24</b></p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="r24" value="A"> <b>A</b> hobby</label><label class="opt"><input type="radio" name="r24" value="B"> <b>B</b> fun</label><label class="opt"><input type="radio" name="r24" value="C"> <b>C</b> game</label></div>
+          <div class="item-feedback" id="fb-r24"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="6" id="page-rw-results">
+
+<div class="card finish-card">
+  <h2>Reading — results</h2>
+  <p>Check the automatically-marked reading tasks (Tasks 1–5):</p>
+  <div id="rwScoreBox" class="score-box"></div>
+  <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Go to Writing →</button></div>
+</div>
+</section>
+<section class="page" data-page="7" id="page-rw6">
+
+    <div class="card">
+      <h2>Task 6 — Guided email</h2>
+      <p>Read the email from your pen friend Joe. Write him an email back.</p>
+      <img class="task-img" src="img/task6-email.png" alt="email from Joe">
+      <div class="prompt-box">In your email:<ul><li>say if you can meet next week</li><li>say when you are free</li><li>suggest where to meet</li></ul></div>
+      <textarea class="story-input" id="task6Input" placeholder="Write your reply to Joe here..."></textarea>
+      <div class="wc-row">
+        <span class="wc-count" id="wc6">0 words</span>
+        <span class="wc-hint">35–50 words needed</span>
+      </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="8" id="page-rw7">
+
+    <div class="card">
+      <h2>Task 7 — Picture story</h2>
+      <p>Look at the three pictures. Write the story they tell.</p>
+      <img class="task-img" src="img/task7-picture-story.png" alt="three-picture story">
+      <textarea class="story-input" id="task7Input" placeholder="Write your story here..."></textarea>
+      <div class="wc-row">
+        <span class="wc-count" id="wc7">0 words</span>
+        <span class="wc-hint">45–60 words needed</span>
+      </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Go to Listening →</button></div>
+    </div>
+</section>
+<section class="page" data-page="9" id="page-l1">
+
+    <div class="card">
+      <h2>Task 1 — Choose the picture</h2>
+      <p>You will hear five short conversations. For each question, choose the correct picture A, B or C.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 1</span>
+        <audio controls preload="none" src="audio/listening-part1.mp3"></audio>
+      </div>
+      
+        <div class="task-item" data-qid="l1">
+          <p class="item-q"><b>1</b> How did Carrie hurt her leg?</p>
+          <img class="task-img" src="img/listening-l1.png" alt="picture options 1">
+          <div class="opt-group">
+            <label class="opt"><input type="radio" name="l1" value="A"> <b>A</b></label>
+            <label class="opt"><input type="radio" name="l1" value="B"> <b>B</b></label>
+            <label class="opt"><input type="radio" name="l1" value="C"> <b>C</b></label>
+          </div>
+          <div class="item-feedback" id="fb-l1"></div>
+        </div>
+        <div class="task-item" data-qid="l2">
+          <p class="item-q"><b>2</b> Which backpack has the boy bought?</p>
+          <img class="task-img" src="img/listening-l2.png" alt="picture options 2">
+          <div class="opt-group">
+            <label class="opt"><input type="radio" name="l2" value="A"> <b>A</b></label>
+            <label class="opt"><input type="radio" name="l2" value="B"> <b>B</b></label>
+            <label class="opt"><input type="radio" name="l2" value="C"> <b>C</b></label>
+          </div>
+          <div class="item-feedback" id="fb-l2"></div>
+        </div>
+        <div class="task-item" data-qid="l3">
+          <p class="item-q"><b>3</b> Where will Daisy have her birthday party?</p>
+          <img class="task-img" src="img/listening-l3.png" alt="picture options 3">
+          <div class="opt-group">
+            <label class="opt"><input type="radio" name="l3" value="A"> <b>A</b></label>
+            <label class="opt"><input type="radio" name="l3" value="B"> <b>B</b></label>
+            <label class="opt"><input type="radio" name="l3" value="C"> <b>C</b></label>
+          </div>
+          <div class="item-feedback" id="fb-l3"></div>
+        </div>
+        <div class="task-item" data-qid="l4">
+          <p class="item-q"><b>4</b> Which job does Dylan’s dad do now?</p>
+          <img class="task-img" src="img/listening-l4.png" alt="picture options 4">
+          <div class="opt-group">
+            <label class="opt"><input type="radio" name="l4" value="A"> <b>A</b></label>
+            <label class="opt"><input type="radio" name="l4" value="B"> <b>B</b></label>
+            <label class="opt"><input type="radio" name="l4" value="C"> <b>C</b></label>
+          </div>
+          <div class="item-feedback" id="fb-l4"></div>
+        </div>
+        <div class="task-item" data-qid="l5">
+          <p class="item-q"><b>5</b> What did they both do yesterday?</p>
+          <img class="task-img" src="img/listening-l5.png" alt="picture options 5">
+          <div class="opt-group">
+            <label class="opt"><input type="radio" name="l5" value="A"> <b>A</b></label>
+            <label class="opt"><input type="radio" name="l5" value="B"> <b>B</b></label>
+            <label class="opt"><input type="radio" name="l5" value="C"> <b>C</b></label>
+          </div>
+          <div class="item-feedback" id="fb-l5"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="10" id="page-l2">
+
+    <div class="card">
+      <h2>Task 2 — Class trip (gap fill)</h2>
+      <p>You will hear a teacher telling students about a school trip. For each question, write a word, number, date or time.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 2</span>
+        <audio controls preload="none" src="audio/listening-part2.mp3"></audio>
+      </div>
+      <div class="notes-card">
+        <div class="notes-title">Class trip</div>
+        <div class="notes-fixed">Visit a: castle</div>
+        <div class="gapline"><b>(6)</b> Cost of trip: £ <input type="text" class="gap-input" id="l6" autocomplete="off"></div><div class="gapline"><b>(7)</b> Day of trip: <input type="text" class="gap-input" id="l7" autocomplete="off"></div><div class="gapline"><b>(8)</b> Time bus leaves school: <input type="text" class="gap-input" id="l8" autocomplete="off"> <span class="gap-suffix">a.m.</span></div><div class="gapline"><b>(9)</b> Bring: <input type="text" class="gap-input" id="l9" autocomplete="off"></div><div class="gapline"><b>(10)</b> Name of special exhibition: <input type="text" class="gap-input" id="l10" autocomplete="off"></div>
+      </div>
+      <div class="item-feedback" id="fb-task-l2"></div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="11" id="page-l3">
+
+    <div class="card">
+      <h2>Task 3 — Matching: books</h2>
+      <p>You will hear Jade talking to her uncle about books she has read for school. How does she feel about each book? Choose the correct letter A–H for each book. You will not need to use one of the letters.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 5</span>
+        <audio controls preload="none" src="audio/listening-part5.mp3"></audio>
+      </div>
+      <div class="note-box purple">Example: <b>0 — The Delay</b></div>
+      
+        <div class="task-item" data-qid="l21">
+          <p class="item-q"><b>21</b> Crunch</p>
+          <select class="sel-answer" id="l21"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l21"></div>
+        </div>
+        <div class="task-item" data-qid="l22">
+          <p class="item-q"><b>22</b> My Island</p>
+          <select class="sel-answer" id="l22"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l22"></div>
+        </div>
+        <div class="task-item" data-qid="l23">
+          <p class="item-q"><b>23</b> Dangerous Animals</p>
+          <select class="sel-answer" id="l23"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l23"></div>
+        </div>
+        <div class="task-item" data-qid="l24">
+          <p class="item-q"><b>24</b> The Invitation</p>
+          <select class="sel-answer" id="l24"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l24"></div>
+        </div>
+        <div class="task-item" data-qid="l25">
+          <p class="item-q"><b>25</b> Skating Star</p>
+          <select class="sel-answer" id="l25"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l25"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="12" id="page-l4">
+
+    <div class="card">
+      <h2>Task 4 — Nadia and Tom’s new school (details)</h2>
+      <p>You will hear Nadia and Tom talking about their new school. For each question, choose the correct answer A, B or C.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 3</span>
+        <audio controls preload="none" src="audio/listening-part3.mp3"></audio>
+      </div>
+      
+        <div class="task-item" data-qid="l11">
+          <p class="item-q"><b>11</b> How will Nadia get to their new school?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l11" value="A"> <b>A</b> by bike</label><label class="opt"><input type="radio" name="l11" value="B"> <b>B</b> by bus</label><label class="opt"><input type="radio" name="l11" value="C"> <b>C</b> on foot</label></div>
+          <div class="item-feedback" id="fb-l11"></div>
+        </div>
+        <div class="task-item" data-qid="l12">
+          <p class="item-q"><b>12</b> What doesn’t Tom like about the school uniform?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l12" value="A"> <b>A</b> the jacket</label><label class="opt"><input type="radio" name="l12" value="B"> <b>B</b> the shirt</label><label class="opt"><input type="radio" name="l12" value="C"> <b>C</b> the trousers</label></div>
+          <div class="item-feedback" id="fb-l12"></div>
+        </div>
+        <div class="task-item" data-qid="l13">
+          <p class="item-q"><b>13</b> How many students are there in the new school?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l13" value="A"> <b>A</b> under 500</label><label class="opt"><input type="radio" name="l13" value="B"> <b>B</b> about 800</label><label class="opt"><input type="radio" name="l13" value="C"> <b>C</b> more than 1000</label></div>
+          <div class="item-feedback" id="fb-l13"></div>
+        </div>
+        <div class="task-item" data-qid="l14">
+          <p class="item-q"><b>14</b> Which subject does Nadia like?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l14" value="A"> <b>A</b> chemistry</label><label class="opt"><input type="radio" name="l14" value="B"> <b>B</b> maths</label><label class="opt"><input type="radio" name="l14" value="C"> <b>C</b> biology</label></div>
+          <div class="item-feedback" id="fb-l14"></div>
+        </div>
+        <div class="task-item" data-qid="l15">
+          <p class="item-q"><b>15</b> What will they do on the first day?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l15" value="A"> <b>A</b> have a class quiz</label><label class="opt"><input type="radio" name="l15" value="B"> <b>B</b> visit the school library</label><label class="opt"><input type="radio" name="l15" value="C"> <b>C</b> meet all their teachers</label></div>
+          <div class="item-feedback" id="fb-l15"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
+<section class="page" data-page="13" id="page-l5">
+
+    <div class="card">
+      <h2>Task 5 — Five short extracts (gist)</h2>
+      <p>You will hear five short conversations. For each question, choose the correct answer A, B or C.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 4</span>
+        <audio controls preload="none" src="audio/listening-part4.mp3"></audio>
+      </div>
+      
+        <div class="task-item" data-qid="l16">
+          <p class="item-q"><b>16</b> You will hear a teacher talking about a trip. What has changed?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l16" value="A"> <b>A</b> the cost</label><label class="opt"><input type="radio" name="l16" value="B"> <b>B</b> the time</label><label class="opt"><input type="radio" name="l16" value="C"> <b>C</b> the transport</label></div>
+          <div class="item-feedback" id="fb-l16"></div>
+        </div>
+        <div class="task-item" data-qid="l17">
+          <p class="item-q"><b>17</b> You will hear two students talking about a problem. Where’s the boy’s phone?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l17" value="A"> <b>A</b> in the teacher’s desk</label><label class="opt"><input type="radio" name="l17" value="B"> <b>B</b> in his brother’s bag</label><label class="opt"><input type="radio" name="l17" value="C"> <b>C</b> in his house</label></div>
+          <div class="item-feedback" id="fb-l17"></div>
+        </div>
+        <div class="task-item" data-qid="l18">
+          <p class="item-q"><b>18</b> You will hear a boy talking about buying some boots. Why did he buy the boots?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l18" value="A"> <b>A</b> They’re comfortable.</label><label class="opt"><input type="radio" name="l18" value="B"> <b>B</b> He likes the colour.</label><label class="opt"><input type="radio" name="l18" value="C"> <b>C</b> They’re in fashion.</label></div>
+          <div class="item-feedback" id="fb-l18"></div>
+        </div>
+        <div class="task-item" data-qid="l19">
+          <p class="item-q"><b>19</b> You will hear a girl talking about playing tennis. How does she feel after playing?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l19" value="A"> <b>A</b> angry</label><label class="opt"><input type="radio" name="l19" value="B"> <b>B</b> hungry</label><label class="opt"><input type="radio" name="l19" value="C"> <b>C</b> tired</label></div>
+          <div class="item-feedback" id="fb-l19"></div>
+        </div>
+        <div class="task-item" data-qid="l20">
+          <p class="item-q"><b>20</b> You will hear two friends talking about a new teacher. What do they like about the new teacher?</p>
+          <div class="opt-group"><label class="opt"><input type="radio" name="l20" value="A"> <b>A</b> He’s clever.</label><label class="opt"><input type="radio" name="l20" value="B"> <b>B</b> He’s friendly.</label><label class="opt"><input type="radio" name="l20" value="C"> <b>C</b> He’s famous.</label></div>
+          <div class="item-feedback" id="fb-l20"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="checkAll()">Check everything →</button></div>
+    </div>
+</section>
+<section class="page" data-page="14" id="page-final">
+
+<div class="card finish-card">
+  <h2>Final result</h2>
+  <div id="finalScoreBox" class="score-box"></div>
+  <div id="a2Notice" class="a2-notice"></div>
+  <div class="note-box">Tasks 6 and 7 (the email and the story) are not marked automatically — the teacher will check them against the Cambridge criteria, so the final writing result will follow later.</div>
+  <div class="card" style="text-align:left; margin-top:16px;">
+    <label for="studentName2" style="display:block; font-size:.85rem; margin-bottom:6px;">Student name (for sending to the teacher):</label>
+    <input type="text" id="studentName2" placeholder="Enter your name if you have not already done so above" style="width:100%; padding:8px 10px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem;">
+    <div class="nav-btns" style="margin-top:14px;">
+      <button class="btn btn-ghost" onclick="prevPage()">← Back</button>
+      <button class="btn btn-cta" id="sendBtn" onclick="sendToTeacher()">Send results to teacher</button>
+    </div>
+    <div class="send-status" id="sendStatus"></div>
+  </div>
+</div>
+</section>
+
+</div>
+
+<div class="angle-badge">
+<svg class="wordmark" width="150" height="44" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+const PAGE_LABELS = ["Start", "R&W · Task 1", "R&W · Task 2", "R&W · Task 3", "R&W · Task 4", "R&W · Task 5", "R&W · Results", "R&W · Task 6", "R&W · Task 7", "Listening · Task 1", "Listening · Task 2", "Listening · Task 3", "Listening · Task 4", "Listening · Task 5", "Result"];
+const PROGRESS_KEY = 'angle_progress::a2key-mock-test6-wiseman';
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'A2 Key for Schools · Mock Test 6';
+
+const RW_MC_KEY = {"1": "B", "2": "B", "3": "A", "4": "C", "5": "B", "6": "A", "14": "B", "15": "B", "16": "A", "17": "B", "18": "C", "19": "B", "20": "A", "21": "C", "22": "A", "23": "B", "24": "A"};
+const RW_SEL_KEY = {"7": "melissa", "8": "sharon", "9": "melissa", "10": "sharon", "11": "latifa", "12": "melissa", "13": "latifa"};
+const RW_GAP_KEY = {"25": ["to"], "26": ["would", "d", "'d"], "27": ["let"], "28": ["for"], "29": ["tell", "inform"], "30": ["on", "most"]};
+const L_MC_KEY = {"1": "C", "2": "B", "3": "A", "4": "C", "5": "A", "11": "A", "12": "C", "13": "C", "14": "B", "15": "C", "16": "A", "17": "A", "18": "C", "19": "A", "20": "B"};
+const L_GAP_KEY = {"6": ["5.60", "5.60 pounds", "5 pounds 60"], "7": ["saturday", "sat"], "8": ["9.10", "9:10", "9.10 am", "nine ten"], "9": ["camera", "a camera"], "10": ["modana"]};
+const L_SEL_KEY = {"21": "G", "22": "B", "23": "D", "24": "E", "25": "C"};
+const RW_LABELS = {"1": "R&W Task 1, Q1", "2": "R&W Task 1, Q2", "3": "R&W Task 1, Q3", "4": "R&W Task 1, Q4", "5": "R&W Task 1, Q5", "6": "R&W Task 1, Q6", "7": "R&W Task 2, Q7", "8": "R&W Task 2, Q8", "9": "R&W Task 2, Q9", "10": "R&W Task 2, Q10", "11": "R&W Task 2, Q11", "12": "R&W Task 2, Q12", "13": "R&W Task 2, Q13", "25": "R&W Task 3, gap 25", "26": "R&W Task 3, gap 26", "27": "R&W Task 3, gap 27", "28": "R&W Task 3, gap 28", "29": "R&W Task 3, gap 29", "30": "R&W Task 3, gap 30", "14": "R&W Task 4, Q14", "15": "R&W Task 4, Q15", "16": "R&W Task 4, Q16", "17": "R&W Task 4, Q17", "18": "R&W Task 4, Q18", "19": "R&W Task 5, gap 19", "20": "R&W Task 5, gap 20", "21": "R&W Task 5, gap 21", "22": "R&W Task 5, gap 22", "23": "R&W Task 5, gap 23", "24": "R&W Task 5, gap 24"};
+const L_LABELS = {"1": "Listening Task 1, Q1", "2": "Listening Task 1, Q2", "3": "Listening Task 1, Q3", "4": "Listening Task 1, Q4", "5": "Listening Task 1, Q5", "6": "Listening Task 2, gap 6", "7": "Listening Task 2, gap 7", "8": "Listening Task 2, gap 8", "9": "Listening Task 2, gap 9", "10": "Listening Task 2, gap 10", "21": "Listening Task 3, Crunch", "22": "Listening Task 3, My Island", "23": "Listening Task 3, Dangerous Animals", "24": "Listening Task 3, The Invitation", "25": "Listening Task 3, Skating Star", "11": "Listening Task 4, Q11", "12": "Listening Task 4, Q12", "13": "Listening Task 4, Q13", "14": "Listening Task 4, Q14", "15": "Listening Task 4, Q15", "16": "Listening Task 5, Q16", "17": "Listening Task 5, Q17", "18": "Listening Task 5, Q18", "19": "Listening Task 5, Q19", "20": "Listening Task 5, Q20"};
+
+let current = 0;
+let isRestoring = false;
+
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i);
+    wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+function norm(s){ return (s||'').toString().trim().toLowerCase().replace(/[.!?]+$/,''); }
+function countWords(text){
+  const t = (text||'').trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function updateWordCount(taInputId, counterId, min, max){
+  const val = document.getElementById(taInputId).value;
+  const n = countWords(val);
+  const el = document.getElementById(counterId);
+  el.textContent = `${n} words`;
+  el.classList.remove('ok','low','high');
+  if(n === 0){ /* neutral */ }
+  else if(n < min){ el.classList.add('low'); }
+  else if(n > max){ el.classList.add('high'); }
+  else{ el.classList.add('ok'); }
+}
+
+/* ---- scoring ---- */
+function gradeMC(keyMap, labels, mistakes){
+  let correct=0, total=0;
+  for(const n in keyMap){
+    total++;
+    const sel = document.querySelector(`input[name="` + (labels===RW_LABELS?'r':'l') + n + `"]:checked`);
+    const val = sel ? sel.value : null;
+    const ok = val === keyMap[n];
+    document.querySelectorAll(`input[name="` + (labels===RW_LABELS?'r':'l') + n + `"]`).forEach(inp=>{
+      const lbl = inp.closest('.opt');
+      if(!lbl) return;
+      lbl.classList.remove('correct','wrong');
+      if(inp.value === keyMap[n]) lbl.classList.add('correct');
+      else if(inp.checked) lbl.classList.add('wrong');
+    });
+    const fb = document.getElementById('fb-'+(labels===RW_LABELS?'r':'l')+n);
+    if(fb){
+      if(ok){ fb.textContent='correct'; fb.className='item-feedback ok'; }
+      else{ fb.textContent='incorrect — correct answer: '+keyMap[n]; fb.className='item-feedback no'; }
+    }
+    if(ok) correct++;
+    else mistakes.push(`${labels[n]} — answered "${val||'(blank)'}", correct "${keyMap[n]}"`);
+  }
+  return {correct, total};
+}
+function gradeSelect(keyMap, labels, mistakes){
+  let correct=0, total=0;
+  for(const n in keyMap){
+    total++;
+    const el = document.getElementById((labels===RW_LABELS?'r':'l')+n);
+    const val = el ? el.value : '';
+    const ok = norm(val) === norm(keyMap[n]);
+    if(el){
+      el.classList.remove('correct','wrong');
+      el.classList.add(ok?'correct':'wrong');
+    }
+    const fb = document.getElementById('fb-'+(labels===RW_LABELS?'r':'l')+n);
+    if(fb){
+      if(ok){ fb.textContent='correct'; fb.className='item-feedback ok'; }
+      else{ fb.textContent='incorrect — correct answer: '+keyMap[n]; fb.className='item-feedback no'; }
+    }
+    if(ok) correct++;
+    else mistakes.push(`${labels[n]} — answered "${val||'(blank)'}", correct "${keyMap[n]}"`);
+  }
+  return {correct, total};
+}
+function gradeGap(keyMap, labels, mistakes){
+  let correct=0, total=0;
+  for(const n in keyMap){
+    total++;
+    const el = document.getElementById((labels===RW_LABELS?'r':'l')+n);
+    const val = el ? el.value : '';
+    const accepted = keyMap[n].map(norm);
+    const ok = accepted.includes(norm(val));
+    if(el){
+      el.classList.remove('correct','wrong');
+      el.classList.add(ok?'correct':'wrong');
+    }
+    if(ok) correct++;
+    else mistakes.push(`${labels[n]} — answered "${val||'(blank)'}", correct "${keyMap[n].join(' / ')}"`);
+  }
+  return {correct, total};
+}
+
+let lastScores = null;
+function checkAll(){
+  const mistakes = [];
+  const rwMC = gradeMC(RW_MC_KEY, RW_LABELS, mistakes);
+  const rwSel = gradeSelect(RW_SEL_KEY, RW_LABELS, mistakes);
+  const rwGap = gradeGap(RW_GAP_KEY, RW_LABELS, mistakes);
+  const rwCorrect = rwMC.correct+rwSel.correct+rwGap.correct;
+  const rwTotal = rwMC.total+rwSel.total+rwGap.total;
+
+  const lMC = gradeMC(L_MC_KEY, L_LABELS, mistakes);
+  const lGap = gradeGap(L_GAP_KEY, L_LABELS, mistakes);
+  const lSel = gradeSelect(L_SEL_KEY, L_LABELS, mistakes);
+  const lCorrect = lMC.correct+lGap.correct+lSel.correct;
+  const lTotal = lMC.total+lGap.total+lSel.total;
+
+  const totalCorrect = rwCorrect+lCorrect;
+  const totalQ = rwTotal+lTotal;
+  const pct = Math.round(totalCorrect/totalQ*100);
+
+  lastScores = {rwCorrect, rwTotal, lCorrect, lTotal, totalCorrect, totalQ, pct, mistakes};
+
+  const rwBox = document.getElementById('rwScoreBox');
+  if(rwBox){
+    rwBox.innerHTML = `<table>
+      <tr><td>Reading — correct answers</td><td>${rwCorrect} / ${rwTotal}</td></tr>
+      <tr class="total"><td>Percentage</td><td>${Math.round(rwCorrect/rwTotal*100)}%</td></tr>
+    </table>`;
+  }
+  const finalBox = document.getElementById('finalScoreBox');
+  if(finalBox){
+    finalBox.innerHTML = `<table>
+      <tr><td>Reading (Tasks 1–5)</td><td>${rwCorrect} / ${rwTotal}</td></tr>
+      <tr><td>Listening (Tasks 1–5)</td><td>${lCorrect} / ${lTotal}</td></tr>
+      <tr class="total"><td>Total (excluding writing)</td><td>${totalCorrect} / ${totalQ} — ${pct}%</td></tr>
+    </table>`;
+    const notice = document.getElementById('a2Notice');
+    let cls, msg;
+    if(pct>=85){ cls='pass-merit'; msg='Pass with Merit — excellent result! (≥85%)'; }
+    else if(pct>=70){ cls='pass'; msg='Pass — A2 level achieved on this part (70–84%)'; }
+    else if(pct>=65){ cls='narrow'; msg='Narrow Fail — very close to A2, just needs a little more work (65–69%)'; }
+    else { cls='fail'; msg='Below A2 level on this part for now (≤64%) — there is work to do'; }
+    notice.className = 'a2-notice ' + cls;
+    notice.textContent = msg + ' — based on the automatically-marked tasks (Reading + Listening).';
+  }
+  scheduleSave();
+  showPage(Math.min(pages_count()-1, current));
+}
+function pages_count(){ return document.querySelectorAll('.page').length; }
+
+/* ---- progress persistence ---- */
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+
+function collectAllInputs(){
+  const state = {};
+  document.querySelectorAll('input[type=text], .gap-input').forEach(el=>{ if(el.id) state[el.id]=el.value; });
+  document.querySelectorAll('select.sel-answer').forEach(el=>{ if(el.id) state[el.id]=el.value; });
+  document.querySelectorAll('input[type=radio]:checked').forEach(el=>{ state['radio::'+el.name]=el.value; });
+  document.querySelectorAll('textarea.story-input').forEach(el=>{ if(el.id) state[el.id]=el.value; });
+  return state;
+}
+function restoreAllInputs(state){
+  for(const key in state){
+    if(key.startsWith('radio::')){
+      const name = key.slice(7);
+      const val = state[key];
+      const inp = document.querySelector(`input[name="${name}"][value="${val}"]`);
+      if(inp) inp.checked = true;
+    } else {
+      const el = document.getElementById(key);
+      if(el) el.value = state[key];
+    }
+  }
+}
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.inputs = collectAllInputs();
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable */ }
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){
+    const ni = document.getElementById('studentName'); if(ni) ni.value = state.name;
+    const ni2 = document.getElementById('studentName2'); if(ni2) ni2.value = state.name;
+  }
+  if(state.inputs) restoreAllInputs(state.inputs);
+  updateWordCount('task6Input','wc6',35,50);
+  updateWordCount('task7Input','wc7',45,60);
+  const hasContent = state.name || (state.inputs && Object.keys(state.inputs).length);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+    document.getElementById('restoreNoteText').textContent = `Found saved answers from ${when || 'a previous session'} — they have been restored.`;
+    note.hidden = false;
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase the saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+/* ---- send to teacher ---- */
+async function sendToTeacher(){
+  const nameInput = document.getElementById('studentName');
+  const nameInput2 = document.getElementById('studentName2');
+  const name = (nameInput2 && nameInput2.value.trim()) || (nameInput && nameInput.value.trim()) || '';
+  const status = document.getElementById('sendStatus');
+  const btn = document.getElementById('sendBtn');
+  if(!name){
+    if(nameInput2) nameInput2.classList.add('missing');
+    if(nameInput) nameInput.classList.add('missing');
+    alert('Enter your name before sending.');
+    return;
+  }
+  if(!lastScores) checkAll();
+  btn.disabled = true;
+  status.textContent = 'Sending…'; status.style.color = 'var(--muted)';
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('student', name);
+    fd.append('timestamp', new Date().toISOString());
+    fd.append('reading_score', lastScores ? `${lastScores.rwCorrect} / ${lastScores.rwTotal}` : 'n/a');
+    fd.append('listening_score', lastScores ? `${lastScores.lCorrect} / ${lastScores.lTotal}` : 'n/a');
+    fd.append('total_score', lastScores ? `${lastScores.totalCorrect} / ${lastScores.totalQ} (${lastScores.pct}%)` : 'n/a');
+    fd.append('mistakes', lastScores && lastScores.mistakes.length ? lastScores.mistakes.join('\n') : 'No mistakes — all automatically-marked tasks are correct.');
+    fd.append('task6_email', document.getElementById('task6Input')?.value || '');
+    fd.append('task6_word_count', String(countWords(document.getElementById('task6Input')?.value || '')));
+    fd.append('task7_story', document.getElementById('task7Input')?.value || '');
+    fd.append('task7_word_count', String(countWords(document.getElementById('task7Input')?.value || '')));
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    if(res.ok){ status.textContent = 'Sent! The results have reached the teacher by email.'; status.style.color = 'var(--correct)'; }
+    else { status.textContent = 'Could not send (server error). Please try again.'; status.style.color = 'var(--wrong)'; btn.disabled=false; }
+  } catch(e){
+    status.textContent = 'Could not send: no network connection or access blocked.'; status.style.color = 'var(--wrong)'; btn.disabled=false;
+  }
+}
+
+/* ---- init ---- */
+document.addEventListener('input', e=>{
+  if(e.target.matches('input[type=text], textarea, select, #studentName, #studentName2')) scheduleSave();
+  if(e.target.id === 'task6Input') updateWordCount('task6Input','wc6',35,50);
+  if(e.target.id === 'task7Input') updateWordCount('task7Input','wc7',45,60);
+});
+document.addEventListener('change', e=>{
+  if(e.target.matches('select, input[type=radio]')) scheduleSave();
+});
+
+buildDots();
+updateWordCount('task6Input','wc6',35,50);
+updateWordCount('task7Input','wc7',45,60);
+restoreProgress();
+</script>
+</body>
+</html>
