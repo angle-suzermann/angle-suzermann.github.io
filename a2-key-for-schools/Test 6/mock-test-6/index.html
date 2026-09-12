@@ -99,6 +99,11 @@ body{
 .gap-input.correct{ border-color:var(--correct); background:#e3f5ea; }
 .gap-input.wrong{ border-color:var(--wrong); background:#fbe8e5; }
 .gap-tag{ display:inline-block; background:var(--purple); color:#fff; font-size:.75rem; font-weight:700; padding:1px 7px; border-radius:10px; margin:0 2px; }
+@media (max-width:480px){
+  .gap-row{ flex-direction:column; align-items:stretch; gap:10px; }
+  .gap-inline{ width:100%; justify-content:space-between; }
+  .gap-input{ flex:1; max-width:none; min-width:0; }
+}
 
 .reading-text{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin:12px 0 18px; }
 .reading-text h3{ color:var(--purple); margin-top:0; font-size:1rem; }
@@ -233,7 +238,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="1" id="page-rw1">
 
     <div class="card">
-      <h2>Task 1 — Signs & messages</h2>
+      <h2>Part 1 — Signs & messages</h2>
       <p>Read the short notices, messages and emails. Choose the correct answer A, B or C.</p>
       
         <div class="task-item" data-qid="r1">
@@ -278,7 +283,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="2" id="page-rw2">
 
     <div class="card">
-      <h2>Task 2 — Three teenagers describe their hobbies</h2>
+      <h2>Part 2 — Three teenagers describe their hobbies</h2>
       <p>Read the texts about three teenagers and their hobbies. For each question, choose who it refers to: Melissa, Sharon or Latifa.</p>
       <div class="people-texts"><div class="people-text"><b>Melissa, runner</b><p>I started running about a year ago. At first, I just ran 1 or 2 kilometres, but I now do about 10. My speed is improving too. I’ve joined a running club in the town centre. I didn’t know any of the members before, but now most of them are my mates. My dad was a keen runner when he was younger — he was really fit, but he stopped when he hurt his leg. Actually, I need to order some new running shoes — just a simple pair. I don’t think the expensive ones make you run faster!</p></div><div class="people-text"><b>Sharon, skateboarder</b><p>I go skateboarding most evenings in the park. I suppose that’s quite a lot, but the park is only a minute or two from our apartment, and I only stay there half an hour or so. Although I stay longer when my friends are there. Sometimes my cousin’s there too. He’s a beginner, and I’m teaching him a few moves. He’s starting to get really good!</p></div><div class="people-text"><b>Latifa, rock climber</b><p>Two of my best friends suggested I should start rock climbing, so now the three of us do it together. The mother of one of them takes us once or twice a month, but I’d like to do it every week. When I started, I didn’t know you need to get so much stuff — and it isn’t exactly cheap! I really love it. I don’t think I’ll ever get bored of climbing!</p></div></div>
       
@@ -320,29 +325,10 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
-<section class="page" data-page="3" id="page-rw3">
+<section class="page" data-page="3" id="page-rw4">
 
     <div class="card">
-      <h2>Task 3 — Open cloze: two emails</h2>
-      <p>Read the two emails. Write ONE word in each gap.</p>
-      <div class="email-block">
-        <div class="email-head">From: Mrs Hammond · To: Class 9</div>
-        <img class="task-img" src="img/email-mrs-hammond.png" alt="email 1">
-      </div>
-      <div class="email-block">
-        <div class="email-head">From: Andrew · To: Mrs Hammond</div>
-        <img class="task-img" src="img/email-andrew.png" alt="email 2">
-      </div>
-      <div class="note-box purple">Example: <b>(0) ARE</b> is already given in the email. Write the answers for gaps 25–30 below:</div>
-      <div class="gap-row"><span class="gap-inline"><b>(25)</b> <input type="text" class="gap-input" id="r25" autocomplete="off"></span> <span class="gap-inline"><b>(26)</b> <input type="text" class="gap-input" id="r26" autocomplete="off"></span> <span class="gap-inline"><b>(27)</b> <input type="text" class="gap-input" id="r27" autocomplete="off"></span> <span class="gap-inline"><b>(28)</b> <input type="text" class="gap-input" id="r28" autocomplete="off"></span> <span class="gap-inline"><b>(29)</b> <input type="text" class="gap-input" id="r29" autocomplete="off"></span> <span class="gap-inline"><b>(30)</b> <input type="text" class="gap-input" id="r30" autocomplete="off"></span> </div>
-      <div class="item-feedback" id="fb-task3"></div>
-      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
-    </div>
-</section>
-<section class="page" data-page="4" id="page-rw4">
-
-    <div class="card">
-      <h2>Task 4 — Would you like to be an astronaut?</h2>
+      <h2>Part 3 — Would you like to be an astronaut?</h2>
       <p>Read the text. For each question, choose the correct answer A, B or C.</p>
       <div class="reading-text"><h3>Would you like to be an astronaut?</h3><p>You don’t have to be Superman to fly in space. Many men and women from many different countries have done it. For example, the European Space Agency (ESA) now has 14 astronauts from 8 different countries.</p><p>The first thing is this — you need to be sure it’s the job that you really want to do. It requires a lot of hard work and several years of study at university before astronaut training even begins. Most people start this between 27 and 37 years of age. Many astronauts also train to become pilots first.</p><p>Astronauts come from all over Europe and the world, and it’s important that they can speak the same languages. They have to speak English, and they are given Russian lessons. Some also learn another language, for example Japanese, as a number of astronauts are Japanese speakers.</p><p>If you are still at school and you’d like to be an astronaut when you’re older, it’s not too early to start developing the skills you will need. Playing video games is a great thing to do, as it helps you to think quickly and clearly. This is what you will need to do when you travel in space.</p><p>Another good thing to do is sports, especially team sports. They make you fit, of course, but more importantly, they help you learn how to do things together with your colleagues. So, maybe planning a game of football for next weekend isn’t a bad idea?</p></div>
       
@@ -374,10 +360,10 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
-<section class="page" data-page="5" id="page-rw5">
+<section class="page" data-page="4" id="page-rw5">
 
     <div class="card">
-      <h2>Task 5 — Cello player wins music competition</h2>
+      <h2>Part 4 — Cello player wins music competition</h2>
       <p>Read the text. For each gap, choose the correct word A, B or C.</p>
       <div class="reading-text"><h3>Cello player wins music competition</h3><p>A 17-year-old musician has won the Young Musician of the Year Prize. Alex Guo was competing <span class="gap-tag">(19)</span> her brother and four other musicians under the <span class="gap-tag">(20)</span> of 21 to win the prize. The winner was <span class="gap-tag">(21)</span> after the young musicians each played on stage with a band. When she <span class="gap-tag">(22)</span> that she was the winner, she was so excited. ‘I just couldn’t <span class="gap-tag">(23)</span> it,’ she said. ‘Music has always been a <span class="gap-tag">(24)</span>, but now I want it to be my job, too.’</p></div>
       
@@ -414,6 +400,25 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
+<section class="page" data-page="5" id="page-rw3">
+
+    <div class="card">
+      <h2>Part 5 — Open cloze: two emails</h2>
+      <p>Read the two emails. Write ONE word in each gap.</p>
+      <div class="email-block">
+        <div class="email-head">From: Mrs Hammond · To: Class 9</div>
+        <img class="task-img" src="img/email-mrs-hammond.png" alt="email 1">
+      </div>
+      <div class="email-block">
+        <div class="email-head">From: Andrew · To: Mrs Hammond</div>
+        <img class="task-img" src="img/email-andrew.png" alt="email 2">
+      </div>
+      <div class="note-box purple">Example: <b>(0) ARE</b> is already given in the email. Write the answers for gaps 25–30 below:</div>
+      <div class="gap-row"><span class="gap-inline"><b>(25)</b> <input type="text" class="gap-input" id="r25" autocomplete="off"></span> <span class="gap-inline"><b>(26)</b> <input type="text" class="gap-input" id="r26" autocomplete="off"></span> <span class="gap-inline"><b>(27)</b> <input type="text" class="gap-input" id="r27" autocomplete="off"></span> <span class="gap-inline"><b>(28)</b> <input type="text" class="gap-input" id="r28" autocomplete="off"></span> <span class="gap-inline"><b>(29)</b> <input type="text" class="gap-input" id="r29" autocomplete="off"></span> <span class="gap-inline"><b>(30)</b> <input type="text" class="gap-input" id="r30" autocomplete="off"></span> </div>
+      <div class="item-feedback" id="fb-task3"></div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+</section>
 <section class="page" data-page="6" id="page-rw-results">
 
 <div class="card finish-card">
@@ -426,7 +431,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="7" id="page-rw6">
 
     <div class="card">
-      <h2>Task 6 — Guided email</h2>
+      <h2>Part 6 — Guided email</h2>
       <p>Read the email from your pen friend Joe. Write him an email back.</p>
       <img class="task-img" src="img/task6-email.png" alt="email from Joe">
       <div class="prompt-box">In your email:<ul><li>say if you can meet next week</li><li>say when you are free</li><li>suggest where to meet</li></ul></div>
@@ -441,7 +446,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="8" id="page-rw7">
 
     <div class="card">
-      <h2>Task 7 — Picture story</h2>
+      <h2>Part 7 — Picture story</h2>
       <p>Look at the three pictures. Write the story they tell.</p>
       <img class="task-img" src="img/task7-picture-story.png" alt="three-picture story">
       <textarea class="story-input" id="task7Input" placeholder="Write your story here..."></textarea>
@@ -455,7 +460,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="9" id="page-l1">
 
     <div class="card">
-      <h2>Task 1 — Choose the picture</h2>
+      <h2>Part 1 — Choose the picture</h2>
       <p>You will hear five short conversations. For each question, choose the correct picture A, B or C.</p>
       <div class="audio-box">
         <span class="audio-label">Listening · Part 1</span>
@@ -518,7 +523,7 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 <section class="page" data-page="10" id="page-l2">
 
     <div class="card">
-      <h2>Task 2 — Class trip (gap fill)</h2>
+      <h2>Part 2 — Class trip (gap fill)</h2>
       <p>You will hear a teacher telling students about a school trip. For each question, write a word, number, date or time.</p>
       <div class="audio-box">
         <span class="audio-label">Listening · Part 2</span>
@@ -533,49 +538,10 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
-<section class="page" data-page="11" id="page-l3">
+<section class="page" data-page="11" id="page-l4">
 
     <div class="card">
-      <h2>Task 3 — Matching: books</h2>
-      <p>You will hear Jade talking to her uncle about books she has read for school. How does she feel about each book? Choose the correct letter A–H for each book. You will not need to use one of the letters.</p>
-      <div class="audio-box">
-        <span class="audio-label">Listening · Part 5</span>
-        <audio controls preload="none" src="audio/listening-part5.mp3"></audio>
-      </div>
-      <div class="note-box purple">Example: <b>0 — The Delay</b></div>
-      
-        <div class="task-item" data-qid="l21">
-          <p class="item-q"><b>21</b> Crunch</p>
-          <select class="sel-answer" id="l21"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
-          <div class="item-feedback" id="fb-l21"></div>
-        </div>
-        <div class="task-item" data-qid="l22">
-          <p class="item-q"><b>22</b> My Island</p>
-          <select class="sel-answer" id="l22"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
-          <div class="item-feedback" id="fb-l22"></div>
-        </div>
-        <div class="task-item" data-qid="l23">
-          <p class="item-q"><b>23</b> Dangerous Animals</p>
-          <select class="sel-answer" id="l23"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
-          <div class="item-feedback" id="fb-l23"></div>
-        </div>
-        <div class="task-item" data-qid="l24">
-          <p class="item-q"><b>24</b> The Invitation</p>
-          <select class="sel-answer" id="l24"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
-          <div class="item-feedback" id="fb-l24"></div>
-        </div>
-        <div class="task-item" data-qid="l25">
-          <p class="item-q"><b>25</b> Skating Star</p>
-          <select class="sel-answer" id="l25"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
-          <div class="item-feedback" id="fb-l25"></div>
-        </div>
-      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
-    </div>
-</section>
-<section class="page" data-page="12" id="page-l4">
-
-    <div class="card">
-      <h2>Task 4 — Nadia and Tom’s new school (details)</h2>
+      <h2>Part 3 — Nadia and Tom’s new school (details)</h2>
       <p>You will hear Nadia and Tom talking about their new school. For each question, choose the correct answer A, B or C.</p>
       <div class="audio-box">
         <span class="audio-label">Listening · Part 3</span>
@@ -610,10 +576,10 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
-<section class="page" data-page="13" id="page-l5">
+<section class="page" data-page="12" id="page-l5">
 
     <div class="card">
-      <h2>Task 5 — Five short extracts (gist)</h2>
+      <h2>Part 4 — Five short extracts (gist)</h2>
       <p>You will hear five short conversations. For each question, choose the correct answer A, B or C.</p>
       <div class="audio-box">
         <span class="audio-label">Listening · Part 4</span>
@@ -646,6 +612,45 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
           <div class="item-feedback" id="fb-l20"></div>
         </div>
       <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="checkAll()">Check everything →</button></div>
+    </div>
+</section>
+<section class="page" data-page="13" id="page-l3">
+
+    <div class="card">
+      <h2>Part 5 — Matching: books</h2>
+      <p>You will hear Jade talking to her uncle about books she has read for school. How does she feel about each book? Choose the correct letter A–H for each book. You will not need to use one of the letters.</p>
+      <div class="audio-box">
+        <span class="audio-label">Listening · Part 5</span>
+        <audio controls preload="none" src="audio/listening-part5.mp3"></audio>
+      </div>
+      <div class="note-box purple">Example: <b>0 — The Delay</b></div>
+      
+        <div class="task-item" data-qid="l21">
+          <p class="item-q"><b>21</b> Crunch</p>
+          <select class="sel-answer" id="l21"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l21"></div>
+        </div>
+        <div class="task-item" data-qid="l22">
+          <p class="item-q"><b>22</b> My Island</p>
+          <select class="sel-answer" id="l22"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l22"></div>
+        </div>
+        <div class="task-item" data-qid="l23">
+          <p class="item-q"><b>23</b> Dangerous Animals</p>
+          <select class="sel-answer" id="l23"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l23"></div>
+        </div>
+        <div class="task-item" data-qid="l24">
+          <p class="item-q"><b>24</b> The Invitation</p>
+          <select class="sel-answer" id="l24"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l24"></div>
+        </div>
+        <div class="task-item" data-qid="l25">
+          <p class="item-q"><b>25</b> Skating Star</p>
+          <select class="sel-answer" id="l25"><option value="">— choose a letter —</option><option value="A">A — boring</option><option value="B">B — funny</option><option value="C">C — good beginning</option><option value="D">D — hard to understand</option><option value="E">E — sad</option><option value="F">F — scary</option><option value="G">G — too short</option><option value="H">H — useful</option></select>
+          <div class="item-feedback" id="fb-l25"></div>
+        </div>
+      <div class="nav-btns"><button class="btn btn-ghost" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
     </div>
 </section>
 <section class="page" data-page="14" id="page-final">
@@ -786,10 +791,10 @@ window.initStickerImages = initStickerImages;
 </script>
 
 <script>
-const PAGE_LABELS = ["Start", "R&W · Task 1", "R&W · Task 2", "R&W · Task 3", "R&W · Task 4", "R&W · Task 5", "R&W · Results", "R&W · Task 6", "R&W · Task 7", "Listening · Task 1", "Listening · Task 2", "Listening · Task 3", "Listening · Task 4", "Listening · Task 5", "Result"];
+const PAGE_LABELS = ["Start", "R&W · Part 1", "R&W · Part 2", "R&W · Part 3", "R&W · Part 4", "R&W · Part 5", "R&W · Results", "R&W · Part 6", "R&W · Part 7", "Listening · Part 1", "Listening · Part 2", "Listening · Part 3", "Listening · Part 4", "Listening · Part 5", "Result"];
 const PROGRESS_KEY = 'angle_progress::a2key-mock-test6-wiseman';
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
-const COURSE_NAME = 'A2 Key for Schools · Mock Test 6';
+const COURSE_NAME = 'A2 Key for Schools — Mock Test 6';
 
 const RW_MC_KEY = {"1": "B", "2": "B", "3": "A", "4": "C", "5": "B", "6": "A", "14": "B", "15": "B", "16": "A", "17": "B", "18": "C", "19": "B", "20": "A", "21": "C", "22": "A", "23": "B", "24": "A"};
 const RW_SEL_KEY = {"7": "melissa", "8": "sharon", "9": "melissa", "10": "sharon", "11": "latifa", "12": "melissa", "13": "latifa"};
@@ -813,6 +818,7 @@ function buildDots(){
   });
 }
 function showPage(n){
+  document.querySelectorAll('audio').forEach(a=>a.pause());
   const pages = document.querySelectorAll('.page');
   current = Math.max(0, Math.min(pages.length-1, n));
   pages.forEach((p,i)=>p.classList.toggle('active', i===current));
@@ -1049,6 +1055,7 @@ async function sendToTeacher(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title);
     fd.append('student', name);
     fd.append('timestamp', new Date().toISOString());
     fd.append('reading_score', lastScores ? `${lastScores.rwCorrect} / ${lastScores.rwTotal}` : 'n/a');
@@ -1077,6 +1084,12 @@ document.addEventListener('input', e=>{
 document.addEventListener('change', e=>{
   if(e.target.matches('select, input[type=radio]')) scheduleSave();
 });
+/* Flush any pending debounced save immediately when the tab is closed, backgrounded, or
+   navigated away from — otherwise the last ~400ms of typing before an abrupt close is lost
+   even though everything saved before that still restores fine (misleadingly making the
+   restore banner look "wrong" when really only the very last edits never got persisted). */
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') saveProgress(); });
+window.addEventListener('pagehide', saveProgress);
 
 buildDots();
 initStickerImages();
