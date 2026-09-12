@@ -121,6 +121,12 @@
       "name": "Placement tests",
       "emoji": "🧭",
       "formspree": ""
+    },
+    {
+      "id": "a2-key-for-schools",
+      "name": "A2 Key for Schools",
+      "emoji": "🔑",
+      "formspree": "efmiykcu"
     }
   ],
   "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте.",
