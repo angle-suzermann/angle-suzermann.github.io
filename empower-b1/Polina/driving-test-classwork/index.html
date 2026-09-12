@@ -26,14 +26,19 @@
   --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
 }
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;}
 body{
   font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
   color:var(--text);
   background:var(--card-tint);
-  min-height:100vh;
-  position:relative;
 }
+/* App-shell layout: the shell is pinned to the viewport with position:fixed
+   and never resizes, so it can't be affected by Telegram's in-app-browser
+   toolbar show/hide animation (the bug we're working around here). All real
+   scrolling happens inside .scroll-area instead of at the document level, so
+   .topbar (a normal flex child, not fixed/sticky) is always visible without
+   any dynamic positioning JS. */
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
 .bg-photo{
   position:absolute; inset:0; z-index:0;
   background-image:url('img/bg-photo.jpg');
@@ -41,11 +46,11 @@ body{
   opacity:0.3;
   pointer-events:none;
 }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
 .page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:18px 16px 60px; }
 
 /* Topbar */
-.topbar{ position:fixed; top:0; left:0; right:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); transform:translateY(var(--vvOffsetTop, 0px)); }
-#topbarSpacer{ width:100%; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 16px 8px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; line-height:1.25; }
@@ -171,6 +176,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
 </style>
 </head>
 <body>
+<div class="app-shell">
 <div class="bg-photo"></div>
 
 <header class="topbar">
@@ -190,8 +196,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
     <div class="page-dots" id="pageDots"></div>
   </div>
 </header>
-<div id="topbarSpacer"></div>
-
+<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
   <div class="restore-note" id="restoreNote" hidden>
     <span id="restoreNoteText"></span>
@@ -366,6 +371,8 @@ Now choose the correct word for each rule below.
 </section>
   <div class="reset-link"><a onclick="clearProgress()">Clear my saved answers on this device</a></div>
 </div>
+</div>
+</div>
 
 <div class="angle-badge">
   <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -396,7 +403,8 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length} — ${PAGE_LABELS[current]}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
   scheduleSave();
 }
 function nextPage(){ showPage(current+1); }
@@ -735,37 +743,16 @@ async function submitAll(){
 })();
 
 /* ===================== Init ===================== */
-function syncTopbarSpacer(){
-  const bar = document.querySelector('.topbar');
-  const spacer = document.getElementById('topbarSpacer');
-  if(bar && spacer){ spacer.style.height = bar.offsetHeight + 'px'; }
-}
-// Fix for in-app browsers (Telegram/WKWebView) where the fixed topbar drifts
-// during the dynamic toolbar show/hide animation: the CSS "position:fixed" tracks
-// the layout viewport, but the toolbar animation temporarily shifts the *visual*
-// viewport away from it. window.visualViewport reports the real visible offset,
-// so we translate the topbar to compensate in real time.
-function syncTopbarViewportOffset(){
-  if(!window.visualViewport) return;
-  const offset = window.visualViewport.offsetTop || 0;
-  document.documentElement.style.setProperty('--vvOffsetTop', offset + 'px');
-}
+// The topbar no longer needs any dynamic positioning JS (no spacer, no
+// visualViewport correction): it's a normal flex child inside .app-shell,
+// which is pinned with position:fixed and never resizes when Telegram's
+// in-app-browser toolbar shows/hides. All scrolling happens inside
+// #scrollArea, so the topbar simply can't be scrolled past or drift.
 document.addEventListener('DOMContentLoaded', function(){
   buildDots();
   showPage(0);
   restoreProgress();
-  syncTopbarSpacer();
-  syncTopbarViewportOffset();
 });
-window.addEventListener('resize', syncTopbarSpacer);
-window.addEventListener('orientationchange', syncTopbarSpacer);
-if(document.getElementById('studentName')){
-  document.getElementById('studentName').addEventListener('input', syncTopbarSpacer);
-}
-if(window.visualViewport){
-  window.visualViewport.addEventListener('resize', syncTopbarViewportOffset);
-  window.visualViewport.addEventListener('scroll', syncTopbarViewportOffset);
-}
 
 </script>
 </body>
