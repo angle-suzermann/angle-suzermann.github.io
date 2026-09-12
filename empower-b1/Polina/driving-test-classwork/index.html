@@ -44,7 +44,8 @@ body{
 .page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:18px 16px 60px; }
 
 /* Topbar */
-.topbar{ position:sticky; top:-1px; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar{ position:fixed; top:0; left:0; right:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+#topbarSpacer{ width:100%; }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 16px 8px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; line-height:1.25; }
@@ -189,6 +190,7 @@ textarea.notes:focus{ outline:none; border-color:var(--purple); }
     <div class="page-dots" id="pageDots"></div>
   </div>
 </header>
+<div id="topbarSpacer"></div>
 
 <div class="page-wrap">
   <div class="restore-note" id="restoreNote" hidden>
@@ -733,11 +735,22 @@ async function submitAll(){
 })();
 
 /* ===================== Init ===================== */
+function syncTopbarSpacer(){
+  const bar = document.querySelector('.topbar');
+  const spacer = document.getElementById('topbarSpacer');
+  if(bar && spacer){ spacer.style.height = bar.offsetHeight + 'px'; }
+}
 document.addEventListener('DOMContentLoaded', function(){
   buildDots();
   showPage(0);
   restoreProgress();
+  syncTopbarSpacer();
 });
+window.addEventListener('resize', syncTopbarSpacer);
+window.addEventListener('orientationchange', syncTopbarSpacer);
+if(document.getElementById('studentName')){
+  document.getElementById('studentName').addEventListener('input', syncTopbarSpacer);
+}
 
 </script>
 </body>
