@@ -29,7 +29,7 @@ body{ margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; colo
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
-.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .lesson-title{ font-weight:900; color:var(--purple); font-size:1.05rem; }

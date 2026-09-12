@@ -44,8 +44,7 @@ body{
 .topbar{
   position:sticky; top:0; z-index:60;
   background:#fff; border-bottom:3px solid var(--purple);
-  box-shadow:0 2px 10px rgba(0,0,0,.15);
-}
+  box-shadow:0 2px 10px rgba(0,0,0,.15); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
 .topbar-inner{ max-width:820px; margin:0 auto; padding:10px 16px 12px; }
 .brand-row{
   display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;
