@@ -173,6 +173,15 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
   .angle-badge{ left:12px; bottom:10px; }
 }
 
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+
 </style>
 </head>
 <body>
@@ -645,6 +654,32 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
   <h2>Final result</h2>
   <div id="finalScoreBox" class="score-box"></div>
   <div id="a2Notice" class="a2-notice"></div>
+  <div class="completion-stickers" id="completionStickers">
+    <img class="completion-sticker" data-tier="eggcellent-a" alt="" hidden>
+    <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="perfect" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="excellent" alt="" hidden>
+    <img class="completion-sticker" data-tier="amazing_work" alt="" hidden>
+    <img class="completion-sticker" data-tier="i_love_it" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="awesome" alt="" hidden>
+    <img class="completion-sticker" data-tier="too_cool-a" alt="" hidden>
+    <img class="completion-sticker" data-tier="too_cool-b" alt="" hidden>
+    <img class="completion-sticker" data-tier="vzhukh" alt="" hidden>
+    <img class="completion-sticker" data-tier="fire" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="great_work" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="good_job" alt="" hidden>
+    <img class="completion-sticker" data-tier="good_vibes" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="nice" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" alt="" hidden>
+    <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" alt="" hidden>
+    <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" alt="" hidden>
+    <img class="completion-sticker completion-sticker--icon" data-tier="plain" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" alt="" hidden>
+    <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" alt="" hidden>
+  </div>
+  <p id="resultCaption" class="result-caption"></p>
   <div class="note-box">Tasks 6 and 7 (the email and the story) are not marked automatically — the teacher will check them against the Cambridge criteria, so the final writing result will follow later.</div>
   <div class="card" style="text-align:left; margin-top:16px;">
     <label for="studentName2" style="display:block; font-size:.85rem; margin-bottom:6px;">Student name (for sending to the teacher):</label>
@@ -668,6 +703,87 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 </svg>
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
+
+<script>
+// ANGLE eggdog completion stickers — pre-resized, pre-quantized base64 PNGs.
+// Regenerated from D:\...\ANGLE\stickers via make_stickers.py — never hand-edit these strings.
+const STICKER_DATA = {
+  "eggcellent-a": "img/sticker-eggcellent-a.png",
+  "eggcellent-b": "img/sticker-eggcellent-b.png",
+  "perfect": "img/sticker-perfect.png",
+  "excellent": "img/sticker-excellent.png",
+  "amazing_work": "img/sticker-amazing-work.png",
+  "i_love_it": "img/sticker-i-love-it.png",
+  "awesome": "img/sticker-awesome.png",
+  "too_cool-a": "img/sticker-too-cool-a.png",
+  "too_cool-b": "img/sticker-too-cool-b.png",
+  "vzhukh": "img/sticker-vzhukh.png",
+  "fire": "img/sticker-fire.png",
+  "great_work": "img/sticker-great-work.png",
+  "good_job": "img/sticker-good-job.png",
+  "good_vibes": "img/sticker-good-vibes.png",
+  "nice": "img/sticker-nice.png",
+  "not_bad": "img/sticker-not-bad.png",
+  "strawberry-a": "img/sticker-strawberry-a.png",
+  "strawberry-b": "img/sticker-strawberry-b.png",
+  "keep_going": "img/sticker-keep-going.png",
+  "you_tried": "img/sticker-you-tried.png",
+  "plain": "img/sticker-plain.png",
+  "strawberry-full": "img/sticker-strawberry-full.png",
+  "awesome_is_banned": "img/sticker-awesome-is-banned.png",
+};
+
+</script>
+<script>
+// ANGLE eggdog tiered completion sticker — shared logic, standard angle-worksheet-template asset.
+// Reads STICKER_DATA (must be loaded first). Exposed as window.* so both the current
+// test-engine.js pattern and a legacy inline-script file can call these directly.
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+// stickers whose image already carries its own caption text baked in — the app-level caption (tier.caption)
+// only gets shown when the randomly chosen sticker is NOT in this set.
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+  });
+  const capEl = document.getElementById('resultCaption');
+  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+  return tier;
+}
+// This offline single-file build has no external /assets/ to load images from (see the
+// angle-worksheet-template skill's note on a "truly offline single-file handout"), so the
+// <img> tags start with no src and this one-time init fills each in from STICKER_DATA by
+// its data-tier key — sticker-data.js stays pure data, this file stays pure tier logic.
+function initStickerImages(){
+  if (typeof STICKER_DATA === 'undefined') return;
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const key = img.dataset.tier;
+    if (STICKER_DATA[key]) img.src = STICKER_DATA[key];
+  });
+}
+
+// expose on window explicitly (in case this file is ever loaded as a module)
+window.RESULT_TIERS = RESULT_TIERS;
+window.SILENT_STICKERS = SILENT_STICKERS;
+window.pickRandom = pickRandom;
+window.getResultTier = getResultTier;
+window.renderResultSticker = renderResultSticker;
+window.initStickerImages = initStickerImages;
+
+</script>
 
 <script>
 const PAGE_LABELS = ["Start", "R&W · Task 1", "R&W · Task 2", "R&W · Task 3", "R&W · Task 4", "R&W · Task 5", "R&W · Results", "R&W · Task 6", "R&W · Task 7", "Listening · Task 1", "Listening · Task 2", "Listening · Task 3", "Listening · Task 4", "Listening · Task 5", "Result"];
@@ -809,6 +925,7 @@ function checkAll(){
   const totalCorrect = rwCorrect+lCorrect;
   const totalQ = rwTotal+lTotal;
   const pct = Math.round(totalCorrect/totalQ*100);
+  renderResultSticker(pct);
 
   lastScores = {rwCorrect, rwTotal, lCorrect, lTotal, totalCorrect, totalQ, pct, mistakes};
 
@@ -937,6 +1054,7 @@ async function sendToTeacher(){
     fd.append('reading_score', lastScores ? `${lastScores.rwCorrect} / ${lastScores.rwTotal}` : 'n/a');
     fd.append('listening_score', lastScores ? `${lastScores.lCorrect} / ${lastScores.lTotal}` : 'n/a');
     fd.append('total_score', lastScores ? `${lastScores.totalCorrect} / ${lastScores.totalQ} (${lastScores.pct}%)` : 'n/a');
+    fd.append('result_tier', lastScores ? getResultTier(lastScores.pct).label : 'n/a');
     fd.append('mistakes', lastScores && lastScores.mistakes.length ? lastScores.mistakes.join('\n') : 'No mistakes — all automatically-marked tasks are correct.');
     fd.append('task6_email', document.getElementById('task6Input')?.value || '');
     fd.append('task6_word_count', String(countWords(document.getElementById('task6Input')?.value || '')));
@@ -961,6 +1079,7 @@ document.addEventListener('change', e=>{
 });
 
 buildDots();
+initStickerImages();
 updateWordCount('task6Input','wc6',35,50);
 updateWordCount('task7Input','wc7',45,60);
 restoreProgress();
