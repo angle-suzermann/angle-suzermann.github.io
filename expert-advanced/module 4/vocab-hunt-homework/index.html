@@ -25,8 +25,8 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; color:var(--black); min-height:100vh; position:relative; background:var(--black);}
-  #bg-layer{position:fixed; inset:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center; opacity:0.7; z-index:0;}
-  #bg-tint{position:fixed; inset:0; background:linear-gradient(180deg, rgba(45,41,38,0.5) 0%, rgba(45,41,38,0.72) 45%, rgba(45,41,38,0.88) 100%); z-index:1;}
+  #bg-layer{position:absolute; inset:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center; opacity:0.7; z-index:0;}
+  #bg-tint{position:absolute; inset:0; background:linear-gradient(180deg, rgba(45,41,38,0.5) 0%, rgba(45,41,38,0.72) 45%, rgba(45,41,38,0.88) 100%); z-index:1;}
 
   .angle-header{position:relative; z-index:3; background:transparent; color:#ffffff; padding:22px 24px 18px;}
   .angle-header-inner{max-width:900px; margin:0 auto; display:flex; align-items:center; gap:20px; flex-wrap:wrap;}

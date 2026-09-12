@@ -24,14 +24,14 @@
     --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288; --bar:#4472C4;
   }
   *{box-sizing:border-box;}
-  html,body{ height:100%; }
+  html,body{ min-height:100%; }
   body{
     margin:0; font-family:'Helvetica Neue',Arial,sans-serif; color:var(--text);
     background:var(--card-tint); position:relative;
   }
-  .bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/img1.jpg');
+  .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg');
     background-size:cover; background-position:center 45%; opacity:0.5; }
-  .bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(45,25,60,.55), rgba(69,52,88,.85)); }
+  .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(45,25,60,.55), rgba(69,52,88,.85)); }
 
   .angle-badge{ position:fixed; left:18px; bottom:16px; z-index:9999; pointer-events:none;
     display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); }

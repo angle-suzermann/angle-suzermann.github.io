@@ -51,14 +51,14 @@
 
   /* ---------- background photo + wash ---------- */
   .bg-photo{
-    position:fixed; inset:0; z-index:0;
+    position:absolute; inset:0; z-index:0;
     background-image:url('annie-spratt-O1TNdLNvJLM-unsplash.jpg');
     background-size:cover; background-position:center 55%;
     opacity:0.45;
     filter:saturate(0.85);
   }
   .bg-wash{
-    position:fixed; inset:0; z-index:1;
+    position:absolute; inset:0; z-index:1;
     background:linear-gradient(180deg, rgba(246,242,250,.12), rgba(246,242,250,.45) 60%, rgba(246,242,250,.82) 95%);
   }
   .page-shell{ position:relative; z-index:2; }
@@ -66,10 +66,8 @@
   /* ---------- topbar ---------- */
   .topbar{
     position:sticky; top:0; z-index:60;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:3px solid var(--maroon);
-  }
+    background:#fff;
+    border-bottom:3px solid var(--maroon); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
   .topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
   .brand-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; }
   .lesson-title{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.15rem; color:var(--maroon-deep); }

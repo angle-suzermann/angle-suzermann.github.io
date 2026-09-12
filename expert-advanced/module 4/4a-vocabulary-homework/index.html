@@ -43,7 +43,7 @@ p{margin:0 0 14px;}
 button, input, select, textarea{font-family:inherit;}
 
 /* ---------- Topbar ---------- */
-.topbar{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10);}
+.topbar{position:sticky; top:0; z-index:60; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10); transform:translateZ(0); -webkit-transform:translateZ(0); will-change:transform; }
 .topbar-inner{max-width:920px; margin:0 auto; padding:14px 20px 12px;}
 .brand-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
 .lesson-title{font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.4px; color:var(--purple);}
