@@ -44,7 +44,7 @@ html,body{ height:100%; overflow:hidden; }
 .lesson-title{font-weight:700;color:var(--purple-dark);font-size:1.05rem;}
 .lesson-sub{font-weight:400;color:var(--muted);font-size:.78rem;display:block;}
 .namebar{display:flex;align-items:center;gap:6px;font-size:.85rem;}
-.namebar input{border:1.5px solid var(--border);border-radius:7px;padding:6px 9px;font-family:inherit;font-size:.85rem;min-width:190px;}
+.namebar input{border:1.5px solid var(--border);border-radius:7px;padding:6px 9px;font-family:inherit;font-size:.85rem;min-width:190px;max-width:100%;}
 .namebar input:focus{outline:2px solid var(--yellow);border-color:var(--purple);}
 .progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
 .progress-track{flex:1;height:8px;background:var(--card-tint);border-radius:5px;overflow:hidden;}
@@ -78,8 +78,8 @@ html,body{ height:100%; overflow:hidden; }
 .item p{margin:0 0 10px;font-weight:600;}
 .item .qnum{color:var(--purple);margin-right:6px;}
 .blank-sentence{font-weight:400;}
-input.fib, input.fib-fz{border:none;border-bottom:2px solid var(--purple);background:transparent;font-family:inherit;font-size:1rem;padding:3px 4px;min-width:160px;text-align:center;font-weight:700;color:var(--purple-dark);}
-input.fib-fz{min-width:260px;text-align:left;}
+input.fib, input.fib-fz{border:none;border-bottom:2px solid var(--purple);background:transparent;font-family:inherit;font-size:1rem;padding:3px 4px;min-width:160px;max-width:100%;text-align:center;font-weight:700;color:var(--purple-dark);}
+input.fib-fz{min-width:260px;max-width:100%;text-align:left;}
 input.fib:focus, input.fib-fz:focus{outline:none;border-bottom-color:var(--yellow);}
 input.is-correct{background:#e8f7ee;border-color:var(--correct)!important;color:var(--correct)!important;}
 input.is-wrong{background:#fbeae7;border-color:var(--wrong)!important;color:var(--wrong)!important;}
@@ -155,6 +155,8 @@ input.is-wrong{background:#fbeae7;border-color:var(--wrong)!important;color:var(
 .angle-badge .wordmark{width:110px;height:auto;display:block;}
 .angle-badge .credit{margin-top:3px;margin-left:2px;font-family:'Apercu Pro',sans-serif;font-weight:400;font-size:10px;}
 @media (max-width:600px){.angle-badge .wordmark{width:80px;} .angle-badge{left:14px;bottom:14px;}}
+
+body{overflow-wrap:break-word;}
 </style>
 </head>
 <body>

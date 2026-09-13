@@ -25,13 +25,16 @@
   --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
 }
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
+html,html{overflow-x:hidden;}
+body{margin:0;padding:0;}
 body{
   font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
   color:var(--text);
   background:var(--card-tint);
   min-height:100vh;
   position:relative;
+overflow-x:hidden;
+  width:100%;
 }
 
 /* ---------- background photo + wash ---------- */
@@ -90,9 +93,11 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
 
 textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:70px; }
-input.fib, select.fib-select{ font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; margin:0 4px; }
+input.fib, select.fib-select{ font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; margin:0 4px; max-width:100%; vertical-align:middle; }
 input.fib{ min-width:150px; }
-select.fib-select{ min-width:230px; }
+select.fib-select{ min-width:230px; max-width:calc(100% - 8px); }
+.fib-select{ display:block; width:100%; max-width:100%; margin:6px 0; }
+.fib{ display:inline-block; max-width:100%; }
 input.fib.is-correct, select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
 input.fib.is-wrong, select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
 
@@ -175,13 +180,19 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 .angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
 .angle-badge .wordmark{ width:110px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
-@media (max-width:640px){ .angle-badge{ display:none; } }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+}
 
 @media (max-width:640px){
   .card{ padding:18px 16px; }
   .brand-row{ gap:8px; }
   .lesson-title{ font-size:.92rem; }
 }
+
+body{overflow-wrap:break-word;}
 </style>
 </head>
 <body>
