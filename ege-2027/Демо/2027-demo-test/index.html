@@ -91,6 +91,8 @@ audio{ width:100%; margin:10px 0 4px; }
 .mtable th, .mtable td{ border:1px solid var(--purple); padding:6px 4px; text-align:center; min-width:42px; font-size:.85em; }
 .mtable th{ background:var(--card-tint); color:var(--purple); font-weight:800; }
 .mtable select{ width:44px; padding:3px; border:1px solid var(--purple); border-radius:4px; font-family:inherit; font-weight:700; text-align:center; }
+.mtable-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; }
+.mtable-wrap .mtable{ margin:0; }
 
 .options{ display:flex; flex-direction:column; gap:6px; margin-top:8px; }
 .options label{ display:flex; align-items:flex-start; gap:8px; padding:7px 10px; border:1px solid var(--border); border-radius:6px; cursor:pointer; font-size:.92em; }
@@ -214,7 +216,7 @@ body{overflow-wrap:break-word;}
         <li>It's possible to have a healthy snack.</li>
         <li>Some people have snacks because they're bored.</li>
       </ol>
-      <table class="mtable">
+      <div class="mtable-wrap"><table class="mtable">
         <tr><th>Говорящий</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
         <tr><td>Утверждение</td>
           <td><select id="t1_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
@@ -224,7 +226,7 @@ body{overflow-wrap:break-word;}
           <td><select id="t1_E"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
           <td><select id="t1_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
         </tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -241,7 +243,7 @@ body{overflow-wrap:break-word;}
         <li>Jane is always lucky to have good guides.</li>
         <li>Peter is going to Italy next summer.</li>
       </ol>
-      <table class="mtable">
+      <div class="mtable-wrap"><table class="mtable">
         <tr><th>Утверждение</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
         <tr><td>Ответ</td>
           <td><select id="t2_A"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td>
@@ -252,7 +254,7 @@ body{overflow-wrap:break-word;}
           <td><select id="t2_F"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td>
           <td><select id="t2_G"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td>
         </tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -365,7 +367,7 @@ body{overflow-wrap:break-word;}
         <p><b>F.</b> Compared to certain trees that grow in more temperate climates, most of the trees in the boreal forest or taiga are young. Forests are typically less than 100 years old throughout the western boreal zone, and mainly younger than 200 years old in the eastern boreal zone. Due to frequent natural disasters that are the result of an ecological loop that renews the boreal forest, scientists do not believe this amazing forest to be ancient. But they all agree that it is the largest biome on land.</p>
         <p><b>G.</b> The boreal forest contributes greatly to the earth's oxygen supply by collecting carbon dioxide produced by people. It helps a lot in the preservation of the ozone layer thanks to its green vegetation. However, human activities such as deforestation are destroying the boreal forest's structure. When a tree is harmed, it takes a long time to grow back, because the biome has an extremely slow growth rate. That's why the boreal forest has drawn the attention of the environment protection specialists worldwide.</p>
       </div>
-      <table class="mtable">
+      <div class="mtable-wrap"><table class="mtable">
         <tr><th>Текст</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
         <tr><td>Заголовок</td>
           <td><select id="t10_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td>
@@ -376,7 +378,7 @@ body{overflow-wrap:break-word;}
           <td><select id="t10_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td>
           <td><select id="t10_G"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td>
         </tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -400,7 +402,7 @@ body{overflow-wrap:break-word;}
         <li>why most plastic bags find their way</li>
         <li>that can be easily seen across the city</li>
       </ol>
-      <table class="mtable">
+      <div class="mtable-wrap"><table class="mtable">
         <tr><th>Пропуск</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
         <tr><td>Ответ</td>
           <td><select id="t11_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
@@ -410,7 +412,7 @@ body{overflow-wrap:break-word;}
           <td><select id="t11_E"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
           <td><select id="t11_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
         </tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
