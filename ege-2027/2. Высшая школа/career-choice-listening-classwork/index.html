@@ -150,6 +150,8 @@ audio{ width:100%; margin-top:6px; }
 .script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:260px; overflow-y:auto; font-size:.86rem; line-height:1.6; }
 .script-panel p{ margin:0 0 10px; }
 .script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.script-panel.search-pulse{ animation:searchPulse .6s ease; }
+@keyframes searchPulse{ 0%{ background:#fdfbff; } 40%{ background:#efe6fa; } 100%{ background:#fdfbff; } }
 .proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
 .proof-btn:hover{ background:var(--card-tint); }
 .no-script-note{ font-size:.82rem; color:var(--muted); background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:8px 12px; margin-top:8px; }
@@ -603,6 +605,9 @@ function speak(text, lang, rate){
    NAVIGATION
 ================================================================ */
 let current = 0;
+function pauseAllAudio(){
+  document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} });
+}
 function buildDots(){
   const wrap = document.getElementById('pageDots');
   PAGE_LABELS.forEach((label,i)=>{
@@ -611,6 +616,7 @@ function buildDots(){
   });
 }
 function showPage(n){
+  pauseAllAudio();
   const pages = document.querySelectorAll('.page');
   current = Math.max(0, Math.min(pages.length-1, n));
   pages.forEach((p,i)=>p.classList.toggle('active', i===current));
@@ -723,6 +729,7 @@ function renderAud1(){
   }).join('');
   tabs.querySelectorAll('.variant-tab').forEach(btn=>{
     btn.onclick = ()=>{
+      pauseAllAudio();
       tabs.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active', b===btn));
       panes.querySelectorAll('.variant-pane').forEach(p=>p.classList.toggle('active', p.dataset.tab===btn.dataset.tab));
     };
@@ -735,11 +742,22 @@ function renderAud1(){
 ================================================================ */
 function highlightScript(panelId, proofText){
   const panel = document.getElementById(panelId);
-  if(!panel || !proofText) return;
+  if(!panel) return;
   const details = panel.closest('details');
   if(details) details.open = true;
   // undo any previous highlight in this panel (restore plain paragraphs)
   panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  if(!proofText){
+    // Nothing specific to point to for this statement — just bring the script
+    // into view and give a neutral "searching" pulse, same motion as a real find.
+    // No text is added, so this looks the same whether or not the click will
+    // eventually turn up a quote — the student still has to read and judge.
+    panel.scrollIntoView({block:'start', behavior:'smooth'});
+    panel.classList.remove('search-pulse');
+    void panel.offsetWidth;
+    panel.classList.add('search-pulse');
+    return;
+  }
   const paras = panel.querySelectorAll('p');
   let hitEl = null;
   for(const p of paras){
@@ -764,8 +782,14 @@ function renderAud2(){
   if(vars.length < 2) tabs.style.display = 'none';
   panes.innerHTML = vars.map((v,i)=>{
     const items = v.statements.map(st=>{
-      const proofBtn = (v.hasScript && st.proof) ? `<button type="button" class="proof-btn" data-panel="script_${v.key}" data-proof="${esc(st.proof)}">🔍 Найти в скрипте</button>` :
-        (v.hasScript ? `<span class="muted" style="font-size:.76rem;">(в скрипте это прямо не сказано)</span>` : '');
+      // Button is shown the same way for every statement, whether or not the
+      // script actually contains a matching quote — otherwise its mere presence
+      // (or the wording of a fallback note) would give away that the answer is
+      // "Not stated" before the student even looks. What happens on click is
+      // handled inside highlightScript().
+      const proofBtn = v.hasScript
+        ? `<button type="button" class="proof-btn" data-panel="script_${v.key}" data-proof="${esc(st.proof || '')}">🔍 Найти в скрипте</button>`
+        : '';
       return `<div class="item"><p class="q"><b>${st.letter}.</b> ${esc(st.text)} ${proofBtn}</p>
         <div class="mcq mcq-3way" data-correct="${st.ans}" data-id="aud2_${v.key}_${st.letter}">
           <button type="button" class="opt" data-val="1">True</button>
@@ -784,6 +808,7 @@ function renderAud2(){
   }).join('');
   tabs.querySelectorAll('.variant-tab').forEach(btn=>{
     btn.onclick = ()=>{
+      pauseAllAudio();
       tabs.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active', b===btn));
       panes.querySelectorAll('.variant-pane').forEach(p=>p.classList.toggle('active', p.dataset.tab===btn.dataset.tab));
     };
