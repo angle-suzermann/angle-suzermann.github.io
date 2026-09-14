@@ -200,7 +200,7 @@ World 3).
 | Expert Advanced | `mdaqrvdd` |
 | GW B2 | `xoeaqeyz` |
 | Gateway to the World B2 | `xoeaqeyz` |
-| Gateway to the World B1 | — не задан (материалов с отправкой пока нет) |
+| Gateway to the World B1 | `xdvxrcsn` |
 | ЕГЭ 2027 | `mnjekjvq` |
 | Oxford Phonics World 1–5 | `mlgqqwpk` (одна метка на все пять уровней) |
 
