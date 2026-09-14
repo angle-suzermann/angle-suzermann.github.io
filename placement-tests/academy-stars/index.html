@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Academy Stars — Placement Test</title>
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="Placement tests">
@@ -15,106 +16,70 @@
 <meta name="ws:tags"      content="placement test, academy stars">
 <meta name="robots"       content="noindex, nofollow">
 <style>
-      :root{
+  :root{
     --purple:#5E4877;
+    --purple-dark:#453458;
     --black:#2D2926;
     --yellow:#FED500;
-    --neutral-bg:#f7f6f4;
+    --neutral-bg:#f6f2fa;
     --neutral-card:#ffffff;
-    --neutral-border:#e4e0e8;
-    --correct:#3d7a3f;
-    --wrong:#b23a3a;
+    --neutral-border:#e2dbea;
+    --muted:#7a7288;
+    --correct:#3fa66b;
+    --wrong:#d6503f;
   }
   *{box-sizing:border-box;}
+  html{overflow-x:hidden;}
   body{
     margin:0;
     font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
     background:var(--neutral-bg);
     color:var(--black);
     padding:0;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:24px;}
-  header{
-    position:relative;
-    background:var(--purple);
-    color:#ffffff;
-    padding:24px 24px 40px;
-    margin-bottom:0;
-    overflow:hidden;
-    min-height:140px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    display:flex;
-    align-items:center;
-    gap:20px;
-    text-align:left;
-  }
-  .logo-block{
-    flex:0 0 auto;
-    width:100px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .logo-block img{
-    display:block;
+    overflow-x:hidden;
     width:100%;
-    height:auto;
   }
-  .title-block{
-    flex:1 1 auto;
-    min-width:0;
-    align-self:center;
-  }
-  header h1{
-    font-size:1.9em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin:0 0 6px 0;
-  }
-  header p{
-    color:#ffffff;
-    margin:0;
-    font-size:1em;
-    opacity:0.9;
-  }
+  .wrap{max-width:820px;margin:0 auto;padding:24px 20px 90px;position:relative;z-index:1;}
+
+  /* ---- Sticky top bar (ANGLE / ЕГЭ house style) ---- */
+  .topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+  .topbar-inner{ max-width:820px; margin:0 auto; padding:10px 20px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; }
+  .namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+  .namebar label{ font-weight:700; color:var(--black); }
+  .namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--neutral-border); border-radius:8px; font-size:.85rem; width:190px; }
+  .progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .progress-track{ flex:1; height:8px; background:var(--neutral-bg); border-radius:6px; overflow:hidden; }
+  .progress-fill{ height:100%; background:linear-gradient(90deg, var(--purple), var(--yellow)); width:16.6%; transition:width .3s ease; }
+  .progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+  .page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .page-dot{ width:28px; height:28px; border-radius:50%; background:var(--neutral-bg); border:1.5px solid var(--neutral-border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.74rem; font-weight:700; cursor:pointer; transition:transform .15s ease; }
+  .page-dot:hover{ transform:translateY(-1px); border-color:var(--purple); color:var(--purple); }
+  .page-dot.active{ background:linear-gradient(135deg, var(--purple), var(--yellow)); border-color:var(--purple); color:#fff; box-shadow:0 2px 6px rgba(94,72,119,.4); }
+  .page-dot.visited{ border-color:var(--correct); color:var(--correct); }
   .stars{display:none;}
   .section{
     background:var(--neutral-card);
-    border:1px solid var(--neutral-border);
-    border-left:6px solid var(--purple);
-    border-radius:0;
-    padding:22px;
-    margin-bottom:22px;
-    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+    border-radius:16px;
+    padding:24px 26px;
+    margin-bottom:18px;
+    box-shadow:0 10px 30px rgba(20,10,30,.12);
   }
   .section h2{
     color:var(--purple);
     font-size:1.2em;
     font-weight:800;
-    text-transform:uppercase;
-    margin-top:0;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .section h2::before{
-    content:"";
-    display:inline-block;
-    width:0;
-    height:0;
-    border-left:9px solid transparent;
-    border-right:9px solid transparent;
-    border-bottom:16px solid var(--yellow);
+    margin:0 0 6px;
   }
   .item{
-    margin:18px 0;
-    padding:14px;
-    background:#fbfaf9;
-    border-radius:0;
-    border:1px solid var(--neutral-border);
+    margin:14px 0;
+    padding:14px 16px;
+    background:var(--neutral-bg);
+    border-radius:12px;
   }
   .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .q-illustration{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#f3eef8;margin:0 auto 12px;border-radius:10px;}
   .func-tag{
     display:inline-block;
     background:var(--black);
@@ -129,64 +94,67 @@
   .options label{
     display:block;
     background:#fff;
-    border:1px solid var(--neutral-border);
-    border-radius:0;
-    padding:8px 12px;
+    border:1.5px solid var(--neutral-border);
+    border-radius:10px;
+    padding:9px 14px;
     margin:6px 0;
     cursor:pointer;
     transition:background 0.15s, border-color 0.15s;
   }
   .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options label:has(input:checked){border-color:var(--purple);background:var(--neutral-bg);font-weight:700;}
   .options input{margin-right:8px;accent-color:var(--purple);}
   select{
     padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
+    border-radius:8px;
+    border:1.5px solid var(--neutral-border);
     font-size:1em;
     background:#fff;
     color:var(--black);
   }
   input[type="text"]{
     padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
+    border-radius:8px;
+    border:1.5px solid var(--neutral-border);
     font-size:1em;
     width:140px;
   }
   .blank-sentence{font-weight:400;}
   .btn{
-    display:block;
-    width:100%;
-    padding:16px;
-    background:var(--black);
-    color:var(--yellow);
+    display:inline-block;
+    padding:11px 22px;
+    background:var(--purple);
+    color:#fff;
     border:none;
-    border-radius:0;
-    font-size:1.05em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
+    border-radius:999px;
+    font-size:.95em;
+    font-weight:700;
     cursor:pointer;
     margin-top:10px;
-    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
+    font-family:inherit;
   }
-  .btn:hover{background:var(--purple);color:#fff;}
-  .btn:disabled{background:#c9c2cf;color:#eee;}
+  .btn:hover{background:var(--purple-dark);}
+  .btn:disabled{background:#c9c2cf;color:#eee;cursor:default;}
+  .btn-prev{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+  .btn-prev:hover{background:var(--neutral-bg);color:var(--purple);}
+  #submitBtn{background:var(--black);color:var(--yellow);text-transform:uppercase;letter-spacing:.03em;}
+  #submitBtn:hover{background:#1b1816;color:var(--yellow);}
   #result{
     text-align:center;
     padding:26px 20px;
-    border-radius:0;
-    background:var(--purple);
-    color:#ffffff;
+    border-radius:16px;
+    background:var(--neutral-card);
+    color:var(--black);
     border:none;
+    box-shadow:0 10px 30px rgba(20,10,30,.12);
     display:none;
   }
-  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
-  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  #result h2{color:var(--purple);font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--purple);font-weight:900;}
   .feedback-icon{margin-left:8px;font-weight:700;}
   .feedback-icon.correct{color:var(--correct);}
   .feedback-icon.wrong{color:var(--wrong);}
-  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--muted);}
 
   .floating-logo{
     position:fixed;
@@ -202,40 +170,40 @@
   }
   .angle-badge{
     position:fixed;
-    left:28px;
-    bottom:24px;
+    left:24px;
+    bottom:18px;
     z-index:9999;
     pointer-events:none;
     display:flex;
     flex-direction:column;
     align-items:flex-start;
-    opacity:0.9;
+    opacity:0.8;
     color:var(--yellow);
   }
   .angle-badge .wordmark{
-    width:150px;
+    width:110px;
     height:auto;
     display:block;
   }
   .angle-badge .credit{
     margin-top:4px;
-    margin-left:3px;
+    margin-left:2px;
     font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
     font-weight:400;
-    font-size:11px;
+    font-size:10px;
     letter-spacing:0.3px;
   }
-  .studio-credit{
-    font-size:0.65em;
-    color:#ffffff;
-    opacity:0.85;
-    font-weight:400;
-    margin:6px 0 0;
-    text-align:center;
-    white-space:nowrap;
+  @media (max-width:640px){
+    .angle-badge{ left:10px; bottom:8px; }
+    .angle-badge .wordmark{ width:60px; }
+    .angle-badge .credit{ font-size:7px; margin-top:2px; }
+    .section{ padding:18px 16px; }
+    .brand-row{ gap:8px; }
+    .lesson-title{ font-size:.92rem; }
   }
   .quiz-page{display:none;}
-  .quiz-page.active{display:block;}
+  .quiz-page.active{display:block;animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
   .bg-photo{
     position:absolute;
     inset:0;
@@ -243,7 +211,7 @@
     background-image:url('img/bg-photo.jpg');
     background-size:cover;
     background-position:center;
-    opacity:0.3;
+    opacity:0.4;
   }
   .bg-wash{
     position:absolute;
@@ -251,47 +219,17 @@
     z-index:-1;
     background:linear-gradient(180deg, rgba(20,14,25,.30) 0%, rgba(69,52,88,.55) 45%, rgba(20,14,25,.88) 100%);
   }
-  .page-indicator{
-    text-align:center;
-    margin:22px 0 8px;
-    font-family:'Apercu Pro',sans-serif;
-    color:#ffffff;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.03em;
-    text-shadow:0 1px 3px rgba(0,0,0,0.4);
-  }
-  .page-dots{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    margin-bottom:18px;
-  }
-  .page-dots span{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.35);
-    display:inline-block;
-    transition:background 0.2s;
-  }
-  .page-dots span.active{
-    background:var(--yellow);
-  }
-  .page-dots span.visited{
-    background:rgba(255,255,255,0.8);
-  }
   .page-nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:12px;
-    margin-top:8px;
+    margin-top:18px;
     margin-bottom:40px;
   }
   .page-nav .btn{
     margin-top:0;
-    flex:1;
+    flex:0 0 auto;
   }
   .btn-prev:disabled{
     opacity:0.35;
@@ -314,26 +252,27 @@
 <img class="floating-logo" src="img/course-cover.png" alt="Academy Stars Second Edition">
 
 
-<header>
-<div class="logo-block">
-<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
-<p class="studio-credit">by Viktoria Syuzyova</p>
-</div>
-<div class="title-block">
-  <h1>Academy Stars<br>Placement Test</h1>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Academy Stars — Placement Test</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" name="studentName" placeholder="Your full name" required>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 6</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
 </header>
 
 <div class="wrap">
 
 
 <form id="quizForm">
-
-  <div class="section">
-    <h2>Student name</h2>
-    <p>Enter your name before starting the test.</p>
-    <input type="text" id="studentName" name="studentName" style="width:280px" required placeholder="Full name">
-  </div>
 
   <div class="quiz-page active" data-page="0">
     <div class="section">
@@ -971,9 +910,6 @@
     </div>
   </div>
 
-  <div class="page-indicator" id="pageIndicator">Page 1 of 6</div>
-  <div class="page-dots" id="pageDots"></div>
-
   <div class="page-nav">
     <button type="button" class="btn btn-prev" id="prevBtn" disabled>&larr; Previous</button>
     <button type="button" class="btn btn-next" id="nextBtn">Next &rarr;</button>
@@ -996,7 +932,8 @@
 (function(){
   const pages = Array.from(document.querySelectorAll('.quiz-page'));
   const total = pages.length;
-  const indicator = document.getElementById('pageIndicator');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
   const dotsWrap = document.getElementById('pageDots');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
@@ -1004,7 +941,9 @@
   let current = 0;
 
   pages.forEach((p, i) => {
-    const dot = document.createElement('span');
+    const dot = document.createElement('div');
+    dot.className = 'page-dot';
+    dot.textContent = i + 1;
     dot.dataset.idx = i;
     dotsWrap.appendChild(dot);
   });
@@ -1012,16 +951,17 @@
 
   function render(){
     pages.forEach((p, i) => p.classList.toggle('active', i === current));
-    indicator.textContent = 'Page ' + (current+1) + ' of ' + total;
+    progressFill.style.width = ((current+1)/total*100) + '%';
+    progressLabel.textContent = 'Page ' + (current+1) + ' / ' + total;
     dots.forEach((d, i) => {
       d.classList.toggle('active', i === current);
       d.classList.toggle('visited', i < current);
     });
     prevBtn.disabled = (current === 0);
     const isLast = (current === total - 1);
-    nextBtn.style.display = isLast ? 'none' : 'block';
-    submitBtn.style.display = isLast ? 'block' : 'none';
-    document.querySelector('.wrap').scrollIntoView({behavior:'smooth', block:'start'});
+    nextBtn.style.display = isLast ? 'none' : 'inline-block';
+    submitBtn.style.display = isLast ? 'inline-block' : 'none';
+    document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
   }
 
   prevBtn.addEventListener('click', function(){
