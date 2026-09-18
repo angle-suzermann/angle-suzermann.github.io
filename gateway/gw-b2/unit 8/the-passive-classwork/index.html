@@ -68,7 +68,7 @@ html,body{ height:100%; overflow:hidden; }
 .blank-sentence input.fib, .blank-sentence input.fib-fuzzy{ min-width:170px; }
 input.fib, input.fib-fuzzy{
   font-family:inherit; font-size:.95rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px;
-  background:#fff;
+  background:#fff; max-width:100%; box-sizing:border-box;
 }
 input.fib:focus, input.fib-fuzzy:focus{ outline:none; border-color:var(--purple); }
 input.is-correct{ border-color:var(--correct); background:#eafaf1; }

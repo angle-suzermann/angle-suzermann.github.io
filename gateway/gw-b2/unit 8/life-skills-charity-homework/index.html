@@ -105,10 +105,11 @@ input.fib.is-wrong, input.fib-fuzzy.is-wrong{ border-color:var(--wrong); backgro
 .chip.placed-wrong{ border-color:var(--wrong); }
 
 /* Table */
-table.answer-table{ width:100%; border-collapse:collapse; margin-top:8px; font-size:.9rem; }
+.mtable-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:8px; }
+table.answer-table{ width:100%; min-width:520px; border-collapse:collapse; font-size:.9rem; }
 table.answer-table th{ background:var(--purple); color:#fff; padding:8px; text-align:left; font-size:.82rem; }
 table.answer-table td{ padding:8px; border:1px solid var(--border); vertical-align:top; }
-table.answer-table input{ width:100%; }
+table.answer-table input{ width:100%; box-sizing:border-box; }
 table.answer-table th:last-child, table.answer-table td:last-child{ width:40px; text-align:center; }
 
 /* Flashcards */
@@ -338,6 +339,7 @@ audio{ width:100%; max-width:480px; }
 
     <h3 style="margin-top:20px;">Copy and complete the table</h3>
     <div class="instructions">For each speaker, note their own fundraising activities and the way they think works best. Short phrases are fine — you don't need full sentences.</div>
+    <div class="mtable-wrap">
     <table class="answer-table">
       <tr><th>Speaker</th><th>Their fundraising activities</th><th>Best way to raise money</th><th>Script</th></tr>
       <tr><td>Sam</td><td><input type="text" class="fib-fuzzy" data-answers='["sold cakes and held raffles","sold cakes, held raffles","cake sales and raffles","sold cakes","held raffles"]'></td><td><input type="text" class="fib-fuzzy" data-answers='["human interaction","face-to-face","face to face","talking to people directly"]'></td><td><button type="button" class="script-col-btn" onclick="revealScript(['script-sam-activities','script-sam-bestway'])">🔍</button></td></tr>
@@ -345,6 +347,7 @@ audio{ width:100%; max-width:480px; }
       <tr><td>Bea</td><td><input type="text" class="fib-fuzzy" data-answers='["fun runs, cake sales, door-to-door fundraising","fun runs, cake sales and door-to-door fundraising","fun runs, cake sales"]'></td><td><input type="text" class="fib-fuzzy" data-answers='["get people involved in the charity","getting people involved","involve people in the charity"]'></td><td><button type="button" class="script-col-btn" onclick="revealScript(['script-bea-activities','script-bea-bestway'])">🔍</button></td></tr>
       <tr><td>Chris</td><td><input type="text" class="fib-fuzzy" data-answers='["sang Christmas carols in fancy dress","singing Christmas carols in fancy dress","carol singing in fancy dress"]'></td><td><input type="text" class="fib-fuzzy" data-answers='["make sure campaign is in the public eye","keep the campaign in the public eye","campaign stays in the public eye"]'></td><td><button type="button" class="script-col-btn" onclick="revealScript(['script-chris-activities','script-chris-bestway'])">🔍</button></td></tr>
     </table>
+    </div>
 
     <details class="script-panel" id="scriptPanel">
       <summary>📜 Show full audio script (grouped by speaker)</summary>
