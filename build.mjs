@@ -41,6 +41,10 @@ const esc = (s = '') => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+/** подпись вкладки-группы: только последний сегмент пути (без повтора юнита-родителя).
+    Сам фильтр по-прежнему сравнивает полный путь — меняется только то, что видно на кнопке. */
+const groupLabel = (g = '') => (g.includes('/') ? g.slice(g.lastIndexOf('/') + 1) : g);
+
 /** «сырое» значение из HTML-атрибута: раскодируем сущности, чтобы не двоить экранирование */
 const unesc = (s = '') => String(s)
   .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
@@ -321,7 +325,7 @@ const groupTabs = (list) => {
   if (!groups.length) return '';
   const btns = [
     '<button type="button" class="filter-btn on" data-group-filter="all">Все</button>',
-    ...groups.map((g) => `<button type="button" class="filter-btn" data-group-filter="${esc(g)}">${esc(g)}</button>`),
+    ...groups.map((g) => `<button type="button" class="filter-btn" data-group-filter="${esc(g)}">${esc(groupLabel(g))}</button>`),
   ].join('\n    ');
   return `  <div class="toolbar group-toolbar">
     ${btns}
@@ -467,7 +471,7 @@ for (const c of courses) {
 const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) => {
   const btns = [
     `<button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>`,
-    ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(g)}</button>`),
+    ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(groupLabel(g))}</button>`),
   ].join('\n      ');
   return `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
       ${btns}
