@@ -342,6 +342,93 @@ const groupScript = `<script>
   });
 </script>`;
 
+/* Двухуровневые вкладки Тема→Навык — для курсов, где хотя бы одна
+   группа вложена на два уровня (например "2. Высшая школа/аудирование").
+   Верхний ряд — темы (первый сегмент пути), при клике на тему с
+   вложенными навыками появляется второй ряд кнопок по навыкам (второй
+   сегмент). Для курсов без такой вложенности (GW B2 "unit 8" и т.п.)
+   ничего не меняется — используется обычный плоский groupTabs выше. */
+const themeOf = (g) => (g.includes('/') ? g.slice(0, g.indexOf('/')) : g);
+const skillOf = (g) => (g.includes('/') ? g.slice(g.indexOf('/') + 1) : null);
+const isHierGroups = (list) => list.some((m) => m.group && m.group.includes('/'));
+
+const groupTabsHier = (list) => {
+  const groups = [...new Set(list.map((m) => m.group).filter(Boolean))];
+  const themes = [...new Set(groups.map(themeOf))]
+    .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+
+  const themeBtns = themes.map((t) => {
+    const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
+    return hasSkills
+      ? `<button type="button" class="filter-btn" data-group-filter="${esc(t)}" data-group-prefix="1" data-has-subgroup="${esc(t)}">${esc(t)}</button>`
+      : `<button type="button" class="filter-btn" data-group-filter="${esc(t)}">${esc(t)}</button>`;
+  }).join('\n    ');
+
+  const subRows = themes
+    .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
+    .map((t) => {
+      const skills = [...new Set(groups.filter((g) => themeOf(g) === t).map(skillOf).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+      const btns = [
+        `<button type="button" class="filter-btn sub on" data-group-filter="${esc(t)}" data-group-prefix="1">Все</button>`,
+        ...skills.map((s) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(t + '/' + s)}">${esc(s)}</button>`),
+      ].join('\n      ');
+      return `  <div class="sub-tabs sub-tabs-group" data-subgroup-for="${esc(t)}" hidden>
+      ${btns}
+    </div>`;
+    }).join('\n');
+
+  const btns = [
+    '<button type="button" class="filter-btn on" data-group-filter="all">Все</button>',
+    themeBtns,
+  ].join('\n    ');
+
+  return `  <div class="toolbar group-toolbar">
+    ${btns}
+  </div>
+${subRows}
+`;
+};
+
+const groupScriptHier = `<script>
+(function(){
+  function showSubgroupFor(theme){
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){
+      row.hidden = row.dataset.subgroupFor !== theme;
+      if(!row.hidden){
+        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+        row.querySelector('.filter-btn').classList.add('on');
+      }
+    });
+  }
+  function filterCards(val, isPrefix){
+    document.querySelectorAll('.card[data-group]').forEach(function(c){
+      var g = c.dataset.group;
+      var show = val === 'all' || (isPrefix ? (g === val || g.indexOf(val + '/') === 0) : g === val);
+      c.style.display = show ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      var val = b.dataset.groupFilter;
+      var isPrefix = !!b.dataset.groupPrefix;
+      showSubgroupFor(b.dataset.hasSubgroup || null);
+      filterCards(val, isPrefix || val === 'all');
+    });
+  });
+  document.querySelectorAll('.sub-tabs-group .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = b.closest('.sub-tabs-group');
+      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      filterCards(b.dataset.groupFilter, !!b.dataset.groupPrefix);
+    });
+  });
+})();
+</script>`;
+
 /* копирование ссылки по клику — общее для страницы курса и панели преподавателя */
 const copyScript = `<script>
   document.querySelectorAll('[data-copy]').forEach(function(btn){
@@ -378,14 +465,15 @@ for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
+  const hier = isHierGroups(list);
   fs.writeFileSync(path.join(dir, 'index.html'), page({
     title: `${course.name} — материалы`,
     heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `${courseLinkRow(course)}${groupTabs(list)}${sortToolbar()}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
+      ? `${courseLinkRow(course)}${hier ? groupTabsHier(list) : groupTabs(list)}${sortToolbar()}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
-    extraScript: copyScript + (list.some((m) => m.group) ? groupScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
+    extraScript: copyScript + (list.some((m) => m.group) ? (hier ? groupScriptHier : groupScript) : '') + (list.length ? sortScript('.course-block', '.card') : ''),
   }));
 }
 
@@ -465,13 +553,48 @@ for (const c of courses) {
 }
 
 const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) => {
-  const btns = [
-    `<button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>`,
-    ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(g)}</button>`),
-  ].join('\n      ');
-  return `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
+  const hier = groups.some((g) => g.includes('/'));
+
+  if (!hier) {
+    const btns = [
+      `<button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>`,
+      ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(g)}</button>`),
+    ].join('\n      ');
+    return `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
       ${btns}
     </div>`;
+  }
+
+  /* курс с Тема/Навык (например ege-2027) — верхний ряд темы, при клике
+     на тему с навыками появляется отдельный ряд кнопок по навыкам внутри
+     неё, точно как на странице курса (groupTabsHier) */
+  const themes = [...new Set(groups.map(themeOf))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+  const themeBtns = themes.map((t) => {
+    const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
+    return hasSkills
+      ? `<button type="button" class="filter-btn sub" data-group-filter="${esc(t)}" data-group-prefix="1" data-has-subskill="${esc(courseId + '::' + t)}">${esc(t)}</button>`
+      : `<button type="button" class="filter-btn sub" data-group-filter="${esc(t)}">${esc(t)}</button>`;
+  }).join('\n      ');
+  const themeRow = `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
+      <button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>
+      ${themeBtns}
+    </div>`;
+
+  const skillRows = themes
+    .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
+    .map((t) => {
+      const skills = [...new Set(groups.filter((g) => themeOf(g) === t).map(skillOf).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+      const btns = [
+        `<button type="button" class="filter-btn sub on" data-group-filter="${esc(t)}" data-group-prefix="1">Все</button>`,
+        ...skills.map((s) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(t + '/' + s)}">${esc(s)}</button>`),
+      ].join('\n      ');
+      return `  <div class="sub-tabs sub-tabs-skill" data-skill-for="${esc(courseId + '::' + t)}" hidden>
+      ${btns}
+    </div>`;
+    }).join('\n');
+
+  return skillRows ? `${themeRow}\n${skillRows}` : themeRow;
 }).join('\n');
 
 /* ссылка курса → адрес его открытой страницы, для кнопки копирования,
@@ -494,6 +617,7 @@ const staffScript = `<script>
   var count = document.getElementById('count');
   var active = 'all';
   var activeGroup = 'all';
+  var activeGroupPrefix = false;
   var familyMap = ${familyMapJson};
   var courseUrlMap = ${courseUrlMapJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
@@ -507,7 +631,8 @@ const staffScript = `<script>
         (active.indexOf('family:') === 0 && (familyMap[active.slice(7)] || []).indexOf(c.dataset.course) !== -1) ||
         (active.indexOf('type:')   === 0 && c.dataset.type   === active.slice(5)) ||
         (active.indexOf('status:') === 0 && c.dataset.status === active.slice(7));
-      var okGroup = activeGroup === 'all' || c.dataset.group === activeGroup;
+      var okGroup = activeGroup === 'all' ||
+        (activeGroupPrefix ? (c.dataset.group === activeGroup || c.dataset.group.indexOf(activeGroup + '/') === 0) : c.dataset.group === activeGroup);
       var okSearch = !q || c.dataset.search.indexOf(q) !== -1;
       var show = okFilter && okGroup && okSearch;
       c.style.display = show ? '' : 'none';
@@ -517,13 +642,25 @@ const staffScript = `<script>
   }
 
   function showSubTabsFor(famId){
-    document.querySelectorAll('.sub-tabs:not(.sub-tabs-group)').forEach(function(row){
+    document.querySelectorAll('.sub-tabs:not(.sub-tabs-group):not(.sub-tabs-skill)').forEach(function(row){
       row.hidden = row.dataset.subFor !== famId;
+    });
+  }
+
+  function showSkillTabsFor(key){
+    document.querySelectorAll('.sub-tabs-skill').forEach(function(row){
+      row.hidden = row.dataset.skillFor !== key;
+      if(!row.hidden){
+        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+        row.querySelector('.filter-btn').classList.add('on');
+      }
     });
   }
 
   function showGroupTabsFor(courseId){
     activeGroup = 'all';
+    activeGroupPrefix = false;
+    showSkillTabsFor(null);
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){
       row.hidden = row.dataset.groupFor !== courseId;
       if(!row.hidden){
@@ -560,7 +697,7 @@ const staffScript = `<script>
     });
   });
 
-  document.querySelectorAll('.sub-tabs:not(.sub-tabs-group) .filter-btn').forEach(function(b){
+  document.querySelectorAll('.sub-tabs:not(.sub-tabs-group):not(.sub-tabs-skill) .filter-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var row = b.closest('.sub-tabs');
       row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
@@ -577,6 +714,19 @@ const staffScript = `<script>
       row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
       b.classList.add('on');
       activeGroup = b.dataset.groupFilter;
+      activeGroupPrefix = !!b.dataset.groupPrefix || activeGroup === 'all';
+      showSkillTabsFor(b.dataset.hasSubskill || null);
+      apply();
+    });
+  });
+
+  document.querySelectorAll('.sub-tabs-skill .filter-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = b.closest('.sub-tabs-skill');
+      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      activeGroup = b.dataset.groupFilter;
+      activeGroupPrefix = !!b.dataset.groupPrefix;
       apply();
     });
   });
