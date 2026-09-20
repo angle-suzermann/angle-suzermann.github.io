@@ -433,7 +433,7 @@ const groupScriptHier = `<script>
 const copyScript = `<script>
   document.querySelectorAll('[data-copy]').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var url = location.origin + btn.dataset.copy;
+      var url = encodeURI(location.origin + btn.dataset.copy);
       navigator.clipboard.writeText(url).then(function(){
         var old = btn.textContent;
         btn.textContent = 'Скопировано ✓';
