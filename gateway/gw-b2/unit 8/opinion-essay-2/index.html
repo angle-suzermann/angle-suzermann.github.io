@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8: Developing Writing — An Opinion Essay 2 (Classwork &amp; Homework)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Gateway to the World B2">
+<meta name="ws:course-id" content="gw-b2">
+<meta name="ws:unit"      content="unit 8">
+<meta name="ws:title"     content="Unit 8 — An Opinion Essay 2 (Classwork &amp; Homework)">
+<meta name="ws:emoji"     content="📝">
+<meta name="ws:date"      content="2026-09-20">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="">
+<meta name="ws:tags"      content="writing, opinion essay">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');
+    font-weight:700 900;
+    font-style:normal;
+    font-display:swap;
+  }
+
+</style>
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); min-height:100vh; position:relative;
+  overflow-x:hidden;
+}
+.bg-photo{ position:fixed; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 45%; opacity:0.15; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(28,18,38,.55), rgba(69,52,88,.88)); }
+
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+.topbar-inner{ max-width:960px; margin:0 auto; padding:7px 14px 6px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:.92rem; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lesson-title .lesson-sub{ font-weight:600; color:var(--muted); font-size:.68rem; text-transform:uppercase; letter-spacing:.03em; }
+.namebar{ display:flex; align-items:center; gap:6px; }
+.namebar label{ font-size:.76rem; font-weight:700; color:var(--purple-dark); }
+.namebar input{ font-family:inherit; font-size:.85rem; padding:5px 8px; border:1.5px solid var(--border); border-radius:6px; min-width:140px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.save-indicator{ font-size:.68rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
+
+.tab-switch{ display:flex; gap:6px; margin-top:6px; }
+.tab-btn{ flex:1; font-family:inherit; font-weight:800; font-size:.82rem; padding:6px 12px; border-radius:8px 8px 0 0; border:1.5px solid var(--border); border-bottom:none; background:var(--card-tint); color:var(--muted); cursor:pointer; }
+.tab-btn.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+
+.progress-row{ display:flex; align-items:center; gap:8px; margin-top:5px; }
+.progress-track{ flex:1; height:6px; border-radius:4px; background:var(--card-tint); overflow:hidden; border:1px solid var(--border); }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--yellow)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.68rem; font-weight:700; color:var(--muted); white-space:nowrap; }
+
+.stage-nav{ display:flex; gap:5px; margin-top:5px; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin; padding-bottom:2px; }
+.stage-nav::-webkit-scrollbar{ height:4px; }
+.stage-nav::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+.stage-chip{ flex:0 0 auto; font-family:inherit; font-size:.68rem; font-weight:700; padding:5px 10px; border-radius:14px; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); cursor:pointer; white-space:nowrap; }
+.stage-chip .num{ display:inline-block; background:var(--border); color:var(--purple-dark); width:14px; height:14px; border-radius:50%; font-size:.58rem; line-height:14px; text-align:center; margin-right:4px; }
+.stage-chip.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.stage-chip.active .num{ background:var(--yellow); color:var(--black); }
+.stage-chip.done{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); }
+.stage-chip.done .num{ background:var(--correct); color:#fff; }
+
+.page-wrap{ position:relative; z-index:2; max-width:960px; margin:0 auto; padding:22px 16px 60px; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:#fff; border-radius:14px; padding:22px 22px 24px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); border:1px solid var(--border); }
+.card h1{ color:var(--purple); font-size:1.5rem; margin:0 0 10px; }
+.card h2{ color:var(--purple); font-size:1.15rem; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.card .ex-sub{ color:var(--muted); font-size:.85rem; margin:0 0 14px; }
+.card p{ line-height:1.6; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:12px 14px; font-size:.92rem; margin:10px 0 16px; }
+.badge-pill{ display:inline-block; background:var(--purple); color:#fff; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:3px 10px; border-radius:20px; margin-bottom:8px; }
+.badge-pill.ungraded{ background:var(--muted); }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.item{ margin:14px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; border:1px solid var(--border); }
+.item p.q{ margin:0 0 8px; font-weight:600; }
+.item .ex-hint{ color:var(--muted); font-size:.82rem; margin:0 0 6px; }
+
+.essay-text{ background:var(--card-tint); border-left:4px solid var(--purple); border-radius:8px; padding:16px 18px; font-size:.95rem; line-height:1.75; margin:10px 0 16px; }
+.essay-text p{ margin:0 0 12px; }
+.essay-text mark{ background:#fff2a8; padding:0 3px; border-radius:3px; }
+.essay-text .pnum{ font-weight:800; color:var(--purple); font-size:.72rem; text-transform:uppercase; display:block; margin-bottom:3px; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+.mcq .opt{ text-align:left; font-family:inherit; font-size:.92rem; padding:10px 14px; border:1.5px solid var(--border); border-radius:8px; background:#fff; cursor:pointer; transition:.15s; }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-color:var(--purple); }
+.mcq .opt.correct{ border-color:var(--correct); background:#e8f7ee; color:#245c3f; font-weight:700; }
+.mcq .opt.wrong{ border-color:var(--wrong); background:#fdeceb; color:#8a3226; }
+
+.cat-select{ font-family:inherit; font-size:.88rem; padding:8px 10px; border:1.5px solid var(--border); border-radius:6px; background:#fff; min-width:200px; }
+.cat-select.is-correct{ border-color:var(--correct); background:#f0faf4; }
+.cat-select.is-wrong{ border-color:var(--wrong); background:#fdf1ef; }
+.cat-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:9px 0; border-bottom:1px dashed var(--border); }
+.cat-row:last-child{ border-bottom:none; }
+.cat-row .term{ font-weight:700; color:var(--purple-dark); flex:1; min-width:180px; }
+
+.bucket-wrap{ margin-top:10px; }
+.chip-pool{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; min-height:20px; }
+.chip{ font-family:inherit; font-size:.85rem; padding:8px 13px; border-radius:18px; border:1.5px solid var(--purple); background:#fff; color:var(--purple-dark); cursor:pointer; }
+.chip.selected{ background:var(--purple); color:#fff; }
+.chip.wrong-flash{ border-color:var(--wrong); background:#fdeceb; color:var(--wrong); }
+.buckets{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.bucket{ background:var(--card-tint); border:2px dashed var(--border); border-radius:10px; padding:12px; min-height:70px; }
+.bucket h3{ margin:0 0 8px; font-size:.85rem; color:var(--purple-dark); }
+.bucket .placed-list{ display:block; }
+.bucket .placed{ display:inline-block; font-size:.82rem; background:#e8f7ee; border:1px solid var(--correct); color:#245c3f; border-radius:14px; padding:5px 11px; margin:3px 4px 0 0; }
+@media (max-width:600px){ .buckets{ grid-template-columns:1fr; } }
+
+.imgwrap{ text-align:center; margin:12px 0; }
+.imgwrap img{ max-width:100%; border-radius:10px; border:1px solid var(--border); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.imgwrap .cap{ font-size:.78rem; color:var(--muted); margin-top:6px; }
+
+.match-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:10px; }
+.col-left, .col-right{ display:flex; flex-direction:column; gap:8px; }
+.match{ font-family:inherit; font-size:.86rem; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; background:#fff; cursor:pointer; text-align:left; }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdeceb; }
+@media (max-width:600px){ .match-grid{ grid-template-columns:1fr; } }
+
+.vocab-tabs{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.vocab-tab{ font-family:inherit; font-size:.8rem; font-weight:700; padding:6px 14px; border-radius:20px; border:1.5px solid var(--border); background:#fff; cursor:pointer; color:var(--purple-dark); }
+.vocab-tab.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.vocab-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.vocab-card{ background:var(--card-tint); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+.vocab-card b{ color:var(--purple-dark); display:block; margin-bottom:2px; }
+.vocab-card .pos{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.03em; }
+.vocab-card p{ margin:6px 0 0; font-size:.85rem; }
+.vocab-card .example{ font-style:italic; color:var(--purple-dark); font-size:.82rem; margin-top:4px; }
+@media (max-width:600px){ .vocab-grid{ grid-template-columns:1fr; } }
+
+.flip-deck{ display:flex; align-items:center; justify-content:center; gap:16px; margin-top:14px; flex-wrap:wrap; }
+.flip-card{ width:220px; height:140px; perspective:1000px; cursor:pointer; }
+.flip-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-front, .flip-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; display:flex; align-items:center; justify-content:center; text-align:center; padding:14px; font-weight:700; }
+.flip-front{ background:var(--purple); color:#fff; font-size:1.0rem; }
+.flip-back{ background:var(--yellow); color:var(--black); transform:rotateY(180deg); font-size:.82rem; font-weight:600; }
+.deck-controls{ display:flex; align-items:center; justify-content:center; gap:12px; margin-top:10px; }
+.deck-controls button{ font-family:inherit; font-weight:700; border:1.5px solid var(--purple); background:#fff; color:var(--purple); border-radius:20px; padding:6px 14px; cursor:pointer; }
+.card-speak{ position:absolute; top:6px; right:8px; background:rgba(255,255,255,.25); border:none; border-radius:50%; width:26px; height:26px; cursor:pointer; font-size:.9rem; }
+
+textarea.notes{ width:100%; min-height:80px; font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:10px; resize:vertical; }
+textarea.essay-box{ width:100%; min-height:260px; font-family:inherit; font-size:.92rem; line-height:1.55; border:1.5px solid var(--border); border-radius:8px; padding:14px; resize:vertical; }
+.wordcount{ font-size:.78rem; color:var(--muted); text-align:right; margin-top:4px; }
+.wordcount.ok{ color:var(--correct); font-weight:700; }
+.checklist{ list-style:none; margin:12px 0 0; padding:0; }
+.checklist li{ padding:9px 12px; background:var(--card-tint); border-radius:8px; margin-bottom:6px; font-size:.87rem; cursor:pointer; border:1.5px solid var(--border); }
+.checklist li.done{ background:#e8f7ee; border-color:var(--correct); text-decoration:line-through; color:#245c3f; }
+.checklist li::before{ content:"☐ "; }
+.checklist li.done::before{ content:"☑ "; }
+
+.speaking-cues{ list-style:none; margin:10px 0; padding:0; }
+.speaking-cues li{ padding:8px 10px; background:var(--card-tint); border-radius:8px; margin-bottom:6px; font-size:.9rem; }
+.speaking-cues li::before{ content:"▸ "; color:var(--purple); font-weight:800; }
+.hint-toggle{ font-family:inherit; font-size:.8rem; font-weight:700; color:var(--purple); background:none; border:1.5px solid var(--purple); border-radius:20px; padding:6px 14px; cursor:pointer; margin-top:8px; }
+.hint-box{ margin-top:10px; background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:6px; gap:10px; }
+.nav-btns button{ font-family:inherit; font-weight:800; font-size:.92rem; padding:11px 22px; border-radius:24px; border:none; cursor:pointer; }
+.nav-btns .btn-back{ background:#fff; border:2px solid var(--purple); color:var(--purple); }
+.nav-btns .btn-next{ background:var(--purple); color:#fff; }
+.nav-btns .btn-submit{ background:var(--yellow); color:var(--black); font-weight:900; }
+
+.check-bar{ text-align:center; margin-top:8px; }
+.submit-status{ font-size:.85rem; margin-top:8px; font-weight:700; color:var(--purple-dark); }
+.score-summary{ text-align:center; font-size:1.15rem; margin:14px 0; }
+.breakdown-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:12px; font-size:.88rem; }
+.breakdown-box ul{ margin:6px 0 0; padding-left:18px; }
+.breakdown-box li{ margin-bottom:5px; }
+.tier-caption{ text-align:center; color:var(--muted); font-size:.9rem; margin-top:6px; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.essay-review-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:12px; font-size:.85rem; white-space:pre-wrap; border:1px solid var(--border); max-height:220px; overflow-y:auto; }
+.flag-pill{ display:inline-block; background:var(--muted); color:#fff; font-size:.68rem; font-weight:800; padding:3px 9px; border-radius:12px; margin-bottom:6px; }
+
+.angle-badge{ position:fixed; left:24px; bottom:20px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:0.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+
+button{ touch-action:manipulation; }
+@media (max-width:600px){
+  .card{ padding:14px 14px 16px; }
+  .topbar-inner{ padding:6px 12px 5px; }
+  .lesson-title{ font-size:.82rem; max-width:60vw; }
+  .lesson-title .lesson-sub{ display:none; }
+  .namebar label{ display:none; }
+  .namebar input{ min-width:0; width:120px; }
+  .tab-btn{ font-size:.76rem; padding:6px 8px; }
+  /* keep form controls at 16px on mobile to stop iOS Safari auto-zooming on focus */
+  .namebar input, .fib, .cat-select, textarea.notes, textarea.essay-box, .match, .chip{ font-size:16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="lesson-title">An Opinion Essay – 2 <span class="lesson-sub">· GW B2 · Unit 8</span></div>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="tab-switch">
+      <button class="tab-btn active" id="tabBtn-cw" onclick="switchTab('cw')">📘 Classwork</button>
+      <button class="tab-btn" id="tabBtn-hw" onclick="switchTab('hw')">🏠 Homework</button>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Stage 1 / 8</span>
+    </div>
+    <div class="stage-nav" id="stageNav"></div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ===================== CLASSWORK TAB ===================== -->
+<div class="tab-panel active" data-tab="cw" id="tabpanel-cw">
+
+  <div class="restore-note" id="restoreNote-cw" hidden>
+    <span id="restoreNoteText-cw"></span>
+    <button onclick="clearProgress('cw')">Start over (clear saved answers)</button>
+  </div>
+
+  <!-- CW PAGE 0: START -->
+  <section class="page active" data-page="0">
+    <div class="card">
+      <h1>An Opinion Essay – 2 (Classwork)</h1>
+      <p class="ex-sub">Gateway B2, Student's Book p.105 — Developing writing</p>
+      <div class="instructions">
+        <p style="margin:0 0 8px;"><b>Before you start:</b></p>
+        <p style="margin:0 0 6px;">1. Type your name at the top of the page — it stays there on both tabs while you work.</p>
+        <p style="margin:0 0 6px;">2. Use <b>Next →</b> to move through the stages, or click a stage name above to jump straight to it.</p>
+        <p style="margin:0 0 6px;">3. Your answers are saved automatically on this device as you type, so it's safe to close the tab and come back later.</p>
+        <p style="margin:0;">4. On the last stage, click <b>Check &amp; Submit</b> to see your score and send your work to your teacher.</p>
+      </div>
+      <p>In this lesson you'll read a model opinion essay about saving the planet, work out how it's built and which linking words hold it together, then write your own essay about the biggest problems facing the world today. When you're ready for homework, switch to the <b>Homework</b> tab above.</p>
+    </div>
+    <div class="nav-btns" style="justify-content:flex-end;">
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 1: WARM-UP -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <span class="badge-pill ungraded">Warm-up · speaking &amp; ideas</span>
+      <h2>💬 Look at the task</h2>
+      <div class="instructions">
+        <p style="margin:0;">Work with a partner if you can. Read the task below and discuss two ideas for each point before you read the model essay.</p>
+      </div>
+      <div class="essay-text">
+        <p>At school you have been talking about climate change and extreme weather. Now your English teacher has asked you to write an essay for homework.</p>
+        <p><b>Write your essay using all the notes and giving reasons for your point of view.</b></p>
+        <p style="font-size:1.05rem; font-weight:800; color:var(--purple-dark);">How can we help to save the planet?</p>
+        <p style="margin-bottom:0;"><b>Notes — write about:</b><br>1. recycling &nbsp; 2. saving energy &nbsp; 3. (your own idea)</p>
+      </div>
+      <div class="item">
+        <p class="q">Before you read the essay, jot down your own two ideas for each point. Does the essay include any of them?</p>
+        <textarea class="notes" placeholder="1. recycling — my ideas: ...&#10;2. saving energy — my ideas: ...&#10;3. my own idea: ..."></textarea>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 2: READ & ANALYSE -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <span class="badge-pill ungraded">Read &amp; analyse</span>
+      <h2>📖 Read the model essay</h2>
+      <p class="ex-sub">Does it include any of the ideas you noted down?</p>
+      <div class="essay-text">
+        <p><span class="pnum">Paragraph 1</span>Each year there are more and more droughts and floods, and temperatures are changing dramatically. <mark>In my opinion</mark>, this is partly because of the effect that humans are having on the planet. <mark>I believe</mark> that we all can and should do something about this.</p>
+        <p><span class="pnum">Paragraph 2</span><mark>The first point to make is that</mark> if we all recycled more, we could make a big difference to the environment. By recycling paper, for example, we could protect our forests. <mark>What is more</mark>, if we reused items such as plastic bags and bottles, we could also save precious natural resources. <mark>However</mark>, not enough people do this.</p>
+        <p><span class="pnum">Paragraph 3</span><mark>Another thing to bear in mind is that</mark> people use energy unnecessarily. For instance, they forget to switch computers or lights off and make their houses too warm in the winter, even though by saving some of this energy, we could reduce environmental damage.</p>
+        <p><span class="pnum">Paragraph 4</span><mark>Although</mark> many students live near school, their parents take them by car each day. If we all walked, cycled or used public transport, we could help to minimise the pollution caused by exhaust fumes. <mark>Furthermore</mark>, walking or cycling would help to keep us healthy.</p>
+        <p><span class="pnum">Paragraph 5</span><mark>In conclusion</mark>, some people say that there is nothing that we can do to save the planet. I disagree. If we all take small steps to change simple daily habits, those millions of small actions can have a major impact on the planet.</p>
+      </div>
+      <div class="item">
+        <p class="q">Do you agree with the writer? Make a note of why or why not.</p>
+        <textarea class="notes" placeholder="I agree / disagree because..."></textarea>
+      </div>
+      <button class="hint-toggle" onclick="toggleHint('cwBonusEssay')">🎁 Bonus: another model opinion essay (Unit 2)</button>
+      <div class="hint-box" id="cwBonusEssay" hidden>
+        <p style="margin:0 0 8px;"><b>Task: "Teenage years are the best years of your life." Do you agree?</b> (style is formal — no contractions)</p>
+        <p style="margin:0 0 8px;">In my opinion, each different stage of life has good and bad moments and so it is difficult to say which is the "best" period in life. Personally, I think that being a teenager is a good time of life, as I will explain.</p>
+        <p style="margin:0 0 8px;">The first point to make is that when you are a teenager you have more time to enjoy life. Although you have to study a lot, you also have a lot of time to be with your friends, and you don't need to take care of basic chores like cooking, shopping or doing all the housework.</p>
+        <p style="margin:0 0 8px;">Another thing to bear in mind is that, despite the fact that life for teenagers can be stressful, I think it is less stressful than life for adults. This is because when you are an adult you have more duties and responsibilities, such as paying bills and being on top of financial matters. Furthermore, if you are a parent, you have the responsibility of looking after your children.</p>
+        <p style="margin:0;">To sum up, I believe that being a teenager isn't perfect, because teenagers often lose sleep over things like school, friends, family and the future. However, it is an exciting time when you start preparing for new challenges, experiences and opportunities.</p>
+        <p style="margin:12px 0 4px; font-weight:800; color:var(--purple-dark);">This essay's paragraph plan:</p>
+        <p style="margin:0;">Paragraph 1: Introduction — general statement on the topic and your opinion.<br>Paragraph 2: First and most important reason for your opinion.<br>Paragraph 3: One or two other reasons for your opinion, OR other people's arguments against your opinion and why you don't agree with them.<br>Paragraph 4: Summary and conclusion — restate your opinion.</p>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 3: PARAGRAPH PURPOSE -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>🎯 What is the purpose of each paragraph?</h2>
+      <p class="ex-sub">Choose the best description for each paragraph of the model essay.</p>
+
+      <div class="item">
+        <p class="q">Paragraph 1</p>
+        <div class="mcq" data-correct="intro">
+          <button class="opt" data-val="intro">Introduction — general statement on the topic and opinion</button>
+          <button class="opt" data-val="first">First and most important reason for the opinion</button>
+          <button class="opt" data-val="other">One or two other reasons for the opinion</button>
+          <button class="opt" data-val="concl">Summary and conclusion — restate opinion</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q">Paragraph 2</p>
+        <div class="mcq" data-correct="first">
+          <button class="opt" data-val="intro">Introduction — general statement on the topic and opinion</button>
+          <button class="opt" data-val="first">First and most important reason for the opinion</button>
+          <button class="opt" data-val="other">One or two other reasons for the opinion</button>
+          <button class="opt" data-val="concl">Summary and conclusion — restate opinion</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q">Paragraph 3</p>
+        <div class="mcq" data-correct="other">
+          <button class="opt" data-val="intro">Introduction — general statement on the topic and opinion</button>
+          <button class="opt" data-val="first">First and most important reason for the opinion</button>
+          <button class="opt" data-val="other">One or two other reasons for the opinion</button>
+          <button class="opt" data-val="concl">Summary and conclusion — restate opinion</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q">Paragraph 4</p>
+        <div class="mcq" data-correct="other">
+          <button class="opt" data-val="intro">Introduction — general statement on the topic and opinion</button>
+          <button class="opt" data-val="first">First and most important reason for the opinion</button>
+          <button class="opt" data-val="other">One or two other reasons for the opinion</button>
+          <button class="opt" data-val="concl">Summary and conclusion — restate opinion</button>
+        </div>
+      </div>
+      <div class="item">
+        <p class="q">Paragraph 5</p>
+        <div class="mcq" data-correct="concl">
+          <button class="opt" data-val="intro">Introduction — general statement on the topic and opinion</button>
+          <button class="opt" data-val="first">First and most important reason for the opinion</button>
+          <button class="opt" data-val="other">One or two other reasons for the opinion</button>
+          <button class="opt" data-val="concl">Summary and conclusion — restate opinion</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 4: LINKERS & STRUCTURE -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>🔗 Linkers: categorise the underlined words</h2>
+      <p class="ex-sub">Put each underlined word/expression from the essay into the correct category.</p>
+      <div class="item">
+        <div class="cat-row"><span class="term">In my opinion</span>
+          <select class="cat-select" data-answer="Expressing opinions">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">I believe that</span>
+          <select class="cat-select" data-answer="Expressing opinions">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">The first point to make is that</span>
+          <select class="cat-select" data-answer="Putting ideas in order">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">What is more</span>
+          <select class="cat-select" data-answer="Adding ideas">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">However</span>
+          <select class="cat-select" data-answer="Contrasting ideas">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">Another thing to bear in mind is that</span>
+          <select class="cat-select" data-answer="Adding ideas">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">Although</span>
+          <select class="cat-select" data-answer="Contrasting ideas">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">Furthermore</span>
+          <select class="cat-select" data-answer="Adding ideas">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+        <div class="cat-row"><span class="term">In conclusion</span>
+          <select class="cat-select" data-answer="Concluding">
+            <option value="">Choose category…</option>
+            <option>Expressing opinions</option><option>Adding ideas</option><option>Putting ideas in order</option><option>Contrasting ideas</option><option>Concluding</option>
+          </select></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>✂️ Two halves, or a new sentence?</h2>
+      <p class="ex-sub">Some linkers join two halves of <i>one</i> sentence. Others introduce a <i>new</i> sentence (and are usually followed by a comma). Classify each linker using the Writing Bank rule.</p>
+      <div class="item">
+        <div class="cat-row"><span class="term">although</span>
+          <select class="cat-select" data-answer="Joins two halves">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">because</span>
+          <select class="cat-select" data-answer="Joins two halves">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">since</span>
+          <select class="cat-select" data-answer="Joins two halves">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">while</span>
+          <select class="cat-select" data-answer="Joins two halves">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">however</span>
+          <select class="cat-select" data-answer="Starts a new sentence">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">furthermore</span>
+          <select class="cat-select" data-answer="Starts a new sentence">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">in conclusion</span>
+          <select class="cat-select" data-answer="Starts a new sentence">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+        <div class="cat-row"><span class="term">as a result</span>
+          <select class="cat-select" data-answer="Starts a new sentence">
+            <option value="">Choose…</option><option>Joins two halves</option><option>Starts a new sentence</option>
+          </select></div>
+      </div>
+      <button class="hint-toggle" onclick="toggleHint('cwHint4')">💡 Show the full Writing Bank reference</button>
+      <div class="hint-box" id="cwHint4" hidden>
+        <p style="margin:0 0 8px;"><b>Linkers which join two halves of a sentence</b> (can go at the start or in the middle): although, and, and so, because, despite, even though, since, so that, when, whereas, while.</p>
+        <p style="margin:0 0 10px;"><b>Linkers which join two sentences</b> (start a new sentence, usually followed by a comma): all things considered, as a result, as far as I am concerned, consequently, finally, firstly, furthermore, however, in addition, in conclusion, in my opinion, in the end, meanwhile, moreover, nevertheless, on the one hand, on the other hand, personally, secondly, therefore, to sum up, what is more.</p>
+        <p style="margin:0 0 4px; font-weight:800; color:var(--purple-dark);">Full reference by category (from the Writing Bank, Units 2 &amp; 8):</p>
+        <p style="margin:0 0 5px;"><b>Giving your opinion:</b> personally, I think... / as far as I'm concerned / in my opinion / I agree / disagree with... / I believe that...</p>
+        <p style="margin:0 0 5px;"><b>Putting ideas in order:</b> firstly, to begin with, secondly, next, finally, lastly / the first point to make is that...</p>
+        <p style="margin:0 0 5px;"><b>Justifying your opinion:</b> this is because / the reason is... / for instance / for example</p>
+        <p style="margin:0 0 5px;"><b>Adding ideas:</b> furthermore, what's more, in addition / another thing to bear in mind is that...</p>
+        <p style="margin:0 0 5px;"><b>Contrasting ideas:</b> however, nevertheless, on the one hand, on the other hand, although, despite, whereas</p>
+        <p style="margin:0;"><b>Concluding:</b> to sum up, in conclusion, all things considered</p>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 5: VOCAB BOOST -->
+  <section class="page" data-page="5">
+    <div class="card">
+      <span class="badge-pill ungraded">Extra vocabulary</span>
+      <h2>📚 Vocabulary boost: writing an opinion essay</h2>
+      <p class="ex-sub">Words you'll need to plan, write and improve your own essays.</p>
+      <div class="vocab-tabs">
+        <button class="vocab-tab active" onclick="filterVocab('cw','all',this)">All</button>
+        <button class="vocab-tab" onclick="filterVocab('cw','process',this)">Writing process</button>
+        <button class="vocab-tab" onclick="filterVocab('cw','structure',this)">Essay structure</button>
+      </div>
+      <div class="vocab-grid" id="vocabGrid-cw"></div>
+
+      <h2 style="margin-top:20px;">🔊 Flashcards</h2>
+      <div class="flip-deck" id="flipDeck-cw"></div>
+      <div class="deck-controls">
+        <button onclick="deckNav('cw',-1)">◀ Prev</button>
+        <span id="deckCounter-cw"></span>
+        <button onclick="deckNav('cw',1)">Next ▶</button>
+        <button onclick="shuffleDeck('cw')">🔀 Shuffle</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>🔀 Match the word to its meaning</h2>
+      <div class="match-grid">
+        <div class="col-left" id="matchLeft-cw"></div>
+        <div class="col-right" id="matchRight-cw"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 6: WRITE YOUR ESSAY -->
+  <section class="page" data-page="6">
+    <div class="card">
+      <span class="badge-pill ungraded">Practice makes perfect · production</span>
+      <h2>✍️ Write your own opinion essay</h2>
+      <div class="instructions">
+        <p style="margin:0;">Work with a partner first and think about ideas and information you could include.</p>
+      </div>
+      <div class="essay-text">
+        <p>At school you have been talking about problems facing the world in the 21st century. Now your English teacher has asked you to write an essay for homework.</p>
+        <p><b>Write your essay using all the notes and giving reasons for your point of view.</b></p>
+        <p style="font-size:1.05rem; font-weight:800; color:var(--purple-dark);">What are the biggest problems facing the world in the 21st century?</p>
+        <p style="margin-bottom:0;"><b>Notes — write about:</b><br>1. epidemics &nbsp; 2. changing weather conditions &nbsp; 3. (your own idea)</p>
+      </div>
+      <div class="item">
+        <p class="q">Plan your ideas first (this part isn't scored — just for you)</p>
+        <textarea class="notes" placeholder="1. epidemics — my ideas: ...&#10;2. changing weather conditions — my ideas: ...&#10;3. my own idea: ..."></textarea>
+      </div>
+      <div class="item">
+        <p class="q">Now write your full essay (aim for 200–250 words, 4–5 paragraphs)</p>
+        <textarea class="essay-box" data-essay="cw-essay" placeholder="Paragraph 1 — introduce the topic and your opinion...&#10;Paragraph 2 — your first and most important reason...&#10;Paragraph 3 — another reason...&#10;Paragraph 4 (optional) — a further reason...&#10;Paragraph 5 — conclusion, restate your opinion..."></textarea>
+        <div class="wordcount" data-count-for="cw-essay">0 words</div>
+      </div>
+      <p style="margin:4px 0 0; font-size:.85rem; color:var(--muted);">This essay isn't auto-scored — your teacher will read it and give you personal feedback. It's checked in for a basic completeness check, and sent to your teacher together with your score.</p>
+      <ul class="checklist" id="checklist-cw">
+        <li onclick="this.classList.toggle('done')">My introduction gives the topic and my opinion</li>
+        <li onclick="this.classList.toggle('done')">I gave a first, most important reason</li>
+        <li onclick="this.classList.toggle('done')">I gave one or two other reasons</li>
+        <li onclick="this.classList.toggle('done')">My conclusion restates my opinion</li>
+        <li onclick="this.classList.toggle('done')">I used at least 3 different linkers from the Writing Bank</li>
+      </ul>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('cw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- CW PAGE 7: FINISH -->
+  <section class="page" data-page="7">
+    <div class="card">
+      <h1>🏁 Finish — Classwork</h1>
+      <p>Check your name is correct, then click <b>Check &amp; Submit</b> to see your score and send your work (including your essay) to your teacher.</p>
+      <div class="check-bar">
+        <button class="btn-next btn-submit" onclick="submitAll('cw')">✅ Check &amp; Submit</button>
+        <div class="submit-status" id="submitStatus-cw"></div>
+      </div>
+      <div class="score-summary" id="scoreSummary-cw" hidden></div>
+      <div class="completion-stickers" id="stickerWrap-cw"></div>
+      <div class="tier-caption" id="resultCaption-cw"></div>
+      <div class="breakdown-box" id="resultsBreakdown-cw" hidden></div>
+      <div class="essay-review-box" id="essayReview-cw" hidden></div>
+    </div>
+    <div class="nav-btns" style="justify-content:flex-start;">
+      <button class="btn-back" onclick="prevPage('cw')">← Back</button>
+    </div>
+  </section>
+
+</div>
+<!-- ===================== /CLASSWORK TAB ===================== -->
+
+<!-- ===================== HOMEWORK TAB ===================== -->
+<div class="tab-panel" data-tab="hw" id="tabpanel-hw">
+
+  <div class="restore-note" id="restoreNote-hw" hidden>
+    <span id="restoreNoteText-hw"></span>
+    <button onclick="clearProgress('hw')">Start over (clear saved answers)</button>
+  </div>
+
+  <!-- HW PAGE 0: START -->
+  <section class="page active" data-page="0">
+    <div class="card">
+      <h1>An Opinion Essay – 2 (Homework)</h1>
+      <p class="ex-sub">Gateway B2, Workbook p.72</p>
+      <div class="instructions">
+        <p style="margin:0 0 8px;"><b>Before you start:</b></p>
+        <p style="margin:0 0 6px;">1. Make sure your name is filled in at the top — it's shared with the Classwork tab.</p>
+        <p style="margin:0 0 6px;">2. Use <b>Next →</b> or click a stage name above to move around.</p>
+        <p style="margin:0 0 6px;">3. Your answers save automatically as you type.</p>
+        <p style="margin:0;">4. On the last stage, click <b>Check &amp; Submit</b> to send your work to your teacher.</p>
+      </div>
+      <p>In this homework you'll read a short report about the 2004 tsunami and tourism, think about the environmental impact of tourism, and then plan and write your own opinion essay — using the linkers from the Classwork lesson on page 105.</p>
+    </div>
+    <div class="nav-btns" style="justify-content:flex-end;">
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 1: READ THE REPORT -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <span class="badge-pill ungraded">Reading</span>
+      <h2>🌊 Read the report</h2>
+      <p class="ex-sub">Do you agree with scientist Jeff McNeely's opinion that the tsunami was a man-made disaster?</p>
+      <div class="essay-text">
+        <p style="font-weight:800; color:var(--purple-dark);">The 2004 Tsunami and Tourism</p>
+        <p>The building of coastal resorts and the destruction of natural protection may have contributed to the enormous loss of life from killer tsunamis that hit the shores of the Indian Ocean after an earthquake, an environmental expert claims.</p>
+        <p>Jeff McNeely, chief scientist of the Swiss-based World Conservation Union (IUCN), said the tsunami was "nothing new for nature" in a geologically active region.</p>
+        <p>"What made this a disaster is that people have started to occupy part of the landscape that they shouldn't have occupied," he said. "50 years ago, the coastline was not as densely occupied as now by tourist hotels," he added.</p>
+        <p>The same thing has been happening with the coral reefs that also provided protection to the coast, he explained.</p>
+        <p>"When a tsunami comes in, it first hits the coral reef which slows it down, then it hits the mangroves which further slows it down. It may get through that, but by then a lot of the energy has already been dissipated," McNeely said.</p>
+        <p>"The mangroves were all along the coasts where there are shallow waters. They offered protection against things like tsunamis. Over the last 20–30 years, they were cleared by people who didn't have the long-term knowledge of why these mangroves should have been saved."</p>
+      </div>
+      <div class="item">
+        <p class="q">Do you agree with Jeff McNeely that the tsunami was, in part, a man-made disaster? Why / why not?</p>
+        <textarea class="notes" placeholder="I agree / disagree because..."></textarea>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 2: COMPREHENSION CHECK -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>✅ True or false?</h2>
+      <p class="ex-sub">Based on the report you just read.</p>
+      <div class="item">
+        <p class="q">1. Jeff McNeely believes a tsunami itself was something completely new for this region.</p>
+        <div class="mcq" data-correct="f"><button class="opt" data-val="t">True</button><button class="opt" data-val="f">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q">2. Coastal resorts and the loss of natural protection contributed to the loss of life.</p>
+        <div class="mcq" data-correct="t"><button class="opt" data-val="t">True</button><button class="opt" data-val="f">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q">3. Fifty years ago, the coastline was more densely occupied by tourist hotels than it is now.</p>
+        <div class="mcq" data-correct="f"><button class="opt" data-val="t">True</button><button class="opt" data-val="f">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q">4. Both coral reefs and mangroves helped slow down the energy of the tsunami.</p>
+        <div class="mcq" data-correct="t"><button class="opt" data-val="t">True</button><button class="opt" data-val="f">False</button></div>
+      </div>
+      <div class="item">
+        <p class="q">5. The people who cleared the mangroves fully understood their long-term protective value.</p>
+        <div class="mcq" data-correct="f"><button class="opt" data-val="t">True</button><button class="opt" data-val="f">False</button></div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 3: TOURISM IMPACTS -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>🌍 Uncontrolled tourism vs. a positive impact</h2>
+      <p class="ex-sub">Click a statement below, then click the bucket it belongs in.</p>
+      <div class="bucket-wrap" data-bucket-group="hw-tourism" data-bucket-total="11" data-correct-count="0">
+        <div class="chip-pool" id="chipPool-hw-tourism"></div>
+        <div class="buckets">
+          <div class="bucket" data-bucket="negative"><h3>⚠️ Uncontrolled tourism threatens natural areas</h3><div class="placed-list"></div></div>
+          <div class="bucket" data-bucket="positive"><h3>✅ Tourism can have a positive impact</h3><div class="placed-list"></div></div>
+        </div>
+      </div>
+      <div class="item" style="margin-top:16px;">
+        <p class="q">Add one more idea of your own to each list</p>
+        <textarea class="notes" placeholder="One more negative impact: ...&#10;One more positive impact: ..."></textarea>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 4: VOCAB BOOST -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <span class="badge-pill ungraded">Extra vocabulary</span>
+      <h2>📚 Vocabulary boost: tourism &amp; the environment</h2>
+      <p class="ex-sub">Words from the report and the tourism-impact lists.</p>
+      <div class="vocab-tabs">
+        <button class="vocab-tab active" onclick="filterVocab('hw','all',this)">All</button>
+        <button class="vocab-tab" onclick="filterVocab('hw','impact',this)">Environmental impact</button>
+        <button class="vocab-tab" onclick="filterVocab('hw','protect',this)">Natural protection</button>
+      </div>
+      <div class="vocab-grid" id="vocabGrid-hw"></div>
+
+      <h2 style="margin-top:20px;">🔊 Flashcards</h2>
+      <div class="flip-deck" id="flipDeck-hw"></div>
+      <div class="deck-controls">
+        <button onclick="deckNav('hw',-1)">◀ Prev</button>
+        <span id="deckCounter-hw"></span>
+        <button onclick="deckNav('hw',1)">Next ▶</button>
+        <button onclick="shuffleDeck('hw')">🔀 Shuffle</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge-pill">Exercise · scored</span>
+      <h2>🔀 Match the word to its meaning</h2>
+      <div class="match-grid">
+        <div class="col-left" id="matchLeft-hw"></div>
+        <div class="col-right" id="matchRight-hw"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 5: PLAN YOUR ESSAY -->
+  <section class="page" data-page="5">
+    <div class="card">
+      <span class="badge-pill ungraded">Planning · ungraded</span>
+      <h2>🗒️ Make notes on your opinion</h2>
+      <div class="essay-text">
+        <p style="font-weight:800; color:var(--purple-dark);">"Tourism is one of the most destructive industries in our world. We should stop its growth immediately."</p>
+      </div>
+      <div class="item"><p class="q">Paragraph 1 — Introduction: general statement about the topic and your opinion</p><textarea class="notes"></textarea></div>
+      <div class="item"><p class="q">Paragraph 2 — First and most important reason for your opinion</p><textarea class="notes"></textarea></div>
+      <div class="item"><p class="q">Paragraph 3 — Further points / reasons for your opinion</p><textarea class="notes"></textarea></div>
+      <div class="item"><p class="q">Paragraph 4 — Conclusion, restating your opinion</p><textarea class="notes"></textarea></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 6: WRITE YOUR ESSAY -->
+  <section class="page" data-page="6">
+    <div class="card">
+      <span class="badge-pill ungraded">Production</span>
+      <h2>✍️ Write your essay</h2>
+      <p>Use your notes from the previous stage. Use the linkers explained on page 105 of the Student's Book.</p>
+      <div class="item">
+        <p class="q">Write your full essay (aim for 200–250 words, 4 paragraphs)</p>
+        <textarea class="essay-box" data-essay="hw-essay" placeholder="Paragraph 1 — introduce the topic and your opinion...&#10;Paragraph 2 — your first and most important reason...&#10;Paragraph 3 — further points / reasons...&#10;Paragraph 4 — conclusion, restating your opinion..."></textarea>
+        <div class="wordcount" data-count-for="hw-essay">0 words</div>
+      </div>
+      <p style="margin:4px 0 0; font-size:.85rem; color:var(--muted);">This essay isn't auto-scored — your teacher will read it and give you personal feedback. It's sent to your teacher together with your score.</p>
+      <ul class="checklist" id="checklist-hw">
+        <li onclick="this.classList.toggle('done')">My introduction gives the topic and my opinion</li>
+        <li onclick="this.classList.toggle('done')">I gave a first, most important reason</li>
+        <li onclick="this.classList.toggle('done')">I gave further points / reasons</li>
+        <li onclick="this.classList.toggle('done')">My conclusion restates my opinion</li>
+        <li onclick="this.classList.toggle('done')">I used at least 3 different linkers from the Writing Bank</li>
+      </ul>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 7: STUDY SKILLS -->
+  <section class="page" data-page="7">
+    <div class="card">
+      <span class="badge-pill ungraded">Study skills · ungraded</span>
+      <h2>🧭 Editing your writing</h2>
+      <p class="q">How can you make your writing clear and easy to follow?</p>
+      <textarea class="notes" placeholder="Your ideas..."></textarea>
+      <button class="hint-toggle" onclick="toggleHint('hwHint7')">💡 Show the study skills tip</button>
+      <div class="hint-box" id="hwHint7" hidden>
+        <p style="margin:0;"><b>Editing your writing:</b> when you finish your first version of a text, check for mistakes and then edit your text. Look for unnecessary repetition, irrelevant information or confusing examples and details. Cut them from your text so that it becomes clearer and easier to follow. Make sure your writing follows a logical order, and check this against your plan if you have one.</p>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+      <button class="btn-next" onclick="nextPage('hw')">Next →</button>
+    </div>
+  </section>
+
+  <!-- HW PAGE 8: FINISH -->
+  <section class="page" data-page="8">
+    <div class="card">
+      <h1>🏁 Finish — Homework</h1>
+      <p>Check your name is correct, then click <b>Check &amp; Submit</b> to see your score and send your work (including your essay) to your teacher.</p>
+      <div class="check-bar">
+        <button class="btn-next btn-submit" onclick="submitAll('hw')">✅ Check &amp; Submit</button>
+        <div class="submit-status" id="submitStatus-hw"></div>
+      </div>
+      <div class="score-summary" id="scoreSummary-hw" hidden></div>
+      <div class="completion-stickers" id="stickerWrap-hw"></div>
+      <div class="tier-caption" id="resultCaption-hw"></div>
+      <div class="breakdown-box" id="resultsBreakdown-hw" hidden></div>
+      <div class="essay-review-box" id="essayReview-hw" hidden></div>
+    </div>
+    <div class="nav-btns" style="justify-content:flex-start;">
+      <button class="btn-back" onclick="prevPage('hw')">← Back</button>
+    </div>
+  </section>
+
+</div>
+<!-- ===================== /HOMEWORK TAB ===================== -->
+
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <span class="credit">by Viktoria Syuzyova</span>
+</div>
+
+<script>
+// ============ CONSTANTS ============
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'Gateway B2 (2nd ed.)';
+const PROGRESS_KEY = { cw: 'angle_progress::gwb2-u8-writing-classwork', hw: 'angle_progress::gwb2-u8-writing-homework' };
+const ACTIVE_TAB_KEY = 'angle_progress::gwb2-u8-writing-activetab';
+const PAGE_LABELS = {
+  cw: ["Start","Warm-up","Read & Analyse","Paragraph Purpose","Linkers & Structure","Vocabulary Boost","Write Your Essay","Finish"],
+  hw: ["Start","Read the Report","Comprehension Check","Tourism Impacts","Vocabulary Boost","Plan Your Essay","Write Your Essay","Study Skills","Finish"]
+};
+let current = { cw:0, hw:0 };
+let activeTab = 'cw';
+let isRestoring = false;
+
+// ============ TAB SWITCH ============
+function switchTab(tab){
+  activeTab = tab;
+  document.getElementById('tabpanel-cw').classList.toggle('active', tab==='cw');
+  document.getElementById('tabpanel-hw').classList.toggle('active', tab==='hw');
+  document.getElementById('tabBtn-cw').classList.toggle('active', tab==='cw');
+  document.getElementById('tabBtn-hw').classList.toggle('active', tab==='hw');
+  renderStageNav();
+  updateProgressUI();
+  try{ localStorage.setItem(ACTIVE_TAB_KEY, tab); }catch(e){}
+}
+
+// ============ VOCAB DATA ============
+const VOCAB = {
+  cw: [
+    {word:"brainstorm", type:"process", pos:"verb", def:"to think freely and quickly about ideas before you start writing, without worrying about order or correctness yet", example:"Spend five minutes brainstorming ideas before you start your first draft.", matchDef:"to think freely and quickly about ideas before you start writing"},
+    {word:"draft", type:"process", pos:"noun / verb", def:"an early, unfinished version of a piece of writing", example:"Don't worry about spelling or grammar in your first draft.", matchDef:"an early, unfinished version of a piece of writing"},
+    {word:"edit / proofread", type:"process", pos:"verb", def:"to check a finished text for mistakes and improve how clearly it flows", example:"Always edit your essay before you hand it in.", matchDef:"to check a finished text for mistakes and improve how it flows"},
+    {word:"restate", type:"process", pos:"verb", def:"to say something again, usually in different words, to remind the reader of your main point", example:"The final paragraph restates the writer's opinion.", matchDef:"to say something again, in different words, to remind the reader"},
+    {word:"linker / connector", type:"structure", pos:"noun", def:"a word or phrase that joins ideas together and shows how they are related", example:"'However' and 'furthermore' are both linkers.", matchDef:"a word or phrase that joins ideas together and shows how they relate"},
+    {word:"topic sentence", type:"structure", pos:"noun phrase", def:"the sentence, usually first in a paragraph, that states its main idea", example:"The topic sentence of paragraph 2 tells us the writer's first reason.", matchDef:"the sentence that states a paragraph's main idea"},
+    {word:"opinion essay", type:"structure", pos:"noun phrase", def:"a piece of writing that gives and supports the writer's personal point of view on a topic", example:"An opinion essay needs an introduction, reasons, and a conclusion.", matchDef:null},
+    {word:"exhaust fumes", type:"structure", pos:"noun phrase", def:"the gases released by a car or vehicle engine, which pollute the air", example:"Walking or cycling helps to minimise the pollution caused by exhaust fumes.", matchDef:null}
+  ],
+  hw: [
+    {word:"coral reef", type:"protect", pos:"noun phrase", def:"a hard underwater structure built by tiny sea animals, which can slow down waves", example:"When a tsunami comes in, it first hits the coral reef, which slows it down.", matchDef:"a hard underwater structure built by tiny sea animals, which can slow waves"},
+    {word:"mangrove", type:"protect", pos:"noun", def:"a tropical tree that grows in shallow coastal water and helps protect the coast from storms", example:"The mangroves were cleared without understanding their protective value.", matchDef:"a tropical coastal tree that helps protect the shore from storms"},
+    {word:"dissipate", type:"protect", pos:"verb", def:"to gradually become weaker until it disappears (used about energy or force)", example:"By the time the wave reached land, a lot of its energy had already dissipated.", matchDef:"to gradually become weaker until it disappears"},
+    {word:"natural habitat loss", type:"impact", pos:"noun phrase", def:"the destruction of the natural environment where wild plants and animals live", example:"Uncontrolled building near the coast can cause natural habitat loss.", matchDef:"the destruction of the natural environment where wild animals and plants live"},
+    {word:"soil erosion", type:"impact", pos:"noun phrase", def:"the gradual wearing-away of the top layer of earth, often because trees have been cut down", example:"Deforestation can lead to soil erosion.", matchDef:"the gradual wearing-away of the top layer of earth"},
+    {word:"endangered species", type:"impact", pos:"noun phrase", def:"a type of animal or plant that is at serious risk of dying out completely", example:"Tourism can put increased pressure on endangered species.", matchDef:"a type of animal or plant at serious risk of dying out"},
+    {word:"deforestation", type:"impact", pos:"noun", def:"the cutting down and clearing of all the trees in an area", example:"Deforestation leaves the soil unprotected from wind and rain.", matchDef:null},
+    {word:"conservation", type:"protect", pos:"noun", def:"the protection and careful management of the natural environment", example:"Jeff McNeely works for the World Conservation Union.", matchDef:null}
+  ]
+};
+
+function renderVocab(tab, filter){
+  const grid = document.getElementById('vocabGrid-'+tab);
+  const list = filter==='all' ? VOCAB[tab] : VOCAB[tab].filter(v=>v.type===filter);
+  grid.innerHTML = list.map(v=>`
+    <div class="vocab-card"><b>${v.word}</b><span class="pos">${v.pos}</span>
+      <p>${v.def}</p><p class="example">"${v.example}"</p></div>`).join('');
+}
+function filterVocab(tab, type, btn){
+  btn.parentElement.querySelectorAll('.vocab-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderVocab(tab, type);
+}
+
+// ============ MATCHING EXERCISE (generic per-tab) ============
+const MATCH_PAIRS = {
+  cw: VOCAB.cw.filter(v=>v.matchDef).map((v,i)=>({id:'cwm'+i, word:v.word, def:v.matchDef})),
+  hw: VOCAB.hw.filter(v=>v.matchDef).map((v,i)=>({id:'hwm'+i, word:v.word, def:v.matchDef}))
+};
+function renderMatch(tab){
+  const left = document.getElementById('matchLeft-'+tab);
+  const right = document.getElementById('matchRight-'+tab);
+  const pairs = MATCH_PAIRS[tab];
+  const shuffledRight = [...pairs].sort(()=>Math.random()-0.5);
+  left.innerHTML = pairs.map(p=>`<button class="match" data-id="${p.id}">${p.word}</button>`).join('');
+  right.innerHTML = shuffledRight.map(p=>`<button class="match" data-id="${p.id}">${p.def}</button>`).join('');
+  left.closest('.match-grid').dataset.totalPairs = pairs.length;
+  left.closest('.match-grid').dataset.correctCount = 0;
+  wireMatch(tab);
+}
+let firstPick = null;
+function wireMatch(tab){
+  const grid = document.getElementById('matchLeft-'+tab).closest('.match-grid');
+  grid.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(!firstPick){ firstPick = el; el.classList.add('selected'); return; }
+      if(firstPick === el){ firstPick.classList.remove('selected'); firstPick = null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if(isMatch){
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        grid.dataset.correctCount = (parseInt(grid.dataset.correctCount||0)+1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{ [firstPick, el].forEach(x=>{ x.classList.remove('selected','wrong-flash'); }); }, 600);
+      }
+      firstPick = null;
+      scheduleSave();
+    };
+  });
+}
+
+// ============ CATEGORISE BUCKETS (click chip → click bucket) ============
+const BUCKET_ITEMS = {
+  'hw-tourism': [
+    {id:'t1', text:'Increased pollution, discharges into the sea', answer:'negative'},
+    {id:'t2', text:'Natural habitat loss', answer:'negative'},
+    {id:'t3', text:'Deforestation leading to soil erosion', answer:'negative'},
+    {id:'t4', text:'Worsens the effects of natural disasters', answer:'negative'},
+    {id:'t5', text:'Increased pressure on endangered species', answer:'negative'},
+    {id:'t6', text:'Greater risk of forest fires', answer:'negative'},
+    {id:'t7', text:'Increased pressure on water resources', answer:'negative'},
+    {id:'t8', text:'Natural areas are protected and valued because they attract tourists', answer:'positive'},
+    {id:'t9', text:'Tourists contribute to local economies so environmental protection can be funded', answer:'positive'},
+    {id:'t10', text:'Tourists learn about environments', answer:'positive'},
+    {id:'t11', text:'There is more publicity and aid when tourist areas are hit by natural disasters', answer:'positive'}
+  ]
+};
+let bucketSelected = null;
+function renderBuckets(groupKey){
+  const group = document.querySelector(`[data-bucket-group="${groupKey}"]`);
+  const pool = document.getElementById('chipPool-'+groupKey);
+  const items = [...BUCKET_ITEMS[groupKey]].sort(()=>Math.random()-0.5);
+  pool.innerHTML = items.map(it=>`<button class="chip" data-id="${it.id}" data-answer="${it.answer}">${it.text}</button>`).join('');
+  group.querySelectorAll('.bucket .placed-list').forEach(p=>p.innerHTML='');
+  group.dataset.correctCount = 0;
+  wireBuckets(groupKey);
+}
+function wireBuckets(groupKey){
+  const group = document.querySelector(`[data-bucket-group="${groupKey}"]`);
+  group.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = ()=>{
+      group.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+      bucketSelected = chip;
+      chip.classList.add('selected');
+    };
+  });
+  group.querySelectorAll('.bucket').forEach(bucket=>{
+    bucket.onclick = (e)=>{
+      if(!bucketSelected) return;
+      if(e.target.closest('.chip')) return;
+      const chip = bucketSelected;
+      if(chip.dataset.answer === bucket.dataset.bucket){
+        const itemText = BUCKET_ITEMS[groupKey].find(it=>it.id===chip.dataset.id).text;
+        bucket.querySelector('.placed-list').innerHTML += `<span class="placed">${itemText}</span>`;
+        chip.remove();
+        group.dataset.correctCount = (parseInt(group.dataset.correctCount||0)+1);
+        bucketSelected = null;
+      } else {
+        chip.classList.add('wrong-flash');
+        setTimeout(()=>chip.classList.remove('wrong-flash','selected'), 500);
+        bucketSelected = null;
+      }
+      scheduleSave();
+    };
+  });
+}
+
+// ============ FLASHCARDS (generic per-tab) ============
+let deckOrder = { cw:[0,1,2,3,4,5,6,7], hw:[0,1,2,3,4,5,6,7] };
+let deckIndex = { cw:0, hw:0 };
+function renderDeck(tab){
+  const wrap = document.getElementById('flipDeck-'+tab);
+  const v = VOCAB[tab][deckOrder[tab][deckIndex[tab]]];
+  const speakWord = v.word.split(' / ')[0].replace(/'/g,"\\'");
+  wrap.innerHTML = `
+    <div class="flip-card" id="curFlipCard-${tab}" onclick="flipCurrentCard(event,'${tab}')">
+      <div class="flip-inner">
+        <div class="flip-front">${v.word}<button class="card-speak" onclick="speakCard(event,'${speakWord}')">🔊</button></div>
+        <div class="flip-back">${v.def}</div>
+      </div>
+    </div>`;
+  document.getElementById('deckCounter-'+tab).textContent = `${deckIndex[tab]+1} / ${deckOrder[tab].length}`;
+}
+function flipCurrentCard(e, tab){
+  if(e.target.closest('.card-speak')) return;
+  document.getElementById('curFlipCard-'+tab).classList.toggle('flipped');
+}
+function speakCard(e, text){
+  e.stopPropagation();
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.95;
+    speechSynthesis.speak(u);
+  }catch(err){}
+}
+function deckNav(tab, dir){
+  deckIndex[tab] = (deckIndex[tab] + dir + deckOrder[tab].length) % deckOrder[tab].length;
+  renderDeck(tab);
+}
+function shuffleDeck(tab){
+  deckOrder[tab].sort(()=>Math.random()-0.5);
+  deckIndex[tab] = 0;
+  renderDeck(tab);
+}
+
+// ============ HINT TOGGLE ============
+function toggleHint(id){ document.getElementById(id).hidden = !document.getElementById(id).hidden; }
+
+// ============ WORD COUNT ============
+function updateWordCount(ta){
+  const key = ta.dataset.essay;
+  const el = document.querySelector(`.wordcount[data-count-for="${key}"]`);
+  if(!el) return;
+  const words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  el.textContent = `${words} words`;
+  el.classList.toggle('ok', words >= 120);
+}
+document.querySelectorAll('.essay-box').forEach(ta=>{
+  ta.addEventListener('input', ()=>updateWordCount(ta));
+});
+
+// ============ STAGE NAVIGATION ============
+function renderStageNav(){
+  const wrap = document.getElementById('stageNav');
+  wrap.innerHTML = '';
+  PAGE_LABELS[activeTab].forEach((label,i)=>{
+    const chip = document.createElement('button');
+    chip.className = 'stage-chip';
+    chip.innerHTML = `<span class="num">${i+1}</span>${label}`;
+    chip.onclick = ()=>showPage(activeTab, i);
+    wrap.appendChild(chip);
+  });
+  markStageNav();
+}
+function markStageNav(){
+  document.querySelectorAll('.stage-chip').forEach((chip,i)=>{
+    chip.classList.toggle('active', i===current[activeTab]);
+  });
+}
+function updateProgressUI(){
+  const pages = document.querySelectorAll(`.tab-panel[data-tab="${activeTab}"] .page`);
+  document.getElementById('progressFill').style.width = `${(current[activeTab]+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Stage ${current[activeTab]+1} / ${pages.length}`;
+  markStageNav();
+}
+
+// ============ PAGINATION (per tab) ============
+function setPageState(tab, n){
+  const pages = document.querySelectorAll(`.tab-panel[data-tab="${tab}"] .page`);
+  current[tab] = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current[tab]));
+}
+function showPage(tab, n){
+  setPageState(tab, n);
+  if(tab !== activeTab) switchTab(tab);
+  else updateProgressUI();
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(tab){ showPage(tab, current[tab]+1); }
+function prevPage(tab){ showPage(tab, current[tab]-1); }
+
+// ============ MCQ ============
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('correct'); }
+  else{
+    btn.classList.add('wrong');
+    const correctBtn = group.querySelector(`.opt[data-val="${correct}"]`);
+    if(correctBtn) correctBtn.classList.add('correct');
+  }
+}
+document.querySelectorAll('.mcq .opt').forEach(btn=>{
+  btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+});
+
+// ============ CATEGORY SELECTS ============
+document.querySelectorAll('.cat-select').forEach(sel=>{
+  sel.onchange = ()=>{ scheduleSave(); };
+});
+
+// ============ SCORING HELPERS ============
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' ').replace(/[.,!?]+$/,''); }
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item') || el.closest('.cat-row');
+  if(item){
+    const term = item.querySelector('.term');
+    if(term) return term.textContent.trim();
+    const qOrig = item.querySelector('p.q');
+    if(qOrig) return qOrig.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+// ============ TIERED COMPLETION STICKER ============
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(tab, pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  const wrap = document.getElementById('stickerWrap-'+tab);
+  const src = STICKER_SRC[chosen];
+  const sizeClass = tier.min>=90 ? '' : (tier.min>=60 ? 'completion-sticker--medium' : 'completion-sticker--icon');
+  wrap.innerHTML = `<img class="completion-sticker ${sizeClass}" src="${src}" alt="${tier.label}">`;
+  if(tier.bonus){
+    wrap.innerHTML += `<img class="completion-sticker completion-sticker--bonus" src="${STICKER_SRC['awesome_is_banned']}" alt="bonus">`;
+  }
+  const capEl = document.getElementById('resultCaption-'+tab);
+  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+  return tier;
+}
+
+// ============ SUBMIT (per tab) ============
+async function submitAll(tab){
+  const root = document.getElementById('tabpanel-'+tab);
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(tab, 0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  root.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else{
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  root.querySelectorAll('.cat-select').forEach(sel=>{
+    total++;
+    const ok = sel.value === sel.dataset.answer;
+    sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(sel, sel.value, sel.dataset.answer));
+  });
+
+  root.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0);
+    const cor = parseInt(c.dataset.correctCount||0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching) — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`); }
+  });
+
+  root.querySelectorAll('[data-bucket-group]').forEach(c=>{
+    const t = parseInt(c.dataset.bucketTotal||0);
+    const cor = parseInt(c.dataset.correctCount||0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (categorise) — ${cor}/${t} items placed correctly; review the ones still in the pool with the student.`); }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const nameVal = nameInput.value.trim();
+  document.getElementById('scoreSummary-'+tab).innerHTML = `<strong>${nameVal}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary-'+tab).hidden = false;
+
+  const tier = renderResultSticker(tab, pct);
+
+  const breakdown = document.getElementById('resultsBreakdown-'+tab);
+  breakdown.hidden = false;
+  breakdown.innerHTML = wrongList.length
+    ? `<b>Items to review:</b><ul>${wrongList.map(w=>`<li>${w}</li>`).join('')}</ul>`
+    : `<b>All auto-checked items correct — well done!</b>`;
+
+  // Free-text essay production check (flagged for teacher, not scored)
+  const essayTa = root.querySelector('.essay-box');
+  let essayText = '', essayFlag = '';
+  if(essayTa){
+    essayText = essayTa.value.trim();
+    const words = essayText ? essayText.split(/\s+/).length : 0;
+    const linkerWords = ['in my opinion','i believe','the first point to make','what is more','however','another thing to bear in mind','although','furthermore','in conclusion','as a result','moreover','firstly','secondly'];
+    const foundLinkers = linkerWords.filter(l=>essayText.toLowerCase().includes(l));
+    if(!essayText){ essayFlag = 'No essay text submitted yet.'; }
+    else if(words < 120){ essayFlag = `Only ${words} words — below the 200–250 word target. Linkers used: ${foundLinkers.length ? foundLinkers.join(', ') : 'none found'}.`; }
+    else{ essayFlag = `${words} words. Linkers used: ${foundLinkers.length ? foundLinkers.join(', ') : 'none found — remind student to add linkers'}. Flagged for teacher review (not auto-scored).`; }
+    const reviewBox = document.getElementById('essayReview-'+tab);
+    reviewBox.hidden = false;
+    reviewBox.innerHTML = `<span class="flag-pill">Essay — needs teacher review</span><br>${essayFlag}<hr style="border:none;border-top:1px solid var(--border); margin:8px 0;">${essayText ? essayText.replace(/</g,'&lt;') : '(nothing written)'}`;
+  }
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', document.title + ' — ' + (tab==='cw' ? 'Classwork' : 'Homework'));
+    fd.append('student', nameVal);
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', tier.label);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('essay_flag', essayFlag);
+    fd.append('essay_text', essayText || '(none)');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus-'+tab).textContent = 'Sent to your teacher ✓';
+  }catch(e){
+    document.getElementById('submitStatus-'+tab).textContent = 'Could not send — check your internet connection and try again.';
+  }
+  scheduleSave();
+}
+
+// ============ PROGRESS PERSISTENCE (per tab) ============
+function saveProgress(tabArg){
+  if(isRestoring) return;
+  ['cw','hw'].forEach(tab=>{
+    if(tabArg && tabArg !== tab) return;
+    try{
+      const root = document.getElementById('tabpanel-'+tab);
+      const state = { savedAt: new Date().toISOString(), page: current[tab] };
+      state.name = document.getElementById('studentName')?.value || '';
+      state.mcq = [...root.querySelectorAll('.mcq')].map(g=>{
+        const chosen = g.querySelector('.opt.chosen');
+        return chosen ? chosen.dataset.val : null;
+      });
+      state.catSelect = [...root.querySelectorAll('.cat-select')].map(s=>s.value);
+      state.matched = [...root.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+      state.bucketsPlaced = {};
+      root.querySelectorAll('[data-bucket-group]').forEach(g=>{
+        state.bucketsPlaced[g.dataset.bucketGroup] = g.dataset.correctCount || '0';
+      });
+      state.textareas = [...root.querySelectorAll('textarea')].map(el=>el.value);
+      state.hintOpen = [...root.querySelectorAll('.hint-box')].map(el=>!el.hidden);
+      state.checklist = [...root.querySelectorAll('.checklist li')].map(li=>li.classList.contains('done'));
+      localStorage.setItem(PROGRESS_KEY[tab], JSON.stringify(state));
+    }catch(e){}
+  });
+  showSavedIndicator();
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(()=>saveProgress(), 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  isRestoring = true;
+  ['cw','hw'].forEach(tab=>{
+    let raw; try{ raw = localStorage.getItem(PROGRESS_KEY[tab]); }catch(e){ return; }
+    if(!raw) return;
+    let state; try{ state = JSON.parse(raw); }catch(e){ return; }
+    const root = document.getElementById('tabpanel-'+tab);
+
+    if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+    const mcqGroups = root.querySelectorAll('.mcq');
+    (state.mcq||[]).forEach((val,i)=>{
+      if(val==null) return;
+      const g = mcqGroups[i]; if(!g) return;
+      const btn = g.querySelector(`.opt[data-val="${val}"]`);
+      if(btn) highlightMcq(g, btn);
+    });
+
+    const catSelects = root.querySelectorAll('.cat-select');
+    (state.catSelect||[]).forEach((v,i)=>{ if(catSelects[i] && v) catSelects[i].value = v; });
+
+    (state.matched||[]).forEach(id=>{
+      root.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); });
+    });
+    root.querySelectorAll('.match-grid').forEach(grid=>{
+      const ids = [...grid.querySelectorAll('.match.matched-correct')].length;
+      if(ids) grid.dataset.correctCount = ids;
+    });
+
+    if(state.bucketsPlaced){
+      Object.keys(state.bucketsPlaced).forEach(groupKey=>{
+        const cnt = parseInt(state.bucketsPlaced[groupKey]||0);
+        if(!cnt) return;
+        const group = document.querySelector(`[data-bucket-group="${groupKey}"]`);
+        if(!group) return;
+        // Re-place the first `cnt` items (order not critical for restore) into their correct buckets
+        const placedIds = new Set();
+        let placedSoFar = 0;
+        BUCKET_ITEMS[groupKey].forEach(it=>{
+          if(placedSoFar >= cnt) return;
+          const chip = group.querySelector(`.chip[data-id="${it.id}"]`);
+          if(chip){
+            const bucket = group.querySelector(`.bucket[data-bucket="${it.answer}"]`);
+            bucket.querySelector('.placed-list').innerHTML += `<span class="placed">${it.text}</span>`;
+            chip.remove();
+            placedSoFar++;
+          }
+        });
+        group.dataset.correctCount = placedSoFar;
+      });
+    }
+
+    const tas = root.querySelectorAll('textarea');
+    (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v){ tas[i].value = v; if(tas[i].classList.contains('essay-box')) updateWordCount(tas[i]); } });
+
+    const hintBoxes = root.querySelectorAll('.hint-box');
+    (state.hintOpen||[]).forEach((open,i)=>{ if(hintBoxes[i]) hintBoxes[i].hidden = !open; });
+
+    const checklistItems = root.querySelectorAll('.checklist li');
+    (state.checklist||[]).forEach((done,i)=>{ if(checklistItems[i] && done) checklistItems[i].classList.add('done'); });
+
+    const hasContent = state.mcq?.some(v=>v!=null) || state.catSelect?.some(v=>v) || state.textareas?.some(v=>v) || (state.matched||[]).length;
+    if(hasContent){
+      const note = document.getElementById('restoreNote-'+tab);
+      if(note){
+        const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+        document.getElementById('restoreNoteText-'+tab).textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+        note.hidden = false;
+      }
+    }
+    if(typeof state.page === 'number') current[tab] = state.page;
+  });
+
+  let savedTab = 'cw';
+  try{ savedTab = localStorage.getItem(ACTIVE_TAB_KEY) || 'cw'; }catch(e){}
+  isRestoring = false;
+  setPageState('cw', current.cw);
+  setPageState('hw', current.hw);
+  switchTab(savedTab);
+}
+function clearProgress(tab){
+  if(!confirm('This will erase all your saved answers on this device for this tab. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY[tab]); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('.cat-select')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, .flip-card, .chip, .bucket, .checklist li')) scheduleSave(); });
+
+// ============ INIT ============
+const STICKER_SRC = {};
+STICKER_SRC['excellent'] = 'img/sticker-excellent.png';
+STICKER_SRC['too_cool-b'] = 'img/sticker-too-cool-b.png';
+STICKER_SRC['fire'] = 'img/sticker-fire.png';
+STICKER_SRC['great_work'] = 'img/sticker-great-work.png';
+STICKER_SRC['strawberry-a'] = 'img/sticker-strawberry-a.png';
+STICKER_SRC['eggcellent-a'] = 'img/sticker-eggcellent-a.png';
+STICKER_SRC['keep_going'] = 'img/sticker-keep-going.png';
+STICKER_SRC['awesome_is_banned'] = 'img/sticker-awesome-is-banned.png';
+STICKER_SRC['too_cool-a'] = 'img/sticker-too-cool-a.png';
+STICKER_SRC['good_vibes'] = 'img/sticker-good-vibes.png';
+STICKER_SRC['good_job'] = 'img/sticker-good-job.png';
+STICKER_SRC['strawberry-b'] = 'img/sticker-strawberry-b.png';
+STICKER_SRC['you_tried'] = 'img/sticker-you-tried.png';
+STICKER_SRC['i_love_it'] = 'img/sticker-i-love-it.png';
+STICKER_SRC['not_bad'] = 'img/sticker-not-bad.png';
+STICKER_SRC['eggcellent-b'] = 'img/sticker-eggcellent-b.png';
+STICKER_SRC['strawberry-full'] = 'img/sticker-strawberry-full.png';
+STICKER_SRC['perfect'] = 'img/sticker-perfect.png';
+STICKER_SRC['awesome'] = 'img/sticker-awesome.png';
+STICKER_SRC['amazing_work'] = 'img/sticker-amazing-work.png';
+STICKER_SRC['plain'] = 'img/sticker-plain.png';
+STICKER_SRC['nice'] = 'img/sticker-nice.png';
+renderStageNav();
+renderVocab('cw','all'); renderVocab('hw','all');
+renderMatch('cw'); renderMatch('hw');
+renderDeck('cw'); renderDeck('hw');
+renderBuckets('hw-tourism');
+setPageState('cw', 0); setPageState('hw', 0);
+restoreProgress();
+</script>
+</body>
+</html>
