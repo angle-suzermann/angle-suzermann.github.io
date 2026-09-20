@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Polina — Relative Clauses, Ability Modals & Mechanics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polina — Relative Clauses, Ability Modals &amp; Mechanics</title>
+
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="Empower B1+">
 <meta name="ws:course-id" content="empower-b1">
@@ -14,431 +16,375 @@
 <meta name="ws:formspree" content="mjgnlwdp">
 <meta name="ws:tags"      content="relative clauses, modals, individual">
 <meta name="robots"       content="noindex, nofollow">
+
 <style>
   :root{
-    --purple:#5E4877;
-    --black:#2D2926;
-    --yellow:#FED500;
-    --neutral-bg:#f7f6f4;
-    --neutral-card:#ffffff;
-    --neutral-border:#e4e0e8;
-    --correct:#3d7a3f;
-    --wrong:#b23a3a;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
-    background:var(--neutral-bg);
-    color:var(--black);
-    padding:0;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:24px;}
-  header{
-    position:relative;
-    background:var(--purple);
-    color:#ffffff;
-    padding:24px 24px 40px;
-    margin-bottom:0;
-    overflow:hidden;
-    min-height:140px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    display:flex;
-    align-items:center;
-    gap:20px;
-    text-align:left;
-  }
-  .logo-block{
-    flex:0 0 auto;
-    width:100px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .logo-block img{
-    display:block;
-    width:100%;
-    height:auto;
-  }
-  .title-block{
-    flex:1 1 auto;
-    min-width:0;
-    align-self:center;
-  }
-  header h1{
-    font-size:1.9em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin:0 0 6px 0;
-  }
-  header p{
-    color:#ffffff;
-    margin:0;
-    font-size:1em;
-    opacity:0.9;
-  }
-  .stars{display:none;}
-  .section{
-    background:var(--neutral-card);
-    border:1px solid var(--neutral-border);
-    border-left:6px solid var(--purple);
-    border-radius:0;
-    padding:22px;
-    margin-bottom:22px;
-    box-shadow:0 4px 14px rgba(45,41,38,0.06);
-  }
-  .section h2{
-    color:var(--purple);
-    font-size:1.2em;
-    font-weight:800;
-    text-transform:uppercase;
-    margin-top:0;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .section h2::before{
-    content:"";
-    display:inline-block;
-    width:0;
-    height:0;
-    border-left:9px solid transparent;
-    border-right:9px solid transparent;
-    border-bottom:16px solid var(--yellow);
-  }
-  .item{
-    margin:18px 0;
-    padding:14px;
-    background:#fbfaf9;
-    border-radius:0;
-    border:1px solid var(--neutral-border);
-  }
-  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
-  .func-tag{
-    display:inline-block;
-    background:var(--black);
-    color:var(--yellow);
-    font-size:0.75em;
-    padding:2px 10px;
-    border-radius:2px;
-    margin-left:6px;
-    font-weight:700;
-    text-transform:uppercase;
-  }
-  .options label{
-    display:block;
-    background:#fff;
-    border:1px solid var(--neutral-border);
-    border-radius:0;
-    padding:8px 12px;
-    margin:6px 0;
-    cursor:pointer;
-    transition:background 0.15s, border-color 0.15s;
-  }
-  .options label:hover{background:#f3eef8;border-color:var(--purple);}
-  .options input{margin-right:8px;accent-color:var(--purple);}
-  select{
-    padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
-    font-size:1em;
-    background:#fff;
-    color:var(--black);
-  }
-  input[type="text"]{
-    padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
-    font-size:1em;
-    width:140px;
-  }
-  .blank-sentence{font-weight:400;}
-  .btn{
-    display:block;
-    width:100%;
-    padding:16px;
-    background:var(--black);
-    color:var(--yellow);
-    border:none;
-    border-radius:0;
-    font-size:1.05em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    cursor:pointer;
-    margin-top:10px;
-    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
-  }
-  .btn:hover{background:var(--purple);color:#fff;}
-  .btn:disabled{background:#c9c2cf;color:#eee;}
-  #result{
-    text-align:center;
-    padding:26px 20px;
-    border-radius:0;
-    background:var(--purple);
-    color:#ffffff;
-    border:none;
-    display:none;
-  }
-  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
-  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
-  .feedback-icon{margin-left:8px;font-weight:700;}
-  .feedback-icon.correct{color:var(--correct);}
-  .feedback-icon.wrong{color:var(--wrong);}
-  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500; --yellow-soft:#FFF3B0;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; background:var(--card-tint); }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.page-wrap{ max-width:820px; margin:0 auto; padding:18px 16px 60px; }
 
-  .studio-credit{
-    font-size:0.65em;
-    color:#ffffff;
-    opacity:0.85;
-    font-weight:400;
-    margin:6px 0 0;
-    text-align:center;
-    white-space:nowrap;
-  }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:820px; margin:0 auto; padding:12px 16px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; line-height:1.25; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.82rem; color:var(--muted); font-weight:700; }
+.namebar input{ font-family:inherit; font-size:.9rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; min-width:170px; }
+.namebar input:focus{ outline:2px solid var(--yellow); border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
+
+.card{ background:var(--card); border-radius:14px; padding:22px 20px; margin:18px 0; box-shadow:0 6px 22px rgba(45,25,60,.10); border:1px solid var(--border); }
+.card h2{ color:var(--purple); font-size:1.1rem; margin:0 0 6px; display:flex; align-items:center; gap:8px; text-transform:uppercase; letter-spacing:.02em; }
+.card h2::before{ content:''; width:0; height:0; border-left:9px solid var(--yellow); border-top:6px solid transparent; border-bottom:6px solid transparent; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:10px 14px; font-size:.92rem; color:var(--purple-dark); margin:10px 0 16px; }
+
+.btn{ font-family:inherit; font-weight:800; border:none; border-radius:24px; padding:11px 22px; font-size:.92rem; cursor:pointer; min-height:46px; }
+.btn-purple{ background:var(--purple); color:#fff; }
+.btn-purple:hover{ background:var(--purple-dark); }
+.btn-yellow{ background:var(--yellow); color:var(--black); }
+.btn-yellow:hover{ filter:brightness(0.95); }
+.btn-yellow:disabled{ opacity:.6; cursor:default; }
+
+.item{ margin:14px 0; line-height:1.7; font-size:.98rem; border:1px solid var(--border); border-radius:10px; padding:12px 14px; background:var(--card-tint); }
+.item p.q{ margin:0 0 6px; font-weight:700; }
+.item .num-badge{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--purple); color:#fff; font-size:.75rem; font-weight:800; margin-right:8px; }
+.blank-sentence{ font-weight:400; }
+input.fib, select.fib{
+  font-family:inherit; font-size:.95rem; padding:6px 10px; border:none; border-bottom:2.5px solid var(--purple);
+  background:#fff; border-radius:6px 6px 0 0; min-width:110px; min-height:38px; margin:2px 3px;
+}
+input.fib:focus, select.fib:focus{ outline:none; border-bottom-color:var(--yellow); }
+input.fib.is-correct, select.fib.is-correct{ border-bottom-color:var(--correct); background:#eaf7f0; color:var(--correct); font-weight:700; }
+input.fib.is-wrong, select.fib.is-wrong{ border-bottom-color:var(--wrong); background:#fbebe8; color:var(--wrong); font-weight:700; }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.results-panel{ text-align:center; }
+.results-panel .big-pct{ font-size:2.6rem; font-weight:900; color:var(--purple); margin:4px 0 0; }
+.results-panel .frac{ color:var(--muted); font-weight:700; }
+.breakdown-list{ text-align:left; background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:14px; font-size:.88rem; line-height:1.6; }
+.breakdown-list .ok-line{ color:var(--correct); }
+#submitStatus{ font-size:.85rem; color:var(--muted); margin-top:10px; font-weight:700; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.reset-link{ text-align:center; margin-top:14px; }
+.reset-link a{ font-size:.8rem; color:var(--muted); cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:104px; height:auto; display:block; filter:drop-shadow(0 1px 3px rgba(45,25,60,.45)); }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; text-shadow:0 1px 3px rgba(45,25,60,.5); }
+@media (max-width:480px){ .angle-badge .wordmark{ width:78px; } .angle-badge{ left:14px; bottom:12px; } }
 </style>
 </head>
 <body>
-
-
-<header>
-<div class="logo-block">
-<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
-<p class="studio-credit">by Viktoria Syuzyova</p>
-</div>
-<div class="title-block">
-  <h1>Relative Clauses, Ability Modals & Mechanics</h1>
-</div>
+<div class="app-shell">
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Relative Clauses, Ability Modals &amp; Mechanics</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" value="Polina" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+  </div>
 </header>
 
-<div class="wrap">
+<div class="scroll-area" id="scrollArea">
+<div class="page-wrap">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
 
-
-<form id="quizForm">
-
-  <!-- =====================================================================
-       TEMPLATE GUIDE — test_template_angle.html
-       =====================================================================
-       This is the reusable ANGLE-brand test/exercise template (purple #5E4877 /
-       black #2D2926 / yellow #FED500, Apercu Pro font, diagonal header, ANGLE
-       logo + "by Viktoria Syuzyova" credit, floating logo badge).
-
-       This template does NOT prescribe a fixed set of sections or exercise
-       types. The structure (how many sections, in what order, which exercise
-       types) is supplied per exercise, based on the source material.
-
-       HOW TO ADD EXERCISES:
-       1. Wrap each group of questions in a <div class="section"> with an
-          <h2> heading (e.g. "Part 1 — ...").
-       2. Every question is a <div class="item"> with two required attributes:
-            data-answer="..."   the correct answer, matched case-insensitively
-            data-type="mc" | "dd" | "fib"
-          and MUST contain exactly one <p> with the question text (the scorer
-          reads this text for the review log), plus the matching input(s):
-            mc  -> radio buttons: <div class="options"><label><input type="radio" name="..." value="..."> ...</label></div>
-            dd  -> <select name="..."><option value="">-- choose --</option>...</select>
-            fib -> <p class="blank-sentence">...<input type="text" name="...">...</p>
-       3. Give every input/select a unique name attribute across the whole
-          file (mc1, mc2, dd1, fib1 ...) — never reuse a name.
-       4. Update <title>, the <h1> in .title-block, and the
-          fd.append('exercise', '...') line near the bottom of the <script> to
-          match the new exercise name.
-       5. Delete this guide comment block (or leave it, it is invisible on the page).
-       ===================================================================== -->
-
-
-  <div class="section">
+  <div class="card">
     <h2>Part 1 — Relative Clauses: defining vs. non-defining</h2>
 
-    <div class="item" data-type="fib" data-answer="where">
-      <p>1. Fill in the correct relative pronoun (defining clause — no comma).</p>
-      <p class="blank-sentence">We visited a city <input type="text" name="fib1" style="width:90px"> we saw ancient landmarks.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">1</span>Fill in the correct relative pronoun (defining clause — no comma).</p>
+    <p class="blank-sentence">We visited a city <input type="text" class="fib" data-answer="where" style="width:90px"></p></div>
 
-    <div class="item" data-type="dd" data-answer="comma">
-      <p>2. Does this sentence need a comma before the relative clause?</p>
-      <p class="blank-sentence">We visited Beijing ___ where we saw ancient landmarks.</p>
-      <select name="dd1">
-        <option value="">-- choose --</option>
-        <option value="comma">comma needed (non-defining)</option>
-        <option value="no comma">no comma needed (defining)</option>
-      </select>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">2</span>Does this sentence need a comma before the relative clause?</p>
+    <p class="blank-sentence">We visited Beijing ___ where we saw ancient landmarks.</p>
+    <select class="fib" data-answer="comma">
+      <option value="">-- choose --</option>
+      <option value="comma">comma needed (non-defining)</option>
+      <option value="no comma">no comma needed (defining)</option>
+    </select></div>
 
-    <div class="item" data-type="fib" data-answer="that">
-      <p>3. Fill in the correct relative pronoun (defining clause).</p>
-      <p class="blank-sentence">The giveaway <input type="text" name="fib2" style="width:90px"> we announced on Instagram got hundreds of entries.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">3</span>Fill in the correct relative pronoun (defining clause).</p>
+    <p class="blank-sentence">The giveaway <input type="text" class="fib" data-answer="that" style="width:90px"> we announced on Instagram got hundreds of entries.</p></div>
 
-    <div class="item" data-type="dd" data-answer="no comma">
-      <p>4. Does this sentence need a comma before the relative clause?</p>
-      <p class="blank-sentence">The city ___ where we saw ancient landmarks was incredible.</p>
-      <select name="dd2">
-        <option value="">-- choose --</option>
-        <option value="comma">comma needed (non-defining)</option>
-        <option value="no comma">no comma needed (defining)</option>
-      </select>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">4</span>Does this sentence need a comma before the relative clause?</p>
+    <p class="blank-sentence">The city ___ where we saw ancient landmarks was incredible.</p>
+    <select class="fib" data-answer="no comma">
+      <option value="">-- choose --</option>
+      <option value="comma">comma needed (non-defining)</option>
+      <option value="no comma">no comma needed (defining)</option>
+    </select></div>
 
-    <div class="item" data-type="fib" data-answer="who">
-      <p>5. Fill in the correct relative pronoun (non-defining clause — extra info about a known person).</p>
-      <p class="blank-sentence">My colleague, <input type="text" name="fib3" style="width:90px"> has lived in Beijing for ten years, gave us great tips.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">5</span>Fill in the correct relative pronoun (non-defining clause — extra info about a known person).</p>
+    <p class="blank-sentence">My colleague, <input type="text" class="fib" data-answer="who" style="width:90px"> has lived in Beijing for ten years, gave us great tips.</p></div>
   </div>
 
-  <div class="section">
+  <div class="card">
     <h2>Part 2 — Ability Modals: could / was able to / managed to / been able to</h2>
 
-    <div class="item" data-type="fib" data-answer="could">
-      <p>6. Complete with the correct ability form (general past ability).</p>
-      <p class="blank-sentence">As a teenager, she <input type="text" name="fib4" style="width:110px"> speak three languages fluently.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">6</span>Complete with the correct ability form (general past ability).</p>
+    <p class="blank-sentence">As a teenager, she <input type="text" class="fib" data-answer="could" style="width:110px"> speak three languages fluently.</p></div>
 
-    <div class="item" data-type="fib" data-answer="managed to">
-      <p>7. Complete with the correct ability form (succeeded at something difficult).</p>
-      <p class="blank-sentence">After trying five times, he finally <input type="text" name="fib5" style="width:110px"> open the stubborn jar.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">7</span>Complete with the correct ability form (succeeded at something difficult).</p>
+    <p class="blank-sentence">After trying five times, he finally <input type="text" class="fib" data-answer="managed to" style="width:110px"> open the stubborn jar.</p></div>
 
-    <div class="item" data-type="fib" data-answer="managed to">
-      <p>8. Complete with the correct ability form (specific achievement despite difficulty).</p>
-      <p class="blank-sentence">Despite the rain, we <input type="text" name="fib6" style="width:110px"> finish the whole tour on foot.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">8</span>Complete with the correct ability form (specific achievement despite difficulty).</p>
+    <p class="blank-sentence">Despite the rain, we <input type="text" class="fib" data-answer="managed to" style="width:110px"> finish the whole tour on foot.</p></div>
 
-    <div class="item" data-type="fib" data-answer="been able to">
-      <p>9. Complete with the correct ability form (Present Perfect — "can" is impossible here).</p>
-      <p class="blank-sentence">He's <input type="text" name="fib7" style="width:110px"> think much more clearly since he started journaling.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">9</span>Complete with the correct ability form (Present Perfect — "can" is impossible here).</p>
+    <p class="blank-sentence">He's <input type="text" class="fib" data-answer="been able to" style="width:110px"> think much more clearly since he started journaling.</p></div>
 
-    <div class="item" data-type="fib" data-answer="managed to">
-      <p>10. Complete with the correct ability form (succeeding despite difficulty, describing a small percentage).</p>
-      <p class="blank-sentence">Only 5% of applicants <input type="text" name="fib8" style="width:110px"> pass the final round.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">10</span>Complete with the correct ability form (succeeding despite difficulty, describing a small percentage).</p>
+    <p class="blank-sentence">Only 5% of applicants <input type="text" class="fib" data-answer="managed to" style="width:110px"> pass the final round.</p></div>
   </div>
 
-  <div class="section">
-    <h2>Part 3 — Prepositions, Articles & Mechanics</h2>
+  <div class="card">
+    <h2>Part 3 — Prepositions, Articles &amp; Mechanics</h2>
 
-    <div class="item" data-type="fib" data-answer="on">
-      <p>11. Fill in the correct preposition (the platform).</p>
-      <p class="blank-sentence">She posted the news <input type="text" name="fib9" style="width:70px"> Instagram this morning.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">11</span>Fill in the correct preposition (the platform).</p>
+    <p class="blank-sentence">She posted the news <input type="text" class="fib" data-answer="on" style="width:70px"> Instagram this morning.</p></div>
 
-    <div class="item" data-type="fib" data-answer="in">
-      <p>12. Fill in the correct preposition (content within the post itself).</p>
-      <p class="blank-sentence">There's a surprising detail <input type="text" name="fib10" style="width:70px"> the post itself.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">12</span>Fill in the correct preposition (content within the post itself).</p>
+    <p class="blank-sentence">There's a surprising detail <input type="text" class="fib" data-answer="in" style="width:70px"> the post itself.</p></div>
 
-    <div class="item" data-type="fib" data-answer="a">
-      <p>13. Fill in the correct article (first mention of a countable noun).</p>
-      <p class="blank-sentence">We're planning <input type="text" name="fib11" style="width:70px"> giveaway for our followers next week.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">13</span>Fill in the correct article (first mention of a countable noun).</p>
+    <p class="blank-sentence">We're planning <input type="text" class="fib" data-answer="a" style="width:70px"> giveaway for our followers next week.</p></div>
 
-    <div class="item" data-type="fib" data-answer="I">
-      <p>14. Fill in the missing word (remember: this pronoun is always capitalized).</p>
-      <p class="blank-sentence"><input type="text" name="fib12" style="width:70px"> think this is a great idea.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">14</span>Fill in the missing word (remember: this pronoun is always capitalized).</p>
+    <p class="blank-sentence"><input type="text" class="fib" data-answer="I" style="width:70px"> think this is a great idea.</p></div>
 
-    <div class="item" data-type="fib" data-answer="only">
-      <p>15. Complete the sentence naturally (negate the verb, not the noun, for emphasis).</p>
-      <p class="blank-sentence">During our trip, we visited Rome, then Florence, then Venice — we didn't visit <input type="text" name="fib13" style="width:70px"> one city.</p>
-    </div>
+    <div class="item"><p class="q"><span class="num-badge">15</span>Complete the sentence naturally (negate the verb, not the noun, for emphasis).</p>
+    <p class="blank-sentence">During our trip, we visited Rome, then Florence, then Venice — we didn't visit <input type="text" class="fib" data-answer="only" style="width:70px"> one city.</p></div>
   </div>
 
-  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
-</form>
-
-<div id="result">
-  <h2>Your score</h2>
-  <div class="score-big" id="scoreDisplay"></div>
-  <p id="scoreMsg"></p>
-  <p class="status-note" id="statusNote"></p>
+  <div class="card" id="finishCard">
+    <h2>Check your work</h2>
+    <div class="instructions">Click <strong>Check &amp; Submit</strong> below — every answer will be marked instantly, and Viktoria will get a copy of your score.</div>
+    <button type="button" class="btn btn-yellow" id="submitBtn" onclick="submitAll()">✓ Check &amp; Submit</button>
+    <p id="submitStatus"></p>
+    <div class="results-panel" id="resultsPanel" hidden>
+      <p class="frac" id="resultsFraction"></p>
+      <p class="big-pct" id="resultsPercent"></p>
+      <div class="completion-stickers" id="completionStickers">
+      <div class="completion-stickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" src="img/img1.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="img/img2.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="img/img3.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="img/img4.png" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" src="img/img5.png" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" src="img/img6.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="img/img7.png" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" src="img/img8.png" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" src="img/img9.png" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" src="img/img10.png" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" src="img/img11.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="img/img12.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="img/img13.png" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" src="img/img14.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="img/img15.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="img/img16.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="img/img17.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="img/img18.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="img/img19.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="img/img20.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="img/img21.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="img/img22.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="img/img23.png" hidden alt="">
 </div>
 
+      </div>
+      <p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+  </div>
+
+  <div class="reset-link"><a onclick="clearProgress()">Clear my saved answers on this device</a></div>
+</div>
+</div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
 <script>
-document.getElementById('quizForm').addEventListener('submit', function(e){
-  e.preventDefault();
+/* ===================== Progress persistence (save & resume) ===================== */
+const PROGRESS_KEY = 'angle_progress::polina-relative-clauses-ability-mechanics';
+let isRestoring = false;
 
-  let total = 0;
-  let correct = 0;
-  let reviewLines = [];
-  let mistakes = [];
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  const hasContent = (state.fib||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('input.fib, select.fib, #studentName')) scheduleSave(); });
 
-  document.querySelectorAll('.item').forEach(function(item){
+/* ===================== Tiered completion sticker ===================== */
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+  });
+  const capEl = document.getElementById('resultCaption');
+  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+  return tier;
+}
+
+/* ===================== Scoring & submission engine ===================== */
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'B1+ Empower';
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const clone = item.cloneNode(true);
+    clone.querySelectorAll('select, input, .num-badge').forEach(x=>x.remove());
+    const txt = clone.textContent.replace(/\s+/g,' ').trim();
+    if(txt) return txt.slice(0,90);
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
     total++;
-    const type = item.dataset.type;
-    const answer = item.dataset.answer.trim().toLowerCase();
-    let userAnswer = "";
-    let isCorrect = false;
-
-    if(type === "mc"){
-      const checked = item.querySelector('input[type="radio"]:checked');
-      userAnswer = checked ? checked.value : "";
-      isCorrect = userAnswer === answer;
-    } else if(type === "dd"){
-      const sel = item.querySelector('select');
-      userAnswer = sel.value;
-      isCorrect = userAnswer === answer;
-    } else if(type === "fib"){
-      const inp = item.querySelector('input[type="text"]');
-      userAnswer = inp.value.trim().toLowerCase();
-      isCorrect = userAnswer === answer;
-    }
-
-    if(isCorrect) correct++;
-
-    // visual feedback
-    const icon = document.createElement('span');
-    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
-    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
-    item.appendChild(icon);
-
-    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
-
-    if (!isCorrect){
-      mistakes.push(item.querySelector('p').textContent.trim() + ' → answered "' + (userAnswer || '(not answered)') + '", correct "' + answer + '"');
-    }
+    const ok = normalize(inp.value) === normalize(inp.dataset.answer);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, inp.dataset.answer));
   });
 
-  const pct = Math.round((correct/total)*100);
-
-  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
-  document.getElementById('scoreMsg').textContent = pct >= 80
-    ? "Strong. You're ready for tomorrow's debate round."
-    : pct >= 50
-    ? "Decent, but review the missed ones before class."
-    : "Review all three sections before class — go through the missed phrases below.";
-  document.getElementById('result').style.display = 'block';
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${correct} / ${total} correct`;
+  const breakdownEl = document.getElementById('resultsBreakdown');
+  breakdownEl.innerHTML = wrongList.length
+    ? ('<strong>Look again at:</strong><br>' + wrongList.map(w=>`• ${w}`).join('<br>'))
+    : '<span class="ok-line">All items correct — well done!</span>';
+  document.getElementById('resultsPanel').hidden = false;
+  const tier = renderResultSticker(pct);
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitBtn').textContent = 'Submitted';
 
-  // Send to teacher via Formspree
-  const fd = new FormData();
-  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-  fd.append('course', 'Empower B1+');
-  fd.append('subject', 'Empower B1+ — Polina — Relative Clauses, Ability Modals & Mechanics');
-  fd.append('exercise', 'Polina — Relative Clauses, Ability Modals & Mechanics');
-  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
-  fd.append('details', reviewLines.join('\n'));
-  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', tier.label);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
 
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: {'Accept': 'application/json'},
-    body: fd
-  }).then(function(res){
-    document.getElementById('statusNote').textContent = res.ok
-      ? 'Result sent to Viktoria.'
-      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
-  }).catch(function(){
-    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
-  });
-
-  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+/* ===================== Init ===================== */
+document.addEventListener('DOMContentLoaded', function(){
+  restoreProgress();
 });
 </script>
-
 </body>
 </html>

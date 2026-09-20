@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Unit 4 — Vocabulary — Ability — 4A Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4A Vocabulary Check: Ability</title>
 
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="Empower B1+">
@@ -17,402 +17,230 @@
 <meta name="ws:tags"      content="vocabulary, ability, prepositions, Christian Bale">
 <meta name="robots"       content="noindex, nofollow">
 
-<link rel="stylesheet" href="/assets/angle.css">
 <style>
-  .sheet{
-    max-width:680px;
-    margin:0 auto;
-    background:var(--neutral-bg);
-    padding:0 0 60px;
-  }
-  header .unit{
-    display:inline-block;
-    background:var(--yellow);
-    color:var(--black);
-    font-weight:800;
-    font-size:12px;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    padding:4px 10px;
-    border-radius:2px;
-    margin-bottom:10px;
-  }
-  header .sub{
-    color:#ffffff;
-    opacity:0.9;
-    font-size:13px;
-    margin:0;
-  }
-  .wrap{
-    padding:16px 16px 0;
-  }
-  h2{
-    color:var(--purple);
-    background:none;
-    font-size:1.1em;
-    font-weight:800;
-    text-transform:uppercase;
-    padding:0;
-    margin:30px 0 0;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  h2::before{
-    content:"";
-    display:inline-block;
-    width:0;
-    height:0;
-    border-left:9px solid transparent;
-    border-right:9px solid transparent;
-    border-bottom:16px solid var(--yellow);
-  }
-  .task{
-    font-size:14px;
-    color:var(--black);
-    background:var(--neutral-card);
-    border:1px solid var(--neutral-border);
-    border-left:6px solid var(--purple);
-    padding:14px 16px;
-    margin:12px 0 16px;
-    border-radius:0;
-    box-shadow:0 4px 14px rgba(45,41,38,0.06);
-  }
-  .wordbank{
-    background:#fff;
-    border:1px dashed var(--purple);
-    border-radius:0;
-    padding:10px 14px;
-    margin-bottom:16px;
-    font-size:13.5px;
-    overflow-wrap:anywhere;
-  }
-  .wordbank strong{color:var(--purple);}
+  :root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500; --yellow-soft:#FFF3B0;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; background:var(--card-tint); }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.page-wrap{ max-width:820px; margin:0 auto; padding:18px 16px 60px; }
 
-  /* ---- generic tap buttons ---- */
-  .chip{
-    display:inline-flex;
-    align-items:center;
-    min-height:46px;
-    padding:10px 16px;
-    margin:5px 6px 5px 0;
-    border:1px solid var(--neutral-border);
-    background:#fff;
-    color:var(--black);
-    border-radius:0;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    touch-action:manipulation;
-    user-select:none;
-    max-width:100%;
-    overflow-wrap:anywhere;
-    transition:background 0.15s, border-color 0.15s;
-  }
-  .chip:active{ transform:scale(0.97); }
-  .chip.selected{
-    background:var(--purple);
-    color:#fff;
-    border-color:var(--purple);
-  }
-  .chip.correct{
-    background:var(--correct);
-    border-color:var(--correct);
-    color:#fff;
-  }
-  .chip.wrong{
-    background:var(--wrong);
-    border-color:var(--wrong);
-    color:#fff;
-  }
-  .chip.disabled, .chip:disabled{
-    opacity:0.55;
-    pointer-events:none;
-  }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:820px; margin:0 auto; padding:12px 16px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; line-height:1.25; }
+.namebar{ display:flex; align-items:center; gap:8px; }
+.namebar label{ font-size:.82rem; color:var(--muted); font-weight:700; }
+.namebar input{ font-family:inherit; font-size:.9rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; min-width:170px; }
+.namebar input:focus{ outline:2px solid var(--yellow); border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
 
-  /* ---- matching exercise ---- */
-  .match-block{margin-bottom:8px;}
-  .match-block h3{
-    font-size:13px;
-    color:var(--purple);
-    margin:14px 0 4px;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    font-weight:800;
-  }
-  .chip-wrap{
-    display:flex;
-    flex-wrap:wrap;
-  }
-  .def-chip{
-    display:block;
-    width:100%;
-    text-align:left;
-    min-height:46px;
-    padding:10px 14px;
-    margin:5px 0;
-    border:1px solid var(--neutral-border);
-    background:#fff;
-    color:var(--black);
-    border-radius:0;
-    font-size:14.5px;
-    cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    touch-action:manipulation;
-  }
-  .def-chip:active{ transform:scale(0.99); }
-  .def-chip.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
-  .def-chip.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
-  .def-chip.disabled{ opacity:0.55; pointer-events:none; }
-  .hint{
-    font-size:12.5px;
-    color:#666;
-    min-height:16px;
-    margin:4px 0 10px;
-  }
+.card{ background:var(--card); border-radius:14px; padding:22px 20px; margin:18px 0; box-shadow:0 6px 22px rgba(45,25,60,.10); border:1px solid var(--border); }
+.card h2{ color:var(--purple); font-size:1.15rem; margin:0 0 6px; display:flex; align-items:center; gap:8px; }
+.card h2::before{ content:''; width:0; height:0; border-left:9px solid var(--yellow); border-top:6px solid transparent; border-bottom:6px solid transparent; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:10px 14px; font-size:.92rem; color:var(--purple-dark); margin:10px 0 16px; }
 
-  /* ---- gap fill with select ---- */
-  ol.exercise{
-    padding-left:20px;
-    margin:0;
-  }
-  ol.exercise li{
-    margin-bottom:16px;
-    font-size:15.5px;
-    overflow-wrap:anywhere;
-  }
-  select.gap{
-    font-size:16px;
-    min-height:44px;
-    padding:8px 10px;
-    border:1px solid var(--purple);
-    border-radius:0;
-    background:#fff;
-    color:var(--black);
-    max-width:100%;
-    margin-top:4px;
-    display:block;
-    width:100%;
-  }
-  select.gap.correct{ border-color:var(--correct); background:#eafaf0; }
-  select.gap.wrong{ border-color:var(--wrong); background:#fdecea; }
-  .correct-answer-note{
-    display:block;
-    font-size:13px;
-    color:var(--wrong);
-    margin-top:2px;
-  }
+.btn{ font-family:inherit; font-weight:800; border:none; border-radius:24px; padding:11px 22px; font-size:.92rem; cursor:pointer; min-height:46px; }
+.btn-purple{ background:var(--purple); color:#fff; }
+.btn-purple:hover{ background:var(--purple-dark); }
+.btn-yellow{ background:var(--yellow); color:var(--black); }
+.btn-yellow:hover{ filter:brightness(0.95); }
+.btn-outline{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); }
 
-  /* ---- preposition buttons ---- */
-  .prep-item{ margin-bottom:18px; }
-  .prep-sentence{ font-size:15.5px; margin-bottom:6px; overflow-wrap:anywhere;}
-  .prep-options{
-    display:flex;
-    flex-wrap:wrap;
-  }
-  .prep-btn{
-    min-height:44px;
-    min-width:72px;
-    padding:9px 14px;
-    margin:4px 6px 4px 0;
-    border:1px solid var(--purple);
-    background:#fff;
-    color:var(--black);
-    border-radius:0;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    touch-action:manipulation;
-  }
-  .prep-btn.selected{ background:var(--purple); border-color:var(--purple); color:#fff; }
-  .prep-btn.correct{ background:var(--correct); border-color:var(--correct); color:#fff; }
-  .prep-btn.wrong{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+/* Matching exercise */
+.match-block{ margin-bottom:8px; }
+.match-block h3{ font-size:.78rem; color:var(--purple); margin:14px 0 4px; text-transform:uppercase; letter-spacing:.05em; font-weight:800; }
+.chip-wrap{ display:flex; flex-wrap:wrap; }
+.chip{ display:inline-flex; align-items:center; min-height:46px; padding:10px 16px; margin:5px 6px 5px 0; border:1px solid var(--border); background:#fff; color:var(--text); border-radius:20px; font-size:.9rem; font-weight:700; cursor:pointer; user-select:none; max-width:100%; overflow-wrap:anywhere; }
+.chip.selected{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.chip.correct{ background:#eaf7f0; border-color:var(--correct); color:var(--correct); }
+.chip.wrong{ background:#fbebe8; border-color:var(--wrong); color:var(--wrong); }
+.chip.disabled{ opacity:.55; pointer-events:none; }
+.def-chip{ display:block; width:100%; text-align:left; min-height:46px; padding:10px 14px; margin:5px 0; border:1px solid var(--border); background:#fff; color:var(--text); border-radius:8px; font-size:.9rem; cursor:pointer; }
+.def-chip.correct{ background:#eaf7f0; border-color:var(--correct); color:var(--correct); }
+.def-chip.wrong{ background:#fbebe8; border-color:var(--wrong); color:var(--wrong); }
+.def-chip.disabled{ opacity:.55; pointer-events:none; }
+.hint{ font-size:.8rem; color:var(--muted); min-height:16px; margin:4px 0 10px; }
+.match-score{ font-size:.85rem; font-weight:700; color:var(--purple); min-height:18px; }
 
-  /* ---- personalization ---- */
-  textarea.personal{
-    width:100%;
-    min-height:56px;
-    font-size:16px;
-    font-family:inherit;
-    padding:10px;
-    border:1px solid var(--neutral-border);
-    border-radius:0;
-    margin-top:6px;
-    resize:vertical;
-  }
+/* Gap-fill selects — shared driving-test .fib styling */
+ol.exercise{ padding-left:20px; margin:0; }
+ol.exercise li{ margin-bottom:16px; font-size:.98rem; overflow-wrap:anywhere; line-height:1.7; }
+input.fib, select.fib{
+  font-family:inherit; font-size:.95rem; padding:6px 10px; border:none; border-bottom:2.5px solid var(--purple);
+  background:#fff; border-radius:6px 6px 0 0; min-width:170px; min-height:38px; margin:2px 3px;
+}
+input.fib:focus, select.fib:focus{ outline:none; border-bottom-color:var(--yellow); }
+input.fib.is-correct, select.fib.is-correct{ border-bottom-color:var(--correct); background:#eaf7f0; color:var(--correct); font-weight:700; }
+input.fib.is-wrong, select.fib.is-wrong{ border-bottom-color:var(--wrong); background:#fbebe8; color:var(--wrong); font-weight:700; }
 
-  /* ---- buttons / controls ---- */
-  .check-btn, .reset-btn{
-    display:block;
-    width:100%;
-    min-height:50px;
-    font-size:1.05em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    color:var(--yellow);
-    background:var(--black);
-    border:none;
-    border-radius:0;
-    margin:14px 0 4px;
-    cursor:pointer;
-    touch-action:manipulation;
-    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
-  }
-  .check-btn:active, .reset-btn:active{ background:var(--purple); color:#fff; }
-  .reset-btn{ background:#8a8a8a; color:#fff; font-weight:600; font-size:14px; min-height:42px; clip-path:none; text-transform:none; letter-spacing:0; }
-  .score-line{
-    font-size:14px;
-    font-weight:700;
-    color:var(--purple);
-    margin-top:6px;
-    min-height:18px;
-  }
+/* Preposition buttons */
+.prep-item{ margin-bottom:18px; }
+.prep-sentence{ font-size:.98rem; margin-bottom:6px; overflow-wrap:anywhere; }
+.prep-options{ display:flex; flex-wrap:wrap; }
+.prep-btn{ min-height:44px; min-width:72px; padding:9px 14px; margin:4px 6px 4px 0; border:1.5px solid var(--border); background:#fff; color:var(--text); border-radius:20px; font-size:.9rem; font-weight:700; cursor:pointer; font-family:inherit; }
+.prep-btn.selected{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.prep-btn.correct{ background:#eaf7f0; border-color:var(--correct); color:var(--correct); }
+.prep-btn.wrong{ background:#fbebe8; border-color:var(--wrong); color:var(--wrong); }
 
-  .toolbar{
-    margin:34px 0 10px;
-  }
-  .toolbar button{
-    display:block;
-    width:100%;
-    min-height:52px;
-    font-size:1.05em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    color:#ffffff;
-    background:var(--purple);
-    border:none;
-    border-radius:0;
-    margin:8px 0;
-    cursor:pointer;
-    touch-action:manipulation;
-  }
-  .toolbar button:active{ background:var(--black); }
+textarea.notes{ width:100%; min-height:56px; font-size:.95rem; font-family:inherit; padding:10px 12px; border:1.5px solid var(--border); border-radius:10px; margin-top:6px; resize:vertical; }
+textarea.notes:focus{ outline:none; border-color:var(--purple); }
 
-  .student-info{
-    background:#fff;
-    border:1px solid var(--neutral-border);
-    border-left:6px solid var(--purple);
-    padding:14px 16px;
-    margin:16px 0 0;
-  }
-  .student-info label{
-    font-weight:800;
-    color:var(--purple);
-    text-transform:uppercase;
-    font-size:12px;
-    letter-spacing:0.5px;
-  }
-  .student-info input[type="text"]{
-    width:100%;
-    min-height:44px;
-    font-size:15px;
-    padding:8px 10px;
-    border:1px solid var(--neutral-border);
-    margin-top:6px;
-    box-sizing:border-box;
-  }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 
-  footer{
-    margin-top:34px;
-    font-size:11px;
-    color:#999;
-    text-align:center;
-  }
+.results-panel{ text-align:center; }
+.results-panel .big-pct{ font-size:2.6rem; font-weight:900; color:var(--purple); margin:4px 0 0; }
+.results-panel .frac{ color:var(--muted); font-weight:700; }
+.breakdown-list{ text-align:left; background:var(--card-tint); border-radius:10px; padding:14px 16px; margin-top:14px; font-size:.88rem; line-height:1.6; }
+.breakdown-list .ok-line{ color:var(--correct); }
+#submitStatus{ font-size:.85rem; color:var(--muted); margin-top:10px; font-weight:700; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.reset-link{ text-align:center; margin-top:14px; }
+.reset-link a{ font-size:.8rem; color:var(--muted); cursor:pointer; text-decoration:underline; }
 
-  @media print{
-    .toolbar, .check-btn, .reset-btn{display:none;}
-    body{background:#fff;}
-  }
+.angle-badge{ position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:104px; height:auto; display:block; filter:drop-shadow(0 1px 3px rgba(45,25,60,.45)); }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; text-shadow:0 1px 3px rgba(45,25,60,.5); }
+@media (max-width:480px){ .angle-badge .wordmark{ width:78px; } .angle-badge{ left:14px; bottom:12px; } }
+
+@media print{ .topbar, .cheat-btn{ display:none; } }
 </style>
 </head>
 <body>
-<div class="sheet" id="sheet">
-
-<header>
-  <div class="studio-icon"><img src="/assets/brand/angle-logo.png" alt="ANGLE"></div>
-  <p class="studio-credit">by Viktoria Syuzyova</p>
-  <div class="unit">UNIT 4A · VOCABULARY: ABILITY</div>
-  <h1>I could sing very well when I was younger</h1>
-  <p class="sub">Interactive vocabulary check: successful, talented, ability, intelligent, achievement, give up, positive attitude, determined, confident, good at</p>
+<div class="app-shell">
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Unit 4A · Vocabulary: Ability</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+  </div>
 </header>
 
-<div class="wrap">
+<div class="scroll-area" id="scrollArea">
+<div class="page-wrap">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button type="button" onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
 
-<div class="student-info">
-  <label for="studentName">Ваше имя:</label>
-  <input type="text" id="studentName" placeholder="Впишите имя, чтобы учитель узнал результат">
+  <div class="card">
+    <h2>I could sing very well when I was younger</h2>
+    <div class="instructions">Interactive vocabulary check: successful, talented, ability, intelligent, achievement, give up, positive attitude, determined, confident, good at</div>
+  </div>
+
+  <div class="card">
+    <h2>1 · Match the word to its meaning</h2>
+    <div class="instructions">Tap a word first, then tap the matching definition. A correct pair turns green; a wrong pair flashes red and you can try again.</div>
+    <div class="match-block"><h3>Words</h3><div class="chip-wrap" id="words-wrap"></div></div>
+    <div class="match-block"><h3>Definitions</h3><div id="defs-wrap"></div></div>
+    <div class="hint" id="match-hint">Tap a word, then tap its definition.</div>
+    <div class="match-score" id="match-score"></div>
+    <button type="button" class="btn btn-outline" onclick="resetMatch()">↺ Start over</button>
+  </div>
+
+  <div class="card">
+    <h2>2 · The text about Christian Bale</h2>
+    <div class="instructions">Choose the correct word from the list for each gap (based on "When will I be famous?", p.44). You'll see your results on the final Check &amp; Submit card below.</div>
+    <ol class="exercise" id="ex2"></ol>
+  </div>
+
+  <div class="card">
+    <h2>3 · Describing Emma and Alex</h2>
+    <div class="instructions">Listen to the recording again and choose the correct word or phrase for each gap.</div>
+    <ol class="exercise" id="ex3"></ol>
+  </div>
+
+  <div class="card">
+    <h2>4 · Choose the correct preposition</h2>
+    <div class="instructions">Tap the correct preposition for each sentence. Sometimes more than one answer is possible — any accepted option counts as correct.</div>
+    <div id="ex4"></div>
+  </div>
+
+  <div class="card">
+    <h2>5 · Make it personal</h2>
+    <div class="instructions">Complete the sentences so they are true for you. Use at least one target word from this lesson in each answer. (This part isn't scored, but your teacher will read it.)</div>
+    <ol class="exercise" id="ex5"></ol>
+  </div>
+
+  <div class="card" id="finishCard">
+    <h2>Check your work</h2>
+    <div class="instructions">Click <strong>Check &amp; Submit</strong> below — the matching, gap-fill and preposition exercises will be marked instantly, and your teacher will get a copy of your score and your personalisation answers.</div>
+    <button type="button" class="btn btn-yellow" onclick="submitAll()">✓ Check &amp; Submit</button>
+    <p id="submitStatus"></p>
+    <div class="results-panel" id="resultsPanel" hidden>
+      <p class="frac" id="resultsFraction"></p>
+      <p class="big-pct" id="resultsPercent"></p>
+      <div class="completion-stickers" id="completionStickers">
+      <img class="completion-sticker" data-tier="eggcellent-a" src="img/img1.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="img/img2.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="img/img3.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="img/img4.png" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" src="img/img5.png" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" src="img/img6.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="img/img7.png" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" src="img/img8.png" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" src="img/img9.png" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" src="img/img10.png" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" src="img/img11.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="img/img12.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="img/img13.png" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" src="img/img14.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="img/img15.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="img/img16.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="img/img17.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="img/img18.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="img/img19.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="img/img20.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="img/img21.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="img/img22.png" hidden alt="">
+  <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="img/img23.png" hidden alt="">
+      </div>
+      <p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+  </div>
+
+  <div class="reset-link"><a onclick="clearProgress()">Clear my saved answers on this device</a></div>
+</div>
+</div>
 </div>
 
-<h2>1&nbsp; Match the word to its meaning</h2>
-<div class="task">Tap a word first, then tap the matching definition. A correct pair turns green; a wrong pair flashes red and you can try again.</div>
-
-<div class="match-block">
-  <h3>Words</h3>
-  <div class="chip-wrap" id="words-wrap"></div>
-</div>
-<div class="match-block">
-  <h3>Definitions</h3>
-  <div id="defs-wrap"></div>
-</div>
-<div class="hint" id="match-hint">Tap a word, then tap its definition.</div>
-<div class="score-line" id="match-score"></div>
-<button class="reset-btn" onclick="resetMatch()">Start over</button>
-
-<h2>2&nbsp; The text about Christian Bale</h2>
-<div class="task">Choose the correct word from the list for each gap (based on "When will I be famous?", p.44).</div>
-<ol class="exercise" id="ex2"></ol>
-<button class="check-btn" onclick="checkSelects('ex2')">Check</button>
-<div class="score-line" id="ex2-score"></div>
-
-<h2>3&nbsp; Describing Emma and Alex</h2>
-<div class="task">Listen to the recording again and choose the correct word or phrase for each gap.</div>
-<ol class="exercise" id="ex3"></ol>
-<button class="check-btn" onclick="checkSelects('ex3')">Check</button>
-<div class="score-line" id="ex3-score"></div>
-
-<h2>4&nbsp; Choose the correct preposition</h2>
-<div class="task">Tap the correct preposition for each sentence. Sometimes more than one answer is possible — any accepted option counts as correct.</div>
-<div id="ex4"></div>
-<button class="check-btn" onclick="checkPrep()">Check</button>
-<div class="score-line" id="ex4-score"></div>
-
-<h2>5&nbsp; Make it personal</h2>
-<div class="task">Complete the sentences so they are true for you. Use at least one target word from this lesson in each answer.</div>
-<ol class="exercise" id="ex5"></ol>
-
-<div class="toolbar">
-  <button onclick="sendResults()">Отправить результат учителю</button>
-  <div class="score-line" id="sendStatus"></div>
-  <button onclick="window.print()">Print / save as PDF</button>
-</div>
-
-</div>
-
-<footer>Based on "When will I be famous?" (Unit 4A reading text) and the extrovert / introvert listening script.</footer>
-
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
 <script>
 /* ================= DATA ================= */
-
 const words = [
-  {id:1, text:"successful"},
-  {id:2, text:"talented at"},
-  {id:3, text:"ability to"},
-  {id:4, text:"intelligent"},
-  {id:5, text:"achievement"},
-  {id:6, text:"give up"},
-  {id:7, text:"positive attitude"},
-  {id:8, text:"determined"},
-  {id:9, text:"confident about"},
-  {id:10, text:"good at"}
+  {id:1, text:"successful"},{id:2, text:"talented at"},{id:3, text:"ability to"},{id:4, text:"intelligent"},
+  {id:5, text:"achievement"},{id:6, text:"give up"},{id:7, text:"positive attitude"},{id:8, text:"determined"},
+  {id:9, text:"confident about"},{id:10, text:"good at"}
 ];
-
-// definitions in a shuffled order, each maps back to a word id
 const defs = [
   {letter:"A", wordId:10, text:"having the skill or knowledge to do something well"},
   {letter:"B", wordId:9,  text:"sure that something you want or expect will happen"},
@@ -425,55 +253,30 @@ const defs = [
   {letter:"I", wordId:5,  text:"reaching success or achieving something difficult, often after a lot of effort"},
   {letter:"J", wordId:6,  text:"to stop trying to do something, usually because it's too difficult"}
 ];
-
-const bankOptions = words.map(w => w.text);
-
 const ex2data = [
-  {text:"Christian Bale is now thought of as one of Hollywood's most ___ actors.", answer:"successful",
-    options:["successful","confident about","talented at","good at"]},
-  {text:"As a boy, he was clearly very ___ acting.", answer:"talented at",
-    options:["talented at","good at","ability to","successful"]},
-  {text:"From early on, it was clear he had real ___ perform.", answer:"ability to",
-    options:["ability to","talented at","good at","determined"]},
-  {text:"Although he was a(n) ___ child, school work didn't interest him much.", answer:"intelligent",
-    options:["intelligent","talented at","determined","confident about"]},
-  {text:"Despite his early ___, he didn't always enjoy the attention that came with fame.", answer:"achievement",
-    options:["achievement","successful","determined","positive attitude"]},
-  {text:"He almost decided to ___ acting until a director offered him a role in Henry V.", answer:"give up",
-    options:["give up","determined","confident about","positive attitude"]},
-  {text:"That experience gave him a more ___ towards his profession.", answer:"positive attitude",
-    options:["positive attitude","confident about","determined","achievement"]},
-  {text:"When he left school at 16, he was ___ to become a successful actor.", answer:"determined",
-    options:["determined","confident about","positive attitude","give up"]},
-  {text:"Despite all his success, he's still not fully ___ that he'll keep getting good roles.", answer:"confident about",
-    options:["confident about","determined","positive attitude","good at"]},
-  {text:"As a child, Christian was also ___ ballet and playing the guitar.", answer:"good at",
-    options:["good at","talented at","ability to","successful"]}
+  {text:"Christian Bale is now thought of as one of Hollywood's most ___ actors.", answer:"successful", options:["successful","confident about","talented at","good at"]},
+  {text:"As a boy, he was clearly very ___ acting.", answer:"talented at", options:["talented at","good at","ability to","successful"]},
+  {text:"From early on, it was clear he had real ___ perform.", answer:"ability to", options:["ability to","talented at","good at","determined"]},
+  {text:"Although he was a(n) ___ child, school work didn't interest him much.", answer:"intelligent", options:["intelligent","talented at","determined","confident about"]},
+  {text:"Despite his early ___, he didn't always enjoy the attention that came with fame.", answer:"achievement", options:["achievement","successful","determined","positive attitude"]},
+  {text:"He almost decided to ___ acting until a director offered him a role in Henry V.", answer:"give up", options:["give up","determined","confident about","positive attitude"]},
+  {text:"That experience gave him a more ___ towards his profession.", answer:"positive attitude", options:["positive attitude","confident about","determined","achievement"]},
+  {text:"When he left school at 16, he was ___ to become a successful actor.", answer:"determined", options:["determined","confident about","positive attitude","give up"]},
+  {text:"Despite all his success, he's still not fully ___ that he'll keep getting good roles.", answer:"confident about", options:["confident about","determined","positive attitude","good at"]},
+  {text:"As a child, Christian was also ___ ballet and playing the guitar.", answer:"good at", options:["good at","talented at","ability to","successful"]}
 ];
-
 const ex3data = [
-  {text:"Emma says she's ___ telling jokes and entertaining people at parties.", answer:"good at",
-    options:["good at","talented at","successful","ability to"]},
-  {text:"Alex is also ___ telling jokes, but only in front of close friends.", answer:"talented at",
-    options:["talented at","good at","ability to","successful"]},
-  {text:"Emma clearly has the ___ make people laugh in social situations.", answer:"ability to",
-    options:["ability to","talented at","good at","determined"]},
-  {text:"Alex would rather read a book or have a deep conversation, which suggests he's a thoughtful, ___ person.", answer:"intelligent",
-    options:["intelligent","determined","confident about","talented at"]},
-  {text:"One ___ for Emma is managing to hide her shyness so well that people think she's a natural extrovert.", answer:"achievement",
-    options:["achievement","successful","positive attitude","determined"]},
-  {text:"Even though presentations make her nervous, Emma doesn't ___ — she pushes through anyway.", answer:"give up",
-    options:["give up","determined","positive attitude","confident about"]},
-  {text:"Alex seems to have a ___ spending time alone — he doesn't see it as a problem at all.", answer:"positive attitude",
-    options:["positive attitude","confident about","determined","achievement"]},
-  {text:"Emma sounds fairly ___ in most social situations, but not when she has to speak to an audience.", answer:"confident about",
-    options:["confident about","determined","positive attitude","good at"]},
-  {text:"Alex isn't especially ___ making conversation with strangers — he says he doesn't know what to say to people.", answer:"confident about",
-    options:["confident about","talented at","good at","determined"]},
-  {text:"Both speakers seem ___ to understand their own personalities and talk about them honestly.", answer:"determined",
-    options:["determined","confident about","give up","positive attitude"]}
+  {text:"Emma says she's ___ telling jokes and entertaining people at parties.", answer:"good at", options:["good at","talented at","successful","ability to"]},
+  {text:"Alex is also ___ telling jokes, but only in front of close friends.", answer:"talented at", options:["talented at","good at","ability to","successful"]},
+  {text:"Emma clearly has the ___ make people laugh in social situations.", answer:"ability to", options:["ability to","talented at","good at","determined"]},
+  {text:"Alex would rather read a book or have a deep conversation, which suggests he's a thoughtful, ___ person.", answer:"intelligent", options:["intelligent","determined","confident about","talented at"]},
+  {text:"One ___ for Emma is managing to hide her shyness so well that people think she's a natural extrovert.", answer:"achievement", options:["achievement","successful","positive attitude","determined"]},
+  {text:"Even though presentations make her nervous, Emma doesn't ___ — she pushes through anyway.", answer:"give up", options:["give up","determined","positive attitude","confident about"]},
+  {text:"Alex seems to have a ___ spending time alone — he doesn't see it as a problem at all.", answer:"positive attitude", options:["positive attitude","confident about","determined","achievement"]},
+  {text:"Emma sounds fairly ___ in most social situations, but not when she has to speak to an audience.", answer:"confident about", options:["confident about","determined","positive attitude","good at"]},
+  {text:"Alex isn't especially ___ making conversation with strangers — he says he doesn't know what to say to people.", answer:"confident about", options:["confident about","talented at","good at","determined"]},
+  {text:"Both speakers seem ___ to understand their own personalities and talk about them honestly.", answer:"determined", options:["determined","confident about","give up","positive attitude"]}
 ];
-
 const ex4data = [
   {text:"1. She is good ___ making friends.", correct:["at"]},
   {text:"2. I'm not very talented ___ art.", correct:["at"]},
@@ -481,7 +284,6 @@ const ex4data = [
   {text:"4. She has the ability ___ pass exams without even trying.", correct:["to"]},
   {text:"5. He is confident ___ his ability to pass the exam.", correct:["about"]}
 ];
-
 const ex5data = [
   "It's important to have a positive attitude and not give up because…",
   "I'm talented at…",
@@ -491,42 +293,30 @@ const ex5data = [
 ];
 
 /* ================= MATCHING EXERCISE ================= */
-
 let selectedWordId = null;
-let matchedCount = 0;
+let matchedIds = new Set();
 
 function renderMatch(){
   const wordsWrap = document.getElementById("words-wrap");
   const defsWrap = document.getElementById("defs-wrap");
-  wordsWrap.innerHTML = "";
-  defsWrap.innerHTML = "";
-
+  wordsWrap.innerHTML = ""; defsWrap.innerHTML = "";
   words.forEach(w=>{
     const b = document.createElement("button");
-    b.className = "chip";
-    b.textContent = w.text;
-    b.dataset.wordId = w.id;
+    b.type = "button"; b.className = "chip"; b.textContent = w.text; b.dataset.wordId = w.id;
     b.onclick = () => onWordTap(w.id, b);
     wordsWrap.appendChild(b);
   });
-
-  // shuffle definitions display order for a real matching task
   const shuffledDefs = [...defs].sort(()=>Math.random()-0.5);
   shuffledDefs.forEach(d=>{
     const b = document.createElement("button");
-    b.className = "def-chip";
-    b.textContent = d.text;
-    b.dataset.wordId = d.wordId;
+    b.type = "button"; b.className = "def-chip"; b.textContent = d.text; b.dataset.wordId = d.wordId;
     b.onclick = () => onDefTap(d.wordId, b);
     defsWrap.appendChild(b);
   });
-
   selectedWordId = null;
-  matchedCount = 0;
   document.getElementById("match-hint").textContent = "Tap a word, then tap its definition.";
-  document.getElementById("match-score").textContent = "";
+  document.getElementById("match-score").textContent = "Matched: " + matchedIds.size + " of " + words.length;
 }
-
 function onWordTap(id, btn){
   if(btn.classList.contains("correct")) return;
   document.querySelectorAll("#words-wrap .chip").forEach(c=>c.classList.remove("selected"));
@@ -534,39 +324,29 @@ function onWordTap(id, btn){
   selectedWordId = id;
   document.getElementById("match-hint").textContent = "Now tap a definition.";
 }
-
 function onDefTap(wordId, btn){
   if(btn.classList.contains("disabled")) return;
-  if(selectedWordId === null){
-    document.getElementById("match-hint").textContent = "Tap a word first, then a definition.";
-    return;
-  }
+  if(selectedWordId === null){ document.getElementById("match-hint").textContent = "Tap a word first, then a definition."; return; }
   const wordBtn = document.querySelector('#words-wrap .chip[data-word-id="'+selectedWordId+'"]');
   if(wordId === selectedWordId){
     btn.classList.add("correct","disabled");
     wordBtn.classList.remove("selected");
     wordBtn.classList.add("correct","disabled");
-    matchedCount++;
+    matchedIds.add(selectedWordId);
     document.getElementById("match-hint").textContent = "Correct!";
-    document.getElementById("match-score").textContent = "Matched: " + matchedCount + " of " + words.length;
+    document.getElementById("match-score").textContent = "Matched: " + matchedIds.size + " of " + words.length;
+    scheduleSave();
   } else {
     btn.classList.add("wrong");
     wordBtn.classList.add("wrong");
     document.getElementById("match-hint").textContent = "Not quite, try again.";
-    setTimeout(()=>{
-      btn.classList.remove("wrong");
-      wordBtn.classList.remove("wrong","selected");
-    }, 550);
+    setTimeout(()=>{ btn.classList.remove("wrong"); wordBtn.classList.remove("wrong","selected"); }, 550);
   }
   selectedWordId = null;
 }
+function resetMatch(){ matchedIds = new Set(); renderMatch(); scheduleSave(); }
 
-function resetMatch(){
-  renderMatch();
-}
-
-/* ================= GAP-FILL SELECTS (ex2 / ex3) ================= */
-
+/* ================= GAP-FILL (ex2 / ex3), shared .fib engine ================= */
 function renderSelectExercise(containerId, data){
   const ol = document.getElementById(containerId);
   ol.innerHTML = "";
@@ -574,245 +354,250 @@ function renderSelectExercise(containerId, data){
     const li = document.createElement("li");
     const parts = item.text.split("___");
     const selectId = containerId + "-sel-" + idx;
-
-    const beforeSpan = document.createElement("span");
-    beforeSpan.textContent = parts[0];
-    li.appendChild(beforeSpan);
-
+    const beforeSpan = document.createElement("span"); beforeSpan.textContent = parts[0]; li.appendChild(beforeSpan);
     const select = document.createElement("select");
-    select.className = "gap";
-    select.id = selectId;
-    select.dataset.answer = item.answer;
-
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = "— choose a word —";
+    select.className = "fib"; select.id = selectId; select.dataset.answer = item.answer;
+    const placeholder = document.createElement("option"); placeholder.value = ""; placeholder.textContent = "— choose a word —";
     select.appendChild(placeholder);
-
-    const itemOptions = item.options ? [...item.options].sort(()=>Math.random()-0.5) : bankOptions;
-    itemOptions.forEach(opt=>{
-      const o = document.createElement("option");
-      o.value = opt;
-      o.textContent = opt;
-      select.appendChild(o);
-    });
-
+    const itemOptions = [...item.options].sort(()=>Math.random()-0.5);
+    itemOptions.forEach(opt=>{ const o = document.createElement("option"); o.value = opt; o.textContent = opt; select.appendChild(o); });
     li.appendChild(select);
-
-    const afterSpan = document.createElement("span");
-    afterSpan.textContent = parts[1];
-    li.appendChild(afterSpan);
-
-    const note = document.createElement("span");
-    note.className = "correct-answer-note";
-    note.id = selectId + "-note";
-    li.appendChild(note);
-
+    const afterSpan = document.createElement("span"); afterSpan.textContent = parts[1]; li.appendChild(afterSpan);
     ol.appendChild(li);
   });
 }
 
-function checkSelects(containerId){
-  const ol = document.getElementById(containerId);
-  const selects = ol.querySelectorAll("select.gap");
-  let correct = 0;
-  selects.forEach(sel=>{
-    sel.classList.remove("correct","wrong");
-    const note = document.getElementById(sel.id + "-note");
-    note.textContent = "";
-    if(sel.value === sel.dataset.answer){
-      sel.classList.add("correct");
-      correct++;
-    } else if(sel.value !== ""){
-      sel.classList.add("wrong");
-      note.textContent = "Correct answer: " + sel.dataset.answer;
-    } else {
-      sel.classList.add("wrong");
-      note.textContent = "Correct answer: " + sel.dataset.answer;
-    }
-  });
-  document.getElementById(containerId + "-score").textContent =
-    "Correct: " + correct + " of " + selects.length;
-}
-
 /* ================= PREPOSITION EXERCISE (ex4) ================= */
-
 function renderPrep(){
-  const wrap = document.getElementById("ex4");
-  wrap.innerHTML = "";
+  const wrap = document.getElementById("ex4"); wrap.innerHTML = "";
   const options = ["about","at","to","towards"];
-
   ex4data.forEach((item, idx)=>{
-    const div = document.createElement("div");
-    div.className = "prep-item";
-
-    const sentence = document.createElement("div");
-    sentence.className = "prep-sentence";
-    sentence.textContent = item.text;
-    div.appendChild(sentence);
-
-    const optsWrap = document.createElement("div");
-    optsWrap.className = "prep-options";
-    optsWrap.id = "prep-" + idx;
-
+    const div = document.createElement("div"); div.className = "prep-item";
+    const sentence = document.createElement("div"); sentence.className = "prep-sentence"; sentence.textContent = item.text; div.appendChild(sentence);
+    const optsWrap = document.createElement("div"); optsWrap.className = "prep-options"; optsWrap.id = "prep-" + idx;
     options.forEach(opt=>{
       const b = document.createElement("button");
-      b.className = "prep-btn";
-      b.textContent = opt;
-      b.dataset.value = opt;
+      b.type = "button"; b.className = "prep-btn"; b.textContent = opt; b.dataset.value = opt;
       b.onclick = () => {
-        optsWrap.querySelectorAll(".prep-btn").forEach(x=>{
-          x.classList.remove("selected","correct","wrong");
-        });
+        optsWrap.querySelectorAll(".prep-btn").forEach(x=>x.classList.remove("selected","correct","wrong"));
         b.classList.add("selected");
+        scheduleSave();
       };
       optsWrap.appendChild(b);
     });
-
     div.appendChild(optsWrap);
     wrap.appendChild(div);
   });
 }
 
-function checkPrep(){
-  let correct = 0;
-  ex4data.forEach((item, idx)=>{
-    const group = document.getElementById("prep-" + idx);
-    const selected = group.querySelector(".selected");
-    group.querySelectorAll(".prep-btn").forEach(b=>{
-      b.classList.remove("correct","wrong");
-    });
-    if(selected){
-      selected.classList.remove("selected");
-      if(item.correct.includes(selected.dataset.value)){
-        selected.classList.add("correct");
-        correct++;
-      } else {
-        selected.classList.add("wrong");
-      }
-    }
-  });
-  document.getElementById("ex4-score").textContent =
-    "Correct: " + correct + " of " + ex4data.length;
-}
-
-/* ================= PERSONALIZATION (ex5) ================= */
-
+/* ================= PERSONALIZATION (ex5, ungraded) ================= */
 function renderPersonal(){
-  const ol = document.getElementById("ex5");
-  ol.innerHTML = "";
-  ex5data.forEach(t=>{
-    const li = document.createElement("li");
-    li.textContent = t;
+  const ol = document.getElementById("ex5"); ol.innerHTML = "";
+  ex5data.forEach((t,i)=>{
+    const li = document.createElement("li"); li.textContent = t;
     const ta = document.createElement("textarea");
-    ta.className = "personal";
+    ta.className = "notes"; ta.dataset.label = "personal_" + (i+1);
     li.appendChild(ta);
     ol.appendChild(li);
   });
 }
 
-/* ================= SEND TO TEACHER ================= */
+/* ================= Progress persistence (save & resume) ================= */
+const PROGRESS_KEY = 'angle_progress::4a-vocab-ability-check';
+let isRestoring = false;
 
-function computeSelectScore(containerId){
-  const sel = document.querySelectorAll('#' + containerId + ' select.gap');
-  let correct = 0;
-  sel.forEach(s => { if(s.value === s.dataset.answer) correct++; });
-  return {correct: correct, total: sel.length};
-}
-
-function collectSelectMistakes(containerId, data){
-  const out = [];
-  data.forEach(function(item, idx){
-    const sel = document.getElementById(containerId + '-sel-' + idx);
-    if(!sel) return;
-    if(sel.value !== item.answer){
-      const label = item.text.replace('___', '____');
-      out.push('Ex.' + (containerId === 'ex2' ? '2' : '3') + ' — "' + label + '" → answered "' + (sel.value || '(not answered)') + '", correct "' + item.answer + '"');
-    }
-  });
-  return out;
-}
-
-function collectPrepMistakes(){
-  const out = [];
-  ex4data.forEach(function(item, idx){
-    const group = document.getElementById('prep-' + idx);
-    if(!group) return;
-    const chosen = group.querySelector('.prep-btn.correct') || group.querySelector('.prep-btn.wrong');
-    if(!chosen || chosen.classList.contains('wrong')){
-      out.push('Ex.4 — "' + item.text + '" → answered "' + (chosen ? chosen.dataset.value : '(not answered)') + '", correct "' + item.correct.join(' / ') + '"');
-    }
-  });
-  return out;
-}
-
-function collectMatchMistakes(){
-  const out = [];
-  document.querySelectorAll('#words-wrap .chip').forEach(function(chip){
-    if(!chip.classList.contains('correct')){
-      const wordId = parseInt(chip.dataset.wordId, 10);
-      const def = defs.find(function(d){ return d.wordId === wordId; });
-      out.push('Ex.1 (matching) — "' + chip.textContent + '" → not matched, correct definition: "' + (def ? def.text : '?') + '"');
-    }
-  });
-  return out;
-}
-
-function sendResults(){
-  checkSelects('ex2');
-  checkSelects('ex3');
-  checkPrep();
-
-  const name = (document.getElementById('studentName').value || '').trim() || '(не указано)';
-  const ex2s = computeSelectScore('ex2');
-  const ex3s = computeSelectScore('ex3');
-  const prepCorrect = document.querySelectorAll('#ex4 .prep-btn.correct').length;
-  const personal = Array.prototype.map.call(document.querySelectorAll('#ex5 textarea'), function(t){ return t.value.trim(); })
-    .filter(Boolean).join(' | ') || '(пусто)';
-
-  const totalCorrect = matchedCount + ex2s.correct + ex3s.correct + prepCorrect;
-  const totalQuestions = words.length + ex2s.total + ex3s.total + ex4data.length;
-
-  const mistakes = [].concat(
-    collectMatchMistakes(),
-    collectSelectMistakes('ex2', ex2data),
-    collectSelectMistakes('ex3', ex3data),
-    collectPrepMistakes()
-  );
-
-  const statusEl = document.getElementById('sendStatus');
-  statusEl.textContent = 'Отправляю…';
-
-  const fd = new FormData();
-  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-  fd.append('course', 'Empower B1+');
-  fd.append('subject', 'Empower B1+ — 4A Vocabulary Check: Ability');
-  fd.append('material', '4A Vocabulary Check: Ability');
-  fd.append('student', name);
-  fd.append('score', totalCorrect + ' / ' + totalQuestions);
-  fd.append('ex1_matching', matchedCount + '/' + words.length);
-  fd.append('ex2_gaps', ex2s.correct + '/' + ex2s.total);
-  fd.append('ex3_gaps', ex3s.correct + '/' + ex3s.total);
-  fd.append('ex4_prepositions', prepCorrect + '/' + ex4data.length);
-  fd.append('ex5_personal_answers', personal);
-  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
-
-  fetch('https://api.web3forms.com/submit', { method: 'POST', headers: {'Accept': 'application/json'}, body: fd })
-    .then(function(res){
-      statusEl.textContent = res.ok ? 'Отправлено учителю ✓' : 'Не получилось отправить — сделайте скриншот и пришлите его.';
-    })
-    .catch(function(){
-      statusEl.textContent = 'Не получилось отправить — сделайте скриншот и пришлите его.';
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString() };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.matched = [...matchedIds];
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
+    state.prep = [...document.querySelectorAll('.prep-options')].map(g=>{
+      const sel = g.querySelector('.selected');
+      return sel ? sel.dataset.value : null;
     });
+    state.textareas = [...document.querySelectorAll('textarea.notes')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  (state.matched||[]).forEach(wordId=>{
+    const wordBtn = document.querySelector(`#words-wrap .chip[data-word-id="${wordId}"]`);
+    const defBtn = document.querySelector(`#defs-wrap .def-chip[data-word-id="${wordId}"]`);
+    if(wordBtn){ wordBtn.classList.add('correct','disabled'); }
+    if(defBtn){ defBtn.classList.add('correct','disabled'); }
+    if(wordBtn && defBtn) matchedIds.add(Number(wordId));
+  });
+  document.getElementById('match-score').textContent = "Matched: " + matchedIds.size + " of " + words.length;
+
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+
+  const prepGroups = document.querySelectorAll('.prep-options');
+  (state.prep||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = prepGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.prep-btn[data-value="${val}"]`);
+    if(btn) btn.classList.add('selected');
+  });
+
+  const tas = document.querySelectorAll('textarea.notes');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+
+  const hasContent = matchedIds.size>0 || (state.fib||[]).some(v=>v) || (state.prep||[]).some(v=>v!=null) || (state.textareas||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, select.fib, #studentName')) scheduleSave(); });
+
+/* ===================== Tiered completion sticker ===================== */
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+  });
+  const capEl = document.getElementById('resultCaption');
+  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+  return tier;
 }
 
-/* ================= INIT ================= */
+/* ===================== Scoring & submission engine ===================== */
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'B1+ Empower';
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
 
-renderMatch();
-renderSelectExercise("ex2", ex2data);
-renderSelectExercise("ex3", ex3data);
-renderPrep();
-renderPersonal();
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  // matching
+  total += words.length;
+  correct += matchedIds.size;
+  if(matchedIds.size < words.length){
+    wrongList.push(`Match the word to its meaning — ${matchedIds.size}/${words.length} pairs matched correctly.`);
+  }
+
+  // gap-fill selects
+  document.querySelectorAll('.fib[data-answer]').forEach(sel=>{
+    total++;
+    const ok = normalize(sel.value) === normalize(sel.dataset.answer);
+    sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+    if(ok) correct++;
+    else {
+      const li = sel.closest('li');
+      let label = '';
+      if(li){
+        const clone = li.cloneNode(true);
+        clone.querySelectorAll('select, input').forEach(x=>x.remove());
+        label = clone.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+      }
+      wrongList.push(`${label} → answered "${sel.value || '(blank)'}", correct "${sel.dataset.answer}"`);
+    }
+  });
+
+  // prepositions
+  ex4data.forEach((item, idx)=>{
+    total++;
+    const group = document.getElementById('prep-' + idx);
+    const selected = group.querySelector('.selected');
+    group.querySelectorAll('.prep-btn').forEach(b=>b.classList.remove('correct','wrong'));
+    const said = selected ? selected.dataset.value : null;
+    const ok = said && item.correct.includes(said);
+    if(selected) selected.classList.add(ok ? 'correct' : 'wrong');
+    if(ok) correct++;
+    else wrongList.push(`${item.text} → answered "${said || '(not answered)'}", correct "${item.correct.join(' / ')}"`);
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${correct} / ${total} correct`;
+  const breakdownEl = document.getElementById('resultsBreakdown');
+  breakdownEl.innerHTML = wrongList.length
+    ? ('<strong>Look again at:</strong><br>' + wrongList.map(w=>`• ${w}`).join('<br>'))
+    : '<span class="ok-line">All auto-checked items correct — well done!</span>';
+  document.getElementById('resultsPanel').hidden = false;
+  const tier = renderResultSticker(pct);
+
+  const writtenResponses = [...document.querySelectorAll('textarea.notes')].map(ta=>{
+    const label = ta.dataset.label || 'response';
+    return ta.value.trim() ? `${label}: ${ta.value.trim()}` : null;
+  }).filter(Boolean).join('\n---\n');
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', tier.label);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('written_responses', writtenResponses || '(none)');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+
+/* ===================== Init ===================== */
+document.addEventListener('DOMContentLoaded', function(){
+  renderMatch();
+  renderSelectExercise("ex2", ex2data);
+  renderSelectExercise("ex3", ex3data);
+  renderPrep();
+  renderPersonal();
+  restoreProgress();
+});
 </script>
 </body>
 </html>

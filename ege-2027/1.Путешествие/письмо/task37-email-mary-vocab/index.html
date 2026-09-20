@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Задание 37 (Email — Molly, день рождения) — CLASSWORK</title>
+<title>Задание 37 (Email — Mary, лексика) — CLASSWORK</title>
 
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Путешествие">
-<meta name="ws:title"     content="Задание 37 — электронное письмо, авторская (Molly)">
+<meta name="ws:title"     content="Задание 37 — электронное письмо, авторская (Mary, лексика)">
 <meta name="ws:emoji"     content="✉️">
-<meta name="ws:date"      content="2026-08-15">
-<meta name="ws:status"    content="published">
+<meta name="ws:date"      content="2026-09-20">
+<meta name="ws:status"    content="draft">
 <meta name="ws:formspree" content="mnjekjvq">
 <meta name="ws:tags"      content="ЕГЭ, путешествие">
 <meta name="robots"       content="noindex, nofollow">
@@ -110,38 +110,30 @@ textarea.small{ min-height:80px; }
         <button onclick="clearProgress()">Начать заново (очистить сохранённое)</button>
       </div>
 
+      <div class="card">
+        <h2>Warm up</h2>
+        <div class="task-desc"><p>Make sure you understand the meaning of the following words and phrases. Try to use them in your email.</p></div>
+        <ul class="warmup-list"><li>If you ask me about…</li><li>Well, …</li><li>I can say that…</li><li>The reason why I …</li><li>to go hiking/on an excursion</li><li>to do smth regularly/rarely</li><li>the necessary stuff</li><li>to feel comfortable/safe</li><li>to carry smth</li><li>to dream about smth</li><li>outstanding</li><li>really exciting</li><li>wonderful/great memories</li><li>unforgettable experience</li><li>plenty of positive emotions</li></ul>
+      </div>
 
       <div class="card">
-        <h2>Письмо от Molly</h2>
-        <div class="task-desc"><p>You have received an email message from your English-speaking pen-friend Molly.</p><p>Write an email to Molly.</p></div>
+        <h2>Письмо от Mary</h2>
+        <div class="task-desc"><p>You have received an email message from your English-speaking pen-friend Mary.</p></div>
         <div class="letter">
-          From: Molly@mail.uk<br>
+          From: Mary@mail.uk<br>
           To: Russian_friend@ege.ru<br>
-          Subject: Family<br><br>
-          … Thank you for the book about the famous people of your region. I liked it so much! The place where you live is very beautiful. Are there any ancient monuments nearby? What is your favourite place in your area? Would you like to move to a different place to live, why or why not?<br><br>Next week my cousin is organizing a very unusual birthday party in the café …
+          Subject: Sightseeing tour<br><br>
+          … During my spring holidays my class and I went on an exciting sightseeing tour to an ancient city not far from the place where we live.... Do you ever go on trips with your class? What do you usually take with you when you go on an excursion? What famous place would you like to visit and why?<br><br>Next weekend we are going to our city museum with my friend…
         </div>
       </div>
 
       <div class="card">
         <h2>Задание 37</h2>
-        <div class="task-desc"><p>Write an email to Molly.</p><p>In your message</p><p>- answer her questions</p><p>- ask 3 questions about her cousin</p><p>Write 100 – 140 words.</p><p>Remember the rules of email writing.</p></div>
+        <div class="task-desc"><p>Write an email to Mary</p><p>In your message</p><p>-answer her questions</p><p>-ask 3 questions about her city</p><p>Write 100 — 140 words.</p><p>Remember the rules of email writing.</p></div>
         <textarea id="mainEmail" placeholder="Пиши здесь свой email…"></textarea>
         <div class="wordcount" id="mainCount">0 words</div>
       </div>
 
-      <div class="card">
-        <h2>Extension activity 1</h2>
-        <div class="task-desc"><p>Next week my cousin is organizing a very unusual birthday party in the café …</p><p>− ask 3 questions about the future birthday party</p><p>− ask 3 questions about the café</p></div>
-        
-        <div class="q-group">
-          <h3>− ask 3 questions about the future birthday party</h3>
-          <textarea class="small" id="partyQ" placeholder="Твои вопросы про вечеринку…"></textarea>
-        </div>
-        <div class="q-group">
-          <h3>− ask 3 questions about the café</h3>
-          <textarea class="small" id="cafeQ" placeholder="Твои вопросы про кафе…"></textarea>
-        </div>
-      </div>
 
       <div class="card">
         <div class="actions">
@@ -170,8 +162,8 @@ textarea.small{ min-height:80px; }
 <script>
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 const COURSE_NAME = 'ЕГЭ — Путешествие';
-const PROGRESS_KEY = 'angle_progress::travel-task37-molly-party';
-const EXTRA_TEXTAREA_IDS = ['partyQ','cafeQ'];
+const PROGRESS_KEY = 'angle_progress::travel-task37-mary-lexis';
+const EXTRA_TEXTAREA_IDS = [];
 let isRestoring = false;
 
 const mainEmail = document.getElementById('mainEmail');
