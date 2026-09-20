@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why Travelling Is Important — B1 Video Lesson (ЕГЭ practice)</title>
-
+<title>1_Кейс ЕГЭ_Путешествие_Видео В1</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
@@ -16,828 +14,585 @@
 <meta name="ws:formspree" content="mnjekjvq">
 <meta name="ws:tags"      content="ЕГЭ, путешествие">
 <meta name="robots"       content="noindex, nofollow">
-
 <style>
-      :root{
-    --cream:#f7f6f4;
-    --paper:#ffffff;
-    --ink:#2D2926;
-    --ink-soft:#6a6560;
-    --teal:#5E4877;
-    --teal-dark:#2D2926;
-    --terracotta:#2D2926;
-    --terracotta-dark:#201c1a;
-    --gold:#FED500;
-    --correct:#3d7a3f;
-    --correct-bg:#e5f3e7;
-    --wrong:#b23a3a;
-    --wrong-bg:#fbe8e6;
-    --border:#e4e0e8;
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');
+    font-weight:700 900;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --purple:#5E4877;
+    --purple-dark:#453458;
+    --black:#2D2926;
+    --yellow:#FED500;
+    --neutral-bg:#f6f2fa;
+    --neutral-card:#ffffff;
+    --neutral-border:#e2dbea;
+    --muted:#7a7288;
+    --correct:#3fa66b;
+    --wrong:#d6503f;
   }
   *{box-sizing:border-box;}
+  html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
   body{
-    margin:0;
-    background-color:var(--cream);
-    background-image:linear-gradient(rgba(247,246,244,.7), rgba(247,246,244,.7)), url('tom-barrett-M0AWNxnLaMw-unsplash.jpg');
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-    background-repeat:no-repeat;
-    color:var(--ink);
     font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
-    line-height:1.55;
+    color:var(--black);
   }
-  h1,h2,h3{font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:700; margin:0 0 .4em;}
-  .wrap{max-width:880px; margin:0 auto; padding:0 20px 60px;}
-  header.hero::after{
+  .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; background-color:var(--neutral-bg); background-image:linear-gradient(rgba(246,242,250,.82), rgba(246,242,250,.88)), url(img/hero-bg.jpg); background-size:cover; background-position:center; background-repeat:no-repeat; }
+  .scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+  .topbar-inner{ max-width:760px; margin:0 auto; padding:12px 24px 10px; }
+  .topbar .eyebrow{ text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--muted); font-weight:700; margin:0 0 4px; }
+  .topbar h1{ font-size:1.15rem; font-weight:800; text-transform:uppercase; letter-spacing:.4px; margin:0; color:var(--purple); }
+  .angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+  .angle-badge .wordmark{ width:120px; height:auto; display:block; }
+  .angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+  @media (max-width:520px){
+    .angle-badge{ left:14px; bottom:14px; }
+    .angle-badge .wordmark{ width:88px; }
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px 24px 150px;}
+
+  .section{
+    background:var(--neutral-card);
+    border:1px solid var(--neutral-border);
+    border-left:6px solid var(--purple);
+    border-radius:0;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(45,41,38,0.06);
+  }
+  .section h2{
+    color:var(--purple);
+    font-size:1.2em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2::before{
     content:"";
-    position:absolute; right:-40px; top:-40px;
-    width:180px; height:180px; border-radius:50%;
-    border:6px dashed rgba(255,255,255,.25);
+    display:inline-block;
+    width:0;
+    height:0;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    border-bottom:16px solid var(--yellow);
   }
-  header.hero .stamp{
-    position:absolute; right:28px; top:28px;
-    width:64px; height:64px; border-radius:50%;
-    border:3px solid rgba(255,255,255,.55);
-    display:flex; align-items:center; justify-content:center;
-    font-size:26px; transform:rotate(8deg);
+  .item{
+    margin:18px 0;
+    padding:14px;
+    background:#fbfaf9;
+    border-radius:0;
+    border:1px solid var(--neutral-border);
   }
-  header.hero .eyebrow{
-    text-transform:uppercase; letter-spacing:.14em; font-size:12px;
-    color:var(--gold); font-weight:600; margin-bottom:8px;
+  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
+  .func-tag{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow);
+    font-size:0.75em;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-left:6px;
+    font-weight:700;
+    text-transform:uppercase;
   }
-  header.hero h1{font-size:clamp(24px,4vw,34px); max-width:600px;}
-  header.hero p.sub{max-width:560px; opacity:.9; margin:10px 0 0; font-size:15px;}
-
-  .progress-track{ height:6px; background:rgba(255,255,255,.25); border-radius:4px; margin-top:22px; overflow:hidden;}
-  .progress-fill{ height:100%; background:var(--gold); width:16.6%; transition:width .3s ease;}
-
-  nav.tabs{
-    display:flex; flex-wrap:wrap; gap:8px;
-    max-width:880px; margin:14px auto 0; padding:0 20px;
-    position:relative; z-index:2;
+  .options label{
+    display:block;
+    background:#fff;
+    border:1px solid var(--neutral-border);
+    border-radius:0;
+    padding:8px 12px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
   }
-  nav.tabs .tab{
-    background:var(--paper); border:1px solid var(--border); color:var(--ink-soft);
-    padding:9px 14px; border-radius:10px; font-size:13px; font-weight:600;
-    cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.06);
+  .options label:hover{background:#f3eef8;border-color:var(--purple);}
+  .options input{margin-right:8px;accent-color:var(--purple);}
+  select{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    background:#fff;
+    color:var(--black);
   }
-  nav.tabs .tab.active{ background:var(--terracotta); border-color:var(--terracotta); color:#fff;}
-
-  main{padding-top:26px;}
-  .page{display:none;}
-  .page.active{display:block; animation:fadeIn .25s ease;}
-  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
-
-  .card{
-    background:var(--paper); border:1px solid var(--border); border-radius:16px;
-    padding:24px 26px; margin-bottom:20px; box-shadow:0 3px 10px rgba(43,36,28,.05);
+  input[type="text"]{
+    padding:6px 10px;
+    border-radius:0;
+    border:1px solid var(--purple);
+    font-size:1em;
+    width:140px;
   }
-  .card h2{color:var(--teal-dark); font-size:22px;}
-  .lead{color:var(--ink-soft); font-size:15px; margin-bottom:16px;}
-  ul.warmup{margin:0; padding-left:20px;}
-  ul.warmup li{margin-bottom:10px;}
-
+  .blank-sentence{font-weight:400;}
   .btn{
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--ink); color:var(--gold); border:none; border-radius:10px;
-    padding:11px 20px; font-size:14px; font-weight:700; cursor:pointer;
-    text-transform:uppercase; letter-spacing:.3px;
-    font-family:inherit;
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--black);
+    color:var(--yellow);
+    border:none;
+    border-radius:0;
+    font-size:1.05em;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    margin-top:10px;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
   }
-  .btn:hover{background:var(--teal); color:#fff;}
-  .btn.secondary{background:transparent; color:var(--teal); border:1px solid var(--teal);}
-  .btn.secondary:hover{background:#f3eef8;}
-  .btn.ghost{background:transparent; color:var(--ink-soft); border:1px dashed var(--border);}
-
-  .pager{
-    display:flex; justify-content:space-between; align-items:center;
-    max-width:880px; margin:10px auto 0; padding:0 20px 40px;
+  .btn:hover{background:var(--purple);color:#fff;}
+  .btn:disabled{background:#c9c2cf;color:#eee;}
+  #result{
+    text-align:center;
+    padding:26px 20px;
+    border-radius:0;
+    background:var(--purple);
+    color:#ffffff;
+    border:none;
+    display:none;
   }
-  .pager span{font-size:13px; color:var(--ink-soft);}
+  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
+  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
+  .feedback-icon{margin-left:8px;font-weight:700;}
+  .feedback-icon.correct{color:var(--correct);}
+  .feedback-icon.wrong{color:var(--wrong);}
+  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
 
-  /* vocab grid */
-  .vocab-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px;}
-  .vocab-card{
-    background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px;
-    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .vocab-card:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(43,36,28,.10);}
-  .vocab-card b{display:block; font-family:'Fraunces',serif; color:var(--terracotta-dark); font-size:16px;}
-  .vocab-card .ru{color:var(--ink-soft); font-size:13px; margin-top:4px;}
-  .vocab-card .pos{display:inline-block; margin-top:8px; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--teal-dark); background:#eaf3f2; padding:2px 8px; border-radius:20px;}
 
-  /* popup */
-  .popup-overlay{
-    display:none; position:fixed; inset:0; background:rgba(43,36,28,.55);
-    align-items:center; justify-content:center; z-index:50; padding:20px;
-  }
-  .popup-overlay.open{display:flex;}
-  .popup-card{
-    background:var(--paper); border-radius:16px; max-width:440px; width:100%;
-    padding:26px; position:relative; box-shadow:0 20px 50px rgba(0,0,0,.25);
-  }
-  .popup-close{position:absolute; top:12px; right:16px; border:none; background:none; font-size:20px; cursor:pointer; color:var(--ink-soft);}
-  #popup-word{color:var(--terracotta-dark); font-family:'Fraunces',serif; font-size:22px;}
-  #popup-pos{font-size:12px; text-transform:uppercase; color:var(--teal-dark); letter-spacing:.05em;}
-  #popup-ru{margin-top:10px; font-weight:600;}
-  #popup-def{margin-top:6px; color:var(--ink-soft);}
-  #popup-example{margin-top:12px; font-style:italic; border-left:3px solid var(--gold); padding-left:10px;}
-  .speak-btn{margin-top:14px; background:var(--gold); border:none; border-radius:20px; padding:8px 16px; font-weight:600; cursor:pointer; font-family:inherit;}
-
-  /* flashcards */
-  .flashcard-wrap{display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:10px;}
-  .flip-card{width:100%; max-width:420px; height:200px; perspective:1000px; cursor:pointer;}
-  .flip-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
-  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
-  .flip-front,.flip-back{
-    position:absolute; inset:0; backface-visibility:hidden; border-radius:16px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:18px;
-  }
-  .flip-front{background:var(--teal); color:#fff; font-size:20px; font-weight:600;}
-  .flip-back{background:#fff; border:1px solid var(--border); transform:rotateY(180deg);}
-  .flip-back b{font-family:'Fraunces',serif; color:var(--terracotta-dark); font-size:18px;}
-  .flip-back p{margin:6px 0 0; font-size:13px; color:var(--ink-soft);}
-  .deck-controls{display:flex; gap:10px; align-items:center;}
-  #fc-counter{font-size:13px; color:var(--ink-soft);}
-
-  /* matching */
-  .match-cols{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-  .match-col h3{font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:10px;}
-  .match{
-    display:block; width:100%; text-align:left; margin-bottom:8px;
-    background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px 12px;
-    font-size:14px; cursor:pointer; font-family:inherit;
-  }
-  .match.selected{border-color:var(--teal); box-shadow:0 0 0 2px rgba(31,111,107,.25);}
-  .match.matched-correct{background:var(--correct-bg); border-color:var(--correct); color:var(--correct); cursor:default;}
-  .match.wrong-flash{background:var(--wrong-bg); border-color:var(--wrong);}
-  .score-pill{display:inline-block; background:var(--gold); color:var(--ink); font-weight:700; border-radius:20px; padding:4px 14px; font-size:13px;}
-
-  /* TFN */
-  .tfn-group{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:12px;}
-  .tfn-group p{margin:0 0 10px; font-size:14.5px;}
-  .tfn-opts{display:flex; gap:8px; flex-wrap:wrap;}
-  .opt{
-    background:#fff; border:1px solid var(--border); border-radius:20px; padding:7px 16px;
-    font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; color:var(--ink-soft);
-  }
-  .opt.correct{background:var(--correct-bg); border-color:var(--correct); color:var(--correct);}
-  .opt.wrong{background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong);}
-
-  .video-embed{position:relative; padding-bottom:56.25%; height:0; border-radius:14px; overflow:hidden; margin-bottom:18px; border:1px solid var(--border);}
-  .video-embed iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0;}
-
-  /* gap fill */
-  .word-bank{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; padding:12px; background:#eaf3f2; border-radius:12px;}
-  .word-bank span{
-    background:#fff; border:1px solid var(--teal); color:var(--teal-dark); border-radius:16px;
-    padding:5px 12px; font-size:13px; cursor:pointer;
-  }
-  .word-bank span.used{opacity:.35; text-decoration:line-through; cursor:default;}
-  .passage{font-size:15px;}
-  .passage p{margin:0 0 14px;}
-  input.gap{
-    border:none; border-bottom:2px solid var(--terracotta); background:transparent;
-    font-family:inherit; font-size:14.5px; padding:2px 4px; min-width:160px; color:var(--ink);
-  }
-  input.gap:focus{outline:none; border-bottom-color:var(--teal);}
-  input.gap.correct{border-bottom-color:var(--correct); background:var(--correct-bg);}
-  input.gap.wrong{border-bottom-color:var(--wrong); background:var(--wrong-bg);}
-
-  /* production */
-  textarea#prodInput{
-    width:100%; min-height:110px; border:1px solid var(--border); border-radius:12px;
-    padding:12px; font-family:inherit; font-size:14.5px; resize:vertical;
-  }
-  .feedback{margin-top:10px; padding:10px 12px; border-radius:10px; font-size:13.5px;}
-  .feedback.good{background:var(--correct-bg); color:var(--correct);}
-  .feedback.needs-review{background:#fdf1de; color:#8a5a10;}
-
-  .summary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-top:10px;}
-  .summary-item{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center;}
-  .summary-item .num{font-family:'Fraunces',serif; font-size:26px; color:var(--terracotta-dark);}
-  .summary-item .label{font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
-
-  .note{font-size:12.5px; color:var(--ink-soft); margin-top:10px;}
-
-  header.angle-header{
-    position:relative; background:var(--teal);
-    color:#ffffff; padding:24px 24px 40px; overflow:hidden; min-height:140px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    display:flex; align-items:center; gap:20px; text-align:left;
-  }
-  header.angle-header .logo-block{flex:0 0 auto; width:84px; display:flex; flex-direction:column; align-items:center;}
-  header.angle-header .logo-block img{display:block; width:100%; height:auto;}
-  header.angle-header .title-block{flex:1 1 auto; min-width:0; align-self:center;}
-  header.angle-header .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--gold); font-weight:700; margin:0 0 6px;}
-  header.angle-header h1{font-size:clamp(20px,3.6vw,30px); font-weight:800; text-transform:uppercase; letter-spacing:.4px; margin:0; color:#fff;}
-  header.angle-header .studio-credit{font-size:.65em; color:#ffffff; opacity:.85; font-weight:400; margin:6px 0 0; text-align:center; white-space:nowrap;}
-  .card h2::before{content:""; display:inline-block; width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:14px solid var(--gold); margin-right:8px;}
-  .card h2{display:flex; align-items:center; text-transform:uppercase; letter-spacing:.4px;}
-
-body{overflow-wrap:break-word;}
 </style>
 </head>
 <body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <p class="eyebrow">ЕГЭ · Video Case · Travel</p>
+      <h1>Why Travelling is Important</h1>
+    </div>
+  </header>
 
-<header class="angle-header">
-  <div class="logo-block">
-    <img class="studio-icon-img" src="img/img1.png" alt="ANGLE">
-    <p class="studio-credit">by Viktoria Syuzyova</p>
+  <div class="scroll-area" id="scrollArea">
+    <div class="wrap">
+
+
+<form id="quizForm">
+
+  <!-- =====================================================================
+       TEMPLATE GUIDE — test_template_angle.html
+       =====================================================================
+       This is the reusable ANGLE-brand test/exercise template (purple #5E4877 /
+       black #2D2926 / yellow #FED500, Apercu Pro font, diagonal header, ANGLE
+       logo + "by Viktoria Syuzyova" credit, floating logo badge).
+
+       This template does NOT prescribe a fixed set of sections or exercise
+       types. The structure (how many sections, in what order, which exercise
+       types) is supplied per exercise, based on the source material.
+
+       HOW TO ADD EXERCISES:
+       1. Wrap each group of questions in a <div class="section"> with an
+          <h2> heading (e.g. "Part 1 — ...").
+       2. Every question is a <div class="item"> with two required attributes:
+            data-answer="..."   the correct answer, matched case-insensitively
+            data-type="mc" | "dd" | "fib"
+          and MUST contain exactly one <p> with the question text (the scorer
+          reads this text for the review log), plus the matching input(s):
+            mc  -> radio buttons: <div class="options"><label><input type="radio" name="..." value="..."> ...</label></div>
+            dd  -> <select name="..."><option value="">-- choose --</option>...</select>
+            fib -> <p class="blank-sentence">...<input type="text" name="...">...</p>
+       3. Give every input/select a unique name attribute across the whole
+          file (mc1, mc2, dd1, fib1 ...) — never reuse a name.
+       4. Update <title>, the <h1> in .title-block, and the
+          fd.append('exercise', '...') line near the bottom of the <script> to
+          match the new exercise name.
+       5. Delete this guide comment block (or leave it, it is invisible on the page).
+       ===================================================================== -->
+
+  <div class="section">
+    <h2>Task 2 &mdash; Match the definition with the word</h2>
+
+    <div class="item" data-type="dd" data-answer="to regret smth">
+      <p>1. To feel sorry about something you have done or have not done.</p>
+      <select name="dd1">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="fulfilling">
+      <p>2. Making you feel happy and satisfied because you are doing interesting, useful, or important things.</p>
+      <select name="dd2">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to handle smth">
+      <p>3. To deal with a situation or problem by behaving in a particular way and making particular decisions.</p>
+      <select name="dd3">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to face a challenge">
+      <p>4. To come across something new and difficult which requires great effort and determination.</p>
+      <select name="dd4">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="diverse">
+      <p>5. Various, mixed, varied.</p>
+      <select name="dd5">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to solve problems">
+      <p>6. To find a solution / solutions to work out a difficulty.</p>
+      <select name="dd6">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="temporarily">
+      <p>7. Lasting only a short time.</p>
+      <select name="dd7">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to deal with issues">
+      <p>8. To give your attention to some matters, often solve problems or make a decision concerning them.</p>
+      <select name="dd8">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to come up with creative solutions">
+      <p>9. To suggest inventive ways of dealing with difficult situations.</p>
+      <select name="dd9">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
+
+    <div class="item" data-type="dd" data-answer="to live in one's own comfort zone">
+      <p>10. To exist / be in an environment that makes you feel secure.</p>
+      <select name="dd10">
+        <option value="">-- choose --</option>
+        <option value="to regret smth">to regret smth</option>
+        <option value="fulfilling">fulfilling</option>
+        <option value="to handle smth">to handle smth</option>
+        <option value="to face a challenge">to face a challenge</option>
+        <option value="diverse">diverse</option>
+        <option value="to solve problems">to solve problems</option>
+        <option value="temporarily">temporarily</option>
+        <option value="to deal with issues">to deal with issues</option>
+        <option value="to come up with creative solutions">to come up with creative solutions</option>
+        <option value="to live in one's own comfort zone">to live in one's own comfort zone</option>
+      </select>
+    </div>
   </div>
-  <div class="title-block">
-    <p class="eyebrow">ЕГЭ · Video Case · Travel</p>
-    <h1>Why Travelling Is Important</h1>
+
+  <div class="section">
+    <h2>Task 3 &mdash; True, False or Not Stated</h2>
+
+    <div class="item" data-type="mc" data-answer="true">
+      <p>1. Going through unique experiences you will have a collection of pleasant memories.</p>
+      <div class="options">
+        <label><input type="radio" name="mc1" value="true"> True</label>
+        <label><input type="radio" name="mc1" value="false"> False</label>
+        <label><input type="radio" name="mc1" value="not stated"> Not Stated</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="not stated">
+      <p>2. During your trips, other travellers and locals will give you advice how to solve your problems.</p>
+      <div class="options">
+        <label><input type="radio" name="mc2" value="true"> True</label>
+        <label><input type="radio" name="mc2" value="false"> False</label>
+        <label><input type="radio" name="mc2" value="not stated"> Not Stated</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="not stated">
+      <p>3. Being out of your comfort zone can help you become healthier.</p>
+      <div class="options">
+        <label><input type="radio" name="mc3" value="true"> True</label>
+        <label><input type="radio" name="mc3" value="false"> False</label>
+        <label><input type="radio" name="mc3" value="not stated"> Not Stated</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="not stated">
+      <p>4. It may be not so scary and challenging to travel if you go on a trip with some other people.</p>
+      <div class="options">
+        <label><input type="radio" name="mc4" value="true"> True</label>
+        <label><input type="radio" name="mc4" value="false"> False</label>
+        <label><input type="radio" name="mc4" value="not stated"> Not Stated</label>
+      </div>
+    </div>
+
+    <div class="item" data-type="mc" data-answer="true">
+      <p>5. It is advisable to choose the kind of travelling to your taste.</p>
+      <div class="options">
+        <label><input type="radio" name="mc5" value="true"> True</label>
+        <label><input type="radio" name="mc5" value="false"> False</label>
+        <label><input type="radio" name="mc5" value="not stated"> Not Stated</label>
+      </div>
+    </div>
   </div>
-</header>
-<div class="wrap" style="padding:14px 20px 0;">
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="section">
+    <h2>Task 4 &mdash; Fill in the gaps</h2>
+
+    <div class="item" data-type="fib" data-answer="fulfilling">
+      <p class="blank-sentence">We all need a break from our everyday life. Going on a vacation is fun and 1) <input type="text" name="fib1"> but you can gain a lot more by actually travelling, exploring and being present at the places you visit.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="benefits">
+      <p class="blank-sentence">Here are some 2) <input type="text" name="fib2"> of travelling.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="bring you more happiness">
+      <p class="blank-sentence">It is better to spend your money on experiences rather than on material things. The memories you collect are like treasures, they will remain forever and will 3) <input type="text" name="fib3"> than some new clothes or other material things.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="unique experiences">
+      <p class="blank-sentence">Think how good you will feel when you're old and you look back to see not only an ordinary routine but also adventures and 4) <input type="text" name="fib4"> you had gone through, and not only when you're old.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="will not regret">
+      <p class="blank-sentence">After a few years from now you can recall how much fun you had and plan your next adventure. In the end, you 5) <input type="text" name="fib5"> the things you've done but the things you didn't do.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="temporarily get away from">
+      <p class="blank-sentence">Travelling is a great opportunity to 6) <input type="text" name="fib6"> your everyday life and look at it from a different point of view.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="live in our comfort zone">
+      <p class="blank-sentence">In our everyday life we are used to doing the same things, meeting the same people, going to the same places. We basically 7) <input type="text" name="fib7">.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="the world is diverse">
+      <p class="blank-sentence">You're exposed to different cultures, you see different landscapes and views, you experience new things. You learn that 8) <input type="text" name="fib8"> and it helps you understand people that are different from you.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="face different challenges">
+      <p class="blank-sentence">Travelling actually makes you smarter; you learn new things all the time. When you travel, you get into unusual situations and 9) <input type="text" name="fib9">.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="out of your comfort zone">
+      <p class="blank-sentence">Travelling helps you to know yourself better. You're 10) <input type="text" name="fib10"> and get to see your behavior in different situations, sometimes even extreme ones.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="experience things">
+      <p class="blank-sentence">You listen to their stories, tell yours, hear various opinions and 11) <input type="text" name="fib11"> together with people.</p>
+    </div>
+
+    <div class="item" data-type="fib" data-answer="learn what is good for you">
+      <p class="blank-sentence">You will get more confident and 12) <input type="text" name="fib12">. Have a nice trip!</p>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
+</form>
+
+<div id="result">
+  <h2>Your score</h2>
+  <div class="score-big" id="scoreDisplay"></div>
+  <p id="scoreMsg"></p>
+  <p class="status-note" id="statusNote"></p>
 </div>
 
-<nav class="tabs">
-  <button class="tab active" onclick="goPage(0)">1 · Warm-up</button>
-  <button class="tab" onclick="goPage(1)">2 · Vocabulary</button>
-  <button class="tab" onclick="goPage(2)">3 · Match</button>
-  <button class="tab" onclick="goPage(3)">4 · Watch</button>
-  <button class="tab" onclick="goPage(4)">5 · Gap-fill</button>
-  <button class="tab" onclick="goPage(5)">6 · Speak Up</button>
-</nav>
-
-<main class="wrap">
-
-  <!-- PAGE 0 : WARM-UP -->
-  <section class="page active" data-page="0">
-    <div class="card">
-      <h2>Before we start</h2>
-      <p class="lead">Think about these questions for a minute — no need to write anything down yet.</p>
-      <ul class="warmup">
-        <li>What was your last trip? Where did you go, and who with?</li>
-        <li>Do you prefer travelling alone or with other people? Why?</li>
-        <li>Can you think of one thing travelling has taught you about yourself?</li>
-      </ul>
     </div>
-    <div class="card">
-      <h2>About the video</h2>
-      <p class="lead">You're going to work with an authentic video called <b>"Why Travelling Is Important."</b> This is the same format used in ЕГЭ video-based speaking/listening cases, so treat it like exam practice: focus on catching key phrases, not just the general idea. First we'll pre-teach the vocabulary, then watch the video and complete the tasks.</p>
-      <button class="btn" onclick="goPage(1)">Start → Vocabulary</button>
-    </div>
-  </section>
-
-  <!-- PAGE 1 : VOCABULARY -->
-  <section class="page" data-page="1">
-    <div class="card">
-      <h2>Task 1 — Study the video vocabulary</h2>
-      <p class="lead">Tap a card to see the full definition and hear it. Ten expressions from the video — you'll need all of them for the tasks ahead.</p>
-      <div class="vocab-grid" id="vocabGrid">
-        <div class="vocab-card" onclick="openPopup('fulfilling')"><b>fulfilling</b><div class="ru">приятный, приносящий удовлетворение</div><span class="pos">adjective</span></div>
-        <div class="vocab-card" onclick="openPopup('to regret smth')"><b>to regret smth</b><div class="ru">сожалеть о чём-либо</div><span class="pos">verb phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('temporarily')"><b>temporarily</b><div class="ru">временно</div><span class="pos">adverb</span></div>
-        <div class="vocab-card" onclick="openPopup('to deal with issues')"><b>to deal with issues</b><div class="ru">решать вопросы/проблемы</div><span class="pos">verb phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('to solve problems')"><b>to solve problems</b><div class="ru">решать проблемы</div><span class="pos">verb phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('to live in one\'s own comfort zone')"><b>to live in your comfort zone</b><div class="ru">жить в своей зоне комфорта</div><span class="pos">phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('diverse')"><b>diverse</b><div class="ru">разнообразный</div><span class="pos">adjective</span></div>
-        <div class="vocab-card" onclick="openPopup('to face a challenge')"><b>to face a challenge</b><div class="ru">столкнуться со сложностью</div><span class="pos">verb phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('to handle smth')"><b>to handle smth</b><div class="ru">справляться с чем-либо</div><span class="pos">verb phrase</span></div>
-        <div class="vocab-card" onclick="openPopup('to come up with creative solutions')"><b>to come up with creative solutions</b><div class="ru">придумывать креативные решения</div><span class="pos">phrase</span></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Flashcard practice</h3>
-      <p class="lead">Translation on the front — try to say the English expression before you flip.</p>
-      <div class="flashcard-wrap">
-        <div class="flip-card" id="flashcard" onclick="flipCard()">
-          <div class="flip-inner">
-            <div class="flip-front" id="fc-front">—</div>
-            <div class="flip-back">
-              <b id="fc-back-word">—</b>
-              <p id="fc-back-def">—</p>
-              <p id="fc-back-example" style="font-style:italic;">—</p>
-            </div>
-          </div>
-        </div>
-        <div class="deck-controls">
-          <button class="btn secondary" onclick="event.stopPropagation(); prevCard();">← Prev</button>
-          <span id="fc-counter">1 / 10</span>
-          <button class="btn secondary" onclick="event.stopPropagation(); nextCard();">Next →</button>
-          <button class="btn ghost" onclick="event.stopPropagation(); shuffleDeck();">🔀 Shuffle</button>
-        </div>
-      </div>
-    </div>
-    <button class="btn" onclick="goPage(2)">Next → Match the expressions</button>
-  </section>
-
-  <!-- PAGE 2 : MATCHING -->
-  <section class="page" data-page="2">
-    <div class="card">
-      <h2>Task 2 — Match the definition to the expression</h2>
-      <p class="lead">Click a definition on the left, then click the expression on the right that matches it. Score: <span class="score-pill" id="matchScorePill">0 / 10</span></p>
-      <div class="match-cols">
-        <div class="match-col">
-          <h3>Definitions</h3>
-          <button class="match" data-id="1">to feel sorry about something you have done or have not done</button>
-          <button class="match" data-id="2">making you feel happy and satisfied because you are doing something interesting or important</button>
-          <button class="match" data-id="3">to give your attention to some matters, often solving problems or making decisions about them</button>
-          <button class="match" data-id="4">to come across something new and difficult which requires great effort and determination</button>
-          <button class="match" data-id="5">various, mixed, varied</button>
-          <button class="match" data-id="6">to find a solution to work out a difficulty</button>
-          <button class="match" data-id="7">lasting only a short time</button>
-          <button class="match" data-id="8">to deal with a situation by behaving and making decisions in a particular way</button>
-          <button class="match" data-id="9">to suggest inventive ways of dealing with difficult situations</button>
-          <button class="match" data-id="10">to exist in an environment that makes you feel secure</button>
-        </div>
-        <div class="match-col">
-          <h3>Expressions</h3>
-          <button class="match" data-id="5">diverse</button>
-          <button class="match" data-id="9">to come up with creative solutions</button>
-          <button class="match" data-id="2">fulfilling</button>
-          <button class="match" data-id="7">temporarily</button>
-          <button class="match" data-id="10">to live in your comfort zone</button>
-          <button class="match" data-id="1">to regret smth</button>
-          <button class="match" data-id="4">to face a challenge</button>
-          <button class="match" data-id="3">to deal with issues</button>
-          <button class="match" data-id="6">to solve problems</button>
-          <button class="match" data-id="8">to handle smth</button>
-        </div>
-      </div>
-      <p class="note">Heads up: "to deal with issues," "to solve problems" and "to handle smth" are close synonyms — in the real Task 2 more than one answer counts for some items. Here each is used once, but any of the three could fit definitions 3, 6 and 8.</p>
-    </div>
-    <button class="btn" onclick="goPage(3)">Next → Watch the video</button>
-  </section>
-
-  <!-- PAGE 3 : WATCH + TFN -->
-  <section class="page" data-page="3">
-    <div class="card">
-      <h2>Watch the video</h2>
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/MyqhDKNig88" title="Why Travelling Is Important" allowfullscreen></iframe>
-      </div>
-      <p class="note"><a href="https://www.youtube.com/watch?v=MyqhDKNig88&amp;t=5s" target="_blank" rel="noopener" style="color:var(--teal-dark); font-weight:600;">▶ Open on YouTube</a> — use this if the embed above doesn't load.</p>
-      <h2>Task 3 — True, False or Not Stated?</h2>
-      <p class="lead">Watch once, then answer. Score: <span class="score-pill" id="tfnScorePill">0 / 5</span></p>
-
-      <div class="tfn-group" data-correct="T">
-        <p>1. Going through unique experiences you will have a collection of pleasant memories.</p>
-        <div class="tfn-opts">
-          <button class="opt" data-val="T">True</button>
-          <button class="opt" data-val="F">False</button>
-          <button class="opt" data-val="NS">Not Stated</button>
-        </div>
-      </div>
-      <div class="tfn-group" data-correct="F">
-        <p>2. During your trips, other travellers and locals will give you advice how to solve your problems.</p>
-        <div class="tfn-opts">
-          <button class="opt" data-val="T">True</button>
-          <button class="opt" data-val="F">False</button>
-          <button class="opt" data-val="NS">Not Stated</button>
-        </div>
-      </div>
-      <div class="tfn-group" data-correct="NS">
-        <p>3. Being out of your comfort zone can help you become healthier.</p>
-        <div class="tfn-opts">
-          <button class="opt" data-val="T">True</button>
-          <button class="opt" data-val="F">False</button>
-          <button class="opt" data-val="NS">Not Stated</button>
-        </div>
-      </div>
-      <div class="tfn-group" data-correct="F">
-        <p>4. It may be not so scary and challenging to travel if you go on a trip with some other people.</p>
-        <div class="tfn-opts">
-          <button class="opt" data-val="T">True</button>
-          <button class="opt" data-val="F">False</button>
-          <button class="opt" data-val="NS">Not Stated</button>
-        </div>
-      </div>
-      <div class="tfn-group" data-correct="T">
-        <p>5. It is advisable to choose the kind of travelling to your taste.</p>
-        <div class="tfn-opts">
-          <button class="opt" data-val="T">True</button>
-          <button class="opt" data-val="F">False</button>
-          <button class="opt" data-val="NS">Not Stated</button>
-        </div>
-      </div>
-    </div>
-    <button class="btn" onclick="goPage(4)">Next → Gap-fill</button>
-  </section>
-
-  <!-- PAGE 4 : GAP FILL -->
-  <section class="page" data-page="4">
-    <div class="card">
-      <h2>Task 4 — Watch again and fill in the gaps</h2>
-      <p class="lead">Use the exact word or phrase from the video. Stuck? Open the word bank and tap a phrase into the gap you last clicked. Score: <span class="score-pill" id="gapScorePill">0 / 12</span></p>
-      <button class="btn ghost" onclick="toggleBank()">📖 Show / hide word bank</button>
-      <div class="word-bank" id="wordBank" hidden>
-        <span onclick="useToken(this)">the world is diverse</span>
-        <span onclick="useToken(this)">fulfilling</span>
-        <span onclick="useToken(this)">benefits</span>
-        <span onclick="useToken(this)">face different challenges</span>
-        <span onclick="useToken(this)">learn what is good for you</span>
-        <span onclick="useToken(this)">temporarily get away from</span>
-        <span onclick="useToken(this)">unique experiences</span>
-        <span onclick="useToken(this)">out of your comfort zone</span>
-        <span onclick="useToken(this)">will not regret</span>
-        <span onclick="useToken(this)">experience things</span>
-        <span onclick="useToken(this)">live in our comfort zone</span>
-        <span onclick="useToken(this)">bring you more happiness</span>
-      </div>
-
-      <div class="passage">
-        <p>We all need a break from our everyday life. Going on a vacation is fun and <input class="gap" id="g1"> but you can gain a lot more by actually travelling, exploring and being present at the places you visit. Here are some <input class="gap" id="g2"> of travelling.</p>
-        <p>It is better to spend your money on experiences rather than on material things. The memories you collect are like treasures, they will remain forever and will <input class="gap" id="g3"> than some new clothes or other material things. Think how good you will feel when you're old and you look back to see not only an ordinary routine but also adventures and <input class="gap" id="g4"> you had gone through. In the end, you <input class="gap" id="g5"> the things you've done but the things you didn't do.</p>
-        <p>Travelling is a great opportunity to <input class="gap" id="g6"> your everyday life and look at it from a different point of view. In our everyday life we are used to doing the same things, meeting the same people, going to the same places. We basically <input class="gap" id="g7">. When you travel, you get out of your bubble, you meet new people. You learn that <input class="gap" id="g8"> and it helps you understand people that are different from you.</p>
-        <p>When you travel, you get into unusual situations and <input class="gap" id="g9">. It makes you push your limits, handle things better and come up with creative solutions. You're <input class="gap" id="g10"> and get to see your behavior in different situations.</p>
-        <p>You listen to their stories, tell yours, hear various opinions and <input class="gap" id="g11"> together with people. You will get more confident and <input class="gap" id="g12">. Have a nice trip!</p>
-      </div>
-
-      <div style="margin-top:14px; display:flex; gap:10px;">
-        <button class="btn" onclick="checkGaps()">✓ Check answers</button>
-        <button class="btn ghost" onclick="revealGaps()">Show answers</button>
-      </div>
-    </div>
-    <button class="btn" onclick="goPage(5)">Next → Speak up</button>
-  </section>
-
-  <!-- PAGE 5 : WRAP UP -->
-  <section class="page" data-page="5">
-    <div class="card">
-      <h2>Speak up</h2>
-      <p class="lead">In 3–5 sentences, explain how travelling can change a person. Try to use at least two expressions from today's lesson (e.g. <i>face a challenge</i>, <i>come up with creative solutions</i>, <i>out of your comfort zone</i>).</p>
-      <textarea id="prodInput" placeholder="Start typing here..."></textarea>
-      <div style="margin-top:10px;">
-        <button class="btn" onclick="checkProduction()">Check my answer</button>
-      </div>
-      <div id="prodFeedback" class="feedback" style="display:none;"></div>
-    </div>
-
-    <div class="card">
-      <h2>Your progress today</h2>
-      <div class="summary-grid">
-        <div class="summary-item"><div class="num" id="sumMatch">0 / 10</div><div class="label">Matching</div></div>
-        <div class="summary-item"><div class="num" id="sumTfn">0 / 5</div><div class="label">True / False / NS</div></div>
-        <div class="summary-item"><div class="num" id="sumGap">0 / 12</div><div class="label">Gap-fill</div></div>
-      </div>
-      <p class="note">Well done — that's the full case worked through: vocabulary, matching, listening comprehension, and dictation. Bring any questions from this lesson to your next session with Viktoria.</p>
-    </div>
-
-    <div class="card">
-      <h2>Send your results to Viktoria</h2>
-      <p class="lead">Optional — this sends your scores and your Speak Up answer straight to your teacher.</p>
-      <input type="text" id="studentName" placeholder="Your name" style="width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-family:inherit; font-size:14.5px; margin-bottom:10px;">
-      <button class="btn" onclick="sendCompletion()">📤 Send to teacher</button>
-      <p id="sendStatus" class="note" style="display:none;"></p>
-    </div>
-  </section>
-
-</main>
-
-<div class="pager wrap">
-  <button class="btn secondary" onclick="prevPage()">← Back</button>
-  <span id="pageIndicator">Page 1 of 6</span>
-  <button class="btn secondary" onclick="nextPage()">Next →</button>
+  </div>
 </div>
 
-<!-- VOCAB POPUP -->
-<div class="popup-overlay" id="popup-overlay" onclick="if(event.target===this) closePopup()">
-  <div class="popup-card">
-    <button class="popup-close" onclick="closePopup()">✕</button>
-    <div id="popup-word">word</div>
-    <div id="popup-pos">pos</div>
-    <div id="popup-ru">ru</div>
-    <div id="popup-def">def</div>
-    <div id="popup-example">"example"</div>
-    <button class="speak-btn" onclick="speakPopup()">🔊 Listen</button>
-  </div>
+<div class="angle-badge">
+<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
 <script>
-  // ---------- data ----------
-  const VOCAB = {
-    "fulfilling": { pos:"adjective", ru:"приятный, приносящий удовлетворение",
-      def:"making you feel happy and satisfied because you are doing something interesting or important",
-      example:"Going on a vacation is fun and fulfilling." },
-    "to regret smth": { pos:"verb phrase", ru:"сожалеть о чём-либо",
-      def:"to feel sorry about something you have done or have not done",
-      example:"In the end, you will not regret the things you've done but the things you didn't do." },
-    "temporarily": { pos:"adverb", ru:"временно",
-      def:"lasting only a short time, not permanently",
-      example:"Travelling is a great opportunity to temporarily get away from your everyday life." },
-    "to deal with issues": { pos:"verb phrase", ru:"решать вопросы/проблемы",
-      def:"to give your attention to some matters, often solving problems or making decisions about them",
-      example:"It's so much easier to deal with issues when you look at them from the outside." },
-    "to solve problems": { pos:"verb phrase", ru:"решать проблемы",
-      def:"to find a solution to work out a difficulty",
-      example:"It's so much easier to deal with issues and solve problems when you look at them from the outside." },
-    "to live in one's own comfort zone": { pos:"phrase", ru:"жить в своей зоне комфорта",
-      def:"to exist in an environment that makes you feel secure",
-      example:"We basically live in our comfort zone." },
-    "diverse": { pos:"adjective", ru:"разнообразный",
-      def:"various, mixed, varied",
-      example:"You learn that the world is diverse." },
-    "to face a challenge": { pos:"verb phrase", ru:"столкнуться со сложностью",
-      def:"to come across something new and difficult which requires great effort and determination",
-      example:"When you travel, you get into unusual situations and face different challenges." },
-    "to handle smth": { pos:"verb phrase", ru:"справляться с чем-либо",
-      def:"to deal with a situation by behaving and making decisions in a particular way",
-      example:"It makes you push your limits, handle things better and come up with creative solutions." },
-    "to come up with creative solutions": { pos:"phrase", ru:"придумывать креативные решения",
-      def:"to suggest inventive ways of dealing with difficult situations",
-      example:"It makes you push your limits, handle things better and come up with creative solutions." }
-  };
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
 
-  const gapAnswers = [
-    ["fulfilling"],
-    ["benefits"],
-    ["bring you more happiness","bring more happiness"],
-    ["unique experiences"],
-    ["will not regret","won't regret","do not regret","don't regret"],
-    ["temporarily get away from"],
-    ["live in our comfort zone","live in your comfort zone","live in one's own comfort zone"],
-    ["the world is diverse"],
-    ["face different challenges"],
-    ["out of your comfort zone","out of our comfort zone"],
-    ["experience things"],
-    ["learn what is good for you"]
-  ];
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
 
-  // ---------- helpers ----------
-  function normalise(s){ return s.trim().toLowerCase().replace(/['"']/g,"").replace(/\s+/g," "); }
-  function fuzzyMatch(value, acceptableList){
-    const v = normalise(value);
-    if(!v) return false;
-    return acceptableList.some(a => v === normalise(a) || v.includes(normalise(a)) || normalise(a).includes(v));
-  }
-  function speak(text, lang, rate){
-    if(!("speechSynthesis" in window)) return;
-    lang = lang || "en-GB"; rate = rate || 0.92;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang; u.rate = rate;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(u);
-  }
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
 
-  // ---------- navigation ----------
-  let currentPage = 0;
-  const totalPages = 6;
-  function goPage(n){
-    currentPage = n;
-    document.querySelectorAll(".page").forEach((p,i)=> p.classList.toggle("active", i===n));
-    document.querySelectorAll(".tab").forEach((t,i)=> t.classList.toggle("active", i===n));
-    document.getElementById("progressFill").style.width = ((n+1)/totalPages*100)+"%";
-    document.getElementById("pageIndicator").textContent = "Page "+(n+1)+" of "+totalPages;
-    window.scrollTo(0,0);
-    if(n===5) updateSummary();
-  }
-  function nextPage(){ if(currentPage < totalPages-1) goPage(currentPage+1); }
-  function prevPage(){ if(currentPage > 0) goPage(currentPage-1); }
-
-  // ---------- vocab popup ----------
-  function openPopup(key){
-    const v = VOCAB[key];
-    document.getElementById("popup-word").textContent = key;
-    document.getElementById("popup-pos").textContent = v.pos;
-    document.getElementById("popup-ru").textContent = v.ru;
-    document.getElementById("popup-def").textContent = v.def;
-    document.getElementById("popup-example").textContent = "“" + v.example + "”";
-    document.getElementById("popup-overlay").dataset.key = key;
-    document.getElementById("popup-overlay").classList.add("open");
-  }
-  function closePopup(){ document.getElementById("popup-overlay").classList.remove("open"); }
-  function speakPopup(){
-    const key = document.getElementById("popup-overlay").dataset.key;
-    if(key && VOCAB[key]) speak(VOCAB[key].example);
-  }
-  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePopup(); });
-
-  // ---------- flashcards ----------
-  const deckKeys = Object.keys(VOCAB);
-  let deckOrder = deckKeys.slice();
-  let cardIdx = 0;
-  function renderCard(){
-    const key = deckOrder[cardIdx];
-    const v = VOCAB[key];
-    document.getElementById("fc-front").textContent = v.ru;
-    document.getElementById("fc-back-word").textContent = key;
-    document.getElementById("fc-back-def").textContent = v.def;
-    document.getElementById("fc-back-example").textContent = "“" + v.example + "”";
-    document.getElementById("fc-counter").textContent = (cardIdx+1)+" / "+deckOrder.length;
-    document.getElementById("flashcard").classList.remove("flipped");
-  }
-  function flipCard(){ document.getElementById("flashcard").classList.toggle("flipped"); }
-  function nextCard(){ cardIdx = (cardIdx+1) % deckOrder.length; renderCard(); }
-  function prevCard(){ cardIdx = (cardIdx-1+deckOrder.length) % deckOrder.length; renderCard(); }
-  function shuffleDeck(){
-    for(let i=deckOrder.length-1;i>0;i--){
-      const j = Math.floor(Math.random()*(i+1));
-      [deckOrder[i],deckOrder[j]] = [deckOrder[j],deckOrder[i]];
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
     }
-    cardIdx = 0; renderCard();
-  }
 
-  // ---------- matching (Task 2) ----------
-  let firstPick = null;
-  let matchScore = 0;
-  const matchTotal = 10;
-  function attachMatch(){
-    document.querySelectorAll('[data-page="2"] .match').forEach(el=>{
-      el.addEventListener("click", ()=>{
-        if(el.classList.contains("matched-correct")) return;
-        if(!firstPick){ firstPick = el; el.classList.add("selected"); return; }
-        if(firstPick === el){ firstPick.classList.remove("selected"); firstPick = null; return; }
-        const isMatch = firstPick.dataset.id === el.dataset.id;
-        if(isMatch){
-          firstPick.classList.remove("selected");
-          firstPick.classList.add("matched-correct");
-          el.classList.add("matched-correct");
-          matchScore++;
-          document.getElementById("matchScorePill").textContent = matchScore+" / "+matchTotal;
-        } else {
-          firstPick.classList.add("wrong-flash");
-          el.classList.add("wrong-flash");
-          const a = firstPick, b = el;
-          setTimeout(()=>{ a.classList.remove("selected","wrong-flash"); b.classList.remove("wrong-flash"); }, 600);
-        }
-        firstPick = null;
-      });
-    });
-  }
+    if(isCorrect) correct++;
 
-  // ---------- True/False/Not Stated (Task 3) ----------
-  let tfnScore = 0;
-  const tfnTotal = 5;
-  function attachTFN(){
-    document.querySelectorAll(".tfn-group .opt").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const group = btn.closest(".tfn-group");
-        if(group.dataset.done) return;
-        group.dataset.done = "1";
-        const correct = group.dataset.correct;
-        group.querySelectorAll(".opt").forEach(o=>{
-          if(o.dataset.val === correct) o.classList.add("correct");
-          else if(o === btn) o.classList.add("wrong");
-        });
-        if(btn.dataset.val === correct){
-          tfnScore++;
-          document.getElementById("tfnScorePill").textContent = tfnScore+" / "+tfnTotal;
-        }
-      });
-    });
-  }
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
 
-  // ---------- gap fill (Task 4) ----------
-  let lastFocusedGap = null;
-  function attachGaps(){
-    document.querySelectorAll(".gap").forEach(inp=>{
-      inp.addEventListener("focus", ()=> lastFocusedGap = inp);
-    });
-  }
-  function toggleBank(){
-    const b = document.getElementById("wordBank");
-    b.hidden = !b.hidden;
-  }
-  function useToken(tokenEl){
-    if(tokenEl.classList.contains("used")) return;
-    if(!lastFocusedGap){ alert("Click into a gap first, then tap a word."); return; }
-    lastFocusedGap.value = tokenEl.textContent.trim();
-    tokenEl.classList.add("used");
-  }
-  function checkGaps(){
-    let score = 0;
-    gapAnswers.forEach((accepted,i)=>{
-      const input = document.getElementById("g"+(i+1));
-      const ok = fuzzyMatch(input.value, accepted);
-      input.classList.toggle("correct", ok);
-      input.classList.toggle("wrong", !ok);
-      if(ok) score++;
-    });
-    document.getElementById("gapScorePill").textContent = score+" / "+gapAnswers.length;
-  }
-  function revealGaps(){
-    gapAnswers.forEach((accepted,i)=>{
-      const input = document.getElementById("g"+(i+1));
-      input.value = accepted[0];
-      input.classList.add("correct");
-      input.classList.remove("wrong");
-    });
-    document.getElementById("gapScorePill").textContent = gapAnswers.length+" / "+gapAnswers.length+" (revealed)";
-  }
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+  });
 
-  // ---------- production check (page 6) ----------
-  function checkProduction(){
-    const val = document.getElementById("prodInput").value;
-    const norm = normalise(val);
-    const usedChunks = Object.keys(VOCAB).filter(k => norm.includes(normalise(k)));
-    const box = document.getElementById("prodFeedback");
-    box.style.display = "block";
-    const wordCount = val.trim().length ? val.trim().split(/\s+/).length : 0;
-    if(wordCount < 15){
-      box.textContent = "Try to write a bit more — aim for at least 3 full sentences.";
-      box.className = "feedback needs-review";
-    } else if(usedChunks.length >= 2){
-      box.textContent = "Nice! You used: " + usedChunks.join(", ") + ". Flagged for your teacher to check the grammar.";
-      box.className = "feedback good";
-    } else {
-      box.textContent = "Good start — try to fit in at least two expressions from today's lesson (e.g. face a challenge, out of your comfort zone).";
-      box.className = "feedback needs-review";
-    }
-  }
+  const pct = Math.round((correct/total)*100);
 
-  // ---------- summary ----------
-  function updateSummary(){
-    document.getElementById("sumMatch").textContent = matchScore+" / "+matchTotal;
-    document.getElementById("sumTfn").textContent = tfnScore+" / "+tfnTotal;
-    document.getElementById("sumGap").textContent = document.getElementById("gapScorePill").textContent;
-  }
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
 
-  // ---------- send completion record to teacher ----------
-  function sendCompletion(){
-    const statusEl = document.getElementById("sendStatus");
-    statusEl.style.display = "block";
-    statusEl.textContent = "Sending…";
-    const name = document.getElementById("studentName").value.trim() || "(no name entered)";
-    const summary = {
-      matching: matchScore + " / " + matchTotal,
-      true_false_not_stated: tfnScore + " / " + tfnTotal,
-      gap_fill: document.getElementById("gapScorePill").textContent,
-      speak_up_answer: document.getElementById("prodInput").value.trim() || "(not answered)"
-    };
-
-    // ---- collect detailed mistakes (auto-graded sections only; speak-up is free-response) ----
-    const mistakes = [];
-
-    document.querySelectorAll('[data-page="2"] .match-col:first-child .match').forEach(function(defBtn){
-      if(!defBtn.classList.contains('matched-correct')){
-        const id = defBtn.dataset.id;
-        const pairBtn = document.querySelector('[data-page="2"] .match-col:last-child .match[data-id="'+id+'"]');
-        mistakes.push('Matching: "' + defBtn.textContent.trim() + '" → answered "(not matched)", correct "' +
-          (pairBtn ? pairBtn.textContent.trim() : '?') + '"');
-      }
-    });
-
-    const TFN_LABEL = { T: 'True', F: 'False', NS: 'Not Stated' };
-    document.querySelectorAll('.tfn-group').forEach(function(g){
-      const correct = g.dataset.correct;
-      const statementText = g.querySelector('p').textContent.trim();
-      const correctLabel = TFN_LABEL[correct] || correct;
-      if(!g.dataset.done){
-        mistakes.push('T/F/NS: "' + statementText + '" → answered "(not answered)", correct "' + correctLabel + '"');
-      } else {
-        const wrongBtn = g.querySelector('.opt.wrong');
-        if(wrongBtn){
-          const chosenLabel = TFN_LABEL[wrongBtn.dataset.val] || wrongBtn.dataset.val;
-          mistakes.push('T/F/NS: "' + statementText + '" → answered "' + chosenLabel + '", correct "' + correctLabel + '"');
-        }
-      }
-    });
-
-    gapAnswers.forEach(function(accepted, i){
-      const input = document.getElementById('g' + (i + 1));
-      const ok = fuzzyMatch(input.value, accepted);
-      if(!ok){
-        mistakes.push('Gap-fill #' + (i + 1) + ' → answered "' + (input.value.trim() || '(blank)') +
-          '", correct "' + accepted[0] + '"');
-      }
-    });
-
-    const mistakesText = mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.';
-
-    const fd = new FormData();
+  // Send to teacher via Formspree
+  const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-  fd.append('course', 'ЕГЭ 2027');
-  fd.append('subject', 'ЕГЭ 2027 — ' + document.title);
-    fd.append("lesson", document.title);
-    fd.append("student", name);
-    fd.append("timestamp", new Date().toISOString());
-    fd.append("matching", summary.matching);
-    fd.append("true_false_not_stated", summary.true_false_not_stated);
-    fd.append("gap_fill", summary.gap_fill);
-    fd.append("mistakes", mistakesText);
-    fd.append("speak_up_answer", summary.speak_up_answer);
-    fd.append("summary_json", JSON.stringify(summary));
+  fd.append('course', 'ЕГЭ — Путешествие');
+  fd.append('subject', 'ЕГЭ — Путешествие — 1_Кейс Видео В1');
+  fd.append('exercise', '1_Кейс ЕГЭ_Путешествие_Видео В1 - Why Travelling is Important');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('details', reviewLines.join('\n'));
 
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Accept": "application/json" },
-      body: fd
-    }).then(res => {
-      if(res.ok){
-        statusEl.textContent = "✓ Sent to your teacher — nice work!";
-        statusEl.style.color = "var(--correct)";
-      } else {
-        statusEl.textContent = "Something went wrong sending this. Try again, or tell Viktoria directly.";
-        statusEl.style.color = "var(--wrong)";
-      }
-    }).catch(()=>{
-      statusEl.textContent = "Couldn't connect. Check your internet connection and try again.";
-      statusEl.style.color = "var(--wrong)";
-    });
-  }
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
 
-  // ---------- init ----------
-  renderCard();
-  attachMatch();
-  attachTFN();
-  attachGaps();
+  const sa = document.getElementById('scrollArea');
+  if(sa) sa.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
 </script>
 
 </body>
