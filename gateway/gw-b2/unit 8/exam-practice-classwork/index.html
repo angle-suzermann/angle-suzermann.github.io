@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gateway B2 · Unit 7-8 — Gateway to Exams (Classwork)</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Gateway to the World B2">
+<meta name="ws:course-id" content="gw-b2">
+<meta name="ws:unit"      content="unit 8">
+<meta name="ws:title"     content="Unit 7-8 — Gateway to Exams (Classwork)">
+<meta name="ws:emoji"     content="🎯">
+<meta name="ws:date"      content="2026-09-20">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xoeaqeyz">
+<meta name="ws:tags"      content="revision, exam practice">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');
+    font-weight:700 900;
+    font-style:normal;
+    font-display:swap;
+  }
+
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); }
+body{ background:var(--black); }
+
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.3; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px 12px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; line-height:1.25; }
+.lesson-sub{ display:block; font-weight:600; color:var(--muted); font-size:.74rem; margin-top:1px; }
+.namebar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.namebar label{ font-size:.8rem; font-weight:700; color:var(--purple-dark); }
+.namebar input{ font-family:inherit; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.86rem; min-width:170px; }
+.namebar input:focus{ outline:none; border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; font-weight:700; }
+.save-indicator.show{ opacity:1; }
+
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:9px; }
+.progress-track{ flex:1 1 auto; height:7px; background:var(--card-tint); border-radius:5px; overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg, var(--purple), var(--yellow)); width:20%; transition:width .3s ease; }
+.progress-label{ font-size:.72rem; font-weight:700; color:var(--muted); white-space:nowrap; }
+
+.page-dots{ display:flex; gap:8px; margin-top:9px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--purple-dark); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:800; cursor:pointer; transition:all .15s ease; flex:0 0 auto; }
+.page-dot:hover{ border-color:var(--purple); }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.done{ background:var(--yellow); border-color:var(--yellow); color:var(--purple-dark); }
+.dot-labels{ display:none; }
+
+.page-wrap{ max-width:900px; margin:0 auto; padding:22px 18px 70px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+
+.card{ background:var(--card); border-radius:14px; padding:22px 22px 20px; margin-bottom:18px; box-shadow:0 6px 24px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); font-size:1.15rem; margin:0 0 4px; }
+.card .ex-meta{ color:var(--muted); font-size:.82rem; font-weight:700; margin-bottom:14px; }
+.card p{ line-height:1.6; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:10px 14px; font-size:.92rem; color:var(--purple-dark); margin-bottom:16px; font-weight:600; }
+.tip-box{ background:#fffbe6; border:1.5px dashed #e3c94a; border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:.88rem; color:#5c4a12; }
+.tip-box b{ color:#8a6d00; }
+
+.reading-text{ background:var(--card-tint); border-radius:10px; padding:16px 18px; font-size:.95rem; line-height:1.7; margin-bottom:18px; max-height:340px; overflow-y:auto; border:1px solid var(--border); }
+.reading-text p{ margin:0 0 12px; }
+.reading-text p:last-child{ margin-bottom:0; }
+.reading-title{ font-weight:800; color:var(--purple); font-size:1.05rem; margin-bottom:10px; display:block; }
+
+.item{ margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+.item:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.item p.q{ font-weight:700; margin:0 0 10px; color:var(--text); }
+.item .qnum{ color:var(--purple); margin-right:6px; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; }
+.mcq .opt{ text-align:left; font-family:inherit; font-size:.92rem; padding:10px 14px; border:1.5px solid var(--border); border-radius:9px; background:#fff; cursor:pointer; transition:all .12s ease; color:var(--text); }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen{ border-width:2px; }
+.mcq .opt.correct{ background:#e8f7ee; border-color:var(--correct); color:var(--correct); font-weight:700; }
+.mcq .opt.wrong{ background:#fbecea; border-color:var(--wrong); color:var(--wrong); font-weight:700; }
+.mcq.tfnm{ flex-direction:row; flex-wrap:wrap; }
+.mcq.tfnm .opt{ flex:1 1 90px; text-align:center; font-weight:700; }
+
+.proof-row{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.proof-btn{ font-family:inherit; font-size:.78rem; font-weight:700; padding:6px 12px; border-radius:16px; border:1.5px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer; }
+.proof-btn.seen{ background:var(--correct); border-color:var(--correct); color:#fff; }
+.script-toggle{ font-family:inherit; font-size:.82rem; font-weight:700; padding:8px 14px; border-radius:18px; border:1.5px solid var(--purple-dark); background:var(--purple-dark); color:#fff; cursor:pointer; }
+.audio-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+audio{ flex:1 1 260px; min-width:220px; }
+
+.script-overlay{ position:fixed; inset:0; background:rgba(20,10,30,.6); z-index:500; display:none; align-items:center; justify-content:center; padding:20px; }
+.script-overlay.open{ display:flex; }
+.script-panel{ background:#fff; border-radius:14px; max-width:640px; width:100%; max-height:80vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+.script-panel-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:2px solid var(--purple); }
+.script-panel-head h3{ margin:0; color:var(--purple); font-size:1rem; }
+.script-panel-head button{ font-family:inherit; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--muted); line-height:1; }
+.script-box-live, .script-box-review{ padding:16px 20px; overflow-y:auto; font-size:.9rem; line-height:1.75; }
+.script-box-live p, .script-box-review p{ margin:0 0 10px; }
+mark.ev{ background:transparent; padding:1px 2px; border-radius:3px; transition:all .2s ease; }
+mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
+.script-speaker{ font-weight:800; color:var(--purple-dark); }
+.script-hl{ background:var(--yellow); padding:1px 3px; border-radius:3px; }
+.script-hl-grey{ background:#e2dbea; padding:1px 3px; border-radius:3px; }
+.script-turn{ font-weight:800; color:var(--purple); margin-right:4px; }
+.script-ex-tag{ display:inline-block; font-size:.68rem; font-weight:800; color:#fff; background:var(--purple); border-radius:10px; padding:1px 8px; margin-left:6px; vertical-align:middle; }
+
+.speak-prompt{ background:var(--card-tint); border-radius:10px; padding:16px 18px; font-size:.98rem; line-height:1.6; margin-bottom:14px; }
+textarea.notes{ width:100%; min-height:90px; font-family:inherit; font-size:.9rem; padding:10px 12px; border:1.5px solid var(--border); border-radius:9px; resize:vertical; }
+textarea.notes:focus{ outline:none; border-color:var(--purple); }
+
+.nav-btns{ display:flex; justify-content:space-between; gap:10px; margin-top:6px; }
+.nav-btns button{ font-family:inherit; font-weight:800; font-size:.88rem; padding:11px 22px; border-radius:24px; border:none; cursor:pointer; }
+.btn-back{ background:#fff; color:var(--purple); border:1.5px solid var(--purple) !important; }
+.btn-next{ background:var(--purple); color:#fff; margin-left:auto; }
+.btn-submit{ background:var(--yellow); color:var(--black); margin-left:auto; font-size:.95rem; }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+#scoreSummary{ font-size:1.15rem; text-align:center; margin-bottom:6px; }
+.score-big{ text-align:center; font-size:2.4rem; font-weight:900; color:var(--purple); margin:6px 0 2px; }
+.breakdown-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; font-size:.85rem; margin-top:14px; }
+.breakdown-box b{ color:var(--purple-dark); }
+.breakdown-box ul{ margin:8px 0 0; padding-left:20px; }
+.breakdown-box li{ margin-bottom:5px; }
+#submitStatus{ text-align:center; font-size:.85rem; color:var(--muted); margin-top:8px; font-weight:700; }
+.review-transcript{ margin-top:20px; }
+.review-transcript h3{ color:var(--purple); font-size:.95rem; }
+
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+
+.angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; filter:drop-shadow(0 0 0 transparent); }
+.angle-badge .wordmark path{ stroke:var(--purple-dark); stroke-width:14; paint-order:stroke; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; text-shadow:0 1px 2px rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.3); }
+
+@media (max-width:520px){
+  .lesson-title{ font-size:.9rem; }
+  .card{ padding:16px 15px 14px; }
+  .page-wrap{ padding:16px 12px 60px; }
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo" id="bgPhoto"></div>
+  <div class="bg-wash"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <span class="lesson-title">Gateway to Exams: Units 7–8
+          <span class="lesson-sub">Gateway B2 · Unit 8 · CLASSWORK</span>
+        </span>
+        <div class="namebar">
+          <label for="studentName">Name:</label>
+          <input type="text" id="studentName" placeholder="Your full name">
+          <span class="save-indicator" id="saveIndicator"></span>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">Page 1 / 4</span>
+      </div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+  </header>
+
+  <div class="scroll-area" id="scrollArea">
+    <div class="page-wrap">
+
+      <!-- PAGE 0: WARM-UP -->
+      <section class="page active" data-page="0">
+        <div class="restore-note" id="restoreNote" hidden>
+          <span id="restoreNoteText"></span>
+          <button onclick="clearProgress()">Start over (clear saved answers)</button>
+        </div>
+        <div class="card">
+          <h2>Warm-up</h2>
+          <p class="ex-meta">Speaking · in pairs</p>
+          <div class="speak-prompt">
+            <b>Work with a partner.</b> Would you ever go on holiday to an area where a natural disaster was happening? Why / why not?
+          </div>
+          <textarea class="notes" placeholder="Jot down a few notes from your discussion (not graded)..."></textarea>
+          <div class="nav-btns">
+            <button class="btn-next" onclick="nextPage()">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 1: READING -->
+      <section class="page" data-page="1">
+        <div class="card">
+          <h2>Reading</h2>
+          <p class="ex-meta">Student's Book p.108</p>
+          <div class="tip-box"><b>Tip for reading exams:</b> in multiple-choice activities, if you aren't 100% sure which answer is best, take away any answers which you know are not correct.</div>
+          <div class="instructions">Read the text and choose the best answer, a, b or c.</div>
+          <div class="reading-text">
+            <span class="reading-title">OUR TRIP OF A LIFETIME</span>
+            <p>In the early hours of the morning of the 21st March I was woken by a text message from Iceland – an eruption had occurred close to the Eyjafjallajökull glacier.</p>
+            <p>I knew this could cause serious disruption for some school groups and individual travellers either in Iceland or about to leave, so the rest of the night was spent trying to find out the extent of the eruption. By 9 o'clock on Sunday morning our team was in the office, making sure everyone travelling with us in Iceland and those who were about to travel were fully briefed on the situation. Luckily, by midday it was established the eruption was located on a small deserted pass between two glaciers and there was no danger outside the immediate area. Roads were then reopened, flights were allowed to leave – our website was updated and our team was free to enjoy what was left of the weekend!</p>
+            <p>On the Monday we contacted all those on our Volcano Hotline and started making travel plans for those wanting to see the eruption. The first passenger left that evening. As the week went on we found there was a great deal of interest in going to see the eruption – one of nature's most impressive spectacles – something Iceland has more than its fair share of!</p>
+            <p>Ten days later I found myself on a plane bound for Keflavik with two of my children Ben (16) and Gemma (13) – we had also been bitten by the volcano bug. After a comfortable night in the Northern Light Inn we had a relaxing dip in the famous Blue Lagoon. The weather was a little chilly but wonderfully bright and we took the seldom travelled southern route along the Reykjanes Peninsula – which I would really recommend. By mid afternoon we arrived at my favourite hotel in Iceland – the ranch-style Hotel Ranga. It is from here that our visits to the volcano would start the next day. That night in the restaurant we enjoyed some wonderful food with more views of the eruption, which as darkness fell became even more spectacular.</p>
+            <p>Just after lunch the next day we took one of the helicopters based at the hotel for the most amazing flight I have ever experienced in my life. We flew over spectacular plains, followed the edge of the glaciers and finally came to the site of the eruption we had come to see. It certainly did not disappoint and we landed on a hill close by the volcano and stood in awe as the volcano belched fire and ash high in the day! A few hours later we boarded a Superjeep – which was to take us in comfort over the glacier to approach the volcano from the ground. Driving Superjeeps is an Icelandic art and our driver, Ragnar, was both skilled and great company.</p>
+            <p>All too soon it was time to go and the helicopter returned to collect us.</p>
+          </div>
+
+          <div class="item">
+            <p class="q"><span class="qnum">1.</span>Because of the start of the eruption …</p>
+            <div class="mcq" data-correct="b">
+              <button class="opt" data-val="a">all current trips to Iceland were disrupted.</button>
+              <button class="opt" data-val="b">the writer and his team had to explain to their customers what was happening.</button>
+              <button class="opt" data-val="c">the team told people not to go to Iceland.</button>
+            </div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">2.</span>The writer's company …</p>
+            <div class="mcq" data-correct="a">
+              <button class="opt" data-val="a">quickly organised trips to see the eruption.</button>
+              <button class="opt" data-val="b">didn't think people would be interested in trips to see the volcano.</button>
+              <button class="opt" data-val="c">had information about previous volcano visitors.</button>
+            </div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">3.</span>The writer went to Iceland …</p>
+            <div class="mcq" data-correct="a">
+              <button class="opt" data-val="a">out of curiosity.</button>
+              <button class="opt" data-val="b">because of his work.</button>
+              <button class="opt" data-val="c">to be with his children.</button>
+            </div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">4.</span>For the writer the helicopter flight was …</p>
+            <div class="mcq" data-correct="b">
+              <button class="opt" data-val="a">very frightening.</button>
+              <button class="opt" data-val="b">a once-in-a-lifetime experience.</button>
+              <button class="opt" data-val="c">disappointing.</button>
+            </div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">5.</span>After arriving at the volcano by helicopter, the writer and his children …</p>
+            <div class="mcq" data-correct="b">
+              <button class="opt" data-val="a">left almost immediately.</button>
+              <button class="opt" data-val="b">wanted to stay longer.</button>
+              <button class="opt" data-val="c">couldn't move because they were so amazed.</button>
+            </div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">6.</span>The Superjeep …</p>
+            <div class="mcq" data-correct="c">
+              <button class="opt" data-val="a">was something the writer didn't know about.</button>
+              <button class="opt" data-val="b">requires a very skilful driver.</button>
+              <button class="opt" data-val="c">was chosen because it was so comfortable.</button>
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn-back" onclick="prevPage()">← Back</button>
+            <button class="btn-next" onclick="nextPage()">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 2: LISTENING -->
+      <section class="page" data-page="2">
+        <div class="card">
+          <h2>Listening</h2>
+          <p class="ex-meta">Student's Book p.109 · Track 43</p>
+          <div class="tip-box"><b>Tip for listening exams:</b> in True/False/Not Mentioned activities, you can usually hear the recording twice. If you don't hear the answer to one question, start listening immediately for the next one. Use the second listening to find answers you missed and check the ones you already have.</div>
+          <div class="instructions">Listen to two people talking about different rescue services in the US. Are these statements True (T), False (F), or is the information Not Mentioned (NM)?</div>
+          <div class="audio-row">
+            <audio controls src="audio/listening-rescue-services.mp3"></audio>
+            <button class="script-toggle" onclick="openScript('live')">📄 Show/hide full transcript</button>
+          </div>
+
+          <div class="item">
+            <p class="q"><span class="qnum">1.</span>One service is offering evacuation from areas hit by hurricanes by luxury helicopter.</p>
+            <div class="mcq tfnm" data-correct="F">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev1', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">2.</span>The same service offers luxury vacations throughout the year.</p>
+            <div class="mcq tfnm" data-correct="NM">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev2', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">3.</span>The creator of this service got the idea when he couldn't find a seat on a normal plane.</p>
+            <div class="mcq tfnm" data-correct="T">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev3', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">4.</span>The people who are likely to use this service usually book flights on normal planes.</p>
+            <div class="mcq tfnm" data-correct="NM">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev4', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">5.</span>The service is only for members.</p>
+            <div class="mcq tfnm" data-correct="T">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev5', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">6.</span>You can pay for a service that can protect your house from forest fires.</p>
+            <div class="mcq tfnm" data-correct="T">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev6', this)">🔍 Show proof in transcript</button></div>
+          </div>
+          <div class="item">
+            <p class="q"><span class="qnum">7.</span>One company they talk about runs your business while you escape a hurricane.</p>
+            <div class="mcq tfnm" data-correct="F">
+              <button class="opt" data-val="T">T</button><button class="opt" data-val="F">F</button><button class="opt" data-val="NM">NM</button>
+            </div>
+            <div class="proof-row"><button class="proof-btn" onclick="showProofLive('ev7', this)">🔍 Show proof in transcript</button></div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn-back" onclick="prevPage()">← Back</button>
+            <button class="btn-next" onclick="nextPage()">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 3: FINISH -->
+      <section class="page" data-page="3">
+        <div class="card">
+          <h2>Finish</h2>
+          <p class="ex-meta">Check your answers and send them to your teacher</p>
+          <p>Made sure your name is filled in at the top? Click below to check your reading and listening answers.</p>
+          <div class="nav-btns" style="margin-bottom:10px;">
+            <button class="btn-back" onclick="prevPage()">← Back</button>
+            <button class="btn-submit" onclick="submitAll()">Check &amp; Submit ✓</button>
+          </div>
+          <div id="submitStatus"></div>
+
+          <div class="results-panel" id="resultsPanel">
+            <div class="score-big" id="resultsPercent"></div>
+            <div id="scoreSummary"></div>
+            <div class="completion-stickers" id="completionStickers">
+              <img class="completion-sticker" data-tier="eggcellent-a" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="amazing_work" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="i_love_it" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="too_cool-a" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="too_cool-b" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="vzhukh" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="fire" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="" hidden alt="">
+              <img class="completion-sticker" data-tier="good_vibes" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="" hidden alt="">
+            </div>
+            <p id="resultCaption" class="result-caption"></p>
+            <div class="breakdown-box" id="resultsBreakdown"></div>
+
+            <div class="review-transcript">
+              <h3>📄 Full listening review (Track 43 — Rescue services in the US)</h3>
+              <button class="script-toggle" onclick="openScript('review')">Open full transcript with all answers highlighted</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Live (non-spoiling) transcript overlay -->
+<div class="script-overlay" id="scriptOverlayLive">
+  <div class="script-panel">
+    <div class="script-panel-head"><h3>📄 Transcript — Track 43</h3><button onclick="closeScript('live')">✕</button></div>
+    <div class="script-box-live" id="scriptBoxLive"></div>
+  </div>
+</div>
+<!-- Review transcript overlay -->
+<div class="script-overlay" id="scriptOverlayReview">
+  <div class="script-panel">
+    <div class="script-panel-head"><h3>📄 Full transcript review — Track 43</h3><button onclick="closeScript('review')">✕</button></div>
+    <div class="script-box-review" id="scriptBoxReview"></div>
+  </div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+const STICKER_DATA = {
+  "amazing_work": "img/sticker-amazing-work.png",
+  "awesome": "img/sticker-awesome.png",
+  "awesome_is_banned": "img/sticker-awesome-is-banned.png",
+  "eggcellent-a": "img/sticker-eggcellent-a.png",
+  "eggcellent-b": "img/sticker-eggcellent-b.png",
+  "excellent": "img/sticker-excellent.png",
+  "fire": "img/sticker-fire.png",
+  "good_job": "img/sticker-good-job.png",
+  "good_vibes": "img/sticker-good-vibes.png",
+  "great_work": "img/sticker-great-work.png",
+  "i_love_it": "img/sticker-i-love-it.png",
+  "keep_going": "img/sticker-keep-going.png",
+  "nice": "img/sticker-nice.png",
+  "not_bad": "img/sticker-not-bad.png",
+  "perfect": "img/sticker-perfect.png",
+  "plain": "img/sticker-plain.png",
+  "strawberry-a": "img/sticker-strawberry-a.png",
+  "strawberry-b": "img/sticker-strawberry-b.png",
+  "strawberry-full": "img/sticker-strawberry-full.png",
+  "too_cool-a": "img/sticker-too-cool-a.png",
+  "too_cool-b": "img/sticker-too-cool-b.png",
+  "vzhukh": "img/sticker-vzhukh.png",
+  "you_tried": "img/sticker-you-tried.png",
+};
+
+</script>
+<script>
+/* ================= Sticker tier logic ================= */
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
+    img.hidden = !show;
+    if(show && STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier];
+  });
+  const capEl = document.getElementById('resultCaption');
+  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
+/* ================= Pagination ================= */
+const PAGE_LABELS = ["Warm-up","Reading","Listening","Finish"];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length} — ${PAGE_LABELS[current]}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= MCQ / TFNM ================= */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','chosen'));
+  btn.classList.add('chosen');
+  if (btn.dataset.val === correct){ btn.classList.add('correct'); }
+  else {
+    btn.classList.add('wrong');
+    const correctBtn = group.querySelector(`.opt[data-val="${correct}"]`);
+    if (correctBtn) correctBtn.classList.add('correct');
+  }
+}
+document.querySelectorAll('.mcq .opt').forEach(btn=>{
+  btn.onclick = ()=> { highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+});
+
+/* ================= Live transcript viewer ================= */
+const SCRIPT_HTML_LIVE = `
+<p><span class="script-turn">Girl 1:</span> Hey, look at this website.</p>
+<p><span class="script-turn">Girl 2:</span> Let's see. What is it?</p>
+<p><span class="script-turn">Girl 1:</span> Well, I'm doing this project for school about natural disasters and I've got to do something about hurricanes. But I've just found this website for a company that helps you to escape them – hurricanes, that is.</p>
+<p><span class="script-turn">Girl 2:</span> How? By helicopter or what?</p>
+<p><span class="script-turn">Girl 1:</span> Yes, you'd expect it to be a helicopter, wouldn't you? But it says there that they 'evacuate you in style'. <mark class="ev" id="ev-ev1">It's basically a private jet company.</mark></p>
+<p><span class="script-turn">Girl 2:</span> That must be expensive.</p>
+<p><span class="script-turn">Girl 1:</span> It doesn't say, but, yeah, <mark class="ev" id="ev-ev-cost">it must be really expensive</mark>. The only good thing is that it says you can take small pets on the jet for free. It says that not only <mark class="ev" id="ev-ev1b">can you hire a plane</mark> to get out of the hurricane zone, they can also reserve five-star hotels for you, including transfer to the hotel by limousine!</p>
+<p><span class="script-turn">Girl 2:</span> Are you sure? It sounds more like the holiday of a lifetime than a rescue mission.</p>
+<p><span class="script-turn">Girl 1:</span> Hmm. Well, that's exactly what their slogan is: 'Turn a disaster into a vacation'. <mark class="ev" id="ev-ev2-note">(No mention here of vacations offered all year round.)</mark></p>
+<p><span class="script-turn">Girl 2:</span> So, let's see if I understand. You live in a place like Florida where they often have hurricanes. You know a hurricane is on its way. Couldn't you just book a normal flight to get away? That'd be much cheaper.</p>
+<p><span class="script-turn">Girl 1:</span> Yes, but that's what happened to the man who started this company. <mark class="ev" id="ev-ev3">The storm was on its way and he started to look for standard commercial flights out of the area for him and his family and they were all fully booked.</mark> So they got into their car and started driving, but the roads were blocked with so many people trying to get away that they just gave up and headed back. That's when he got the idea.</p>
+<p><span class="script-turn">Girl 2:</span> But it's not really fair, is it? It's OK if you're rich, but otherwise …</p>
+<p><span class="script-turn">Girl 1:</span> I suppose if those people have got enough money to take a private luxury flight it'll probably leave more free spaces on normal flights. <mark class="ev" id="ev-ev4-note">(Nothing here says what kind of flights typical users normally book.)</mark> Hmm. It doesn't actually give prices, but it does say <mark class="ev" id="ev-ev5">you have to pay a membership fee each year</mark> and then you have to pay for the flight separately. But the director of the company says he's sure that lots of people are going to pay to join.</p>
+<p><span class="script-turn">Girl 2:</span> Yeah, I'm sure that some people have got enough money for that. I read recently that when there were those forest fires in California, while most houses were completely destroyed one or two were still in perfect condition. <mark class="ev" id="ev-ev6">The owners had enough money to pay a company to cover their houses in a special spray that slowed down the effects of the fire, and then the company sent special mobile units to put the fire out round the house.</mark></p>
+<p><span class="script-turn">Girl 1:</span> Look. Now I've found another hurricane company. <mark class="ev" id="ev-ev7">They promise to supply you with generator-produced electricity and fuel after a storm hits. So that if you have a business, you can keep it running despite the storm.</mark> Or another one that helps you to prepare an evacuation by boarding up all the windows of your house, emptying the fridge and doing anything else you need.</p>
+<p><span class="script-turn">Girl 2:</span> So, is it offering a brilliant service or is it just making money from death and destruction?</p>
+<p><span class="script-turn">Girl 1:</span> I don't know, but it does prove one thing.</p>
+<p><span class="script-turn">Girl 2:</span> What?</p>
+<p><span class="script-turn">Girl 1:</span> You can find anything on the Internet these days if you look hard enough.</p>
+`;
+function openScript(which){
+  const overlay = document.getElementById(which==='live' ? 'scriptOverlayLive' : 'scriptOverlayReview');
+  overlay.classList.add('open');
+  if(which==='live'){
+    const box = document.getElementById('scriptBoxLive');
+    if(!box.innerHTML.trim()) box.innerHTML = SCRIPT_HTML_LIVE;
+  } else {
+    const box = document.getElementById('scriptBoxReview');
+    if(!box.innerHTML.trim()) box.innerHTML = buildReviewHtml();
+  }
+}
+function closeScript(which){
+  document.getElementById(which==='live' ? 'scriptOverlayLive' : 'scriptOverlayReview').classList.remove('open');
+}
+function showProofLive(evId, btn){
+  openScript('live');
+  document.querySelectorAll('#scriptBoxLive mark.ev.lit').forEach(m=>m.classList.remove('lit'));
+  const target = document.getElementById('ev-'+evId);
+  if(target){
+    target.classList.add('lit');
+    target.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  btn.textContent = '🔍 Proof shown ✓';
+  btn.classList.add('seen');
+}
+function buildReviewHtml(){
+  return `
+  <p><b>1. F</b> — <span class="script-hl">"It's basically a private jet company... you hire a plane..."</span> (not a helicopter)</p>
+  <p><b>2. NM</b> — <span class="script-hl-grey">the slogan "Turn a disaster into a vacation" is mentioned, but year-round luxury vacations are never confirmed</span></p>
+  <p><b>3. T</b> — <span class="script-hl">"The storm was on its way and he started to look for standard commercial flights... they were all fully booked."</span></p>
+  <p><b>4. NM</b> — <span class="script-hl-grey">what "normal" users book isn't stated anywhere in the conversation</span></p>
+  <p><b>5. T</b> — <span class="script-hl">"you have to pay a membership fee each year"</span></p>
+  <p><b>6. T</b> — <span class="script-hl">"The owners had enough money to pay a company to cover their houses in a special spray... sent special mobile units to put the fire out round the house."</span></p>
+  <p><b>7. F</b> — <span class="script-hl">"They promise to supply you with generator-produced electricity and fuel... so that if you have a business, you can keep it running despite the storm."</span> (supplies power — doesn't run the business for you)</p>
+  `;
+}
+
+/* ================= Scoring & submission ================= */
+const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
+const COURSE_NAME = "Gateway B2 (2nd ed.)";
+
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){ return qOrig.textContent.replace(/\s+/g,' ').trim().slice(0,90); }
+  }
+  return '';
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total}`;
+  document.getElementById('resultsBreakdown').innerHTML = wrongList.length
+    ? `<b>Items to review:</b><ul>${wrongList.map(w=>`<li>${w}</li>`).join('')}</ul>`
+    : `<b>All auto-checked items correct — well done!</b>`;
+  document.getElementById('resultsPanel').classList.add('show');
+  renderResultSticker(pct);
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth', block:'start'});
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('subject', COURSE_NAME + ' — ' + document.title);
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+}
+
+/* ================= Progress persistence ================= */
+const PROGRESS_KEY = 'angle_progress::gwb2-u8-gateway-to-exams-classwork';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn){ highlightMcq(g, btn); }
+  });
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const hasContent = state.mcq?.some(v=>v!=null) || state.textareas?.some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, #studentName')) scheduleSave(); });
+
+/* ================= Init ================= */
+buildDots();
+showPage(0);
+restoreProgress();
+</script>
+</body>
+</html>
