@@ -1,19 +1,31 @@
-﻿<title>Unit 4 — Review and Extension (Homework)</title>
+<title>Unit 4 — Review and Extension (Homework)</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="Empower B1+">
 <meta name="ws:course-id" content="empower-b1">
 <meta name="ws:unit"      content="4">
 <meta name="ws:title"     content="Unit 4 — Review and Extension (Homework)">
 <meta name="ws:emoji"     content="📋">
-<meta name="ws:date"      content="2026-09-05">
+<meta name="ws:date"      content="2026-09-21">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mjgnlwdp">
 <meta name="ws:tags"      content="review, revision, unit 4">
-<meta name="robots"       content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  
-  
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url(/assets/fonts/apercu-pro-400.woff2) format('woff2');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url(/assets/fonts/apercu-pro-700.woff2) format('woff2');
+    font-weight:700 900;
+    font-style:normal;
+    font-display:swap;
+  }
 
 
 :root{
@@ -33,15 +45,11 @@ p{margin:0 0 .8em;}
 button{font-family:inherit;}
 
 /* background photo + wash */
-/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; }
-.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
-.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; }
-.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
 /* topbar */
-.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px 12px; }
 .brand-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
 .lesson-title{ font-weight:700; color:var(--purple); font-size:1.05rem; }
@@ -120,6 +128,51 @@ audio{ width:100%; margin:10px 0; }
 .play-row{ display:flex; align-items:center; gap:10px; margin:10px 0; flex-wrap:wrap; }
 .tag{ display:inline-block; background:var(--purple); color:#fff; font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:12px; letter-spacing:.03em; }
 
+/* collapsible audioscript */
+details.script-drop{ margin:8px 0 14px; border:2px solid var(--border); border-radius:10px; background:var(--card-tint); overflow:hidden; }
+details.script-drop summary{ cursor:pointer; list-style:none; padding:11px 16px; font-weight:700; color:var(--purple); font-size:.9rem; min-height:44px; display:flex; align-items:center; gap:8px; -webkit-tap-highlight-color:transparent; }
+details.script-drop summary::-webkit-details-marker{ display:none; }
+details.script-drop summary::before{ content:'▸'; font-size:.8rem; transition:transform .2s ease; }
+details.script-drop[open] summary::before{ transform:rotate(90deg); }
+details.script-drop .script-body{ padding:2px 16px 14px; font-size:.92rem; color:var(--text); border-top:1px solid var(--border); }
+details.script-drop .script-body p{ margin:.6em 0; }
+details.script-drop .script-body b{ color:var(--purple); }
+
+/* search-in-script (find where the script confirms an answer) */
+.script-search{ padding:10px 16px 0; border-top:1px solid var(--border); }
+.script-search-row{ display:flex; align-items:center; gap:8px; }
+.script-search-input{ flex:1; border:2px solid var(--border); border-radius:8px; padding:9px 12px; font-size:.9rem; font-family:inherit; min-height:40px; }
+.script-search-input:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+.script-search-count{ display:block; margin:5px 0 2px; font-size:.78rem; color:var(--muted); min-height:1.1em; }
+mark.script-hit{ background:var(--yellow); color:var(--black); padding:0 2px; border-radius:3px; }
+
+/* evidence-highlighting (standard ANGLE pattern for listening exercises):
+   1) live, non-spoiler modal script viewer + per-question "show proof" buttons
+   2) a separate, fully-revealed evidence review (used on a final/review screen) */
+.script-toggle{ display:inline-flex; align-items:center; gap:6px; font-weight:700; padding:8px 14px; border-radius:20px; border:1.5px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer; font-size:.85rem; min-height:40px; margin:4px 0 0; }
+.proof-btn-wrap{ margin:-8px 0 16px; }
+.proof-btn{ font-weight:700; padding:6px 12px; border-radius:16px; border:1.5px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer; font-size:.8rem; display:inline-flex; align-items:center; gap:5px; min-height:36px; }
+.proof-btn.seen{ background:var(--correct); border-color:var(--correct); color:#fff; }
+
+.script-overlay{ position:fixed; inset:0; background:rgba(20,10,30,.6); z-index:500; display:none; align-items:center; justify-content:center; padding:20px; }
+.script-overlay.open{ display:flex; }
+.script-panel{ background:#fff; border-radius:14px; max-width:640px; width:100%; max-height:80vh; display:flex; flex-direction:column; }
+.script-panel-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); flex:0 0 auto; }
+.script-panel-head h3{ margin:0; font-size:1rem; color:var(--purple); }
+.script-close{ border:none; background:none; font-size:1.4rem; line-height:1; cursor:pointer; color:var(--muted); padding:6px 10px; border-radius:8px; min-width:40px; min-height:40px; }
+.script-close:hover{ background:var(--card-tint); }
+.script-box-live{ padding:16px 20px; overflow-y:auto; font-size:.9rem; line-height:1.75; }
+.script-box-live p{ margin:.7em 0; }
+mark.ev{ background:transparent; padding:1px 2px; border-radius:3px; transition:all .2s ease; }
+mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
+
+/* full evidence review (final screen): everything pre-highlighted */
+.review-block{ margin:0 0 16px; padding:12px 14px; border:2px solid var(--border); border-radius:10px; background:var(--card-tint); }
+.review-block .q-label{ font-weight:700; color:var(--purple); display:block; margin-bottom:4px; }
+.review-block .verdict{ font-weight:700; display:block; margin-top:6px; }
+.script-hl{ background:var(--yellow); padding:1px 3px; border-radius:3px; }
+.script-hl-grey{ background:#e2dbea; color:var(--muted); padding:1px 3px; border-radius:3px; }
+
 .tick-row{ display:flex; gap:18px; align-items:center; margin-top:8px; font-size:.9rem; flex-wrap:wrap; }
 .tick-row label{ display:flex; align-items:center; gap:6px; cursor:pointer; }
 .tick-row input[type=checkbox]{ width:20px; height:20px; }
@@ -155,7 +208,6 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
 
 </style>
 
-<div class="app-shell">
 <div class="bg-photo" style="background-image:url('img/bg-photo.jpg');"></div>
 <div class="bg-wash"></div>
 
@@ -167,7 +219,7 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">Page 1 / 5</span>
+      <span class="progress-label" id="progressLabel">Page 1 / 6</span>
     </div>
     <div class="page-dots" id="pageDots"></div>
     <div class="autosave-row">
@@ -177,74 +229,114 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   </div>
 </header>
 
-<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
 <section class="page active" data-page="0">
   <div class="card">
     <h2>Reading and listening extension: a book review</h2>
-    <p class="lead">Read the beginning of a book review, then answer the questions.</p>
+    <p class="lead">Read the book review, then answer the questions.</p>
     <div class="advert-card formal">
       <p><b>BOOK REVIEWS<br>THE ANTIDOTE: HAPPINESS FOR PEOPLE WHO CAN'T STAND POSITIVE THINKING by Oliver Burkeman</b></p>
       <p>Is your life disappointing? Does that make you feel depressed? If you answered yes to those two questions, what can you do to find happiness? The answers to these questions can be worth their weight in gold — last year, people spent almost $11 billion on self-help books. These books promise to make us more confident, more sociable and more successful. They tell us that all we really need to find love and achieve our goals is a positive attitude.</p>
-      <p>If you are amused by promises like these, then Oliver Burkeman's book <i>The Antidote</i> might just be for you. Burkeman has travelled the world in search of happiness and he has found it in some very unusual places. For example, he meets poor people in Africa who seem to be happier than some wealthy people he knows in London. For Burkeman, this shows us that people who do not own very much cannot worry about losing it. In other words, having a lot of things can add a lot of stress to our lives. Of course, he is not saying that poor people in Africa have an easy life. Instead, Burkeman uses this example to talk about 'negative paths.' A negative path is important for a satisfying life. He suggests that we need to remind ourselves that bad things happen and that we should learn to live with them.</p>
+      <p>If you are amused by promises like these, then Oliver Burkeman's book <i>The Antidote</i> might just be for you. Burkeman has travelled the world in search of happiness and he has found it in some very unusual places. For example, he meets poor people in Africa who seem to be happier than some wealthy people he knows in London. For Burkeman, this shows us that people who do not own very much cannot worry about losing it. In other words, having a lot of things can add a lot of stress to our lives. Of course, he is not saying that poor people in Africa have an easy life. Instead, Burkeman uses this example to talk about 'negative paths.'</p>
+      <p>A negative path is important for a satisfying life. He suggests that we need to remind ourselves that bad things happen and that we should learn to live with them. True happiness — if it exists — must include both positive and negative experiences. A complete life should be one that knows hate as well as love and illness as well as health.</p>
+      <p>In my favourite part of the book, Burkeman takes us to a small village in Mexico on the Day of the Dead. The Day of the Dead is a festival that celebrates everyone who has died. However, it is not a sad festival at all, but a lively party for friends and family. According to Burkeman, we need events like this to remember why we should be happy more often. <i>The Antidote</i> is an interesting book that has the ability to make you feel that happiness really is possible.</p>
     </div>
-    <p class="lead" style="font-size:.82rem;">(Note for teacher: the book's extracted text ends here — the reviewer's final paragraph, about a Mexican festival, wasn't available in the source file, so this task only checks the two paragraphs above.)</p>
+    <p class="q" style="margin-top:14px;">a. Tick the correct answer.</p>
 
     <div class="item">
       <p class="q">1. Where might you usually see this kind of text?</p>
-      <div class="mcq" data-correct="back of book">
+      <div class="mcq" data-correct="newspaper">
         <button class="opt" data-val="newspaper">in a newspaper</button>
-<button class="opt" data-val="back of book">on the back of a book</button>
+<button class="opt" data-val="email">in an email from a friend</button>
+<button class="opt" data-val="backofbook">on the back of a book</button>
       </div>
     </div>
     <div class="item">
       <p class="q">2. According to the reviewer, self-help books...</p>
       <div class="mcq" data-correct="many readers">
-        <button class="opt" data-val="expensive">self-help books are usually very expensive</button>
-<button class="opt" data-val="many readers">self-help books have a large number of readers</button>
+        <button class="opt" data-val="expensive">are usually very expensive</button>
+<button class="opt" data-val="many readers">have a large number of readers</button>
+<button class="opt" data-val="earn">help readers earn more money</button>
       </div>
     </div>
     <div class="item">
       <p class="q">3. Where did Burkeman go to collect information for the book?</p>
       <div class="mcq" data-correct="many places">
         <button class="opt" data-val="europe">capital cities in Europe</button>
+<button class="opt" data-val="americas">countries in North and South America</button>
 <button class="opt" data-val="many places">many different places</button>
       </div>
     </div>
-    <p class="q" style="margin-top:14px;">True or false?</p>
+    <div class="item">
+      <p class="q">4. The reviewer enjoys a description of...</p>
+      <div class="mcq" data-correct="festival">
+        <button class="opt" data-val="party">a family party</button>
+<button class="opt" data-val="funeral">a funeral in a small town</button>
+<button class="opt" data-val="festival">a traditional festival</button>
+      </div>
+    </div>
+    <p class="q" style="margin-top:18px;">b. Read the text again. Are the sentences true (T) or false (F)?</p>
 
     <div class="item">
-      <p class="q">4. The phrase 'worth their weight in gold' in the first paragraph means 'valuable.'</p>
+      <p class="q">1. The phrase 'worth their weight in gold' in the first paragraph means 'valuable.'</p>
       <div class="mcq" data-correct="true">
         <button class="opt" data-val="true">True</button>
 <button class="opt" data-val="false">False</button>
       </div>
     </div>
     <div class="item">
-      <p class="q">5. The Antidote is a typical example of a self-help book.</p>
+      <p class="q">2. The Antidote is a typical example of a self-help book.</p>
       <div class="mcq" data-correct="false">
         <button class="opt" data-val="true">True</button>
-<button class="opt" data-val="false">False — the book is actually a reaction against typical self-help books</button>
-      </div>
-    </div>
-    <div class="item">
-      <p class="q">6. Burkeman did not expect to find happiness in some of the places he visited.</p>
-      <div class="mcq" data-correct="true">
-        <button class="opt" data-val="true">True — he found happiness in unusual places he wasn’t expecting</button>
 <button class="opt" data-val="false">False</button>
       </div>
     </div>
     <div class="item">
-      <p class="q">7. Burkeman suggests that life can be more difficult for people when they have a lot of money.</p>
+      <p class="q">3. Burkeman did not expect to find happiness in some of the places he visited.</p>
       <div class="mcq" data-correct="true">
-        <button class="opt" data-val="true">True — having a lot of things adds stress</button>
+        <button class="opt" data-val="true">True</button>
 <button class="opt" data-val="false">False</button>
       </div>
     </div>
     <div class="item">
-      <p class="q">8. Do you agree with the idea that "a negative path" (accepting that bad things happen) can help us feel happier? Why / why not?</p>
-      <textarea class="notes" placeholder="Write your answer in English..."></textarea>
+      <p class="q">4. Burkeman discovers that life is more difficult for people when they have a lot of money.</p>
+      <div class="mcq" data-correct="false">
+        <button class="opt" data-val="true">True</button>
+<button class="opt" data-val="false">False</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">5. Burkeman says we cannot understand happiness unless we also have bad experiences.</p>
+      <div class="mcq" data-correct="true">
+        <button class="opt" data-val="true">True</button>
+<button class="opt" data-val="false">False</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">6. People are often happy during the Day of the Dead.</p>
+      <div class="mcq" data-correct="true">
+        <button class="opt" data-val="true">True</button>
+<button class="opt" data-val="false">False</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">7. Although there are some good parts, the reviewer does not recommend this book.</p>
+      <div class="mcq" data-correct="false">
+        <button class="opt" data-val="true">True</button>
+<button class="opt" data-val="false">False</button>
+      </div>
+    </div>
+    <div class="item">
+      <p class="q">c. Write a review of a non-fiction book you have enjoyed reading. Include:</p>
+      <ul style="margin:-6px 0 12px; padding-left:22px; font-size:.92rem; color:var(--text);">
+        <li>the name of the author and the title of the book</li>
+        <li>a paragraph describing the general topic of the book</li>
+        <li>a paragraph describing the main ideas in the book</li>
+        <li>a paragraph describing the best part(s) of the book</li>
+        <li>an explanation of why other people should read the book</li>
+      </ul>
+      <textarea class="notes" placeholder="Write your review in English..."></textarea>
     </div>
   </div>
   <div class="nav-btns"><span class="spacer"></span><button class="btn-next" onclick="nextPage()">Next →</button></div>
@@ -252,17 +344,76 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
 
 <section class="page" data-page="1">
   <div class="card">
+    <h2>Reading and listening extension: Listening</h2>
+    <p class="lead">Listen to an expert in advertising tell a story during a talk to university students. If you get stuck, use "Show proof in transcript" under a question to check.</p>
+    <div class="play-row"><span class="tag">04.04</span><audio controls src="audio/listening-advertising-story.mp3"></audio>
+      <button type="button" class="script-toggle" onclick="toggleScriptLive()">📄 Show/hide full transcript</button>
+    </div>
+    <p class="q" style="margin-top:14px;">a. Tick (✓) the correct answers.</p>
+
+    <div class="item">
+      <p class="q">1. Where did the story take place?</p>
+      <div class="mcq" data-correct="germany">
+        <button class="opt" data-val="england">in England</button>
+<button class="opt" data-val="germany">in Germany</button>
+<button class="opt" data-val="russia">in Russia</button>
+      </div>
+    </div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('location', this)">🔍 Show proof in transcript</button></div>
+    <div class="item">
+      <p class="q">2. Why did Frederick want people to start eating potatoes?</p>
+      <div class="mcq" data-correct="solution">
+        <button class="opt" data-val="cheap">They were cheap and easy to grow.</button>
+<button class="opt" data-val="solution">They were the solution to a problem.</button>
+<button class="opt" data-val="popular">They were very popular with the people.</button>
+      </div>
+    </div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('reason', this)">🔍 Show proof in transcript</button></div>
+    <div class="item">
+      <p class="q">3. Frederick was surprised that the people...</p>
+      <div class="mcq" data-correct="couldnoteat">
+        <button class="opt" data-val="grow">did not know how to grow potatoes</button>
+<button class="opt" data-val="animals">gave the potatoes to their animals</button>
+<button class="opt" data-val="couldnoteat">said they could not eat the potatoes</button>
+      </div>
+    </div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('surprise', this)">🔍 Show proof in transcript</button></div>
+    <div class="item">
+      <p class="q">4. According to the speaker, the story can teach us something about...</p>
+      <div class="mcq" data-correct="psychology">
+        <button class="opt" data-val="food">food</button>
+<button class="opt" data-val="history">history</button>
+<button class="opt" data-val="psychology">psychology</button>
+      </div>
+    </div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('lesson', this)">🔍 Show proof in transcript</button></div>
+    <p class="q" style="margin-top:18px;">b. Listen again and correct the information in the sentences. Choose a word from the box for each gap. You do not need all the words.</p>
+    <p class="lead" style="font-size:.85rem;"><b>animal &nbsp; be successful &nbsp; bread &nbsp; business &nbsp; hungry &nbsp; meat &nbsp; psychology &nbsp; soldier &nbsp; steal &nbsp; talented</b></p>
+    <div class="item"><p class="blank-sentence"><i>Example:</i> Frederick II is sometimes called Frederick the Great because he was so tall. → Frederick II is sometimes called Frederick the Great because he was so <b>talented</b>.</p></div>
+<div class="item"><p class="blank-sentence">2. Cheese was the most important part of most people's diet. → <select class="fib" data-answer="bread"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select> was the most important part of most people's diet.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('bread', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">3. Frederick thought that if people had potatoes, they would not be angry any more. → Frederick thought that if people had potatoes, they would not be <select class="fib" data-answer="hungry"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select> any more.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('reason', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">4. People in Kolberg said their children could not eat potatoes. → People in Kolberg said their <select class="fib" data-answer="animal"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select>s could not eat potatoes.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('surprise', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">5. People understood that potatoes were valuable when they saw the gates around Frederick's garden. → People understood that potatoes were valuable when they saw the <select class="fib" data-answer="soldier"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select>s around Frederick's garden.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('soldiers', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">6. People began eating potatoes from Frederick's garden. → People began <select class="fib" data-answer="steal"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select>ing potatoes from Frederick's garden.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('steal', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">7. Frederick's plan did not work. → Frederick's plan was <select class="fib" data-answer="be successful"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select>.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('success', this)">🔍 Show proof in transcript</button></div><div class="item"><p class="blank-sentence">8. Frederick's plan was an example of good farming. → Frederick's plan was an example of good <select class="fib" data-answer="psychology"><option value="">–</option><option value="animal">animal</option><option value="be successful">be successful</option><option value="bread">bread</option><option value="business">business</option><option value="hungry">hungry</option><option value="meat">meat</option><option value="psychology">psychology</option><option value="soldier">soldier</option><option value="steal">steal</option><option value="talented">talented</option></select>.</p></div><div class="proof-btn-wrap"><button type="button" class="proof-btn" onclick="showProofLive('lesson', this)">🔍 Show proof in transcript</button></div>
+  </div>
+  <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
+
+  <div class="script-overlay" id="scriptOverlayLive">
+    <div class="script-panel">
+      <div class="script-panel-head">
+        <h3>📄 Full transcript — 04.04</h3>
+        <button type="button" class="script-close" onclick="closeScript()" aria-label="Close">✕</button>
+      </div>
+      <div class="script-box-live" id="scriptBoxLive"></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card">
     <h2>Review and extension: Grammar</h2>
     <p class="lead">Each sentence has one mistake with articles (a / an / the) or with modals of ability. Fix it by choosing or typing the correct word(s) in the gap.</p>
     <div class="item">
       <p class="blank-sentence"><i>Example:</i> I've could speak English since I was seven years old. → I've <b>been able to</b> speak English since I was seven years old.</p>
     </div>
-<div class="item"><p class="blank-sentence">2. When she goes to <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> cinema, she doesn't like seeing <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> horror films.</p></div><div class="item"><p class="blank-sentence">3. Will you <input class="fib" type="text" data-answer="be able to" data-accept='["be able to"]'> help me with my maths homework this evening?</p></div><div class="item"><p class="blank-sentence">4. I love watching <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> documentaries about <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> whales.</p></div><div class="item"><p class="blank-sentence">5. She would like <input class="fib" type="text" data-answer="to be able to" data-accept='["to be able to"]'> play the piano as well as her sister.</p></div><div class="item"><p class="blank-sentence">6. He usually gets to <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> work at about 8.30 in summer.</p></div><div class="item"><p class="blank-sentence">7. We weren't able <input class="fib" type="text" data-answer="to" data-accept='["to"]'> find the restaurant, so we went to the pizzeria instead.</p></div><div class="item"><p class="blank-sentence">8. It's one of <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> best shopping websites on <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> Internet.</p></div>
+<div class="item"><p class="blank-sentence">2. When she goes to <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> cinema, she doesn't like seeing <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> horror films.</p></div><div class="item"><p class="blank-sentence">3. Will you <input class="fib" type="text" data-answer="be able to" data-accept='["be able to"]'> help me with my maths homework this evening?</p></div><div class="item"><p class="blank-sentence">4. I love watching <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> documentaries about <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> whales.</p></div><div class="item"><p class="blank-sentence">5. She would like <input class="fib" type="text" data-answer="to be able to" data-accept='["to be able to"]'> play the piano as well as her sister.</p></div><div class="item"><p class="blank-sentence">6. He usually gets to <select class="fib" data-answer="-"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> work at about 8.30 in <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> summer.</p></div><div class="item"><p class="blank-sentence">7. We weren't able <input class="fib" type="text" data-answer="to" data-accept='["to"]'> find the restaurant, so we went to the pizzeria instead.</p></div><div class="item"><p class="blank-sentence">8. It's one of <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> best shopping websites on <select class="fib" data-answer="the"><option value="">–</option><option value="a">a</option><option value="an">an</option><option value="the">the</option><option value="-">(no article)</option></select> Internet.</p></div>
   </div>
   <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
 </section>
 
-<section class="page" data-page="2">
+<section class="page" data-page="3">
   <div class="card">
     <h2>Review and extension: Vocabulary</h2>
     <p class="lead">Each sentence has one spelling mistake or wrong word (personality adjectives / achievement words). Type the correction.</p>
@@ -274,7 +425,7 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
 </section>
 
-<section class="page" data-page="3">
+<section class="page" data-page="4">
   <div class="card">
     <h2>Wordpower: so and such</h2>
     <p class="lead">Complete the sentences with a word or phrase from the box. Each one is used once.</p>
@@ -285,19 +436,22 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-next" onclick="nextPage()">Next →</button></div>
 </section>
 
-<section class="page" data-page="4">
+<section class="page" data-page="5">
   <div class="card">
     <h2>Check your work</h2>
     <p class="lead">Make sure your name is filled in at the top, then check your answers. Your results (and any mistakes) go straight to your teacher.</p>
     <div id="scoreSummary" hidden></div>
     <div id="submitStatus"></div>
   </div>
+  <div class="card">
+    <h2>Listening — full evidence review</h2>
+    <p class="lead">Now that you've checked your answers, here's exactly where each one comes from in the script.</p>
+<div class="review-block"><span class="q-label">1. Where did the story take place?</span>Germany was divided into lots of different countries and one of these was called <span class="script-hl">Prussia</span>.<span class="verdict">✔ in Germany — 18th-century Prussia was part of Germany.</span></div><div class="review-block"><span class="q-label">2. Why did Frederick want people to start eating potatoes?</span>'If the people can grow these potatoes as well as bread, then <span class="script-hl">no one will ever be hungry again!</span>'<span class="verdict">✔ they were the solution to a problem — bread sometimes failed, leaving people hungry.</span></div><div class="review-block"><span class="q-label">3. Frederick was surprised that the people...</span>'...potatoes were so disgusting that <span class="script-hl">even their animals couldn't eat them.</span>'<span class="verdict">✔ said they could not eat the potatoes.</span></div><div class="review-block"><span class="q-label">4. According to the speaker, the story can teach us something about...</span>'There is an important lesson here for people about <span class="script-hl">psychology</span> in advertising.'<span class="verdict">✔ psychology.</span></div><div class="review-block"><span class="q-label">b2. Cheese was the most important part of most people's diet.</span>'...the main meal for almost everyone was <span class="script-hl">bread</span>.'<span class="verdict">✔ bread, not cheese.</span></div><div class="review-block"><span class="q-label">b3. Frederick thought potatoes would stop people being angry.</span>'...no one will ever be <span class="script-hl">hungry</span> again!'<span class="verdict">✔ hungry, not angry.</span></div><div class="review-block"><span class="q-label">b4. People in Kolberg said their children could not eat potatoes.</span>'...potatoes were so disgusting that even their <span class="script-hl">animals</span> couldn't eat them.'<span class="verdict">✔ their animals (not children) couldn't eat them.</span></div><div class="review-block"><span class="q-label">b5. People saw the gates around Frederick's garden.</span>'...he sent <span class="script-hl">soldiers</span> to guard it.'<span class="verdict">✔ the soldiers (not gates) around the garden.</span></div><div class="review-block"><span class="q-label">b6. People began eating potatoes from the garden.</span>'...people started going to the field at night to <span class="script-hl">steal</span> potatoes.'<span class="verdict">✔ people began stealing (not eating) potatoes.</span></div><div class="review-block"><span class="q-label">b7. Frederick's plan did not work.</span>'...when people believed they were not allowed to eat potatoes... <span class="script-hl">they immediately wanted to have them.</span>'<span class="verdict">✔ the plan was successful — forbidding the potatoes made people want them.</span></div><div class="review-block"><span class="q-label">b8. Frederick's plan was an example of good farming.</span>'...that's good <span class="script-hl">psychology</span>.'<span class="verdict">✔ an example of good psychology (not farming).</span></div>
+  </div>
   <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-submit" onclick="submitAll()">Check &amp; Submit ✓</button></div>
 </section>
 
-</div></div>
 </div>
-
 
 <div class="angle-badge">
   <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -309,7 +463,18 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
 </div>
 
 <script>
-const PAGE_LABELS = ['Reading', 'Grammar', 'Vocabulary', 'Wordpower', 'Finish'];
+const PAGE_LABELS = ['Reading', 'Listening', 'Grammar', 'Vocabulary', 'Wordpower', 'Finish'];
+const SCRIPT_HTML_LIVE = `
+<p>Thank you, thank you. OK! So my talk tonight is called 'Psychology in advertising', but I'm going to start with a little story.</p>
+<p>In the 18th century, <mark class="ev" id="ev-location">Germany was divided into lots of different countries and one of these was called Prussia</mark>, and the king there was called Frederick the Second. Now this particular king was a really <mark class="ev" id="ev-talented">very talented</mark> man. In fact, he was so brilliant that he is still known as Frederick the Great.</p>
+<p>OK, so at that time, the 1770s, hardly anyone in Prussia ate potatoes, because <mark class="ev" id="ev-bread">the main meal for almost everyone was bread</mark>. But there was a problem with bread: in those days, sometimes the wheat didn't grow very well, or it grew but then it died before people could make bread from it. And every time that happened, people, especially poor people, would have nothing to eat.</p>
+<p>So, when Frederick heard about the potato, he thought 'A-ha! Perfect! <mark class="ev" id="ev-reason">If the people can grow these potatoes as well as bread, then no one will ever be hungry again!</mark>' Frederick was so satisfied with this idea that he immediately ordered everyone in the country to start growing potatoes. But to his surprise, they refused. They simply would not touch these potatoes. <mark class="ev" id="ev-surprise">The people of Kolberg sent Frederick a letter telling him that potatoes were so disgusting that even their animals couldn't eat them.</mark></p>
+<p>Now Frederick was a very intelligent man and, although there were no psychologists in 1774, he certainly had a talent for understanding the psychology of his people. So he soon came up with a very interesting plan.</p>
+<p>First, he planted potatoes in a big field, which he called the 'Royal Potato Garden'. Next, because it was not just any potato garden, but the Royal Potato Garden, <mark class="ev" id="ev-soldiers">he sent soldiers to guard it</mark>.</p>
+<p>As soon as people saw the garden and the soldiers, they started asking each other 'What could be in that field that is worth so much?' And of course, as soon as they found out that the field was full of potatoes, they all wanted some. It was not long afterwards that <mark class="ev" id="ev-steal">people started going to the field at night to steal potatoes</mark>. Frederick, of course, had expected this to happen. In fact, he had even given secret instructions to his soldiers to pretend that they had not seen the potato thieves and actually let them steal the potatoes, because that was what Frederick had wanted to happen.</p>
+<p><mark class="ev" id="ev-lesson">There is an important lesson here for people about psychology in advertising.</mark></p>
+<p>When Frederick told people they would never be hungry again if they ate potatoes, they were not interested. When Frederick ordered them to grow potatoes, they refused. But when people believed that they were not allowed to eat potatoes and that they were only eaten by kings and queens, <mark class="ev" id="ev-success">then they immediately wanted to have them</mark>. And that's good psychology.</p>
+`;
 
 let current = 0;
 function buildDots(){
@@ -326,7 +491,7 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
 }
 function nextPage(){ showPage(current+1); scheduleSave(); }
 function prevPage(){ showPage(current-1); scheduleSave(); }
@@ -370,6 +535,113 @@ function initInteractions(){
   document.querySelectorAll('textarea.prod').forEach(ta=>{
     ta.addEventListener('blur', ()=>checkProduction(ta));
   });
+
+  initScriptSearch();
+  initProofButtons();
+}
+
+/* evidence-highlighting (standard ANGLE pattern): live modal viewer +
+   per-question "show proof" buttons. Content (SCRIPT_HTML_LIVE) is
+   supplied per-file; these functions are generic. */
+function toggleScriptLive(){
+  const ov = document.getElementById('scriptOverlayLive');
+  if(!ov) return;
+  if(ov.classList.contains('open')) closeScript(); else openScript();
+}
+function openScript(){
+  const ov = document.getElementById('scriptOverlayLive');
+  if(!ov) return;
+  ov.classList.add('open');
+  const box = document.getElementById('scriptBoxLive');
+  if(box && !box.innerHTML.trim() && typeof SCRIPT_HTML_LIVE !== 'undefined') box.innerHTML = SCRIPT_HTML_LIVE;
+}
+function closeScript(){
+  const ov = document.getElementById('scriptOverlayLive');
+  if(ov) ov.classList.remove('open');
+}
+function showProofLive(evId, btn){
+  openScript();
+  document.querySelectorAll('#scriptBoxLive mark.ev.lit').forEach(m=>m.classList.remove('lit'));
+  const target = document.getElementById('ev-'+evId);
+  if(target){
+    target.classList.add('lit');
+    setTimeout(()=>target.scrollIntoView({behavior:'smooth', block:'center'}), 50);
+  }
+  if(btn){ btn.textContent = '🔍 Proof shown ✓'; btn.classList.add('seen'); }
+}
+function initProofButtons(){
+  const overlay = document.getElementById('scriptOverlayLive');
+  if(overlay){
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeScript(); });
+  }
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeScript();
+  });
+}
+
+/* search-in-script: lets a student type a word/phrase and find where the
+   script confirms an answer, without hunting through the whole transcript. */
+function initScriptSearch(){
+  document.querySelectorAll('.script-drop').forEach(drop=>{
+    const body = drop.querySelector('.script-body');
+    if(!body) return;
+    const search = document.createElement('div');
+    search.className = 'script-search';
+    search.innerHTML = '<div class="script-search-row"><input type="text" class="script-search-input" placeholder="Search in script... / Поиск в тексте..."></div><span class="script-search-count"></span>';
+    body.parentNode.insertBefore(search, body);
+    const input = search.querySelector('.script-search-input');
+    const count = search.querySelector('.script-search-count');
+    input.addEventListener('input', ()=>{
+      clearScriptHighlights(body);
+      const q = input.value.trim();
+      if(q.length < 2){ count.textContent = ''; return; }
+      const n = highlightScriptText(body, q);
+      if(n === 0){
+        count.textContent = 'Not found / Не найдено';
+      } else {
+        count.textContent = n + ' found / найдено';
+        const first = body.querySelector('mark.script-hit');
+        if(first) first.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+}
+
+function clearScriptHighlights(root){
+  root.querySelectorAll('mark.script-hit').forEach(m=>{
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+}
+
+function highlightScriptText(root, query){
+  const q = query.toLowerCase();
+  let count = 0;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  let n;
+  while(n = walker.nextNode()) nodes.push(n);
+  nodes.forEach(node=>{
+    const text = node.textContent;
+    const lower = text.toLowerCase();
+    if(lower.indexOf(q) === -1) return;
+    const frag = document.createDocumentFragment();
+    let last = 0, idx = lower.indexOf(q);
+    while(idx !== -1){
+      frag.appendChild(document.createTextNode(text.slice(last, idx)));
+      const mark = document.createElement('mark');
+      mark.className = 'script-hit';
+      mark.textContent = text.slice(idx, idx + query.length);
+      frag.appendChild(mark);
+      count++;
+      last = idx + query.length;
+      idx = lower.indexOf(q, last);
+    }
+    frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+  return count;
 }
 
 function speak(text, lang='en-GB', rate=0.92){
@@ -450,7 +722,7 @@ function checkProduction(ta){
 }
 
 
-const AUTOSAVE_KEY = 'angle_4_review_homework_v1';
+const AUTOSAVE_KEY = 'angle_4_review_homework_v3';
 let autosaveTimer = null;
 
 function collectAutosaveState(){
