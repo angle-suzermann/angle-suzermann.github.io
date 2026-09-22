@@ -46,7 +46,11 @@ body{
   opacity:0.3;
   pointer-events:none;
 }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background-color:#ffffff;
+  background-image:linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('img/bg-photo.jpg');
+  background-position:0 0, center 45%;
+  background-size:auto, cover;
+  background-repeat:no-repeat, no-repeat;}
 .page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:18px 16px 60px; }
 
 /* Topbar */

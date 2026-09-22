@@ -31,7 +31,11 @@ body{margin:0;font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:v
 /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
 html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background-color:#ffffff;
+  background-image:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92)), linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('img/img1.jpg');
+  background-position:0 0, 0 0, center 42%;
+  background-size:auto, auto, cover;
+  background-repeat:no-repeat, no-repeat, no-repeat;}
 .bg-photo{position:absolute;inset:0;z-index:0;background-image:url('img/img1.jpg');background-size:cover;background-position:center 42%;opacity:0.5;}
 .bg-wash{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(69,52,88,.92));}
 
