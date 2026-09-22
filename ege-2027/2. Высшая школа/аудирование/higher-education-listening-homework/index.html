@@ -39,9 +39,9 @@ overflow-x:hidden;
 
 /* ---------- background photo + wash ---------- */
 /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; }
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
 .bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; transition:background-image .3s ease; }
 .bg-photo.bg-lecture{ background-image:url('img/img1.jpg'); }
 .bg-photo.bg-leaves{ background-image:url('img/img2.jpg'); }

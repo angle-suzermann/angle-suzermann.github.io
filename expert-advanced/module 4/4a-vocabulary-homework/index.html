@@ -44,9 +44,9 @@ button, input, select, textarea{font-family:inherit;}
 
 /* ---------- Topbar ---------- */
 /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; }
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
 .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 6px 24px rgba(69,52,88,.10); }
 .topbar-inner{max-width:920px; margin:0 auto; padding:14px 20px 12px;}
 .brand-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}

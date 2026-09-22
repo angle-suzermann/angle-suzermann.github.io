@@ -26,9 +26,9 @@ body{
   margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
   color:var(--text); background:var(--card-tint); min-height:100vh; position:relative;
 }
-html,body{ height:100%; overflow:hidden; }
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
 .bg-wash-plain{ position:absolute; inset:0; z-index:0; background:var(--card-tint); }
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(40,20,55,.55), rgba(94,72,119,.88)); }

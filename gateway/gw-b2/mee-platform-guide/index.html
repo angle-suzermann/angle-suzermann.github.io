@@ -32,9 +32,9 @@ body{
 }
 a{color:var(--purple-dark);}
 /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; }
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg');
   background-size:cover; background-position:center 42%; opacity:0.5; }
 .bg-wash{ position:absolute; inset:0; z-index:1;

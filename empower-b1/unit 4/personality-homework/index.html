@@ -23,9 +23,9 @@
 *{box-sizing:border-box;}
 body{ margin:0; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--black); }
 /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; }
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 65%; opacity:0.28; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(30,20,10,.7), rgba(69,52,88,.92)); }
 .page-wrap{ position:relative; z-index:2; max-width:880px; margin:0 auto; padding:24px 18px 90px; }
