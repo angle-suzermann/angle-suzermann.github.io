@@ -4,28 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 8: Developing Writing — An Opinion Essay 2 (Classwork &amp; Homework)</title>
-<meta name="ws:type"      content="worksheet">
-<meta name="ws:course"    content="Gateway to the World B2">
+
+<meta name="ws:type" content="worksheet">
+<meta name="ws:course" content="Gateway to the World B2">
 <meta name="ws:course-id" content="gateway/gw-b2">
-<meta name="ws:unit"      content="unit 8">
-<meta name="ws:title"     content="Unit 8 — An Opinion Essay 2 (Classwork &amp; Homework)">
-<meta name="ws:emoji"     content="📝">
-<meta name="ws:date"      content="2026-09-20">
-<meta name="ws:status"    content="published">
+<meta name="ws:unit" content="unit 8">
+<meta name="ws:title" content="Unit 8 — An Opinion Essay 2 (Classwork &amp; Homework)">
+<meta name="ws:emoji" content="📝">
+<meta name="ws:date" content="2026-09-22">
+<meta name="ws:status" content="published">
 <meta name="ws:formspree" content="xoeaqeyz">
-<meta name="ws:tags"      content="writing, opinion essay">
-<meta name="robots"       content="noindex, nofollow">
+<meta name="ws:tags" content="writing, opinion essay">
+<meta name="robots" content="noindex, nofollow">
 <style>
   @font-face{
     font-family:'Apercu Pro';
-    src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');
+    src:url(/assets/fonts/apercu-pro-400.woff2) format('woff2');
     font-weight:400;
     font-style:normal;
     font-display:swap;
   }
   @font-face{
     font-family:'Apercu Pro';
-    src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');
+    src:url(/assets/fonts/apercu-pro-700.woff2) format('woff2');
     font-weight:700 900;
     font-style:normal;
     font-display:swap;
@@ -1252,15 +1253,20 @@ async function submitAll(tab){
 
   try{
     const fd = new FormData();
+    const tabLabel = tab==='cw' ? 'Classwork' : 'Homework';
+    const lessonLabel = document.title + ' — ' + tabLabel;
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('subject', `${COURSE_NAME} — ${lessonLabel} — ${nameVal}`);
     fd.append('course', COURSE_NAME);
-    fd.append('lesson', document.title + ' — ' + (tab==='cw' ? 'Classwork' : 'Homework'));
+    fd.append('lesson', lessonLabel);
     fd.append('student', nameVal);
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('result_tier', tier.label);
+    if(essayTa){
+      fd.append('essay_status', essayFlag);
+      fd.append('essay', essayText || '(nothing written)');
+    }
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
-    fd.append('essay_flag', essayFlag);
-    fd.append('essay_text', essayText || '(none)');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus-'+tab).textContent = 'Sent to your teacher ✓';

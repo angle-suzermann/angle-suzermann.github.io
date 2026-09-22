@@ -1,19 +1,32 @@
 <title>Unit 4D — No experience needed: Writing (Classwork)</title>
-<meta name="ws:type"      content="worksheet">
-<meta name="ws:course"    content="Empower B1+">
+
+<meta name="ws:type" content="worksheet">
+<meta name="ws:course" content="Empower B1+">
 <meta name="ws:course-id" content="empower-b1">
-<meta name="ws:unit"      content="4">
-<meta name="ws:title"     content="Unit 4D — No Experience Needed — Writing (Classwork)">
-<meta name="ws:emoji"     content="💼">
-<meta name="ws:date"      content="2026-09-06">
-<meta name="ws:status"    content="published">
+<meta name="ws:unit" content="4">
+<meta name="ws:title" content="Unit 4D — No Experience Needed — Writing (Classwork)">
+<meta name="ws:emoji" content="💼">
+<meta name="ws:date" content="2026-09-22">
+<meta name="ws:status" content="published">
 <meta name="ws:formspree" content="mjgnlwdp">
-<meta name="ws:tags"      content="writing, job application, listening, unit 4">
-<meta name="robots"       content="noindex, nofollow">
+<meta name="ws:tags" content="writing, job application, listening, unit 4">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  
-  
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url(/assets/fonts/apercu-pro-400.woff2) format('woff2');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'Apercu Pro';
+    src:url(/assets/fonts/apercu-pro-700.woff2) format('woff2');
+    font-weight:700 900;
+    font-style:normal;
+    font-display:swap;
+  }
 
 
 :root{
@@ -33,15 +46,11 @@ p{margin:0 0 .8em;}
 button{font-family:inherit;}
 
 /* background photo + wash */
-/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
-html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
-.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background:var(--card);}
-.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; }
-.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
 /* topbar */
-.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px 12px; }
 .brand-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
 .lesson-title{ font-weight:700; color:var(--purple); font-size:1.05rem; }
@@ -130,6 +139,14 @@ details.script-drop .script-body{ padding:2px 16px 14px; font-size:.92rem; color
 details.script-drop .script-body p{ margin:.6em 0; }
 details.script-drop .script-body b{ color:var(--purple); }
 
+/* search-in-script (find where the script confirms an answer) */
+.script-search{ padding:10px 16px 0; border-top:1px solid var(--border); }
+.script-search-row{ display:flex; align-items:center; gap:8px; }
+.script-search-input{ flex:1; border:2px solid var(--border); border-radius:8px; padding:9px 12px; font-size:.9rem; font-family:inherit; min-height:40px; }
+.script-search-input:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+.script-search-count{ display:block; margin:5px 0 2px; font-size:.78rem; color:var(--muted); min-height:1.1em; }
+mark.script-hit{ background:var(--yellow); color:var(--black); padding:0 2px; border-radius:3px; }
+
 .tick-row{ display:flex; gap:18px; align-items:center; margin-top:8px; font-size:.9rem; flex-wrap:wrap; }
 .tick-row label{ display:flex; align-items:center; gap:6px; cursor:pointer; }
 .tick-row input[type=checkbox]{ width:20px; height:20px; }
@@ -165,7 +182,6 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
 
 </style>
 
-<div class="app-shell">
 <div class="bg-photo" style="background-image:url('img/img1.jpg');"></div>
 <div class="bg-wash"></div>
 
@@ -187,7 +203,6 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   </div>
 </header>
 
-<div class="scroll-area" id="scrollArea">
 <div class="page-wrap">
 
 <section class="page active" data-page="0">
@@ -522,9 +537,7 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   <div class="nav-btns"><button class="btn-back" onclick="prevPage()">← Back</button><button class="btn-submit" onclick="submitAll()">Check &amp; Submit ✓</button></div>
 </section>
 
-</div></div>
 </div>
-
 
 <div class="angle-badge">
   <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
@@ -553,7 +566,7 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
 }
 function nextPage(){ showPage(current+1); scheduleSave(); }
 function prevPage(){ showPage(current-1); scheduleSave(); }
@@ -597,6 +610,73 @@ function initInteractions(){
   document.querySelectorAll('textarea.prod').forEach(ta=>{
     ta.addEventListener('blur', ()=>checkProduction(ta));
   });
+
+  initScriptSearch();
+}
+
+/* search-in-script: lets a student type a word/phrase and find where the
+   script confirms an answer, without hunting through the whole transcript. */
+function initScriptSearch(){
+  document.querySelectorAll('.script-drop').forEach(drop=>{
+    const body = drop.querySelector('.script-body');
+    if(!body) return;
+    const search = document.createElement('div');
+    search.className = 'script-search';
+    search.innerHTML = '<div class="script-search-row"><input type="text" class="script-search-input" placeholder="Search in script... / Поиск в тексте..."></div><span class="script-search-count"></span>';
+    body.parentNode.insertBefore(search, body);
+    const input = search.querySelector('.script-search-input');
+    const count = search.querySelector('.script-search-count');
+    input.addEventListener('input', ()=>{
+      clearScriptHighlights(body);
+      const q = input.value.trim();
+      if(q.length < 2){ count.textContent = ''; return; }
+      const n = highlightScriptText(body, q);
+      if(n === 0){
+        count.textContent = 'Not found / Не найдено';
+      } else {
+        count.textContent = n + ' found / найдено';
+        const first = body.querySelector('mark.script-hit');
+        if(first) first.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+}
+
+function clearScriptHighlights(root){
+  root.querySelectorAll('mark.script-hit').forEach(m=>{
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+}
+
+function highlightScriptText(root, query){
+  const q = query.toLowerCase();
+  let count = 0;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  let n;
+  while(n = walker.nextNode()) nodes.push(n);
+  nodes.forEach(node=>{
+    const text = node.textContent;
+    const lower = text.toLowerCase();
+    if(lower.indexOf(q) === -1) return;
+    const frag = document.createDocumentFragment();
+    let last = 0, idx = lower.indexOf(q);
+    while(idx !== -1){
+      frag.appendChild(document.createTextNode(text.slice(last, idx)));
+      const mark = document.createElement('mark');
+      mark.className = 'script-hit';
+      mark.textContent = text.slice(idx, idx + query.length);
+      frag.appendChild(mark);
+      count++;
+      last = idx + query.length;
+      idx = lower.indexOf(q, last);
+    }
+    frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+  return count;
 }
 
 function speak(text, lang='en-GB', rate=0.92){
@@ -907,13 +987,31 @@ async function submitAll(){
   showPage(document.querySelectorAll('.page').length - 1);
   saveNow();
 
+  const writingParts = [];
+  document.querySelectorAll('textarea.prod, textarea.notes').forEach(ta=>{
+    const val = (ta.value || '').trim();
+    if(!val) return;
+    const item = ta.closest('.item');
+    let label = '';
+    if(item){
+      const q = item.querySelector('p.q');
+      if(q){ label = q.textContent.replace(/\s+/g,' ').trim(); }
+    }
+    if(!label) label = exTitle(ta) || 'Writing';
+    writingParts.push(`— ${label} —\n${val}`);
+  });
+  const writingText = writingParts.length ? writingParts.join('\n\n') : '(no writing submitted on this page)';
+
   try{
     const fd = new FormData();
+    const courseName = 'Empower B1+ (Intermediate)';
     fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-    fd.append('subject', document.title);
+    fd.append('subject', `${courseName} — ${document.title} — ${nameInput.value.trim()}`);
+    fd.append('course', courseName);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('writing', writingText);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });

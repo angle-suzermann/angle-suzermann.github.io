@@ -1,14 +1,15 @@
 <title>Unit 4 — Review and Extension (Homework)</title>
-<meta name="ws:type"      content="worksheet">
-<meta name="ws:course"    content="Empower B1+">
+
+<meta name="ws:type" content="worksheet">
+<meta name="ws:course" content="Empower B1+">
 <meta name="ws:course-id" content="empower-b1">
-<meta name="ws:unit"      content="4">
-<meta name="ws:title"     content="Unit 4 — Review and Extension (Homework)">
-<meta name="ws:emoji"     content="📋">
-<meta name="ws:date"      content="2026-09-21">
-<meta name="ws:status"    content="published">
+<meta name="ws:unit" content="4">
+<meta name="ws:title" content="Unit 4 — Review and Extension (Homework)">
+<meta name="ws:emoji" content="📋">
+<meta name="ws:date" content="2026-09-22">
+<meta name="ws:status" content="published">
 <meta name="ws:formspree" content="mjgnlwdp">
-<meta name="ws:tags"      content="review, revision, unit 4">
+<meta name="ws:tags" content="review, revision, unit 4">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -346,7 +347,7 @@ textarea.prod.needs-review{ border-color:#e0a721; background:#fffaf0; }
   <div class="card">
     <h2>Reading and listening extension: Listening</h2>
     <p class="lead">Listen to an expert in advertising tell a story during a talk to university students. If you get stuck, use "Show proof in transcript" under a question to check.</p>
-    <div class="play-row"><span class="tag">04.04</span><audio controls src="audio/listening-advertising-story.mp3"></audio>
+    <div class="play-row"><span class="tag">04.04</span><audio controls src="audio/track1.mp3"></audio>
       <button type="button" class="script-toggle" onclick="toggleScriptLive()">📄 Show/hide full transcript</button>
     </div>
     <p class="q" style="margin-top:14px;">a. Tick (✓) the correct answers.</p>
@@ -952,13 +953,31 @@ async function submitAll(){
   showPage(document.querySelectorAll('.page').length - 1);
   saveNow();
 
+  const writingParts = [];
+  document.querySelectorAll('textarea.prod, textarea.notes').forEach(ta=>{
+    const val = (ta.value || '').trim();
+    if(!val) return;
+    const item = ta.closest('.item');
+    let label = '';
+    if(item){
+      const q = item.querySelector('p.q');
+      if(q){ label = q.textContent.replace(/\s+/g,' ').trim(); }
+    }
+    if(!label) label = exTitle(ta) || 'Writing';
+    writingParts.push(`— ${label} —\n${val}`);
+  });
+  const writingText = writingParts.length ? writingParts.join('\n\n') : '(no writing submitted on this page)';
+
   try{
     const fd = new FormData();
+    const courseName = 'Empower B1+ (Intermediate)';
     fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-    fd.append('subject', document.title);
+    fd.append('subject', `${courseName} — ${document.title} — ${nameInput.value.trim()}`);
+    fd.append('course', courseName);
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('writing', writingText);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
