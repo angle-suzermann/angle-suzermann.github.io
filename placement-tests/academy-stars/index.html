@@ -1049,7 +1049,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Placement tests');
-  fd.append('subject', 'Placement tests — Academy Stars — Placement Test');
+  fd.append('subject', ('Placement tests — Academy Stars — Placement Test') + ' — ' + (studentName));
   fd.append('exercise', 'Academy Stars — Placement Test');
   fd.append('student', studentName);
   fd.append('score', correct + '/' + total);

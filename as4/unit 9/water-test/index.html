@@ -764,7 +764,7 @@ async function submitAll(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Academy Stars 4');
-  fd.append('subject', 'Academy Stars 4 — AS4 Unit 9 — Water Test');
+  fd.append('subject', ('Academy Stars 4 — AS4 Unit 9 — Water Test') + ' — ' + (nameInput.value.trim()));
     fd.append('exercise', 'AS4 Unit 9 — Water Test');
     fd.append('student', nameInput.value.trim());
     fd.append('group', document.getElementById('studentGroup').value.trim());

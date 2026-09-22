@@ -504,7 +504,7 @@ async function submitAll(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'GW B2');
-  fd.append('subject', 'GW B2 — ' + document.title);
+  fd.append('subject', ('GW B2 — ' + document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);

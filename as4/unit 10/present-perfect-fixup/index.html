@@ -664,13 +664,13 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', COURSE_NAME + ' — ' + document.title);
+    fd.append('subject', (COURSE_NAME + ' — ' + document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('result_tier', getResultTier(pct).label);
-    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
-    fd.append('own_sentences', productions);
+        fd.append('own_sentences', productions);
+fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Отправлено учителю ✓';

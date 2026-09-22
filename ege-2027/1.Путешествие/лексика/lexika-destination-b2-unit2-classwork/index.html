@@ -716,7 +716,7 @@ async function submitAll(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
-  fd.append('subject', 'ЕГЭ 2027 — Destination B2 Unit 2 - Travel & Transport (Classwork)');
+  fd.append('subject', ('ЕГЭ 2027 — Destination B2 Unit 2 - Travel & Transport (Classwork)') + ' — ' + (nameInput.value.trim()));
     fd.append("lesson", document.title);
     fd.append("exercise", "Destination B2 Unit 2 - Travel & Transport (Classwork)");
     fd.append("student", nameInput.value.trim());

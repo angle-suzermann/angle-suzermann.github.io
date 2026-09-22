@@ -945,7 +945,7 @@ async function submitAll(){
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
     fd.append('lesson', document.title);
-    fd.append('subject', COURSE_NAME + ' — ' + document.title);
+    fd.append('subject', (COURSE_NAME + ' — ' + document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
@@ -1011,7 +1011,7 @@ async function submitPartial(btn, taskLabel){
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
     fd.append('lesson', document.title + ' — ' + taskLabel + ' (частичная отправка после задания)');
-    fd.append('subject', COURSE_NAME + ' — ' + document.title + ' — ' + taskLabel + ' (частичная отправка)');
+    fd.append('subject', (COURSE_NAME + ' — ' + document.title + ' — ' + taskLabel + ' (частичная отправка)') + ' — ' + (nameInput.value.trim()));
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');

@@ -1061,7 +1061,7 @@ async function sendToTeacher(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title);
+    fd.append('subject', (document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title) + ' — ' + (name));
     fd.append('student', name);
     fd.append('timestamp', new Date().toISOString());
     fd.append('reading_score', lastScores ? `${lastScores.rwCorrect} / ${lastScores.rwTotal}` : 'n/a');

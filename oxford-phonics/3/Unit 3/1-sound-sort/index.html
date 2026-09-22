@@ -902,7 +902,7 @@ function showResults(){
   const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Oxford Phonics World 3');
-  fd.append('subject', 'Oxford Phonics World 3 — ' + document.title);
+  fd.append('subject', ('Oxford Phonics World 3 — ' + document.title) + ' — ' + ((nameInput && nameInput.value.trim()) || '(no name entered)'));
   fd.append('lesson', document.title);
   fd.append('student', (nameInput && nameInput.value.trim()) || '(no name entered)');
   fd.append('score', r.correct + ' / ' + r.total + ' (' + r.pct + '%)');

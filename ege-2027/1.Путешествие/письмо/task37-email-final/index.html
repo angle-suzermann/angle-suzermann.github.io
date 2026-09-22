@@ -323,7 +323,7 @@ async function sendToTeacher(name, pct, correctCount, total, wrongList, wordNote
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', COURSE_NAME + ' — ' + document.title);
+    fd.append('subject', (COURSE_NAME + ' — ' + document.title) + ' — ' + (name));
     fd.append('lesson', document.title);
     fd.append('student', name);
     fd.append('ext2_score', `${correctCount} / ${total} (${pct}%)`);

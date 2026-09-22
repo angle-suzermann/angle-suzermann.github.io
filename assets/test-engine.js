@@ -267,7 +267,7 @@
       access_key:     WEB3FORMS_KEY,
       course:         COURSE,
       course_id:      FORMSPREE,
-      subject:        (COURSE ? COURSE + ' — ' : '') + TEST_TITLE,
+      subject:        (COURSE ? COURSE + ' — ' : '') + TEST_TITLE + ' — ' + name,
       test:           TEST_TITLE,
       student_name:   name,
       group:          group || '—',

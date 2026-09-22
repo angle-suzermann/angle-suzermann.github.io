@@ -584,7 +584,7 @@
     const fd = new FormData();
     fd.append("access_key", "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234");
     fd.append("course", "ЕГЭ — Путешествие");
-    fd.append("subject", "ЕГЭ — Путешествие — " + document.title);
+    fd.append("subject", ("ЕГЭ — Путешествие — " + document.title) + ' — ' + (name));
     fd.append("lesson", document.title);
     fd.append("student", name);
     fd.append("timestamp", new Date().toISOString());

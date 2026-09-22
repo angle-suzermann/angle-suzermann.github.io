@@ -535,7 +535,7 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', document.title);
+    fd.append('subject', (document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
@@ -601,7 +601,7 @@ async function submitPartial(btn, taskLabel){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', document.title + ' — ' + taskLabel);
+    fd.append('subject', (document.title + ' — ' + taskLabel) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title + ' — ' + taskLabel + ' (частичная отправка после задания)');
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);

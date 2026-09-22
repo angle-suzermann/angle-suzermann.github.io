@@ -561,7 +561,7 @@ async function submitPartial(btn, taskLabel){
   fd.append('access_key', WEB3FORMS_ACCESS_KEY);
   fd.append('course', COURSE_NAME);
   const subjBase = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
-  fd.append('subject', subjBase + ' — ' + taskLabel);
+  fd.append('subject', (subjBase + ' — ' + taskLabel) + ' — ' + (nameInput.value.trim()));
   fd.append('lesson', document.title + ' — ' + taskLabel + ' (частичная отправка после задания)');
   fd.append('student', nameInput.value.trim());
   if (total){
@@ -590,7 +590,7 @@ async function submitAll(){
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title);
+    fd.append('subject', (document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);

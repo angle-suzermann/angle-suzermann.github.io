@@ -492,7 +492,7 @@ async function sendToTeacher(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
-  fd.append('subject', 'ЕГЭ 2027 — письменная речь');
+  fd.append('subject', ('ЕГЭ 2027 — письменная речь') + ' — ' + (name));
     fd.append('exercise', 'ЕГЭ 2027 — письменная речь');
     fd.append('student', name);
     fd.append('date', new Date().toLocaleString('ru-RU'));

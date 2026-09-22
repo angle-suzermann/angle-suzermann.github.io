@@ -1267,7 +1267,7 @@ async function submitAll(){
     var fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Placement tests');
-  fd.append('subject', 'Placement tests — Gateway 2nd Edition — Placement Test');
+  fd.append('subject', ('Placement tests — Gateway 2nd Edition — Placement Test') + ' — ' + (nameInput.value.trim()));
     fd.append('exercise', 'Gateway 2nd Edition \u2014 Placement Test');
     fd.append('student', nameInput.value.trim());
     fd.append('score', correct + '/' + total + ' (' + pct + '%)');
