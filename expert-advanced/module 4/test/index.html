@@ -219,6 +219,10 @@
     text-align:center;
     white-space:nowrap;
   }
+
+.claude-student-bar{ margin:18px 0 6px; }
+.claude-student-bar label{ display:flex; align-items:center; gap:10px; font-weight:800; color:var(--purple); font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; }
+.claude-student-bar input[type="text"]{ flex:1; padding:9px 12px; border:1px solid var(--purple); border-radius:6px; font-size:1em; font-family:inherit; background:#fff; }
 </style>
 </head>
 <body>
@@ -236,6 +240,10 @@
 </header>
 
 <div class="wrap">
+<div class="claude-student-bar">
+  <label for="studentName">Name: <input type="text" id="studentName" placeholder="Type your name here"></label>
+</div>
+
 
 
 <form id="quizForm">
@@ -389,6 +397,12 @@
 </div>
 
 <script>
+
+function getStudentName(){
+  const el = document.getElementById('studentName');
+  const v = el ? el.value.trim() : '';
+  return v || '(no name entered)';
+}
 document.getElementById('quizForm').addEventListener('submit', function(e){
   e.preventDefault();
 
@@ -450,7 +464,8 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Expert Advanced');
-  fd.append('subject', 'Expert Advanced — Advanced Expert — Module 4 Test');
+  fd.append('student', getStudentName());
+  fd.append('subject', ('Expert Advanced — Advanced Expert — Module 4 Test') + ' — ' + (getStudentName()));
   fd.append('exercise', 'Advanced Expert — Module 4 Test');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('details', reviewLines.join('\n'));

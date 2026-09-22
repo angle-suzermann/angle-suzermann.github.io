@@ -223,6 +223,10 @@
 .restore-note[hidden]{ display:none; }
   .restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
 .course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
+
+.claude-student-bar{ margin:18px 0 6px; }
+.claude-student-bar label{ display:flex; align-items:center; gap:10px; font-weight:800; color:var(--purple); font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; }
+.claude-student-bar input[type="text"]{ flex:1; padding:9px 12px; border:1px solid var(--purple); border-radius:6px; font-size:1em; font-family:inherit; background:#fff; }
 </style>
 </head>
 <body>
@@ -240,6 +244,10 @@
 </header>
 
 <div class="wrap">
+<div class="claude-student-bar">
+  <label for="studentName">Name: <input type="text" id="studentName" placeholder="Type your name here"></label>
+</div>
+
 
 <span class="save-indicator" id="saveIndicator"></span>
 <div class="restore-note" id="restoreNote" hidden>
@@ -391,6 +399,12 @@ function renderResultSticker(pct){
   const capEl = document.getElementById('resultCaption');
   if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
 }
+
+function getStudentName(){
+  const el = document.getElementById('studentName');
+  const v = el ? el.value.trim() : '';
+  return v || '(no name entered)';
+}
 document.getElementById('quizForm').addEventListener('submit', function(e){
   e.preventDefault();
 
@@ -452,7 +466,8 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Academy Stars 4');
-  fd.append('subject', 'Academy Stars 4 — Unit 9: Sounds and Spelling');
+  fd.append('student', getStudentName());
+  fd.append('subject', ('Academy Stars 4 — Unit 9: Sounds and Spelling') + ' — ' + (getStudentName()));
   fd.append('exercise', 'Academy Stars 4 — Unit 9: Sounds and Spelling');
   fd.append('score', correct + '/' + total + ' (' + pct + '%)');
   fd.append('result_tier', getResultTier(pct).label);
