@@ -8,3 +8,14 @@
 
 User-agent: *
 Disallow: /
+
+# Боты мессенджеров, которые рисуют превью ссылки (картинка + название).
+# В поиск они ничего не добавляют, им можно.
+User-agent: TelegramBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: vkShare
+Allow: /

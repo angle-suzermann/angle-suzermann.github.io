@@ -71,6 +71,22 @@ const staffPath = (config.staffPath || 'staff').replace(/^\/+|\/+$/g, '');
    думать о том, где именно опубликован сайт. */
 const BASE = (config.basePath || '').replace(/\/+$/, '');
 
+/* Версия иконок сайта. Браузеры (особенно Safari) очень долго держат старую
+   иконку в памяти. Поменяли favicon.ico / apple-touch-icon.png — увеличьте
+   число на 1, и у всех, включая учеников, подтянется новая иконка. */
+const ICON_VERSION = 5;
+
+/* Адрес сайта целиком — нужен для превью ссылок в Telegram/WhatsApp/VK:
+   картинка превью должна быть с полным адресом. Берётся из repoUrl,
+   при желании можно задать явно в site.config.json полем "siteUrl". */
+const ORIGIN = (() => {
+  if (config.siteUrl) return String(config.siteUrl).replace(/\/+$/, '').replace(new RegExp(BASE + '$'), '');
+  const m = String(config.repoUrl || '').match(/github\.com\/([^/]+)\/([^/#?]+)/i);
+  return m ? `https://${m[1].toLowerCase()}.github.io` : '';
+})();
+const OG_IMAGE = `${ORIGIN}${BASE}/assets/brand/og-image.jpg?v=${ICON_VERSION}`;
+const TYPE_LABEL = { test: 'Тест', worksheet: 'Задание', warmup: 'Разминка' };
+
 if (!courses.length) {
   console.error('В site.config.json пустой список courses — нечего собирать.');
   process.exit(1);
@@ -104,30 +120,61 @@ function applyBase(dir) {
 }
 if (BASE) applyBase(OUT);
 
-/* Иконка сайта на КАЖДОЙ странице, включая материалы. Сами материалы не трогаем:
-   ссылки на иконку вставляются в копии в _site при сборке. Старые ссылки на
-   иконки, если они были в материале, убираем, чтобы браузер не взял чужую. */
+/* Иконка сайта и превью ссылки на КАЖДОЙ странице, включая материалы.
+   Сами материалы не трогаем: теги вставляются в копии в _site при сборке
+   (вызов — в самом конце файла, после генерации каталогов). Старые иконки
+   и og-теги, если они были в материале, убираем, чтобы не было дублей. */
 const ICON_TAGS =
-  `<link rel="icon" href="${BASE}/favicon.ico" sizes="any">\n` +
-  `<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png">\n` +
-  `<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png">\n` +
+  `<link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">\n` +
+  `<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">\n` +
+  `<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">\n` +
   `<meta name="apple-mobile-web-app-title" content="ANGLE">\n`;
-function injectIcons(dir) {
+
+function ogTags(html, file) {
+  const meta = readMeta(html);
+  const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const title = meta.title || (t ? unesc(t[1].replace(/\s+/g, ' ').trim()) : '') || 'ANGLE';
+  const parts = [];
+  if (meta.course) parts.push(meta.course);
+  if (meta.unit) parts.push(`Unit ${meta.unit}`);
+  if (TYPE_LABEL[meta.type]) parts.push(TYPE_LABEL[meta.type]);
+  const desc = parts.length ? parts.join(' · ') : 'Материалы студии системного английского ANGLE';
+  const rel = path.relative(OUT, file).split(path.sep).join('/');
+  const url = `${ORIGIN}${BASE}/${rel.replace(/(^|\/)index\.html?$/i, '$1')}`;
+  return (
+    `<meta property="og:type" content="website">\n` +
+    `<meta property="og:site_name" content="ANGLE">\n` +
+    `<meta property="og:title" content="${esc(title)}">\n` +
+    `<meta property="og:description" content="${esc(desc)}">\n` +
+    (ORIGIN ? `<meta property="og:url" content="${esc(url)}">\n` : '') +
+    (ORIGIN ? `<meta property="og:image" content="${esc(OG_IMAGE)}">\n` +
+      `<meta property="og:image:width" content="1200">\n` +
+      `<meta property="og:image:height" content="630">\n` +
+      `<meta name="twitter:card" content="summary_large_image">\n` : '')
+  );
+}
+
+function injectHead(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) { injectIcons(p); continue; }
+    if (e.isDirectory()) { injectHead(p); continue; }
     if (!/\.html?$/i.test(e.name)) continue;
     const src = fs.readFileSync(p, 'utf8');
     if (!/<head(?:\s[^>]*)?>/i.test(src)) continue;
-    const out = src
+    const cleaned = src
       .replace(/<link\b[^>]*\brel=["'](?:shortcut\s+)?icon["'][^>]*>\s*/gi, '')
       .replace(/<link\b[^>]*\brel=["']apple-touch-icon(?:-precomposed)?["'][^>]*>\s*/gi, '')
       .replace(/<meta\b[^>]*\bname=["']apple-mobile-web-app-title["'][^>]*>\s*/gi, '')
-      .replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${ICON_TAGS}`);
+      .replace(/<meta\b[^>]*\b(?:property|name)=["'](?:og|twitter):[^"']*["'][^>]*>\s*/gi, '');
+    /* ставим после <meta charset>, если он есть: кодировка должна быть объявлена
+       в первом килобайте страницы, иначе кириллица может отобразиться криво */
+    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}`;
+    const out = /<meta\s+charset=[^>]*>/i.test(cleaned)
+      ? cleaned.replace(/<meta\s+charset=[^>]*>/i, (m) => `${m}\n${tags}`)
+      : cleaned.replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${tags}`);
     if (out !== src) fs.writeFileSync(p, out);
   }
 }
-injectIcons(OUT);
 
 /* ---------- 2. собираем материалы ---------- */
 
@@ -261,9 +308,9 @@ const page = ({ title, heading, sub, body, extraScript = '' }) => `<!DOCTYPE htm
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css">
-<link rel="icon" href="${BASE}/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png">
+<link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
+<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
 <meta name="apple-mobile-web-app-title" content="ANGLE">
 </head>
 <body>
@@ -797,6 +844,10 @@ fs.writeFileSync(path.join(OUT, 'catalog.json'), JSON.stringify({
   courses,
   materials: materials.map(({ courseCfg, bytes, ...m }) => m),
 }, null, 2));
+
+/* ---------- иконки и превью ссылок во все страницы ---------- */
+
+injectHead(OUT);
 
 /* ---------- итог ---------- */
 
