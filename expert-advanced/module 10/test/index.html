@@ -25,7 +25,7 @@
   --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
 }
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;}
 html{overflow-x:hidden;}
 body{
   font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
@@ -38,12 +38,14 @@ body{
 }
 
 /* ---------- background photo + wash ---------- */
-.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.6; transition:background-image .3s ease; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.6; transition:background-image .3s ease; }
 .bg-photo.bg-main{ background-image:url('img/bg-photo.jpg'); }
-.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
 /* ---------- topbar ---------- */
-.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+.topbar{ z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
 .topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; }
@@ -144,6 +146,7 @@ select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
 </head>
 <body>
 
+<div class="app-shell">
 <div class="bg-photo bg-main" id="bgPhoto"></div>
 <div class="bg-wash"></div>
 
@@ -165,6 +168,7 @@ select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
   </div>
 </header>
 
+<div class="scroll-area">
 <div class="page-wrap">
 
 <section class="page active" data-page="0">
@@ -316,7 +320,10 @@ select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
   </div>
 </section>
 
-</div><!-- /page-wrap -->
+</div>
+</div><!-- /scroll-area -->
+</div><!-- /app-shell -->
+<!-- /page-wrap -->
 
 <div class="angle-badge">
 <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
