@@ -11,6 +11,19 @@ body{
   background: var(--black);
 }
 
+/* ---- телефон: страница не «гуляет» вбок и не масштабируется ----
+   overflow-x: clip, а не hidden: hidden на html+body делает body отдельной
+   прокручиваемой областью, и iOS начинает сдвигать страницу вбок.
+   touch-action: pan-y разрешает только вертикальную прокрутку и отключает
+   щипок-масштаб в Safari на iPhone (он игнорирует user-scalable=no). */
+html, body{
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* ---- фотофон ---- */
 
 .bg-photo{
@@ -176,7 +189,7 @@ body{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   font: inherit;
-  font-size: 15px;
+  font-size: 16px; /* меньше 16px — iPhone сам приближает страницу при вводе */
   color: var(--black);
 }
 .toolbar input[type=search]::placeholder{ color: #7a7288; }
