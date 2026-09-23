@@ -84,8 +84,29 @@ const ORIGIN = (() => {
   const m = String(config.repoUrl || '').match(/github\.com\/([^/]+)\/([^/#?]+)/i);
   return m ? `https://${m[1].toLowerCase()}.github.io` : '';
 })();
-const OG_IMAGE = `${ORIGIN}${BASE}/assets/brand/og-image.jpg?v=${ICON_VERSION}`;
-const TYPE_LABEL = { test: 'Тест', worksheet: 'Задание', warmup: 'Разминка' };
+/* Картинки превью лежат в assets/og/: <курс>--<вид>.jpg, например
+   ege-2027--homework.jpg (курс «gateway/gw-b2» → «gateway-gw-b2»).
+   Вид: homework / classwork (по слову в имени папки или названии), иначе
+   test / warmup / worksheet; для страницы курса — course. Если нужной
+   картинки нет (новый курс или новый вид), берётся <курс>--course.jpg,
+   а если и её нет — общая site.jpg. Добавили курс — попросите Claude
+   нарисовать для него картинки. */
+const OG_VERSION = 1;
+const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice' };
+const COURSE_EN = { 'ege-2027': 'EGE 2027', 'placement-tests': 'Placement Tests' };
+const courseNameEn = (id) => COURSE_EN[id] || (courses.find((c) => c.id === id) || {}).name || '';
+function materialKind(meta, relDir) {
+  const s = `${relDir} ${meta.title || ''}`.toLowerCase();
+  if (s.includes('homework')) return 'homework';
+  if (s.includes('classwork')) return 'classwork';
+  return KIND_LABEL[meta.type] ? meta.type : 'worksheet';
+}
+function ogImageFor(courseId, kind) {
+  const slug = (courseId || '').replace(/\//g, '-');
+  const names = slug ? [`${slug}--${kind}.jpg`, `${slug}--course.jpg`, 'site.jpg'] : ['site.jpg'];
+  const hit = names.find((n) => fs.existsSync(path.join(OUT, 'assets', 'og', n))) || 'site.jpg';
+  return `${ORIGIN}${BASE}/assets/og/${hit}?v=${OG_VERSION}`;
+}
 
 if (!courses.length) {
   console.error('В site.config.json пустой список courses — нечего собирать.');
@@ -133,21 +154,34 @@ const ICON_TAGS =
 function ogTags(html, file) {
   const meta = readMeta(html);
   const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  const title = meta.title || (t ? unesc(t[1].replace(/\s+/g, ' ').trim()) : '') || 'ANGLE';
-  const parts = [];
-  if (meta.course) parts.push(meta.course);
-  if (meta.unit) parts.push(`Unit ${meta.unit}`);
-  if (TYPE_LABEL[meta.type]) parts.push(TYPE_LABEL[meta.type]);
-  const desc = parts.length ? parts.join(' · ') : 'Материалы студии системного английского ANGLE';
+  let title = meta.title || (t ? unesc(t[1].replace(/\s+/g, ' ').trim()) : '') || 'ANGLE';
   const rel = path.relative(OUT, file).split(path.sep).join('/');
+  const relDir = rel.replace(/\/?index\.html?$/i, '');
+  const coursePage = courses.find((c) => c.id === relDir);
+  let courseId = meta['course-id'] || '';
+  let kind = 'course';
+  if (coursePage) courseId = coursePage.id;
+  else if (courseId) kind = materialKind(meta, relDir);
+  /* заголовки страниц-каталогов — по-английски, как и вся карточка */
+  if (coursePage) title = `${courseNameEn(courseId)} · Course Materials`;
+  else if (relDir === '') title = 'ANGLE · Learning Materials';
+  else if (relDir === staffPath) title = 'ANGLE · Teacher Panel';
+  const parts = [];
+  if (courseId) parts.push(courseNameEn(courseId));
+  else parts.push('Systematic English Studio');
+  if (kind !== 'course' && /^\d+[a-z]?$/i.test(meta.unit || '')) parts.push(`Unit ${meta.unit}`);
+  if (kind !== 'course') parts.push(KIND_LABEL[kind]);
+  parts.push('by Viktoria Syuzyova');
+  const desc = parts.join(' · ');
+  const image = ogImageFor(courseId, kind);
   const url = `${ORIGIN}${BASE}/${rel.replace(/(^|\/)index\.html?$/i, '$1')}`;
   return (
     `<meta property="og:type" content="website">\n` +
-    `<meta property="og:site_name" content="ANGLE">\n` +
+    `<meta property="og:site_name" content="ANGLE · Systematic English Studio">\n` +
     `<meta property="og:title" content="${esc(title)}">\n` +
     `<meta property="og:description" content="${esc(desc)}">\n` +
     (ORIGIN ? `<meta property="og:url" content="${esc(url)}">\n` : '') +
-    (ORIGIN ? `<meta property="og:image" content="${esc(OG_IMAGE)}">\n` +
+    (ORIGIN ? `<meta property="og:image" content="${esc(image)}">\n` +
       `<meta property="og:image:width" content="1200">\n` +
       `<meta property="og:image:height" content="630">\n` +
       `<meta name="twitter:card" content="summary_large_image">\n` : '')
