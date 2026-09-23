@@ -334,57 +334,10 @@ textarea:focus, input:focus{ outline:2px solid var(--purple); outline-offset:1px
 </div>
 
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
-const STICKER_DATA = {
-  "eggcellent-a": "img/sticker-eggcellent-a.png",
-  "eggcellent-b": "img/sticker-eggcellent-b.png",
-  "perfect": "img/sticker-perfect.png",
-  "excellent": "img/sticker-excellent.png",
-  "amazing_work": "img/sticker-amazing_work.png",
-  "i_love_it": "img/sticker-i_love_it.png",
-  "awesome": "img/sticker-awesome.png",
-  "too_cool-a": "img/sticker-too_cool-a.png",
-  "too_cool-b": "img/sticker-too_cool-b.png",
-  "vzhukh": "img/sticker-vzhukh.png",
-  "fire": "img/sticker-fire.png",
-  "great_work": "img/sticker-great_work.png",
-  "good_job": "img/sticker-good_job.png",
-  "good_vibes": "img/sticker-good_vibes.png",
-  "nice": "img/sticker-nice.png",
-  "not_bad": "img/sticker-not_bad.png",
-  "strawberry-a": "img/sticker-strawberry-a.png",
-  "strawberry-b": "img/sticker-strawberry-b.png",
-  "keep_going": "img/sticker-keep_going.png",
-  "you_tried": "img/sticker-you_tried.png",
-  "plain": "img/sticker-plain.png",
-  "strawberry-full": "img/sticker-strawberry-full.png",
-  "awesome_is_banned": "img/sticker-awesome_is_banned.png",
-};
 
-
-const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
-];
-const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
-function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
-function renderResultSticker(pct){
-  const tier = getResultTier(pct);
-  const chosen = pickRandom(tier.stickers);
-  document.querySelectorAll('.completion-sticker').forEach(img=>{
-    const isBonus = img.dataset.tier === 'awesome_is_banned';
-    const shouldShow = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
-    img.hidden = !shouldShow;
-    if(shouldShow) img.src = STICKER_DATA[img.dataset.tier];
-  });
-  const capEl = document.getElementById('resultCaption');
-  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
-}
 
 
 const GUESS_ITEMS = [

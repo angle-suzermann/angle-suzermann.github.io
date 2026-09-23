@@ -857,6 +857,8 @@ button{ touch-action:manipulation; }
   <span class="credit">by Viktoria Syuzyova</span>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 // ============ CONSTANTS ============
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
@@ -1155,26 +1157,15 @@ function describeWrong(el, studentVal, correctVal){
 }
 
 // ============ TIERED COMPLETION STICKER ============
-const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
-];
-const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
-function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
 function renderResultSticker(tab, pct){
   const tier = getResultTier(pct);
   const chosen = pickRandom(tier.stickers);
   const wrap = document.getElementById('stickerWrap-'+tab);
-  const src = STICKER_SRC[chosen];
+  const src = STICKER_DATA[chosen];
   const sizeClass = tier.min>=90 ? '' : (tier.min>=60 ? 'completion-sticker--medium' : 'completion-sticker--icon');
   wrap.innerHTML = `<img class="completion-sticker ${sizeClass}" src="${src}" alt="${tier.label}">`;
   if(tier.bonus){
-    wrap.innerHTML += `<img class="completion-sticker completion-sticker--bonus" src="${STICKER_SRC['awesome_is_banned']}" alt="bonus">`;
+    wrap.innerHTML += `<img class="completion-sticker completion-sticker--bonus" src="${STICKER_DATA['awesome_is_banned']}" alt="bonus">`;
   }
   const capEl = document.getElementById('resultCaption-'+tab);
   if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
@@ -1403,30 +1394,7 @@ document.addEventListener('change', e=>{ if(e.target.matches('.cat-select')) sch
 document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, .flip-card, .chip, .bucket, .checklist li')) scheduleSave(); });
 
 // ============ INIT ============
-const STICKER_SRC = {};
-STICKER_SRC['excellent'] = 'img/sticker-excellent.png';
-STICKER_SRC['too_cool-b'] = 'img/sticker-too-cool-b.png';
-STICKER_SRC['vzhukh'] = 'img/sticker-vzhukh.png';
-STICKER_SRC['fire'] = 'img/sticker-fire.png';
-STICKER_SRC['great_work'] = 'img/sticker-great-work.png';
-STICKER_SRC['strawberry-a'] = 'img/sticker-strawberry-a.png';
-STICKER_SRC['eggcellent-a'] = 'img/sticker-eggcellent-a.png';
-STICKER_SRC['keep_going'] = 'img/sticker-keep-going.png';
-STICKER_SRC['awesome_is_banned'] = 'img/sticker-awesome-is-banned.png';
-STICKER_SRC['too_cool-a'] = 'img/sticker-too-cool-a.png';
-STICKER_SRC['good_vibes'] = 'img/sticker-good-vibes.png';
-STICKER_SRC['good_job'] = 'img/sticker-good-job.png';
-STICKER_SRC['strawberry-b'] = 'img/sticker-strawberry-b.png';
-STICKER_SRC['you_tried'] = 'img/sticker-you-tried.png';
-STICKER_SRC['i_love_it'] = 'img/sticker-i-love-it.png';
-STICKER_SRC['not_bad'] = 'img/sticker-not-bad.png';
-STICKER_SRC['eggcellent-b'] = 'img/sticker-eggcellent-b.png';
-STICKER_SRC['strawberry-full'] = 'img/sticker-strawberry-full.png';
-STICKER_SRC['perfect'] = 'img/sticker-perfect.png';
-STICKER_SRC['awesome'] = 'img/sticker-awesome.png';
-STICKER_SRC['amazing_work'] = 'img/sticker-amazing-work.png';
-STICKER_SRC['plain'] = 'img/sticker-plain.png';
-STICKER_SRC['nice'] = 'img/sticker-nice.png';
+
 renderStageNav();
 renderVocab('cw','all'); renderVocab('hw','all');
 renderMatch('cw'); renderMatch('hw');

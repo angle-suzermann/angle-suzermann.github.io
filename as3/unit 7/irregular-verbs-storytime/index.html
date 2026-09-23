@@ -643,6 +643,7 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
 </div>
 
 <script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 /* ======================= DATA ======================= */
 const FC_PDF = "AS_TRC3_U7_FC.pdf";
@@ -973,31 +974,7 @@ function finishQuiz(){
 buildQuiz();
 
 /* ======================= CHECK & SUBMIT (whole lesson) ======================= */
-const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
-];
-const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
-function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
-function renderResultSticker(pct){
-  const wrap = document.getElementById('completionStickers');
-  if(!wrap || typeof STICKER_DATA === 'undefined') return;
-  const tier = getResultTier(pct);
-  const chosen = pickRandom(tier.stickers);
-  wrap.querySelectorAll('.completion-sticker').forEach(img=>{
-    const isBonus = img.dataset.tier === 'awesome_is_banned';
-    const show = isBonus ? !!tier.bonus : (img.dataset.tier === chosen);
-    if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
-    else { img.hidden = true; }
-  });
-  const capEl = document.getElementById('resultCaption');
-  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
-}
+
 
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
