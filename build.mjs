@@ -236,6 +236,10 @@ const page = ({ title, heading, sub, body, extraScript = '' }) => `<!DOCTYPE htm
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css">
+<link rel="icon" href="${BASE}/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="ANGLE">
 </head>
 <body>
 <div class="bg-photo"></div>
