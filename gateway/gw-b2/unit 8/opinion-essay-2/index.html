@@ -1156,8 +1156,8 @@ function describeWrong(el, studentVal, correctVal){
 
 // ============ TIERED COMPLETION STICKER ============
 const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], bonus: true, label: 'Eggcellent! (100%)' },
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b'], label: 'Eggcellent!' },
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
   { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
   { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
   { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
@@ -1406,6 +1406,7 @@ document.addEventListener('click', e=>{ if(e.target.closest('.mcq .opt, .match, 
 const STICKER_SRC = {};
 STICKER_SRC['excellent'] = 'img/sticker-excellent.png';
 STICKER_SRC['too_cool-b'] = 'img/sticker-too-cool-b.png';
+STICKER_SRC['vzhukh'] = 'img/sticker-vzhukh.png';
 STICKER_SRC['fire'] = 'img/sticker-fire.png';
 STICKER_SRC['great_work'] = 'img/sticker-great-work.png';
 STICKER_SRC['strawberry-a'] = 'img/sticker-strawberry-a.png';
