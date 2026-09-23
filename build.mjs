@@ -104,6 +104,31 @@ function applyBase(dir) {
 }
 if (BASE) applyBase(OUT);
 
+/* Иконка сайта на КАЖДОЙ странице, включая материалы. Сами материалы не трогаем:
+   ссылки на иконку вставляются в копии в _site при сборке. Старые ссылки на
+   иконки, если они были в материале, убираем, чтобы браузер не взял чужую. */
+const ICON_TAGS =
+  `<link rel="icon" href="${BASE}/favicon.ico" sizes="any">\n` +
+  `<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png">\n` +
+  `<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png">\n` +
+  `<meta name="apple-mobile-web-app-title" content="ANGLE">\n`;
+function injectIcons(dir) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) { injectIcons(p); continue; }
+    if (!/\.html?$/i.test(e.name)) continue;
+    const src = fs.readFileSync(p, 'utf8');
+    if (!/<head(?:\s[^>]*)?>/i.test(src)) continue;
+    const out = src
+      .replace(/<link\b[^>]*\brel=["'](?:shortcut\s+)?icon["'][^>]*>\s*/gi, '')
+      .replace(/<link\b[^>]*\brel=["']apple-touch-icon(?:-precomposed)?["'][^>]*>\s*/gi, '')
+      .replace(/<meta\b[^>]*\bname=["']apple-mobile-web-app-title["'][^>]*>\s*/gi, '')
+      .replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${ICON_TAGS}`);
+    if (out !== src) fs.writeFileSync(p, out);
+  }
+}
+injectIcons(OUT);
+
 /* ---------- 2. собираем материалы ---------- */
 
 const materials = [];
