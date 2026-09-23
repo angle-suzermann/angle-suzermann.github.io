@@ -607,7 +607,6 @@ const filterBtns = [
   '<button type="button" class="filter-btn on" data-filter="all">Все</button>',
   ...familyBtns,
   ...standaloneCourses.map((c) => `<button type="button" class="filter-btn" data-filter="course:${esc(c.id)}">${esc(c.name)}</button>`),
-  ...TYPES.filter((t) => t === 'test').map((t) => `<button type="button" class="filter-btn" data-filter="type:${t}">${t}</button>`),
 ].join('\n    ');
 
 const staffScript = `<script>
