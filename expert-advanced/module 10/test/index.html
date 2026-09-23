@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Expert — Module 10 Test</title>
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="Expert Advanced">
@@ -9,438 +10,599 @@
 <meta name="ws:unit"      content="10">
 <meta name="ws:title"     content="Advanced Expert — Module 10 Test">
 <meta name="ws:emoji"     content="🎯">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-09-23">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mdaqrvdd">
 <meta name="ws:tags"      content="module 10, C1">
 <meta name="robots"       content="noindex, nofollow">
 <style>
-  :root{
-    --purple:#5E4877;
-    --black:#2D2926;
-    --yellow:#FED500;
-    --neutral-bg:#f7f6f4;
-    --neutral-card:#ffffff;
-    --neutral-border:#e4e0e8;
-    --correct:#3d7a3f;
-    --wrong:#b23a3a;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
-    background:var(--neutral-bg);
-    color:var(--black);
-    padding:0;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:24px;}
-  header{
-    position:relative;
-    background:var(--purple);
-    color:#ffffff;
-    padding:24px 24px 40px;
-    margin-bottom:0;
-    overflow:hidden;
-    min-height:140px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    display:flex;
-    align-items:center;
-    gap:20px;
-    text-align:left;
-  }
-  .logo-block{
-    flex:0 0 auto;
-    width:100px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .logo-block img{
-    display:block;
-    width:100%;
-    height:auto;
-  }
-  .title-block{
-    flex:1 1 auto;
-    min-width:0;
-    align-self:center;
-  }
-  header h1{
-    font-size:1.9em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin:0 0 6px 0;
-  }
-  header p{
-    color:#ffffff;
-    margin:0;
-    font-size:1em;
-    opacity:0.9;
-  }
-  .stars{display:none;}
-  .section{
-    background:var(--neutral-card);
-    border:1px solid var(--neutral-border);
-    border-left:6px solid var(--purple);
-    border-radius:0;
-    padding:22px;
-    margin-bottom:22px;
-    box-shadow:0 4px 14px rgba(45,41,38,0.06);
-  }
-  .section h2{
-    color:var(--purple);
-    font-size:1.2em;
-    font-weight:800;
-    text-transform:uppercase;
-    margin-top:0;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .section h2::before{
-    content:"";
-    display:inline-block;
-    width:0;
-    height:0;
-    border-left:9px solid transparent;
-    border-right:9px solid transparent;
-    border-bottom:16px solid var(--yellow);
-  }
-  .item{
-    margin:18px 0;
-    padding:14px;
-    background:#fbfaf9;
-    border-radius:0;
-    border:1px solid var(--neutral-border);
-  }
-  .item p{margin:0 0 10px 0;font-weight:700;color:var(--black);}
-  .func-tag{
-    display:inline-block;
-    background:var(--black);
-    color:var(--yellow);
-    font-size:0.75em;
-    padding:2px 10px;
-    border-radius:2px;
-    margin-left:6px;
-    font-weight:700;
-    text-transform:uppercase;
-  }
-  .options label{
-    display:block;
-    background:#fff;
-    border:1px solid var(--neutral-border);
-    border-radius:0;
-    padding:8px 12px;
-    margin:6px 0;
-    cursor:pointer;
-    transition:background 0.15s, border-color 0.15s;
-  }
-  .options label:hover{background:#f3eef8;border-color:var(--purple);}
-  .options input{margin-right:8px;accent-color:var(--purple);}
-  select{
-    padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
-    font-size:1em;
-    background:#fff;
-    color:var(--black);
-  }
-  input[type="text"]{
-    padding:6px 10px;
-    border-radius:0;
-    border:1px solid var(--purple);
-    font-size:1em;
-    width:140px;
-  }
-  .blank-sentence{font-weight:400;}
-  .btn{
-    display:block;
-    width:100%;
-    padding:16px;
-    background:var(--black);
-    color:var(--yellow);
-    border:none;
-    border-radius:0;
-    font-size:1.05em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    cursor:pointer;
-    margin-top:10px;
-    clip-path:polygon(0 0,100% 0,100% 100%,0 100%,3% 50%);
-  }
-  .btn:hover{background:var(--purple);color:#fff;}
-  .btn:disabled{background:#c9c2cf;color:#eee;}
-  .test-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 26px;}
-  .test-nav .btn{width:auto;flex:0 0 auto;padding:12px 22px;margin-top:0;}
-  .btn-secondary{background:var(--purple);}
-  .btn-secondary:hover{background:var(--black);}
-  .page-indicator{font-weight:800;color:var(--purple);text-transform:uppercase;font-size:0.8em;letter-spacing:0.5px;text-align:center;}
-  .passage-box{background:#fbfaf9;border:1px solid var(--neutral-border);padding:16px 18px;margin:0 0 18px;font-weight:400;line-height:1.65;}
-  .passage-box .ptitle{display:block;font-weight:800;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px;}
-  .instr{font-weight:700;}
-  .mark-note{font-style:italic;font-size:0.85em;color:var(--black);opacity:0.75;margin:0 0 16px;}
-  .gap-label{font-weight:700;}
-  #result{
-    text-align:center;
-    padding:26px 20px;
-    border-radius:0;
-    background:var(--purple);
-    color:#ffffff;
-    border:none;
-    display:none;
-  }
-  #result h2{color:var(--yellow);text-transform:uppercase;font-weight:800;}
-  .score-big{font-size:2.4em;color:var(--yellow);font-weight:800;}
-  .feedback-icon{margin-left:8px;font-weight:700;}
-  .feedback-icon.correct{color:var(--correct);}
-  .feedback-icon.wrong{color:var(--wrong);}
-  .status-note{font-size:0.85em;margin-top:14px;color:var(--yellow);}
+  
+  
 
-  .floating-logo{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    max-width:110px;
-    height:auto;
-    background:#fff;
-    border-radius:8px;
-    padding:6px 8px;
-    box-shadow:0 4px 14px rgba(45,41,38,0.25);
-    z-index:1000;
-  }
-  .studio-credit{
-    font-size:0.65em;
-    color:#ffffff;
-    opacity:0.85;
-    font-weight:400;
-    margin:6px 0 0;
-    text-align:center;
-    white-space:nowrap;
-  }
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{overflow-x:hidden;}
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text);
+  background:var(--card-tint);
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+  width:100%;
+}
 
-.claude-student-bar{ margin:18px 0 6px; }
-.claude-student-bar label{ display:flex; align-items:center; gap:10px; font-weight:800; color:var(--purple); font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; }
-.claude-student-bar input[type="text"]{ flex:1; padding:9px 12px; border:1px solid var(--purple); border-radius:6px; font-size:1em; font-family:inherit; background:#fff; }
+/* ---------- background photo + wash ---------- */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.6; transition:background-image .3s ease; }
+.bg-photo.bg-main{ background-image:url('img/bg-photo.jpg'); }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+
+/* ---------- topbar ---------- */
+.topbar{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.05rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg, var(--purple), var(--yellow)); width:12.5%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:28px; height:28px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.74rem; font-weight:700; cursor:pointer; transition:transform .15s ease; }
+.page-dot:hover{ transform:translateY(-1px); border-color:var(--purple); color:var(--purple); }
+.page-dot.active{ background:linear-gradient(135deg, var(--purple), var(--yellow)); border-color:var(--purple); color:#fff; box-shadow:0 2px 6px rgba(94,72,119,.4); }
+.page-dot.done{ border-color:var(--correct); color:var(--correct); }
+
+/* ---------- page shell ---------- */
+.page-wrap{ position:relative; z-index:5; max-width:980px; margin:0 auto; padding:24px 20px 90px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.hero-card{ background:rgba(255,255,255,.96); }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn.cta:hover{ background:#1b1816; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+/* reading passage box (cloze / word-formation context) */
+.passage-box{ background:var(--card-tint); border-left:4px solid var(--purple); border-radius:10px; padding:16px 18px; margin:12px 0 18px; line-height:1.7; font-size:.95rem; }
+.passage-box .ptitle{ display:block; text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:8px; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+.blank-sentence{ margin:0; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.gap-label{ display:inline-block; background:var(--purple); color:#fff; font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+.func-tag{ display:inline-block; background:var(--black); color:var(--yellow); font-size:.7rem; padding:2px 10px; border-radius:4px; font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
+
+/* mcq / choice buttons */
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; }
+.mcq .opt.chosen{ border-color:var(--purple); background:var(--card-tint); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+
+input.fib{ font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; margin:0 4px; max-width:100%; vertical-align:middle; min-width:150px; }
+input.fib.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.fib.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+/* results */
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:6px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+/* sticky ANGLE badge — fixed yellow, opacity .8, no auto-contrast JS (per project precedent) */
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.8; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+}
+
+@media (max-width:640px){
+  .card{ padding:18px 16px; }
+  .brand-row{ gap:8px; }
+  .lesson-title{ font-size:.92rem; }
+  .item{ overflow-wrap:break-word; }
+}
+
+
+select.fib-select{ font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; margin:6px 4px 0 0; max-width:100%; vertical-align:middle; min-width:170px; background:#fff; display:inline-block; }
+select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
 </style>
 </head>
 <body>
 
+<div class="bg-photo bg-main" id="bgPhoto"></div>
+<div class="bg-wash"></div>
 
-
-<header>
-<div class="logo-block">
-<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
-<p class="studio-credit">by Viktoria Syuzyova</p>
-</div>
-<div class="title-block">
-  <h1>Module 10 Test</h1>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Advanced Expert — Module 10 Test</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 5</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
 </header>
 
-<div class="wrap">
-<div class="claude-student-bar">
-  <label for="studentName">Name: <input type="text" id="studentName" placeholder="Type your name here"></label>
-</div>
+<div class="page-wrap">
+
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card hero-card">
+    <div class="eyebrow">ANGLE · Advanced Expert · Module 10</div>
+    <h2>Module 10 Test</h2>
+    <p>Module 10 test: Part 1 — Word formation, Part 2 — Phrase choice, and Part 3 — Key word transformation.</p>
+    <p class="muted">Enter your name above before you start — your answers are saved automatically in this browser.</p>
+    <h3>Roadmap</h3>
+    <span class="tag">1. Part 1 — Word formation</span><span class="tag">2. Part 2 — Phrase choice</span><span class="tag">3. Part 3 — Key word transformation</span><span class="tag">4. Results</span>
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
 
 
-
-<form id="quizForm">
-
-  <div class="section">
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="eyebrow">Page 2 of 5</div>
     <h2>Part 1 — Word formation</h2>
-    <p class="instr"><strong>1 For questions 1–6, read the text below. Use the word given in capitals at the end of some of the lines to form a word that fits in the gap in the same line.</strong></p>
+    <p class="muted">For questions 1–6, read the text below. Use the word given in capitals at the end of some of the lines to form a word that fits in the gap in the same line.</p>
+
     <div class="passage-box"><span class="ptitle">TURNING PROFESSIONAL</span>
       The transition from amateur to professional is far from easy for an athlete. Choices must be made and sacrifices too. As an (1) __________ novice, you may find it a steep learning curve going from running for fun on a regular basis to a very (2) __________ approach to training as established by a coach. Your coach is likely to create a varied routine for each day that focuses on (3) __________ different aspects of fitness to get you into peak shape. They will also have you do a (4) __________ assessment so they can determine any dietary changes needed. When first turning professional, you might be (5) __________ employed but pretty soon you might find yourself having to choose which matters most: becoming a successful athlete or having a full-time job. Our advice would be to discuss (6) __________ with your coach and start following up leads as soon as possible.
     </div>
 
-    <div class="item" data-answer="unenlightened" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (1)</span> <input type="text" name="q1"> <span class="func-tag">LIGHT</span></p></div>
-    <div class="item" data-answer="regimented" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (2)</span> <input type="text" name="q2"> <span class="func-tag">REGIME</span></p></div>
-    <div class="item" data-answer="uniting" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (3)</span> <input type="text" name="q3"> <span class="func-tag">UNITY</span></p></div>
-    <div class="item" data-answer="nutritional" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (4)</span> <input type="text" name="q4"> <span class="func-tag">NUTRIENT</span></p></div>
-    <div class="item" data-answer="gainfully" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (5)</span> <input type="text" name="q5"> <span class="func-tag">GAIN</span></p></div>
-    <div class="item" data-answer="sponsorship" data-type="fib"><p class="blank-sentence"><span class="gap-label">Gap (6)</span> <input type="text" name="q6"> <span class="func-tag">SPONSOR</span></p></div>
-  </div>
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (1)</span> <input type="text" class="fib" data-answer-list="unenlightened"> <span class="func-tag">LIGHT</span></p></div>
 
-  <div class="section">
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (2)</span> <input type="text" class="fib" data-answer-list="regimented"> <span class="func-tag">REGIME</span></p></div>
+
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (3)</span> <input type="text" class="fib" data-answer-list="uniting"> <span class="func-tag">UNITY</span></p></div>
+
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (4)</span> <input type="text" class="fib" data-answer-list="nutritional"> <span class="func-tag">NUTRIENT</span></p></div>
+
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (5)</span> <input type="text" class="fib" data-answer-list="gainfully"> <span class="func-tag">GAIN</span></p></div>
+
+    <div class="item"><p class="blank-sentence"><span class="gap-label">Gap (6)</span> <input type="text" class="fib" data-answer-list="sponsorship"> <span class="func-tag">SPONSOR</span></p></div>
+
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Part 1')">📤 Send this task's result to teacher</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="eyebrow">Page 3 of 5</div>
     <h2>Part 2 — Phrase choice</h2>
-    <p class="instr"><strong>2 For questions 1–12, underline the correct word or set of words in italics in the following paragraph.</strong></p>
+    <p class="muted">For questions 1–12, underline the correct word or set of words in italics in the following paragraph.</p>
+
     <div class="passage-box"><span class="ptitle">AS A CHILD</span>
       When I was a child, I felt so restricted by all the rules and regulations imposed on me by my parents. They (1) _____ let me have the freedom I yearned for outside the house: freedom that my friends all seemed to enjoy. As a result, I (2) _____ the hours (3) _____ my thumbs in an attempt to find inventive ways to occupy myself at home. When I (4) _____ my homework, I (5) _____ myself getting quite distracted, especially (6) _____ seeing the neighbours' kids playing in the trees that grew at the end of their garden. At home I (7) _____ required to help with housework if I wanted to get any pocket money. However, (8) _____ a hole in my mum's best dress whilst daydreaming instead of ironing, I soon found myself relieved of that dreaded chore and doing the washing-up instead. I (9) _____ have been about fourteen when this happened. As you (10) _____ , (11) _____ freer, I became very creative in my ideas of how to have fun using just my imagination. But well, I shan't go on – (12) _____ in a minute with some friends of mine. Being an adult means I now have the freedom to go out whenever I choose to.
     </div>
 
-    <div class="item" data-answer="wouldn't" data-type="dd"><p><span class="gap-label">Gap (1)</span></p>
-      <select name="q7"><option value="">-- choose --</option><option value="shan't">shan't</option><option value="wouldn't">wouldn't</option><option value="couldn't">couldn't</option></select></div>
-    <div class="item" data-answer="would while away" data-type="dd"><p><span class="gap-label">Gap (2)</span></p>
-      <select name="q8"><option value="">-- choose --</option><option value="would while away">would while away</option><option value="should've whiled away">should've whiled away</option><option value="will have whiled away">will have whiled away</option></select></div>
-    <div class="item" data-answer="twiddling" data-type="dd"><p><span class="gap-label">Gap (3)</span></p>
-      <select name="q9"><option value="">-- choose --</option><option value="to twiddle">to twiddle</option><option value="twiddling">twiddling</option><option value="for twiddling">for twiddling</option></select></div>
-    <div class="item" data-answer="was supposed to be doing" data-type="dd"><p><span class="gap-label">Gap (4)</span></p>
-      <select name="q10"><option value="">-- choose --</option><option value="had better do">had better do</option><option value="was supposed to be doing">was supposed to be doing</option><option value="was obliged to do">was obliged to do</option></select></div>
-    <div class="item" data-answer="would often find" data-type="dd"><p><span class="gap-label">Gap (5)</span></p>
-      <select name="q11"><option value="">-- choose --</option><option value="would often find">would often find</option><option value="must have found">must have found</option><option value="would have found">would have found</option></select></div>
-    <div class="item" data-answer="on" data-type="dd"><p><span class="gap-label">Gap (6)</span></p>
-      <select name="q12"><option value="">-- choose --</option><option value="on">on</option><option value="with">with</option><option value="for">for</option></select></div>
-    <div class="item" data-answer="was" data-type="dd"><p><span class="gap-label">Gap (7)</span></p>
-      <select name="q13"><option value="">-- choose --</option><option value="must have">must have</option><option value="should have">should have</option><option value="was">was</option></select></div>
-    <div class="item" data-answer="having burnt" data-type="dd"><p><span class="gap-label">Gap (8)</span></p>
-      <select name="q14"><option value="">-- choose --</option><option value="having burnt">having burnt</option><option value="while burning">while burning</option><option value="although burning">although burning</option></select></div>
-    <div class="item" data-answer="would" data-type="dd"><p><span class="gap-label">Gap (9)</span></p>
-      <select name="q15"><option value="">-- choose --</option><option value="would">would</option><option value="can't">can't</option><option value="should">should</option></select></div>
-    <div class="item" data-answer="will have realised" data-type="dd"><p><span class="gap-label">Gap (10)</span></p>
-      <select name="q16"><option value="">-- choose --</option><option value="shall realise">shall realise</option><option value="can realise">can realise</option><option value="will have realised">will have realised</option></select></div>
-    <div class="item" data-answer="wanting to be" data-type="dd"><p><span class="gap-label">Gap (11)</span></p>
-      <select name="q17"><option value="">-- choose --</option><option value="wanting to be">wanting to be</option><option value="feeling">feeling</option><option value="becoming">becoming</option></select></div>
-    <div class="item" data-answer="i'm supposed to be going out" data-type="dd"><p><span class="gap-label">Gap (12)</span></p>
-      <select name="q18"><option value="">-- choose --</option><option value="i'm supposed to be going out">I'm supposed to be going out</option><option value="i am to go out">I am to go out</option><option value="should go out">should go out</option></select></div>
-  </div>
+    <div class="item"><p><span class="gap-label">Gap (1)</span></p>
+<select class="fib-select" data-answer="wouldn't"><option value="">-- choose --</option><option value="shan't">shan't</option><option value="wouldn't">wouldn't</option><option value="couldn't">couldn't</option></select></div>
 
-  <div class="section">
+    <div class="item"><p><span class="gap-label">Gap (2)</span></p>
+<select class="fib-select" data-answer="would while away"><option value="">-- choose --</option><option value="would while away">would while away</option><option value="should've whiled away">should've whiled away</option><option value="will have whiled away">will have whiled away</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (3)</span></p>
+<select class="fib-select" data-answer="twiddling"><option value="">-- choose --</option><option value="to twiddle">to twiddle</option><option value="twiddling">twiddling</option><option value="for twiddling">for twiddling</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (4)</span></p>
+<select class="fib-select" data-answer="was supposed to be doing"><option value="">-- choose --</option><option value="had better do">had better do</option><option value="was supposed to be doing">was supposed to be doing</option><option value="was obliged to do">was obliged to do</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (5)</span></p>
+<select class="fib-select" data-answer="would often find"><option value="">-- choose --</option><option value="would often find">would often find</option><option value="must have found">must have found</option><option value="would have found">would have found</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (6)</span></p>
+<select class="fib-select" data-answer="on"><option value="">-- choose --</option><option value="on">on</option><option value="with">with</option><option value="for">for</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (7)</span></p>
+<select class="fib-select" data-answer="was"><option value="">-- choose --</option><option value="must have">must have</option><option value="should have">should have</option><option value="was">was</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (8)</span></p>
+<select class="fib-select" data-answer="having burnt"><option value="">-- choose --</option><option value="having burnt">having burnt</option><option value="while burning">while burning</option><option value="although burning">although burning</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (9)</span></p>
+<select class="fib-select" data-answer="would"><option value="">-- choose --</option><option value="would">would</option><option value="can't">can't</option><option value="should">should</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (10)</span></p>
+<select class="fib-select" data-answer="will have realised"><option value="">-- choose --</option><option value="shall realise">shall realise</option><option value="can realise">can realise</option><option value="will have realised">will have realised</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (11)</span></p>
+<select class="fib-select" data-answer="wanting to be"><option value="">-- choose --</option><option value="wanting to be">wanting to be</option><option value="feeling">feeling</option><option value="becoming">becoming</option></select></div>
+
+    <div class="item"><p><span class="gap-label">Gap (12)</span></p>
+<select class="fib-select" data-answer="i'm supposed to be going out"><option value="">-- choose --</option><option value="i'm supposed to be going out">I'm supposed to be going out</option><option value="i am to go out">I am to go out</option><option value="should go out">should go out</option></select></div>
+
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Part 2')">📤 Send this task's result to teacher</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="eyebrow">Page 4 of 5</div>
     <h2>Part 3 — Key word transformation</h2>
-    <p class="instr"><strong>3 For questions 1–7, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between three and six words.</strong></p>
+    <p class="muted">For questions 1–7, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between three and six words.</p>
 
-    <div class="item" data-answer="are required by law to go|are required to go" data-type="fib"><p class="blank-sentence">1 The law stipulates that you cannot leave formal education until you are sixteen years old. <span class="func-tag">REQUIRED</span><br>You <input type="text" name="q19"> to school until you reach sixteen.</p></div>
-    <div class="item" data-answer="'d better get|had better get|'d better buy|had better buy" data-type="fib"><p class="blank-sentence">2 It would be a good idea to buy some petrol on the way there. <span class="func-tag">BETTER</span><br>We <input type="text" name="q20"> some petrol on the way there.</p></div>
-    <div class="item" data-answer="smoking is not permitted" data-type="fib"><p class="blank-sentence">3 You are not allowed to smoke anywhere on the premises. <span class="func-tag">PERMITTED</span><br><input type="text" name="q21"> on these premises.</p></div>
-    <div class="item" data-answer="are supposed to finish|are supposed to have finished" data-type="fib"><p class="blank-sentence">4 If all goes well, the project should be finished by the end of the month. <span class="func-tag">SUPPOSED</span><br>We <input type="text" name="q22"> the project by the end of the month.</p></div>
-    <div class="item" data-answer="'s advisable not to|is advisable not to|isn't advisable to|is not advisable to" data-type="fib"><p class="blank-sentence">5 If I were you, I wouldn't tell them you're planning to leave yet. <span class="func-tag">ADVISABLE</span><br>It <input type="text" name="q23"> disclose you're leaving yet.</p></div>
-    <div class="item" data-answer="'re under no obligation|are under no obligation" data-type="fib"><p class="blank-sentence">6 You really don't have to phone me when you're away on holiday. <span class="func-tag">OBLIGATION</span><br>You <input type="text" name="q24"> to call when you're on holiday.</p></div>
-    <div class="item" data-answer="to report to" data-type="fib"><p class="blank-sentence">7 All students who arrive late for school must go to the school office on arrival. <span class="func-tag">REPORT</span><br>Any students arriving late for school are <input type="text" name="q25"> the school office on arrival.</p></div>
+    <div class="item"><p class="blank-sentence">1 The law stipulates that you cannot leave formal education until you are sixteen years old. <span class="func-tag">REQUIRED</span><br/>You <input type="text" class="fib" data-answer-list="are required by law to go|are required to go"> to school until you reach sixteen.</p></div>
+
+    <div class="item"><p class="blank-sentence">2 It would be a good idea to buy some petrol on the way there. <span class="func-tag">BETTER</span><br/>We <input type="text" class="fib" data-answer-list="'d better get|had better get|'d better buy|had better buy"> some petrol on the way there.</p></div>
+
+    <div class="item"><p class="blank-sentence">3 You are not allowed to smoke anywhere on the premises. <span class="func-tag">PERMITTED</span><br/><input type="text" class="fib" data-answer-list="smoking is not permitted"> on these premises.</p></div>
+
+    <div class="item"><p class="blank-sentence">4 If all goes well, the project should be finished by the end of the month. <span class="func-tag">SUPPOSED</span><br/>We <input type="text" class="fib" data-answer-list="are supposed to finish|are supposed to have finished"> the project by the end of the month.</p></div>
+
+    <div class="item"><p class="blank-sentence">5 If I were you, I wouldn't tell them you're planning to leave yet. <span class="func-tag">ADVISABLE</span><br/>It <input type="text" class="fib" data-answer-list="'s advisable not to|is advisable not to|isn't advisable to|is not advisable to"> disclose you're leaving yet.</p></div>
+
+    <div class="item"><p class="blank-sentence">6 You really don't have to phone me when you're away on holiday. <span class="func-tag">OBLIGATION</span><br/>You <input type="text" class="fib" data-answer-list="'re under no obligation|are under no obligation"> to call when you're on holiday.</p></div>
+
+    <div class="item"><p class="blank-sentence">7 All students who arrive late for school must go to the school office on arrival. <span class="func-tag">REPORT</span><br/>Any students arriving late for school are <input type="text" class="fib" data-answer-list="to report to"> the school office on arrival.</p></div>
+
+    <div class="task-submit">
+      <button type="button" class="btn ghost" onclick="submitPartial(this,'Part 3')">📤 Send this task's result to teacher</button>
+      <span class="task-submit-status"></span>
+    </div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
   </div>
+</section>
 
-  <div class="test-nav">
-    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="anglePrevPage()">← Previous section</button>
-    <div class="page-indicator" id="pageIndicator">Section 1 of 3</div>
-    <button type="button" class="btn btn-secondary" id="nextBtn" onclick="angleNextPage()">Next section →</button>
+
+<section class="page" data-page="4">
+  <div class="card">
+    <div class="eyebrow">Page 5 of 5</div>
+    <h2>Results</h2>
+    <p class="muted">Press "Check &amp; Submit" on the previous page to see your score here.</p>
+    <div id="scoreSummary" hidden></div>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
   </div>
+</section>
 
+</div><!-- /page-wrap -->
 
-  <button type="submit" class="btn" id="submitBtn">Check my answers</button>
-</form>
-
-<div id="result">
-  <h2>Your score</h2>
-  <div class="score-big" id="scoreDisplay"></div>
-  <p id="scoreMsg"></p>
-  <p class="status-note" id="statusNote"></p>
+<div class="angle-badge">
+<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
-</div>
 
 <script>
 
-function getStudentName(){
-  const el = document.getElementById('studentName');
-  const v = el ? el.value.trim() : '';
-  return v || '(no name entered)';
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'Expert Advanced — Module 10 Test';
+
+const PAGE_LABELS = ["Start","Part 1","Part 2","Part 3","Results"];
+
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function fuzzyMatch(value, list){
+  const v = normalize(value);
+  if(!v) return false;
+  return list.some(a=>{ const na=normalize(a); return v===na; });
 }
-document.getElementById('quizForm').addEventListener('submit', function(e){
-  e.preventDefault();
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
-  let total = 0;
-  let correct = 0;
-  let reviewLines = [];
-  let mistakes = [];
-
-  document.querySelectorAll('.item').forEach(function(item){
-    total++;
-    const type = item.dataset.type;
-    const answer = item.dataset.answer.trim().toLowerCase();
-    const acceptable = answer.split('|').map(function(a){ return a.trim(); });
-    let userAnswer = "";
-    let isCorrect = false;
-
-    if(type === "mc"){
-      const checked = item.querySelector('input[type="radio"]:checked');
-      userAnswer = checked ? checked.value : "";
-      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
-    } else if(type === "dd"){
-      const sel = item.querySelector('select');
-      userAnswer = sel.value;
-      isCorrect = acceptable.indexOf(userAnswer.trim().toLowerCase()) !== -1;
-    } else if(type === "fib"){
-      const inp = item.querySelector('input[type="text"]');
-      userAnswer = inp.value.trim().toLowerCase();
-      isCorrect = acceptable.indexOf(userAnswer) !== -1;
-    }
-
-    if(isCorrect) correct++;
-
-    // visual feedback
-    const icon = document.createElement('span');
-    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
-    icon.textContent = isCorrect ? '✓' : ('✗ (' + acceptable.join(' / ') + ')');
-    item.appendChild(icon);
-
-    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + item.querySelector('p').textContent.trim() + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + acceptable.join(' / '));
-
-    if(!isCorrect){
-      mistakes.push(item.querySelector('p').textContent.trim() + ' → answered "' + (userAnswer || '(blank)') + '", correct "' + acceptable.join(' / ') + '"');
-    }
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
   });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth', block:'start'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
 
-  const pct = Math.round((correct/total)*100);
-
-  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
-  document.getElementById('scoreMsg').textContent = pct >= 80
-    ? "Strong. You're ready for tomorrow's debate round."
-    : pct >= 50
-    ? "Decent, but review the missed ones before class."
-    : "Review all three sections before class — go through the missed phrases below.";
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('submitBtn').disabled = true;
-  document.getElementById('submitBtn').textContent = 'Submitted';
-
-  // Send to teacher via Formspree
-  const fd = new FormData();
-  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
-  fd.append('course', 'Expert Advanced');
-  fd.append('student', getStudentName());
-  fd.append('subject', ('Expert Advanced — Advanced Expert — Module 10 Test') + ' — ' + (getStudentName()));
-  fd.append('exercise', 'Advanced Expert — Module 10 Test');
-  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
-  fd.append('details', reviewLines.join('\n'));
-  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
-
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: {'Accept': 'application/json'},
-    body: fd
-  }).then(function(res){
-    document.getElementById('statusNote').textContent = res.ok
-      ? 'Result sent to Viktoria.'
-      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
-  }).catch(function(){
-    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+function bindMcqHandlers(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.onclick = ()=>{
+      const group = btn.closest('.mcq');
+      group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      scheduleSave();
+    };
   });
+}
 
-  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
-});
-</script>
-
-<script>
-(function(){
-  var sections = Array.prototype.slice.call(document.querySelectorAll('#quizForm .section'));
-  var total = sections.length;
-  var idx = 0;
-  var prevBtn = document.getElementById('prevBtn');
-  var nextBtn = document.getElementById('nextBtn');
-  var submitBtn = document.getElementById('submitBtn');
-  var indicator = document.getElementById('pageIndicator');
-  function show(i){
-    sections.forEach(function(s,j){ s.style.display = (j===i) ? '' : 'none'; });
-    if(prevBtn) prevBtn.style.display = (i===0) ? 'none' : '';
-    if(nextBtn) nextBtn.style.display = (i===total-1) ? 'none' : '';
-    if(submitBtn) submitBtn.style.display = (i===total-1) ? '' : 'none';
-    if(indicator) indicator.textContent = 'Section ' + (i+1) + ' of ' + total;
-    window.scrollTo({top:0, behavior:'smooth'});
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){
+    const qOrig = item.querySelector('p.q');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input, button').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+    const gap = item.querySelector('.gap-label');
+    if(gap) return gap.textContent.trim();
   }
-  window.angleNextPage = function(){ if(idx<total-1){ idx++; show(idx);} };
-  window.anglePrevPage = function(){ if(idx>0){ idx--; show(idx);} };
-  show(idx);
-})();
-</script>
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
 
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  let correct=0, total=0;
+  const wrongList = [];
+
+  document.querySelectorAll('input.fib[data-answer-list]').forEach(inp=>{
+    total++;
+    const list = inp.dataset.answerList.split('|');
+    const ok = fuzzyMatch(inp.value, list);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list[0]));
+  });
+
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    const ok = normalize(sel.value) === normalize(sel.dataset.answer);
+    sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+    const saidText = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : sel.value;
+    if(ok) correct++; else wrongList.push(describeWrong(sel, saidText, sel.dataset.answer));
+  });
+
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    g.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong'));
+    if(isRight){ correct++; if(chosen) chosen.classList.add('is-correct'); }
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      if(correctBtn) correctBtn.classList.add('is-correct');
+      if(chosen) chosen.classList.add('is-wrong');
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = correct + ' / ' + total + ' correct';
+  document.getElementById('resultsBreakdown').innerHTML = wrongList.length
+    ? '<h3>Items to review</h3><ul>' + wrongList.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;">All items correct 🎉</p>';
+  showPage(4);
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title + ' — ' + nameInput.value.trim());
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  scheduleSave();
+}
+
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); showPage(0); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  let correct=0, total=0;
+  const wrongList = [];
+
+  scope.querySelectorAll('input.fib[data-answer-list]').forEach(inp=>{
+    total++;
+    const list = inp.dataset.answerList.split('|');
+    const ok = fuzzyMatch(inp.value, list);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, list[0]));
+  });
+
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    const ok = normalize(sel.value) === normalize(sel.dataset.answer);
+    const saidText = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : sel.value;
+    if(ok) correct++; else wrongList.push(describeWrong(sel, saidText, sel.dataset.answer));
+  });
+
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} — ${itemContext(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+
+  const pct = total ? Math.round(correct/total*100) : 0;
+  btn.disabled = true;
+  if(statusEl) statusEl.textContent = 'Sending…';
+
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    fd.append('subject', document.title + ' — ' + taskLabel + ' — ' + nameInput.value.trim());
+    fd.append('lesson', document.title + ' — ' + taskLabel + ' (partial submission after task)');
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    if(statusEl) statusEl.textContent = `✓ Sent to teacher — ${correct}/${total} (${pct}%)`;
+  } catch(e){
+    if(statusEl) statusEl.textContent = 'Could not send — check your internet connection and try again.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+const PROGRESS_KEY = 'angle_progress::expert-advanced-module10-test';
+
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('input.fib')].map(el=>el.value);
+    state.sel = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('input.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  const sels = document.querySelectorAll('select.fib-select');
+  (state.sel||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const mcqGroups = document.querySelectorAll('.mcq[data-correct]');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn) btn.classList.add('chosen');
+  });
+
+  const hasContent = (state.fib||[]).some(v=>v) || (state.sel||[]).some(v=>v) || (state.mcq||[]).some(v=>v!=null);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select.fib-select')) scheduleSave(); });
+
+function init(){
+  buildDots();
+  bindMcqHandlers();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
 </body>
 </html>
