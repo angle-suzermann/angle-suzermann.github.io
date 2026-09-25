@@ -50,15 +50,44 @@ html,body{ height:100%; overflow:hidden; }
 .scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
 .bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; pointer-events:none; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
-  .angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+  .angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:#FED500; }
   .angle-badge .wordmark{ width:120px; height:auto; display:block; }
   .angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid #5E4877; }
+  .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .lesson-title{ font-weight:900; color:#5E4877; font-size:1.05rem; }
+  .namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; flex-wrap:wrap; }
+  .namebar input{ font-family:inherit; border:1.5px solid #e4e0e8; border-radius:8px; padding:6px 10px; font-size:.9rem; min-width:140px; }
+  .progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .progress-track{ flex:1; height:8px; border-radius:6px; background:#f1e9fb; overflow:hidden; }
+  .progress-row .progress-fill{ height:100%; background:#FED500; width:0%; transition:width .3s ease; }
+  .progress-row .progress-label{ font-size:.78rem; color:#6E5D8A; white-space:nowrap; font-family:inherit; opacity:1; margin-top:0; }
 </style>
 </head>
 <body>
 <div class="app-shell">
 <div class="bg-photo"></div>
 <div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Macmillan · Academy Stars 5 · Photocopiable test — Unit 9 — What's your opinion? (reported speech) — Vocabulary (food, media, gadgets), reported speech and indefinite pronouns. Fill in, choose, match — then check your score.</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Write your name here">
+        <span class="save-indicator" id="saveIndicator"></span>
+        <label for="studentGroup" style="margin-left:8px;">Group:</label>
+        <input type="text" id="studentGroup" placeholder="e.g. 5B" style="min-width:90px;">
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">0 / 61 answered</span>
+    </div>
+  </div>
+</header>
 
 <div class="scroll-area">
 <div class="wrap">
@@ -67,24 +96,6 @@ html,body{ height:100%; overflow:hidden; }
     <span id="restoreNoteText"></span>
     <button onclick="clearProgress()">Start over (clear saved answers)</button>
   </div>
-
-  <div class="info-box">
-    <label for="studentName">Student's name</label>
-    <input type="text" id="studentName" placeholder="Write your name here">
-    <span class="save-indicator" id="saveIndicator"></span>
-    <div class="info-box-group">
-      <label for="studentGroup">Group / Class</label>
-      <input type="text" id="studentGroup" placeholder="e.g. 5B">
-    </div>
-  </div>
-
-  <header class="hero">
-    <div class="eyebrow">Macmillan · Academy Stars 5 · Photocopiable test</div>
-    <h1>Unit 9 — What's your opinion? (reported speech)</h1>
-    <p>Vocabulary (food, media, gadgets), reported speech and indefinite pronouns. Fill in, choose, match — then check your score.</p>
-    <div class="progress-shell"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-label" id="progressLabel">0 / 61 answered</div>
-  </header>
 
   <!-- EXERCISE 1 -->
   <section class="card" id="ex1" data-name="01 Missing letters & match">
