@@ -437,6 +437,186 @@
 
 </div>
 </div><!-- /scroll-area -->
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+
+
+function getStudentName(){
+  const el = document.getElementById('studentName');
+  const v = el ? el.value.trim() : '';
+  return v || '(no name entered)';
+}
+document.getElementById('quizForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let total = 0;
+  let correct = 0;
+  let reviewLines = [];
+  let mistakes = [];
+
+  document.querySelectorAll('.item').forEach(function(item){
+    total++;
+    const type = item.dataset.type;
+    const answer = item.dataset.answer.trim().toLowerCase();
+    let userAnswer = "";
+    let isCorrect = false;
+
+    if(type === "mc"){
+      const checked = item.querySelector('input[type="radio"]:checked');
+      userAnswer = checked ? checked.value : "";
+      isCorrect = userAnswer === answer;
+    } else if(type === "dd"){
+      const sel = item.querySelector('select');
+      userAnswer = sel.value;
+      isCorrect = userAnswer === answer;
+    } else if(type === "fib"){
+      const inp = item.querySelector('input[type="text"]');
+      userAnswer = inp.value.trim().toLowerCase();
+      isCorrect = userAnswer === answer;
+    }
+
+    if(isCorrect) correct++;
+
+    // visual feedback
+    const icon = document.createElement('span');
+    icon.className = 'feedback-icon ' + (isCorrect ? 'correct' : 'wrong');
+    icon.textContent = isCorrect ? '✓' : ('✗ (' + answer + ')');
+    item.appendChild(icon);
+
+    const itemLabel = item.querySelector('p').textContent.trim();
+    reviewLines.push((isCorrect ? 'CORRECT' : 'WRONG') + ' | ' + itemLabel + ' | student answer: ' + (userAnswer || '(blank)') + ' | correct answer: ' + answer);
+
+    if(!isCorrect){
+      mistakes.push(itemLabel + ' → answered "' + (userAnswer || '(blank)') + '", correct "' + answer + '"');
+    }
+  });
+
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+  document.getElementById('scoreMsg').textContent = pct >= 80
+    ? "Strong. You're ready for tomorrow's debate round."
+    : pct >= 50
+    ? "Decent, but review the missed ones before class."
+    : "Review all three sections before class — go through the missed phrases below.";
+  renderResultSticker(pct);
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitted';
+
+  // Send to teacher via Formspree
+  const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'Academy Stars 5');
+  fd.append('student', getStudentName());
+  fd.append('subject', ('Academy Stars 5 — Debate Phrases Warm-Up') + ' — ' + (getStudentName()));
+  fd.append('exercise', 'Debate Phrases Warm-Up');
+  fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+  fd.append('result_tier', getResultTier(pct).label);
+  fd.append('details', reviewLines.join('\n'));
+  fd.append('mistakes', mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.');
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Accept': 'application/json'},
+    body: fd
+  }).then(function(res){
+    document.getElementById('statusNote').textContent = res.ok
+      ? 'Result sent to Viktoria.'
+      : 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  }).catch(function(){
+    document.getElementById('statusNote').textContent = 'Score saved here, but sending to Viktoria failed — please screenshot this page.';
+  });
+
+  window.scrollTo({top: document.getElementById('result').offsetTop - 20, behavior: 'smooth'});
+});
+
+// ---- Progress persistence (save & resume) ----
+const PROGRESS_KEY = 'angle_progress::as5-unit9-debate-warmup-lower';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), items: [] };
+    document.querySelectorAll('.item').forEach(function(item){
+      const type = item.dataset.type;
+      if(type === 'mc'){
+        const checked = item.querySelector('input[type="radio"]:checked');
+        state.items.push(checked ? checked.value : null);
+      } else if(type === 'dd'){
+        const sel = item.querySelector('select');
+        state.items.push(sel ? sel.value : null);
+      } else if(type === 'fib'){
+        const inp = item.querySelector('input[type="text"]');
+        state.items.push(inp ? inp.value : null);
+      } else {
+        state.items.push(null);
+      }
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  const items = document.querySelectorAll('.item');
+  let hasContent = false;
+  (state.items || []).forEach(function(val, i){
+    if(val === null || val === undefined || val === '') return;
+    const item = items[i];
+    if(!item) return;
+    const type = item.dataset.type;
+    if(type === 'mc'){
+      const radio = item.querySelector('input[type="radio"][value="' + CSS.escape(val) + '"]');
+      if(radio){ radio.checked = true; hasContent = true; }
+    } else if(type === 'dd'){
+      const sel = item.querySelector('select');
+      if(sel){ sel.value = val; hasContent = true; }
+    } else if(type === 'fib'){
+      const inp = item.querySelector('input[type="text"]');
+      if(inp){ inp.value = val; hasContent = true; }
+    }
+  });
+
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = 'We found saved answers from ' + (when || 'an earlier session') + ' — they’ve been filled back in.';
+      note.hidden = false;
+    }
+  }
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', function(e){ if(e.target.matches('input[type="text"]')) scheduleSave(); });
+document.addEventListener('change', function(e){ if(e.target.matches('input[type="radio"], select')) scheduleSave(); });
+
+restoreProgress();
+</script>
 <img class="course-badge" alt="Academy Stars 5 · Second Edition" src="/assets/brand/academy-stars-badge.png">
 </div><!-- /app-shell -->
 
