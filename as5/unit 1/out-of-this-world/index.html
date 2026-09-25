@@ -39,50 +39,12 @@
   .scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
   .bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; pointer-events:none; }
   .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
-  header{
-    position:relative;
-    background:var(--purple);
-    color:#ffffff;
-    padding:24px 24px 40px;
-    margin-bottom:0;
-    overflow:hidden;
-    min-height:140px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    display:flex;
-    align-items:center;
-    gap:20px;
-    text-align:left;
-  }
-  .logo-block{
-    flex:0 0 auto;
-    width:100px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .logo-block img{
-    display:block;
-    width:100%;
-    height:auto;
-  }
-  .title-block{
-    flex:1 1 auto;
-    min-width:0;
-    align-self:center;
-  }
-  header h1{
-    font-size:1.9em;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin:0 0 6px 0;
-  }
-  header p{
-    color:#ffffff;
-    margin:0;
-    font-size:1em;
-    opacity:0.9;
-  }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+  .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .lesson-title{ font-weight:900; color:var(--purple); font-size:1.05rem; }
+  .namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+  .namebar input{ font-family:inherit; border:1.5px solid var(--neutral-border); border-radius:8px; padding:6px 10px; font-size:.9rem; min-width:180px; }
   .stars{display:none;}
   .section{
     background:var(--neutral-card);
@@ -280,20 +242,19 @@
 <div class="bg-wash"></div>
 
 <div class="scroll-area">
-<header>
-<div class="logo-block">
-<img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
-<p class="studio-credit">by Viktoria Syuzyova</p>
-</div>
-<div class="title-block">
-  <h1>Out of This World: Past Simple &amp; Past Continuous</h1>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Out of This World: Past Simple &amp; Past Continuous</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+      </div>
+    </div>
+  </div>
 </header>
 
 <div class="wrap">
-<div class="claude-student-bar">
-  <label for="studentName">Name: <input type="text" id="studentName" placeholder="Type your name here"></label>
-</div>
 
 
 <div class="restore-note" id="restoreNote" hidden>
