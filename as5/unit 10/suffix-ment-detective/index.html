@@ -411,9 +411,20 @@
 .claude-student-bar{ margin:14px 0 18px; }
 .claude-student-bar label{ display:flex; align-items:center; gap:10px; font-weight:800; color:var(--gold); font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; }
 .claude-student-bar input[type="text"]{ flex:1; padding:9px 12px; border:1px solid var(--navy); border-radius:6px; font-size:1em; font-family:inherit; background:var(--card); color:var(--ink); }
+html,body{ height:100%; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.course-badge{ position:fixed; right:14px; bottom:12px; z-index:9998; pointer-events:none; width:min(104px, 22vw); height:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 </style>
 </head>
 <body>
+<div class="app-shell">
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+
+<div class="scroll-area">
 <div class="app">
 
   <header class="case-header">
@@ -445,6 +456,10 @@
   </div>
 
 </div>
+</div><!-- /scroll-area -->
+<img class="course-badge" alt="Academy Stars 5 · Second Edition" src="/assets/brand/academy-stars-badge.png">
+</div><!-- /app-shell -->
+
 
 <script src="/assets/sticker-data.js"></script>
 <script src="/assets/sticker-logic.js"></script>
