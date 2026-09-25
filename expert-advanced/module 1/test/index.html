@@ -38,9 +38,9 @@ body{
 }
 
 /* ---------- background photo + wash ---------- */
-.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.6; transition:background-image .3s ease; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.6; transition:background-image .3s ease;  pointer-events:none; }
 .bg-photo.bg-main{ background-image:url('img/bg-photo.jpg'); }
-.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9));  pointer-events:none; }
 
 /* ---------- topbar ---------- */
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
