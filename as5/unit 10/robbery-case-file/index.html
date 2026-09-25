@@ -42,21 +42,11 @@
   h1,h2,h3{font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:800; letter-spacing:.2px;}
   .app{max-width:920px; margin:0 auto;}
 
-  header.case-header{
-    position:relative;
-    background:var(--purple);
-    color:#fff;
-    padding:22px 24px 34px;
-    display:flex; align-items:center; gap:20px;
-    clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
-    box-shadow:var(--shadow);
-  }
-  .logo-block{flex:0 0 auto; width:84px; display:flex; flex-direction:column; align-items:center;}
-  .logo-block img{display:block; width:100%; height:auto;}
-  .studio-credit{font-size:.62rem; color:#fff; opacity:.85; margin:6px 0 0; text-align:center; white-space:nowrap;}
-  .title-block{flex:1 1 auto; min-width:0;}
-  header.case-header h1{margin:0 0 4px; font-size:1.35rem; text-transform:uppercase; letter-spacing:.5px; color:#fff;}
-  header.case-header .sub{font-size:.8rem; color:#fff; opacity:.9;}
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+  .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .lesson-title{ font-weight:900; color:var(--purple); font-size:1.05rem; }
+
 
   .meta-bar{display:flex; justify-content:flex-end; margin-top:12px;}
   .score-pill{
@@ -206,16 +196,13 @@ html,body{ height:100%; overflow:hidden; }
 
 <div class="scroll-area">
 <div class="app">
-  <header class="case-header">
-    <div class="logo-block">
-      <img class="studio-icon-img" src="/assets/brand/angle-logo.png" alt="ANGLE">
-      <p class="studio-credit">by Viktoria Syuzyova</p>
+  <header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Case File: The Robbery — Unit 10 &middot; Academy Stars 5 &middot; Reading skill: scan for details</span>
     </div>
-    <div class="title-block">
-      <h1>Case File: The Robbery</h1>
-      <div class="sub">Unit 10 &middot; Academy Stars 5 &middot; Reading skill: scan for details</div>
-    </div>
-  </header>
+  </div>
+</header>
   <div class="meta-bar"><div class="score-pill" id="scorePill">0 / 0 clues found</div></div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 

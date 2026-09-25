@@ -47,54 +47,13 @@
   .app{ max-width:880px; margin:0 auto; }
 
   /* HEADER */
-  .case-header{
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-    border-radius:16px 16px 4px 4px;
-    padding:22px 26px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    box-shadow:var(--shadow);
-    position:relative;
-    overflow:hidden;
-    border:2px solid var(--navy);
-  }
-  .case-header::after{
-    content:'';
-    position:absolute; top:-40%; right:-10%;
-    width:220px; height:220px;
-    background: radial-gradient(circle, rgba(184,144,43,0.18) 0%, transparent 70%);
-  }
-  .badge{
-    flex:0 0 auto;
-    width:62px; height:62px;
-    border-radius:50%;
-    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 70%);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35), inset 0 0 0 3px rgba(255,255,255,0.25);
-  }
-  .badge svg{ width:34px; height:34px; }
-  .header-text{ position:relative; z-index:1; }
-  .header-text .kicker{
-    font-family:'Special Elite', monospace;
-    color:var(--gold-light);
-    font-size:0.72rem;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    margin:0 0 4px;
-  }
-  .header-text h1{
-    font-family:'Special Elite', monospace;
-    color:#fdf6e3;
-    font-size:1.55rem;
-    margin:0 0 5px;
-    letter-spacing:0.5px;
-  }
-  .header-text p{
-    margin:0;
-    color:#c8cee0;
-    font-size:0.88rem;
-  }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid #5E4877; }
+  .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .lesson-title{ font-weight:900; color:#5E4877; font-size:1.05rem; }
+  .namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+  .namebar input{ font-family:inherit; border:1.5px solid #e4e0e8; border-radius:8px; padding:6px 10px; font-size:.9rem; min-width:180px; }
+
 
   /* PROGRESS */
   .progress-wrap{
@@ -430,23 +389,19 @@ html,body{ height:100%; overflow:hidden; }
 <div class="scroll-area">
 <div class="app">
 
-  <header class="case-header">
-    <div class="badge">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="10" r="6.2" stroke="#1c2440" stroke-width="2"/>
-        <line x1="14.6" y1="14.6" x2="21" y2="21" stroke="#1c2440" stroke-width="2.4" stroke-linecap="round"/>
-      </svg>
+  <header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Academy Stars 5 &middot; Unit 10 &middot; Working with words — Case File 10: The &minus;ment Mystery — Help Inspector Fox build noun evidence with the suffix <strong>-ment</strong>.</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+      </div>
     </div>
-    <div class="header-text">
-      <p class="kicker">Academy Stars 5 &middot; Unit 10 &middot; Working with words</p>
-      <h1>Case File 10: The &minus;ment Mystery</h1>
-      <p>Help Inspector Fox build noun evidence with the suffix <strong>-ment</strong>.</p>
-    </div>
-  </header>
-
-  <div class="claude-student-bar">
-    <label for="studentName">Name: <input type="text" id="studentName" placeholder="Type your name here"></label>
   </div>
+</header>
+
+  
 
   <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
   <nav class="tabs" id="tabs"></nav>
