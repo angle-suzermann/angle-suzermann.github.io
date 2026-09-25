@@ -200,6 +200,10 @@
     $('resultsFraction').textContent = correctCount + ' / ' + TOTAL + ' correct';
     $('resultsPanel').classList.add('show');
 
+    /* тиражный стикер по результату — деградирует мягко, если
+       assets/sticker-logic.js на странице не подключён */
+    if(typeof renderResultSticker === 'function') renderResultSticker(percent);
+
     var breakdown = $('resultsBreakdown');
     breakdown.innerHTML = '';
     sections.forEach(function(s, i){
@@ -279,6 +283,7 @@
       mistakes:       lastResults.mistakes.length
                         ? lastResults.mistakes.join('\n')
                         : 'No mistakes — all items correct.',
+      result_tier:    (typeof getResultTier === 'function') ? getResultTier(lastResults.percent).label : '',
       submitted_at:   new Date().toLocaleString('ru-RU')
     };
 
