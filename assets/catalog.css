@@ -95,14 +95,14 @@ html, body{
 
 /* ---- лендинг: плитки папок курсов ---- */
 
-.tile-family{ margin-bottom: 30px; }
+.tile-family{ margin-bottom: 20px; }
 .tile-family > h2{
   color: var(--yellow);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -110,32 +110,58 @@ html, body{
 }
 .tile-grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 8px;
 }
 .tile{
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 6px;
+  gap: 3px;
   background: rgba(255,255,255,0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--neutral-border);
-  border-top: 6px solid var(--purple);
-  border-radius: 14px;
-  padding: 22px 12px 16px;
+  border-top: 4px solid var(--purple);
+  border-radius: 11px;
+  padding: 12px 8px 9px;
   text-decoration: none;
   color: var(--black);
-  box-shadow: 0 4px 14px rgba(45,41,38,0.08);
+  box-shadow: 0 3px 10px rgba(45,41,38,0.08);
   transition: transform 0.12s ease, border-color 0.12s ease;
 }
 .tile:hover{ transform: translateY(-2px); border-top-color: var(--yellow); }
-.tile-emoji{ font-size: 30px; line-height: 1; }
-.tile-logo{ height: 44px; width: 72px; object-fit: contain; }
-.tile-name{ font-weight: 700; font-size: 14.5px; }
-.tile-count{ font-size: 11.5px; color: #6b6560; }
+.tile-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  max-width: 88px;
+}
+.tile-emoji{ font-size: 24px; line-height: 1; }
+.tile-logo{ max-height: 100%; max-width: 100%; width: auto; height: auto; }
+.tile-name{ font-weight: 700; font-size: 12.5px; }
+.tile-count{ font-size: 10.5px; color: #6b6560; }
+
+/* --- плитки-фильтры по юнитам/темам внутри курса (замена кнопок-пилюль) ---
+   .group-toolbar — верхний ряд тем на странице курса и в панели преподавателя;
+   .sub-tabs-group/.sub-tabs-skill — вложенный ряд (Тема→Навык, уровни семьи) */
+.group-toolbar, .sub-tabs-group, .sub-tabs-skill{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 6px;
+}
+.group-toolbar .filter-btn, .sub-tabs-group .filter-btn, .sub-tabs-skill .filter-btn{
+  min-height: auto;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px 6px;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+#backToCourses{ margin: 0 0 14px; }
 
 /* ---- список материалов ---- */
 

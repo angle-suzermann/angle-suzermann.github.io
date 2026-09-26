@@ -599,9 +599,14 @@ const LOGO_MAP = {
   'gateway/gateway-to-the-world-b1': 'gateway-to-the-world-b1.png',
   'gateway/gateway-to-the-world-b2': 'gateway-to-the-world-b2.png',
 };
+/* .tile-icon — общая рамка высотой 44px под лого/эмодзи: у всех логотипов
+   разное соотношение сторон (Gateway — широкий и низкий, Academy Stars —
+   почти квадратный), поэтому просто высота+object-fit давала им разный
+   видимый размер. Рамка ограничивает и высоту, и максимальную ширину —
+   картинка сама вписывается по большей стороне (см. .tile-logo в catalog.css). */
 const tileIconFor = (course) => LOGO_MAP[course.id]
-  ? `<img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt="">`
-  : `<span class="tile-emoji">${esc(course.emoji || '📁')}</span>`;
+  ? `<span class="tile-icon"><img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
+  : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
@@ -794,6 +799,8 @@ const staffScript = `<script>
   var courseUrlMap = ${courseUrlMapJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
   var hint = document.getElementById('pickHint');
+  var courseTilesWrap = document.getElementById('courseTilesWrap');
+  var backBtn = document.getElementById('backToCourses');
 
   function apply(){
     var q = search.value.trim().toLowerCase();
@@ -924,8 +931,26 @@ const staffScript = `<script>
         var topBtn = document.querySelector('.toolbar > .filter-btn[data-filter="course:' + courseId + '"]');
         if(topBtn) topBtn.click();
       }
-      document.getElementById('staffList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      /* «заходим внутрь» курса — плитки всех курсов прячем, показываем
+         только материалы этого курса (и его юниты-плитки, если есть) */
+      courseTilesWrap.hidden = true;
+      backBtn.hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  });
+
+  backBtn.addEventListener('click', function(){
+    active = 'none';
+    activeGroup = 'all';
+    activeGroupPrefix = false;
+    search.value = '';
+    document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+    showSubTabsFor(null);
+    showGroupTabsFor(null);
+    courseTilesWrap.hidden = false;
+    backBtn.hidden = true;
+    apply();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   apply();
@@ -973,8 +998,11 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   title: 'Все материалы — панель преподавателя',
   heading: 'Все материалы',
   sub: 'Панель преподавателя — эта страница не индексируется поисковиками',
-  body: `${staffTileFamilyBlocks}
+  body: `  <div id="courseTilesWrap">
+${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
+  </div>
+  <button type="button" class="link-copy" id="backToCourses" hidden>← Все курсы</button>
   <div class="toolbar">
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…">
   </div>
