@@ -876,9 +876,58 @@ const staffScript = `<script>
   });
   search.addEventListener('input', apply);
 
+  document.querySelectorAll('.tile[data-tile-course]').forEach(function(t){
+    t.addEventListener('click', function(){
+      var courseId = t.dataset.tileCourse;
+      var famId = null;
+      Object.keys(familyMap).forEach(function(fid){ if(familyMap[fid].indexOf(courseId) !== -1) famId = fid; });
+      if(famId){
+        var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
+        if(famBtn) famBtn.click();
+        var levelBtn = document.querySelector('.sub-tabs[data-sub-for="' + famId + '"] .filter-btn[data-filter="course:' + courseId + '"]');
+        if(levelBtn) levelBtn.click();
+      } else {
+        var topBtn = document.querySelector('.toolbar > .filter-btn[data-filter="course:' + courseId + '"]');
+        if(topBtn) topBtn.click();
+      }
+      document.getElementById('staffList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   apply();
 })();
 </script>`;
+
+/* плитки курсов в шапке панели преподавателя — быстрый переход к курсу,
+   кликом «нажимают» те же скрытые кнопки-фильтры тулбара (см. staffScript
+   выше). Показывают счётчик по ВСЕМ материалам курса, включая черновики —
+   в отличие от плиток на лендинге, где считаются только published. */
+const staffTileFor = (course, label) => {
+  const count = materials.filter((m) => m['course-id'] === course.id).length;
+  return `      <a class="tile" href="javascript:void(0)" data-tile-course="${esc(course.id)}">
+        <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
+        <span class="tile-name">${esc(label)}</span>
+        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+};
+const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
+  const fam = familyCourses.get(fid);
+  const emoji = fam.find((c) => c.emoji)?.emoji || '';
+  const tiles = fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  return `  <div class="tile-family">
+    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <div class="tile-grid">
+${tiles}
+    </div>
+  </div>`;
+}).join('\n');
+const staffTileStandaloneBlock = standaloneCourses.length
+  ? `  <div class="tile-family">
+    <div class="tile-grid">
+${standaloneCourses.map((c) => staffTileFor(c, c.name)).join('\n')}
+    </div>
+  </div>`
+  : '';
 
 const staffDir = path.join(OUT, staffPath);
 fs.mkdirSync(staffDir, { recursive: true });
@@ -886,7 +935,9 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   title: 'Все материалы — панель преподавателя',
   heading: 'Все материалы',
   sub: 'Панель преподавателя — эта страница не индексируется поисковиками',
-  body: `  <div class="toolbar">
+  body: `${staffTileFamilyBlocks}
+${staffTileStandaloneBlock}
+  <div class="toolbar">
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…">
   </div>
   <div class="toolbar">
