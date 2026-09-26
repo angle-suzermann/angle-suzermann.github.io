@@ -147,8 +147,8 @@ html, body{
 /* --- плитки-фильтры по юнитам/темам внутри курса (замена кнопок-пилюль) ---
    .group-toolbar — верхний ряд тем на странице курса и в панели преподавателя;
    .sub-tabs-group/.sub-tabs-skill — вложенный ряд (Тема→Навык, уровни семьи) */
-.group-toolbar, .sub-tabs-group, .sub-tabs-skill{
-  display: grid !important;
+.group-toolbar:not([hidden]), .sub-tabs-group:not([hidden]), .sub-tabs-skill:not([hidden]){
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
   gap: 6px;
 }
