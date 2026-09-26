@@ -598,6 +598,12 @@ const LOGO_MAP = {
   'empower-b1': 'empower-b1.png',
   'gateway/gateway-to-the-world-b1': 'gateway-to-the-world-b1.png',
   'gateway/gateway-to-the-world-b2': 'gateway-to-the-world-b2.png',
+  'oxford-phonics/1': 'oxford-phonics.png',
+  'oxford-phonics/2': 'oxford-phonics.png',
+  'oxford-phonics/3': 'oxford-phonics.png',
+  'oxford-phonics/4': 'oxford-phonics.png',
+  'oxford-phonics/5': 'oxford-phonics.png',
+  'expert-advanced': 'expert-advanced.jpg',
 };
 /* .tile-icon — общая рамка высотой 44px под лого/эмодзи: у всех логотипов
    разное соотношение сторон (Gateway — широкий и низкий, Academy Stars —
