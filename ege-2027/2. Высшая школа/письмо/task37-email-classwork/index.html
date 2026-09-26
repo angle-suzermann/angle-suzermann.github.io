@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="37">
+<meta name="ws:title"     content="ЕГЭ Высшая школа — Письменная речь, Задание 37 (Classwork)">
+<meta name="ws:emoji"     content="✉️">
+<meta name="ws:date"      content="2026-09-26">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="письменная речь, задание 37, email, writing, classwork">
+<meta name="robots"       content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>ЕГЭ Высшая школа — Письменная речь, Задание 37 (Classwork)</title>
+<style>
+  </style>
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--black); }
+h1,h2,h3{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--purple-dark); margin:0 0 12px; }
+p{ line-height:1.5; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 45%; opacity:0.3; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.45), rgba(45,25,60,.88)); }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+.page-wrap{ max-width:860px; margin:0 auto; padding:20px 16px 90px; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:860px; margin:0 auto; padding:10px 16px 12px; }
+.brand-row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 16px; }
+.lesson-title{ font-weight:700; color:var(--purple-dark); font-size:1rem; line-height:1.25; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.82rem; flex-wrap:wrap; }
+.namebar label{ color:var(--muted); white-space:nowrap; }
+.namebar input{ font-family:inherit; border:1.5px solid var(--border); border-radius:8px; padding:6px 9px; font-size:.85rem; width:170px; max-width:40vw; }
+.save-indicator{ font-size:.7rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1 1 auto; height:8px; border-radius:6px; background:var(--card-tint); overflow:hidden; }
+.progress-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--purple), var(--yellow)); transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); color:var(--purple-dark); font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1.5px solid var(--border); }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+
+.page{ display:none; } .page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border-radius:16px; padding:22px 20px; margin-bottom:18px; box-shadow:0 8px 28px rgba(20,10,30,.18); }
+.card h2{ font-size:1.15rem; }
+.instructions{ background:var(--card-tint); border-left:4px solid var(--purple); border-radius:8px; padding:10px 14px; font-size:.88rem; color:var(--purple-dark); margin-bottom:16px; }
+
+.btn{ font-family:inherit; border:none; border-radius:22px; padding:11px 22px; font-weight:700; font-size:.9rem; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; }
+.btn:active{ transform:scale(.97); }
+.btn-primary{ background:var(--purple); color:#fff; }
+.btn-primary:hover{ background:var(--purple-dark); }
+.btn-yellow{ background:var(--yellow); color:var(--black); }
+.btn-yellow:hover{ filter:brightness(0.95); }
+.btn-ghost{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); }
+.btn-send{ background:#fff; border:1.5px solid var(--muted); color:var(--muted); font-size:.78rem; padding:8px 16px; }
+.btn-send:hover{ border-color:var(--purple); color:var(--purple); }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+.nav-btns{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:20px; flex-wrap:wrap; }
+.nav-btns .spacer{ flex:1 1 auto; }
+.send-row{ text-align:center; margin-top:10px; }
+.send-status{ font-size:.76rem; color:var(--muted); margin-top:6px; min-height:1em; }
+
+/* click-to-match */
+.match-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; }
+@media(max-width:560px){ .match-wrap{ grid-template-columns:1fr; } }
+.match{ display:block; width:100%; text-align:left; font-family:inherit; background:var(--card-tint); border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; font-size:.85rem; line-height:1.35; cursor:pointer; color:var(--text); }
+.match .tag{ display:inline-block; background:var(--purple); color:#fff; font-weight:700; border-radius:50%; width:20px; height:20px; text-align:center; line-height:20px; font-size:.72rem; margin-right:6px; }
+.match.selected{ border-color:var(--yellow); box-shadow:0 0 0 2px var(--yellow) inset; }
+.match.matched-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecea; }
+
+/* fill-blank groups (vocab / suffix categories) */
+.vocab-grid{ display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:6px; }
+.vocab-item{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:8px 0; border-bottom:1px dashed var(--border); }
+.vocab-item .ru{ flex:1 1 220px; font-size:.9rem; }
+.vocab-item input.fib{ flex:1 1 200px; min-width:0; max-width:100%; }
+.fib{ font-family:inherit; border:none; border-bottom:2px solid var(--border); background:transparent; padding:6px 4px; font-size:.9rem; width:100%; }
+.fib:focus{ outline:none; border-bottom-color:var(--purple); }
+.fib.is-correct{ border-bottom-color:var(--correct); color:var(--correct); font-weight:700; }
+.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); }
+
+.translate-item{ margin-bottom:16px; padding-bottom:14px; border-bottom:1px dashed var(--border); }
+.translate-item:last-child{ border-bottom:none; }
+.translate-item .ru{ font-size:.92rem; margin-bottom:8px; }
+.translate-item textarea{ width:100%; max-width:100%; font-family:inherit; font-size:.88rem; border:1.5px solid var(--border); border-radius:8px; padding:8px 10px; resize:vertical; min-height:44px; }
+.translate-item textarea:focus{ outline:none; border-color:var(--purple); }
+.reveal-row{ margin-top:6px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.model-answer{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:8px 12px; font-size:.85rem; margin-top:6px; }
+.model-answer b{ color:var(--purple-dark); }
+
+/* gap text (grammar transformation) */
+.gap-text{ font-size:.92rem; line-height:2.1; }
+.gap-text input.fib{ display:inline-block; width:auto; min-width:70px; max-width:100%; border-bottom:2px solid var(--purple); text-align:center; font-weight:600; margin:0 2px; }
+.basehint{ display:inline-block; background:var(--purple-dark); color:#fff; font-size:.62rem; font-weight:700; letter-spacing:.03em; border-radius:5px; padding:1px 5px; margin-left:2px; vertical-align:2px; }
+.text-block{ margin-bottom:20px; }
+.text-block h3{ font-size:.95rem; color:var(--purple); margin-bottom:8px; }
+
+/* suffix-category groups (word-formation sorting-as-fill) */
+.suffix-group{ margin-bottom:18px; }
+.suffix-group h3{ font-size:.92rem; color:#fff; background:var(--purple); display:inline-block; padding:3px 12px; border-radius:14px; margin-bottom:10px; }
+.suffix-row{ display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px dashed var(--border); flex-wrap:wrap; }
+.suffix-row .base{ font-weight:700; color:var(--purple-dark); min-width:130px; font-size:.88rem; }
+.suffix-row input.fib{ flex:1 1 160px; max-width:100%; }
+
+/* word-family table (Task 3 style) */
+.wf-table{ width:100%; border-collapse:collapse; font-size:.84rem; }
+.wf-table th{ background:var(--purple); color:#fff; padding:8px 6px; font-size:.78rem; text-align:left; }
+.wf-table td{ border:1px solid var(--border); padding:8px 6px; vertical-align:top; }
+.wf-table .given{ font-weight:700; color:var(--purple-dark); }
+.wf-table .dash{ color:var(--muted); text-align:center; }
+.wf-table input.fib{ display:block; width:100%; margin-bottom:5px; font-size:.82rem; }
+@media(max-width:640px){
+  .wf-table, .wf-table thead, .wf-table tbody, .wf-table th, .wf-table td, .wf-table tr{ display:block; }
+  .wf-table thead{ display:none; }
+  .wf-table tr{ margin-bottom:12px; border:1px solid var(--border); border-radius:10px; padding:8px; }
+  .wf-table td{ border:none; padding:4px 2px; }
+  .wf-table td::before{ content:attr(data-label); display:block; font-size:.68rem; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:2px; }
+}
+
+/* MCQ */
+.mcq-item{ margin-bottom:16px; padding-bottom:14px; border-bottom:1px dashed var(--border); }
+.mcq-item .q{ font-size:.9rem; margin-bottom:8px; line-height:1.5; }
+.mcq{ display:flex; flex-direction:column; gap:6px; }
+.mcq .opt{ text-align:left; font-family:inherit; background:var(--card-tint); border:1.5px solid var(--border); border-radius:8px; padding:8px 12px; font-size:.85rem; cursor:pointer; }
+.mcq .opt.chosen{ border-color:var(--purple); }
+.mcq .opt.correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); font-weight:700; }
+.mcq .opt.wrong{ border-color:var(--wrong); background:#fdecea; color:var(--wrong); }
+
+.score-summary{ text-align:center; font-size:1.15rem; margin:10px 0 6px; }
+.score-summary strong{ color:var(--purple-dark); }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.86rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.76rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+.reset-link{ text-align:center; margin-top:18px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:16px; bottom:14px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:86px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:9.5px; }
+
+/* speaking task photo blocks */
+.task1-photo-row{ display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start; margin-bottom:18px; padding-bottom:16px; border-bottom:1px dashed var(--border); }
+.task1-photo-row:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.task1-photo-row img{ width:220px; max-width:100%; border-radius:12px; box-shadow:0 6px 18px rgba(20,10,30,.15); flex:0 0 auto; }
+.task1-questions{ flex:1 1 240px; min-width:200px; }
+.task1-questions ul{ margin:0 0 10px; padding-left:20px; }
+.task1-questions li{ margin-bottom:6px; font-size:.9rem; }
+.vocab-box{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:8px; padding:10px 14px; font-size:.84rem; font-style:italic; color:var(--purple-dark); line-height:1.7; }
+
+.photo-pair{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0 18px; }
+@media(max-width:560px){ .photo-pair{ grid-template-columns:1fr; } }
+.photo-pair figure{ margin:0; }
+.photo-pair img{ width:100%; border-radius:12px; display:block; box-shadow:0 6px 18px rgba(20,10,30,.15); }
+.photo-pair figcaption{ text-align:center; font-weight:700; color:var(--purple-dark); font-size:.82rem; margin-top:6px; }
+
+.scaffold-box{ background:var(--card-tint); border-radius:10px; padding:14px 16px; font-size:.87rem; line-height:1.9; color:var(--text); }
+.scaffold-box b{ color:var(--purple-dark); }
+
+.brainstorm-cols{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+@media(max-width:560px){ .brainstorm-cols{ grid-template-columns:1fr; } }
+.brainstorm-cols h4{ text-align:center; margin:0 0 8px; font-size:.85rem; border-radius:14px; padding:5px 10px; color:#fff; }
+.brainstorm-cols .pros h4{ background:var(--correct); }
+.brainstorm-cols .cons h4{ background:var(--wrong); }
+.brainstorm-cols textarea{ width:100%; min-height:110px; font-family:inherit; font-size:.87rem; border:1.5px solid var(--border); border-radius:8px; padding:9px 11px; resize:vertical; }
+.brainstorm-cols textarea:focus{ outline:none; border-color:var(--purple); }
+
+/* categorize (click-chip, click-zone sort) */
+.cat-bank{ display:flex; flex-wrap:wrap; gap:7px; padding:12px; background:var(--card-tint); border-radius:10px; margin-bottom:14px; min-height:44px; }
+.categorize-wrap{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media(max-width:640px){ .categorize-wrap{ grid-template-columns:1fr; } }
+.cat-zone{ border:2px dashed var(--border); border-radius:12px; padding:10px; min-height:130px; background:#fff; cursor:pointer; }
+.cat-zone h4{ text-align:center; font-size:.8rem; color:var(--purple-dark); margin:0 0 8px; pointer-events:none; }
+.cat-chip{ display:inline-block; background:#fff; border:1.5px solid var(--border); border-radius:16px; padding:5px 11px; font-size:.79rem; margin:3px; cursor:pointer; }
+.cat-zone .cat-chip{ background:var(--card-tint); }
+.cat-chip.selected{ border-color:var(--yellow); box-shadow:0 0 0 2px var(--yellow) inset; }
+.cat-chip.placed-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); }
+.cat-chip.placed-wrong{ border-color:var(--wrong); background:#fdecea; color:var(--wrong); }
+
+/* voice recorder (records to Basin) */
+.recorder{ background:var(--card-tint); border:1.5px dashed var(--purple); border-radius:12px; padding:16px; margin-top:16px; }
+.rec-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.rec-btn.rec-active{ background:var(--wrong); }
+.rec-timer{ font-weight:700; color:var(--purple-dark); font-variant-numeric:tabular-nums; }
+.rec-playback{ width:100%; margin-top:12px; }
+.rec-actions{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+.rec-hint{ font-size:.78rem; color:var(--muted); margin:10px 0 0; }
+.rec-start-block{ text-align:center; }
+.rec-start-block .rec-hint{ text-align:left; }
+.task-audio{ display:none; }
+.task-audio.active{ display:block; width:100%; margin:10px 0 4px; }
+.rec-skip-btn{ font-size:.78rem; padding:6px 12px; }
+
+/* ---- tabs (switch between topics/variants within one page) ---- */
+.tab-bar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.tab-btn{ background:var(--card-tint); border:1.5px solid var(--border); color:var(--purple-dark); font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer; font-family:inherit; font-size:.86rem; }
+.tab-btn.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+
+/* ---- vocab card grid (component #11: phrase + definition + example, display-only) ---- */
+.vocab-card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin:14px 0; }
+.vocab-card{ background:var(--card-tint); border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; }
+.vocab-card .phrase{ font-weight:700; color:var(--purple-dark); margin-bottom:4px; }
+.vocab-card .def{ font-size:.83rem; color:var(--text); margin-bottom:6px; }
+.vocab-card .example{ font-size:.8rem; font-style:italic; color:var(--muted); }
+
+/* ---- essay / free-text production areas sent to teacher for review ---- */
+.essay-ta{ width:100%; min-height:170px; font-family:inherit; font-size:.92rem; line-height:1.5; border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; resize:vertical; }
+.essay-ta:focus{ outline:none; border-color:var(--purple); }
+.word-count{ font-size:.78rem; color:var(--muted); margin-top:6px; text-align:right; }
+.word-count.wc-bad{ color:var(--wrong); font-weight:700; }
+.word-count.wc-ok{ color:var(--correct); font-weight:700; }
+
+@media(max-width:480px){
+  .lesson-title{ font-size:.88rem; }
+  .namebar input{ width:130px; }
+  .card{ padding:16px 14px; }
+  .angle-badge{ left:10px; bottom:10px; }
+  .angle-badge .wordmark{ width:64px; }
+  .suffix-row .base{ min-width:100px; }
+  .task1-photo-row img{ width:100%; }
+}
+
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <span class="lesson-title">Письменная речь — Задание 37: письмо Джеймсу (Classwork)</span>
+        <div class="namebar">
+          <label for="studentName">Name:</label>
+          <input type="text" id="studentName" placeholder="Your full name">
+          <span class="save-indicator" id="saveIndicator"></span>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">Page 1 / 0</span>
+      </div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+  </header>
+
+  <div class="scroll-area" id="scrollArea">
+    <div class="page-wrap">
+
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card">
+    <h2>Письменная речь — Задание 37</h2>
+    <p>Classwork: разминка с полезными фразами для письма &rarr; официальное задание 37 (письмо Джеймсу, 100&ndash;140 слов)
+    &rarr; дополнительные упражнения на вопросы &rarr; проверка.</p>
+    <p>Enter your name at the top, then press Start.</p>
+    <div class="nav-btns"><span class="spacer"></span><button class="btn btn-primary" onclick="nextPage()">Start &rarr;</button></div>
+  </div>
+</section>
+
+<section class="page" data-page="1">
+  <div class="card">
+    <h2>Warm-up: useful phrases</h2>
+    <p>Make sure you understand the meaning of the following words and phrases. Try to use them in your email on the next page.</p>
+    <div class="vocab-card-grid">
+      <div class="vocab-card">
+      <div class="phrase">As for my advice about</div>
+      <div class="def">used to introduce your own opinion or advice on a topic someone asked you about</div>
+      <div class="example">As for my advice about your career, I think you should follow your own interests.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">If you ask me about… I can say...</div>
+      <div class="def">a way to give a personal opinion when someone has directly asked for it</div>
+      <div class="example">If you ask me about the best subject, I can say it's maths.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">to apply for admission</div>
+      <div class="def">to formally ask to be accepted onto a course or into a university/college</div>
+      <div class="example">She's going to apply for admission to a medical university.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">For example,</div>
+      <div class="def">used to introduce a specific example that supports what you just said</div>
+      <div class="example">Some jobs are very stressful. For example, being a doctor means long, irregular hours.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">to follow one's decision</div>
+      <div class="def">to support and go along with a choice someone has made, rather than opposing it</div>
+      <div class="example">My parents always follow my decisions about my future.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">(not) to provide support</div>
+      <div class="def">to (not) give someone help, encouragement or backing</div>
+      <div class="example">Unfortunately, my parents don't provide much support when it comes to choosing a career.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">In your letter you told me about</div>
+      <div class="def">a standard phrase for referring back to news your pen-friend mentioned</div>
+      <div class="example">In your letter you told me about your new puppy — congratulations!</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">to take exams in</div>
+      <div class="def">to sit/write official exams in a particular subject</div>
+      <div class="example">I'm planning to take exams in maths and physics next year.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">to get advice from smb</div>
+      <div class="def">to ask someone for their opinion or guidance before making a decision</div>
+      <div class="example">I always get advice from my parents before making a big decision.</div>
+    </div>
+<div class="vocab-card">
+      <div class="phrase">to enter</div>
+      <div class="def">(in this context) to be admitted to and start studying at a university</div>
+      <div class="example">He hopes to enter a good university next year.</div>
+    </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
+      <span class="spacer"></span>
+      <button class="btn btn-primary" onclick="nextPage()">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card">
+    <h2>Task 37. Write an email</h2>
+    <div class="instructions">
+      You have received an email message from your English-speaking pen-friend James.
+    </div>
+    <div class="scaffold-box" style="font-family:inherit;">
+      From: James@mail.uk<br>To: Russian_friend@ege.ru<br>Subject: Plans for the future<br><br>
+      &hellip; My parents want me to follow in their footsteps and become a doctor. But my dream is to study maths.
+      What would you advise me to do? What are your plans after you leave school? Do your parents support you in your decision?<br><br>
+      My parents bought me a puppy for my birthday! &hellip;
+    </div>
+    <div class="instructions">
+      Write an email to James.<br>In your message:
+      <ul>
+        <li>answer his questions</li>
+        <li>ask 3 questions about the puppy</li>
+      </ul>
+      <b>Write 100&ndash;140 words. Remember the rules of email writing.</b>
+    </div>
+    <div class="essay-wrap">
+      <textarea class="essay-ta" data-label="Task 37 — Email to James" placeholder="Dear James,&#10;&#10;Thanks for your email...  " oninput="updateWordCount(this, 100, 140)"></textarea>
+      <div class="word-count">0 words (need 100–140)</div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
+      <span class="spacer"></span>
+      <button class="btn btn-primary" onclick="nextPage()">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-page="3">
+  <div class="card">
+    <h2>Extension activity 1</h2>
+    <p>Write your own questions for each group below (you already asked 3 questions about the puppy in your email —
+    here, practise writing questions about all three areas).</p>
+    <div class="essay-wrap" style="margin-bottom:18px;">
+      <p style="font-weight:700; color:var(--purple-dark); margin-bottom:6px;">3 questions about the puppy</p>
+      <textarea class="essay-ta" data-label="Extension 1 — questions about the puppy" placeholder="1) ...&#10;2) ...&#10;3) ..." style="min-height:110px;"></textarea>
+    </div>
+    <div class="essay-wrap" style="margin-bottom:18px;">
+      <p style="font-weight:700; color:var(--purple-dark); margin-bottom:6px;">3 questions about his parents</p>
+      <textarea class="essay-ta" data-label="Extension 1 — questions about his parents" placeholder="1) ...&#10;2) ...&#10;3) ..." style="min-height:110px;"></textarea>
+    </div>
+    <div class="essay-wrap">
+      <p style="font-weight:700; color:var(--purple-dark); margin-bottom:6px;">3 questions about the birthday</p>
+      <textarea class="essay-ta" data-label="Extension 1 — questions about the birthday" placeholder="1) ...&#10;2) ...&#10;3) ..." style="min-height:110px;"></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
+      <span class="spacer"></span>
+      <button class="btn btn-primary" onclick="nextPage()">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-page="4">
+  <div class="card">
+    <h2>Extension activity 2</h2>
+    <p>Отметьте вопросы, которые соответствуют заданию (ask 3 questions about the puppy / his parents / the birthday),
+    и которые не соответствуют.</p>
+    <h3 style="font-size:.95rem;color:var(--purple);">3 questions about the puppy</h3>
+    <div class="mcq-item">
+      <p class="q">Do you like the puppy?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Do you like puppies?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">How old is the puppy?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Does a puppy eat meat?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">What colour is the puppy?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+<h3 style="font-size:.95rem;color:var(--purple);">3 questions about his parents</h3>
+    <div class="mcq-item">
+      <p class="q">Do you always celebrate your birthday with parents?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">What do your parents do?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Do your parents like puppies?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">How old are your parents?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Your parents are kind, are they?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+<h3 style="font-size:.95rem;color:var(--purple);">3 questions about the birthday</h3>
+    <div class="mcq-item">
+      <p class="q">How many people were there at your birthday?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Where do you usually celebrate your birthday?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Where did you celebrate the birthday?</p>
+      <div class="mcq" data-correct="yes">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Do you like birthdays?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+
+    <div class="mcq-item">
+      <p class="q">Who do you like to spend your birthdays with?</p>
+      <div class="mcq" data-correct="no">
+        <button class="opt" data-val="yes">&#10003; Соответствует заданию</button>
+        <button class="opt" data-val="no">&#10007; Не соответствует</button>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
+      <span class="spacer"></span>
+      <button class="btn btn-primary" onclick="nextPage()">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-page="5">
+  <div class="card">
+    <h2>Check &amp; Submit</h2>
+    <p>This checks Extension activity 2 automatically (15 items) and sends your result, your email and your Extension 1
+    answers to your teacher for review.</p>
+    <div style="text-align:center; margin:18px 0;">
+      <button class="btn btn-yellow" id="submitBtn" onclick="submitAll()" style="font-size:1rem; padding:13px 30px;">&#10003; Check &amp; Submit</button>
+    </div>
+    <div class="score-summary" id="scoreSummary" hidden></div>
+<div class="completion-stickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" src="src="img/stickers/eggcellent-a.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="src="img/stickers/eggcellent-b.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="src="img/stickers/perfect.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="src="img/stickers/excellent.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" src="src="img/stickers/amazing_work.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" src="src="img/stickers/i_love_it.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="src="img/stickers/awesome.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" src="src="img/stickers/too_cool-a.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" src="src="img/stickers/too_cool-b.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" src="src="img/stickers/vzhukh.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" src="src="img/stickers/fire.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="src="img/stickers/great_work.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="src="img/stickers/good_job.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" src="src="img/stickers/good_vibes.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="src="img/stickers/nice.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="src="img/stickers/not_bad.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="src="img/stickers/strawberry-a.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="src="img/stickers/strawberry-b.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="src="img/stickers/keep_going.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="src="img/stickers/you_tried.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="src="img/stickers/plain.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="src="img/stickers/strawberry-full.png"" hidden alt="">
+  <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="src="img/stickers/awesome_is_banned.png"" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+    <p class="send-status" id="submitStatus" style="text-align:center;"></p>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
+      <span class="spacer"></span>
+    </div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+
+    </div>
+  </div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+<script>
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const BASIN_ENDPOINT = '';
+const COURSE_NAME = 'ЕГЭ Высшая школа';
+const PROGRESS_KEY = 'angle_progress::email37-classwork';
+let isRestoring = false;
+
+const PAGE_LABELS = ["Старт", "Warm-up", "Задание 37", "Extension 1", "Extension 2", "Результат"];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
+}
+function nextPage(){ showPage(current+1); } function prevPage(){ showPage(current-1); }
+
+/* ---- click-to-match ---- */
+let firstPick = null;
+function wireMatch(){
+  document.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if (el.classList.contains('matched-correct')) return;
+      if (!firstPick) { firstPick = el; el.classList.add('selected'); return; }
+      if (firstPick === el) { firstPick.classList.remove('selected'); firstPick = null; return; }
+      const isMatch = firstPick.dataset.id === el.dataset.id;
+      if (isMatch){
+        [firstPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); });
+        const wrap = firstPick.closest('[data-total-pairs]');
+        if (wrap) wrap.dataset.correctCount = (parseInt(wrap.dataset.correctCount||0) + 1);
+      } else {
+        [firstPick, el].forEach(x=>x.classList.add('wrong-flash'));
+        setTimeout(()=>{ [firstPick, el].forEach(x=>x.classList.remove('selected','wrong-flash')); }, 550);
+      }
+      firstPick = null;
+      scheduleSave();
+    };
+  });
+}
+
+/* ---- categorize (click-chip, click-zone sort) ---- */
+let selectedChip = null;
+function wireCategorize(){
+  document.querySelectorAll('.cat-chip').forEach(chip=>{
+    chip.onclick = (e)=>{
+      e.stopPropagation();
+      if (chip.closest('.cat-zone')){
+        const bank = chip.closest('.card').querySelector('.cat-bank');
+        chip.classList.remove('placed-correct','placed-wrong','selected');
+        bank.appendChild(chip);
+        selectedChip = null;
+        scheduleSave();
+        return;
+      }
+      document.querySelectorAll('.cat-chip.selected').forEach(c=>c.classList.remove('selected'));
+      if (selectedChip === chip){ selectedChip = null; return; }
+      selectedChip = chip; chip.classList.add('selected');
+    };
+  });
+  document.querySelectorAll('.cat-zone').forEach(zone=>{
+    zone.onclick = ()=>{
+      if (!selectedChip) return;
+      selectedChip.classList.remove('selected');
+      zone.appendChild(selectedChip);
+      selectedChip = null;
+      scheduleSave();
+    };
+  });
+}
+
+/* ---- MCQ click-to-select ---- */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','chosen'));
+  btn.classList.add('chosen');
+  if (btn.dataset.val === correct){ btn.classList.add('correct'); }
+  else {
+    btn.classList.add('wrong');
+    const correctBtn = group.querySelector(`.opt[data-val="${correct}"]`);
+    if (correctBtn) correctBtn.classList.add('correct');
+  }
+}
+function wireMcq(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+  });
+}
+
+/* ---- translation reveal (ungraded, sent as raw text) ---- */
+function toggleReveal(btn){
+  const box = btn.closest('.reveal-row').nextElementSibling;
+  const showing = !box.hidden;
+  box.hidden = showing;
+  const showLabel = btn.dataset.showLabel || 'Show model answer';
+  const hideLabel = btn.dataset.hideLabel || 'Hide model answer';
+  btn.textContent = showing ? showLabel : hideLabel;
+}
+
+/* ---- shared helpers ---- */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function matchAns(input){
+  const list = input.dataset.ansList;
+  if (list){ return list.split('|').some(a=>normalize(input.value)===normalize(a)); }
+  return normalize(input.value) === normalize(input.dataset.answer||'');
+}
+function ansLabel(input){
+  if (input.dataset.ansList) return input.dataset.ansList.split('|')[0];
+  return input.dataset.answer || '';
+}
+function exTitle(el){
+  const card = el.closest('.card');
+  const h2 = card ? card.querySelector('h2') : null;
+  return h2 ? h2.textContent.trim() : '';
+}
+function itemContext(el){
+  const item = el.closest('.item') || el.closest('.suffix-row') || el.closest('.mcq-item');
+  if(item){
+    const qOrig = item.querySelector('.q, .base');
+    if(qOrig){
+      const clone = qOrig.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(x=>x.remove());
+      const txt = clone.textContent.replace(/\s+/g,' ').trim();
+      if(txt) return txt.slice(0,90);
+    }
+  }
+  const p = el.closest('p') || el.closest('td');
+  if(p){
+    const siblings = Array.from(p.querySelectorAll('input'));
+    const idx = siblings.indexOf(el) + 1;
+    if(siblings.length) return `gap ${idx} of ${siblings.length}`;
+  }
+  return '';
+}
+function describeWrong(el, studentVal, correctVal){
+  const title = exTitle(el);
+  const ctx = itemContext(el);
+  const said = studentVal && studentVal.trim() ? studentVal.trim() : '(blank)';
+  return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
+}
+
+function scoreScope(scope){
+  let correct=0, total=0; const wrongList=[];
+  scope.querySelectorAll('.fib').forEach(inp=>{
+    total++;
+    const ok = matchAns(inp);
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++; else wrongList.push(describeWrong(inp, inp.value, ansLabel(inp)));
+  });
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0);
+    const cor = parseInt(c.dataset.correctCount||0);
+    total += t; correct += cor;
+    if(cor < t){ wrongList.push(`${exTitle(c)} (matching) — ${cor}/${t} pairs matched correctly; review with student which pairs were tricky.`); }
+  });
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    const isRight = chosen && chosen.dataset.val === g.dataset.correct;
+    if(isRight) correct++;
+    else {
+      const correctBtn = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      const said = chosen ? chosen.textContent.trim() : '(not answered)';
+      wrongList.push(`${exTitle(g)} → answered "${said}", correct "${correctBtn ? correctBtn.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+  scope.querySelectorAll('.cat-chip[data-correct-zone]').forEach(chip=>{
+    total++;
+    const zone = chip.closest('.cat-zone');
+    const ok = !!zone && zone.dataset.zone === chip.dataset.correctZone;
+    chip.classList.toggle('placed-correct', ok);
+    chip.classList.toggle('placed-wrong', !ok);
+    if(ok) correct++;
+    else wrongList.push(`${exTitle(chip)} — "${chip.textContent.trim()}" placed in "${zone ? zone.dataset.zone : '(not placed)'}", correct: "${chip.dataset.correctZone}"`);
+  });
+  return {correct, total, wrongList};
+}
+function collectTranslations(scope){
+  const out = [];
+  scope.querySelectorAll('.translate-ta').forEach((ta,i)=>{
+    out.push(`${i+1}. ${ta.value.trim() || '(not written)'}`);
+  });
+  return out;
+}
+/* free-text production content (essays, emails, extended answers) sent to the teacher for review —
+   kept separate from collectTranslations so existing files' 'translations' field is untouched */
+function collectEssays(scope){
+  const out = [];
+  scope.querySelectorAll('.essay-ta').forEach((ta,i)=>{
+    const label = ta.dataset.label || `Written response ${i+1}`;
+    out.push(`— ${label} —\n${ta.value.trim() || '(not written)'}`);
+  });
+  return out;
+}
+
+/* ---- tabs: switch between topics/variants living on one page ---- */
+function showTab(btn, panelId){
+  const bar = btn.closest('.tab-bar');
+  bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b===btn));
+  const group = bar.dataset.group;
+  document.querySelectorAll(`.tab-panel[data-group="${group}"]`).forEach(p=>{
+    p.classList.toggle('active', p.id === panelId);
+  });
+}
+
+/* ---- live word counter for a production textarea (min/max, e.g. the 100-140 word ЕГЭ email rule) ---- */
+function updateWordCount(ta, min, max){
+  const wrap = ta.closest('.essay-wrap') || ta.parentElement;
+  const el = wrap.querySelector('.word-count');
+  if(!el) return;
+  const words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  el.textContent = `${words} words (need ${min}–${max})`;
+  el.classList.toggle('wc-ok', words >= min && words <= max);
+  el.classList.toggle('wc-bad', words > 0 && (words < min || words > max));
+}
+
+async function postToWeb3Forms(fd){
+  try{
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    return true;
+  } catch(e){ return false; }
+}
+
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  const card = btn.closest('.card');
+  const statusEl = btn.closest('.send-row').querySelector('.send-status');
+  const {correct, total, wrongList} = scoreScope(card);
+  const fd = new FormData();
+  fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+  fd.append('course', COURSE_NAME);
+  const subjBase = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
+  fd.append('subject', subjBase + ' — ' + taskLabel + ' — ' + nameInput.value.trim());
+  fd.append('lesson', document.title + ' — ' + taskLabel + ' (частичная отправка после задания)');
+  fd.append('student', nameInput.value.trim());
+  if (total){
+    const pct = Math.round(correct/total*100);
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+  }
+  const translations = collectTranslations(card);
+  if (translations.length) fd.append('translations', translations.join('\n'));
+  const essays = collectEssays(card);
+  if (essays.length) fd.append('essays', essays.join('\n\n'));
+  fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+  fd.append('timestamp', new Date().toISOString());
+  statusEl.textContent = 'Sending…';
+  const ok = await postToWeb3Forms(fd);
+  statusEl.textContent = ok ? 'Sent to your teacher ✓' : 'Could not send — check your internet connection and try again.';
+}
+
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  const {correct, total, wrongList} = scoreScope(document);
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').hidden = false;
+  renderResultSticker(pct);
+  const translations = collectTranslations(document);
+  const essaysAll = collectEssays(document);
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('course', COURSE_NAME);
+    const subjBase2 = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
+    fd.append('subject', subjBase2 + ' — ' + nameInput.value.trim());
+    fd.append('lesson', document.title);
+    fd.append('student', nameInput.value.trim());
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', getResultTier(pct).label);
+    if (translations.length) fd.append('translations', translations.join('\n'));
+    if (essaysAll.length) fd.append('essays', essaysAll.join('\n\n'));
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+  } catch(e){
+    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+  }
+  saveProgress();
+}
+
+/* ---- progress persistence ---- */
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
+      const chosen = g.querySelector('.opt.chosen');
+      return chosen ? chosen.dataset.val : null;
+    });
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.catPlaced = [...document.querySelectorAll('.cat-chip')].map(chip=>{
+      const zone = chip.closest('.cat-zone');
+      return zone ? zone.dataset.zone : null;
+    });
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
+  (state.matched||[]).forEach(id=>{
+    document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>el.classList.add('matched-correct'));
+  });
+  document.querySelectorAll('[data-total-pairs]').forEach(wrap=>{
+    wrap.dataset.correctCount = wrap.querySelectorAll('.match.matched-correct').length;
+  });
+  const mcqGroups = document.querySelectorAll('.mcq');
+  (state.mcq||[]).forEach((val,i)=>{
+    if(val==null) return;
+    const g = mcqGroups[i]; if(!g) return;
+    const btn = g.querySelector(`.opt[data-val="${val}"]`);
+    if(btn){ highlightMcq(g, btn); }
+  });
+  const tas = document.querySelectorAll('textarea');
+  (state.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const chips = document.querySelectorAll('.cat-chip');
+  (state.catPlaced||[]).forEach((zoneName,i)=>{
+    if(!zoneName || !chips[i]) return;
+    const zone = document.querySelector(`.cat-zone[data-zone="${zoneName}"]`);
+    if(zone) zone.appendChild(chips[i]);
+  });
+
+  const hasContent = state.fib?.some(v=>v) || state.textareas?.some(v=>v) || (state.matched||[]).length || state.mcq?.some(v=>v!=null) || state.catPlaced?.some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when || 'an earlier session'} — they've been filled back in.`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('click', e=>{ if(e.target.closest('.match, .cat-chip, .cat-zone')) scheduleSave(); });
+
+/* ---- voice recorder → Basin (real file upload; Web3Forms free tier can't accept files) ---- */
+const recorderState = new WeakMap();
+function fmtRecTime(s){ const m=Math.floor(s/60); const sec=s%60; return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
+
+async function toggleRecording(btn){
+  const wrap = btn.closest('.recorder');
+  const st = recorderState.get(wrap);
+  if (st && st.recording){ st.mediaRecorder.stop(); return; }
+  const statusEl = wrap.querySelector('.send-status');
+  statusEl.textContent = '';
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
+    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+    const chunks = [];
+    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
+    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
+    mr.onstop = ()=>{
+      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
+      const audioEl = wrap.querySelector('.rec-playback');
+      audioEl.src = URL.createObjectURL(blob);
+      audioEl.hidden = false;
+      wrap.querySelector('.rec-actions').hidden = false;
+      newState.blob = blob;
+      newState.recording = false;
+      clearInterval(newState.timerId);
+      stream.getTracks().forEach(t=>t.stop());
+      btn.textContent = '🎤 Start recording';
+      btn.classList.remove('rec-active');
+      const timerEl = wrap.querySelector('.rec-timer');
+      timerEl.hidden = true;
+    };
+    recorderState.set(wrap, newState);
+    mr.start();
+    btn.textContent = '⏹ Stop recording';
+    btn.classList.add('rec-active');
+    const timerEl = wrap.querySelector('.rec-timer');
+    timerEl.hidden = false; timerEl.textContent = '00:00';
+    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
+  } catch(e){
+    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
+  }
+}
+
+function reRecordAudio(btn){
+  const wrap = btn.closest('.recorder');
+  wrap.querySelector('.rec-playback').hidden = true;
+  wrap.querySelector('.rec-actions').hidden = true;
+  wrap.querySelector('.send-status').textContent = '';
+  const startBlock = wrap.querySelector('.rec-start-block');
+  if (startBlock) startBlock.hidden = false;
+  recorderState.delete(wrap);
+}
+
+/* ---- guided recording: plays a given task audio (e.g. an interview with built-in answer pauses)
+   and records the student's mic simultaneously, auto-stopping when that audio ends ---- */
+async function startGuidedRecording(btn){
+  const wrap = btn.closest('.recorder');
+  const audioEl = wrap.querySelector('.task-audio');
+  const statusEl = wrap.querySelector('.send-status');
+  statusEl.textContent = '';
+  btn.disabled = true;
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
+    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+    const chunks = [];
+    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
+    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
+    mr.onstop = ()=>{
+      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
+      const playbackEl = wrap.querySelector('.rec-playback');
+      playbackEl.src = URL.createObjectURL(blob);
+      playbackEl.hidden = false;
+      wrap.querySelector('.rec-actions').hidden = false;
+      newState.blob = blob;
+      newState.recording = false;
+      clearInterval(newState.timerId);
+      stream.getTracks().forEach(t=>t.stop());
+      wrap.querySelector('.rec-timer').hidden = true;
+      const skipBtn = wrap.querySelector('.rec-skip-btn');
+      if (skipBtn) skipBtn.hidden = true;
+      audioEl.classList.remove('active');
+      audioEl.removeAttribute('controls');
+      btn.disabled = false;
+    };
+    recorderState.set(wrap, newState);
+    mr.start();
+    const timerEl = wrap.querySelector('.rec-timer');
+    timerEl.hidden = false; timerEl.textContent = '00:00';
+    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
+    wrap.querySelector('.rec-start-block').hidden = true;
+    const skipBtn = wrap.querySelector('.rec-skip-btn');
+    if (skipBtn) skipBtn.hidden = false;
+    audioEl.currentTime = 0;
+    audioEl.setAttribute('controls', 'controls');
+    audioEl.classList.add('active');
+    audioEl.onended = ()=>{ if (newState.recording) mr.stop(); };
+    await audioEl.play();
+  } catch(e){
+    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
+    btn.disabled = false;
+  }
+}
+
+/* skip the guided task-audio forward by N seconds (e.g. to skip past the 40s answer pause) —
+   only affects playback, the mic recording underneath keeps running untouched */
+function skipAudioForward(btn, seconds){
+  const wrap = btn.closest('.recorder');
+  const audioEl = wrap.querySelector('.task-audio');
+  if (!audioEl) return;
+  const dur = isFinite(audioEl.duration) ? audioEl.duration : audioEl.currentTime + seconds;
+  audioEl.currentTime = Math.min(audioEl.currentTime + seconds, Math.max(dur - 0.25, 0));
+}
+
+async function sendRecording(btn){
+  const wrap = btn.closest('.recorder');
+  const st = recorderState.get(wrap);
+  const statusEl = wrap.querySelector('.send-status');
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  if(!st || !st.blob){ statusEl.textContent = 'Сначала запишите ответ.'; return; }
+  if(!BASIN_ENDPOINT){ statusEl.textContent = 'Отправка пока не настроена — обратитесь к преподавателю.'; return; }
+  const taskLabel = wrap.dataset.label || document.title;
+  const studentName = nameInput.value.trim();
+  const subjBase = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
+  const fd = new FormData();
+  fd.append('subject', subjBase + ' — ' + taskLabel + ' — ' + studentName);
+  fd.append('course', COURSE_NAME);
+  fd.append('lesson', document.title + ' — ' + taskLabel);
+  fd.append('student', studentName);
+  fd.append('timestamp', new Date().toISOString());
+  const ext = (st.blob.type||'').includes('mp4') ? 'm4a' : 'webm';
+  const safeName = (studentName + ' - ' + taskLabel + '.' + ext).replace(/[\/:*?"<>|]/g,'_');
+  fd.append('audio', st.blob, safeName);
+  statusEl.textContent = 'Отправка…';
+  btn.disabled = true;
+  try{
+    await fetch(BASIN_ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    statusEl.textContent = 'Отправлено учителю ✓';
+  } catch(e){
+    statusEl.textContent = 'Не удалось отправить — проверьте интернет-соединение и попробуйте снова.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function sendCompletion(){
+  const studentName = document.getElementById('studentName')?.value.trim() || '(name not entered)';
+  const topicLabel = document.title;
+  const subjBase = topicLabel.startsWith(COURSE_NAME) ? topicLabel : COURSE_NAME + ' — ' + topicLabel;
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('subject', subjBase + ' — ' + studentName);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', topicLabel);
+    fd.append('student', studentName);
+    fd.append('timestamp', new Date().toISOString());
+    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    return true;
+  } catch(e){ return false; }
+}
+
+
+
+buildDots();
+wireMatch();
+wireMcq();
+wireCategorize();
+showPage(0);
+restoreProgress();
+
+const RESULT_TIERS = [
+  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
+  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
+];
+const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
+function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+function renderResultSticker(pct){
+  const tier = getResultTier(pct);
+  const chosen = pickRandom(tier.stickers);
+  document.querySelectorAll('.completion-sticker').forEach(img=>{
+    const isBonus = img.dataset.tier === 'awesome_is_banned';
+    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+  });
+  const capEl = document.getElementById('resultCaption');
+  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
+}
+
+</script>
+</body>
+</html>

@@ -595,6 +595,9 @@ const LOGO_MAP = {
   as3: 'academy-stars-3.png',
   as4: 'academy-stars-4.png',
   as5: 'academy-stars-5.png',
+  'empower-b1': 'empower-b1.png',
+  'gateway/gateway-to-the-world-b1': 'gateway-to-the-world-b1.png',
+  'gateway/gateway-to-the-world-b2': 'gateway-to-the-world-b2.png',
 };
 const tileIconFor = (course) => LOGO_MAP[course.id]
   ? `<img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt="">`
