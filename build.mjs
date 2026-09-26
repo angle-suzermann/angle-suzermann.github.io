@@ -587,12 +587,25 @@ const wordForm = (n, one, few, many) =>
    в других уровнях — просто уберите семью отсюда, когда решите их показать. */
 const COLLAPSED_FAMILIES = ['Oxford Phonics'];
 
+/* Логотипы учебников вместо эмодзи на плитках курса — файлы лежат в
+   assets/brand/logos/. Добавили лого для нового курса — впишите сюда его
+   course-id, эмодзи останется запасным вариантом для всех остальных. */
+const LOGO_MAP = {
+  as2: 'academy-stars-2.png',
+  as3: 'academy-stars-3.png',
+  as4: 'academy-stars-4.png',
+  as5: 'academy-stars-5.png',
+};
+const tileIconFor = (course) => LOGO_MAP[course.id]
+  ? `<img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt="">`
+  : `<span class="tile-emoji">${esc(course.emoji || '📁')}</span>`;
+
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
     ? overrideCount
     : materials.filter((m) => m['course-id'] === course.id && m.status === 'published').length;
   return `      <a class="tile" href="${esc(`${BASE}/${course.id}/`)}">
-        <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
+        ${tileIconFor(course)}
         <span class="tile-name">${esc(label)}</span>
         <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
       </a>`;
@@ -761,7 +774,7 @@ const courseUrlMapJson = JSON.stringify(
 );
 
 const filterBtns = [
-  '<button type="button" class="filter-btn on" data-filter="all">Все</button>',
+  '<button type="button" class="filter-btn" data-filter="all">Все</button>',
   ...familyBtns,
   ...standaloneCourses.map((c) => `<button type="button" class="filter-btn" data-filter="course:${esc(c.id)}">${esc(c.name)}</button>`),
 ].join('\n    ');
@@ -771,18 +784,22 @@ const staffScript = `<script>
   var cards = Array.prototype.slice.call(document.querySelectorAll('.staff-card'));
   var search = document.getElementById('q');
   var count = document.getElementById('count');
-  var active = 'all';
+  var active = 'none';
   var activeGroup = 'all';
   var activeGroupPrefix = false;
   var familyMap = ${familyMapJson};
   var courseUrlMap = ${courseUrlMapJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
+  var hint = document.getElementById('pickHint');
 
   function apply(){
     var q = search.value.trim().toLowerCase();
     var shown = 0;
+    /* до выбора плитки курса и без текста в поиске список пуст —
+       вместо «стены» из всех материалов сразу после открытия страницы */
+    var noPickYet = active === 'none' && !q;
     cards.forEach(function(c){
-      var okFilter = active === 'all' ||
+      var okFilter = noPickYet ? false : active === 'all' || active === 'none' ||
         (active.indexOf('course:') === 0 && c.dataset.course === active.slice(7)) ||
         (active.indexOf('family:') === 0 && (familyMap[active.slice(7)] || []).indexOf(c.dataset.course) !== -1) ||
         (active.indexOf('type:')   === 0 && c.dataset.type   === active.slice(5)) ||
@@ -794,6 +811,8 @@ const staffScript = `<script>
       c.style.display = show ? '' : 'none';
       if(show) shown++;
     });
+    if(hint) hint.hidden = !noPickYet;
+    count.hidden = noPickYet;
     count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
   }
 
@@ -917,7 +936,7 @@ const staffScript = `<script>
 const staffTileFor = (course, label, overrideCount) => {
   const count = overrideCount != null ? overrideCount : materials.filter((m) => m['course-id'] === course.id).length;
   return `      <a class="tile" href="javascript:void(0)" data-tile-course="${esc(course.id)}">
-        <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
+        ${tileIconFor(course)}
         <span class="tile-name">${esc(label)}</span>
         <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
       </a>`;
@@ -956,12 +975,15 @@ ${staffTileStandaloneBlock}
   <div class="toolbar">
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…">
   </div>
-  <div class="toolbar">
-    ${filterBtns}
-  </div>
+  <div hidden>
+    <div class="toolbar">
+      ${filterBtns}
+    </div>
 ${subTabRows}
+  </div>
 ${courseGroupRows}
 ${sortToolbar()}
+  <p class="empty" id="pickHint">Нажмите на плитку курса выше или начните вводить поиск — здесь появятся материалы.</p>
   <p class="count" id="count"></p>
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
   <div class="staff-list" id="staffList">
