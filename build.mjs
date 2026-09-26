@@ -560,12 +560,62 @@ const courseLinkRow = (course) => `  <div class="course-link-row">${course.textb
   </div>
 `;
 
-/* --- лендинг: намеренно без списка материалов --- */
+/* Курсы с одинаковым config.courses[].family группируются в один блок
+   с общим заголовком (см. site.config.json, поле "family") — используется
+   и на лендинге (плитки), и в панели преподавателя (кнопка + подвкладки). */
+const familyOrder = [];
+const familyCourses = new Map(); // famId -> [course, ...]
+const familyId = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const standaloneCourses = [];
+for (const c of courses) {
+  if (c.family) {
+    const fid = familyId(c.family);
+    if (!familyCourses.has(fid)) { familyCourses.set(fid, []); familyOrder.push([fid, c.family]); }
+    familyCourses.get(fid).push(c);
+  } else {
+    standaloneCourses.push(c);
+  }
+}
+
+/* --- лендинг: плитки папок курсов, без списков материалов и без общего «Все» --- */
+const wordForm = (n, one, few, many) =>
+  n % 10 === 1 && n % 100 !== 11 ? one : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
+
+const tileFor = (course, label) => {
+  const count = materials.filter((m) => m['course-id'] === course.id && m.status === 'published').length;
+  return `      <a class="tile" href="${esc(`${BASE}/${course.id}/`)}">
+        <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
+        <span class="tile-name">${esc(label)}</span>
+        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+};
+
+const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
+  const fam = familyCourses.get(fid);
+  const emoji = fam.find((c) => c.emoji)?.emoji || '';
+  const tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  return `  <div class="tile-family">
+    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <div class="tile-grid">
+${tiles}
+    </div>
+  </div>`;
+}).join('\n');
+
+const landingStandaloneBlock = standaloneCourses.length
+  ? `  <div class="tile-family">
+    <div class="tile-grid">
+${standaloneCourses.map((c) => tileFor(c, c.name)).join('\n')}
+    </div>
+  </div>`
+  : '';
+
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
   title: config.siteTitle || 'ANGLE',
   heading: config.siteTitle || 'ANGLE',
-  sub: 'Материалы для учеников',
-  body: `  <p class="empty">Откройте ссылку, которую дал преподаватель — она ведёт сразу на нужное задание.</p>
+  sub: 'Выберите свой курс',
+  body: `${landingFamilyBlocks}
+${landingStandaloneBlock}
   <p class="note">Если вы преподаватель: список всех материалов лежит по отдельному адресу,
   он должен быть у вас в закладках.</p>`,
 }));
@@ -616,23 +666,8 @@ const staffCard = (m) => {
   </div>`;
 };
 
-/* Курсы с одинаковым config.courses[].family сворачиваются в одну кнопку
-   с подвкладками-уровнями (см. site.config.json, поле "family"). Курсы без
-   family остаются обычными отдельными кнопками. */
-const familyOrder = [];
-const familyCourses = new Map(); // famId -> [course, ...]
-const familyId = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-const standaloneCourses = [];
-for (const c of courses) {
-  if (c.family) {
-    const fid = familyId(c.family);
-    if (!familyCourses.has(fid)) { familyCourses.set(fid, []); familyOrder.push([fid, c.family]); }
-    familyCourses.get(fid).push(c);
-  } else {
-    standaloneCourses.push(c);
-  }
-}
-
+/* familyOrder / familyCourses / standaloneCourses уже посчитаны выше,
+   для плиток на лендинге — переиспользуем их и здесь для кнопок-фильтров. */
 const familyBtns = familyOrder.map(([fid, famName]) =>
   `<button type="button" class="filter-btn" data-filter="family:${esc(fid)}" data-has-sub="${esc(fid)}">${esc(famName)}</button>`);
 
