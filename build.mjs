@@ -581,8 +581,16 @@ for (const c of courses) {
 const wordForm = (n, one, few, many) =>
   n % 10 === 1 && n % 100 !== 11 ? one : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
 
-const tileFor = (course, label) => {
-  const count = materials.filter((m) => m['course-id'] === course.id && m.status === 'published').length;
+/* Семьи, где вместо плитки на каждый уровень показываем одну общую плитку
+   на всю семью (уровни-заглушки без единого материала выглядят как мусор).
+   Плитка ведёт на уровень с наибольшим числом материалов; появятся материалы
+   в других уровнях — просто уберите семью отсюда, когда решите их показать. */
+const COLLAPSED_FAMILIES = ['Oxford Phonics'];
+
+const tileFor = (course, label, overrideCount) => {
+  const count = overrideCount != null
+    ? overrideCount
+    : materials.filter((m) => m['course-id'] === course.id && m.status === 'published').length;
   return `      <a class="tile" href="${esc(`${BASE}/${course.id}/`)}">
         <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
         <span class="tile-name">${esc(label)}</span>
@@ -593,7 +601,11 @@ const tileFor = (course, label) => {
 const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
   const fam = familyCourses.get(fid);
   const emoji = fam.find((c) => c.emoji)?.emoji || '';
-  const tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  const countPublished = (c) => materials.filter((m) => m['course-id'] === c.id && m.status === 'published').length;
+  const tiles = COLLAPSED_FAMILIES.includes(famName)
+    ? tileFor(fam.reduce((a, b) => (countPublished(b) > countPublished(a) ? b : a)), famName,
+        fam.reduce((sum, c) => sum + countPublished(c), 0))
+    : fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
     <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
     <div class="tile-grid">
@@ -902,8 +914,8 @@ const staffScript = `<script>
    кликом «нажимают» те же скрытые кнопки-фильтры тулбара (см. staffScript
    выше). Показывают счётчик по ВСЕМ материалам курса, включая черновики —
    в отличие от плиток на лендинге, где считаются только published. */
-const staffTileFor = (course, label) => {
-  const count = materials.filter((m) => m['course-id'] === course.id).length;
+const staffTileFor = (course, label, overrideCount) => {
+  const count = overrideCount != null ? overrideCount : materials.filter((m) => m['course-id'] === course.id).length;
   return `      <a class="tile" href="javascript:void(0)" data-tile-course="${esc(course.id)}">
         <span class="tile-emoji">${esc(course.emoji || '📁')}</span>
         <span class="tile-name">${esc(label)}</span>
@@ -913,7 +925,11 @@ const staffTileFor = (course, label) => {
 const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
   const fam = familyCourses.get(fid);
   const emoji = fam.find((c) => c.emoji)?.emoji || '';
-  const tiles = fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  const countAll = (c) => materials.filter((m) => m['course-id'] === c.id).length;
+  const tiles = COLLAPSED_FAMILIES.includes(famName)
+    ? staffTileFor(fam.reduce((a, b) => (countAll(b) > countAll(a) ? b : a)), famName,
+        fam.reduce((sum, c) => sum + countAll(c), 0))
+    : fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
     <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
     <div class="tile-grid">
