@@ -376,7 +376,12 @@ const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.
    (когда добавили материал), по имени или по теме (юниту). Разметка
    одинаковая для страницы курса и панели преподавателя, скрипт общий
    (см. sortScript), различается только то, какой контейнер он сортирует. */
-const sortToolbar = () => `  <div class="sort-toolbar">
+/* startHidden — для страниц с плитками-папками (см. groupFolderNav):
+   сортировка относится к списку материалов, а он сам скрыт, пока не
+   зайти в юнит, — без этого кнопки сортировки до захода в юнит висели
+   бы прямо под сеткой плиток, наезжая на неё визуально. Скрываем сразу
+   в разметке (не только через JS), чтобы не было вспышки при загрузке. */
+const sortToolbar = (startHidden) => `  <div class="sort-toolbar"${startHidden ? ' hidden' : ''}>
     <span class="sort-label">Сортировка:</span>
     <button type="button" class="filter-btn" data-sort="date">🕓 По дате</button>
     <button type="button" class="filter-btn" data-sort="title">🔤 По имени</button>
@@ -712,13 +717,11 @@ ${standaloneCourses.map((c) => tileFor(c, c.name)).join('\n')}
   : '';
 
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
-  title: config.siteTitle || 'ANGLE',
-  heading: config.siteTitle || 'ANGLE',
-  sub: 'Выберите свой курс',
+  title: 'ANGLE Student',
+  heading: '🎓 ANGLE Student',
+  sub: '',
   body: `${landingFamilyBlocks}
-${landingStandaloneBlock}
-  <p class="note">Если вы преподаватель: список всех материалов лежит по отдельному адресу,
-  он должен быть у вас в закладках.</p>`,
+${landingStandaloneBlock}`,
 }));
 
 /* --- страница курса: только опубликованное --- */
@@ -732,7 +735,7 @@ for (const course of courses) {
     heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar()}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
+      ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
     extraScript: copyScript + (hasGroups ? groupFolderScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
   }));
@@ -878,6 +881,20 @@ const staffScript = `<script>
   var hint = document.getElementById('pickHint');
   var courseTilesWrap = document.getElementById('courseTilesWrap');
   var backBtn = document.getElementById('backToCourses');
+  var searchToggleBtn = document.getElementById('searchToggleBtn');
+
+  /* строка поиска свёрнута в иконку по умолчанию — разворачивается по
+     клику и сворачивается обратно, если её очистить и убрать фокус,
+     чтобы не занимала место на экране, когда ей не пользуются */
+  if(searchToggleBtn){
+    searchToggleBtn.addEventListener('click', function(){
+      search.hidden = !search.hidden;
+      if(!search.hidden) search.focus();
+    });
+    search.addEventListener('blur', function(){
+      if(!search.value.trim()) search.hidden = true;
+    });
+  }
 
   /* Юниты/темы внутри курса — те же плитки-папки, что и на публичной
      странице курса (см. groupFolderNav): зайти в курс без юнитов сразу
@@ -930,12 +947,20 @@ const staffScript = `<script>
 
   /* Заходим в курс (или сбрасываем эту вложенность, если courseId === null —
      например, когда сверху выбрана целая семья без конкретного курса).
-     Показывает верхнюю сетку плиток-юнитов курса и прячет всё глубже. */
+     Показывает верхнюю сетку плиток-юнитов курса и прячет всё глубже.
+     Если courseId задан — значит, зашли в конкретный курс внутри семьи
+     (например World 3 внутри Oxford Phonics), и ряд уровней семьи
+     («Все уровни», World 1/2/3…) больше не нужен: внутри курса должны
+     быть видны только его собственные юниты/папки и строка поиска, без
+     набора всех остальных уровней семьи рядом. Когда courseId === null,
+     наоборот, ничего не трогаем — этот ряд уровней в этот момент как
+     раз показывает вызывающий код (клик по плитке семьи). */
   function showGroupTabsFor(courseId){
     courseNavCourseId = courseId;
     courseNavLevel = 'group';
     courseNavTheme = null;
     showSkillTabsFor(null);
+    if(courseId){ showSubTabsFor(null); }
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){
       row.hidden = row.dataset.groupFor !== courseId;
     });
@@ -1140,17 +1165,18 @@ ${standaloneCourses.map((c) => staffTileFor(c, c.name)).join('\n')}
 const staffDir = path.join(OUT, staffPath);
 fs.mkdirSync(staffDir, { recursive: true });
 fs.writeFileSync(path.join(staffDir, 'index.html'), page({
-  title: 'Все материалы — панель преподавателя',
-  heading: 'Все материалы',
-  sub: 'Панель преподавателя — эта страница не индексируется поисковиками',
-  body: `  <div id="courseTilesWrap">
+  title: 'ANGLE Teacher',
+  heading: '🧑‍🏫 ANGLE Teacher',
+  sub: '',
+  body: `  <div class="search-toggle toolbar">
+    <button type="button" class="link-copy" id="searchToggleBtn" aria-label="Поиск">🔍</button>
+    <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
+  </div>
+  <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
   </div>
   <button type="button" class="link-copy" id="backToCourses" hidden>← Все курсы</button>
-  <div class="toolbar">
-    <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…">
-  </div>
   <div hidden>
     <div class="toolbar">
       ${filterBtns}
@@ -1158,17 +1184,13 @@ ${staffTileStandaloneBlock}
   </div>
 ${subTabRows}
 ${courseGroupRows}
-${sortToolbar()}
   <p class="empty" id="pickHint">Нажмите на плитку курса выше или начните вводить поиск — здесь появятся материалы.</p>
   <p class="count" id="count"></p>
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
   <div class="staff-list" id="staffList">
 ${materials.map(staffCard).join('\n')}
-  </div>
-  <p class="note">Материалов всего: ${materials.length}.
-  Чтобы добавить новый — попросите Claude, он положит папку в нужный курс, и она появится здесь
-  сама после <code>Commit</code> и <code>Push</code> в GitHub.</p>`,
-  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
+  </div>`,
+  extraScript: copyScript + staffScript,
 }));
 
 /* --- машиночитаемый каталог для агентов --- */

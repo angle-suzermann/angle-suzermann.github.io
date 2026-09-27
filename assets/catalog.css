@@ -173,6 +173,14 @@ html, body{
 .folder-nav > .tile-grid{ margin-bottom: 4px; }
 #groupBack{ margin: 0 0 14px; }
 
+/* ---- панель преподавателя: строка поиска свёрнута в иконку по умолчанию ----
+   раскрывается по клику (см. staffScript), чтобы не занимать место, когда
+   ей не пользуются — сам список материалов и так пуст, пока не выбрать
+   курс/юнит или не начать печатать. */
+.search-toggle{ margin-bottom: 14px; }
+#searchToggleBtn{ font-size: 16px; padding: 0 12px; }
+.search-toggle input[type=search]{ flex: 1 1 220px; }
+
 /* ---- список материалов ---- */
 
 .course-block{ margin-bottom: 34px; }
