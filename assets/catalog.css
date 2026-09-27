@@ -153,24 +153,13 @@ html, body{
 .tile-name{ font-weight: 700; font-size: 12.5px; }
 .tile-count{ font-size: 10.5px; color: #6b6560; }
 
-/* --- плитки-фильтры по юнитам/темам внутри курса (замена кнопок-пилюль) ---
-   .group-toolbar — верхний ряд тем на странице курса и в панели преподавателя;
-   .sub-tabs-group/.sub-tabs-skill — вложенный ряд (Тема→Навык);
-   .sub-tabs — уровни схлопнутой семьи (например Oxford Phonics) в панели
-   преподавателя — «подпапки внутри курса тоже плитками» */
-.group-toolbar:not([hidden]), .sub-tabs-group:not([hidden]), .sub-tabs-skill:not([hidden]), .sub-tabs:not([hidden]){
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-  gap: 6px;
-}
-.group-toolbar .filter-btn, .sub-tabs-group .filter-btn, .sub-tabs-skill .filter-btn, .sub-tabs .filter-btn{
-  min-height: auto;
-  text-align: center;
-  border-radius: 10px;
-  padding: 8px 6px;
-  white-space: normal;
-  line-height: 1.2;
-}
+/* Юниты/темы внутри курса в панели преподавателя (.sub-tabs-group/
+   .sub-tabs-skill) — с сентября 2026 это те же .tile-grid/.tile плитки,
+   что и на публичной странице курса (см. groupFolderNav в build.mjs),
+   не кнопки-пилюли — отдельный размер сетки им больше не нужен,
+   .tile-grid уже задаёт нужные колонки/отступы сам (см. выше).
+   .sub-tabs (уровни схлопнутой семьи, например Oxford Phonics) —
+   по-прежнему кнопки-пилюли, стилизованы отдельно ниже. */
 
 #backToCourses{ margin: 0 0 14px; }
 

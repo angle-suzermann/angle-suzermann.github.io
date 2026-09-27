@@ -437,30 +437,39 @@ const themeOf = (g) => (g.includes('/') ? g.slice(0, g.indexOf('/')) : g);
 const skillOf = (g) => (g.includes('/') ? g.slice(g.indexOf('/') + 1) : null);
 const isHierGroups = (list) => list.some((m) => m.group && m.group.includes('/'));
 
-const groupFolderNav = (list) => {
+/* Общие для лендинга и панели преподавателя: считает темы/навыки и их
+   счётчики материалов один раз, дальше оба места просто рисуют плитки
+   из готового дерева — чтобы не дублировать подсчёты и не разойтись
+   в поведении между публичной страницей курса и панелью учителя. */
+const groupTileTree = (list) => {
   const groups = [...new Set(list.map((m) => m.group).filter(Boolean))];
-  if (!groups.length) return '';
+  if (!groups.length) return null;
   const themes = [...new Set(groups.map(themeOf))]
     .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
   const countExact = (g) => list.filter((m) => m.group === g).length;
   const countPrefix = (t) => list.filter((m) => m.group === t || (m.group && m.group.indexOf(t + '/') === 0)).length;
   const ungroupedCount = list.filter((m) => !m.group).length;
+  return { groups, themes, countExact, countPrefix, ungroupedCount };
+};
+
+const groupTileHtml = (attrs, emoji, name, count) => `      <a class="tile" href="javascript:void(0)"${attrs}>
+        <span class="tile-icon"><span class="tile-emoji">${emoji}</span></span>
+        <span class="tile-name">${esc(name)}</span>
+        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+
+const groupFolderNav = (list) => {
+  const tree = groupTileTree(list);
+  if (!tree) return '';
+  const { groups, themes, countExact, countPrefix, ungroupedCount } = tree;
 
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
     const count = hasSkills ? countPrefix(t) : countExact(t);
-    return `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(t)}"${hasSkills ? ' data-has-skills="1"' : ''}>
-        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
-        <span class="tile-name">${esc(t)}</span>
-        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
-      </a>`;
+    return groupTileHtml(` data-group-tile="${esc(t)}"${hasSkills ? ' data-has-skills="1"' : ''}`, '📁', t, count);
   });
   if (ungroupedCount) {
-    topTiles.push(`      <a class="tile" href="javascript:void(0)" data-group-tile="">
-        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
-        <span class="tile-name">Без юнита</span>
-        <span class="tile-count">${ungroupedCount} ${wordForm(ungroupedCount, 'материал', 'материала', 'материалов')}</span>
-      </a>`);
+    topTiles.push(groupTileHtml(' data-group-tile=""', '📁', 'Без юнита', ungroupedCount));
   }
 
   const skillGrids = themes
@@ -468,19 +477,10 @@ const groupFolderNav = (list) => {
     .map((t) => {
       const skills = [...new Set(groups.filter((g) => themeOf(g) === t).map(skillOf).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-      const allTile = `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(t)}" data-prefix="1">
-        <span class="tile-icon"><span class="tile-emoji">📂</span></span>
-        <span class="tile-name">Все</span>
-        <span class="tile-count">${countPrefix(t)} ${wordForm(countPrefix(t), 'материал', 'материала', 'материалов')}</span>
-      </a>`;
+      const allTile = groupTileHtml(` data-group-tile="${esc(t)}" data-prefix="1"`, '📂', 'Все', countPrefix(t));
       const skillTiles = skills.map((s) => {
         const full = `${t}/${s}`;
-        const c = countExact(full);
-        return `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(full)}">
-        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
-        <span class="tile-name">${esc(s)}</span>
-        <span class="tile-count">${c} ${wordForm(c, 'материал', 'материала', 'материалов')}</span>
-      </a>`;
+        return groupTileHtml(` data-group-tile="${esc(full)}"`, '📁', s, countExact(full));
       }).join('\n');
       return `    <div class="tile-grid" data-skill-grid-for="${esc(t)}" hidden>
 ${allTile}
@@ -614,6 +614,7 @@ const COLLAPSED_FAMILIES = ['Oxford Phonics'];
    assets/brand/logos/. Добавили лого для нового курса — впишите сюда его
    course-id, эмодзи останется запасным вариантом для всех остальных. */
 const LOGO_MAP = {
+  'ege-2027': 'ege-2027.png',
   as2: 'academy-stars-2.png',
   as3: 'academy-stars-3.png',
   as4: 'academy-stars-4.png',
@@ -786,9 +787,16 @@ const familyMapJson = JSON.stringify(
   Object.fromEntries(familyOrder.map(([fid]) => [fid, familyCourses.get(fid).map((c) => c.id)]))
 );
 
-/* третий уровень вкладок в панели преподавателя — по подпапкам внутри курса
-   (unit 9, module 3, 1.Путешествие…). Строится из тех же данных, что и
-   вкладки на страницах курсов, отдельно ничего в site.config.json заводить не нужно. */
+/* третий уровень навигации в панели преподавателя — по подпапкам внутри
+   курса (unit 9, module 3, 1.Путешествие…). Строится из тех же данных,
+   что и вкладки на страницах курсов, отдельно ничего в site.config.json
+   заводить не нужно. С сентября 2026 — те же плитки-папки с заходом
+   внутрь/кнопкой «Назад», что и на публичной странице курса (см.
+   groupFolderNav): плитка юнита прячет сетку юнитов и показывает
+   материалы, плитка темы с навыками — открывает второй экран плиток
+   навыков. Считаем ПО ВСЕМ материалам курса, включая черновики — в
+   панели преподавателя это принципиально, в отличие от публичной
+   страницы курса, где список уже отфильтрован на published. */
 const courseGroupsMap = new Map(); // courseId -> [group, ...]
 for (const c of courses) {
   const groups = [...new Set(
@@ -797,51 +805,51 @@ for (const c of courses) {
   if (groups.length) courseGroupsMap.set(c.id, groups);
 }
 
-const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) => {
-  const hier = groups.some((g) => g.includes('/'));
+const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
+  const list = materials.filter((m) => m['course-id'] === courseId);
+  const tree = groupTileTree(list);
+  if (!tree) return '';
+  const { groups, themes, countExact, countPrefix } = tree;
+  /* «Без юнита» тут намеренно не выводим: в отличие от публичной
+     страницы курса, где ungroupedCount мог бы означать реальные
+     материалы без юнита, здесь courseGroupsMap уже гарантирует, что
+     courseId вообще есть в списке только если у курса есть хотя бы
+     один материал с группой — а сами материалы без группы просто
+     останутся доступны через плитку курса без захода в юниты, если
+     когда-нибудь у курса будут и те, и другие. */
 
-  if (!hier) {
-    const btns = [
-      `<button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>`,
-      ...groups.map((g) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(g)}">${esc(g)}</button>`),
-    ].join('\n      ');
-    return `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
-      ${btns}
-    </div>`;
-  }
-
-  /* курс с Тема/Навык (например ege-2027) — верхний ряд темы, при клике
-     на тему с навыками появляется отдельный ряд кнопок по навыкам внутри
-     неё (в панели преподавателя это отдельные фильтр-кнопки, а не плитки —
-     см. groupFolderNav для варианта на публичной странице курса) */
-  const themes = [...new Set(groups.map(themeOf))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-  const themeBtns = themes.map((t) => {
+  const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
-    return hasSkills
-      ? `<button type="button" class="filter-btn sub" data-group-filter="${esc(t)}" data-group-prefix="1" data-has-subskill="${esc(courseId + '::' + t)}">${esc(t)}</button>`
-      : `<button type="button" class="filter-btn sub" data-group-filter="${esc(t)}">${esc(t)}</button>`;
-  }).join('\n      ');
-  const themeRow = `  <div class="sub-tabs sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
-      <button type="button" class="filter-btn sub on" data-group-filter="all">Все юниты</button>
-      ${themeBtns}
-    </div>`;
+    const count = hasSkills ? countPrefix(t) : countExact(t);
+    return groupTileHtml(
+      ` data-group-tile="${esc(t)}" data-course-tile="${esc(courseId)}"${hasSkills ? ` data-has-skills="${esc(courseId + '::' + t)}"` : ''}`,
+      '📁', t, count
+    );
+  });
+  const groupGrid = `  <div class="tile-grid sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
+${topTiles.join('\n')}
+  </div>`;
 
-  const skillRows = themes
+  const skillGrids = themes
     .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
     .map((t) => {
       const skills = [...new Set(groups.filter((g) => themeOf(g) === t).map(skillOf).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-      const btns = [
-        `<button type="button" class="filter-btn sub on" data-group-filter="${esc(t)}" data-group-prefix="1">Все</button>`,
-        ...skills.map((s) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(t + '/' + s)}">${esc(s)}</button>`),
-      ].join('\n      ');
-      return `  <div class="sub-tabs sub-tabs-skill" data-skill-for="${esc(courseId + '::' + t)}" hidden>
-      ${btns}
-    </div>`;
+      const allTile = groupTileHtml(` data-group-tile="${esc(t)}" data-prefix="1" data-course-tile="${esc(courseId)}"`, '📂', 'Все', countPrefix(t));
+      const skillTiles = skills.map((s) => {
+        const full = `${t}/${s}`;
+        return groupTileHtml(` data-group-tile="${esc(full)}" data-course-tile="${esc(courseId)}"`, '📁', s, countExact(full));
+      }).join('\n');
+      return `  <div class="tile-grid sub-tabs-skill" data-skill-for="${esc(courseId + '::' + t)}" hidden>
+${allTile}
+${skillTiles}
+  </div>`;
     }).join('\n');
 
-  return skillRows ? `${themeRow}\n${skillRows}` : themeRow;
+  return skillGrids ? `${groupGrid}\n${skillGrids}` : groupGrid;
 }).join('\n');
+
+const courseGroupIdsJson = JSON.stringify([...courseGroupsMap.keys()]);
 
 /* ссылка курса → адрес его открытой страницы, для кнопки копирования,
    которая появляется в панели преподавателя, когда выбран конкретный курс */
@@ -865,17 +873,31 @@ const staffScript = `<script>
   var activeGroupPrefix = false;
   var familyMap = ${familyMapJson};
   var courseUrlMap = ${courseUrlMapJson};
+  var courseGroupIds = ${courseGroupIdsJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
   var hint = document.getElementById('pickHint');
   var courseTilesWrap = document.getElementById('courseTilesWrap');
   var backBtn = document.getElementById('backToCourses');
 
+  /* Юниты/темы внутри курса — те же плитки-папки, что и на публичной
+     странице курса (см. groupFolderNav): зайти в курс без юнитов сразу
+     показывает материалы, а курс с юнитами сначала показывает только
+     сетку плиток юнитов, пока не выбрать одну из них — courseNavLevel
+     отслеживает это, чтобы кнопка «← Назад» знала, на сколько уровней
+     подняться (материалы → навыки → юниты → все курсы). */
+  var courseNavCourseId = null;
+  var courseNavLevel = 'top'; // 'top' | 'group' | 'skill' | 'materials'
+  var courseNavTheme = null;  // ключ "courseId::тема" — откуда пришли на материалы, если из навыков
+
   function apply(){
     var q = search.value.trim().toLowerCase();
     var shown = 0;
-    /* до выбора плитки курса и без текста в поиске список пуст —
-       вместо «стены» из всех материалов сразу после открытия страницы */
-    var noPickYet = active === 'none' && !q;
+    var topNoPick = active === 'none' && !q;
+    /* курс с юнитами: пока юнит не выбран (activeGroup === 'none'),
+       список пуст — вместо «стены» из всех материалов курса сразу
+       после входа, точно как на публичной странице курса */
+    var courseGated = active.indexOf('course:') === 0 && courseGroupIds.indexOf(active.slice(7)) !== -1 && activeGroup === 'none' && !q;
+    var noPickYet = topNoPick || courseGated;
     cards.forEach(function(c){
       var okFilter = noPickYet ? false : active === 'all' || active === 'none' ||
         (active.indexOf('course:') === 0 && c.dataset.course === active.slice(7)) ||
@@ -889,7 +911,7 @@ const staffScript = `<script>
       c.style.display = show ? '' : 'none';
       if(show) shown++;
     });
-    if(hint) hint.hidden = !noPickYet;
+    if(hint) hint.hidden = !topNoPick;
     count.hidden = noPickYet;
     count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
   }
@@ -903,30 +925,51 @@ const staffScript = `<script>
   function showSkillTabsFor(key){
     document.querySelectorAll('.sub-tabs-skill').forEach(function(row){
       row.hidden = row.dataset.skillFor !== key;
-      if(!row.hidden){
-        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-        row.querySelector('.filter-btn').classList.add('on');
-      }
     });
   }
 
+  /* Заходим в курс (или сбрасываем эту вложенность, если courseId === null —
+     например, когда сверху выбрана целая семья без конкретного курса).
+     Показывает верхнюю сетку плиток-юнитов курса и прячет всё глубже. */
   function showGroupTabsFor(courseId){
-    activeGroup = 'all';
-    activeGroupPrefix = false;
+    courseNavCourseId = courseId;
+    courseNavLevel = 'group';
+    courseNavTheme = null;
     showSkillTabsFor(null);
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){
       row.hidden = row.dataset.groupFor !== courseId;
-      if(!row.hidden){
-        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-        row.querySelector('.filter-btn').classList.add('on');
-      }
     });
+    activeGroup = (courseId && courseGroupIds.indexOf(courseId) !== -1) ? 'none' : 'all';
+    activeGroupPrefix = false;
     if(courseId && courseUrlMap[courseId]){
       courseLinkBtn.dataset.copy = courseUrlMap[courseId];
       courseLinkBtn.hidden = false;
     } else {
       courseLinkBtn.hidden = true;
     }
+  }
+
+  /* Заходим во второй экран — плитки навыков внутри темы (только для
+     курсов с вложенностью Тема/Навык, например ЕГЭ). key — это
+     "courseId::тема", как в data-has-skills/data-skill-for. */
+  function showSkillLevelFor(key){
+    courseNavLevel = 'skill';
+    courseNavTheme = key;
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){ row.hidden = true; });
+    showSkillTabsFor(key);
+    activeGroup = 'none';
+    activeGroupPrefix = false;
+  }
+
+  /* Плитка-лист (юнит, «Все» темы или конкретный навык) — прячем все
+     сетки плиток этого курса и показываем отфильтрованные материалы. */
+  function showMaterialsFor(group, prefix, fromSkillKey){
+    courseNavLevel = 'materials';
+    courseNavTheme = fromSkillKey || null;
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){ row.hidden = true; });
+    document.querySelectorAll('.sub-tabs-skill').forEach(function(row){ row.hidden = true; });
+    activeGroup = group;
+    activeGroupPrefix = prefix;
   }
 
   document.querySelectorAll('.toolbar .filter-btn').forEach(function(b){
@@ -961,26 +1004,21 @@ const staffScript = `<script>
     });
   });
 
-  document.querySelectorAll('.sub-tabs-group .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      var row = b.closest('.sub-tabs-group');
-      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      activeGroup = b.dataset.groupFilter;
-      activeGroupPrefix = !!b.dataset.groupPrefix || activeGroup === 'all';
-      showSkillTabsFor(b.dataset.hasSubskill || null);
+  /* Клик по плитке юнита/темы/навыка внутри курса — заходит внутрь ровно
+     по той же логике, что и плитки курсов/семей выше: либо открывает
+     следующий экран плиток (навыки), либо показывает отфильтрованные
+     материалы. Один обработчик на все такие плитки — group-плитки и
+     skill-плитки устроены одинаково, отличает их только data-has-skills. */
+  document.querySelectorAll('.tile[data-group-tile]').forEach(function(t){
+    t.addEventListener('click', function(){
+      if(t.dataset.hasSkills){
+        showSkillLevelFor(t.dataset.hasSkills);
+      } else {
+        var skillGrid = t.closest('.sub-tabs-skill');
+        showMaterialsFor(t.dataset.groupTile, t.dataset.prefix === '1', skillGrid ? skillGrid.dataset.skillFor : null);
+      }
       apply();
-    });
-  });
-
-  document.querySelectorAll('.sub-tabs-skill .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      var row = b.closest('.sub-tabs-skill');
-      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      activeGroup = b.dataset.groupFilter;
-      activeGroupPrefix = !!b.dataset.groupPrefix;
-      apply();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
   search.addEventListener('input', apply);
@@ -1022,17 +1060,31 @@ const staffScript = `<script>
     });
   });
 
+  /* «← Назад» поднимается на один уровень внутри курса (материалы →
+     навыки → юниты), и только с самого верхнего уровня юнитов курса —
+     или если юнитов вообще нет — возвращается ко всем курсам, как и
+     раньше. */
   backBtn.addEventListener('click', function(){
-    active = 'none';
-    activeGroup = 'all';
-    activeGroupPrefix = false;
-    search.value = '';
-    document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
-    showSubTabsFor(null);
-    showGroupTabsFor(null);
-    courseTilesWrap.hidden = false;
-    backBtn.hidden = true;
-    apply();
+    if(courseNavLevel === 'materials'){
+      if(courseNavTheme){ showSkillLevelFor(courseNavTheme); }
+      else { showGroupTabsFor(courseNavCourseId); }
+      apply();
+    } else if(courseNavLevel === 'skill'){
+      showGroupTabsFor(courseNavCourseId);
+      apply();
+    } else {
+      active = 'none';
+      activeGroup = 'all';
+      activeGroupPrefix = false;
+      search.value = '';
+      document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      showSubTabsFor(null);
+      showGroupTabsFor(null);
+      courseNavLevel = 'top';
+      courseTilesWrap.hidden = false;
+      backBtn.hidden = true;
+      apply();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
