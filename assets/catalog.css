@@ -155,13 +155,15 @@ html, body{
 
 /* --- плитки-фильтры по юнитам/темам внутри курса (замена кнопок-пилюль) ---
    .group-toolbar — верхний ряд тем на странице курса и в панели преподавателя;
-   .sub-tabs-group/.sub-tabs-skill — вложенный ряд (Тема→Навык, уровни семьи) */
-.group-toolbar:not([hidden]), .sub-tabs-group:not([hidden]), .sub-tabs-skill:not([hidden]){
+   .sub-tabs-group/.sub-tabs-skill — вложенный ряд (Тема→Навык);
+   .sub-tabs — уровни схлопнутой семьи (например Oxford Phonics) в панели
+   преподавателя — «подпапки внутри курса тоже плитками» */
+.group-toolbar:not([hidden]), .sub-tabs-group:not([hidden]), .sub-tabs-skill:not([hidden]), .sub-tabs:not([hidden]){
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
   gap: 6px;
 }
-.group-toolbar .filter-btn, .sub-tabs-group .filter-btn, .sub-tabs-skill .filter-btn{
+.group-toolbar .filter-btn, .sub-tabs-group .filter-btn, .sub-tabs-skill .filter-btn, .sub-tabs .filter-btn{
   min-height: auto;
   text-align: center;
   border-radius: 10px;

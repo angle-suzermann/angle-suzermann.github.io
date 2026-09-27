@@ -74,7 +74,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 /* Версия иконок сайта. Браузеры (особенно Safari) очень долго держат старую
    иконку в памяти. Поменяли favicon.ico / apple-touch-icon.png — увеличьте
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
-const ICON_VERSION = 5;
+const ICON_VERSION = 6;
 
 /* Адрес сайта целиком — нужен для превью ссылок в Telegram/WhatsApp/VK:
    картинка превью должна быть с полным адресом. Берётся из repoUrl,
@@ -585,7 +585,7 @@ const wordForm = (n, one, few, many) =>
    на всю семью (уровни-заглушки без единого материала выглядят как мусор).
    Плитка ведёт на уровень с наибольшим числом материалов; появятся материалы
    в других уровнях — просто уберите семью отсюда, когда решите их показать. */
-const COLLAPSED_FAMILIES = ['Oxford Phonics'];
+const COLLAPSED_FAMILIES = [];
 
 /* Логотипы учебников вместо эмодзи на плитках курса — файлы лежат в
    assets/brand/logos/. Добавили лого для нового курса — впишите сюда его
@@ -625,14 +625,32 @@ const tileFor = (course, label, overrideCount) => {
       </a>`;
 };
 
+/* Если у всех курсов схлопнутой семьи общий префикс пути (oxford-phonics/1,
+   oxford-phonics/2, …) — у семьи будет отдельная хаб-страница с плитками
+   по уровням, и общая плитка семьи ведёт на неё, а не сразу на курс. */
+const familyPrefix = (fam) => {
+  const parts = fam.map((c) => (c.id.includes('/') ? c.id.slice(0, c.id.indexOf('/')) : null));
+  return parts.every((p) => p && p === parts[0]) ? parts[0] : null;
+};
+
 const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
   const fam = familyCourses.get(fid);
   const emoji = fam.find((c) => c.emoji)?.emoji || '';
   const countPublished = (c) => materials.filter((m) => m['course-id'] === c.id && m.status === 'published').length;
-  const tiles = COLLAPSED_FAMILIES.includes(famName)
-    ? tileFor(fam.reduce((a, b) => (countPublished(b) > countPublished(a) ? b : a)), famName,
-        fam.reduce((sum, c) => sum + countPublished(c), 0))
-    : fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  let tiles;
+  if (COLLAPSED_FAMILIES.includes(famName)) {
+    const prefix = familyPrefix(fam);
+    const total = fam.reduce((sum, c) => sum + countPublished(c), 0);
+    const repCourse = fam.reduce((a, b) => (countPublished(b) > countPublished(a) ? b : a));
+    const href = prefix ? `${BASE}/${prefix}/` : `${BASE}/${repCourse.id}/`;
+    tiles = `      <a class="tile" href="${esc(href)}">
+        ${tileIconFor(repCourse)}
+        <span class="tile-name">${esc(famName)}</span>
+        <span class="tile-count">${total} ${wordForm(total, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+  } else {
+    tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
+  }
   return `  <div class="tile-family">
     <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
     <div class="tile-grid">
@@ -640,6 +658,25 @@ ${tiles}
     </div>
   </div>`;
 }).join('\n');
+
+/* хаб-страницы схлопнутых семей — плитки по уровням, ведущие на реальные
+   страницы курсов; генерируются только если есть общий префикс пути. */
+for (const [fid, famName] of familyOrder) {
+  if (!COLLAPSED_FAMILIES.includes(famName)) continue;
+  const fam = familyCourses.get(fid);
+  const prefix = familyPrefix(fam);
+  if (!prefix) continue;
+  const dir = path.join(OUT, prefix);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), page({
+    title: `${famName} — материалы`,
+    heading: famName,
+    sub: 'Выберите уровень',
+    body: `  <div class="tile-grid">
+${fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n')}
+  </div>`,
+  }));
+}
 
 const landingStandaloneBlock = standaloneCourses.length
   ? `  <div class="tile-family">
@@ -945,6 +982,21 @@ const staffScript = `<script>
     });
   });
 
+  document.querySelectorAll('.tile[data-tile-family]').forEach(function(t){
+    t.addEventListener('click', function(){
+      /* плитка схлопнутой семьи (например Oxford Phonics) — не выбирает
+         курс сама, а открывает ряд уровней внутри (тоже плитками);
+         выбор конкретного уровня — обычный клик по .tile[data-tile-course]
+         чуть выше по коду, ничего дополнительно писать не нужно */
+      var famId = t.dataset.tileFamily;
+      var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
+      if(famBtn) famBtn.click();
+      courseTilesWrap.hidden = true;
+      backBtn.hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
   backBtn.addEventListener('click', function(){
     active = 'none';
     activeGroup = 'all';
@@ -975,12 +1027,22 @@ const staffTileFor = (course, label, overrideCount) => {
         <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
       </a>`;
 };
+/* плитка схлопнутой семьи в панели преподавателя — ведёт не на конкретный
+   курс, а «внутрь» семьи: клик открывает её ряд уровней (тоже плитками,
+   см. .sub-tabs в catalog.css), точно как «зайти в папку phonics и увидеть
+   плитки уровней внутри». Обрабатывается отдельным JS-обработчиком
+   data-tile-family (см. staffScript). */
+const staffFamilyTileFor = (fid, famName, repCourse, total) => `      <a class="tile" href="javascript:void(0)" data-tile-family="${esc(fid)}">
+        ${tileIconFor(repCourse)}
+        <span class="tile-name">${esc(famName)}</span>
+        <span class="tile-count">${total} ${wordForm(total, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
 const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
   const fam = familyCourses.get(fid);
   const emoji = fam.find((c) => c.emoji)?.emoji || '';
   const countAll = (c) => materials.filter((m) => m['course-id'] === c.id).length;
   const tiles = COLLAPSED_FAMILIES.includes(famName)
-    ? staffTileFor(fam.reduce((a, b) => (countAll(b) > countAll(a) ? b : a)), famName,
+    ? staffFamilyTileFor(fid, famName, fam.reduce((a, b) => (countAll(b) > countAll(a) ? b : a)),
         fam.reduce((sum, c) => sum + countAll(c), 0))
     : fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
