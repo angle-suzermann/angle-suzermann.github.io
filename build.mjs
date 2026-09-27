@@ -334,7 +334,11 @@ const ANGLE_WORDMARK = `<svg class="wordmark" viewBox="0 0 2190 640" xmlns="http
 
 const ANGLE_BADGE = `<div class="angle-badge">${ANGLE_WORDMARK}<div class="credit">by ${esc(config.author || '')}</div></div>`;
 
-const page = ({ title, heading, sub, body, extraScript = '' }) => `<!DOCTYPE html>
+/* headingIcon — необязательный путь к фирменному стикеру ANGLE (см.
+   assets/brand/heading-*.png), рисуется перед заголовком на лендинге и
+   в панели преподавателя вместо обычного эмодзи курса — просили именно
+   фирменные стикеры из папки Виктории, не юникод-эмодзи. */
+const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '' }) => `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -352,7 +356,7 @@ const page = ({ title, heading, sub, body, extraScript = '' }) => `<!DOCTYPE htm
 <div class="bg-wash"></div>
 ${ANGLE_BADGE}
 <header class="cat-header">
-  <h1>${esc(heading)}</h1>
+  <h1>${headingIcon ? `<img class="heading-icon" src="${BASE}${headingIcon}" alt="">` : ''}${esc(heading)}</h1>
   ${sub ? `<p>${esc(sub)}</p>` : ''}
 </header>
 <div class="page">
@@ -718,7 +722,8 @@ ${standaloneCourses.map((c) => tileFor(c, c.name)).join('\n')}
 
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
   title: 'ANGLE Student',
-  heading: '🎓 ANGLE Student',
+  heading: 'ANGLE Student',
+  headingIcon: '/assets/brand/heading-student.png',
   sub: '',
   body: `${landingFamilyBlocks}
 ${landingStandaloneBlock}`,
@@ -1166,7 +1171,8 @@ const staffDir = path.join(OUT, staffPath);
 fs.mkdirSync(staffDir, { recursive: true });
 fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   title: 'ANGLE Teacher',
-  heading: '🧑‍🏫 ANGLE Teacher',
+  heading: 'ANGLE Teacher',
+  headingIcon: '/assets/brand/heading-teacher.png',
   sub: '',
   body: `  <div class="search-toggle toolbar">
     <button type="button" class="link-copy" id="searchToggleBtn" aria-label="Поиск">🔍</button>

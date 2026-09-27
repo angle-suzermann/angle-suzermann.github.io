@@ -97,7 +97,14 @@ html, body{
   letter-spacing: 0.5px;
   margin: 0 0 6px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
+/* фирменный стикер ANGLE перед заголовком «ANGLE Student»/«ANGLE Teacher»
+   (см. page({ headingIcon }) в build.mjs) — вместо обычного юникод-эмодзи */
+.heading-icon{ height: 1.6em; width: auto; display: block; }
 .cat-header p{ margin: 0; opacity: 0.92; font-size: 13px; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
 .cat-header .logo{ display: none; }
 .cat-header .credit{ display: none; }
