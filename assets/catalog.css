@@ -161,12 +161,11 @@ html, body{
 .tile-count{ font-size: 10.5px; color: #6b6560; }
 
 /* Юниты/темы внутри курса в панели преподавателя (.sub-tabs-group/
-   .sub-tabs-skill) — с сентября 2026 это те же .tile-grid/.tile плитки,
-   что и на публичной странице курса (см. groupFolderNav в build.mjs),
-   не кнопки-пилюли — отдельный размер сетки им больше не нужен,
-   .tile-grid уже задаёт нужные колонки/отступы сам (см. выше).
-   .sub-tabs (уровни схлопнутой семьи, например Oxford Phonics) —
-   по-прежнему кнопки-пилюли, стилизованы отдельно ниже. */
+   .sub-tabs-skill) и уровни внутри схлопнутой семьи (.sub-tabs, например
+   Oxford Phonics) — с сентября 2026 всё это одни и те же .tile-grid/.tile
+   плитки, что и на публичной странице курса/хаба семьи (см. groupFolderNav
+   и subTabRows в build.mjs), не кнопки-пилюли — отдельный размер сетки
+   им не нужен, .tile-grid уже задаёт нужные колонки/отступы сам (см. выше). */
 
 #backToCourses{ margin: 0 0 14px; }
 
@@ -372,23 +371,12 @@ html, body{
 .link-copy:hover{ background: rgba(254,213,0,0.3); border-color: rgba(254,213,0,0.6); transform: translateY(-1px); }
 .link-copy.copied{ background: var(--correct); border-color: var(--correct); color: #fff; font-size: 11px; font-weight: 700; padding: 0 10px; }
 
-/* подвкладки уровней внутри курса-семьи (напр. Academy Stars 2/3/4/5) */
-.sub-tabs{
-  gap: 6px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: -6px 0 16px 4px;
-  padding-left: 14px;
-  border-left: 2px solid rgba(254,213,0,0.4);
-}
-.sub-tabs:not([hidden]){ display: flex; }
-.filter-btn.sub{
-  min-height: 30px;
-  padding: 4px 13px;
-  font-size: 12px;
-  background: rgba(255,255,255,0.16);
-}
-.filter-btn.sub.on{ background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+/* уровни внутри схлопнутой семьи (напр. Oxford Phonics, Academy Stars) —
+   с сентября 2026 это те же .tile-grid/.tile плитки, что и юниты/темы
+   курса и публичный хаб семьи; .sub-tabs больше не хранит кнопки-пилюли,
+   отдельная flex/border-left раскладка ему не нужна — .tile-grid (см.
+   выше) уже задаёт нужную сетку сама. */
+.sub-tabs{ margin: 0 0 16px; }
 
 .staff-card{
   background: rgba(255,255,255,0.88);

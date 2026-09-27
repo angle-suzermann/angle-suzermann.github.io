@@ -780,17 +780,6 @@ const staffCard = (m) => {
 const familyBtns = familyOrder.map(([fid, famName]) =>
   `<button type="button" class="filter-btn" data-filter="family:${esc(fid)}" data-has-sub="${esc(fid)}">${esc(famName)}</button>`);
 
-const subTabRows = familyOrder.map(([fid, famName]) => {
-  const levelBtns = familyCourses.get(fid).map((c) => {
-    const label = esc(c.name.replace(famName, '').trim() || c.name);
-    return `<button type="button" class="filter-btn sub" data-filter="course:${esc(c.id)}">${label}</button>`;
-  }).join('\n      ');
-  return `  <div class="sub-tabs" data-sub-for="${esc(fid)}" hidden>
-      <button type="button" class="filter-btn sub on" data-filter="family:${esc(fid)}">Все уровни</button>
-      ${levelBtns}
-    </div>`;
-}).join('\n');
-
 const familyMapJson = JSON.stringify(
   Object.fromEntries(familyOrder.map(([fid]) => [fid, familyCourses.get(fid).map((c) => c.id)]))
 );
@@ -910,16 +899,23 @@ const staffScript = `<script>
   var courseNavCourseId = null;
   var courseNavLevel = 'top'; // 'top' | 'group' | 'skill' | 'materials'
   var courseNavTheme = null;  // ключ "courseId::тема" — откуда пришли на материалы, если из навыков
+  var courseNavFamily = null; // fid семьи, если в этот курс зашли через её ряд уровней (иначе null)
 
   function apply(){
     var q = search.value.trim().toLowerCase();
     var shown = 0;
     var topNoPick = active === 'none' && !q;
+    /* выбрана целая семья (например Oxford Phonics), но конкретный
+       уровень ещё не выбран — показываем только плитки уровней, без
+       материалов, точно как на публичном хабе /oxford-phonics/ (там
+       тоже нет варианта «показать все уровни разом», нужно выбрать
+       один уровень) */
+    var familyGated = active.indexOf('family:') === 0 && !q;
     /* курс с юнитами: пока юнит не выбран (activeGroup === 'none'),
        список пуст — вместо «стены» из всех материалов курса сразу
        после входа, точно как на публичной странице курса */
     var courseGated = active.indexOf('course:') === 0 && courseGroupIds.indexOf(active.slice(7)) !== -1 && activeGroup === 'none' && !q;
-    var noPickYet = topNoPick || courseGated;
+    var noPickYet = topNoPick || familyGated || courseGated;
     cards.forEach(function(c){
       var okFilter = noPickYet ? false : active === 'all' || active === 'none' ||
         (active.indexOf('course:') === 0 && c.dataset.course === active.slice(7)) ||
@@ -1007,29 +1003,18 @@ const staffScript = `<script>
       document.querySelectorAll('.toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
       b.classList.add('on');
       active = b.dataset.filter;
+      courseNavFamily = null;
       if(b.dataset.hasSub){
+        /* плитка целой семьи (например Oxford Phonics) — показываем
+           только сетку уровней-плиток, без варианта «Все уровни»:
+           материалы остаются скрыты, пока не выбрать конкретный
+           уровень (см. familyGated в apply()) */
         showSubTabsFor(b.dataset.hasSub);
-        var row = document.querySelector('.sub-tabs[data-sub-for="' + b.dataset.hasSub + '"]');
-        if(row){
-          row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-          row.querySelector('.filter-btn').classList.add('on');
-        }
         showGroupTabsFor(null);
       } else {
         showSubTabsFor(null);
         showGroupTabsFor(active.indexOf('course:') === 0 ? active.slice(7) : null);
       }
-      apply();
-    });
-  });
-
-  document.querySelectorAll('.sub-tabs:not(.sub-tabs-group):not(.sub-tabs-skill) .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      var row = b.closest('.sub-tabs');
-      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      active = b.dataset.filter;
-      showGroupTabsFor(active.indexOf('course:') === 0 ? active.slice(7) : null);
       apply();
     });
   });
@@ -1056,16 +1041,28 @@ const staffScript = `<script>
   document.querySelectorAll('.tile[data-tile-course]').forEach(function(t){
     t.addEventListener('click', function(){
       var courseId = t.dataset.tileCourse;
-      var famId = null;
-      Object.keys(familyMap).forEach(function(fid){ if(familyMap[fid].indexOf(courseId) !== -1) famId = fid; });
-      if(famId){
-        var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
-        if(famBtn) famBtn.click();
-        var levelBtn = document.querySelector('.sub-tabs[data-sub-for="' + famId + '"] .filter-btn[data-filter="course:' + courseId + '"]');
-        if(levelBtn) levelBtn.click();
+      /* два случая: (1) плитка отдельного (не входящего в семью) курса
+         прямо на домашнем экране — для неё в скрытом тулбаре есть
+         готовая кнопка-фильтр, проще всего «нажать» на неё; (2) плитка
+         уровня ВНУТРИ семьи (например World 3 внутри Oxford Phonics,
+         см. subTabRows) — отдельной кнопки для конкретного уровня в
+         тулбаре нет и не нужно, выставляем active сами. */
+      var topBtn = document.querySelector('.toolbar > .filter-btn[data-filter="course:' + courseId + '"]');
+      if(topBtn){
+        topBtn.click();
       } else {
-        var topBtn = document.querySelector('.toolbar > .filter-btn[data-filter="course:' + courseId + '"]');
-        if(topBtn) topBtn.click();
+        var famId = null;
+        Object.keys(familyMap).forEach(function(fid){ if(familyMap[fid].indexOf(courseId) !== -1) famId = fid; });
+        document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+        if(famId){
+          var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
+          if(famBtn) famBtn.classList.add('on');
+          showSubTabsFor(famId);
+        }
+        active = 'course:' + courseId;
+        courseNavFamily = famId;
+        showGroupTabsFor(courseId);
+        apply();
       }
       /* «заходим внутрь» курса — плитки всех курсов прячем, показываем
          только материалы этого курса (и его юниты-плитки, если есть) */
@@ -1102,6 +1099,23 @@ const staffScript = `<script>
     } else if(courseNavLevel === 'skill'){
       showGroupTabsFor(courseNavCourseId);
       apply();
+    } else if(courseNavFamily){
+      /* зашли в этот курс через ряд уровней семьи (например World 3
+         внутри Oxford Phonics) — поднимаемся не сразу «ко всем курсам»,
+         а на один уровень выше, к плиткам уровней этой семьи */
+      var famId = courseNavFamily;
+      active = 'family:' + famId;
+      activeGroup = 'all';
+      activeGroupPrefix = false;
+      search.value = '';
+      document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+      var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
+      if(famBtn) famBtn.classList.add('on');
+      showSubTabsFor(famId);
+      showGroupTabsFor(null);
+      courseNavLevel = 'top';
+      courseNavFamily = null;
+      apply();
     } else {
       active = 'none';
       activeGroup = 'all';
@@ -1134,6 +1148,23 @@ const staffTileFor = (course, label, overrideCount) => {
         <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
       </a>`;
 };
+
+/* Ряд уровней внутри схлопнутой семьи (Oxford Phonics) в панели
+   преподавателя — плитки, а не кнопки-пилюли (см. staffTileFor выше,
+   те же самые), и без варианта «Все уровни»: как и на публичном хабе
+   /oxford-phonics/, нужно выбрать конкретный уровень, ничего не
+   показывается заранее. Клик по такой плитке ловит уже существующий
+   обработчик `.tile[data-tile-course]` в staffScript — отдельный
+   JS-обработчик здесь не нужен. */
+const subTabRows = familyOrder.map(([fid, famName]) => {
+  const levelTiles = familyCourses.get(fid).map((c) => {
+    const label = c.name.replace(famName, '').trim() || c.name;
+    return staffTileFor(c, label);
+  }).join('\n');
+  return `  <div class="tile-grid sub-tabs" data-sub-for="${esc(fid)}" hidden>
+${levelTiles}
+  </div>`;
+}).join('\n');
 /* плитка схлопнутой семьи в панели преподавателя — ведёт не на конкретный
    курс, а «внутрь» семьи: клик открывает её ряд уровней (тоже плитками,
    см. .sub-tabs в catalog.css), точно как «зайти в папку phonics и увидеть
