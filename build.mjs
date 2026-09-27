@@ -1079,8 +1079,8 @@ ${staffTileStandaloneBlock}
     <div class="toolbar">
       ${filterBtns}
     </div>
-${subTabRows}
   </div>
+${subTabRows}
 ${courseGroupRows}
 ${sortToolbar()}
   <p class="empty" id="pickHint">Нажмите на плитку курса выше или начните вводить поиск — здесь появятся материалы.</p>
