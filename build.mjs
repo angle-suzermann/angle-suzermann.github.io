@@ -1184,7 +1184,7 @@ ${staffTileStandaloneBlock}
   </div>
 ${subTabRows}
 ${courseGroupRows}
-  <p class="empty" id="pickHint">Нажмите на плитку курса выше или начните вводить поиск — здесь появятся материалы.</p>
+  <p class="empty" id="pickHint"></p>
   <p class="count" id="count"></p>
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
   <div class="staff-list" id="staffList">
