@@ -169,7 +169,6 @@ mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
 .completion-sticker[hidden]{ display:none; }
 .completion-sticker--medium{ max-width:170px; }
 .completion-sticker--icon{ max-width:110px; }
-.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
 @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
 .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
@@ -628,7 +627,8 @@ mark.ev.lit{ background:var(--yellow); box-shadow:0 0 0 3px var(--yellow); }
               <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="" hidden alt="">
               <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="" hidden alt="">
               <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="" hidden alt="">
-              <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="" hidden alt="">
+              <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+              <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
             </div>
             <p id="resultCaption" class="result-caption"></p>
             <div class="breakdown-box" id="resultsBreakdown"></div>

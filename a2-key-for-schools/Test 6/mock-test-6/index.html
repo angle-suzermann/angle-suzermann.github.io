@@ -189,7 +189,6 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
 .completion-sticker[hidden]{ display:none; }
 .completion-sticker--medium{ max-width:170px; }
 .completion-sticker--icon{ max-width:110px; }
-.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
 @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
 .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
@@ -690,7 +689,8 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
     <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" alt="" hidden>
     <img class="completion-sticker completion-sticker--icon" data-tier="plain" alt="" hidden>
     <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" alt="" hidden>
-    <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
   </div>
   <p id="resultCaption" class="result-caption"></p>
   <div class="note-box">Tasks 6 and 7 (the email and the story) are not marked automatically — the teacher will check them against the Cambridge criteria, so the final writing result will follow later.</div>
@@ -745,7 +745,8 @@ const STICKER_DATA = {
   "you_tried": "img/sticker-you-tried.png",
   "plain": "img/sticker-plain.png",
   "strawberry-full": "img/sticker-strawberry-full.png",
-  "awesome_is_banned": "img/sticker-awesome-is-banned.png",
+  "no_luck": "img/sticker-no-luck.png",
+  "still_lost": "img/sticker-still-lost.png",
 };
 
 </script>
@@ -754,12 +755,11 @@ const STICKER_DATA = {
 // Reads STICKER_DATA (must be loaded first). Exposed as window.* so both the current
 // test-engine.js pattern and a legacy inline-script file can call these directly.
 const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
   { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
   { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
   { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
   { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
+  { min: 0,   stickers: ['plain','strawberry-full','no_luck','still_lost'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
 ];
 // stickers whose image already carries its own caption text baked in — the app-level caption (tier.caption)
 // only gets shown when the randomly chosen sticker is NOT in this set.
@@ -771,8 +771,7 @@ function renderResultSticker(pct){
   const tier = getResultTier(pct);
   const chosen = pickRandom(tier.stickers);
   document.querySelectorAll('.completion-sticker').forEach(img=>{
-    const isBonus = img.dataset.tier === 'awesome_is_banned';
-    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
+    img.hidden = img.dataset.tier !== chosen;
   });
   const capEl = document.getElementById('resultCaption');
   if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';

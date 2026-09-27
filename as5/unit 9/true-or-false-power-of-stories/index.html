@@ -159,7 +159,6 @@
   .completion-sticker[hidden]{ display:none; }
   .completion-sticker--medium{ max-width:170px; }
   .completion-sticker--icon{ max-width:110px; }
-  .completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
   @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
   .result-caption{ text-align:center; font-size:.92rem; color:var(--yellow); opacity:.85; margin-top:6px; }
 
@@ -297,7 +296,8 @@
     <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
     <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
     <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
-    <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+    <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+    <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
   </div>
   <p id="resultCaption" class="result-caption"></p>
   <p class="status-note" id="statusNote"></p>

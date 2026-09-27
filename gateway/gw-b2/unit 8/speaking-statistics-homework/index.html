@@ -170,7 +170,6 @@ textarea.notes{ width:100%; min-height:90px; font-family:inherit; font-size:.9re
 .completion-sticker[hidden]{ display:none; }
 .completion-sticker--medium{ max-width:170px; }
 .completion-sticker--icon{ max-width:110px; }
-.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
 @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
 
 .angle-badge{ position:fixed; left:24px; bottom:20px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:0.9; color:var(--yellow); }
@@ -483,7 +482,8 @@ textarea.notes{ width:100%; min-height:90px; font-family:inherit; font-size:.9re
       <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
       <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
       <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
-      <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+      <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+      <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
     </div>
     <p id="resultCaption" class="tier-caption"></p>
     <div class="breakdown-box" id="resultsBreakdown" hidden></div>

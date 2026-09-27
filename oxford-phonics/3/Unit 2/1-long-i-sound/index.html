@@ -217,7 +217,6 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
   .completion-sticker[hidden]{ display:none; }
   .completion-sticker--medium{ max-width:170px; }
   .completion-sticker--icon{ max-width:110px; }
-  .completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
   @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
   .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
   .redo-btn{
@@ -407,7 +406,8 @@ audio.rec-playback{ display:none; height:34px; }
         <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
         <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
         <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
-        <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" hidden alt="">
+        <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
       </div>
       <p id="resultCaption" class="result-caption"></p>
       <p style="text-align:center; color:var(--muted);">Games 1, 3, 4 and 5 count toward your score (24 points total).</p>
