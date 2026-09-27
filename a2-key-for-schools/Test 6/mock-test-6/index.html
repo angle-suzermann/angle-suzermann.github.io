@@ -719,85 +719,8 @@ textarea.story-input:focus{ outline:none; border-color:var(--purple); }
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
-<script>
-// ANGLE eggdog completion stickers — pre-resized, pre-quantized base64 PNGs.
-// Regenerated from D:\...\ANGLE\stickers via make_stickers.py — never hand-edit these strings.
-const STICKER_DATA = {
-  "eggcellent-a": "img/sticker-eggcellent-a.png",
-  "eggcellent-b": "img/sticker-eggcellent-b.png",
-  "perfect": "img/sticker-perfect.png",
-  "excellent": "img/sticker-excellent.png",
-  "amazing_work": "img/sticker-amazing-work.png",
-  "i_love_it": "img/sticker-i-love-it.png",
-  "awesome": "img/sticker-awesome.png",
-  "too_cool-a": "img/sticker-too-cool-a.png",
-  "too_cool-b": "img/sticker-too-cool-b.png",
-  "vzhukh": "img/sticker-vzhukh.png",
-  "fire": "img/sticker-fire.png",
-  "great_work": "img/sticker-great-work.png",
-  "good_job": "img/sticker-good-job.png",
-  "good_vibes": "img/sticker-good-vibes.png",
-  "nice": "img/sticker-nice.png",
-  "not_bad": "img/sticker-not-bad.png",
-  "strawberry-a": "img/sticker-strawberry-a.png",
-  "strawberry-b": "img/sticker-strawberry-b.png",
-  "keep_going": "img/sticker-keep-going.png",
-  "you_tried": "img/sticker-you-tried.png",
-  "plain": "img/sticker-plain.png",
-  "strawberry-full": "img/sticker-strawberry-full.png",
-  "no_luck": "img/sticker-no-luck.png",
-  "still_lost": "img/sticker-still-lost.png",
-};
-
-</script>
-<script>
-// ANGLE eggdog tiered completion sticker — shared logic, standard angle-worksheet-template asset.
-// Reads STICKER_DATA (must be loaded first). Exposed as window.* so both the current
-// test-engine.js pattern and a legacy inline-script file can call these directly.
-const RESULT_TIERS = [
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full','no_luck','still_lost'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
-];
-// stickers whose image already carries its own caption text baked in — the app-level caption (tier.caption)
-// only gets shown when the randomly chosen sticker is NOT in this set.
-const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
-
-function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
-function renderResultSticker(pct){
-  const tier = getResultTier(pct);
-  const chosen = pickRandom(tier.stickers);
-  document.querySelectorAll('.completion-sticker').forEach(img=>{
-    img.hidden = img.dataset.tier !== chosen;
-  });
-  const capEl = document.getElementById('resultCaption');
-  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
-  return tier;
-}
-// This offline single-file build has no external /assets/ to load images from (see the
-// angle-worksheet-template skill's note on a "truly offline single-file handout"), so the
-// <img> tags start with no src and this one-time init fills each in from STICKER_DATA by
-// its data-tier key — sticker-data.js stays pure data, this file stays pure tier logic.
-function initStickerImages(){
-  if (typeof STICKER_DATA === 'undefined') return;
-  document.querySelectorAll('.completion-sticker').forEach(img=>{
-    const key = img.dataset.tier;
-    if (STICKER_DATA[key]) img.src = STICKER_DATA[key];
-  });
-}
-
-// expose on window explicitly (in case this file is ever loaded as a module)
-window.RESULT_TIERS = RESULT_TIERS;
-window.SILENT_STICKERS = SILENT_STICKERS;
-window.pickRandom = pickRandom;
-window.getResultTier = getResultTier;
-window.renderResultSticker = renderResultSticker;
-window.initStickerImages = initStickerImages;
-
-</script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 
 <script>
 const PAGE_LABELS = ["Start", "R&W · Part 1", "R&W · Part 2", "R&W · Part 3", "R&W · Part 4", "R&W · Part 5", "R&W · Results", "R&W · Part 6", "R&W · Part 7", "Listening · Part 1", "Listening · Part 2", "Listening · Part 3", "Listening · Part 4", "Listening · Part 5", "Result"];
@@ -1101,7 +1024,6 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
 window.addEventListener('pagehide', saveProgress);
 
 buildDots();
-initStickerImages();
 updateWordCount('task6Input','wc6',35,50);
 updateWordCount('task7Input','wc7',45,60);
 restoreProgress();

@@ -5,7 +5,12 @@
    inline scripts can call these functions directly. See the angle-worksheet-template
    skill's "Tiered completion sticker" section for the full design rationale.
    Consolidated 2026-09-23 from three previously-duplicated per-file implementations —
-   do not hand-edit a copy of this table back into an individual material's <script>. */
+   do not hand-edit a copy of this table back into an individual material's <script>.
+   renderResultSticker(pct, wrap?, capEl?): wrap defaults to #completionStickers, capEl
+   defaults to #resultCaption — both can be overridden (element or id string) for a page
+   with more than one result panel (e.g. separate classwork/homework tabs on one file),
+   so a multi-panel page still calls this exact same function, never a local copy. Added
+   2026-09-27 while unifying the last few pages that had their own copy of this logic. */
 const RESULT_TIERS = [
   { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
   { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
@@ -16,9 +21,11 @@ const RESULT_TIERS = [
 const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
 function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
 function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
-function renderResultSticker(pct, wrap){
+function renderResultSticker(pct, wrap, capEl){
   wrap = wrap || document.getElementById('completionStickers');
   if(!wrap || typeof STICKER_DATA === 'undefined') return;
+  if(capEl === undefined) capEl = document.getElementById('resultCaption');
+  else if(typeof capEl === 'string') capEl = document.getElementById(capEl);
   const tier = getResultTier(pct);
   const chosen = pickRandom(tier.stickers);
   wrap.querySelectorAll('.completion-sticker').forEach(img=>{
@@ -26,7 +33,6 @@ function renderResultSticker(pct, wrap){
     if(show){ if(STICKER_DATA[img.dataset.tier]) img.src = STICKER_DATA[img.dataset.tier]; img.hidden = false; }
     else { img.hidden = true; }
   });
-  const capEl = document.getElementById('resultCaption');
   if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
   return tier;
 }

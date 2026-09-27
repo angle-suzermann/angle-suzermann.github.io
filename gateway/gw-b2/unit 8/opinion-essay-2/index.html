@@ -603,7 +603,32 @@ button{ touch-action:manipulation; }
         <div class="submit-status" id="submitStatus-cw"></div>
       </div>
       <div class="score-summary" id="scoreSummary-cw" hidden></div>
-      <div class="completion-stickers" id="stickerWrap-cw"></div>
+      <div class="completion-stickers" id="stickerWrap-cw">
+        <img class="completion-sticker" data-tier="eggcellent-a" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="perfect" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="excellent" alt="" hidden>
+        <img class="completion-sticker" data-tier="amazing_work" alt="" hidden>
+        <img class="completion-sticker" data-tier="i_love_it" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="awesome" alt="" hidden>
+        <img class="completion-sticker" data-tier="too_cool-a" alt="" hidden>
+        <img class="completion-sticker" data-tier="too_cool-b" alt="" hidden>
+        <img class="completion-sticker" data-tier="vzhukh" alt="" hidden>
+        <img class="completion-sticker" data-tier="fire" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="great_work" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="good_job" alt="" hidden>
+        <img class="completion-sticker" data-tier="good_vibes" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="nice" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="plain" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
+      </div>
       <div class="tier-caption" id="resultCaption-cw"></div>
       <div class="breakdown-box" id="resultsBreakdown-cw" hidden></div>
       <div class="essay-review-box" id="essayReview-cw" hidden></div>
@@ -837,7 +862,32 @@ button{ touch-action:manipulation; }
         <div class="submit-status" id="submitStatus-hw"></div>
       </div>
       <div class="score-summary" id="scoreSummary-hw" hidden></div>
-      <div class="completion-stickers" id="stickerWrap-hw"></div>
+      <div class="completion-stickers" id="stickerWrap-hw">
+        <img class="completion-sticker" data-tier="eggcellent-a" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="perfect" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="excellent" alt="" hidden>
+        <img class="completion-sticker" data-tier="amazing_work" alt="" hidden>
+        <img class="completion-sticker" data-tier="i_love_it" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="awesome" alt="" hidden>
+        <img class="completion-sticker" data-tier="too_cool-a" alt="" hidden>
+        <img class="completion-sticker" data-tier="too_cool-b" alt="" hidden>
+        <img class="completion-sticker" data-tier="vzhukh" alt="" hidden>
+        <img class="completion-sticker" data-tier="fire" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="great_work" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="good_job" alt="" hidden>
+        <img class="completion-sticker" data-tier="good_vibes" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="nice" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" alt="" hidden>
+        <img class="completion-sticker completion-sticker--icon" data-tier="plain" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+        <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
+      </div>
       <div class="tier-caption" id="resultCaption-hw"></div>
       <div class="breakdown-box" id="resultsBreakdown-hw" hidden></div>
       <div class="essay-review-box" id="essayReview-hw" hidden></div>
@@ -1163,19 +1213,6 @@ function describeWrong(el, studentVal, correctVal){
   return `${title}${ctx ? ' — ' + ctx : ''} → answered "${said}", correct "${correctVal}"`;
 }
 
-// ============ TIERED COMPLETION STICKER ============
-function renderResultSticker(tab, pct){
-  const tier = getResultTier(pct);
-  const chosen = pickRandom(tier.stickers);
-  const wrap = document.getElementById('stickerWrap-'+tab);
-  const src = STICKER_DATA[chosen];
-  const sizeClass = tier.min>=90 ? '' : (tier.min>=60 ? 'completion-sticker--medium' : 'completion-sticker--icon');
-  wrap.innerHTML = `<img class="completion-sticker ${sizeClass}" src="${src}" alt="${tier.label}">`;
-  const capEl = document.getElementById('resultCaption-'+tab);
-  if(capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
-  return tier;
-}
-
 // ============ SUBMIT (per tab) ============
 async function submitAll(tab){
   const root = document.getElementById('tabpanel-'+tab);
@@ -1222,7 +1259,7 @@ async function submitAll(tab){
   document.getElementById('scoreSummary-'+tab).innerHTML = `<strong>${nameVal}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary-'+tab).hidden = false;
 
-  const tier = renderResultSticker(tab, pct);
+  const tier = renderResultSticker(pct, document.getElementById('stickerWrap-'+tab), 'resultCaption-'+tab);
 
   const breakdown = document.getElementById('resultsBreakdown-'+tab);
   breakdown.hidden = false;

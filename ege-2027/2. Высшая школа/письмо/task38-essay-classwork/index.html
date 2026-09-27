@@ -261,7 +261,6 @@ p{ line-height:1.5; }
 .completion-sticker[hidden]{ display:none; }
 .completion-sticker--medium{ max-width:170px; }
 .completion-sticker--icon{ max-width:110px; }
-.completion-sticker--bonus{ max-width:90px; margin-top:-6px; }
 @keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
 .result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
 
@@ -541,29 +540,30 @@ p{ line-height:1.5; }
     </div>
     <div class="score-summary" id="scoreSummary" hidden></div>
 <div class="completion-stickers">
-  <img class="completion-sticker" data-tier="eggcellent-a" src="src="img/stickers/eggcellent-a.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" src="src="img/stickers/eggcellent-b.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" src="src="img/stickers/perfect.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" src="src="img/stickers/excellent.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="amazing_work" src="src="img/stickers/amazing_work.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="i_love_it" src="src="img/stickers/i_love_it.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" src="src="img/stickers/awesome.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="too_cool-a" src="src="img/stickers/too_cool-a.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="too_cool-b" src="src="img/stickers/too_cool-b.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="vzhukh" src="src="img/stickers/vzhukh.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="fire" src="src="img/stickers/fire.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" src="src="img/stickers/great_work.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" src="src="img/stickers/good_job.png"" hidden alt="">
-  <img class="completion-sticker" data-tier="good_vibes" src="src="img/stickers/good_vibes.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="nice" src="src="img/stickers/nice.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" src="src="img/stickers/not_bad.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" src="src="img/stickers/strawberry-a.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" src="src="img/stickers/strawberry-b.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" src="src="img/stickers/keep_going.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" src="src="img/stickers/you_tried.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--icon" data-tier="plain" src="src="img/stickers/plain.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" src="src="img/stickers/strawberry-full.png"" hidden alt="">
-  <img class="completion-sticker completion-sticker--bonus" data-tier="awesome_is_banned" src="src="img/stickers/awesome_is_banned.png"" hidden alt="">
+  <img class="completion-sticker" data-tier="eggcellent-a" alt="" hidden>
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" alt="" hidden>
+  <img class="completion-sticker" data-tier="amazing_work" alt="" hidden>
+  <img class="completion-sticker" data-tier="i_love_it" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" alt="" hidden>
+  <img class="completion-sticker" data-tier="too_cool-a" alt="" hidden>
+  <img class="completion-sticker" data-tier="too_cool-b" alt="" hidden>
+  <img class="completion-sticker" data-tier="vzhukh" alt="" hidden>
+  <img class="completion-sticker" data-tier="fire" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" alt="" hidden>
+  <img class="completion-sticker" data-tier="good_vibes" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" alt="" hidden>
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" alt="" hidden>
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" alt="" hidden>
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" alt="" hidden>
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" alt="" hidden>
 </div>
 <p id="resultCaption" class="result-caption"></p>
     <p class="send-status" id="submitStatus" style="text-align:center;"></p>
@@ -586,6 +586,8 @@ p{ line-height:1.5; }
 </svg>
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
@@ -1135,29 +1137,6 @@ wireMcq();
 wireCategorize();
 showPage(0);
 restoreProgress();
-
-const RESULT_TIERS = [
-  { min: 100, stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], bonus: true, label: 'Eggcellent! (100%)' },
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried'], label: 'Хорошее начало', caption: 'Неплохо! Ещё немного практики — и будет отлично.' },
-  { min: 0,   stickers: ['plain','strawberry-full'], label: 'Try again!', caption: 'Try again! Ты только в начале пути — дальше будет только лучше.' }
-];
-const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','plain','strawberry-full']);
-function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
-function renderResultSticker(pct){
-  const tier = getResultTier(pct);
-  const chosen = pickRandom(tier.stickers);
-  document.querySelectorAll('.completion-sticker').forEach(img=>{
-    const isBonus = img.dataset.tier === 'awesome_is_banned';
-    img.hidden = isBonus ? !tier.bonus : (img.dataset.tier !== chosen);
-  });
-  const capEl = document.getElementById('resultCaption');
-  if (capEl) capEl.textContent = SILENT_STICKERS.has(chosen) ? (tier.caption || '') : '';
-}
-
 </script>
 </body>
 </html>
