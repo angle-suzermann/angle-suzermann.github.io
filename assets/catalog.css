@@ -430,7 +430,11 @@ html, body{
 }
 
 .count{ font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 14px; text-shadow: 0 1px 8px rgba(0,0,0,0.4); }
-#courseLinkBtn{ margin: -8px 0 18px; }
+/* было margin-top: -8px — тянуло плашку вверх, к тому, что было прямо
+   над ней в старой раскладке (кнопки-пилюли юнитов). Теперь над ней
+   часто сетка плиток-папок (см. groupFolderNav), и отрицательный отступ
+   заставлял плашку наезжать на неё визуально. */
+#courseLinkBtn{ margin: 10px 0 18px; }
 
 .note{
   font-size: 13px;
