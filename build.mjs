@@ -423,119 +423,142 @@ const sortScript = (containerSel, itemSel) => `<script>
 })();
 </script>`;
 
-/* вкладки по подпапкам курса (unit 9, module 3, 1.Путешествие…) —
-   показываются, только если у курса вообще есть такие подпапки */
-const groupTabs = (list) => {
-  const groups = [...new Set(list.map((m) => m.group).filter(Boolean))]
-    .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-  if (!groups.length) return '';
-  const btns = [
-    '<button type="button" class="filter-btn on" data-group-filter="all">Все</button>',
-    ...groups.map((g) => `<button type="button" class="filter-btn" data-group-filter="${esc(g)}">${esc(g)}</button>`),
-  ].join('\n    ');
-  return `  <div class="toolbar group-toolbar">
-    ${btns}
-  </div>
-`;
-};
-
-const groupScript = `<script>
-  document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      var g = b.dataset.groupFilter;
-      document.querySelectorAll('.card[data-group]').forEach(function(c){
-        c.style.display = (g === 'all' || c.dataset.group === g) ? '' : 'none';
-      });
-    });
-  });
-</script>`;
-
-/* Двухуровневые вкладки Тема→Навык — для курсов, где хотя бы одна
-   группа вложена на два уровня (например "2. Высшая школа/аудирование").
-   Верхний ряд — темы (первый сегмент пути), при клике на тему с
-   вложенными навыками появляется второй ряд кнопок по навыкам (второй
-   сегмент). Для курсов без такой вложенности (GW B2 "unit 8" и т.п.)
-   ничего не меняется — используется обычный плоский groupTabs выше. */
+/* Юниты/темы внутри курса — на странице курса выглядят и ведут себя
+   как плитки уровней на лендинге (см. /oxford-phonics/): плиточная
+   сетка «папок», клик по плитке заходит внутрь (прячет сетку, кладёт
+   список материалов), кнопка «← Назад» возвращает. Для курсов, где
+   темы вложены на два уровня (Тема/Навык, например
+   "2. Высшая школа/аудирование"), плитка темы с навыками ведёт не
+   сразу на материалы, а на второй экран плиток-навыков (плюс плитка
+   «Все», чтобы увидеть все материалы темы целиком). Для курсов без
+   такой вложенности (GW B2 "unit 8" и т.п.) плитка темы сразу ведёт
+   на материалы — второго экрана просто нет. */
 const themeOf = (g) => (g.includes('/') ? g.slice(0, g.indexOf('/')) : g);
 const skillOf = (g) => (g.includes('/') ? g.slice(g.indexOf('/') + 1) : null);
 const isHierGroups = (list) => list.some((m) => m.group && m.group.includes('/'));
 
-const groupTabsHier = (list) => {
+const groupFolderNav = (list) => {
   const groups = [...new Set(list.map((m) => m.group).filter(Boolean))];
+  if (!groups.length) return '';
   const themes = [...new Set(groups.map(themeOf))]
     .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+  const countExact = (g) => list.filter((m) => m.group === g).length;
+  const countPrefix = (t) => list.filter((m) => m.group === t || (m.group && m.group.indexOf(t + '/') === 0)).length;
+  const ungroupedCount = list.filter((m) => !m.group).length;
 
-  const themeBtns = themes.map((t) => {
+  const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
-    return hasSkills
-      ? `<button type="button" class="filter-btn" data-group-filter="${esc(t)}" data-group-prefix="1" data-has-subgroup="${esc(t)}">${esc(t)}</button>`
-      : `<button type="button" class="filter-btn" data-group-filter="${esc(t)}">${esc(t)}</button>`;
-  }).join('\n    ');
+    const count = hasSkills ? countPrefix(t) : countExact(t);
+    return `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(t)}"${hasSkills ? ' data-has-skills="1"' : ''}>
+        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
+        <span class="tile-name">${esc(t)}</span>
+        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+  });
+  if (ungroupedCount) {
+    topTiles.push(`      <a class="tile" href="javascript:void(0)" data-group-tile="">
+        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
+        <span class="tile-name">Без юнита</span>
+        <span class="tile-count">${ungroupedCount} ${wordForm(ungroupedCount, 'материал', 'материала', 'материалов')}</span>
+      </a>`);
+  }
 
-  const subRows = themes
+  const skillGrids = themes
     .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
     .map((t) => {
       const skills = [...new Set(groups.filter((g) => themeOf(g) === t).map(skillOf).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-      const btns = [
-        `<button type="button" class="filter-btn sub on" data-group-filter="${esc(t)}" data-group-prefix="1">Все</button>`,
-        ...skills.map((s) => `<button type="button" class="filter-btn sub" data-group-filter="${esc(t + '/' + s)}">${esc(s)}</button>`),
-      ].join('\n      ');
-      return `  <div class="sub-tabs sub-tabs-group" data-subgroup-for="${esc(t)}" hidden>
-      ${btns}
+      const allTile = `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(t)}" data-prefix="1">
+        <span class="tile-icon"><span class="tile-emoji">📂</span></span>
+        <span class="tile-name">Все</span>
+        <span class="tile-count">${countPrefix(t)} ${wordForm(countPrefix(t), 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+      const skillTiles = skills.map((s) => {
+        const full = `${t}/${s}`;
+        const c = countExact(full);
+        return `      <a class="tile" href="javascript:void(0)" data-group-tile="${esc(full)}">
+        <span class="tile-icon"><span class="tile-emoji">📁</span></span>
+        <span class="tile-name">${esc(s)}</span>
+        <span class="tile-count">${c} ${wordForm(c, 'материал', 'материала', 'материалов')}</span>
+      </a>`;
+      }).join('\n');
+      return `    <div class="tile-grid" data-skill-grid-for="${esc(t)}" hidden>
+${allTile}
+${skillTiles}
     </div>`;
     }).join('\n');
 
-  const btns = [
-    '<button type="button" class="filter-btn on" data-group-filter="all">Все</button>',
-    themeBtns,
-  ].join('\n    ');
-
-  return `  <div class="toolbar group-toolbar">
-    ${btns}
+  return `  <div class="folder-nav">
+    <button type="button" class="link-copy" id="groupBack" hidden>← Назад</button>
+    <div class="tile-grid" id="groupTopGrid">
+${topTiles.join('\n')}
+    </div>
+${skillGrids}
   </div>
-${subRows}
 `;
 };
 
-const groupScriptHier = `<script>
+/* Клик по плитке юнита/темы «заходит внутрь» ровно по той же логике,
+   что и плитки курсов/семей в панели преподавателя: прячет текущую
+   сетку плиток, показывает либо следующий уровень плиток (навыки),
+   либо отфильтрованный список материалов, плюс кнопку «← Назад». */
+const groupFolderScript = `<script>
 (function(){
-  function showSubgroupFor(theme){
-    document.querySelectorAll('.sub-tabs-group').forEach(function(row){
-      row.hidden = row.dataset.subgroupFor !== theme;
-      if(!row.hidden){
-        row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-        row.querySelector('.filter-btn').classList.add('on');
-      }
-    });
-  }
-  function filterCards(val, isPrefix){
+  var nav = document.querySelector('.folder-nav');
+  if(!nav) return;
+  var backBtn = document.getElementById('groupBack');
+  var topGrid = document.getElementById('groupTopGrid');
+  var skillGrids = Array.prototype.slice.call(document.querySelectorAll('[data-skill-grid-for]'));
+  var materials = document.getElementById('groupMaterials');
+  var sortToolbarEl = document.querySelector('.sort-toolbar');
+  var view = 'top';
+  var currentTheme = null;
+
+  function filterMaterials(group, prefix){
     document.querySelectorAll('.card[data-group]').forEach(function(c){
       var g = c.dataset.group;
-      var show = val === 'all' || (isPrefix ? (g === val || g.indexOf(val + '/') === 0) : g === val);
+      var show = prefix ? (g === group || g.indexOf(group + '/') === 0) : g === group;
       c.style.display = show ? '' : 'none';
     });
   }
-  document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      document.querySelectorAll('.group-toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      var val = b.dataset.groupFilter;
-      var isPrefix = !!b.dataset.groupPrefix;
-      showSubgroupFor(b.dataset.hasSubgroup || null);
-      filterCards(val, isPrefix || val === 'all');
+  function render(){
+    topGrid.hidden = view !== 'top';
+    skillGrids.forEach(function(g){ g.hidden = !(view === 'skills' && g.dataset.skillGridFor === currentTheme); });
+    if(materials) materials.hidden = view !== 'materials';
+    if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials';
+    backBtn.hidden = view === 'top';
+  }
+  function showTop(){ view = 'top'; currentTheme = null; render(); }
+  function showSkills(theme){ view = 'skills'; currentTheme = theme; render(); }
+  function showMaterials(group, prefix, parentTheme){
+    view = 'materials';
+    currentTheme = parentTheme || null;
+    filterMaterials(group, prefix);
+    render();
+  }
+
+  document.querySelectorAll('.tile[data-group-tile]').forEach(function(t){
+    t.addEventListener('click', function(){
+      var val = t.dataset.groupTile;
+      var grid = t.closest('[data-skill-grid-for]');
+      if(t.dataset.hasSkills === '1'){
+        showSkills(val);
+      } else if(grid){
+        showMaterials(val, t.dataset.prefix === '1', grid.dataset.skillGridFor);
+      } else {
+        showMaterials(val, false, null);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
-  document.querySelectorAll('.sub-tabs-group .filter-btn').forEach(function(b){
-    b.addEventListener('click', function(){
-      var row = b.closest('.sub-tabs-group');
-      row.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      filterCards(b.dataset.groupFilter, !!b.dataset.groupPrefix);
-    });
+
+  backBtn.addEventListener('click', function(){
+    if(view === 'materials' && currentTheme){ showSkills(currentTheme); }
+    else { showTop(); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  showTop();
 })();
 </script>`;
 
@@ -702,15 +725,15 @@ for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
-  const hier = isHierGroups(list);
+  const hasGroups = list.some((m) => m.group);
   fs.writeFileSync(path.join(dir, 'index.html'), page({
     title: `${course.name} — материалы`,
     heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `${courseLinkRow(course)}${hier ? groupTabsHier(list) : groupTabs(list)}${sortToolbar()}<div class="course-block">\n${list.map(card).join('\n')}\n</div>`
+      ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar()}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
-    extraScript: copyScript + (list.some((m) => m.group) ? (hier ? groupScriptHier : groupScript) : '') + (list.length ? sortScript('.course-block', '.card') : ''),
+    extraScript: copyScript + (hasGroups ? groupFolderScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
   }));
 }
 
@@ -789,7 +812,8 @@ const courseGroupRows = [...courseGroupsMap.entries()].map(([courseId, groups]) 
 
   /* курс с Тема/Навык (например ege-2027) — верхний ряд темы, при клике
      на тему с навыками появляется отдельный ряд кнопок по навыкам внутри
-     неё, точно как на странице курса (groupTabsHier) */
+     неё (в панели преподавателя это отдельные фильтр-кнопки, а не плитки —
+     см. groupFolderNav для варианта на публичной странице курса) */
   const themes = [...new Set(groups.map(themeOf))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
   const themeBtns = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
