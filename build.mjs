@@ -1115,7 +1115,16 @@ const staffScript = `<script>
     document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){
       x.classList.toggle('on', famForButton ? x.dataset.filter === 'family:' + famForButton : x.dataset.filter === active);
     });
-    showSubTabsFor(famForButton);
+    /* Внутри конкретного курса (courseNavCourseId задан) строка
+       уровней семьи не нужна — см. тот же принцип в showGroupTabsFor
+       выше (комментарий «без набора всех остальных уровней семьи
+       рядом»). Раньше applyStaffState всегда звал
+       showSubTabsFor(famForButton), даже уже внутри курса — из-за
+       этого при возврате назад (кнопка «← Назад», iOS-свайп,
+       браузерная история) плитки уровней семьи (2/3/4/5 и т.п.)
+       оставались видны рядом с папками курса, хотя при обычном
+       клике внутрь курса они корректно прячутся. */
+    showSubTabsFor(courseNavCourseId ? null : famForButton);
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){
       row.hidden = row.dataset.groupFor !== courseNavCourseId;
     });
