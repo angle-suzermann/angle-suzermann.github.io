@@ -72,7 +72,15 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
     position:absolute; inset:0; z-index:1;
     background:linear-gradient(180deg, rgba(246,242,250,.12), rgba(246,242,250,.45) 60%, rgba(246,242,250,.82) 95%);
   }
-  .page-shell{ position:relative; z-index:2; }
+  /* .page-shell оборачивает .topbar+.scroll-area внутри .app-shell (flex
+     column), но сам не был flex-контейнером — из-за этого flex:0 0 auto
+     у .topbar и flex:1 1 auto у .scroll-area ни на что не влияли (flex-
+     свойства работают только у прямых детей flex-контейнера), и .scroll-area
+     просто растягивался под весь свой контент (даже выше высоты экрана)
+     вместо того чтобы обрезаться по вьюпорту и скроллиться сам. Добавлены
+     display:flex/flex-direction:column/height:100%/min-height:0, чтобы
+     .page-shell честно передавал flex-раскладку тем же двум детям. */
+  .page-shell{ position:relative; z-index:2; display:flex; flex-direction:column; height:100%; min-height:0; }
 
   /* ---------- topbar ---------- */
   .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--maroon); }
