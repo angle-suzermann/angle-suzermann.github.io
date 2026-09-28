@@ -799,6 +799,9 @@ const COURSE_HEADING_ICON_MAP = {
   as3: 'academy-stars.png',
   as4: 'academy-stars.png',
   as5: 'academy-stars.png',
+  'ege-2027': 'ege.png',
+  'empower-b1': 'empower.png',
+  'gateway/gw-b2': 'gw-b2.png',
 };
 
 /* --- страница курса: только опубликованное --- */
