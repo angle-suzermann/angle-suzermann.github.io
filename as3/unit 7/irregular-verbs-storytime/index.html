@@ -53,11 +53,14 @@
   /* App-shell (Telegram in-app-browser fix, 2026-09-12) */
 html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background-color:#FFFFFF;
-  background-image:linear-gradient(180deg, rgba(246,242,250,.12), rgba(246,242,250,.45) 60%, rgba(246,242,250,.82) 95%), linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url('annie-spratt-O1TNdLNvJLM-unsplash.jpg');
-  background-position:0 0, 0 0, center 55%;
-  background-size:auto, auto, cover;
-  background-repeat:no-repeat, no-repeat, no-repeat;}
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+/* Раньше здесь висел свой непрозрачный фон (background-color:#FFFFFF +
+   собственный дубль градиента+фото) поверх .bg-photo/.bg-wash ниже —
+   .scroll-area рисовался выше них (z-index:2 против 0/1) и полностью
+   перекрывал фоновое фото сплошным белым, хотя .bg-photo/.bg-wash были
+   настроены правильно. На остальных материалах сайта (как минимум as4/as5)
+   .scroll-area ничего не рисует сам — фон даёт только пара .bg-photo+.bg-wash,
+   как и должно быть. */
 .bg-photo{
     position:absolute; inset:0; z-index:0;
     background-image:url('annie-spratt-O1TNdLNvJLM-unsplash.jpg');
