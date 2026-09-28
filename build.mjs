@@ -708,18 +708,6 @@ const tileIconFor = (course) => LOGO_MAP[course.id]
   ? `<span class="tile-icon"><img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
   : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
-/* Иконка перед названием семьи курсов (заголовок «🌟 Academy Stars» и т.п.,
-   и на лендинге, и в панели преподавателя) — фирменный стикер вместо
-   юникод-эмодзи, там где он заведён; для остальных семей эмодзи остаётся
-   запасным вариантом, как раньше. */
-const FAMILY_ICON_MAP = {
-  'Academy Stars': 'academy-stars.png',
-  Gateway: 'gateway.png',
-};
-const familyIconFor = (famName, emoji) => FAMILY_ICON_MAP[famName]
-  ? `<img class="family-icon" src="${esc(`${BASE}/assets/brand/family/${FAMILY_ICON_MAP[famName]}`)}" alt="">`
-  : (emoji ? esc(emoji) + ' ' : '');
-
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
     ? overrideCount
@@ -758,7 +746,7 @@ const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
     tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   }
   return `  <div class="tile-family">
-    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
+    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>
@@ -807,6 +795,10 @@ ${landingStandaloneBlock}`,
 const COURSE_HEADING_ICON_MAP = {
   'gateway/gateway-to-the-world-b1': 'gateway-door.png',
   'gateway/gateway-to-the-world-b2': 'gateway-door.png',
+  as2: 'academy-stars.png',
+  as3: 'academy-stars.png',
+  as4: 'academy-stars.png',
+  as5: 'academy-stars.png',
 };
 
 /* --- страница курса: только опубликованное --- */
@@ -1299,7 +1291,7 @@ const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
         fam.reduce((sum, c) => sum + countAll(c), 0))
     : fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
-    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
+    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>

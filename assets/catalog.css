@@ -125,9 +125,6 @@ html, body{
   gap: 8px;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
-/* фирменный стикер перед названием семьи курсов (Academy Stars, Gateway) —
-   вместо юникод-эмодзи, см. familyIconFor в build.mjs */
-.family-icon{ height: 20px; width: auto; display: block; }
 .tile-grid{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
