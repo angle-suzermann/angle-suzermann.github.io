@@ -112,6 +112,9 @@ html, body{
 
 /* ---- лендинг: плитки папок курсов ---- */
 
+/* фирменный стикер перед названием семьи курсов (Academy Stars, Gateway,
+   Oxford Phonics) — вместо юникод-эмодзи, см. familyIconFor в build.mjs */
+.family-icon{ height: 20px; width: auto; display: block; }
 .tile-family{ margin-bottom: 20px; }
 .tile-family > h2{
   color: var(--yellow);

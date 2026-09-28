@@ -708,6 +708,21 @@ const tileIconFor = (course) => LOGO_MAP[course.id]
   ? `<span class="tile-icon"><img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
   : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
+/* Иконка перед названием семьи курсов (заголовок «🌟 Academy Stars» и т.п.,
+   и на лендинге, и в панели преподавателя) — фирменный стикер вместо
+   юникод-эмодзи, там где он заведён; для остальных семей эмодзи остаётся
+   запасным вариантом. Файлы лежат в assets/brand/course/ — общие с
+   иконками заголовков страниц курса (см. COURSE_HEADING_ICON_MAP ниже),
+   переиспользуем те же картинки, где это в тему. */
+const FAMILY_ICON_MAP = {
+  'Academy Stars': 'academy-stars.png',
+  Gateway: 'gateway-family.png',
+  'Oxford Phonics': 'oxford-phonics.png',
+};
+const familyIconFor = (famName, emoji) => FAMILY_ICON_MAP[famName]
+  ? `<img class="family-icon" src="${esc(`${BASE}/assets/brand/course/${FAMILY_ICON_MAP[famName]}`)}" alt="">`
+  : (emoji ? esc(emoji) + ' ' : '');
+
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
     ? overrideCount
@@ -746,7 +761,7 @@ const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
     tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   }
   return `  <div class="tile-family">
-    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>
@@ -765,6 +780,7 @@ for (const [fid, famName] of familyOrder) {
   fs.writeFileSync(path.join(dir, 'index.html'), page({
     title: `${famName} — материалы`,
     heading: famName,
+    headingIcon: FAMILY_ICON_MAP[famName] ? `/assets/brand/course/${FAMILY_ICON_MAP[famName]}` : '',
     sub: 'Выберите уровень',
     body: `  <div class="tile-grid">
 ${fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n')}
@@ -802,6 +818,14 @@ const COURSE_HEADING_ICON_MAP = {
   'ege-2027': 'ege.png',
   'empower-b1': 'empower.png',
   'gateway/gw-b2': 'gw-b2.png',
+  'expert-advanced': 'expert-advanced.png',
+  'oxford-phonics/1': 'oxford-phonics.png',
+  'oxford-phonics/2': 'oxford-phonics.png',
+  'oxford-phonics/3': 'oxford-phonics.png',
+  'oxford-phonics/4': 'oxford-phonics.png',
+  'oxford-phonics/5': 'oxford-phonics.png',
+  'placement-tests': 'placement-tests.png',
+  'a2-key-for-schools': 'a2-key.png',
 };
 
 /* --- страница курса: только опубликованное --- */
@@ -1303,7 +1327,7 @@ const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
         fam.reduce((sum, c) => sum + countAll(c), 0))
     : fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
-    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>
