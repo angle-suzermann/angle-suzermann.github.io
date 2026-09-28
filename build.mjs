@@ -375,8 +375,12 @@ const ANGLE_BADGE = `<div class="angle-badge">${ANGLE_WORDMARK}<div class="credi
 /* headingIcon — необязательный путь к фирменному стикеру ANGLE (см.
    assets/brand/heading-*.png), рисуется перед заголовком на лендинге и
    в панели преподавателя вместо обычного эмодзи курса — просили именно
-   фирменные стикеры из папки Виктории, не юникод-эмодзи. */
-const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '' }) => `<!DOCTYPE html>
+   фирменные стикеры из папки Виктории, не юникод-эмодзи. headingIconSmall —
+   стикер заменяет собой именно юникод-эмодзи (курс/семья курсов), поэтому
+   должен быть размером с этот эмодзи и вписываться в строку текста
+   (.heading-icon--inline, высота 1em); без этого флага — крупный фирменный
+   стикер ANGLE Student/ANGLE Teacher, для него размер прежний (1.6em). */
+const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', headingIconSmall = false }) => `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -394,7 +398,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '' })
 <div class="bg-wash"></div>
 ${ANGLE_BADGE}
 <header class="cat-header">
-  <h1>${headingIcon ? `<img class="heading-icon" src="${BASE}${headingIcon}" alt="">` : ''}${esc(heading)}</h1>
+  <h1>${headingIcon ? `<img class="heading-icon${headingIconSmall ? ' heading-icon--inline' : ''}" src="${BASE}${headingIcon}" alt="">` : ''}${esc(heading)}</h1>
   ${sub ? `<p>${esc(sub)}</p>` : ''}
 </header>
 <div class="page">
@@ -716,7 +720,7 @@ const tileIconFor = (course) => LOGO_MAP[course.id]
    переиспользуем те же картинки, где это в тему. */
 const FAMILY_ICON_MAP = {
   'Academy Stars': 'academy-stars.png',
-  Gateway: 'gateway-family.png',
+  Gateway: 'gateway-door.png',
   'Oxford Phonics': 'oxford-phonics.png',
 };
 const familyIconFor = (famName, emoji) => FAMILY_ICON_MAP[famName]
@@ -781,6 +785,7 @@ for (const [fid, famName] of familyOrder) {
     title: `${famName} — материалы`,
     heading: famName,
     headingIcon: FAMILY_ICON_MAP[famName] ? `/assets/brand/course/${FAMILY_ICON_MAP[famName]}` : '',
+    headingIconSmall: true,
     sub: 'Выберите уровень',
     body: `  <div class="tile-grid">
 ${fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n')}
@@ -840,6 +845,7 @@ for (const course of courses) {
     title: `${course.name} — материалы`,
     heading: headingIconPath ? course.name : `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     headingIcon: headingIconPath,
+    headingIconSmall: true,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
       ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
