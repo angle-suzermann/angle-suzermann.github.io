@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync, spawnSync } from 'node:child_process';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT  = path.join(ROOT, '_site');
@@ -115,12 +116,49 @@ if (!courses.length) {
 
 /* ---------- 1. копируем статику ---------- */
 
-fs.rmSync(OUT, { recursive: true, force: true });
+/* Та же история, что и ниже с cp -r: на этом сетевом/смонтированном томе
+   fs.rmSync иногда падает с ENOTEMPTY, потому что каталог ещё не до конца
+   "устоялся" после предыдущих операций. Чистим через `rm -rf` с повтором —
+   на обычной ФС (в т.ч. на раннерах GitHub Actions) отработает с первого
+   раза и без задержек. */
+for (let attempt = 1; fs.existsSync(OUT); attempt++) {
+  const result = spawnSync('rm', ['-rf', OUT], { stdio: ['ignore', 'pipe', 'pipe'] });
+  if (!fs.existsSync(OUT)) break;
+  if (attempt >= 8) {
+    process.stderr.write(result.stderr || '');
+    throw new Error(`не смог очистить ${OUT} за 8 попыток`);
+  }
+  execFileSync('sleep', ['0.4']);
+}
 fs.mkdirSync(OUT, { recursive: true });
+
+/* fs.cpSync рекурсивно иногда падает (ENOENT/ENOTEMPTY) на сетевых/смонтированных
+   файловых системах — например, при запуске build.mjs через удалённый мост на
+   машине Виктории (device_bash, смонтированный диск, похоже на облачно
+   синхронизируемый том с неатомарной видимостью только что созданных
+   папок). Обычный `cp -r` куда надёжнее fs.cpSync, но и он изредка ловит
+   ENOENT прямо во время копирования (mkdir отработал, а сама папка ещё не
+   "видна" для записи файла в неё через долю секунды). Поэтому копируем
+   с повтором: если `cp -r` упал, ждём немного и запускаем его же ещё раз —
+   уже скопированные файлы просто перезапишутся, а то, что не успело
+   появиться в прошлый раз, к этому моменту обычно уже видно. На обычной
+   (не сетевой) файловой системе, включая раннеры GitHub Actions, всё это
+   отрабатывает с первой попытки и без задержек. */
+function copyRecursive(src, dest, attempt = 1) {
+  const MAX_ATTEMPTS = 6;
+  const result = spawnSync('cp', ['-r', src, dest], { stdio: ['ignore', 'pipe', 'pipe'] });
+  if (result.status === 0) return;
+  if (attempt >= MAX_ATTEMPTS) {
+    process.stderr.write(result.stderr || '');
+    throw new Error(`cp -r не смог скопировать ${src} -> ${dest} за ${MAX_ATTEMPTS} попыток`);
+  }
+  execFileSync('sleep', ['0.4']);
+  copyRecursive(src, dest, attempt + 1);
+}
 
 for (const entry of fs.readdirSync(ROOT)) {
   if (SKIP.has(entry) || entry.endsWith('.md')) continue;
-  fs.cpSync(path.join(ROOT, entry), path.join(OUT, entry), { recursive: true });
+  copyRecursive(path.join(ROOT, entry), path.join(OUT, entry));
 }
 
 /* Подставляем префикс подпапки в скопированные html и css.
@@ -767,8 +805,8 @@ ${landingStandaloneBlock}`,
    эмодзи, там где он заведён (course.emoji остаётся запасным вариантом
    для остальных курсов, как раньше). */
 const COURSE_HEADING_ICON_MAP = {
-  // 'gateway/gateway-to-the-world-b1': 'gateway-door.png',
-  // 'gateway/gateway-to-the-world-b2': 'gateway-door.png',
+  'gateway/gateway-to-the-world-b1': 'gateway-door.png',
+  'gateway/gateway-to-the-world-b2': 'gateway-door.png',
 };
 
 /* --- страница курса: только опубликованное --- */
