@@ -522,6 +522,8 @@ const groupFolderScript = `<script>
   var sortToolbarEl = document.querySelector('.sort-toolbar');
   var view = 'top';
   var currentTheme = null;
+  var currentGroup = null;
+  var currentPrefix = false;
 
   function filterMaterials(group, prefix){
     document.querySelectorAll('.card[data-group]').forEach(function(c){
@@ -536,15 +538,35 @@ const groupFolderScript = `<script>
     if(materials) materials.hidden = view !== 'materials';
     if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials';
     backBtn.hidden = view === 'top';
+    if(view === 'materials') filterMaterials(currentGroup, currentPrefix);
   }
-  function showTop(){ view = 'top'; currentTheme = null; render(); }
+  function showTop(){ view = 'top'; currentTheme = null; currentGroup = null; currentPrefix = false; render(); }
   function showSkills(theme){ view = 'skills'; currentTheme = theme; render(); }
   function showMaterials(group, prefix, parentTheme){
     view = 'materials';
     currentTheme = parentTheme || null;
-    filterMaterials(group, prefix);
+    currentGroup = group;
+    currentPrefix = prefix;
     render();
   }
+
+  /* iOS-свайп вправо (и кнопка «Назад» браузера) должны листать экраны
+     папок так же, как видимая кнопка «← Назад»: каждый переход на экран
+     глубже кладёт в историю запись-снимок (pushFolderNav), а возврат —
+     жестом, кнопкой браузера или самой кнопкой «← Назад» — вызывает
+     popstate и восстанавливает ровно предыдущий снимок. */
+  function pushFolderNav(){
+    history.pushState({ view: view, currentTheme: currentTheme, currentGroup: currentGroup, currentPrefix: currentPrefix }, '');
+  }
+  window.addEventListener('popstate', function(e){
+    if(e.state){
+      view = e.state.view; currentTheme = e.state.currentTheme;
+      currentGroup = e.state.currentGroup; currentPrefix = e.state.currentPrefix;
+      render();
+    } else {
+      showTop();
+    }
+  });
 
   document.querySelectorAll('.tile[data-group-tile]').forEach(function(t){
     t.addEventListener('click', function(){
@@ -557,13 +579,13 @@ const groupFolderScript = `<script>
       } else {
         showMaterials(val, false, null);
       }
+      pushFolderNav();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 
   backBtn.addEventListener('click', function(){
-    if(view === 'materials' && currentTheme){ showSkills(currentTheme); }
-    else { showTop(); }
+    history.back();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
@@ -648,6 +670,18 @@ const tileIconFor = (course) => LOGO_MAP[course.id]
   ? `<span class="tile-icon"><img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
   : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
+/* Иконка перед названием семьи курсов (заголовок «🌟 Academy Stars» и т.п.,
+   и на лендинге, и в панели преподавателя) — фирменный стикер вместо
+   юникод-эмодзи, там где он заведён; для остальных семей эмодзи остаётся
+   запасным вариантом, как раньше. */
+const FAMILY_ICON_MAP = {
+  'Academy Stars': 'academy-stars.png',
+  Gateway: 'gateway.png',
+};
+const familyIconFor = (famName, emoji) => FAMILY_ICON_MAP[famName]
+  ? `<img class="family-icon" src="${esc(`${BASE}/assets/brand/family/${FAMILY_ICON_MAP[famName]}`)}" alt="">`
+  : (emoji ? esc(emoji) + ' ' : '');
+
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
     ? overrideCount
@@ -686,7 +720,7 @@ const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
     tiles = fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   }
   return `  <div class="tile-family">
-    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>
@@ -729,15 +763,26 @@ fs.writeFileSync(path.join(OUT, 'index.html'), page({
 ${landingStandaloneBlock}`,
 }));
 
+/* Иконка в заголовке страницы курса — фирменный стикер вместо юникод-
+   эмодзи, там где он заведён (course.emoji остаётся запасным вариантом
+   для остальных курсов, как раньше). */
+const COURSE_HEADING_ICON_MAP = {
+  // 'gateway/gateway-to-the-world-b1': 'gateway-door.png',
+  // 'gateway/gateway-to-the-world-b2': 'gateway-door.png',
+};
+
 /* --- страница курса: только опубликованное --- */
 for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
   const hasGroups = list.some((m) => m.group);
+  const headingIconPath = COURSE_HEADING_ICON_MAP[course.id]
+    ? `/assets/brand/course/${COURSE_HEADING_ICON_MAP[course.id]}` : '';
   fs.writeFileSync(path.join(dir, 'index.html'), page({
     title: `${course.name} — материалы`,
-    heading: `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
+    heading: headingIconPath ? course.name : `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
+    headingIcon: headingIconPath,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
       ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
@@ -998,6 +1043,69 @@ const staffScript = `<script>
     activeGroupPrefix = prefix;
   }
 
+  /* iOS-свайп вправо (и обычная кнопка «Назад» браузера) должны листать
+     экраны панели так же, как кнопка «← Назад» на странице курса у
+     ученика: каждый переход на экран глубже кладёт в историю браузера
+     запись-снимок текущего состояния (pushStaffNav), а возврат — свайпом,
+     жестом или через сам браузер — вызывает popstate и восстанавливает
+     ровно предыдущий снимок (applyStaffState). Видимая кнопка «← Назад»
+     теперь тоже просто вызывает history.back() — и жест, и кнопка идут
+     через один и тот же код, так что их поведение не может разойтись. */
+  function pushStaffNav(){
+    history.pushState({
+      active: active, activeGroup: activeGroup, activeGroupPrefix: activeGroupPrefix,
+      courseNavCourseId: courseNavCourseId, courseNavLevel: courseNavLevel,
+      courseNavTheme: courseNavTheme, courseNavFamily: courseNavFamily
+    }, '');
+  }
+  function resetToTop(){
+    active = 'none';
+    activeGroup = 'all';
+    activeGroupPrefix = false;
+    courseNavCourseId = null;
+    courseNavLevel = 'top';
+    courseNavTheme = null;
+    courseNavFamily = null;
+    search.value = '';
+    document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
+    showSubTabsFor(null);
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){ row.hidden = true; });
+    showSkillTabsFor(null);
+    courseTilesWrap.hidden = false;
+    backBtn.hidden = true;
+    courseLinkBtn.hidden = true;
+    apply();
+  }
+  function applyStaffState(s){
+    active = s.active; activeGroup = s.activeGroup; activeGroupPrefix = s.activeGroupPrefix;
+    courseNavCourseId = s.courseNavCourseId; courseNavLevel = s.courseNavLevel;
+    courseNavTheme = s.courseNavTheme; courseNavFamily = s.courseNavFamily;
+
+    var famForButton = courseNavFamily || (active.indexOf('family:') === 0 ? active.slice(7) : null);
+    document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){
+      x.classList.toggle('on', famForButton ? x.dataset.filter === 'family:' + famForButton : x.dataset.filter === active);
+    });
+    showSubTabsFor(famForButton);
+    document.querySelectorAll('.sub-tabs-group').forEach(function(row){
+      row.hidden = row.dataset.groupFor !== courseNavCourseId;
+    });
+    showSkillTabsFor(courseNavLevel === 'skill' ? courseNavTheme : null);
+
+    courseTilesWrap.hidden = active !== 'none';
+    backBtn.hidden = active === 'none';
+    if(courseNavCourseId && courseNavLevel !== 'top' && courseUrlMap[courseNavCourseId]){
+      courseLinkBtn.dataset.copy = courseUrlMap[courseNavCourseId];
+      courseLinkBtn.hidden = false;
+    } else {
+      courseLinkBtn.hidden = true;
+    }
+    apply();
+  }
+  window.addEventListener('popstate', function(e){
+    if(e.state) applyStaffState(e.state);
+    else resetToTop();
+  });
+
   document.querySelectorAll('.toolbar .filter-btn').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('.toolbar .filter-btn').forEach(function(x){ x.classList.remove('on'); });
@@ -1016,6 +1124,7 @@ const staffScript = `<script>
         showGroupTabsFor(active.indexOf('course:') === 0 ? active.slice(7) : null);
       }
       apply();
+      pushStaffNav();
     });
   });
 
@@ -1033,6 +1142,7 @@ const staffScript = `<script>
         showMaterialsFor(t.dataset.groupTile, t.dataset.prefix === '1', skillGrid ? skillGrid.dataset.skillFor : null);
       }
       apply();
+      pushStaffNav();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -1043,10 +1153,11 @@ const staffScript = `<script>
       var courseId = t.dataset.tileCourse;
       /* два случая: (1) плитка отдельного (не входящего в семью) курса
          прямо на домашнем экране — для неё в скрытом тулбаре есть
-         готовая кнопка-фильтр, проще всего «нажать» на неё; (2) плитка
-         уровня ВНУТРИ семьи (например World 3 внутри Oxford Phonics,
-         см. subTabRows) — отдельной кнопки для конкретного уровня в
-         тулбаре нет и не нужно, выставляем active сами. */
+         готовая кнопка-фильтр, проще всего «нажать» на неё (её обработчик
+         сам вызовет pushStaffNav); (2) плитка уровня ВНУТРИ семьи
+         (например World 3 внутри Oxford Phonics, см. subTabRows) —
+         отдельной кнопки для конкретного уровня в тулбаре нет и не нужно,
+         выставляем active сами и кладём свою запись в историю. */
       var topBtn = document.querySelector('.toolbar > .filter-btn[data-filter="course:' + courseId + '"]');
       if(topBtn){
         topBtn.click();
@@ -1063,6 +1174,7 @@ const staffScript = `<script>
         courseNavFamily = famId;
         showGroupTabsFor(courseId);
         apply();
+        pushStaffNav();
       }
       /* «заходим внутрь» курса — плитки всех курсов прячем, показываем
          только материалы этого курса (и его юниты-плитки, если есть) */
@@ -1077,7 +1189,9 @@ const staffScript = `<script>
       /* плитка схлопнутой семьи (например Oxford Phonics) — не выбирает
          курс сама, а открывает ряд уровней внутри (тоже плитками);
          выбор конкретного уровня — обычный клик по .tile[data-tile-course]
-         чуть выше по коду, ничего дополнительно писать не нужно */
+         чуть выше по коду, ничего дополнительно писать не нужно. Клик
+         «нажимает» настоящую кнопку семьи в тулбаре — та сама положит
+         запись в историю через pushStaffNav. */
       var famId = t.dataset.tileFamily;
       var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
       if(famBtn) famBtn.click();
@@ -1087,48 +1201,11 @@ const staffScript = `<script>
     });
   });
 
-  /* «← Назад» поднимается на один уровень внутри курса (материалы →
-     навыки → юниты), и только с самого верхнего уровня юнитов курса —
-     или если юнитов вообще нет — возвращается ко всем курсам, как и
-     раньше. */
+  /* «← Назад» просто листает историю браузера на один шаг — экран,
+     который при этом покажется, восстановит popstate (applyStaffState),
+     так что кнопка и iOS-свайп вправо ведут себя абсолютно одинаково. */
   backBtn.addEventListener('click', function(){
-    if(courseNavLevel === 'materials'){
-      if(courseNavTheme){ showSkillLevelFor(courseNavTheme); }
-      else { showGroupTabsFor(courseNavCourseId); }
-      apply();
-    } else if(courseNavLevel === 'skill'){
-      showGroupTabsFor(courseNavCourseId);
-      apply();
-    } else if(courseNavFamily){
-      /* зашли в этот курс через ряд уровней семьи (например World 3
-         внутри Oxford Phonics) — поднимаемся не сразу «ко всем курсам»,
-         а на один уровень выше, к плиткам уровней этой семьи */
-      var famId = courseNavFamily;
-      active = 'family:' + famId;
-      activeGroup = 'all';
-      activeGroupPrefix = false;
-      search.value = '';
-      document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + famId + '"]');
-      if(famBtn) famBtn.classList.add('on');
-      showSubTabsFor(famId);
-      showGroupTabsFor(null);
-      courseNavLevel = 'top';
-      courseNavFamily = null;
-      apply();
-    } else {
-      active = 'none';
-      activeGroup = 'all';
-      activeGroupPrefix = false;
-      search.value = '';
-      document.querySelectorAll('.toolbar > .filter-btn').forEach(function(x){ x.classList.remove('on'); });
-      showSubTabsFor(null);
-      showGroupTabsFor(null);
-      courseNavLevel = 'top';
-      courseTilesWrap.hidden = false;
-      backBtn.hidden = true;
-      apply();
-    }
+    history.back();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
@@ -1184,7 +1261,7 @@ const staffTileFamilyBlocks = familyOrder.map(([fid, famName]) => {
         fam.reduce((sum, c) => sum + countAll(c), 0))
     : fam.map((c) => staffTileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n');
   return `  <div class="tile-family">
-    <h2>${emoji ? esc(emoji) + ' ' : ''}${esc(famName)}</h2>
+    <h2>${familyIconFor(famName, emoji)}${esc(famName)}</h2>
     <div class="tile-grid">
 ${tiles}
     </div>

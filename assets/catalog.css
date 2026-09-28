@@ -80,8 +80,9 @@ html, body{
 /* ---- шапка каталога ---- */
 
 .cat-header{
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   color: #fff;
   padding: 32px 24px 18px;
   margin: 0 0 16px;
@@ -124,6 +125,9 @@ html, body{
   gap: 8px;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
+/* фирменный стикер перед названием семьи курсов (Academy Stars, Gateway) —
+   вместо юникод-эмодзи, см. familyIconFor в build.mjs */
+.family-icon{ height: 20px; width: auto; display: block; }
 .tile-grid{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
