@@ -984,6 +984,7 @@ const staffScript = `<script>
   var courseTilesWrap = document.getElementById('courseTilesWrap');
   var backBtn = document.getElementById('backToCourses');
   var searchToggleBtn = document.getElementById('searchToggleBtn');
+  var sortToolbarEl = document.querySelector('.sort-toolbar');
 
   /* строка поиска свёрнута в иконку по умолчанию — разворачивается по
      клику и сворачивается обратно, если её очистить и убрать фокус,
@@ -1040,6 +1041,7 @@ const staffScript = `<script>
     if(hint) hint.hidden = !topNoPick;
     count.hidden = noPickYet;
     count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
+    if(sortToolbarEl) sortToolbarEl.hidden = noPickYet;
   }
 
   function showSubTabsFor(famId){
@@ -1373,10 +1375,11 @@ ${courseGroupRows}
   <p class="empty" id="pickHint"></p>
   <p class="count" id="count"></p>
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
+${sortToolbar(true)}
   <div class="staff-list" id="staffList">
 ${materials.map(staffCard).join('\n')}
   </div>`,
-  extraScript: copyScript + staffScript,
+  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
 }));
 
 /* --- машиночитаемый каталог для агентов --- */
