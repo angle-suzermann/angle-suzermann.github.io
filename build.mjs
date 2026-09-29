@@ -700,8 +700,9 @@ const LOGO_MAP = {
   'oxford-phonics/3': 'oxford-phonics.png',
   'oxford-phonics/4': 'oxford-phonics.png',
   'oxford-phonics/5': 'oxford-phonics.png',
-  'expert-advanced': 'expert-advanced.jpg',
+  'expert-advanced': 'expert-advanced-sticker.png',
   'gateway/gw-b2': 'gw-b2.png',
+  'a2-key-for-schools': 'a2-key-for-schools.png',
 };
 /* .tile-icon — общая рамка высотой 44px под лого/эмодзи: у всех логотипов
    разное соотношение сторон (Gateway — широкий и низкий, Academy Stars —
