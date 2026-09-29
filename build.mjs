@@ -703,6 +703,7 @@ const LOGO_MAP = {
   'expert-advanced': 'expert-advanced-sticker.png',
   'gateway/gw-b2': 'gw-b2.png',
   'a2-key-for-schools': 'a2-key-for-schools.png',
+  'placement-tests': 'placement-tests-cambridge.png',
 };
 /* .tile-icon — общая рамка высотой 44px под лого/эмодзи: у всех логотипов
    разное соотношение сторон (Gateway — широкий и низкий, Academy Stars —
