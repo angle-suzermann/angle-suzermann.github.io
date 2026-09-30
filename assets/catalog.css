@@ -89,7 +89,15 @@ html, body{
    выше по файлу, он нужен отдельно против сдвига страницы вбок) задан
    overflow, отличный от visible, даже по одной оси. Это известный баг
    WebKit, а не ошибка вёрстки — fixed этой проблемы не боится, потому
-   что всегда считается от вьюпорта. */
+   что всегда считается от вьюпорта.
+
+   backdrop-filter здесь раньше был (blur(6px)) — на iOS Safari сочетание
+   backdrop-filter на position:fixed элементе с overflow: clip у html/body
+   (см. выше) — ещё один известный баг WebKit: размытие перестаёт быть
+   локальным эффектом самой шапки и захватывает весь композитный слой
+   страницы, из-за чего весь экран выглядит «под мутным стеклом», а не
+   только полоса под шапкой. Убрали backdrop-filter совсем и подняли
+   непрозрачность фона шапки, чтобы текст оставался читаемым и без блюра. */
 .cat-header{
   position: fixed;
   top: 0;
@@ -100,9 +108,7 @@ html, body{
   padding: 32px 24px 18px;
   margin: 0;
   text-align: center;
-  background: rgba(94,72,119,0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(94,72,119,0.94);
 }
 .cat-header h1{
   font-size: clamp(18px, 4.4vw, 26px);
