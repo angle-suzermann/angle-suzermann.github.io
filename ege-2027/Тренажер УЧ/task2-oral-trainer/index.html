@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Тренажер УЧ">
+<meta name="ws:title"     content="ЕГЭ — Устная часть, Задание 2 (Тренажёр)">
+<meta name="ws:emoji"     content="🎤">
+<meta name="ws:date"      content="2026-09-30">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="устная часть, задание 2, speaking, тренажёр, аудирование в записи">
+<meta name="robots"       content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЕГЭ — Устная часть, Задание 2 — Тренажёр</title>
+<style>
+
+  
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text);
+  background:var(--card-tint);
+  position:relative;
+  overscroll-behavior-x:none;
+  touch-action:pan-y;
+}
+
+/* ---------- app-shell (fixed viewport container — document itself never scrolls) ---------- */
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg'); background-size:cover; background-position:center 32%; opacity:0.35; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.62), rgba(45,25,60,.92)); }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; }
+
+/* ---------- topbar ---------- */
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:12.5%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+.page-dot.done{ border-color:var(--correct); color:var(--correct); }
+
+/* ---------- page shell ---------- */
+.page-wrap{ position:relative; z-index:5; max-width:980px; margin:0 auto; padding:24px 20px 90px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.05rem; margin:20px 0 10px; }
+.card p{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.hero-card{ background:rgba(255,255,255,.97); }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn.cta:hover{ background:#1b1816; }
+.btn[disabled]{ opacity:.4; cursor:default; pointer-events:none; }
+.btn.small{ padding:7px 14px; font-size:.78rem; }
+.btn.danger{ background:var(--wrong); color:#fff; }
+
+/* exam-card instruction box */
+.exam-card{ background:var(--purple); color:#fff; border-radius:14px; padding:18px 20px; margin:14px 0 18px; }
+.exam-card .exam-eyebrow{ text-transform:uppercase; font-size:.68rem; letter-spacing:.1em; font-weight:800; color:var(--yellow); margin-bottom:6px; }
+.exam-card p{ margin:0 0 10px; }
+.exam-card ul{ margin:6px 0 0; padding-left:20px; }
+.exam-card li{ margin-bottom:4px; }
+
+/* recognition-quiz component */
+.qcat{ margin:16px 0 22px; padding:14px 16px; background:var(--card-tint); border-radius:12px; }
+.qcat-label{ font-weight:800; color:var(--purple-dark); font-size:.92rem; margin-bottom:10px; text-transform:capitalize; }
+.qjudge{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:11px 14px; margin-bottom:9px; }
+.qjudge:last-child{ margin-bottom:0; }
+.qtext{ margin:0 0 8px; font-size:.94rem; line-height:1.45; }
+.qbtns{ display:flex; gap:8px; }
+.jbtn{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700; color:var(--muted); }
+.jbtn:hover{ border-color:var(--purple); color:var(--purple); }
+.qjudge[data-done] .jbtn{ pointer-events:none; }
+.jbtn.chosen.is-right{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.jbtn.chosen.is-wrong{ background:#fdecec; border-color:var(--wrong); color:var(--wrong); }
+.jbtn.reveal-correct{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.qexplain{ margin:9px 0 0; padding-top:9px; border-top:1px dashed var(--border); font-size:.85rem; color:var(--muted); line-height:1.5; }
+.qjudge.judged-right .qexplain{ color:var(--correct); }
+.qjudge.judged-wrong .qexplain{ color:var(--wrong); }
+.qcat-tally{ float:right; font-size:.78rem; font-weight:700; color:var(--muted); }
+
+/* speaking practice */
+.speak-timer-row{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.speak-clock{ font-size:2.2rem; font-weight:900; color:var(--purple); font-variant-numeric:tabular-nums; min-width:110px; }
+.speak-clock.warn{ color:var(--wrong); }
+.speak-state{ font-size:.85rem; color:var(--muted); font-weight:700; }
+.rec-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--wrong); margin-right:6px; animation:pulse 1s infinite; }
+.rec-dot.hidden{ display:none; }
+@keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
+.speak-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.speak-playback{ margin-top:14px; }
+.speak-playback audio{ width:100%; }
+.mic-error{ background:#fdecec; border:1px solid #f2b8b2; color:var(--wrong); border-radius:10px; padding:10px 14px; font-size:.85rem; margin-top:10px; display:none; }
+.mic-error.show{ display:block; }
+
+.checklist{ margin:16px 0; }
+.checklist label{ display:flex; align-items:flex-start; gap:9px; font-size:.9rem; margin-bottom:9px; line-height:1.4; cursor:pointer; }
+.checklist input[type=checkbox]{ margin-top:3px; width:17px; height:17px; accent-color:var(--purple); flex-shrink:0; }
+
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:18px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+
+/* results */
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.scenario-photo{ display:block; width:auto; height:auto; max-width:100%; max-height:280px; margin:0 auto 16px; border-radius:14px; box-shadow:0 2px 10px rgba(45,25,60,.15); image-rendering:auto; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.reset-link{ text-align:center; margin-top:6px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+.scenario-summary-row{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:.9rem; }
+.scenario-summary-row:last-child{ border-bottom:none; }
+.pill-sent{ background:#eafaf0; color:var(--correct); border-radius:999px; padding:3px 11px; font-size:.75rem; font-weight:700; }
+.pill-notsent{ background:var(--card-tint); color:var(--muted); border-radius:999px; padding:3px 11px; font-size:.75rem; font-weight:700; }
+
+/* sticky ANGLE badge */
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){ .angle-badge{ display:none; } }
+
+@media (max-width:640px){
+  .card{ padding:18px 16px; }
+  .brand-row{ gap:8px; }
+  .lesson-title{ font-size:.92rem; }
+  .speak-clock{ font-size:1.8rem; }
+  .namebar{ flex-wrap:wrap; row-gap:2px; }
+  .namebar input{ width:150px; }
+  .save-indicator{ flex-basis:100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+<div class="bg-photo" id="bgPhoto"></div>
+<div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">ЕГЭ · Устная часть · Задание 2 — Тренажёр</span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your full name">
+        <span class="save-indicator" id="saveIndicator"></span>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="scroll-area" id="scrollArea">
+<div class="page-wrap">
+
+<!-- ============ PAGE 0 : INTRO ============ -->
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden>
+    <span id="restoreNoteText"></span>
+    <button onclick="clearProgress()">Start over (clear saved answers)</button>
+  </div>
+  <div class="card hero-card">
+    <div class="eyebrow">ANGLE · ЕГЭ · Устная часть · Задание 2</div>
+    <h2>Тренажёр: 4 прямых вопроса за 1.5 минуты</h2>
+    <p>В задании 2 устной части ЕГЭ нужно за 1.5 минуты задать четыре прямых вопроса по заданной ситуации. Больше всего баллов теряют не из-за нехватки идей, а из-за типичных грамматических и смысловых ошибок в самой формулировке вопроса — порядок слов, артикли, which вместо what, it/they без названного объекта и так далее.</p>
+    <p class="muted">Введите имя вверху страницы — ответы сохраняются автоматически в этом браузере, можно закрыть вкладку и вернуться позже (кроме аудиозаписей — они не сохраняются между сессиями).</p>
+    <h3>Как устроен тренажёр — 6 сценариев</h3>
+    <span class="tag">🍳 Кулинарный мастер-класс</span><span class="tag">🗺️ Экскурсия</span><span class="tag">📚 Библиотека</span><span class="tag">🛼 Ролик-клуб</span><span class="tag">🤿 Курсы дайвинга</span><span class="tag">👕 Магазин одежды</span>
+    <h3>В каждом сценарии два шага</h3>
+    <p><strong>A. Разбор вопросов.</strong> По каждой из 4 категорий информации — три варианта вопроса. Отметьте ✅ Верно / ❌ Неверно и прочитайте объяснение — это тренирует узнавание типичных ловушек ЕГЭ.</p>
+    <p><strong>B. Экзаменационная практика.</strong> Настоящая карточка задания, 15 секунд на подготовку и 1.5 минуты на запись — задайте свои собственные 4 вопроса вслух. Запись можно прослушать и отправить учителю вместе со счётом по разбору вопросов.</p>
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 1 : SCENARIO 1 — Cooking masterclass ============ -->
+<section class="page" data-page="1">
+  <div class="card">
+    <img class="scenario-photo" src="img/img2.png" alt="Cooking masterclass">
+    <div class="eyebrow">Сценарий 1 / 6 · Page 2 of 8</div>
+    <h2>🍳 Cooking masterclass <span class="muted" style="font-weight:400;font-size:.85rem;">(Кулинарный мастер-класс)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="1" data-cat="1">
+<div class="qcat-label">1. kinds of dishes</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">Which kinds of dishes for cooking do you offer at the master class?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Which означает выбор из предложенных, а мы спрашиваем в целом.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="1">
+<p class="qtext">What kinds of dishes can the participants of the master class cook?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Прямой вопрос, соответствует коммуникативной задаче.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">How many dishes will the participants of the master class cook?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о количестве блюд, а не об их видах.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="1" data-cat="2">
+<div class="qcat-label">2. number of people in the group</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">How many people in the group?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: пропущен глагол are there. Правильно: How many people are there in the group?</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="1">
+<p class="qtext">What is the number of people in the group?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="1">
+<p class="qtext">How many people are there in a group?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Допустимо использование a group, хотя the group звучит точнее в контексте конкретного мастер-класса.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="1" data-cat="3">
+<div class="qcat-label">3. the duration of the masterclass</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">How long the masterclass lasts?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: неправильный порядок слов, пропущен вспомогательный глагол does. Правильно: How long does the masterclass last?</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">When does the masterclass start?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о времени начала, а не о длительности.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="1">
+<p class="qtext">How long does the masterclass last?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="1" data-cat="4">
+<div class="qcat-label">4. tuition fee</div>
+<div class="qjudge" data-correct="true" data-scenario="1">
+<p class="qtext">How much does the masterclass cost?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">How much is the price?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Лексико-грамматическая ошибка: типичная ошибка ЕГЭ. Слово price не сочетается с how much is. Правильно: What is the price? или How much does it cost?</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="1">
+<p class="qtext">What is tuition fee?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: пропущен определённый артикль the. Правильно: What is the tuition fee?</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering going to a cooking masterclass and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>kinds of dishes</li><li>number of people in the group</li><li>the duration of the masterclass</li><li>tuition fee</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock1">01:30</div>
+      <div>
+        <div class="speak-state" id="state1"><span class="rec-dot hidden" id="dot1"></span><span id="stateText1">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn1" onclick="startPractice(1)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn1" onclick="stopPractice(1)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn1" onclick="resetPractice(1)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError1">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback1" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="1" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="1" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="1" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="1" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(1)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus1"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 2 : SCENARIO 2 — Going on the tour ============ -->
+<section class="page" data-page="2">
+  <div class="card">
+    <img class="scenario-photo" src="img/img3.png" alt="Going on the tour">
+    <div class="eyebrow">Сценарий 2 / 6 · Page 3 of 8</div>
+    <h2>🗺️ Going on the tour <span class="muted" style="font-weight:400;font-size:.85rem;">(Экскурсия)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="2" data-cat="1">
+<div class="qcat-label">1. the starting point</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">Where does the tour start?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">What is the starting point of the tour?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">Can you tell me about the starting point of the tour?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: это не прямой вопрос, а просьба рассказать. В задании 2 требуется именно прямой вопрос. Правильно: Where is the starting point of the tour?</p>
+</div>
+</div>
+<div class="qcat" data-scenario="2" data-cat="2">
+<div class="qcat-label">2. attractions to see</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">Which attractions will we see?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Which означает выбор из предложенных, а мы спрашиваем в целом.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">What are attractions to see?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: пропущен артикль the или структура вопроса неверна. Правильно: What attractions are there to see? или What are the attractions to see?</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">What attractions will we see?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="2" data-cat="3">
+<div class="qcat-label">3. the duration of the tour</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">How long is the tour?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">How long the tour lasts?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: неправильный порядок слов.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">When does the tour finish?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о времени окончания, а не о длительности.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="2" data-cat="4">
+<div class="qcat-label">4. cost for one</div>
+<div class="qjudge" data-correct="false" data-scenario="2">
+<p class="qtext">How much is the price for one?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Лексико-грамматическая ошибка: price не сочетается с how much is.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">How much does the tour cost for one person?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="2">
+<p class="qtext">What is the cost for one person?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering going on a tour and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>the starting point</li><li>attractions to see</li><li>the duration of the tour</li><li>cost for one</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock2">01:30</div>
+      <div>
+        <div class="speak-state" id="state2"><span class="rec-dot hidden" id="dot2"></span><span id="stateText2">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn2" onclick="startPractice(2)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn2" onclick="stopPractice(2)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn2" onclick="resetPractice(2)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError2">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback2" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="2" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="2" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="2" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="2" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(2)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus2"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 3 : SCENARIO 3 — Going to the library ============ -->
+<section class="page" data-page="3">
+  <div class="card">
+    <img class="scenario-photo" src="img/img4.png" alt="Going to the library">
+    <div class="eyebrow">Сценарий 3 / 6 · Page 4 of 8</div>
+    <h2>📚 Going to the library <span class="muted" style="font-weight:400;font-size:.85rem;">(Библиотека)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="3" data-cat="1">
+<div class="qcat-label">1. genres of books</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">Are genres of books available in the library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает, существуют ли жанры как явление, а не о том, какие жанры есть в библиотеке.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="3">
+<p class="qtext">What genres of books do you have in the library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">What are genres of books do you have in the library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: смешение структур What are... и do you have...</p>
+</div>
+</div>
+<div class="qcat" data-scenario="3" data-cat="2">
+<div class="qcat-label">2. books in foreign languages</div>
+<div class="qjudge" data-correct="true" data-scenario="3">
+<p class="qtext">Are there books in foreign languages in your library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">What foreign languages books do you have?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: неправильный порядок слов. Правильно: What books in foreign languages do you have?</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="3">
+<p class="qtext">Do you have books in foreign languages?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="3" data-cat="3">
+<div class="qcat-label">3. rules for borrowing books</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">Do you offer any rules for borrowing books?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: «предлагать правила» — неестественное сочетание. Лучше спросить, какие правила существуют.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">Do you have rules for borrowing books?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: в библиотеке однозначно есть правила, согласно которым выдают книги на руки.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="3">
+<p class="qtext">What are the rules for borrowing books?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="3" data-cat="4">
+<div class="qcat-label">4. reading room</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">Are there reading room in the library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: согласование числа. Are there a reading room — неверно. Правильно: Is there a reading room...</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="3">
+<p class="qtext">Do you have a reading room?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="3">
+<p class="qtext">What reading room is in the library?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: бессмысленный вопрос.</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering going to the library and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>genres of books</li><li>books in foreign languages</li><li>rules for borrowing books</li><li>reading room</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock3">01:30</div>
+      <div>
+        <div class="speak-state" id="state3"><span class="rec-dot hidden" id="dot3"></span><span id="stateText3">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn3" onclick="startPractice(3)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn3" onclick="stopPractice(3)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn3" onclick="resetPractice(3)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError3">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback3" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="3" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="3" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="3" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="3" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(3)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus3"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 4 : SCENARIO 4 — Joining the roller-skating club ============ -->
+<section class="page" data-page="4">
+  <div class="card">
+    <img class="scenario-photo" src="img/img5.png" alt="Joining the roller-skating club">
+    <div class="eyebrow">Сценарий 4 / 6 · Page 5 of 8</div>
+    <h2>🛼 Joining the roller-skating club <span class="muted" style="font-weight:400;font-size:.85rem;">(Ролик-клуб)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="4" data-cat="1">
+<div class="qcat-label">1. minimum age</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">What is the minimum age in the skating club?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о возрасте внутри клуба, а не о минимальном возрасте для вступления.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">What minimum age to join?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: пропущен глагол is.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">What is the minimum age to join the club?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="4" data-cat="2">
+<div class="qcat-label">2. special clothes</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">Do I need any special clothes?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">Do they have any special clothes for the participants?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: местоимение they вместо you.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">What special clothes do you have in the club?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает, какая одежда есть у клуба, а не нужна ли она участнику.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="4" data-cat="3">
+<div class="qcat-label">3. roller skates rental</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">Do you rent roller skates?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">Can I rent roller skates?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">Do they have roller skates rental service?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: местоимение they вместо you.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="4" data-cat="4">
+<div class="qcat-label">4. competitions</div>
+<div class="qjudge" data-correct="false" data-scenario="4">
+<p class="qtext">Are there any competitions in a club?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: неопределённый артикль a подразумевает любой клуб, а не конкретный. Нужно the club или your club.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">Do you organise any competitions?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="4">
+<p class="qtext">Is it possible to take part in competitions in your club?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно, хотя вопрос немного смещает акцент с «организации» на «участие».</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering joining a roller-skating club and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>minimum age</li><li>special clothes</li><li>roller skates rental</li><li>competitions</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock4">01:30</div>
+      <div>
+        <div class="speak-state" id="state4"><span class="rec-dot hidden" id="dot4"></span><span id="stateText4">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn4" onclick="startPractice(4)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn4" onclick="stopPractice(4)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn4" onclick="resetPractice(4)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError4">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback4" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="4" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="4" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="4" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="4" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(4)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus4"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 5 : SCENARIO 5 — Taking the course in diving ============ -->
+<section class="page" data-page="5">
+  <div class="card">
+    <img class="scenario-photo" src="img/img6.png" alt="Taking the course in diving">
+    <div class="eyebrow">Сценарий 5 / 6 · Page 6 of 8</div>
+    <h2>🤿 Taking the course in diving <span class="muted" style="font-weight:400;font-size:.85rem;">(Курсы дайвинга)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="5" data-cat="1">
+<div class="qcat-label">1. minimum age</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">What is the minimum age for the diving course?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="5">
+<p class="qtext">How old are the students of the course?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о текущем возрасте студентов, а не о минимальном возрасте для зачисления.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="5">
+<p class="qtext">What is a minimum age to join the course?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: неопределённый артикль a вместо определённого the.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="5" data-cat="2">
+<div class="qcat-label">2. duration of the course</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">How long does the course last?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="5">
+<p class="qtext">Is duration of the course available?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: бессмысленный вопрос, длительность не может «быть доступной».</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">What is the duration of the course?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="5" data-cat="3">
+<div class="qcat-label">3. equipment rental</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">Do you rent equipment?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">Is equipment rental service available?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="5">
+<p class="qtext">Do they have equipment rental?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: местоимение they вместо you.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="5" data-cat="4">
+<div class="qcat-label">4. student discounts</div>
+<div class="qjudge" data-correct="false" data-scenario="5">
+<p class="qtext">Is student discounts available?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: неправильно согласовано подлежащее и сказуемое, правильно Are student discounts available?</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">Do you offer student discounts?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="5">
+<p class="qtext">Are there discounts for students?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering taking a course in diving and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>minimum age</li><li>duration of the course</li><li>equipment rental</li><li>student discounts</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock5">01:30</div>
+      <div>
+        <div class="speak-state" id="state5"><span class="rec-dot hidden" id="dot5"></span><span id="stateText5">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn5" onclick="startPractice(5)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn5" onclick="stopPractice(5)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn5" onclick="resetPractice(5)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError5">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback5" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="5" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="5" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="5" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="5" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(5)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus5"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ PAGE 6 : SCENARIO 6 — Going to the clothing store ============ -->
+<section class="page" data-page="6">
+  <div class="card">
+    <img class="scenario-photo" src="img/img7.png" alt="Going to the clothing store">
+    <div class="eyebrow">Сценарий 6 / 6 · Page 7 of 8</div>
+    <h2>👕 Going to the clothing store <span class="muted" style="font-weight:400;font-size:.85rem;">(Магазин одежды)</span></h2>
+    <h3>A. Разбор вопросов — прежде чем говорить</h3>
+    <p class="muted">По каждой категории ниже — три варианта вопроса. Отметьте, верен вопрос или нет: ✅ Верно / ❌ Неверно. После клика появится объяснение.</p>
+    <div class="qcat" data-scenario="6" data-cat="1">
+<div class="qcat-label">1. location</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">Where is a store located?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: неопределённый артикль a означает любой магазин. Нужен your store.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">Where is it located?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: местоимение it без предварительного называния объекта делает вопрос бессмысленным — классическая ошибка ЕГЭ.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="6">
+<p class="qtext">What is the location of your store?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="6" data-cat="2">
+<div class="qcat-label">2. opening hours</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">How do you work?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: спрашивает о способе работы, а не о графике.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="6">
+<p class="qtext">When do you open and close?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">When does the store open?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая ошибка: неполный запрос. Спрашивает только об открытии, а не о полном графике работы.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="6" data-cat="3">
+<div class="qcat-label">3. kinds of shirts sold</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">Which kinds of shirts do you sell?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: по правилам ЕГЭ Which подразумевает ограниченный выбор, а здесь нужно What. Типичная ловушка: правильно What kinds of shirts do you sell?</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="6">
+<p class="qtext">What kinds of shirts do you sell?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="true" data-scenario="6">
+<p class="qtext">What kinds of shirts are sold in your store?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+</div>
+<div class="qcat" data-scenario="6" data-cat="4">
+<div class="qcat-label">4. big sizes</div>
+<div class="qjudge" data-correct="true" data-scenario="6">
+<p class="qtext">Do you have big sizes?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Верно.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">Do they have big sizes?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Семантическая/грамматическая ошибка: местоимение they вместо you.</p>
+</div>
+<div class="qjudge" data-correct="false" data-scenario="6">
+<p class="qtext">What are big sizes do you have?</p>
+<div class="qbtns">
+<button type="button" class="jbtn" data-val="true">✅ Верно</button>
+<button type="button" class="jbtn" data-val="false">❌ Неверно</button>
+</div>
+<p class="qexplain" hidden>Грамматическая ошибка: нарушена структура вопроса. Правильно: What big sizes do you have? или What sizes do you have?</p>
+</div>
+</div>
+  </div>
+  <div class="card">
+    <h3>B. Экзаменационная практика</h3>
+    <p class="muted">Прочитайте карточку, нажмите «Начать», и через 15 секунд подготовки запись пойдёт 1.5 минуты — как на настоящем экзамене.</p>
+    <div class="exam-card">
+  <div class="exam-eyebrow">Экзаменационная карточка</div>
+  <p>You are considering going to a clothing store and now you'd like to get more information.</p>
+  <p>In 1.5 minutes you are to ask four direct questions to find out about the following:</p>
+  <ul><li>location</li><li>opening hours</li><li>kinds of shirts sold</li><li>big sizes</li></ul>
+</div>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock6">01:30</div>
+      <div>
+        <div class="speak-state" id="state6"><span class="rec-dot hidden" id="dot6"></span><span id="stateText6">Готовы начать</span></div>
+      </div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="startBtn6" onclick="startPractice(6)">🎙️ Начать (15 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stopBtn6" onclick="stopPractice(6)" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redoBtn6" onclick="resetPractice(6)" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micError6">Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.</div>
+    <div class="speak-playback" id="playback6" hidden></div>
+
+    <h3>Самопроверка</h3>
+    <div class="checklist">
+      <label><input type="checkbox" class="chk" data-scenario="6" data-idx="1">Я задал(а) ровно 4 вопроса</label>
+<label><input type="checkbox" class="chk" data-scenario="6" data-idx="2">Каждый вопрос — прямой вопрос (Where/What/How/Do you…), а не просьба «Can you tell me…»</label>
+<label><input type="checkbox" class="chk" data-scenario="6" data-idx="3">Проверил(а) порядок слов и вспомогательные глаголы (Aux + Subject + Verb)</label>
+<label><input type="checkbox" class="chk" data-scenario="6" data-idx="4">Не использовал(а) it/they без называния объекта, и which там, где нужно what</label>
+    </div>
+
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitScenario(6)">📤 Отправить результат учителю</button>
+      <span class="task-submit-status" id="submitStatus6"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- ============ FINAL PAGE : SUMMARY ============ -->
+<section class="page" data-page="7">
+  <div class="card hero-card">
+    <div class="eyebrow">Итоги · Page 8 of 8</div>
+    <h2>Готово! 🎉</h2>
+    <p>Сводка по всем сценариям: счёт по разбору вопросов (Section A) и статус отправки учителю в этой сессии.</p>
+    <div id="finalSummaryList"></div>
+    <div class="results-panel show" style="margin-top:14px;">
+      <div class="big-score" id="finalBigScore">0 / 0</div>
+      <p class="muted" id="finalBigScoreNote">Правильных ответов в разборе вопросов по всем 6 сценариям</p>
+    </div>
+    <div class="task-submit">
+      <button type="button" class="btn cta" onclick="submitFinalSummary()">📤 Отправить итоговую сводку учителю</button>
+      <span class="task-submit-status" id="finalSubmitStatus"></span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+  <div class="reset-link"><a onclick="clearProgress()">Начать заново (очистить сохранённые ответы)</a></div>
+</section>
+
+</div>
+</div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script>
+/* ================================================================
+   CONFIG
+================================================================ */
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+const COURSE_NAME = 'ANGLE · ЕГЭ · Устная часть · Задание 2';
+const PAGE_LABELS = ["Начало", "🍳 Кулинарный мастер-класс", "🗺️ Экскурсия", "📚 Библиотека", "🛼 Ролик-клуб", "🤿 Курсы дайвинга", "👕 Магазин одежды", "Итоги"];
+const SCENARIO_IDS = [1, 2, 3, 4, 5, 6];
+const FINAL_SUMMARY_DATA = [{id:1, title:'🍳 Cooking masterclass (Кулинарный мастер-класс)'}, {id:2, title:'🗺️ Going on the tour (Экскурсия)'}, {id:3, title:'📚 Going to the library (Библиотека)'}, {id:4, title:'🛼 Joining the roller-skating club (Ролик-клуб)'}, {id:5, title:'🤿 Taking the course in diving (Курсы дайвинга)'}, {id:6, title:'👕 Going to the clothing store (Магазин одежды)'}];
+const RECORDING_SUPPORTED = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+let PREP_SECONDS = 15;
+let SPEAK_SECONDS = 90;
+
+/* ================================================================
+   PAGINATION
+================================================================ */
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
+  if(current === pages.length - 1) renderFinalSummary();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================================================================
+   RECOGNITION QUIZ (Section A)
+================================================================ */
+function applyJudge(wrap, val, fromRestore){
+  if(wrap.dataset.done && !fromRestore) return;
+  wrap.dataset.done = "1";
+  const correct = wrap.dataset.correct;
+  const isRight = val === correct;
+  const chosenBtn = wrap.querySelector(`.jbtn[data-val="${val}"]`);
+  wrap.querySelectorAll('.jbtn').forEach(b=>b.classList.remove('chosen','is-right','is-wrong','reveal-correct'));
+  if(chosenBtn) chosenBtn.classList.add('chosen', isRight ? 'is-right' : 'is-wrong');
+  if(!isRight){
+    const correctBtn = wrap.querySelector(`.jbtn[data-val="${correct}"]`);
+    if(correctBtn) correctBtn.classList.add('reveal-correct');
+  }
+  wrap.classList.remove('judged-right','judged-wrong');
+  wrap.classList.add(isRight ? 'judged-right' : 'judged-wrong');
+  const ex = wrap.querySelector('.qexplain');
+  if(ex) ex.hidden = false;
+}
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.jbtn');
+  if(!btn) return;
+  const wrap = btn.closest('.qjudge');
+  if(!wrap || wrap.dataset.done) return;
+  applyJudge(wrap, btn.dataset.val, false);
+  scheduleSave();
+});
+
+function scoreScenarioQuiz(sid){
+  const items = [...document.querySelectorAll(`.qjudge[data-scenario="${sid}"]`)];
+  let correct = 0, answered = 0;
+  const mistakes = [];
+  items.forEach(w=>{
+    if(w.dataset.done) answered++;
+    if(w.classList.contains('judged-right')) correct++;
+    else if(w.classList.contains('judged-wrong')){
+      mistakes.push(w.querySelector('.qtext').textContent.trim());
+    }
+  });
+  return { correct, total: items.length, answered, mistakes };
+}
+
+/* ================================================================
+   SPEAKING PRACTICE — prep timer + 1.5min recording (MediaRecorder)
+================================================================ */
+const practiceState = {};
+function fmtClock(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+function pickMime(){
+  const cands = ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
+  for(const c of cands){
+    try{ if(MediaRecorder.isTypeSupported(c)) return c; }catch(e){}
+  }
+  return '';
+}
+function getState(sid){
+  if(!practiceState[sid]) practiceState[sid] = { phase:'idle', stream:null, recorder:null, chunks:[], blob:null, timer:null, secondsLeft:0 };
+  return practiceState[sid];
+}
+async function startPractice(sid){
+  const st = getState(sid);
+  const startBtn = document.getElementById('startBtn'+sid);
+  const stopBtn = document.getElementById('stopBtn'+sid);
+  const redoBtn = document.getElementById('redoBtn'+sid);
+  const errEl = document.getElementById('micError'+sid);
+  errEl.classList.remove('show');
+  startBtn.disabled = true;
+
+  if(!RECORDING_SUPPORTED){
+    errEl.textContent = 'Запись голоса не поддерживается в этом браузере — используйте свежий Chrome/Edge/Safari на компьютере или телефоне. Самопроверку ниже можно пройти и без записи.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  try{
+    st.stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+  }catch(e){
+    errEl.textContent = 'Не удалось получить доступ к микрофону. Проверьте разрешения браузера и попробуйте снова — либо просто пройдите самопроверку ниже без записи.';
+    errEl.classList.add('show');
+    startBtn.disabled = false;
+    return;
+  }
+
+  st.phase = 'prep';
+  st.secondsLeft = PREP_SECONDS;
+  document.getElementById('stateText'+sid).textContent = 'Приготовьтесь — карточка выше, вопросы задаём вслух';
+  document.getElementById('dot'+sid).classList.add('hidden');
+  document.getElementById('clock'+sid).textContent = fmtClock(st.secondsLeft);
+  document.getElementById('clock'+sid).classList.remove('warn');
+
+  st.timer = setInterval(()=>{
+    st.secondsLeft--;
+    document.getElementById('clock'+sid).textContent = fmtClock(Math.max(st.secondsLeft,0));
+    if(st.secondsLeft <= 0){
+      clearInterval(st.timer);
+      if(st.phase === 'prep') beginRecording(sid);
+    }
+  }, 1000);
+}
+function beginRecording(sid){
+  const st = getState(sid);
+  st.phase = 'recording';
+  st.chunks = [];
+  const mime = pickMime();
+  try{
+    st.recorder = mime ? new MediaRecorder(st.stream, { mimeType: mime }) : new MediaRecorder(st.stream);
+  }catch(e){
+    st.recorder = new MediaRecorder(st.stream);
+  }
+  st.recorder.ondataavailable = ev=>{ if(ev.data && ev.data.size>0) st.chunks.push(ev.data); };
+  st.recorder.onstop = ()=> finishRecording(sid);
+  st.recorder.start();
+
+  document.getElementById('dot'+sid).classList.remove('hidden');
+  document.getElementById('stateText'+sid).textContent = 'Идёт запись — задайте 4 вопроса';
+  document.getElementById('stopBtn'+sid).disabled = false;
+
+  st.secondsLeft = SPEAK_SECONDS;
+  document.getElementById('clock'+sid).textContent = fmtClock(st.secondsLeft);
+  st.timer = setInterval(()=>{
+    st.secondsLeft--;
+    const clockEl = document.getElementById('clock'+sid);
+    clockEl.textContent = fmtClock(Math.max(st.secondsLeft,0));
+    clockEl.classList.toggle('warn', st.secondsLeft <= 10);
+    if(st.secondsLeft <= 0){
+      clearInterval(st.timer);
+      stopPractice(sid);
+    }
+  }, 1000);
+}
+function stopPractice(sid){
+  const st = getState(sid);
+  if(st.timer) clearInterval(st.timer);
+  if(st.recorder && st.recorder.state !== 'inactive'){
+    st.recorder.stop();
+  } else {
+    finishRecording(sid);
+  }
+  document.getElementById('stopBtn'+sid).disabled = true;
+}
+function finishRecording(sid){
+  const st = getState(sid);
+  st.phase = 'done';
+  if(st.stream){ st.stream.getTracks().forEach(t=>t.stop()); }
+  document.getElementById('dot'+sid).classList.add('hidden');
+  if(st.chunks.length){
+    const mime = (st.recorder && st.recorder.mimeType) || 'audio/webm';
+    st.blob = new Blob(st.chunks, { type: mime });
+    const url = URL.createObjectURL(st.blob);
+    const pb = document.getElementById('playback'+sid);
+    pb.innerHTML = `<audio controls src="${url}"></audio>`;
+    pb.hidden = false;
+    document.getElementById('stateText'+sid).textContent = 'Запись готова — прослушайте или отправьте учителю';
+  } else {
+    document.getElementById('stateText'+sid).textContent = 'Запись не удалась — попробуйте ещё раз';
+  }
+  document.getElementById('redoBtn'+sid).disabled = false;
+}
+function resetPractice(sid){
+  const st = getState(sid);
+  if(st.timer) clearInterval(st.timer);
+  if(st.stream){ try{ st.stream.getTracks().forEach(t=>t.stop()); }catch(e){} }
+  if(st.recorder && st.recorder.state !== 'inactive'){ try{ st.recorder.stop(); }catch(e){} }
+  practiceState[sid] = { phase:'idle', stream:null, recorder:null, chunks:[], blob:null, timer:null, secondsLeft:0 };
+  document.getElementById('clock'+sid).textContent = fmtClock(SPEAK_SECONDS);
+  document.getElementById('clock'+sid).classList.remove('warn');
+  document.getElementById('stateText'+sid).textContent = 'Готовы начать';
+  document.getElementById('dot'+sid).classList.add('hidden');
+  document.getElementById('startBtn'+sid).disabled = false;
+  document.getElementById('stopBtn'+sid).disabled = true;
+  document.getElementById('redoBtn'+sid).disabled = true;
+  const pb = document.getElementById('playback'+sid);
+  pb.hidden = true; pb.innerHTML = '';
+  document.getElementById('micError'+sid).classList.remove('show');
+}
+
+/* ================================================================
+   SUBMISSION (Basin — supports file attachments)
+================================================================ */
+const sentScenarios = new Set();
+
+function slug(s){ return (s||'student').trim().toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40); }
+
+async function submitScenario(sid){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Введите имя вверху страницы перед отправкой.'); showPage(0); return; }
+  const btn = event.target;
+  const statusEl = document.getElementById('submitStatus'+sid);
+  btn.disabled = true;
+  statusEl.textContent = 'Отправляю…';
+
+  const { correct, total, answered, mistakes } = scoreScenarioQuiz(sid);
+  const checks = [...document.querySelectorAll(`.chk[data-scenario="${sid}"]`)];
+  const checkedLabels = checks.filter(c=>c.checked).map(c=>c.closest('label').textContent.trim());
+  const uncheckedLabels = checks.filter(c=>!c.checked).map(c=>c.closest('label').textContent.trim());
+  const scEntry = FINAL_SUMMARY_DATA.find(s=>s.id===sid);
+  const title = scEntry ? scEntry.title : ('Сценарий ' + sid);
+  const st = getState(sid);
+
+  const fd = new FormData();
+  fd.append('course', COURSE_NAME);
+  fd.append('exercise', title);
+  fd.append('student', nameInput.value.trim());
+  fd.append('recognition_score', `${correct} / ${total} (отвечено: ${answered}/${total})`);
+  fd.append('recognition_mistakes', mistakes.length ? mistakes.join('\n') : 'Без ошибок в разборе вопросов.');
+  fd.append('selfcheck_confirmed', checkedLabels.length ? checkedLabels.join('\n') : 'Ничего не отмечено');
+  fd.append('selfcheck_not_confirmed', uncheckedLabels.length ? uncheckedLabels.join('\n') : '—');
+  fd.append('timestamp', new Date().toISOString());
+  if(st.blob){
+    const ext = (st.blob.type||'').includes('ogg') ? 'ogg' : (st.blob.type||'').includes('mp4') ? 'm4a' : 'webm';
+    fd.append('recording', st.blob, `oral2_scenario${sid}_${slug(nameInput.value)}.${ext}`);
+  } else {
+    fd.append('recording_note', 'Аудиозапись не была сделана в этой сессии.');
+  }
+
+  try{
+    await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    statusEl.textContent = `✓ Отправлено учителю — разбор вопросов ${correct}/${total}${st.blob ? ', с аудиозаписью' : ' (без аудио)'}`;
+    sentScenarios.add(sid);
+  }catch(e){
+    statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
+  }finally{
+    btn.disabled = false;
+  }
+}
+
+function renderFinalSummary(){
+  const wrap = document.getElementById('finalSummaryList');
+  let totalCorrect = 0, totalAll = 0;
+  wrap.innerHTML = FINAL_SUMMARY_DATA.map(sc=>{
+    const { correct, total } = scoreScenarioQuiz(sc.id);
+    totalCorrect += correct; totalAll += total;
+    const sent = sentScenarios.has(sc.id);
+    return `<div class="scenario-summary-row"><span>${sc.title}</span><span>${correct}/${total} &nbsp; <span class="${sent?'pill-sent':'pill-notsent'}">${sent?'✓ отправлено':'не отправлено'}</span></span></div>`;
+  }).join('');
+  document.getElementById('finalBigScore').textContent = `${totalCorrect} / ${totalAll}`;
+}
+
+async function submitFinalSummary(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Введите имя вверху страницы перед отправкой.'); showPage(0); return; }
+  const statusEl = document.getElementById('finalSubmitStatus');
+  statusEl.textContent = 'Отправляю…';
+  let totalCorrect = 0, totalAll = 0;
+  const lines = FINAL_SUMMARY_DATA.map(sc=>{
+    const { correct, total } = scoreScenarioQuiz(sc.id);
+    totalCorrect += correct; totalAll += total;
+    return `${sc.title}: ${correct}/${total} — ${sentScenarios.has(sc.id) ? 'отправлено с аудио/самопроверкой' : 'не отправлялось отдельно'}`;
+  });
+  const fd = new FormData();
+  fd.append('course', COURSE_NAME);
+  fd.append('exercise', 'Итоговая сводка (все 6 сценариев)');
+  fd.append('student', nameInput.value.trim());
+  fd.append('recognition_score', `${totalCorrect} / ${totalAll}`);
+  fd.append('breakdown', lines.join('\n'));
+  fd.append('timestamp', new Date().toISOString());
+  try{
+    await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    statusEl.textContent = `✓ Итоговая сводка отправлена учителю — ${totalCorrect}/${totalAll}`;
+  }catch(e){
+    statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
+  }
+}
+
+/* ================================================================
+   PROGRESS PERSISTENCE (quiz judgements + checklist + name; NOT audio)
+================================================================ */
+const PROGRESS_KEY = 'angle_progress::ege-oral-task2-trainer';
+let isRestoring = false;
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+    state.judged = [...document.querySelectorAll('.qjudge')].map(w=>{
+      const chosen = w.querySelector('.jbtn.chosen');
+      return w.dataset.done ? (chosen ? chosen.dataset.val : null) : null;
+    });
+    state.checks = [...document.querySelectorAll('.chk')].map(c=>c.checked);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const wraps = document.querySelectorAll('.qjudge');
+  (state.judged||[]).forEach((val,i)=>{ if(val && wraps[i]) applyJudge(wraps[i], val, true); });
+  const checks = document.querySelectorAll('.chk');
+  (state.checks||[]).forEach((v,i)=>{ if(v && checks[i]) checks[i].checked = true; });
+
+  const hasContent = (state.judged||[]).some(v=>v) || (state.checks||[]).some(v=>v);
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Найдены сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены (кроме аудиозаписей).`;
+      note.hidden = false;
+    }
+  }
+  if(typeof state.page === 'number') showPage(state.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('Это удалит все сохранённые ответы на этом устройстве. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('change', e=>{ if(e.target.matches('.chk')) scheduleSave(); });
+document.addEventListener('input', e=>{ if(e.target.matches('#studentName')) scheduleSave(); });
+
+/* ================================================================
+   INIT
+================================================================ */
+function init(){
+  buildDots();
+  if(!RECORDING_SUPPORTED){
+    SCENARIO_IDS.forEach(sid=>{
+      const err = document.getElementById('micError'+sid);
+      if(err){ err.textContent = 'Запись голоса не поддерживается в этом браузере — используйте свежий Chrome/Edge/Safari. Самопроверку можно пройти и без записи.'; err.classList.add('show'); }
+      const sb = document.getElementById('startBtn'+sid);
+      if(sb) sb.textContent = '🎙️ Запись недоступна в этом браузере';
+    });
+  }
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
