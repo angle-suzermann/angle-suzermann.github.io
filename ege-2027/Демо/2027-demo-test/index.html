@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЕГЭ 2027. Английский язык — Демонстрационный вариант (тестовая часть)</title>
+<title>ЕГЭ 2026. Английский язык — Демонстрационный вариант (тестовая часть)</title>
 <meta name="ws:type"      content="test">
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Демо">
-<meta name="ws:title"     content="ЕГЭ 2027 — тестовая часть (демо)">
+<meta name="ws:title"     content="ЕГЭ 2026 — тестовая часть (демо)">
 <meta name="ws:emoji"     content="🎧">
 <meta name="ws:date"      content="2026-08-18">
 <meta name="ws:status"    content="published">
@@ -155,7 +155,7 @@ body{overflow-wrap:break-word;}
   <div class="topbar-inner">
     <div class="brand-row">
       <div>
-        <div class="lesson-title">ЕГЭ 2027 · Английский язык · 11 класс</div>
+        <div class="lesson-title">ЕГЭ 2026 · Английский язык · 11 класс</div>
         <div class="lesson-sub">Демонстрационный вариант ФИПИ — тестовая часть: Аудирование, Чтение, Грамматика и лексика</div>
       </div>
       <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required><span class="save-indicator" id="saveIndicator"></span></div>
@@ -871,8 +871,8 @@ async function sendToTeacher(){
     const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
-  fd.append('subject', ('ЕГЭ 2027 — тестовая часть') + ' — ' + (name));
-    fd.append('exercise', 'ЕГЭ 2027 — тестовая часть');
+  fd.append('subject', ('ЕГЭ 2026 — тестовая часть') + ' — ' + (name));
+    fd.append('exercise', 'ЕГЭ 2026 — тестовая часть');
     fd.append('student', name);
     fd.append('date', new Date().toLocaleString('ru-RU'));
     fd.append('listening', document.getElementById('scoreListening').textContent);
