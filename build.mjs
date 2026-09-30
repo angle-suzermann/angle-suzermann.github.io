@@ -92,7 +92,7 @@ const ORIGIN = (() => {
    картинки нет (новый курс или новый вид), берётся <курс>--course.jpg,
    а если и её нет — общая site.jpg. Добавили курс — попросите Claude
    нарисовать для него картинки. */
-const OG_VERSION = 1;
+const OG_VERSION = 2;
 const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice' };
 const COURSE_EN = { 'ege-2027': 'EGE 2027', 'placement-tests': 'Placement Tests' };
 const courseNameEn = (id) => COURSE_EN[id] || (courses.find((c) => c.id === id) || {}).name || '';
