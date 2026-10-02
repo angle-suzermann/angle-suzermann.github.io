@@ -1014,6 +1014,18 @@ const staffCard = (m) => {
   </div>`;
 };
 
+/* личная папка в панели преподавателя — та же карточка, что на странице
+   курса (personalFolderCard), только с классом staff-card, чтобы её
+   находил общий поиск/фильтр staffScript (cards = .staff-card), и без
+   кнопки «Открыть» — файлов внутри несколько, ссылки уже в списке. */
+const personalFolderStaffCard = (course, folder) => `  <div class="staff-card personal-card"
+       data-search="${esc(folder.name.toLowerCase())}"
+       data-course="${esc(course.id)}" data-type="" data-status="published" data-group="${esc(folder.name)}"
+       data-date="" data-title="${esc(folder.name)}" data-unit="">
+    <div class="row"><span class="name">📁 ${esc(folder.name)}</span></div>
+    ${renderPersonalNode(course, folder.tree, 0)}
+  </div>`;
+
 /* familyOrder / familyCourses / standaloneCourses уже посчитаны выше,
    для плиток на лендинге — переиспользуем их и здесь для кнопок-фильтров. */
 const familyBtns = familyOrder.map(([fid, famName]) =>
@@ -1033,19 +1045,29 @@ const familyMapJson = JSON.stringify(
    навыков. Считаем ПО ВСЕМ материалам курса, включая черновики — в
    панели преподавателя это принципиально, в отличие от публичной
    страницы курса, где список уже отфильтрован на published. */
+/* личные папки (findPersonalFolders) — те же папки учеников, что в
+   сетке плиток на публичной странице курса (см. groupFolderNav), должны
+   быть доступны и здесь: считаем их по курсу один раз, дальше и список
+   курсов с «папками» (courseGroupsMap — курс считается таким, если у
+   него есть юниты ИЛИ личные папки), и сама сетка плиток ниже это
+   учитывают. */
+const personalFoldersByCourse = new Map(); // courseId -> [{name, tree}, ...]
 const courseGroupsMap = new Map(); // courseId -> [group, ...]
 for (const c of courses) {
   const groups = [...new Set(
     materials.filter((m) => m['course-id'] === c.id && m.group).map((m) => m.group)
   )].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-  if (groups.length) courseGroupsMap.set(c.id, groups);
+  const personalFolders = findPersonalFolders(path.join(ROOT, c.id));
+  if (personalFolders.length) personalFoldersByCourse.set(c.id, personalFolders);
+  if (groups.length || personalFolders.length) courseGroupsMap.set(c.id, groups);
 }
 
 const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
   const list = materials.filter((m) => m['course-id'] === courseId);
   const tree = groupTileTree(list);
-  if (!tree) return '';
-  const { groups, themes, countExact, countPrefix } = tree;
+  const personalFolders = personalFoldersByCourse.get(courseId) || [];
+  if (!tree && !personalFolders.length) return '';
+  const { groups, themes, countExact, countPrefix } = tree || { groups: [], themes: [], countExact: () => 0, countPrefix: () => 0 };
   /* «Без юнита» тут намеренно не выводим: в отличие от публичной
      страницы курса, где ungroupedCount мог бы означать реальные
      материалы без юнита, здесь courseGroupsMap уже гарантирует, что
@@ -1061,6 +1083,12 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
       ` data-group-tile="${esc(t)}" data-course-tile="${esc(courseId)}"${hasSkills ? ` data-has-skills="${esc(courseId + '::' + t)}"` : ''}`,
       '📁', t, count
     );
+  });
+  personalFolders.forEach((pf) => {
+    topTiles.push(groupTileHtml(
+      ` data-group-tile="${esc(pf.name)}" data-course-tile="${esc(courseId)}" data-personal="1"`,
+      '📁', pf.name, countPersonalFiles(pf.tree), ['файл', 'файла', 'файлов']
+    ));
   });
   const groupGrid = `  <div class="tile-grid sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
 ${topTiles.join('\n')}
@@ -1107,6 +1135,7 @@ const staffScript = `<script>
   var active = 'none';
   var activeGroup = 'all';
   var activeGroupPrefix = false;
+  var activeGroupPersonal = false;
   var familyMap = ${familyMapJson};
   var courseUrlMap = ${courseUrlMapJson};
   var courseGroupIds = ${courseGroupIdsJson};
@@ -1172,7 +1201,7 @@ const staffScript = `<script>
     if(hint) hint.hidden = !topNoPick;
     count.hidden = noPickYet;
     count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
-    if(sortToolbarEl) sortToolbarEl.hidden = noPickYet;
+    if(sortToolbarEl) sortToolbarEl.hidden = noPickYet || activeGroupPersonal;
   }
 
   function showSubTabsFor(famId){
@@ -1208,6 +1237,7 @@ const staffScript = `<script>
     });
     activeGroup = (courseId && courseGroupIds.indexOf(courseId) !== -1) ? 'none' : 'all';
     activeGroupPrefix = false;
+    activeGroupPersonal = false;
     if(courseId && courseUrlMap[courseId]){
       courseLinkBtn.dataset.copy = courseUrlMap[courseId];
       courseLinkBtn.hidden = false;
@@ -1226,17 +1256,20 @@ const staffScript = `<script>
     showSkillTabsFor(key);
     activeGroup = 'none';
     activeGroupPrefix = false;
+    activeGroupPersonal = false;
   }
 
-  /* Плитка-лист (юнит, «Все» темы или конкретный навык) — прячем все
-     сетки плиток этого курса и показываем отфильтрованные материалы. */
-  function showMaterialsFor(group, prefix, fromSkillKey){
+  /* Плитка-лист (юнит, «Все» темы, конкретный навык или личная папка) —
+     прячем все сетки плиток этого курса и показываем отфильтрованные
+     материалы (для личной папки — её список файлов фидбека). */
+  function showMaterialsFor(group, prefix, fromSkillKey, isPersonal){
     courseNavLevel = 'materials';
     courseNavTheme = fromSkillKey || null;
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){ row.hidden = true; });
     document.querySelectorAll('.sub-tabs-skill').forEach(function(row){ row.hidden = true; });
     activeGroup = group;
     activeGroupPrefix = prefix;
+    activeGroupPersonal = !!isPersonal;
   }
 
   /* iOS-свайп вправо (и обычная кнопка «Назад» браузера) должны листать
@@ -1250,6 +1283,7 @@ const staffScript = `<script>
   function pushStaffNav(){
     history.pushState({
       active: active, activeGroup: activeGroup, activeGroupPrefix: activeGroupPrefix,
+      activeGroupPersonal: activeGroupPersonal,
       courseNavCourseId: courseNavCourseId, courseNavLevel: courseNavLevel,
       courseNavTheme: courseNavTheme, courseNavFamily: courseNavFamily
     }, '');
@@ -1258,6 +1292,7 @@ const staffScript = `<script>
     active = 'none';
     activeGroup = 'all';
     activeGroupPrefix = false;
+    activeGroupPersonal = false;
     courseNavCourseId = null;
     courseNavLevel = 'top';
     courseNavTheme = null;
@@ -1274,6 +1309,7 @@ const staffScript = `<script>
   }
   function applyStaffState(s){
     active = s.active; activeGroup = s.activeGroup; activeGroupPrefix = s.activeGroupPrefix;
+    activeGroupPersonal = !!s.activeGroupPersonal;
     courseNavCourseId = s.courseNavCourseId; courseNavLevel = s.courseNavLevel;
     courseNavTheme = s.courseNavTheme; courseNavFamily = s.courseNavFamily;
 
@@ -1354,7 +1390,7 @@ const staffScript = `<script>
         showSkillLevelFor(t.dataset.hasSkills);
       } else {
         var skillGrid = t.closest('.sub-tabs-skill');
-        showMaterialsFor(t.dataset.groupTile, t.dataset.prefix === '1', skillGrid ? skillGrid.dataset.skillFor : null);
+        showMaterialsFor(t.dataset.groupTile, t.dataset.prefix === '1', skillGrid ? skillGrid.dataset.skillFor : null, t.dataset.personal === '1');
       }
       apply();
       pushStaffNav();
@@ -1519,6 +1555,7 @@ ${courseGroupRows}
 ${sortToolbar(true)}
   <div class="staff-list" id="staffList">
 ${materials.map(staffCard).join('\n')}
+${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
   extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
 }));

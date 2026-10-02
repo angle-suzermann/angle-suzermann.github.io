@@ -362,11 +362,16 @@ html, body{
 .course-link-row{ display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -4px 0 18px; }
 
 /* личная папка (фидбек конкретному ученику) — лежит в той же сетке плиток
-   и в той же ленте .card, что материалы (см. findPersonalFolders/
-   personalFolderCard в build.mjs); .personal-card лишь чуть отличает её
-   от карточки материала — не ссылка на один файл, а список файлов внутри. */
-.personal-card{ cursor: default; border-left-color: var(--yellow); }
-.personal-card:hover{ transform: none; }
+   и в той же ленте, что материалы (.card на странице курса, .staff-card
+   в панели преподавателя — см. findPersonalFolders/personalFolderCard/
+   personalFolderStaffCard в build.mjs); .personal-card лишь чуть отличает
+   её от карточки материала — не ссылка на один файл, а список файлов
+   внутри. Составной селектор (а не просто .personal-card) — чтобы
+   border-left-color наверняка победил и .card, и .staff-card независимо
+   от порядка правил в файле (у всех трёх селекторов иначе одна и та же
+   специфичность, и выигрывал бы просто тот, что ниже по файлу). */
+.card.personal-card, .staff-card.personal-card{ cursor: default; border-left-color: var(--yellow); }
+.card.personal-card:hover, .staff-card.personal-card:hover{ transform: none; }
 .personal-card .name{ margin-bottom: 4px; }
 .personal-group{ margin: 8px 0 0 6px; }
 .personal-group h4, .personal-group h5, .personal-group h6{
