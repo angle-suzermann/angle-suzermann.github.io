@@ -729,14 +729,28 @@ const courseLinkRow = (course) => `  <div class="course-link-row">${course.textb
 /* см. findPersonalFolders выше — рисует блок ссылок на личные папки
    (фидбек конкретному ученику), если в курсе есть хоть одна такая
    непустая папка с маркером .personal. */
-const personalFileLink = (course, rel) => {
-  const label = path.basename(rel).replace(/\.[^.]+$/, '');
-  const href = `${BASE}/${course.id}/${rel.split('/').map(encodeURIComponent).join('/')}`;
-  return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
-};
+/* Один и тот же документ часто лежит в нескольких форматах (pdf/html) и
+   иногда с лишним дублем имени («ANGLE - …» и без него) — списком это
+   выглядело как мусор из одинаковых на вид строк. Группируем файлы по
+   названию без расширения: одна строка — название + расширения-ссылки
+   через точку, а не отдельная строка на каждый формат. */
+const personalFileHref = (course, rel) => `${BASE}/${course.id}/${rel.split('/').map(encodeURIComponent).join('/')}`;
+function groupFilesByLabel(files) {
+  const map = new Map();
+  for (const f of files) {
+    const label = path.basename(f.rel).replace(/\.[^.]+$/, '');
+    const ext = (path.extname(f.rel).slice(1) || 'файл').toUpperCase();
+    if (!map.has(label)) map.set(label, []);
+    map.get(label).push({ ext, rel: f.rel });
+  }
+  return [...map.entries()].map(([label, variants]) => ({ label, variants }));
+}
 function renderPersonalNode(course, node, depth) {
   const filesHtml = node.files.length
-    ? `<ul class="personal-files">\n${node.files.map((f) => `        <li>${personalFileLink(course, f.rel)}</li>`).join('\n')}\n      </ul>`
+    ? `<ul class="personal-files">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
+        const links = variants.map((v) => `<a href="${esc(personalFileHref(course, v.rel))}" target="_blank" rel="noopener">${esc(v.ext)}</a>`).join(' · ');
+        return `        <li><span class="personal-label">${esc(label)}</span> <span class="personal-formats">${links}</span></li>`;
+      }).join('\n')}\n      </ul>`
     : '';
   const groupsHtml = node.groups
     .filter(personalTreeHasFiles)

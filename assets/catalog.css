@@ -390,10 +390,12 @@ html, body{
   color: #6b6560;
   margin: 10px 0 4px;
 }
-.personal-files{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.personal-files li{ font-size: 14px; }
-.personal-files a{ color: var(--purple); text-decoration: underline; text-decoration-color: rgba(94,72,119,0.35); }
-.personal-files a:hover{ text-decoration-color: var(--purple); }
+.personal-files{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.personal-files li{ font-size: 14px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.personal-label{ color: var(--black); }
+.personal-formats{ font-size: 12px; font-weight: 700; white-space: nowrap; }
+.personal-formats a{ color: var(--purple); text-decoration: underline; text-decoration-color: rgba(94,72,119,0.35); }
+.personal-formats a:hover{ text-decoration-color: var(--purple); }
 
 .textbook-link{
   display: inline-flex;
