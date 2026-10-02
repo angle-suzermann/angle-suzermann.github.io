@@ -30,7 +30,7 @@ const SKIP = new Set([
 ]);
 
 const REQUIRED = ['type', 'course', 'course-id', 'unit', 'title', 'date', 'status'];
-const TYPES    = ['test', 'worksheet', 'warmup'];
+const TYPES    = ['test', 'worksheet', 'warmup', 'presentation'];
 const STATUSES = ['published', 'draft'];
 
 const problems = [];
@@ -88,12 +88,12 @@ const ORIGIN = (() => {
 /* Картинки превью лежат в assets/og/: <курс>--<вид>.jpg, например
    ege-2027--homework.jpg (курс «gateway/gw-b2» → «gateway-gw-b2»).
    Вид: homework / classwork (по слову в имени папки или названии), иначе
-   test / warmup / worksheet; для страницы курса — course. Если нужной
+   test / warmup / worksheet / presentation; для страницы курса — course. Если нужной
    картинки нет (новый курс или новый вид), берётся <курс>--course.jpg,
    а если и её нет — общая site.jpg. Добавили курс — попросите Claude
    нарисовать для него картинки. */
 const OG_VERSION = 2;
-const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice' };
+const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice', presentation: 'Presentation' };
 const COURSE_EN = { 'ege-2027': 'EGE 2027', 'placement-tests': 'Placement Tests' };
 const courseNameEn = (id) => COURSE_EN[id] || (courses.find((c) => c.id === id) || {}).name || '';
 function materialKind(meta, relDir) {

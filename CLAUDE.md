@@ -41,6 +41,7 @@ as4/ as5/ misc/       материалы по курсам
 | Тест с баллами и отправкой учителю | `_templates/test.html` | стиль Macmillan photocopiable, свой цвет на юнит |
 | Воркшит с самопроверкой | `_templates/worksheet.html` | бренд ANGLE: фиолетовый, жёлтый, логотип |
 | Короткая разминка | `_templates/worksheet.html`, `ws:type: warmup` | то же, при желании с отправкой |
+| Презентация (слайды) | образец — `ege-2027/Разбор заданий ЕГЭ/listening-task1-strategy/`, `ws:type: presentation` | листалка слайдов-картинок (`img/slide-NN.webp`) + PDF для скачивания, без отправки |
 
 Отправка результата не привязана к виду: чтобы добавить её в воркшит, скопируйте
 блок `.results-panel` + `#sendBtn` из `_templates/test.html` и подключите
@@ -86,7 +87,7 @@ as4/ as5/ misc/       материалы по курсам
 ## Метаданные
 
 ```html
-<meta name="ws:type"       content="test">        <!-- test | worksheet | warmup -->
+<meta name="ws:type"       content="test">        <!-- test | worksheet | warmup | presentation -->
 <meta name="ws:course"     content="Academy Stars 5">
 <meta name="ws:course-id"  content="as5">         <!-- = имя папки курса -->
 <meta name="ws:unit"       content="9">

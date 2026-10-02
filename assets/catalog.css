@@ -284,6 +284,7 @@ html, body{
 .pill.test{ background: var(--purple); color: #fff; }
 .pill.worksheet{ background: var(--yellow); color: var(--black); }
 .pill.warmup{ background: var(--black); color: var(--yellow); }
+.pill.presentation{ background: #fff; color: var(--purple); box-shadow: inset 0 0 0 1.5px var(--purple); }
 .pill.draft{ background: #d97706; color: #fff; }
 
 .empty{
