@@ -541,6 +541,7 @@ ${skillTiles}
 
   return `  <div class="folder-nav">
     <button type="button" class="link-copy" id="groupBack" hidden>← Назад</button>
+    <button type="button" class="link-copy" id="groupLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на эту папку</button>
     <div class="tile-grid" id="groupTopGrid">
 ${topTiles.join('\n')}
     </div>
@@ -558,6 +559,7 @@ const groupFolderScript = `<script>
   var nav = document.querySelector('.folder-nav');
   if(!nav) return;
   var backBtn = document.getElementById('groupBack');
+  var linkBtn = document.getElementById('groupLinkBtn');
   var topGrid = document.getElementById('groupTopGrid');
   var skillGrids = Array.prototype.slice.call(document.querySelectorAll('[data-skill-grid-for]'));
   var materials = document.getElementById('groupMaterials');
@@ -581,6 +583,18 @@ const groupFolderScript = `<script>
     if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials';
     backBtn.hidden = view === 'top';
     if(view === 'materials') filterMaterials(currentGroup, currentPrefix);
+    /* ссылка на конкретную папку — видна только когда открыт её список
+       материалов (не на сетке плиток и не на экране навыков), ведёт
+       прямо в этот же вид через ?g=группа(&p=1 для «Все» внутри темы) —
+       см. разбор параметров внизу файла */
+    if(linkBtn){
+      if(view === 'materials'){
+        linkBtn.dataset.copy = location.pathname + '?g=' + currentGroup + (currentPrefix ? '&p=1' : '');
+        linkBtn.hidden = false;
+      } else {
+        linkBtn.hidden = true;
+      }
+    }
   }
   function showTop(){ view = 'top'; currentTheme = null; currentGroup = null; currentPrefix = false; render(); }
   function showSkills(theme){ view = 'skills'; currentTheme = theme; render(); }
@@ -631,7 +645,23 @@ const groupFolderScript = `<script>
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  showTop();
+  /* открытие по ссылке с ?g=...: сразу показываем нужную папку, минуя
+     клик по плитке — g без «/» и без p=1 — обычная плоская папка;
+     p=1 — плитка «Все» внутри темы с навыками (g тогда сама тема);
+     g с «/» — конкретный навык внутри темы (тема — часть до «/») */
+  var params = new URLSearchParams(location.search);
+  var gParam = params.get('g');
+  if(gParam){
+    if(params.get('p') === '1'){
+      showMaterials(gParam, true, gParam);
+    } else if(gParam.indexOf('/') !== -1){
+      showMaterials(gParam, false, gParam.slice(0, gParam.indexOf('/')));
+    } else {
+      showMaterials(gParam, false, null);
+    }
+  } else {
+    showTop();
+  }
 })();
 </script>`;
 
