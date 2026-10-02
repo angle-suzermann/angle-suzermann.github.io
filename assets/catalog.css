@@ -360,6 +360,41 @@ html, body{
 
 .course-link-row{ display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -4px 0 18px; }
 
+/* блок ссылок на личные папки (фидбек конкретному ученику) на странице
+   курса — см. findPersonalFolders/personalFoldersBlock в build.mjs */
+.personal-folders{ margin: 0 0 20px; }
+.personal-folders > h2{
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  margin: 0 0 10px;
+}
+.personal-folder{
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--neutral-border);
+  border-left: 6px solid var(--yellow);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  color: var(--black);
+  box-shadow: 0 4px 14px rgba(45,41,38,0.08);
+}
+.personal-folder > h3{ font-size: 15.5px; font-weight: 700; margin: 0 0 8px; }
+.personal-group{ margin: 8px 0 0 6px; }
+.personal-group h4, .personal-group h5, .personal-group h6{
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b6560;
+  margin: 10px 0 4px;
+}
+.personal-files{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.personal-files li{ font-size: 14px; }
+.personal-files a{ color: var(--purple); text-decoration: underline; text-decoration-color: rgba(94,72,119,0.35); }
+.personal-files a:hover{ text-decoration-color: var(--purple); }
+
 .textbook-link{
   display: inline-flex;
   align-items: center;

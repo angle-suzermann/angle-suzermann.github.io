@@ -271,6 +271,46 @@ function findMaterialSlugs(dir, prefix = '') {
   return out;
 }
 
+/* Личные папки (фидбек конкретному ученику — PDF/HTML-экспорты без
+   index.html, то есть НЕ материалы: findMaterialSlugs их не видит, в
+   каталог и панель преподавателя они не попадают, ws:*-метаданные им не
+   нужны). Сами файлы build.mjs всё равно копирует в _site как есть (общее
+   копирование статики, см. ниже), так что по прямой ссылке они и так
+   открывались бы — просто без этой ссылки на странице курса их никто не
+   найдёт. Чтобы такая папка появилась отдельным блоком со ссылками на
+   странице курса — положите прямо в её корень пустой файл-маркер
+   `.personal`. Больше ничего регистрировать не нужно: подпапки внутри
+   стают заголовками-темами, остальные файлы — ссылками, пустые папки
+   (ни одного файла ни на одном уровне) в блок не попадают. */
+function walkPersonalTree(dir, relPrefix) {
+  const files = [];
+  const groups = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name, 'ru'))) {
+    if (entry.name.startsWith('.')) continue;
+    const full = path.join(dir, entry.name);
+    const rel = relPrefix ? `${relPrefix}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      groups.push({ name: entry.name, ...walkPersonalTree(full, rel) });
+    } else {
+      files.push({ name: entry.name, rel });
+    }
+  }
+  return { files, groups };
+}
+const personalTreeHasFiles = (node) => node.files.length > 0 || node.groups.some(personalTreeHasFiles);
+function findPersonalFolders(courseDir) {
+  const out = [];
+  if (!fs.existsSync(courseDir)) return out;
+  for (const entry of fs.readdirSync(courseDir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
+    const sub = path.join(courseDir, entry.name);
+    if (!fs.existsSync(path.join(sub, '.personal'))) continue;
+    const tree = walkPersonalTree(sub, entry.name);
+    if (personalTreeHasFiles(tree)) out.push({ name: entry.name, tree });
+  }
+  return out.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+}
+
 for (const course of courses) {
   const courseDir = path.join(ROOT, course.id);
   if (!fs.existsSync(courseDir)) continue;
@@ -686,6 +726,40 @@ const courseLinkRow = (course) => `  <div class="course-link-row">${course.textb
   </div>
 `;
 
+/* см. findPersonalFolders выше — рисует блок ссылок на личные папки
+   (фидбек конкретному ученику), если в курсе есть хоть одна такая
+   непустая папка с маркером .personal. */
+const personalFileLink = (course, rel) => {
+  const label = path.basename(rel).replace(/\.[^.]+$/, '');
+  const href = `${BASE}/${course.id}/${rel.split('/').map(encodeURIComponent).join('/')}`;
+  return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+};
+function renderPersonalNode(course, node, depth) {
+  const filesHtml = node.files.length
+    ? `<ul class="personal-files">\n${node.files.map((f) => `        <li>${personalFileLink(course, f.rel)}</li>`).join('\n')}\n      </ul>`
+    : '';
+  const groupsHtml = node.groups
+    .filter(personalTreeHasFiles)
+    .map((g) => `      <div class="personal-group">
+        <h${Math.min(depth + 4, 6)}>${esc(g.name)}</h${Math.min(depth + 4, 6)}>
+        ${renderPersonalNode(course, g, depth + 1)}
+      </div>`)
+    .join('\n');
+  return `${filesHtml}${groupsHtml}`;
+}
+const personalFoldersBlock = (course) => {
+  const folders = findPersonalFolders(path.join(ROOT, course.id));
+  if (!folders.length) return '';
+  return `  <div class="personal-folders">
+    <h2>📁 Личные материалы</h2>
+${folders.map((f) => `    <div class="personal-folder">
+      <h3>${esc(f.name)}</h3>
+      ${renderPersonalNode(course, f.tree, 0)}
+    </div>`).join('\n')}
+  </div>
+`;
+};
+
 /* Курсы с одинаковым config.courses[].family группируются в один блок
    с общим заголовком (см. site.config.json, поле "family") — используется
    и на лендинге (плитки), и в панели преподавателя (кнопка + подвкладки). */
@@ -880,8 +954,8 @@ for (const course of courses) {
     headingIconSmall: true,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: list.length
-      ? `${courseLinkRow(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
-      : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
+      ? `${courseLinkRow(course)}${personalFoldersBlock(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
+      : `${courseLinkRow(course)}${personalFoldersBlock(course)}  <p class="empty">Пока пусто.</p>`,
     extraScript: copyScript + (hasGroups ? groupFolderScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
   }));
 }
