@@ -543,9 +543,17 @@ const groupTileTree = (list) => {
   return { groups, themes, countExact, countPrefix, ungroupedCount };
 };
 
+/* Названия плиток-папок часто начинаются с номера юнита («1. Путешествие»,
+   «2. Высшая школа») — обычный пробел после точки давал браузеру право
+   перенести строку прямо там, и если дальше шло одно длинное слово без
+   других пробелов («Путешествие»), номер при переносе оставался сиротой
+   на своей строке, а слово — на следующей. Склеиваем номер с первым
+   словом неразрывным пробелом (overflow-wrap в CSS уже умеет переносить
+   сам длинное слово при нехватке места — см. .tile-name). */
+const tileNameText = (name) => name.replace(/^(\d+\.)\s/, '$1\u00A0');
 const groupTileHtml = (attrs, emoji, name, count, words = ['материал', 'материала', 'материалов']) => `      <a class="tile" href="javascript:void(0)"${attrs}>
         <span class="tile-icon"><span class="tile-emoji">${emoji}</span></span>
-        <span class="tile-name">${esc(name)}</span>
+        <span class="tile-name">${esc(tileNameText(name))}</span>
         <span class="tile-count">${count} ${wordForm(count, ...words)}</span>
       </a>`;
 
@@ -609,6 +617,7 @@ const groupFolderScript = `<script>
   if(!nav) return;
   var backBtn = document.getElementById('groupBack');
   var linkBtn = document.getElementById('groupLinkBtn');
+  var pageLinkBtn = document.getElementById('pageLinkBtn');
   var topGrid = document.getElementById('groupTopGrid');
   var skillGrids = Array.prototype.slice.call(document.querySelectorAll('[data-skill-grid-for]'));
   var materials = document.getElementById('groupMaterials');
@@ -645,6 +654,11 @@ const groupFolderScript = `<script>
         linkBtn.hidden = true;
       }
     }
+    /* ссылка на папку уже даёт прямой путь к этому же месту — ссылка на
+       всю страницу курса рядом с ней только дублирует смысл и путает,
+       какую из двух копировать; прячем общую ссылку, пока видна ссылка
+       на конкретную папку */
+    if(pageLinkBtn) pageLinkBtn.hidden = view === 'materials';
   }
   function showTop(){ view = 'top'; currentTheme = null; currentGroup = null; currentPrefix = false; currentIsPersonal = false; render(); }
   function showSkills(theme){ view = 'skills'; currentTheme = theme; render(); }
@@ -735,7 +749,7 @@ const copyScript = `<script>
 
 const courseLinkRow = (course) => `  <div class="course-link-row">${course.textbookUrl ? `
     <a class="textbook-link" href="${esc(course.textbookUrl)}" target="_blank" rel="noopener">📘 Скачать учебник</a>` : ''}
-    <button type="button" class="link-copy" data-copy="${esc(`${BASE}/${course.id}/`)}">🔗 Скопировать ссылку на эту страницу</button>
+    <button type="button" class="link-copy" id="pageLinkBtn" data-copy="${esc(`${BASE}/${course.id}/`)}">🔗 Скопировать ссылку на эту страницу</button>
   </div>
 `;
 
@@ -1238,12 +1252,7 @@ const staffScript = `<script>
     activeGroup = (courseId && courseGroupIds.indexOf(courseId) !== -1) ? 'none' : 'all';
     activeGroupPrefix = false;
     activeGroupPersonal = false;
-    if(courseId && courseUrlMap[courseId]){
-      courseLinkBtn.dataset.copy = courseUrlMap[courseId];
-      courseLinkBtn.hidden = false;
-    } else {
-      courseLinkBtn.hidden = true;
-    }
+    updateCourseLinkBtn();
   }
 
   /* Заходим во второй экран — плитки навыков внутри темы (только для
@@ -1270,6 +1279,26 @@ const staffScript = `<script>
     activeGroup = group;
     activeGroupPrefix = prefix;
     activeGroupPersonal = !!isPersonal;
+    updateCourseLinkBtn();
+  }
+  /* Раньше кнопка копирования ссылки в панели преподавателя всегда вела
+     на страницу курса целиком, даже когда открыт конкретный юнит/папка —
+     по той же логике, что уже есть на публичной странице курса (?g=...,
+     см. groupFolderScript), подменяем ссылку на ссылку именно на эту
+     папку, пока открыт её список материалов. */
+  function updateCourseLinkBtn(){
+    if(!(courseNavCourseId && courseNavLevel !== 'top' && courseUrlMap[courseNavCourseId])){
+      courseLinkBtn.hidden = true;
+      return;
+    }
+    if(courseNavLevel === 'materials' && activeGroup && activeGroup !== 'none' && activeGroup !== 'all'){
+      courseLinkBtn.dataset.copy = courseUrlMap[courseNavCourseId] + '?g=' + activeGroup + (activeGroupPrefix ? '&p=1' : '');
+      courseLinkBtn.textContent = '🔗 Скопировать ссылку на эту папку';
+    } else {
+      courseLinkBtn.dataset.copy = courseUrlMap[courseNavCourseId];
+      courseLinkBtn.textContent = '🔗 Скопировать ссылку на страницу курса';
+    }
+    courseLinkBtn.hidden = false;
   }
 
   /* iOS-свайп вправо (и обычная кнопка «Назад» браузера) должны листать
@@ -1344,12 +1373,7 @@ const staffScript = `<script>
 
     courseTilesWrap.hidden = active !== 'none';
     backBtn.hidden = active === 'none';
-    if(courseNavCourseId && courseNavLevel !== 'top' && courseUrlMap[courseNavCourseId]){
-      courseLinkBtn.dataset.copy = courseUrlMap[courseNavCourseId];
-      courseLinkBtn.hidden = false;
-    } else {
-      courseLinkBtn.hidden = true;
-    }
+    updateCourseLinkBtn();
     apply();
   }
   window.addEventListener('popstate', function(e){
