@@ -1266,8 +1266,18 @@ const staffScript = `<script>
        оставались видны рядом с папками курса, хотя при обычном
        клике внутрь курса они корректно прячутся. */
     showSubTabsFor(courseNavCourseId ? null : famForButton);
+    /* Та же причина, что и в комментарии выше про showSubTabsFor: ряд
+       плиток-папок курса (sub-tabs-group) нужен только НА САМОМ уровне
+       папок (courseNavLevel === 'group') — как только зашли глубже, в
+       навыки или в сами материалы, showSkillLevelFor/showMaterialsFor
+       явно прячут этот ряд. Раньше applyStaffState проверял только
+       courseNavCourseId (он остаётся одним и тем же на всех уровнях
+       внутри курса), поэтому при возврате назад на уровень навыков или
+       материалов (кнопка «← Все курсы», iOS-свайп, браузерная история)
+       ряд папок курса снова появлялся поверх/рядом с уже открытым
+       уровнем — те же папки и список навыков одновременно. */
     document.querySelectorAll('.sub-tabs-group').forEach(function(row){
-      row.hidden = row.dataset.groupFor !== courseNavCourseId;
+      row.hidden = courseNavLevel !== 'group' || row.dataset.groupFor !== courseNavCourseId;
     });
     showSkillTabsFor(courseNavLevel === 'skill' ? courseNavTheme : null);
 
