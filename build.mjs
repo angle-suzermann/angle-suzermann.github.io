@@ -543,16 +543,22 @@ const groupTileTree = (list) => {
   return { groups, themes, countExact, countPrefix, ungroupedCount };
 };
 
-const groupTileHtml = (attrs, emoji, name, count) => `      <a class="tile" href="javascript:void(0)"${attrs}>
+const groupTileHtml = (attrs, emoji, name, count, words = ['материал', 'материала', 'материалов']) => `      <a class="tile" href="javascript:void(0)"${attrs}>
         <span class="tile-icon"><span class="tile-emoji">${emoji}</span></span>
         <span class="tile-name">${esc(name)}</span>
-        <span class="tile-count">${count} ${wordForm(count, 'материал', 'материала', 'материалов')}</span>
+        <span class="tile-count">${count} ${wordForm(count, ...words)}</span>
       </a>`;
 
-const groupFolderNav = (list) => {
+/* personalFolders (см. findPersonalFolders выше) — папки с именами учеников
+   лежат в той же сетке плиток, что и темы курса, и открываются той же
+   логикой «зайти внутрь» (см. groupFolderScript) — просто внутри не
+   карточки материалов, а список файлов фидбека (см. personalFolderCard). */
+const countPersonalFiles = (node) => node.files.length + node.groups.reduce((sum, g) => sum + countPersonalFiles(g), 0);
+
+const groupFolderNav = (list, personalFolders = []) => {
   const tree = groupTileTree(list);
-  if (!tree) return '';
-  const { groups, themes, countExact, countPrefix, ungroupedCount } = tree;
+  if (!tree && !personalFolders.length) return '';
+  const { groups, themes, countExact, countPrefix, ungroupedCount } = tree || { groups: [], themes: [], countExact: () => 0, countPrefix: () => 0, ungroupedCount: 0 };
 
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
@@ -562,6 +568,9 @@ const groupFolderNav = (list) => {
   if (ungroupedCount) {
     topTiles.push(groupTileHtml(' data-group-tile=""', '📁', 'Без юнита', ungroupedCount));
   }
+  personalFolders.forEach((pf) => {
+    topTiles.push(groupTileHtml(` data-group-tile="${esc(pf.name)}" data-personal="1"`, '📁', pf.name, countPersonalFiles(pf.tree), ['файл', 'файла', 'файлов']));
+  });
 
   const skillGrids = themes
     .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
@@ -608,6 +617,7 @@ const groupFolderScript = `<script>
   var currentTheme = null;
   var currentGroup = null;
   var currentPrefix = false;
+  var currentIsPersonal = false;
 
   function filterMaterials(group, prefix){
     document.querySelectorAll('.card[data-group]').forEach(function(c){
@@ -620,7 +630,7 @@ const groupFolderScript = `<script>
     topGrid.hidden = view !== 'top';
     skillGrids.forEach(function(g){ g.hidden = !(view === 'skills' && g.dataset.skillGridFor === currentTheme); });
     if(materials) materials.hidden = view !== 'materials';
-    if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials';
+    if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials' || currentIsPersonal;
     backBtn.hidden = view === 'top';
     if(view === 'materials') filterMaterials(currentGroup, currentPrefix);
     /* ссылка на конкретную папку — видна только когда открыт её список
@@ -636,13 +646,14 @@ const groupFolderScript = `<script>
       }
     }
   }
-  function showTop(){ view = 'top'; currentTheme = null; currentGroup = null; currentPrefix = false; render(); }
+  function showTop(){ view = 'top'; currentTheme = null; currentGroup = null; currentPrefix = false; currentIsPersonal = false; render(); }
   function showSkills(theme){ view = 'skills'; currentTheme = theme; render(); }
-  function showMaterials(group, prefix, parentTheme){
+  function showMaterials(group, prefix, parentTheme, isPersonal){
     view = 'materials';
     currentTheme = parentTheme || null;
     currentGroup = group;
     currentPrefix = prefix;
+    currentIsPersonal = !!isPersonal;
     render();
   }
 
@@ -652,12 +663,13 @@ const groupFolderScript = `<script>
      жестом, кнопкой браузера или самой кнопкой «← Назад» — вызывает
      popstate и восстанавливает ровно предыдущий снимок. */
   function pushFolderNav(){
-    history.pushState({ view: view, currentTheme: currentTheme, currentGroup: currentGroup, currentPrefix: currentPrefix }, '');
+    history.pushState({ view: view, currentTheme: currentTheme, currentGroup: currentGroup, currentPrefix: currentPrefix, currentIsPersonal: currentIsPersonal }, '');
   }
   window.addEventListener('popstate', function(e){
     if(e.state){
       view = e.state.view; currentTheme = e.state.currentTheme;
       currentGroup = e.state.currentGroup; currentPrefix = e.state.currentPrefix;
+      currentIsPersonal = !!e.state.currentIsPersonal;
       render();
     } else {
       showTop();
@@ -671,9 +683,9 @@ const groupFolderScript = `<script>
       if(t.dataset.hasSkills === '1'){
         showSkills(val);
       } else if(grid){
-        showMaterials(val, t.dataset.prefix === '1', grid.dataset.skillGridFor);
+        showMaterials(val, t.dataset.prefix === '1', grid.dataset.skillGridFor, false);
       } else {
-        showMaterials(val, false, null);
+        showMaterials(val, false, null, t.dataset.personal === '1');
       }
       pushFolderNav();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -697,7 +709,8 @@ const groupFolderScript = `<script>
     } else if(gParam.indexOf('/') !== -1){
       showMaterials(gParam, false, gParam.slice(0, gParam.indexOf('/')));
     } else {
-      showMaterials(gParam, false, null);
+      var tile = document.querySelector('.tile[data-group-tile="' + gParam.replace(/"/g, '\\"') + '"]');
+      showMaterials(gParam, false, null, !!tile && tile.dataset.personal === '1');
     }
   } else {
     showTop();
@@ -726,9 +739,6 @@ const courseLinkRow = (course) => `  <div class="course-link-row">${course.textb
   </div>
 `;
 
-/* см. findPersonalFolders выше — рисует блок ссылок на личные папки
-   (фидбек конкретному ученику), если в курсе есть хоть одна такая
-   непустая папка с маркером .personal. */
 /* Один и тот же документ часто лежит в нескольких форматах (pdf/html) и
    иногда с лишним дублем имени («ANGLE - …» и без него) — списком это
    выглядело как мусор из одинаковых на вид строк. Группируем файлы по
@@ -761,18 +771,15 @@ function renderPersonalNode(course, node, depth) {
     .join('\n');
   return `${filesHtml}${groupsHtml}`;
 }
-const personalFoldersBlock = (course) => {
-  const folders = findPersonalFolders(path.join(ROOT, course.id));
-  if (!folders.length) return '';
-  return `  <div class="personal-folders">
-    <h2>📁 Личные материалы</h2>
-${folders.map((f) => `    <div class="personal-folder">
-      <h3>${esc(f.name)}</h3>
-      ${renderPersonalNode(course, f.tree, 0)}
-    </div>`).join('\n')}
-  </div>
-`;
-};
+/* личная папка лежит в той же сетке плиток, что темы курса (см.
+   groupFolderNav), а открывшись — в той же общей ленте, что карточки
+   материалов (#groupMaterials/.course-block): это тоже .card с
+   data-group, чтобы её показывал/прятал тот же filterMaterials, только
+   внутри не ссылка на материал, а список файлов фидбека. */
+const personalFolderCard = (course, folder) => `  <div class="card personal-card" data-group="${esc(folder.name)}">
+    <div class="row"><span class="name">📁 ${esc(folder.name)}</span></div>
+    ${renderPersonalNode(course, folder.tree, 0)}
+  </div>`;
 
 /* Курсы с одинаковым config.courses[].family группируются в один блок
    с общим заголовком (см. site.config.json, поле "family") — используется
@@ -958,7 +965,11 @@ for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
+  const personalFolders = findPersonalFolders(path.join(ROOT, course.id));
   const hasGroups = list.some((m) => m.group);
+  const showFolderNav = hasGroups || personalFolders.length > 0;
+  const hasAnyContent = list.length > 0 || personalFolders.length > 0;
+  const cardsHtml = list.map(card).join('\n') + (personalFolders.length ? '\n' + personalFolders.map((f) => personalFolderCard(course, f)).join('\n') : '');
   const headingIconPath = COURSE_HEADING_ICON_MAP[course.id]
     ? `/assets/brand/course/${COURSE_HEADING_ICON_MAP[course.id]}` : '';
   fs.writeFileSync(path.join(dir, 'index.html'), page({
@@ -967,10 +978,10 @@ for (const course of courses) {
     headingIcon: headingIconPath,
     headingIconSmall: true,
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
-    body: list.length
-      ? `${courseLinkRow(course)}${personalFoldersBlock(course)}${hasGroups ? groupFolderNav(list) : ''}${sortToolbar(hasGroups)}<div class="course-block"${hasGroups ? ' id="groupMaterials" hidden' : ''}>\n${list.map(card).join('\n')}\n</div>`
-      : `${courseLinkRow(course)}${personalFoldersBlock(course)}  <p class="empty">Пока пусто.</p>`,
-    extraScript: copyScript + (hasGroups ? groupFolderScript : '') + (list.length ? sortScript('.course-block', '.card') : ''),
+    body: hasAnyContent
+      ? `${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`
+      : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
+    extraScript: copyScript + (showFolderNav ? groupFolderScript : '') + (hasAnyContent ? sortScript('.course-block', '.card') : ''),
   }));
 }
 
