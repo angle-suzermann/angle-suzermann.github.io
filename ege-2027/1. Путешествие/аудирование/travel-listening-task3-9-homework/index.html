@@ -176,7 +176,10 @@ input.gap.is-wrong{ border-color:var(--wrong); background:#fdecec; }
 .gap-n{ font-size:.72rem; font-weight:800; color:var(--purple); vertical-align:super; margin-right:2px; }
 .gap-key{ display:none; font-size:.78rem; color:var(--correct); font-weight:700; margin-left:4px; }
 .show-keys .gap-key{ display:inline; }
-.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }/* iOS: no auto-zoom on focus */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+</style>
 </head>
 <body>
 <div class="app-shell">
