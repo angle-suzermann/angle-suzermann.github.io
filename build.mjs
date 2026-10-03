@@ -311,6 +311,28 @@ function findPersonalFolders(courseDir) {
   return out.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
 }
 
+/* автозащита «для ученика»: на публичной странице курса личная папка
+   никогда не должна показать файл, помеченный как учительский (имя
+   содержит «для учителя» или «(учитель)» — та же пометка, которой
+   Виктория уже помечает такие файлы вручную при уборке папок). Раньше
+   это приходилось отслеживать руками при каждой чистке — теперь это
+   встроено в саму сборку: даже если такой файл случайно останется в
+   папке ученика, build.mjs его не отрисует и не посчитает на публичной
+   странице. В панели преподавателя (findPersonalFolders без фильтра,
+   см. personalFoldersByCourse ниже) дерево остаётся полным — Виктории
+   там нужны и свои файлы тоже. */
+const TEACHER_ONLY_FILE_RE = /для\s+учител|\(учитель\)/i;
+function filterStudentFacingTree(node) {
+  const files = node.files.filter((f) => !TEACHER_ONLY_FILE_RE.test(f.name));
+  const groups = node.groups.map(filterStudentFacingTree).filter(personalTreeHasFiles);
+  return { files, groups };
+}
+function findPersonalFoldersForStudent(courseDir) {
+  return findPersonalFolders(courseDir)
+    .map((f) => ({ name: f.name, tree: filterStudentFacingTree(f.tree) }))
+    .filter((f) => personalTreeHasFiles(f.tree));
+}
+
 for (const course of courses) {
   const courseDir = path.join(ROOT, course.id);
   if (!fs.existsSync(courseDir)) continue;
@@ -979,7 +1001,7 @@ for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
-  const personalFolders = findPersonalFolders(path.join(ROOT, course.id));
+  const personalFolders = findPersonalFoldersForStudent(path.join(ROOT, course.id));
   const hasGroups = list.some((m) => m.group);
   const showFolderNav = hasGroups || personalFolders.length > 0;
   const hasAnyContent = list.length > 0 || personalFolders.length > 0;
