@@ -156,7 +156,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
   .lesson-title{ font-size:.92rem; }
   .namebar input{ width:150px; }
 }
-</style>
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
 </head>
 <body>
 <div class="app-shell">
@@ -169,7 +169,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
       <span class="lesson-title">Visiting Russia — Listening, Задание 1 · Classwork</span>
       <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
     </div>
-    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 11</span></div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 12</span></div>
     <div class="page-dots" id="pageDots"></div>
   </div>
 </header>
@@ -186,16 +186,26 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
       <table class="score-table"><tr><td>6 верных ответов</td><td>2 балла</td></tr><tr><td>5 верных ответов</td><td>1 балл</td></tr><tr><td>4 и меньше</td><td>0 баллов</td></tr></table>
       Одна ошибка уже стоит балла — поэтому так важна стратегия.
     </div>
-    <details class="fold"><summary>Алгоритм выполнения задания 1 (7 шагов)</summary><ol class="algo"><li>До первого прослушивания прочитайте все утверждения 1-7 и определите общую тематику высказываний. Подчеркните в них ключевые слова. Ищите различия, подумайте, чем эти утверждения отличаются друг от друга.</li><li>Определив ключевые слова (различия между утверждениями), постарайтесь продумать, как эта информация может быть представлена в звучащем тексте, какими синонимами, антонимами, какими другими словами автор мог бы выразить эту мысль. Общее содержание аудиозаписи или её главная мысль будет перефразироваться в утверждениях при помощи синонимов.</li><li>В данном задании не требуется полного понимания аудиозаписи, поэтому нужно стараться понять основное содержание по ключевым словам и не обращать внимания на слова, от которых это общее понимание не зависит. Не следует пугаться незнакомых слов.</li><li>Помните, что одно из утверждений является лишним. Проверьте, что не использованное в ответе утверждение действительно не подходит ни к одному из высказываний.</li><li>При первом прослушивании делайте пометки, отмечайте знаками ключевые аспекты, отношение говорящего к предмету высказывания. Записывайте свои ответы прямо в тексте задания на листе КИМ – рядом с утверждением указывайте букву соответствующего высказывания. Если сомневаетесь, поставьте знак вопроса.</li><li>При втором прослушивании обращайте внимание не только на те высказывания, где у вас есть сомнения, внимательно слушайте всё. Есть вероятность, что вы измените свой первоначальный вариант ответа, уловив дополнительную информацию.</li><li>Не оставляйте ни один вопрос без ответа, даже если вы не совсем уверены в точности.</li></ol></details>
     <h3>Warm-up</h3>
     <div class="item"><p class="q">Imagine a friend from abroad is planning a trip to Russia. What would you advise them to see or do, and why?</p><textarea placeholder="Type 2–3 sentences…"></textarea></div>
     <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
   </div>
 </section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Before you listen · Page 2 of 12</div>
+    <h2>Алгоритм выполнения задания 1: 4 главных шага</h2>
+    <p class="muted">Прочитайте перед прослушиванием и держите в голове на каждом варианте.</p>
+    <div class="item algo-step"><span class="algo-n">1</span><p class="q">Прочитайте утверждения 1–7: какая у них общая тема и чем они отличаются друг от друга? Подчеркните ключевые слова.</p></div><div class="item algo-step"><span class="algo-n">2</span><p class="q">Подумайте, какими синонимами, антонимами и другими словами говорящие могут выразить эти идеи — они почти никогда не повторяют слова из задания.</p></div><div class="item algo-step"><span class="algo-n">3</span><p class="q">Одно утверждение лишнее. Не цепляйтесь за отдельные слова: ищите общий смысл каждого высказывания.</p></div><div class="item algo-step"><span class="algo-n">4</span><p class="q">Первое прослушивание — пометки и «?» при сомнении. Второе — слушайте всё, а не только сомнительные места. Не оставляйте пропусков.</p></div>
+    <details class="fold"><summary>Полный алгоритм (7 шагов)</summary><ol class="algo"><li>До первого прослушивания прочитайте все утверждения 1-7 и определите общую тематику высказываний. Подчеркните в них ключевые слова. Ищите различия, подумайте, чем эти утверждения отличаются друг от друга.</li><li>Определив ключевые слова (различия между утверждениями), постарайтесь продумать, как эта информация может быть представлена в звучащем тексте, какими синонимами, антонимами, какими другими словами автор мог бы выразить эту мысль. Общее содержание аудиозаписи или её главная мысль будет перефразироваться в утверждениях при помощи синонимов.</li><li>В данном задании не требуется полного понимания аудиозаписи, поэтому нужно стараться понять основное содержание по ключевым словам и не обращать внимания на слова, от которых это общее понимание не зависит. Не следует пугаться незнакомых слов.</li><li>Помните, что одно из утверждений является лишним. Проверьте, что не использованное в ответе утверждение действительно не подходит ни к одному из высказываний.</li><li>При первом прослушивании делайте пометки, отмечайте знаками ключевые аспекты, отношение говорящего к предмету высказывания. Записывайте свои ответы прямо в тексте задания на листе КИМ – рядом с утверждением указывайте букву соответствующего высказывания. Если сомневаетесь, поставьте знак вопроса.</li><li>При втором прослушивании обращайте внимание не только на те высказывания, где у вас есть сомнения, внимательно слушайте всё. Есть вероятность, что вы измените свой первоначальный вариант ответа, уловив дополнительную информацию.</li><li>Не оставляйте ни один вопрос без ответа, даже если вы не совсем уверены в точности.</li></ol></details>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
 
 <section class="page" data-page="1">
   <div class="card">
-    <div class="eyebrow">Pre-listening · Page 2 of 11</div>
+    <div class="eyebrow">Pre-listening · Page 3 of 12</div>
     <h2>Task 1. Prediction activity</h2>
     <p>Look through the statements 1–7. What topic are they all devoted to? What is different? Give a short answer in 1–2 sentences.</p>
     <ol class="statement-list"><li><b>1.</b> Russian nature really attracts foreign tourists.</li><li><b>2.</b> Practicing Russian is a reason to visit the country.</li><li><b>3.</b> Russia can offer green style holidays for tourists.</li><li><b>4.</b> Small towns in Russia are as good as big cities.</li><li><b>5.</b> Visiting Russia can help me with my future career.</li><li><b>6.</b> You can do many sports while on holiday in Russia.</li><li><b>7.</b> Tourists visit Russia because of its cultural heritage.</li></ol>
@@ -208,7 +218,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 
 <section class="page" data-page="2">
   <div class="card">
-    <div class="eyebrow">Pre-listening · Page 3 of 11</div>
+    <div class="eyebrow">Pre-listening · Page 4 of 12</div>
     <h2>Task 2. Key words</h2>
     <p>Look at the statements below and highlight the key words and phrases in each statement. Click a word to highlight it, click again to remove. The key words help us single out the differences in the speakers’ statements.</p>
     <div id="kwLines"></div>
@@ -220,7 +230,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 
 <section class="page" data-page="3">
   <div class="card">
-    <div class="eyebrow">Pre-listening · Page 4 of 11</div>
+    <div class="eyebrow">Pre-listening · Page 5 of 12</div>
     <h2>Task 3. Different ways to say it</h2>
     <p>The speakers will not repeat the words from the statements — they will use synonyms, antonyms, definitions or their own words. Click a key phrase on the left, then click the way it can be expressed on the right.</p>
     <div class="match-wrap" id="paraWrap" data-total-pairs="9" data-correct-count="0">
@@ -235,7 +245,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 
 <section class="page" data-page="4">
   <div class="card">
-    <div class="eyebrow">While-listening · Page 5 of 11</div>
+    <div class="eyebrow">While-listening · Page 6 of 12</div>
     <h2>Task 4. Listen and match</h2>
     <p>Прослушайте шесть высказываний. Установите соответствие между высказываниями каждого говорящего A–F и утверждениями, данными в списке 1–7. Используйте каждое утверждение, обозначенное соответствующей цифрой, только один раз. В задании есть одно лишнее утверждение.</p>
     <p class="muted">While listening, put down the words and phrases that help you choose the right answer — you will need them on the next page.</p>
@@ -251,7 +261,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 
 <section class="page" data-page="5">
   <div class="card">
-    <div class="eyebrow">Post-listening · Page 6 of 11</div>
+    <div class="eyebrow">Post-listening · Page 7 of 12</div>
     <h2>Task 5. Prove it — and spot the traps</h2>
     <p>Follow the script. Find reasons and details to prove your answers in Task 4. Click 🔍 to see the key part of each speaker’s text.</p>
     <div class="item"><p class="q"><b>Proof buttons:</b>
@@ -270,7 +280,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 
 <section class="page">
   <div class="card">
-    <div class="eyebrow">Practice in class · Page 7 of 11</div>
+    <div class="eyebrow">Practice in class · Page 8 of 12</div>
     <h2>Practice Variant 1 · Holidays</h2>
     
     <h3>Step 1. Before you listen: brainstorm</h3>
@@ -299,7 +309,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 </section>
 <section class="page">
   <div class="card">
-    <div class="eyebrow">Practice in class · Page 8 of 11</div>
+    <div class="eyebrow">Practice in class · Page 9 of 12</div>
     <h2>Practice Variant 2 · Where to stay</h2>
     
     <h3>Step 1. Before you listen: brainstorm</h3>
@@ -327,7 +337,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 </section>
 <section class="page">
   <div class="card">
-    <div class="eyebrow">Practice in class · Page 9 of 11</div>
+    <div class="eyebrow">Practice in class · Page 10 of 12</div>
     <h2>Practice Variant 3 · Travel and work</h2>
     
     <h3>Step 1. Before you listen: brainstorm</h3>
@@ -356,7 +366,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 </section>
 <section class="page">
   <div class="card">
-    <div class="eyebrow">Practice in class · Page 10 of 11</div>
+    <div class="eyebrow">Practice in class · Page 11 of 12</div>
     <h2>Practice Variant 4 · Weekends</h2>
     
     <h3>Step 1. Before you listen: brainstorm</h3>
@@ -384,7 +394,7 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
   </div>
 </section><section class="page" data-page="6">
   <div class="card">
-    <div class="eyebrow">Page 11 of 11</div>
+    <div class="eyebrow">Page 12 of 12</div>
     <h2>Results</h2>
     <p class="muted">Press “Check &amp; Submit” on the last practice page to see your score here.</p>
     <div class="results-panel" id="resultsPanel">
@@ -506,7 +516,7 @@ const VARIANTS = [{"key": "p1", "label": "Variant 1 · Holidays", "statements": 
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 const COURSE_NAME = 'ЕГЭ 2027';
 const PROGRESS_KEY = 'angle_progress::ege2027-travel-listening-task1-classwork-v2';
-const PAGE_LABELS = ["Старт","Prediction","Key words","Paraphrase","Listening","Proof & traps","Practice 1","Practice 2","Practice 3","Practice 4","Итоги"];
+const PAGE_LABELS = ["Старт","Алгоритм","Prediction","Key words","Paraphrase","Listening","Proof & traps","Practice 1","Practice 2","Practice 3","Practice 4","Итоги"];
 const STATEMENTS = ["Russian nature really attracts foreign tourists.", "Practicing Russian is a reason to visit the country.", "Russia can offer green style holidays for tourists.", "Small towns in Russia are as good as big cities.", "Visiting Russia can help me with my future career.", "You can do many sports while on holiday in Russia.", "Tourists visit Russia because of its cultural heritage."];
 const KEYWORDS = [["russian", "nature", "attracts", "foreign", "tourists"], ["practicing", "russian", "reason"], ["green", "style", "holidays"], ["small", "towns", "as", "good", "as", "big", "cities"], ["help", "future", "career"], ["many", "sports"], ["because", "of", "cultural", "heritage"]];
 const AUD = {"key": "cw", "statements": ["Russian nature really attracts foreign tourists.", "Practicing Russian is a reason to visit the country.", "Russia can offer green style holidays for tourists.", "Small towns in Russia are as good as big cities.", "Visiting Russia can help me with my future career.", "You can do many sports while on holiday in Russia.", "Tourists visit Russia because of its cultural heritage."], "answers": {"A": 5, "B": 1, "C": 2, "D": 4, "E": 6, "F": 3}};
