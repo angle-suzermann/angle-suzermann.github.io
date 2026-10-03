@@ -305,6 +305,8 @@ html, body{
 .pill.warmup{ background: var(--black); color: var(--yellow); }
 .pill.presentation{ background: #fff; color: var(--purple); box-shadow: inset 0 0 0 1.5px var(--purple); }
 .pill.draft{ background: #d97706; color: #fff; }
+.pill.submitted{ background: var(--correct); color: #fff; }
+.pill.not-submitted{ background: transparent; color: var(--black); opacity: .6; box-shadow: inset 0 0 0 1.5px var(--neutral-border); }
 
 .empty{
   color: rgba(255,255,255,0.75);

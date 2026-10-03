@@ -25,7 +25,7 @@ const OUT  = path.join(ROOT, '_site');
 /* не копируем в _site: служебное и то, что не должно быть в интернете */
 const SKIP = new Set([
   '_site', '_templates', '.github', '.claude', '.git', '.gitignore',
-  'build.mjs', 'site.config.json', '.DS_Store', 'node_modules',
+  'build.mjs', 'site.config.json', 'submissions.json', '.DS_Store', 'node_modules',
   'docs',   // внутренняя документация, в интернет не выкладываем
 ]);
 
@@ -63,6 +63,29 @@ if (!fs.existsSync(configPath)) {
   process.exit(1);
 }
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+/* Статус сдачи в учительской панели — ручной файл submissions.json рядом
+   с site.config.json (в _site не копируется, см. SKIP выше). У сайта нет
+   базы данных: Web3Forms/Formspree просто присылают Виктории письмо при
+   сдаче теста, сборка об этом узнать не может. Поэтому статус ведётся
+   руками: ключ — ссылка на материал (можно с доменом и слэшем на конце,
+   можно без — всё приводится к одному виду), значение — список сдач
+   (обычно одна запись, но можно несколько учеников). Ключи, начинающиеся
+   с «_», — просто комментарии, сборкой игнорируются. */
+const submissionsPath = path.join(ROOT, 'submissions.json');
+const submissionsByDir = new Map();
+if (fs.existsSync(submissionsPath)) {
+  try {
+    const rawSubmissions = JSON.parse(fs.readFileSync(submissionsPath, 'utf8'));
+    for (const [key, val] of Object.entries(rawSubmissions)) {
+      if (key.startsWith('_')) continue;
+      const dir = key.trim().replace(/^https?:\/\/[^/]+/, '').replace(/^\/+|\/+$/g, '');
+      submissionsByDir.set(dir, Array.isArray(val) ? val : [val]);
+    }
+  } catch (e) {
+    console.error(`submissions.json: не удалось прочитать (${e.message}) — статус сдачи в панели будет пустым, остальная сборка не пострадает.`);
+  }
+}
 const courses = config.courses ?? [];
 const staffPath = (config.staffPath || 'staff').replace(/^\/+|\/+$/g, '');
 
@@ -1022,18 +1045,28 @@ for (const course of courses) {
 }
 
 /* --- учительский индекс: всё, с фильтрами и копированием ссылок --- */
+/* статус сдачи (submissions.json, см. выше) выводится в виде бейджа —
+   только для материалов с кнопкой отправки (m.backend): для «без
+   отправки» само понятие «сдано» неприменимо. Запись может быть строкой
+   или объектом {student, date, score, note} — отображаем, что заполнено. */
+const submissionLabel = (s) => (typeof s === 'string' ? s : [s.student, s.date, s.score, s.note].filter(Boolean).join(' · '));
 const staffCard = (m) => {
   const repo = config.repoUrl
     ? `<a href="${esc(config.repoUrl)}/blob/main/${esc(m.dir)}/index.html" target="_blank" rel="noopener">исходник</a>`
     : '';
+  const subs = submissionsByDir.get(m.dir) || [];
+  const submissionBadge = !m.backend ? '' : subs.length
+    ? `<span class="pill submitted" title="${esc(subs.map(submissionLabel).join('\n'))}">✅ сдано${subs.length > 1 ? ' ×' + subs.length : ''}</span>`
+    : '<span class="pill not-submitted">не сдано</span>';
   return `  <div class="staff-card${m.status === 'draft' ? ' is-draft' : ''}"
        data-search="${esc((m.title + ' ' + m.course + ' ' + (m.tags || '') + ' unit ' + m.unit).toLowerCase())}"
        data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}"
-       data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}">
+       data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}" data-submitted="${subs.length ? '1' : '0'}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
       ${m.status === 'draft' ? '<span class="pill draft">черновик</span>' : ''}
+      ${submissionBadge}
     </div>
     <div class="meta">
       <span>${esc(m.course)}</span><span>Unit ${esc(m.unit)}</span><span>${esc(m.date)}</span>
