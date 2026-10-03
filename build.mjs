@@ -47,6 +47,11 @@ const unesc = (s = '') => String(s)
   .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
   .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 
+/* то же упрощённое (без точных правил на 11/21 и т.п.) согласование числительных,
+   что уже использовалось инлайн в паре мест по файлу — выносим в helper, чтобы
+   не повторять тройной тернарник там, где он нужен несколько раз подряд. */
+const pluralRu = (n, one, few, many) => (n === 1 ? one : n < 5 ? few : many);
+
 function readMeta(html) {
   const meta = {};
   const re = /<meta\s+name=["'](ws:[\w-]+)["']\s+content=["']([^"']*)["']\s*\/?>/gi;
@@ -1605,6 +1610,20 @@ ${standaloneCourses.map((c) => staffTileFor(c, c.name)).join('\n')}
   </div>`
   : '';
 
+/* сводная строка над плитками курсов — общая картина по ВСЕМ материалам
+   сразу, без необходимости заходить в фильтры и вручную считать бейджи
+   черновиков/сдачи по карточкам (см. staffCard выше — там уже посчитаны
+   draft/submitted по отдельности, здесь просто агрегируем). Строится
+   один раз при сборке, не зависит от выбранного в панели фильтра. */
+const staffDraftCount = materials.filter((m) => m.status === 'draft').length;
+const staffSubmittable = materials.filter((m) => m.backend);
+const staffSubmittedCount = staffSubmittable.filter((m) => (submissionsByDir.get(m.dir) || []).length > 0).length;
+const staffSummary = [
+  `${materials.length} ${pluralRu(materials.length, 'материал', 'материала', 'материалов')}`,
+  staffDraftCount ? `${staffDraftCount} ${pluralRu(staffDraftCount, 'черновик', 'черновика', 'черновиков')}` : null,
+  staffSubmittable.length ? `сдано ${staffSubmittedCount} из ${staffSubmittable.length}` : null,
+].filter(Boolean).join(' · ');
+
 const staffDir = path.join(OUT, staffPath);
 fs.mkdirSync(staffDir, { recursive: true });
 fs.writeFileSync(path.join(staffDir, 'index.html'), page({
@@ -1616,6 +1635,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     <button type="button" class="link-copy" id="searchToggleBtn" aria-label="Поиск">🔍</button>
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
   </div>
+  <p class="count" id="staffSummary">${esc(staffSummary)}</p>
   <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
