@@ -1252,6 +1252,12 @@ const courseUrlMapJson = JSON.stringify(
   Object.fromEntries(courses.map((c) => [c.id, `${BASE}/${c.id}/`]))
 );
 
+/* название курса/семьи для хлебных крошек в панели преподавателя (см.
+   renderStaffCrumbs в staffScript) — та же идея, что courseUrlMap выше,
+   только текст вместо ссылки. */
+const courseNameMapJson = JSON.stringify(Object.fromEntries(courses.map((c) => [c.id, c.name])));
+const familyNameMapJson = JSON.stringify(Object.fromEntries(familyOrder));
+
 const filterBtns = [
   '<button type="button" class="filter-btn" data-filter="all">Все</button>',
   ...familyBtns,
@@ -1270,12 +1276,76 @@ const staffScript = `<script>
   var familyMap = ${familyMapJson};
   var courseUrlMap = ${courseUrlMapJson};
   var courseGroupIds = ${courseGroupIdsJson};
+  var courseNameMap = ${courseNameMapJson};
+  var familyNameMap = ${familyNameMapJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
   var hint = document.getElementById('pickHint');
   var courseTilesWrap = document.getElementById('courseTilesWrap');
   var backBtn = document.getElementById('backToCourses');
   var searchToggleBtn = document.getElementById('searchToggleBtn');
   var sortToolbarEl = document.querySelector('.sort-toolbar');
+  var crumbsEl = document.getElementById('staffCrumbs');
+
+  /* Хлебные крошки «Все курсы / Семья / Курс / Тема / Навык» — та же
+     идея и разметка (.folder-crumbs/.crumb-link/.crumb-current из
+     catalog.css), что и на публичной странице курса (см.
+     groupFolderScript), только состояние тут другое: courseNavCourseId
+     задан только когда реально зашли внутрь конкретного курса — на
+     экране выбора семьи/курса (courseNavCourseId === null) крошки не
+     нужны, там и так видно, что выбрано, по подсвеченной кнопке
+     фильтра. Семья в крошках появляется, только если в этот курс зашли
+     именно через неё (courseNavFamily) — для курса вне семьи это
+     поле всегда null. */
+  function staffCrumbEsc(s){
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function renderStaffCrumbs(){
+    if(!crumbsEl) return;
+    if(!courseNavCourseId){ crumbsEl.hidden = true; crumbsEl.innerHTML = ''; return; }
+    var parts = [{ label: 'Все курсы', action: 'top' }];
+    if(courseNavFamily && familyNameMap[courseNavFamily]){
+      parts.push({ label: familyNameMap[courseNavFamily], action: 'family' });
+    }
+    parts.push({ label: courseNameMap[courseNavCourseId] || courseNavCourseId, action: 'course' });
+    var themeName = (courseNavTheme && (courseNavLevel === 'skill' || courseNavLevel === 'materials'))
+      ? courseNavTheme.slice(courseNavTheme.indexOf('::') + 2)
+      : null;
+    if(themeName) parts.push({ label: themeName, action: 'theme' });
+    if(courseNavLevel === 'materials'){
+      var lastLabel;
+      if(activeGroupPersonal) lastLabel = activeGroup;
+      else if(themeName) lastLabel = activeGroupPrefix ? 'Все' : activeGroup.slice(themeName.length + 1);
+      else lastLabel = activeGroup || 'Без юнита';
+      parts.push({ label: lastLabel });
+    }
+    crumbsEl.innerHTML = parts.map(function(p, i){
+      if(i === parts.length - 1) return '<span class="crumb-current">' + staffCrumbEsc(p.label) + '</span>';
+      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + staffCrumbEsc(p.label) + '</button>';
+    }).join('<span class="crumb-sep">/</span>');
+    crumbsEl.hidden = false;
+  }
+  if(crumbsEl){
+    crumbsEl.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-crumb-action]');
+      if(!btn) return;
+      var act = btn.dataset.crumbAction;
+      if(act === 'top'){
+        resetToTop();
+      } else if(act === 'family'){
+        var famBtn = document.querySelector('.toolbar > .filter-btn[data-filter="family:' + courseNavFamily + '"]');
+        if(famBtn) famBtn.click();
+        return;
+      } else if(act === 'course'){
+        showGroupTabsFor(courseNavCourseId);
+        apply();
+      } else if(act === 'theme'){
+        showSkillLevelFor(courseNavTheme);
+        apply();
+      }
+      pushStaffNav();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* строка поиска свёрнута в иконку по умолчанию — разворачивается по
      клику и сворачивается обратно, если её очистить и убрать фокус,
@@ -1370,6 +1440,7 @@ const staffScript = `<script>
     activeGroupPrefix = false;
     activeGroupPersonal = false;
     updateCourseLinkBtn();
+    renderStaffCrumbs();
   }
 
   /* Заходим во второй экран — плитки навыков внутри темы (только для
@@ -1383,6 +1454,7 @@ const staffScript = `<script>
     activeGroup = 'none';
     activeGroupPrefix = false;
     activeGroupPersonal = false;
+    renderStaffCrumbs();
   }
 
   /* Плитка-лист (юнит, «Все» темы, конкретный навык или личная папка) —
@@ -1397,6 +1469,7 @@ const staffScript = `<script>
     activeGroupPrefix = prefix;
     activeGroupPersonal = !!isPersonal;
     updateCourseLinkBtn();
+    renderStaffCrumbs();
   }
   /* Раньше кнопка копирования ссылки в панели преподавателя всегда вела
      на страницу курса целиком, даже когда открыт конкретный юнит/папка —
@@ -1451,6 +1524,7 @@ const staffScript = `<script>
     courseTilesWrap.hidden = false;
     backBtn.hidden = true;
     courseLinkBtn.hidden = true;
+    renderStaffCrumbs();
     apply();
   }
   function applyStaffState(s){
@@ -1491,6 +1565,7 @@ const staffScript = `<script>
     courseTilesWrap.hidden = active !== 'none';
     backBtn.hidden = active === 'none';
     updateCourseLinkBtn();
+    renderStaffCrumbs();
     apply();
   }
   window.addEventListener('popstate', function(e){
@@ -1694,6 +1769,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
   </div>
+  <nav class="folder-crumbs" id="staffCrumbs" hidden></nav>
   <button type="button" class="link-copy" id="backToCourses" hidden>← Все курсы</button>
   <div hidden>
     <div class="toolbar">
