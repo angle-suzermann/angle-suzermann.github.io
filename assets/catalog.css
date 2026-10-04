@@ -225,6 +225,29 @@ html, body{
    навыков, либо сразу список материалов. */
 .folder-nav{ margin-bottom: 20px; }
 .folder-nav > .tile-grid{ margin-bottom: 4px; }
+.folder-crumbs{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin: 0 0 10px;
+  color: rgba(255,255,255,0.75);
+}
+.crumb-link{
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: rgba(255,255,255,0.75);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+.crumb-link:hover{ color: #fff; text-decoration-color: var(--yellow); }
+.crumb-sep{ color: rgba(255,255,255,0.4); }
+.crumb-current{ color: #fff; font-weight: 700; }
 #groupBack{ margin: 0 0 14px; }
 
 /* ---- панель преподавателя: строка поиска свёрнута в иконку по умолчанию ----

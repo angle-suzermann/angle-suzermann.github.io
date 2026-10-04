@@ -666,6 +666,7 @@ ${skillTiles}
     }).join('\n');
 
   return `  <div class="folder-nav">
+    <nav class="folder-crumbs" id="folderCrumbs" hidden></nav>
     <button type="button" class="link-copy" id="groupBack" hidden>← Назад</button>
     <button type="button" class="link-copy" id="groupLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на эту папку</button>
     <div class="tile-grid" id="groupTopGrid">
@@ -691,11 +692,57 @@ const groupFolderScript = `<script>
   var skillGrids = Array.prototype.slice.call(document.querySelectorAll('[data-skill-grid-for]'));
   var materials = document.getElementById('groupMaterials');
   var sortToolbarEl = document.querySelector('.sort-toolbar');
+  var crumbsEl = document.getElementById('folderCrumbs');
+  var courseNameEl = document.querySelector('.cat-header h1');
   var view = 'top';
   var currentTheme = null;
   var currentGroup = null;
   var currentPrefix = false;
   var currentIsPersonal = false;
+
+  /* Хлебные крошки (Курс / Тема / Навык) — заменяют собой счёт «на
+     сколько уровней вглубь я зашёл», который раньше можно было понять
+     только по тому, сколько раз нажать «← Назад». Строятся из того же
+     состояния (view/currentTheme/currentGroup/currentPrefix), что и
+     render() ниже — никаких отдельных данных не нужно. Названия темы и
+     навыка — просто значения тех же group-строк, которые уже участвуют
+     в фильтрации (themeOf/skillOf на стороне сборки), название курса
+     берём из уже отрисованного заголовка страницы, а не дублируем его
+     в скрипте отдельной переменной. */
+  function crumbEsc(s){
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function renderCrumbs(){
+    if(!crumbsEl) return;
+    if(view === 'top'){ crumbsEl.hidden = true; crumbsEl.innerHTML = ''; return; }
+    var courseName = courseNameEl ? courseNameEl.textContent.trim() : 'Курс';
+    var parts = [{ label: courseName, action: 'top' }];
+    if(view === 'skills'){
+      parts.push({ label: currentTheme, action: 'skills' });
+    } else if(currentIsPersonal){
+      parts.push({ label: currentGroup });
+    } else if(currentTheme){
+      parts.push({ label: currentTheme, action: 'skills' });
+      parts.push({ label: currentPrefix ? 'Все' : currentGroup.slice(currentTheme.length + 1) });
+    } else {
+      parts.push({ label: currentGroup || 'Без юнита' });
+    }
+    crumbsEl.innerHTML = parts.map(function(p, i){
+      if(i === parts.length - 1) return '<span class="crumb-current">' + crumbEsc(p.label) + '</span>';
+      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + crumbEsc(p.label) + '</button>';
+    }).join('<span class="crumb-sep">/</span>');
+    crumbsEl.hidden = false;
+  }
+  if(crumbsEl){
+    crumbsEl.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-crumb-action]');
+      if(!btn) return;
+      if(btn.dataset.crumbAction === 'top') showTop();
+      else if(btn.dataset.crumbAction === 'skills') showSkills(currentTheme);
+      pushFolderNav();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   function filterMaterials(group, prefix){
     document.querySelectorAll('.card[data-group]').forEach(function(c){
@@ -710,6 +757,7 @@ const groupFolderScript = `<script>
     if(materials) materials.hidden = view !== 'materials';
     if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials' || currentIsPersonal;
     backBtn.hidden = view === 'top';
+    renderCrumbs();
     if(view === 'materials') filterMaterials(currentGroup, currentPrefix);
     /* ссылка на конкретную папку — видна только когда открыт её список
        материалов (не на сетке плиток и не на экране навыков), ведёт
