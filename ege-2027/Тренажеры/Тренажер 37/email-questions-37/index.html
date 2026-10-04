@@ -36,8 +36,12 @@ body{
 html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 @media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
 
-.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.app-shell{ position:fixed; inset:0; z-index:2; display:flex; flex-direction:column; overflow:hidden; background:transparent; }
 .scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+
+/* optional topic background photo + purple wash, sits behind the whole app-shell */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(246,242,250,.88), rgba(94,72,119,.55)); }
 
 .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
 .topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
@@ -188,6 +192,8 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </style>
 </head>
 <body>
+<div class="bg-photo" style="background-image:url('img/bg.jpg')"></div>
+<div class="bg-wash"></div>
 <div class="app-shell">
   <header class="topbar">
     <div class="topbar-inner">
