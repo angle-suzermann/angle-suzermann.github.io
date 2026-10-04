@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Входное тестирование ЕГЭ: письменная часть</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Первые уроки">
+<meta name="ws:title"     content="Входное тестирование ЕГЭ: письменная часть">
+<meta name="ws:emoji"     content="📝">
+<meta name="ws:date"      content="2026-10-04">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="входное тестирование, диагностика, грамматика, словообразование, задание 37, задание 38">
+<meta name="robots"       content="noindex, nofollow">
+
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); position:relative;
+  overscroll-behavior-x:none; touch-action:pan-y;
+}
+/* iOS: no auto-zoom on focus */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.app-shell{ position:fixed; inset:0; z-index:2; display:flex; flex-direction:column; overflow:hidden; background:transparent; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+
+/* optional topic background photo + purple wash, sits behind the whole app-shell */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(246,242,250,.88), rgba(94,72,119,.55)); }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; z-index:5; max-width:900px; margin:0 auto; padding:24px 20px 90px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.10); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.05rem; margin:20px 0 10px; }
+.card p{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn.cta:hover{ background:#1b1816; }
+.btn[disabled]{ opacity:.4; cursor:default; pointer-events:none; }
+
+/* reference table — wrap in .table-scroll so wide tables scroll horizontally
+   on narrow screens instead of being clipped by the fixed app-shell. */
+.table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; border-radius:8px; }
+.table-scroll .reftable{ margin:0; min-width:560px; }
+.table-hint{ display:none; font-size:.76rem; color:var(--muted); margin:-6px 0 8px; }
+@media (max-width:640px){ .table-hint{ display:block; } }
+.reftable{ width:100%; border-collapse:collapse; font-size:.86rem; margin:14px 0; }
+.reftable th{ background:var(--purple); color:#fff; text-align:left; padding:8px 10px; font-size:.78rem; }
+.reftable td{ border-bottom:1px solid var(--border); padding:8px 10px; vertical-align:top; }
+.reftable tr:nth-child(even) td{ background:var(--card-tint); }
+.reftable .w{ font-weight:800; color:var(--purple-dark); }
+
+/* MCQ (component #1) */
+.mcq{ margin:10px 0 18px; }
+.mcq .opt{ display:block; width:100%; text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:.9rem; color:var(--text); }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen.correct{ background:#eafaf0; border-color:var(--correct); color:var(--correct); font-weight:700; }
+.mcq .opt.chosen.wrong{ background:#fdecec; border-color:var(--wrong); color:var(--wrong); }
+.mcq .opt.correct:not(.chosen){ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.item{ margin-bottom:18px; padding-bottom:16px; border-bottom:1px dashed var(--border); }
+.item:last-child{ border-bottom:none; }
+.item .qn{ font-size:.78rem; font-weight:800; color:var(--muted); margin-bottom:6px; }
+.item .qtext{ font-size:.94rem; margin:0 0 8px; line-height:1.5; }
+
+/* recognition-judge component (qjudge) reused from task2 trainer */
+.qcat{ margin:16px 0 22px; padding:14px 16px; background:var(--card-tint); border-radius:12px; }
+.qcat-label{ font-weight:800; color:var(--purple-dark); font-size:.92rem; margin-bottom:10px; }
+.qjudge{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:11px 14px; margin-bottom:9px; }
+.qjudge:last-child{ margin-bottom:0; }
+.qtext2{ margin:0 0 8px; font-size:.94rem; line-height:1.45; }
+.qbtns{ display:flex; gap:8px; flex-wrap:wrap; }
+.jbtn{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700; color:var(--muted); }
+.jbtn:hover{ border-color:var(--purple); color:var(--purple); }
+.qjudge[data-done] .jbtn{ pointer-events:none; }
+.jbtn.chosen.is-right{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.jbtn.chosen.is-wrong{ background:#fdecec; border-color:var(--wrong); color:var(--wrong); }
+.jbtn.reveal-correct{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.qexplain{ margin:9px 0 0; padding-top:9px; border-top:1px dashed var(--border); font-size:.85rem; color:var(--muted); line-height:1.5; }
+.qjudge.judged-right .qexplain{ color:var(--correct); }
+.qjudge.judged-wrong .qexplain{ color:var(--wrong); }
+
+/* fill-in-the-blank */
+.gap{ font-family:inherit; font-size:.92rem; padding:6px 9px; border:1.5px solid var(--border); border-radius:7px; width:150px; text-align:center; }
+.gap.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+.gap.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.gap-explain{ display:none; margin-top:6px; font-size:.82rem; color:var(--muted); line-height:1.45; padding:8px 10px; background:var(--card-tint); border-radius:8px; }
+.gap-explain.show{ display:block; }
+.gap-item{ margin-bottom:14px; padding-bottom:12px; border-bottom:1px dashed var(--border); }
+.gap-item:last-child{ border-bottom:none; }
+.gap-item .gn{ font-size:.78rem; font-weight:800; color:var(--muted); margin-bottom:4px; }
+.gap-item .gtext{ font-size:.94rem; line-height:1.55; }
+.gap-item .gtext b{ color:var(--purple-dark); }
+
+/* dropdown matching (select) */
+select.dq{ font-family:inherit; font-size:.88rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px; background:#fff; color:var(--text); min-width:220px; }
+select.dq.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+select.dq.inline{ min-width:0; max-width:100%; width:auto; padding:3px 6px; font-size:.86rem; vertical-align:baseline; }
+.gap.locked, select.dq.locked{ opacity:1; cursor:default; }
+select.dq:disabled{ -webkit-text-fill-color:currentColor; }
+.letter-text{ font-size:.95rem; line-height:2.1; background:var(--card-tint); border-radius:12px; padding:16px 18px; margin:12px 0; }
+.letter-text p{ margin:0 0 10px; }
+.mail-card{ border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:12px 0; font-size:.9rem; line-height:1.55; }
+.mail-card .mail-head{ font-size:.8rem; color:var(--muted); margin-bottom:8px; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
+.phrase-bank span{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:3px 10px; font-size:.82rem; }
+.inline-explain{ list-style:none; padding:0; margin:10px 0 0; }
+.inline-explain .gap-explain{ margin-top:6px; }
+.match-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--border); }
+.match-row:last-child{ border-bottom:none; }
+.match-row .mn{ font-size:.78rem; font-weight:800; color:var(--muted); min-width:22px; }
+.match-row .mtext{ flex:1 1 260px; font-size:.92rem; line-height:1.4; }
+.match-icon{ font-size:.95rem; width:18px; text-align:center; }
+
+/* page-level check button + status */
+.check-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px dashed var(--border); }
+.page-status{ font-size:.85rem; color:var(--muted); font-weight:700; }
+.page-status.done{ color:var(--correct); }
+
+.exam-card{ background:var(--purple); color:#fff; border-radius:14px; padding:18px 20px; margin:14px 0 18px; }
+.exam-card .exam-eyebrow{ text-transform:uppercase; font-size:.68rem; letter-spacing:.1em; font-weight:800; color:var(--yellow); margin-bottom:6px; }
+.exam-card p{ margin:0 0 10px; }
+.exam-card ul{ margin:6px 0 0; padding-left:20px; }
+.exam-card li{ margin-bottom:4px; }
+
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:18px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+
+/* results + sticker */
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.score-breakdown{ font-size:.88rem; color:var(--muted); margin-top:10px; line-height:1.6; white-space:pre-line; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none !important; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.reset-link{ text-align:center; margin-top:6px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--purple); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){ .angle-badge{ display:none; } }
+
+@media (max-width:640px){
+  .card{ padding:18px 16px; }
+  .namebar{ flex-wrap:wrap; row-gap:2px; }
+  .namebar input{ width:150px; }
+  .save-indicator{ flex-basis:100%; }
+}
+
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <span class="lesson-title">Входное тестирование · Письменная часть</span>
+        <div class="namebar">
+          <label for="studentName">Имя:</label>
+          <input type="text" id="studentName" placeholder="Фамилия Имя">
+          <span class="save-indicator" id="saveIndicator"></span>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">Page 1 / 10</span>
+      </div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+  </header>
+
+  <div class="scroll-area" id="scrollArea">
+    <div class="page-wrap">
+
+      <div class="restore-note" id="restoreNote" hidden>
+        <span id="restoreNoteText"></span>
+        <span style="display:flex; gap:8px;">
+          <button id="restoreYes">Восстановить</button>
+          <button id="restoreNo">Начать заново</button>
+        </span>
+      </div>
+
+      <section class="page active" data-page="0">
+
+<div class="card">
+  <div class="eyebrow">Первые уроки · Входное тестирование</div>
+  <h2>Письменная часть: что вы уже знаете</h2>
+  <p>Это не экзамен и не оценка. Тест показывает, какие темы вы знаете уверенно, а какие стоит повторить в начале года. Чем честнее ответы, тем точнее план работы.</p>
+  <div class="table-scroll"><table class="reftable">
+    <tr><th>Раздел</th><th>Заданий</th><th>Время</th></tr>
+    <tr><td>Грамматика</td><td>35 предложений</td><td>10–20 мин</td></tr>
+    <tr><td>Словообразование</td><td>40 предложений</td><td>10–20 мин</td></tr>
+    <tr><td>Задание 37 — письмо</td><td>10 пропусков</td><td>5–10 мин</td></tr>
+    <tr><td>Задание 38 — эссе</td><td>14 пропусков</td><td>5–10 мин</td></tr>
+  </table></div>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Как это работает</div>
+    <ul>
+      <li>Ответы не подсвечиваются, пока вы не нажмёте «Проверить страницу» внизу каждой страницы.</li>
+      <li>После проверки ответ изменить нельзя. Если не знаете — оставьте пропуск пустым, не угадывайте.</li>
+      <li>Не пользуйтесь словарём и переводчиком.</li>
+      <li>Прогресс сохраняется автоматически, можно закрыть страницу и вернуться.</li>
+      <li>В конце отправьте результат преподавателю.</li>
+    </ul>
+  </div>
+  <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Начать →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="1">
+
+<div class="card" id="gram1" data-lock="1">
+  <div class="eyebrow">Грамматика · 1–12 из 35</div>
+  <h2>Грамматика</h2>
+  <p class="muted">Преобразуйте слово в скобках в правильную грамматическую форму. Иногда нужно несколько слов (например, <i>will be published</i>).</p>
+  
+  <div class="gap-item">
+    <div class="gn">1.</div>
+    <div class="gtext">The report was written by <input class="gap" data-q="g1" data-ans="him" data-show="him" data-section="Грамматика · Местоимения" data-label="Грамматика 1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 1"> (<b>he</b>) and submitted on time.</div>
+    <div class="gap-explain" id="explain-g1"><b>him</b> — Объектный падеж местоимения после предлога by.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">2.</div>
+    <div class="gtext">These gloves are <input class="gap" data-q="g2a" data-ans="mine" data-show="mine" data-section="Грамматика · Местоимения" data-label="Грамматика 2a" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 2a"> (<b>I</b>). The blue ones are <input class="gap" data-q="g2b" data-ans="yours" data-show="yours" data-section="Грамматика · Местоимения" data-label="Грамматика 2b" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 2b"> (<b>you</b>).</div>
+    <div class="gap-explain" id="explain-g2a"><b>mine, yours</b> — Абсолютная форма притяжательных местоимений (mine, yours) — без существительного после.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">3.</div>
+    <div class="gtext">Where is <input class="gap" data-q="g3" data-ans="their" data-show="their" data-section="Грамматика · Местоимения" data-label="Грамматика 3" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 3"> (<b>they</b>) company located?</div>
+    <div class="gap-explain" id="explain-g3"><b>their</b> — Притяжательное местоимение their перед существительным.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">4.</div>
+    <div class="gtext">Tom, do it <input class="gap" data-q="g4" data-ans="yourself" data-show="yourself" data-section="Грамматика · Местоимения" data-label="Грамматика 4" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 4"> (<b>you</b>), I&#x27;m not going to help you.</div>
+    <div class="gap-explain" id="explain-g4"><b>yourself</b> — Возвратное местоимение yourself — «сам».</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">5.</div>
+    <div class="gtext">The Earth is the <input class="gap" data-q="g5" data-ans="third" data-show="third" data-section="Грамматика · Числительные, мн. число" data-label="Грамматика 5" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 5"> (<b>three</b>) planet from the Sun.</div>
+    <div class="gap-explain" id="explain-g5"><b>third</b> — Порядковое числительное (the third).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">6.</div>
+    <div class="gtext">The mountain was 2000 <input class="gap" data-q="g6" data-ans="feet" data-show="feet" data-section="Грамматика · Числительные, мн. число" data-label="Грамматика 6" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 6"> (<b>foot</b>) high and we decided to go to the observation deck there.</div>
+    <div class="gap-explain" id="explain-g6"><b>feet</b> — Множественное число-исключение: foot → feet.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">7.</div>
+    <div class="gtext">That flat is much <input class="gap" data-q="g7" data-ans="larger" data-show="larger" data-section="Грамматика · Степени сравнения" data-label="Грамматика 7" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 7"> (<b>large</b>) than ours.</div>
+    <div class="gap-explain" id="explain-g7"><b>larger</b> — Сравнительная степень: than + much усиливает сравнение.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">8.</div>
+    <div class="gtext">This is the artist&#x27;s <input class="gap" data-q="g8" data-ans="most famous" data-show="most famous" data-section="Грамматика · Степени сравнения" data-label="Грамматика 8" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 8"> (<b>famous</b>) sculpture.</div>
+    <div class="gap-explain" id="explain-g8"><b>most famous</b> — Превосходная степень многосложного прилагательного: most famous.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">9.</div>
+    <div class="gtext">If you heat water to 100 degrees Celsius, it <input class="gap" data-q="g9" data-ans="boils" data-show="boils" data-section="Грамматика · Условные предложения" data-label="Грамматика 9" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 9"> (<b>boil</b>).</div>
+    <div class="gap-explain" id="explain-g9"><b>boils</b> — Conditional 0 (общая истина): Present Simple в обеих частях.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">10.</div>
+    <div class="gtext">The museum <input class="gap" data-q="g10" data-ans="is visited" data-show="is visited" data-section="Грамматика · Пассивный залог" data-label="Грамматика 10" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 10"> (<b>visit</b>) by thousands of tourists every year.</div>
+    <div class="gap-explain" id="explain-g10"><b>is visited</b> — Present Simple Passive: регулярность (every year) + by.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">11.</div>
+    <div class="gtext">I wouldn&#x27;t like to live in a big city as there <input class="gap" data-q="g11" data-ans="are" data-show="are" data-section="Грамматика · Времена Simple" data-label="Грамматика 11" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 11"> (<b>be</b>) so many traffic jams there.</div>
+    <div class="gap-explain" id="explain-g11"><b>are</b> — Present Simple, there are + мн. число (traffic jams).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">12.</div>
+    <div class="gtext">When I finish this project, I <input class="gap" data-q="g12" data-ans="will submit|&#x27;ll submit" data-show="will submit" data-section="Грамматика · Времена Simple" data-label="Грамматика 12" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 12"> (<b>submit</b>) it to the supervisor.</div>
+    <div class="gap-explain" id="explain-g12"><b>will submit</b> — Future Simple в главной части; в придаточном времени (When I finish) — Present.</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="gram1">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="2">
+
+<div class="card" id="gram2" data-lock="1">
+  <div class="eyebrow">Грамматика · 13–24 из 35</div>
+  <h2>Грамматика</h2>
+  
+  
+  <div class="gap-item">
+    <div class="gn">13.</div>
+    <div class="gtext">The article <input class="gap" data-q="g13" data-ans="will be published|&#x27;ll be published" data-show="will be published" data-section="Грамматика · Пассивный залог" data-label="Грамматика 13" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 13"> (<b>publish</b>) in the local newspaper tomorrow.</div>
+    <div class="gap-explain" id="explain-g13"><b>will be published</b> — Future Simple Passive (tomorrow).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">14.</div>
+    <div class="gtext">Last year, he <input class="gap" data-q="g14" data-ans="lived" data-show="lived" data-section="Грамматика · Времена Simple" data-label="Грамматика 14" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 14"> (<b>live</b>) in London but then moved to Leeds.</div>
+    <div class="gap-explain" id="explain-g14"><b>lived</b> — Past Simple, маркер last year.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">15.</div>
+    <div class="gtext">When I was younger, I <input class="gap" data-q="g15" data-ans="believed" data-show="believed" data-section="Грамматика · Времена Simple" data-label="Грамматика 15" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 15"> (<b>believe</b>) that all dreams come true.</div>
+    <div class="gap-explain" id="explain-g15"><b>believed</b> — Past Simple: состояние в прошлом (believe не употребляется в Continuous).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">16.</div>
+    <div class="gtext">This bridge <input class="gap" data-q="g16" data-ans="was built" data-show="was built" data-section="Грамматика · Пассивный залог" data-label="Грамматика 16" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 16"> (<b>build</b>) in the 19th century.</div>
+    <div class="gap-explain" id="explain-g16"><b>was built</b> — Past Simple Passive.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">17.</div>
+    <div class="gtext">Right now, my sister <input class="gap" data-q="g17" data-ans="is preparing|&#x27;s preparing" data-show="is preparing" data-section="Грамматика · Continuous" data-label="Грамматика 17" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 17"> (<b>prepare</b>) for her final exam in Literature.</div>
+    <div class="gap-explain" id="explain-g17"><b>is preparing</b> — Present Continuous: действие в момент речи (right now).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">18.</div>
+    <div class="gtext">If we <input class="gap" data-q="g18" data-ans="recycled" data-show="recycled" data-section="Грамматика · Условные предложения" data-label="Грамматика 18" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 18"> (<b>recycle</b>) more waste, we would reduce pollution significantly.</div>
+    <div class="gap-explain" id="explain-g18"><b>recycled</b> — Conditional II: If + Past Simple, would + V.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">19.</div>
+    <div class="gtext">The <input class="gap" data-q="g19" data-ans="longer" data-show="longer" data-section="Грамматика · Степени сравнения" data-label="Грамматика 19" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 19"> (<b>long</b>) you put off preparing for the exam, the more stressed you will feel when the deadline gets closer.</div>
+    <div class="gap-explain" id="explain-g19"><b>longer</b> — Конструкция the + сравнительная степень …, the + сравнительная степень.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">20.</div>
+    <div class="gtext">This time next week, we <input class="gap" data-q="g20" data-ans="will be flying|&#x27;ll be flying" data-show="will be flying" data-section="Грамматика · Continuous" data-label="Грамматика 20" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 20"> (<b>fly</b>) over the Atlantic Ocean.</div>
+    <div class="gap-explain" id="explain-g20"><b>will be flying</b> — Future Continuous: процесс в определённый момент будущего (this time next week).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">21.</div>
+    <div class="gtext">By the time you come back, I <input class="gap" data-q="g21" data-ans="will have finished|&#x27;ll have finished" data-show="will have finished" data-section="Грамматика · Perfect / Perfect Continuous" data-label="Грамматика 21" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 21"> (<b>finish</b>) reading this book.</div>
+    <div class="gap-explain" id="explain-g21"><b>will have finished</b> — Future Perfect: действие завершится к моменту в будущем (by the time).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">22.</div>
+    <div class="gtext">She <input class="gap" data-q="g22" data-ans="has worked|has been working|&#x27;s worked|&#x27;s been working" data-show="has worked" data-section="Грамматика · Perfect / Perfect Continuous" data-label="Грамматика 22" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 22"> (<b>work</b>) at this school since 2015.</div>
+    <div class="gap-explain" id="explain-g22"><b>has worked</b> — Present Perfect / Present Perfect Continuous: since + момент в прошлом.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">23.</div>
+    <div class="gtext">He <input class="gap" data-q="g23" data-ans="has been training|&#x27;s been training" data-show="has been training" data-section="Грамматика · Perfect / Perfect Continuous" data-label="Грамматика 23" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 23"> (<b>train</b>) for the marathon for three months already.</div>
+    <div class="gap-explain" id="explain-g23"><b>has been training</b> — Present Perfect Continuous: акцент на длительности (for three months).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">24.</div>
+    <div class="gtext">I <input class="gap" data-q="g24" data-ans="have been waiting|&#x27;ve been waiting" data-show="have been waiting" data-section="Грамматика · Perfect / Perfect Continuous" data-label="Грамматика 24" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 24"> (<b>wait</b>) for you since nine o&#x27;clock this morning.</div>
+    <div class="gap-explain" id="explain-g24"><b>have been waiting</b> — Present Perfect Continuous: since + момент в прошлом.</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="gram2">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="3">
+
+<div class="card" id="gram3" data-lock="1">
+  <div class="eyebrow">Грамматика · 25–35 из 35</div>
+  <h2>Грамматика</h2>
+  
+  
+  <div class="gap-item">
+    <div class="gn">25.</div>
+    <div class="gtext">The news <input class="gap" data-q="g25" data-ans="has been announced|&#x27;s been announced" data-show="has been announced" data-section="Грамматика · Пассивный залог" data-label="Грамматика 25" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 25"> (<b>announce</b>) by the president just now.</div>
+    <div class="gap-explain" id="explain-g25"><b>has been announced</b> — Present Perfect Passive (just now). News — ед. число: has.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">26.</div>
+    <div class="gtext">Yesterday at 6 o&#x27;clock, my mother <input class="gap" data-q="g26" data-ans="was cooking" data-show="was cooking" data-section="Грамматика · Continuous" data-label="Грамматика 26" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 26"> (<b>cook</b>) dinner when I came.</div>
+    <div class="gap-explain" id="explain-g26"><b>was cooking</b> — Past Continuous: длительное действие, прерванное другим (when I came).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">27.</div>
+    <div class="gtext">He <input class="gap" data-q="g27" data-ans="used to live" data-show="used to live" data-section="Грамматика · used to, Future-in-the-Past" data-label="Грамматика 27" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 27"> (<b>live</b>) in the countryside before he moved to the city.</div>
+    <div class="gap-explain" id="explain-g27"><b>used to live</b> — used to + инфинитив: привычка/состояние в прошлом, которого больше нет.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">28.</div>
+    <div class="gtext">She <input class="gap" data-q="g28" data-ans="had been" data-show="had been" data-section="Грамматика · Perfect / Perfect Continuous" data-label="Грамматика 28" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 28"> (<b>be</b>) a teacher for twenty years before she retired.</div>
+    <div class="gap-explain" id="explain-g28"><b>had been</b> — Past Perfect: действие, предшествующее другому в прошлом (before she retired).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">29.</div>
+    <div class="gtext">I knew that she <input class="gap" data-q="g29" data-ans="would come|&#x27;d come" data-show="would come" data-section="Грамматика · used to, Future-in-the-Past" data-label="Грамматика 29" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 29"> (<b>come</b>) to the party the next day.</div>
+    <div class="gap-explain" id="explain-g29"><b>would come</b> — Future-in-the-Past (согласование времён): will → would после knew.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">30.</div>
+    <div class="gtext"><input class="gap" data-q="g30" data-ans="Founded" data-show="Founded" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 30" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 30"> (<b>found</b>) in the 13th century, the city can boast amazing ancient architecture.</div>
+    <div class="gap-explain" id="explain-g30"><b>Founded</b> — Participle II в роли определения (город был основан).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">31.</div>
+    <div class="gtext">The book <input class="gap" data-q="g31" data-ans="written" data-show="written" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 31" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 31"> (<b>write</b>) by a famous Russian author is now a bestseller.</div>
+    <div class="gap-explain" id="explain-g31"><b>written</b> — Participle II: книга написана (пассивное значение).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">32.</div>
+    <div class="gtext">The boy <input class="gap" data-q="g32" data-ans="playing" data-show="playing" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 32" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 32"> (<b>play</b>) the guitar is my younger brother.</div>
+    <div class="gap-explain" id="explain-g32"><b>playing</b> — Participle I: мальчик, который играет (активное значение).</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">33.</div>
+    <div class="gtext">The house <input class="gap" data-q="g33" data-ans="standing" data-show="standing" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 33" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 33"> (<b>stand</b>) on the hill has a beautiful view.</div>
+    <div class="gap-explain" id="explain-g33"><b>standing</b> — Participle I в роли определения.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">34.</div>
+    <div class="gtext"><input class="gap" data-q="g34" data-ans="Visiting" data-show="Visiting" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 34" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 34"> (<b>visit</b>) museums is one of my favourite hobbies.</div>
+    <div class="gap-explain" id="explain-g34"><b>Visiting</b> — Герундий в роли подлежащего.</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">35.</div>
+    <div class="gtext">I look forward to <input class="gap" data-q="g35" data-ans="seeing" data-show="seeing" data-section="Грамматика · Причастия и герундий" data-label="Грамматика 35" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Грамматика 35"> (<b>see</b>) you again.</div>
+    <div class="gap-explain" id="explain-g35"><b>seeing</b> — Герундий после предлога to в составе look forward to.</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="gram3">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="4">
+
+<div class="card" id="wf1" data-lock="1">
+  <div class="eyebrow">Словообразование · 1–14 из 40</div>
+  <h2>Словообразование</h2>
+  <p class="muted">Образуйте от слова в скобках (заглавными буквами) однокоренное слово, которое подходит по смыслу и грамматически.</p>
+  
+  <div class="gap-item">
+    <div class="gn">1.</div>
+    <div class="gtext">The Russian Federation is known for its remarkable <input class="gap" data-q="w1" data-ans="diversity" data-show="diversity" data-section="Словообразование · Существительные" data-label="Словообразование 1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 1"> of ethnic groups, languages and traditions. (<b>DIVERSE</b>)</div>
+    <div class="gap-explain" id="explain-w1"><b>diversity</b> — -ity (сущ.): diverse → diversity</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">2.</div>
+    <div class="gtext">It is essential to remain <input class="gap" data-q="w2" data-ans="active" data-show="active" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 2" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 2"> during lectures if you want to absorb the material effectively. (<b>ACT</b>)</div>
+    <div class="gap-explain" id="explain-w2"><b>active</b> — -ive (прил.): act → active</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">3.</div>
+    <div class="gtext">Group projects at university encourage <input class="gap" data-q="w3" data-ans="cooperation|co-operation" data-show="cooperation" data-section="Словообразование · Существительные" data-label="Словообразование 3" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 3"> between students from different academic backgrounds. (<b>COOPERATE</b>)</div>
+    <div class="gap-explain" id="explain-w3"><b>cooperation</b> — -tion (сущ.): cooperate → cooperation</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">4.</div>
+    <div class="gtext"><input class="gap" data-q="w4" data-ans="Recently" data-show="Recently" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 4" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 4">, online platforms have transformed the way young people access educational content. (<b>RECENT</b>)</div>
+    <div class="gap-explain" id="explain-w4"><b>Recently</b> — -ly (нареч.): recent → recently</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">5.</div>
+    <div class="gtext">The <input class="gap" data-q="w5" data-ans="attendance" data-show="attendance" data-section="Словообразование · Существительные" data-label="Словообразование 5" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 5"> of students at the seminar was surprisingly high despite the early morning start. (<b>ATTEND</b>)</div>
+    <div class="gap-explain" id="explain-w5"><b>attendance</b> — -ance (сущ.): attend → attendance</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">6.</div>
+    <div class="gtext">Many young people dream of becoming a famous <input class="gap" data-q="w6" data-ans="scientist" data-show="scientist" data-section="Словообразование · Существительные" data-label="Словообразование 6" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 6"> and making groundbreaking discoveries. (<b>SCIENCE</b>)</div>
+    <div class="gap-explain" id="explain-w6"><b>scientist</b> — -ist (сущ., человек): science → scientist</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">7.</div>
+    <div class="gtext">A university degree is often a basic <input class="gap" data-q="w7" data-ans="requirement" data-show="requirement" data-section="Словообразование · Существительные" data-label="Словообразование 7" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 7"> for many well-paid positions in the modern job market. (<b>REQUIRE</b>)</div>
+    <div class="gap-explain" id="explain-w7"><b>requirement</b> — -ment (сущ.): require → requirement</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">8.</div>
+    <div class="gtext">Long-term <input class="gap" data-q="w8" data-ans="persistence" data-show="persistence" data-section="Словообразование · Существительные" data-label="Словообразование 8" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 8"> and determination are often the keys to achieving success in any field. (<b>PERSIST</b>)</div>
+    <div class="gap-explain" id="explain-w8"><b>persistence</b> — -ence (сущ.): persist → persistence</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">9.</div>
+    <div class="gtext">It is absolutely <input class="gap" data-q="w9" data-ans="impossible" data-show="impossible" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 9" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 9"> to ignore the role of physical activity in maintaining good health. (<b>POSSIBLE</b>)</div>
+    <div class="gap-explain" id="explain-w9"><b>impossible</b> — im- (отрицание перед p/m/b): possible → impossible</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">10.</div>
+    <div class="gtext">It is highly <input class="gap" data-q="w10" data-ans="irresponsible" data-show="irresponsible" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 10" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 10"> to leave your personal belongings unattended in a crowded place. (<b>RESPONSIBLE</b>)</div>
+    <div class="gap-explain" id="explain-w10"><b>irresponsible</b> — ir- (отрицание перед r): responsible → irresponsible</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">11.</div>
+    <div class="gtext">Many people suffer from chronic <input class="gap" data-q="w11" data-ans="tiredness" data-show="tiredness" data-section="Словообразование · Существительные" data-label="Словообразование 11" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 11"> caused by the fast pace of modern urban life. (<b>TIRED</b>)</div>
+    <div class="gap-explain" id="explain-w11"><b>tiredness</b> — -ness (сущ.): tired → tiredness</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">12.</div>
+    <div class="gtext">Modern gadgets are designed to make our daily lives more <input class="gap" data-q="w12" data-ans="comfortable" data-show="comfortable" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 12" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 12"> and time-efficient. (<b>COMFORT</b>)</div>
+    <div class="gap-explain" id="explain-w12"><b>comfortable</b> — -able (прил.): comfort → comfortable</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">13.</div>
+    <div class="gtext"><input class="gap" data-q="w13" data-ans="Environmental" data-show="Environmental" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 13" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 13"> issues are becoming increasingly urgent as the planet faces unprecedented climate challenges. (<b>ENVIRONMENT</b>)</div>
+    <div class="gap-explain" id="explain-w13"><b>Environmental</b> — -al (прил.): environment → environmental</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">14.</div>
+    <div class="gtext">It is widely considered <input class="gap" data-q="w14" data-ans="unhealthy" data-show="unhealthy" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 14" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 14"> to spend long hours sitting without any physical activity. (<b>HEALTHY</b>)</div>
+    <div class="gap-explain" id="explain-w14"><b>unhealthy</b> — un- (отрицание): healthy → unhealthy</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="wf1">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="5">
+
+<div class="card" id="wf2" data-lock="1">
+  <div class="eyebrow">Словообразование · 15–27 из 40</div>
+  <h2>Словообразование</h2>
+  
+  
+  <div class="gap-item">
+    <div class="gn">15.</div>
+    <div class="gtext">The election of the first woman president was a <input class="gap" data-q="w15" data-ans="historic" data-show="historic" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 15" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 15"> first for the country. (<b>HISTORY</b>)</div>
+    <div class="gap-explain" id="explain-w15"><b>historic</b> — -ic (прил.): history → historic («исторически важный»)</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">16.</div>
+    <div class="gtext">Nowadays, new gadgets <input class="gap" data-q="w16" data-ans="revolutionise|revolutionize" data-show="revolutionise" data-section="Словообразование · Глаголы" data-label="Словообразование 16" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 16"> the way people communicate across the globe. (<b>REVOLUTION</b>)</div>
+    <div class="gap-explain" id="explain-w16"><b>revolutionise</b> — -ise/-ize (глагол): revolution → revolutionise; мн. ч. подлежащего — без -s</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">17.</div>
+    <div class="gtext">It is ruinous for your health to remain <input class="gap" data-q="w17" data-ans="inactive" data-show="inactive" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 17" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 17"> during the day, at least morning exercises are essential. (<b>ACTIVE</b>)</div>
+    <div class="gap-explain" id="explain-w17"><b>inactive</b> — in- (отрицание): active → inactive</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">18.</div>
+    <div class="gtext">The <input class="gap" data-q="w18" data-ans="Japanese" data-show="Japanese" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 18" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 18"> delegation participated actively in the international cultural exchange programme. (<b>JAPAN</b>)</div>
+    <div class="gap-explain" id="explain-w18"><b>Japanese</b> — -ese (национальность): Japan → Japanese</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">19.</div>
+    <div class="gtext">His <input class="gap" data-q="w19" data-ans="childish" data-show="childish" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 19" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 19"> behaviour during the meeting was unexpected for a person of his age and position. (<b>CHILD</b>)</div>
+    <div class="gap-explain" id="explain-w19"><b>childish</b> — -ish (прил.): child → childish</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">20.</div>
+    <div class="gtext"><input class="gap" data-q="w20" data-ans="International" data-show="International" data-section="Словообразование · Другие префиксы" data-label="Словообразование 20" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 20"> cooperation is crucial for solving global issues such as climate change and poverty. (<b>NATIONAL</b>)</div>
+    <div class="gap-explain" id="explain-w20"><b>International</b> — inter- (префикс «между»): national → international</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">21.</div>
+    <div class="gtext"><input class="gap" data-q="w21" data-ans="Postgraduate|Post-graduate" data-show="Postgraduate" data-section="Словообразование · Другие префиксы" data-label="Словообразование 21" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 21"> programmes are designed for students who wish to continue their education after obtaining a bachelor&#x27;s degree. (<b>GRADUATE</b>)</div>
+    <div class="gap-explain" id="explain-w21"><b>Postgraduate</b> — post- (префикс «после»): graduate → postgraduate</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">22.</div>
+    <div class="gtext">It is <input class="gap" data-q="w22" data-ans="illegal" data-show="illegal" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 22" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 22"> to enter the building without a valid ID card and special permission. (<b>LEGAL</b>)</div>
+    <div class="gap-explain" id="explain-w22"><b>illegal</b> — il- (отрицание перед l): legal → illegal</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">23.</div>
+    <div class="gtext">Their close <input class="gap" data-q="w23" data-ans="friendship" data-show="friendship" data-section="Словообразование · Существительные" data-label="Словообразование 23" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 23"> lasted for many years despite the distance between them. (<b>FRIEND</b>)</div>
+    <div class="gap-explain" id="explain-w23"><b>friendship</b> — -ship (сущ.): friend → friendship</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">24.</div>
+    <div class="gtext">Leo Tolstoy is widely regarded as one of the greatest <input class="gap" data-q="w24" data-ans="writers" data-show="writers" data-section="Словообразование · Существительные" data-label="Словообразование 24" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 24"> of all time. (<b>WRITE</b>)</div>
+    <div class="gap-explain" id="explain-w24"><b>writers</b> — -er (сущ., человек) + мн. ч. после one of the greatest</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">25.</div>
+    <div class="gtext">Regular <input class="gap" data-q="w25" data-ans="swimming" data-show="swimming" data-section="Словообразование · Существительные" data-label="Словообразование 25" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 25"> in the pool is one of the most effective ways to stay fit and healthy. (<b>SWIM</b>)</div>
+    <div class="gap-explain" id="explain-w25"><b>swimming</b> — -ing (сущ.): swim → swimming (удвоение m)</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">26.</div>
+    <div class="gtext">The <input class="gap" data-q="w26" data-ans="frightened" data-show="frightened" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 26" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 26"> child was comforted by his mother after hearing the loud thunder. (<b>FRIGHTEN</b>)</div>
+    <div class="gap-explain" id="explain-w26"><b>frightened</b> — -ed (прил., чувство): frighten → frightened</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">27.</div>
+    <div class="gtext">You should be extremely <input class="gap" data-q="w27" data-ans="careful" data-show="careful" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 27" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 27"> when crossing busy streets in the city centre. (<b>CARE</b>)</div>
+    <div class="gap-explain" id="explain-w27"><b>careful</b> — -ful (прил.): care → careful</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="wf2">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="6">
+
+<div class="card" id="wf3" data-lock="1">
+  <div class="eyebrow">Словообразование · 28–40 из 40</div>
+  <h2>Словообразование</h2>
+  
+  
+  <div class="gap-item">
+    <div class="gn">28.</div>
+    <div class="gtext">The <input class="gap" data-q="w28" data-ans="helpless" data-show="helpless" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 28" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 28"> child was taken to the police station after being found alone in the park. (<b>HELP</b>)</div>
+    <div class="gap-explain" id="explain-w28"><b>helpless</b> — -less (прил., «без»): help → helpless</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">29.</div>
+    <div class="gtext">The <input class="gap" data-q="w29" data-ans="famous" data-show="famous" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 29" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 29"> scientist received international recognition for his groundbreaking research. (<b>FAME</b>)</div>
+    <div class="gap-explain" id="explain-w29"><b>famous</b> — -ous (прил.): fame → famous (e выпадает)</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">30.</div>
+    <div class="gtext">The <input class="gap" data-q="w30" data-ans="Italian" data-show="Italian" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 30" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 30"> artist is admired for his unique style and contribution to modern art. (<b>ITALY</b>)</div>
+    <div class="gap-explain" id="explain-w30"><b>Italian</b> — -ian (национальность): Italy → Italian</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">31.</div>
+    <div class="gtext">The <input class="gap" data-q="w31" data-ans="prewar|pre-war" data-show="prewar" data-section="Словообразование · Другие префиксы" data-label="Словообразование 31" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 31"> period in the country&#x27;s history was marked by rapid economic growth. (<b>WAR</b>)</div>
+    <div class="gap-explain" id="explain-w31"><b>prewar</b> — pre- (префикс «до»): war → prewar</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">32.</div>
+    <div class="gtext">If you <input class="gap" data-q="w32" data-ans="dislike" data-show="dislike" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 32" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 32"> this dish, don&#x27;t eat it. (<b>LIKE</b>)</div>
+    <div class="gap-explain" id="explain-w32"><b>dislike</b> — dis- (противоположное значение): like → dislike</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">33.</div>
+    <div class="gtext">Sometimes children <input class="gap" data-q="w33" data-ans="misunderstand" data-show="misunderstand" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 33" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 33"> the instructions and do everything wrong. (<b>UNDERSTAND</b>)</div>
+    <div class="gap-explain" id="explain-w33"><b>misunderstand</b> — mis- («неправильно»): understand → misunderstand</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">34.</div>
+    <div class="gtext">The teacher asked the students to <input class="gap" data-q="w34" data-ans="rewrite" data-show="rewrite" data-section="Словообразование · Другие префиксы" data-label="Словообразование 34" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 34"> their essays to correct the mistakes. (<b>WRITE</b>)</div>
+    <div class="gap-explain" id="explain-w34"><b>rewrite</b> — re- («заново»): write → rewrite</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">35.</div>
+    <div class="gtext">If you <input class="gap" data-q="w35" data-ans="overcook" data-show="overcook" data-section="Словообразование · Другие префиксы" data-label="Словообразование 35" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 35"> the pasta, it will become soft and unappetizing. (<b>COOK</b>)</div>
+    <div class="gap-explain" id="explain-w35"><b>overcook</b> — over- («слишком»): cook → overcook</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">36.</div>
+    <div class="gtext">Many people <input class="gap" data-q="w36" data-ans="underestimate" data-show="underestimate" data-section="Словообразование · Другие префиксы" data-label="Словообразование 36" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 36"> the time and effort required to learn a foreign language. (<b>ESTIMATE</b>)</div>
+    <div class="gap-explain" id="explain-w36"><b>underestimate</b> — under- («недо-»): estimate → underestimate</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">37.</div>
+    <div class="gtext">The sudden drop in temperature will <input class="gap" data-q="w37" data-ans="harden" data-show="harden" data-section="Словообразование · Глаголы" data-label="Словообразование 37" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 37"> the ground overnight. (<b>HARD</b>)</div>
+    <div class="gap-explain" id="explain-w37"><b>harden</b> — -en (глагол): hard → harden</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">38.</div>
+    <div class="gtext">The organization operates as a <input class="gap" data-q="w38" data-ans="nongovernmental|non-governmental|nongovernment|non-government" data-show="nongovernmental" data-section="Словообразование · Отрицательные префиксы" data-label="Словообразование 38" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 38"> entity, independent of government control. (<b>GOVERNMENT</b>)</div>
+    <div class="gap-explain" id="explain-w38"><b>nongovernmental</b> — non- (отрицание): government → nongovernmental</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">39.</div>
+    <div class="gtext">This producer uses artificial <input class="gap" data-q="w39" data-ans="sweeteners" data-show="sweeteners" data-section="Словообразование · Существительные" data-label="Словообразование 39" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 39"> in their cakes and biscuits. (<b>SWEETEN</b>)</div>
+    <div class="gap-explain" id="explain-w39"><b>sweeteners</b> — -er (сущ., предмет) + мн. ч.: sweeten → sweeteners</div>
+  </div>
+  <div class="gap-item">
+    <div class="gn">40.</div>
+    <div class="gtext">This book was very <input class="gap" data-q="w40" data-ans="helpful" data-show="helpful" data-section="Словообразование · Прилагательные и наречия" data-label="Словообразование 40" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Словообразование 40"> for my exam preparation, the material was really valuable. (<b>HELP</b>)</div>
+    <div class="gap-explain" id="explain-w40"><b>helpful</b> — -ful (прил.): help → helpful</div>
+  </div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="wf3">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="7">
+
+<div class="card" id="p37" data-lock="1">
+  <div class="eyebrow">Письменная часть · Задание 37</div>
+  <h2>Email: заполните пропуски</h2>
+  <p>Прочитайте письмо Марка и дополните ответ Ольги фразами из списка (A–O). <b>Пять фраз лишние.</b></p>
+  <div class="mail-card">
+    <div class="mail-head">From: Mark@mail.uk · To: Russian_friend@ege.ru · Subject: Summer holidays</div>
+    … Summer holidays are over! I have so many photos with memorable moments. Please, follow my social network page to have a look at them.<br>
+    … Did you enjoy your summer holidays, why or why not? What do people in your country do to relax and unwind during their summer holidays? What are some common traditions or festivals celebrated during the summer in Russia?<br>
+    … Oh, during the holidays my friend and I volunteered at the local sports event …
+  </div>
+  <p class="muted">Задание: ответить на вопросы Марка и задать 3 вопроса о его опыте волонтёра. 100–140 слов.</p>
+  <div class="phrase-bank"><span><b>A</b> Thanks for your email</span><span><b>B</b> See you later</span><span><b>C</b> Personally</span><span><b>D</b> In your message you asked me</span><span><b>E</b> or</span><span><b>F</b> As for</span><span><b>G</b> Sincerely yours</span><span><b>H</b> Love</span><span><b>I</b> I wonder if</span><span><b>J</b> because</span><span><b>K</b> I&#x27;d like to know</span><span><b>L</b> Hi</span><span><b>M</b> Write back soon</span><span><b>N</b> Well, it&#x27;s interesting to know</span><span><b>O</b> Good morning</span></div>
+  <div class="letter-text">
+    <p><b>1.</b> <select class="dq deferred inline" data-q="e37-1" data-ans="L" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 1" aria-label="Пропуск 1"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> Mark,</p>
+    <p><b>2.</b> <select class="dq deferred inline" data-q="e37-2" data-ans="A" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 2" aria-label="Пропуск 2"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select>. I'm always glad to hear from you.</p>
+    <p><b>3.</b> <select class="dq deferred inline" data-q="e37-3" data-ans="D" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 3" aria-label="Пропуск 3"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> about my summer holidays. I really enjoyed them <b>4.</b> <select class="dq deferred inline" data-q="e37-4" data-ans="J" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 4" aria-label="Пропуск 4"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> I spent a lot of time outdoors with my friends.
+    <b>5.</b> <select class="dq deferred inline" data-q="e37-5" data-ans="F" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 5" aria-label="Пропуск 5"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> what people do in my country during summer, many Russians go to the seaside, visit their dachas <b>6.</b> <select class="dq deferred inline" data-q="e37-6" data-ans="E" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 6" aria-label="Пропуск 6"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> go hiking in the mountains.
+    <b>7.</b> <select class="dq deferred inline" data-q="e37-7" data-ans="C" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 7" aria-label="Пропуск 7"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select>, I think the most popular summer festivals in Russia are the Scarlet Sails in St. Petersburg and various folk festivals in small towns.</p>
+    <p>By the way, <b>8.</b> <select class="dq deferred inline" data-q="e37-8" data-ans="I" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 8" aria-label="Пропуск 8"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select> you enjoyed your volunteer work at the sports event. What exactly did you do there? What skills did you get? Did you get any certificate?</p>
+    <p><b>9.</b> <select class="dq deferred inline" data-q="e37-9" data-ans="M" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 9" aria-label="Пропуск 9"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select>.</p>
+    <p><b>10.</b> <select class="dq deferred inline" data-q="e37-10" data-ans="H" data-section="Письмо 37 (структура и клише)" data-label="Письмо 37 · пропуск 10" aria-label="Пропуск 10"><option value="">— выбрать —</option><option value="A">A. Thanks for your email</option><option value="B">B. See you later</option><option value="C">C. Personally</option><option value="D">D. In your message you asked me</option><option value="E">E. or</option><option value="F">F. As for</option><option value="G">G. Sincerely yours</option><option value="H">H. Love</option><option value="I">I. I wonder if</option><option value="J">J. because</option><option value="K">K. I&#x27;d like to know</option><option value="L">L. Hi</option><option value="M">M. Write back soon</option><option value="N">N. Well, it&#x27;s interesting to know</option><option value="O">O. Good morning</option></select>,<br>Olga</p>
+  </div>
+  <div class="inline-explain"><div class="gap-explain" id="explain-e37-1"><b>1. L</b> — Неформальное приветствие другу. <i>Good morning</i> в письме не используется — неизвестно, когда его прочитают.</div><div class="gap-explain" id="explain-e37-2"><b>2. A</b> — Обязательная благодарность за полученное письмо.</div><div class="gap-explain" id="explain-e37-3"><b>3. D</b> — Ссылка на вопросы друга перед ответом на них.</div><div class="gap-explain" id="explain-e37-4"><b>4. J</b> — Союз причины: <i>I really enjoyed them because…</i></div><div class="gap-explain" id="explain-e37-5"><b>5. F</b> — «Что касается…» — переход к следующему вопросу друга.</div><div class="gap-explain" id="explain-e37-6"><b>6. E</b> — Перечисление вариантов: <i>visit their dachas or go hiking</i>.</div><div class="gap-explain" id="explain-e37-7"><b>7. C</b> — Вводит личное мнение — дальше идёт <i>I think</i>.</div><div class="gap-explain" id="explain-e37-8"><b>8. I</b> — Косвенный вопрос: <i>I wonder if you enjoyed…</i> (прямой порядок слов). <i>I'd like to know</i> здесь не подходит без <i>if</i>.</div><div class="gap-explain" id="explain-e37-9"><b>9. M</b> — Стандартная завершающая фраза — просьба ответить.</div><div class="gap-explain" id="explain-e37-10"><b>10. H</b> — Неформальная подпись другу. <i>Sincerely yours</i> — официальное письмо, <i>See you later</i> — устная разговорная фраза. Лишние варианты: B, G, K, N, O.</div></div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="p37">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="8">
+
+<div class="card" id="p38" data-lock="1">
+  <div class="eyebrow">Письменная часть · Задание 38</div>
+  <h2>Эссе: заполните пропуски</h2>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Задание</div>
+    <p>Imagine that you are doing a project on what teenagers from Zetland do during their summer holidays. You have found the results of a survey (see the table). Comment on the survey data and give your opinion on the subject of the project. 200–250 words.</p>
+    <ul>
+      <li>make an opening statement on the subject of the project;</li>
+      <li>select and report 2–3 facts;</li>
+      <li>make 1–2 comparisons where relevant and give your comments;</li>
+      <li>outline a problem that can arise with choosing an exciting summer holiday activity and suggest a way of solving it;</li>
+      <li>conclude by giving and explaining your opinion on why reading during summer holidays is important for teenagers.</li>
+    </ul>
+  </div>
+  <div class="table-scroll"><table class="reftable">
+    <tr><th>What do you do during your summer holidays?</th><th>Respondents (%)</th></tr>
+    <tr><td>Travelling with parents</td><td>32</td></tr>
+    <tr><td>Hanging out with friends</td><td>27</td></tr>
+    <tr><td>Trying out a new hobby</td><td>17</td></tr>
+    <tr><td>Reading</td><td>16</td></tr>
+    <tr><td>Doing nothing</td><td>8</td></tr>
+  </table></div>
+  <p>Выберите для каждого пропуска (1–14) подходящую фразу. <b>Из 20 фраз нужны 14, шесть лишние.</b></p>
+  <div class="phrase-bank"><span>accounts for</span><span>You know</span><span>It helps to</span><span>For my project on</span><span>Moreover,</span><span>I would like to express my opinion</span><span>According to the survey</span><span>It is noteworthy</span><span>Trying something new is</span><span>This is not surprising</span><span>I am going to analyse</span><span>They may struggle</span><span>of those surveyed</span><span>a corresponding pie chart</span><span>the results of a relevant survey</span><span>was chosen</span><span>Unfortunately</span><span>On the other hand</span><span>To solve this</span><span>It is interesting to</span></div>
+  <div class="letter-text">
+    <p>Summer holidays are a long-awaited time for teenagers all over the world. <b>1.</b> <select class="dq deferred inline" data-q="e38-1" data-ans="For my project on" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 1" aria-label="Пропуск 1"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> what teenagers from Zetland do during their summer holidays, I have found a table with <b>2.</b> <select class="dq deferred inline" data-q="e38-2" data-ans="the results of a relevant survey" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 2" aria-label="Пропуск 2"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> conducted among Zetland teenagers. In my essay <b>3.</b> <select class="dq deferred inline" data-q="e38-3" data-ans="I am going to analyse" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 3" aria-label="Пропуск 3"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> the data and present my opinion.</p>
+    <p><b>4.</b> <select class="dq deferred inline" data-q="e38-4" data-ans="According to the survey" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 4" aria-label="Пропуск 4"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select>, the most popular summer activity among Zetland teenagers is travelling with parents, which <b>5.</b> <select class="dq deferred inline" data-q="e38-5" data-ans="accounts for" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 5" aria-label="Пропуск 5"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> 32% of the respondents. 27% <b>6.</b> <select class="dq deferred inline" data-q="e38-6" data-ans="of those surveyed" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 6" aria-label="Пропуск 6"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> hang out with friends and only 8% chose the option “Doing nothing”.</p>
+    <p>I would like to make a comparison of some facts. <b>7.</b> <select class="dq deferred inline" data-q="e38-7" data-ans="It is noteworthy" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 7" aria-label="Пропуск 7"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> that travelling with parents is 5% more popular than hanging out with friends. <b>8.</b> <select class="dq deferred inline" data-q="e38-8" data-ans="This is not surprising" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 8" aria-label="Пропуск 8"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select>, as parents' holidays often coincide with school breaks, and they value family time, whereas friends can be seen at any other time of the year.</p>
+    <p><b>9.</b> <select class="dq deferred inline" data-q="e38-9" data-ans="Unfortunately" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 9" aria-label="Пропуск 9"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select>, one problem that can arise when choosing an exciting summer activity is that teenagers often feel overwhelmed by too many options. <b>10.</b> <select class="dq deferred inline" data-q="e38-10" data-ans="They may struggle" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 10" aria-label="Пропуск 10"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> to decide and end up doing nothing. <b>11.</b> <select class="dq deferred inline" data-q="e38-11" data-ans="To solve this" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 11" aria-label="Пропуск 11"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select>, they should start with simple activities they already enjoy. <b>12.</b> <select class="dq deferred inline" data-q="e38-12" data-ans="Trying something new is" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 12" aria-label="Пропуск 12"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> easier when you take small steps, and even a simple hobby can become exciting with time and practice.</p>
+    <p>In conclusion, <b>13.</b> <select class="dq deferred inline" data-q="e38-13" data-ans="I would like to express my opinion" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 13" aria-label="Пропуск 13"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> and say that reading during summer holidays is important for teenagers as it provides long-term benefits for personal growth and academic success. <b>14.</b> <select class="dq deferred inline" data-q="e38-14" data-ans="It helps to" data-section="Эссе 38 (структура и связки)" data-label="Эссе 38 · пропуск 14" aria-label="Пропуск 14"><option value="">— выбрать —</option><option value="accounts for">accounts for</option><option value="You know">You know</option><option value="It helps to">It helps to</option><option value="For my project on">For my project on</option><option value="Moreover,">Moreover,</option><option value="I would like to express my opinion">I would like to express my opinion</option><option value="According to the survey">According to the survey</option><option value="It is noteworthy">It is noteworthy</option><option value="Trying something new is">Trying something new is</option><option value="This is not surprising">This is not surprising</option><option value="I am going to analyse">I am going to analyse</option><option value="They may struggle">They may struggle</option><option value="of those surveyed">of those surveyed</option><option value="a corresponding pie chart">a corresponding pie chart</option><option value="the results of a relevant survey">the results of a relevant survey</option><option value="was chosen">was chosen</option><option value="Unfortunately">Unfortunately</option><option value="On the other hand">On the other hand</option><option value="To solve this">To solve this</option><option value="It is interesting to">It is interesting to</option></select> expand their vocabulary, improve critical thinking, and develop imagination.</p>
+  </div>
+  <div class="inline-explain"><div class="gap-explain" id="explain-e38-1"><b>1. For my project on</b> — Вступление: тема проекта — <i>For my project on what teenagers… do</i>.</div><div class="gap-explain" id="explain-e38-2"><b>2. the results of a relevant survey</b> — «Результаты соответствующего опроса». <i>A corresponding pie chart</i> не подходит: в задании таблица, а не круговая диаграмма.</div><div class="gap-explain" id="explain-e38-3"><b>3. I am going to analyse</b> — План эссе во вступлении: <i>I am going to analyse the data</i>.</div><div class="gap-explain" id="explain-e38-4"><b>4. According to the survey</b> — Ввод данных со ссылкой на источник.</div><div class="gap-explain" id="explain-e38-5"><b>5. accounts for</b> — «Составляет»: <i>which accounts for 32%</i>.</div><div class="gap-explain" id="explain-e38-6"><b>6. of those surveyed</b> — <i>27% of those surveyed</i> — «27% опрошенных».</div><div class="gap-explain" id="explain-e38-7"><b>7. It is noteworthy</b> — «Примечательно, что…» + that. <i>It is interesting to</i> требует инфинитив (<i>to note that</i>), а не that.</div><div class="gap-explain" id="explain-e38-8"><b>8. This is not surprising</b> — Комментарий к сравнению с объяснением причины (<i>as parents' holidays…</i>).</div><div class="gap-explain" id="explain-e38-9"><b>9. Unfortunately</b> — Переход к проблеме. <i>On the other hand</i> вводит противопоставление, которого здесь нет.</div><div class="gap-explain" id="explain-e38-10"><b>10. They may struggle</b> — <i>They may struggle to decide</i> — «им может быть трудно решить».</div><div class="gap-explain" id="explain-e38-11"><b>11. To solve this</b> — Вводит решение проблемы.</div><div class="gap-explain" id="explain-e38-12"><b>12. Trying something new is</b> — Герундий в роли подлежащего: <i>Trying something new is easier…</i></div><div class="gap-explain" id="explain-e38-13"><b>13. I would like to express my opinion</b> — Заключение с выражением мнения: <i>I would like to express my opinion and say that…</i></div><div class="gap-explain" id="explain-e38-14"><b>14. It helps to</b> — <i>It helps to expand their vocabulary</i>. Лишние: <i>You know</i> (разговорное), <i>Moreover</i>, <i>a corresponding pie chart</i>, <i>was chosen</i>, <i>On the other hand</i>, <i>It is interesting to</i>.</div></div>
+  
+  <div class="check-row">
+    <button class="btn" data-check-gaps="p38">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">К результатам →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="9">
+
+<div class="card">
+  <div class="eyebrow">Финал</div>
+  <h2>Результаты</h2>
+  <p class="muted">Нажмите «Посчитать результат», чтобы увидеть итоговый балл по всем страницам, а затем отправьте результат преподавателю.</p>
+  <p class="muted">Разбивка ниже показывает результат по каждой грамматической теме и группе словообразовательных элементов: строки с низким результатом — это то, с чего стоит начать повторение. Пустые пропуски считаются ошибками.</p>
+  <div class="namebar" style="margin:14px 0;">
+    <label for="studentGroup">Группа:</label>
+    <input type="text" id="studentGroup" placeholder="например, 11А">
+  </div>
+  <div class="check-row">
+    <button class="btn" onclick="renderResults()">Посчитать результат</button>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div style="text-align:center; margin-top:10px;">
+      <div class="big-score" id="resultsPercent">0%</div>
+      <div class="muted" id="resultsFraction"></div>
+    </div>
+    <div class="score-breakdown" id="resultsBreakdown"></div>
+    
+<div class="completion-stickers" id="completionStickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+
+    <div class="task-submit">
+      <button class="btn cta" id="sendBtn" onclick="submitResults()">Отправить преподавателю</button>
+      <span class="task-submit-status" id="sendStatus"></span>
+    </div>
+  </div>
+
+  <div class="reset-link"><a onclick="clearProgress()">Начать тренажёр заново</a></div>
+</div>
+
+</section>
+
+    </div>
+  </div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+const TRAINER_TITLE = "Входное тестирование ЕГЭ: письменная часть";
+const PAGE_LABELS = ["Старт", "Грам. 1–12", "Грам. 13–24", "Грам. 25–35", "Слов. 1–14", "Слов. 15–27", "Слов. 28–40", "Задание 37", "Задание 38", "Результат"];
+const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
+const COURSE_NAME = "ЕГЭ 2027";
+const COURSE_ID = "ege-2027";
+
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
+  if(!isRestoring) scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ---- sticker tier logic (uses window.RESULT_TIERS etc. from /assets/sticker-logic.js) ---- */
+function renderStickerForPct(pct){
+  if (typeof renderResultSticker === 'function') renderResultSticker(pct);
+}
+
+/* ===================================================================
+   Scoring engine shared by all ANGLE EGE skill-drill trainers.
+   Answerable item types, each identified by a unique data-q:
+     select.dq[data-q][data-ans]           -- dropdown matching
+     .mcq[data-q][data-ans] > .opt[data-val] -- multiple choice, click to lock
+     .qjudge[data-q][data-ans] > .jbtn[data-val] -- 2- or 3-way judge buttons
+     .gap[data-q][data-ans]                -- free-text fill-in-the-blank
+   ITEM_STATE[q] = {correct:bool, section:string} is the single source of
+   truth for the running score; every handler below updates it then calls
+   scheduleSave(). Sections are read from the item's data-section attribute
+   (falls back to 'Задание') so the results breakdown can group by exercise.
+   =================================================================== */
+const ITEM_STATE = {};
+
+function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`’‘´]/g,''); }
+
+/* Lock an answered item if it sits inside a [data-lock] container (diagnostic mode):
+   once checked, the answer can no longer be changed and re-checked. */
+function lockItem(el){
+  if(!el.closest('[data-lock]')) return;
+  if(el.tagName === 'SELECT') el.disabled = true; else el.readOnly = true;
+  el.classList.add('locked');
+}
+
+/* select.dq.deferred = no instant colour on change; marked only by a page check
+   (checkGapsIn) or by renderResults. Plain select.dq keeps the old instant behaviour. */
+function markSelect(sel, force){
+  if(sel.value === '') return;
+  if(sel.classList.contains('deferred') && !force){ if(!isRestoring) scheduleSave(); return; }
+  const ok = normAns(sel.value) === normAns(sel.dataset.ans);
+  sel.classList.toggle('correct', ok);
+  sel.classList.toggle('wrong', !ok);
+  ITEM_STATE[sel.dataset.q] = {correct: ok, section: sel.dataset.section || 'Задание'};
+  const ex = document.getElementById('explain-' + sel.dataset.q);
+  if(ex) ex.classList.add('show');
+  lockItem(sel);
+  if(!isRestoring) scheduleSave();
+}
+
+function markMcqOpt(optBtn){
+  const group = optBtn.closest('.mcq[data-q]');
+  if(!group || group.dataset.done) return;
+  group.dataset.done = '1';
+  const correctVal = group.dataset.ans;
+  const ok = optBtn.dataset.val === correctVal;
+  group.querySelectorAll('.opt').forEach(o=>{
+    o.classList.remove('chosen','correct','wrong');
+    if(o === optBtn){ o.classList.add('chosen', ok ? 'correct' : 'wrong'); }
+    else if(o.dataset.val === correctVal){ o.classList.add('correct'); }
+  });
+  ITEM_STATE[group.dataset.q] = {correct: ok, section: group.dataset.section || 'Задание'};
+  const mcqEx = group.closest('.item, .gap-item') ? group.closest('.item, .gap-item').querySelector('.qexplain') : null;
+  if(mcqEx) mcqEx.style.display = 'block';
+  if(!isRestoring) scheduleSave();
+}
+
+function markJudgeBtn(jbtn){
+  const group = jbtn.closest('.qjudge[data-q]');
+  if(!group || group.dataset.done) return;
+  group.dataset.done = '1';
+  const correctVal = group.dataset.ans;
+  const ok = jbtn.dataset.val === correctVal;
+  group.querySelectorAll('.jbtn').forEach(b=>{
+    b.classList.remove('chosen','is-right','is-wrong','reveal-correct');
+    if(b === jbtn){ b.classList.add('chosen', ok ? 'is-right' : 'is-wrong'); }
+    else if(b.dataset.val === correctVal){ b.classList.add('reveal-correct'); }
+  });
+  group.classList.toggle('judged-right', ok);
+  group.classList.toggle('judged-wrong', !ok);
+  const ex = group.querySelector('.qexplain');
+  if(ex) ex.style.display = 'block';
+  ITEM_STATE[group.dataset.q] = {correct: ok, section: group.dataset.section || 'Задание'};
+  if(!isRestoring) scheduleSave();
+}
+
+function checkGapsIn(containerId){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  let done = 0, total = 0;
+  container.querySelectorAll('.gap[data-q]').forEach(inp=>{
+    total++;
+    if(inp.value.trim() === '') return;
+    const acceptable = inp.dataset.ans.split('|');
+    const ok = acceptable.some(a => normAns(a) === normAns(inp.value));
+    inp.classList.toggle('correct', ok);
+    inp.classList.toggle('wrong', !ok);
+    const ex = document.getElementById('explain-' + inp.dataset.q);
+    if(ex) ex.classList.add('show');
+    ITEM_STATE[inp.dataset.q] = {correct: ok, section: inp.dataset.section || 'Задание'};
+    lockItem(inp);
+    done++;
+  });
+  container.querySelectorAll('select.dq.deferred[data-q]').forEach(sel=>{
+    total++;
+    if(sel.value === '') return;
+    markSelect(sel, true);
+    done++;
+  });
+  const status = container.querySelector('.page-status');
+  if(status){
+    status.textContent = `Проверено: ${done} / ${total}`;
+    status.classList.toggle('done', done === total);
+  }
+  if(!isRestoring) scheduleSave();
+}
+
+const ANSWERABLE = 'select.dq[data-q], .mcq[data-q], .qjudge[data-q], .gap[data-q]';
+
+/* What the student actually gave for an item (for the mistakes list). */
+function givenAnswer(el){
+  if(el.matches('.gap')) return el.value.trim();
+  if(el.matches('select')) return el.value ? el.options[el.selectedIndex].text : '';
+  const chosen = el.querySelector('.chosen');
+  return chosen ? chosen.textContent.trim() : '';
+}
+/* Human-readable correct answer: data-show wins, else first accepted answer / option text. */
+function correctAnswerText(el){
+  if(el.dataset.show) return el.dataset.show;
+  if(el.matches('select')){
+    const o = Array.from(el.options).find(o => o.value === el.dataset.ans);
+    return o ? o.text : el.dataset.ans;
+  }
+  return (el.dataset.ans || '').split('|')[0];
+}
+
+/* Totals count EVERY answerable item on the page in document order: an item the
+   student never answered counts as wrong (otherwise skipping inflates the %). */
+function computeGrandTotal(){
+  let correct = 0, total = 0;
+  const bySection = {};
+  const mistakes = [];
+  const seen = new Set();
+  document.querySelectorAll(ANSWERABLE).forEach(el=>{
+    const q = el.dataset.q;
+    if(seen.has(q)) return; seen.add(q);
+    const r = ITEM_STATE[q];
+    const ok = !!(r && r.correct);
+    const s = el.dataset.section || (r && r.section) || 'Задание';
+    total++; if(ok) correct++;
+    if(!bySection[s]) bySection[s] = {correct:0, total:0};
+    bySection[s].total++;
+    if(ok) bySection[s].correct++;
+    if(!ok){
+      const given = r ? givenAnswer(el) : '';
+      mistakes.push(`${el.dataset.label || q}: «${given || '—'}» → ${correctAnswerText(el)}`);
+    }
+  });
+  return {correct, total, bySection, mistakes};
+}
+
+/* Evaluate everything the student filled in but never checked page-by-page. */
+function evaluatePending(){
+  document.querySelectorAll('[data-check-gaps]').forEach(b=>{
+    const c = document.getElementById(b.dataset.checkGaps);
+    if(!c) return;
+    const pending = Array.from(c.querySelectorAll('.gap[data-q], select.dq.deferred[data-q]'))
+      .some(el => !ITEM_STATE[el.dataset.q] && (el.value||'').trim() !== '');
+    if(pending) checkGapsIn(b.dataset.checkGaps);
+  });
+}
+
+function renderResults(){
+  if(!isRestoring) evaluatePending();
+  const {correct, total, bySection} = computeGrandTotal();
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const panel = document.getElementById('resultsPanel');
+  if(!panel) return;
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${correct} из ${total}`;
+  const lines = Object.entries(bySection).map(([name, r])=>`${name}: ${r.correct}/${r.total}`);
+  document.getElementById('resultsBreakdown').textContent = lines.join('\n');
+  renderStickerForPct(pct);
+  if(!isRestoring) scheduleSave();
+  return {correct, total, pct, bySection};
+}
+
+async function submitResults(){
+  const btn = document.getElementById('sendBtn');
+  const status = document.getElementById('sendStatus');
+  const {correct, total, pct, bySection} = renderResults();
+  const name = (document.getElementById('studentName')||{}).value || '';
+  if(!name.trim()){
+    if(status){ status.textContent = 'Пожалуйста, укажите имя перед отправкой.'; status.style.color = 'var(--wrong)'; }
+    return;
+  }
+  if(btn) btn.disabled = true;
+  if(status){ status.textContent = 'Отправка…'; status.style.color = 'var(--muted)'; }
+  const breakdown = Object.entries(bySection).map(([n,r])=>`${n}: ${r.correct}/${r.total}`).join('; ');
+  const ml = computeGrandTotal().mistakes;
+  const mistakes = ml.length ? `${ml.length} неверных или пустых из ${total}:\n` + ml.join('\n') : 'Ошибок нет';
+  const payload = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    course_id: COURSE_ID,
+    subject: `${COURSE_NAME} — ${TRAINER_TITLE} — ${name}`,
+    test: TRAINER_TITLE,
+    student_name: name,
+    group: (document.getElementById('studentGroup')||{}).value || '',
+    score_percent: pct + '%',
+    score_fraction: `${correct}/${total}`,
+    breakdown: breakdown,
+    mistakes: mistakes,
+    submitted_at: new Date().toISOString()
+  };
+  try{
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: {'Content-Type':'application/json', Accept:'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.success){
+      if(status){ status.textContent = '✓ Результат отправлен преподавателю.'; status.style.color = 'var(--correct)'; }
+    } else {
+      if(status){ status.textContent = 'Не удалось отправить. Попробуйте ещё раз.'; status.style.color = 'var(--wrong)'; }
+      if(btn) btn.disabled = false;
+    }
+  } catch(err){
+    if(status){ status.textContent = 'Нет связи с сервером. Попробуйте ещё раз позже.'; status.style.color = 'var(--wrong)'; }
+    if(btn) btn.disabled = false;
+  }
+}
+
+document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
+  const jb  = e.target.closest('.qjudge[data-q] .jbtn'); if(jb){ markJudgeBtn(jb); return; }
+  const gb  = e.target.closest('[data-check-gaps]'); if(gb){ checkGapsIn(gb.dataset.checkGaps); return; }
+});
+
+/* ---- progress persistence ---- */
+let isRestoring = false;
+let saveTimer = null;
+const PROGRESS_KEY = 'angle-ege-progress:' + location.pathname;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function saveProgress(){
+  try{
+    const gapValues = {};
+    document.querySelectorAll('.gap[data-q]').forEach(i=>{ if(i.value) gapValues[i.dataset.q] = i.value; });
+    const selectValues = {};
+    document.querySelectorAll('select.dq[data-q]').forEach(s=>{ if(s.value) selectValues[s.dataset.q] = s.value; });
+    const data = {
+      name: (document.getElementById('studentName')||{}).value || '',
+      group: (document.getElementById('studentGroup')||{}).value || '',
+      page: current,
+      itemState: ITEM_STATE,
+      gapValues, selectValues,
+      savedAt: Date.now()
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+    showSavedIndicator();
+  }catch(e){ /* best-effort */ }
+}
+function applyRestore(data){
+  isRestoring = true;
+  try{
+    if(data.name){ const el = document.getElementById('studentName'); if(el) el.value = data.name; }
+    if(data.group){ const el = document.getElementById('studentGroup'); if(el) el.value = data.group; }
+    Object.entries(data.gapValues || {}).forEach(([q,v])=>{
+      const inp = document.querySelector(`.gap[data-q="${CSS.escape(q)}"]`);
+      if(inp) inp.value = v;
+    });
+    Object.entries(data.selectValues || {}).forEach(([q,v])=>{
+      const sel = document.querySelector(`select.dq[data-q="${CSS.escape(q)}"]`);
+      if(sel){ sel.value = v; markSelect(sel); }
+    });
+    Object.entries(data.itemState || {}).forEach(([q,r])=>{
+      ITEM_STATE[q] = r;
+      const mcqOpt = document.querySelector(`.mcq[data-q="${CSS.escape(q)}"] .opt[data-val]`);
+      if(mcqOpt){
+        const group = mcqOpt.closest('.mcq');
+        const correctVal = group.dataset.ans;
+        group.dataset.done = '1';
+        group.querySelectorAll('.opt').forEach(o=>{
+          if(o.dataset.val === correctVal) o.classList.add('correct');
+        });
+        const mcqEx = group.closest('.item, .gap-item') ? group.closest('.item, .gap-item').querySelector('.qexplain') : null;
+        if(mcqEx) mcqEx.style.display = 'block';
+      }
+      const gapInp = document.querySelector(`.gap[data-q="${CSS.escape(q)}"]`);
+      if(gapInp && gapInp.value){
+        gapInp.classList.toggle('correct', r.correct);
+        gapInp.classList.toggle('wrong', !r.correct);
+        const ex = document.getElementById('explain-' + q);
+        if(ex) ex.classList.add('show');
+        lockItem(gapInp);
+      }
+      const defSel = document.querySelector(`select.dq.deferred[data-q="${CSS.escape(q)}"]`);
+      if(defSel && defSel.value) markSelect(defSel, true);
+      const judgeGroup = document.querySelector(`.qjudge[data-q="${CSS.escape(q)}"]`);
+      if(judgeGroup){
+        judgeGroup.dataset.done = '1';
+        const correctVal = judgeGroup.dataset.ans;
+        judgeGroup.querySelectorAll('.jbtn').forEach(b=>{
+          if(b.dataset.val === correctVal) b.classList.add('reveal-correct');
+        });
+        judgeGroup.classList.toggle('judged-right', r.correct);
+        judgeGroup.classList.toggle('judged-wrong', !r.correct);
+        const ex = judgeGroup.querySelector('.qexplain');
+        if(ex) ex.style.display = 'block';
+      }
+    });
+    document.querySelectorAll('[data-check-gaps]').forEach(btn=>{
+      const container = document.getElementById(btn.dataset.checkGaps);
+      if(!container) return;
+      const total = container.querySelectorAll('.gap[data-q]').length;
+      const done = container.querySelectorAll('.gap.correct, .gap.wrong').length;
+      const status = container.querySelector('.page-status');
+      if(status && done){ status.textContent = `Проверено: ${done} / ${total}`; status.classList.toggle('done', done === total); }
+    });
+    if(typeof data.page === 'number') showPage(data.page);
+  } finally {
+    isRestoring = false;
+  }
+}
+function restoreProgress(){
+  try{
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
+    if(!hasAnswers) return;
+    const note = document.getElementById('restoreNote');
+    if(note){
+      note.hidden = false;
+      document.getElementById('restoreNoteText').textContent =
+        `Найден сохранённый прогресс${data.name ? ' — ' + data.name : ''}. Восстановить ответы?`;
+      document.getElementById('restoreYes').onclick = ()=>{ applyRestore(data); note.hidden = true; };
+      document.getElementById('restoreNo').onclick = ()=>{ note.hidden = true; };
+    } else {
+      applyRestore(data);
+    }
+  }catch(e){ /* best-effort */ }
+}
+function clearProgress(){
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('DOMContentLoaded', restoreProgress);
+
+buildDots();
+showPage(0);
+</script>
+</body>
+</html>

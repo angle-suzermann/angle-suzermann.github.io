@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Входное тестирование ЕГЭ: устная часть</title>
+
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Первые уроки">
+<meta name="ws:title"     content="Входное тестирование ЕГЭ: устная часть">
+<meta name="ws:emoji"     content="🎙️">
+<meta name="ws:date"      content="2026-10-04">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="входное тестирование, диагностика, устная часть, задание 1, задание 2, задание 3, задание 4">
+<meta name="robots"       content="noindex, nofollow">
+
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
+body{
+  font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;
+  color:var(--text); background:var(--card-tint); position:relative;
+  overscroll-behavior-x:none; touch-action:pan-y;
+}
+/* iOS: no auto-zoom on focus */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.app-shell{ position:fixed; inset:0; z-index:2; display:flex; flex-direction:column; overflow:hidden; background:transparent; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2; }
+
+/* optional topic background photo + purple wash, sits behind the whole app-shell */
+.bg-photo{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:fixed; inset:0; z-index:1; background:linear-gradient(180deg, rgba(246,242,250,.88), rgba(94,72,119,.55)); }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; z-index:5; max-width:900px; margin:0 auto; padding:24px 20px 90px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.10); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.05rem; margin:20px 0 10px; }
+.card p{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn.cta:hover{ background:#1b1816; }
+.btn[disabled]{ opacity:.4; cursor:default; pointer-events:none; }
+
+/* reference table — wrap in .table-scroll so wide tables scroll horizontally
+   on narrow screens instead of being clipped by the fixed app-shell. */
+.table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; border-radius:8px; }
+.table-scroll .reftable{ margin:0; min-width:560px; }
+.table-hint{ display:none; font-size:.76rem; color:var(--muted); margin:-6px 0 8px; }
+@media (max-width:640px){ .table-hint{ display:block; } }
+.reftable{ width:100%; border-collapse:collapse; font-size:.86rem; margin:14px 0; }
+.reftable th{ background:var(--purple); color:#fff; text-align:left; padding:8px 10px; font-size:.78rem; }
+.reftable td{ border-bottom:1px solid var(--border); padding:8px 10px; vertical-align:top; }
+.reftable tr:nth-child(even) td{ background:var(--card-tint); }
+.reftable .w{ font-weight:800; color:var(--purple-dark); }
+
+/* MCQ (component #1) */
+.mcq{ margin:10px 0 18px; }
+.mcq .opt{ display:block; width:100%; text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:.9rem; color:var(--text); }
+.mcq .opt:hover{ border-color:var(--purple); }
+.mcq .opt.chosen.correct{ background:#eafaf0; border-color:var(--correct); color:var(--correct); font-weight:700; }
+.mcq .opt.chosen.wrong{ background:#fdecec; border-color:var(--wrong); color:var(--wrong); }
+.mcq .opt.correct:not(.chosen){ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.item{ margin-bottom:18px; padding-bottom:16px; border-bottom:1px dashed var(--border); }
+.item:last-child{ border-bottom:none; }
+.item .qn{ font-size:.78rem; font-weight:800; color:var(--muted); margin-bottom:6px; }
+.item .qtext{ font-size:.94rem; margin:0 0 8px; line-height:1.5; }
+
+/* recognition-judge component (qjudge) reused from task2 trainer */
+.qcat{ margin:16px 0 22px; padding:14px 16px; background:var(--card-tint); border-radius:12px; }
+.qcat-label{ font-weight:800; color:var(--purple-dark); font-size:.92rem; margin-bottom:10px; }
+.qjudge{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:11px 14px; margin-bottom:9px; }
+.qjudge:last-child{ margin-bottom:0; }
+.qtext2{ margin:0 0 8px; font-size:.94rem; line-height:1.45; }
+.qbtns{ display:flex; gap:8px; flex-wrap:wrap; }
+.jbtn{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700; color:var(--muted); }
+.jbtn:hover{ border-color:var(--purple); color:var(--purple); }
+.qjudge[data-done] .jbtn{ pointer-events:none; }
+.jbtn.chosen.is-right{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.jbtn.chosen.is-wrong{ background:#fdecec; border-color:var(--wrong); color:var(--wrong); }
+.jbtn.reveal-correct{ background:#eafaf0; border-color:var(--correct); color:var(--correct); }
+.qexplain{ margin:9px 0 0; padding-top:9px; border-top:1px dashed var(--border); font-size:.85rem; color:var(--muted); line-height:1.5; }
+.qjudge.judged-right .qexplain{ color:var(--correct); }
+.qjudge.judged-wrong .qexplain{ color:var(--wrong); }
+
+/* fill-in-the-blank */
+.gap{ font-family:inherit; font-size:.92rem; padding:6px 9px; border:1.5px solid var(--border); border-radius:7px; width:150px; text-align:center; }
+.gap.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+.gap.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.gap-explain{ display:none; margin-top:6px; font-size:.82rem; color:var(--muted); line-height:1.45; padding:8px 10px; background:var(--card-tint); border-radius:8px; }
+.gap-explain.show{ display:block; }
+.gap-item{ margin-bottom:14px; padding-bottom:12px; border-bottom:1px dashed var(--border); }
+.gap-item:last-child{ border-bottom:none; }
+.gap-item .gn{ font-size:.78rem; font-weight:800; color:var(--muted); margin-bottom:4px; }
+.gap-item .gtext{ font-size:.94rem; line-height:1.55; }
+.gap-item .gtext b{ color:var(--purple-dark); }
+
+/* dropdown matching (select) */
+select.dq{ font-family:inherit; font-size:.88rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px; background:#fff; color:var(--text); min-width:220px; }
+select.dq.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
+select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+select.dq.inline{ min-width:0; max-width:100%; width:auto; padding:3px 6px; font-size:.86rem; vertical-align:baseline; }
+.gap.locked, select.dq.locked{ opacity:1; cursor:default; }
+select.dq:disabled{ -webkit-text-fill-color:currentColor; }
+.letter-text{ font-size:.95rem; line-height:2.1; background:var(--card-tint); border-radius:12px; padding:16px 18px; margin:12px 0; }
+.letter-text p{ margin:0 0 10px; }
+.mail-card{ border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:12px 0; font-size:.9rem; line-height:1.55; }
+.mail-card .mail-head{ font-size:.8rem; color:var(--muted); margin-bottom:8px; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
+.phrase-bank span{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:3px 10px; font-size:.82rem; }
+.inline-explain{ list-style:none; padding:0; margin:10px 0 0; }
+.inline-explain .gap-explain{ margin-top:6px; }
+.match-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--border); }
+.match-row:last-child{ border-bottom:none; }
+.match-row .mn{ font-size:.78rem; font-weight:800; color:var(--muted); min-width:22px; }
+.match-row .mtext{ flex:1 1 260px; font-size:.92rem; line-height:1.4; }
+.match-icon{ font-size:.95rem; width:18px; text-align:center; }
+
+/* page-level check button + status */
+.check-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px dashed var(--border); }
+.page-status{ font-size:.85rem; color:var(--muted); font-weight:700; }
+.page-status.done{ color:var(--correct); }
+
+.exam-card{ background:var(--purple); color:#fff; border-radius:14px; padding:18px 20px; margin:14px 0 18px; }
+.exam-card .exam-eyebrow{ text-transform:uppercase; font-size:.68rem; letter-spacing:.1em; font-weight:800; color:var(--yellow); margin-bottom:6px; }
+.exam-card p{ margin:0 0 10px; }
+.exam-card ul{ margin:6px 0 0; padding-left:20px; }
+.exam-card li{ margin-bottom:4px; }
+
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:18px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+
+/* results + sticker */
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.score-breakdown{ font-size:.88rem; color:var(--muted); margin-top:10px; line-height:1.6; white-space:pre-line; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none !important; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.reset-link{ text-align:center; margin-top:6px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--purple); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){ .angle-badge{ display:none; } }
+
+@media (max-width:640px){
+  .card{ padding:18px 16px; }
+  .namebar{ flex-wrap:wrap; row-gap:2px; }
+  .namebar input{ width:150px; }
+  .save-indicator{ flex-basis:100%; }
+}
+
+
+[hidden]{ display:none !important; }
+.chip-group{ margin:12px 0; }
+.chip-title{ font-weight:800; color:var(--purple); font-size:.85rem; margin-bottom:6px; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chips span{ background:var(--card-tint); border:1.5px solid var(--border); border-radius:8px; padding:4px 10px; font-size:.95rem; }
+.read-list{ padding-left:22px; line-height:1.6; }
+.read-list li{ margin-bottom:6px; }
+.rec-block{ border:2px solid var(--purple); border-radius:14px; padding:14px 16px; margin:18px 0; background:#fff; }
+.rec-head{ font-weight:800; color:var(--purple); }
+.speak-timer-row{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin:12px 0; }
+.speak-clock{ font-size:2.2rem; font-weight:900; color:var(--purple); font-variant-numeric:tabular-nums; min-width:110px; }
+.speak-clock.warn{ color:var(--wrong); }
+.speak-state{ font-size:.85rem; color:var(--muted); font-weight:700; }
+.rec-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--wrong); margin-right:6px; animation:pulse 1s infinite; }
+.rec-dot.hidden{ display:none; }
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+.speak-controls{ display:flex; gap:10px; flex-wrap:wrap; }
+.speak-playback{ margin-top:12px; }
+.speak-playback audio{ width:100%; }
+.mic-error{ display:none; margin-top:10px; color:var(--wrong); font-size:.85rem; }
+.mic-error.show{ display:block; }
+.checklist{ display:flex; flex-direction:column; gap:8px; margin:8px 0 14px; }
+.checklist label{ display:flex; gap:10px; align-items:flex-start; font-size:.9rem; line-height:1.4; cursor:pointer; }
+.checklist input{ margin-top:3px; width:18px; height:18px; flex:0 0 auto; accent-color:var(--purple); }
+.reveal-btn{ margin:6px 0 10px; }
+.reveal-box{ background:var(--card-tint); border-radius:12px; padding:12px 14px; margin-bottom:14px; font-size:.9rem; line-height:1.55; }
+.keytable td:first-child{ white-space:nowrap; }
+.keytable tr.grp td{ background:var(--purple); color:#fff; font-weight:800; }
+.say{ border:none; background:none; cursor:pointer; font-size:1rem; padding:0 2px; }
+.seg{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 14px; }
+.seg-btn{ font-family:inherit; font-size:.82rem; font-weight:700; padding:7px 12px; border-radius:999px; border:1.5px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer; }
+.seg-btn.active{ background:var(--purple); color:#fff; }
+.cue-box{ background:var(--black); color:#fff; border-radius:12px; padding:12px 16px; margin:10px 0; text-align:center; }
+.cue-q{ font-weight:800; color:var(--yellow); }
+.cue-t{ font-size:1.6rem; font-weight:900; font-variant-numeric:tabular-nums; }
+.iq-list{ padding-left:22px; line-height:1.55; }
+.iq-list li{ margin-bottom:8px; }
+.iq.now .iq-text{ background:#fff6c2; border-radius:6px; padding:0 4px; }
+.iq-prompt{ font-size:.85rem; color:var(--muted); margin-top:2px; }
+.sample-list{ padding-left:20px; }
+.sample-list li{ margin-bottom:10px; }
+.photo-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:12px 0; }
+.photo-grid.two{ grid-template-columns:repeat(2, 1fr); }
+.photo-card{ margin:0; background:var(--card-tint); border-radius:12px; overflow:hidden; }
+.photo-card img{ width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+.photo-card figcaption{ font-size:.78rem; line-height:1.35; padding:8px 10px; color:var(--text); }
+.phrase-note{ font-size:.85rem; line-height:1.5; background:var(--card-tint); border-radius:10px; padding:10px 12px; margin:8px 0 12px; }
+.qlist{ display:flex; flex-direction:column; gap:10px; margin:8px 0 10px; }
+.qrow{ display:grid; grid-template-columns:minmax(0,220px) minmax(0,1fr); gap:6px 12px; align-items:center; }
+.qopt{ font-size:.85rem; font-weight:700; color:var(--purple-dark); }
+.qtype{ font-family:inherit; font-size:.92rem; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; width:100%; }
+.qmodel{ grid-column:2; font-size:.85rem; color:var(--correct); }
+.sum-list{ display:flex; flex-direction:column; gap:8px; margin:12px 0; }
+.sum-row{ display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border:1.5px solid var(--border); border-radius:10px; font-size:.9rem; }
+.pill-sent{ background:#eafaf0; color:var(--correct); border-radius:999px; padding:2px 10px; font-weight:700; white-space:nowrap; font-size:.8rem; }
+.pill-notsent{ background:var(--card-tint); color:var(--muted); border-radius:999px; padding:2px 10px; white-space:nowrap; font-size:.8rem; }
+@media (max-width:640px){
+  .photo-grid{ grid-template-columns:repeat(2, 1fr); }
+  .qrow{ grid-template-columns:1fr; }
+  .qmodel{ grid-column:1; }
+  .speak-clock{ font-size:1.8rem; }
+}
+
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <span class="lesson-title">Входное тестирование · Устная часть</span>
+        <div class="namebar">
+          <label for="studentName">Имя:</label>
+          <input type="text" id="studentName" placeholder="Фамилия Имя">
+          <span class="save-indicator" id="saveIndicator"></span>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+      </div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+  </header>
+
+  <div class="scroll-area" id="scrollArea">
+    <div class="page-wrap">
+
+      <div class="restore-note" id="restoreNote" hidden>
+        <span id="restoreNoteText"></span>
+        <span style="display:flex; gap:8px;">
+          <button id="restoreYes">Восстановить</button>
+          <button id="restoreNo">Начать заново</button>
+        </span>
+      </div>
+
+      <section class="page active" data-page="0">
+
+<div class="card">
+  <div class="eyebrow">Первые уроки · Входное тестирование</div>
+  <h2>Устная часть: как вы говорите сейчас</h2>
+  <p>Шесть коротких записей по всем четырём заданиям устной части. Преподаватель послушает их и поймёт, с чего начинать работу. Это диагностика, а не экзамен: говорите так, как получается.</p>
+  <div class="table-scroll"><table class="reftable">
+    <tr><th>Блок</th><th>Что делать</th><th>Время записи</th></tr>
+    <tr><td>Задание 1 · 1a</td><td>Прочитать слова, числа, годы, имена</td><td>до 4 мин</td></tr>
+    <tr><td>Задание 1 · 1b</td><td>Прочитать 15 предложений с интонацией</td><td>до 3 мин</td></tr>
+    <tr><td>Задание 2</td><td>Задать 15 прямых вопросов</td><td>до 5 мин</td></tr>
+    <tr><td>Задание 3</td><td>Интервью: 15 вопросов от носителя, 40 с на ответ</td><td>13 мин</td></tr>
+    <tr><td>Задание 4 · 4a/4b</td><td>Ответить на вопросы по 6 фото</td><td>до 5 мин</td></tr>
+    <tr><td>Задание 4 · 4c/4d</td><td>Монолог по 2 фото</td><td>3 мин</td></tr>
+  </table></div>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Перед началом</div>
+    <ul>
+      <li>Впишите имя вверху страницы — без него запись не отправится.</li>
+      <li>Разрешите браузеру доступ к микрофону. Лучше всего работает свежий Chrome, Edge или Safari.</li>
+      <li>Найдите тихое место. Для задания 3 удобнее в наушниках.</li>
+      <li>Каждый блок отправляется отдельно кнопкой «Отправить преподавателю». Можно делать блоки в разные дни.</li>
+      <li>Образцы ответов открывайте <b>после</b> записи — иначе диагностика теряет смысл.</li>
+    </ul>
+  </div>
+  <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Начать →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="1">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 1</div>
+  <h2>Card 1a: The phonetic traps</h2>
+  <p>Прочитайте вслух все слова, числа, годы и имена по порядку. Это слова, на которых чаще всего ошибаются в задании 1.</p>
+  <div class="chip-group"><div class="chip-title">1. Tricky sounds</div><div class="chips"><span>heat</span><span>zero</span><span>plants</span><span>gases</span><span>lose</span><span>other</span><span>cause</span><span>purpose</span><span>lead</span><span>further</span><span>timber</span><span>rare</span><span>company</span><span>accident</span><span>though</span><span>through</span><span>pattern</span><span>typical</span><span>enough</span><span>neither</span><span>creature</span><span>unique</span><span>fuel</span><span>catalogue</span><span>increase</span><span>determine</span><span>unusual</span><span>identified</span><span>anxiety</span><span>construction</span></div></div><div class="chip-group"><div class="chip-title">2. Word stress</div><div class="chips"><span>even</span><span>almost</span><span>percent</span><span>effects</span><span>aspects</span><span>industry</span><span>footprint</span><span>purchase</span><span>symptoms</span><span>developed</span><span>converted</span><span>capacity</span><span>economy</span><span>significant</span><span>discomfort</span><span>accelerate</span><span>conservation</span><span>flexibility</span><span>satellite</span><span>advertisement</span></div></div><div class="chip-group"><div class="chip-title">3. Silent letters</div><div class="chips"><span>climb</span><span>knife</span><span>sign</span><span>answer</span><span>would</span><span>island</span><span>walking</span><span>enough</span><span>knock</span><span>designer</span><span>foreigner</span><span>mechanic</span><span>knight</span><span>doubtful</span><span>sword</span><span>receipt</span><span>debt</span><span>character</span><span>subtle</span><span>hustle</span></div></div><div class="chip-group"><div class="chip-title">4. Numbers</div><div class="chips"><span>304</span><span>14</span><span>40</span><span>19</span><span>90</span><span>2004</span><span>1234</span><span>789 000</span></div></div><div class="chip-group"><div class="chip-title">5. Years</div><div class="chips"><span>1961</span><span>1147</span><span>1999</span><span>2001</span><span>2012</span><span>2017</span><span>2030</span></div></div><div class="chip-group"><div class="chip-title">6. Proper names</div><div class="chips"><span>the Earth</span><span>Europe</span><span>Australia</span><span>the Mediterranean</span><span>the Pacific Ocean</span><span>the Arctic Ocean</span><span>Saint Petersburg</span><span>Karelia</span><span>Thames</span><span>Shakespeare</span><span>Edinburgh</span><span>Hermitage</span><span>Siberia</span><span>Lake Onega</span><span>the Far East</span></div></div>
+  
+  <div class="rec-block" id="rec-r1a">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">Нажмите «Начать»: минута на то, чтобы просмотреть список, затем запись до 4 минут. Закончили раньше — нажмите «Стоп».</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r1a">04:00</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r1a"></span><span id="stateText-r1a">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r1a" onclick="startRec('r1a')">🎙️ Начать (60 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stop-r1a" onclick="stopRec('r1a')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r1a" onclick="resetRec('r1a')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r1a"></div>
+    <div class="speak-playback" id="playback-r1a" hidden></div>
+  </div>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-0">Прочитал(а) все 6 групп без пропусков</label><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-1">Сложные звуки совпали с транскрипцией (though / through, lose, purpose, creature…)</label><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-2">Ударение в группе 2 стоит там же, где в транскрипции</label><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-3">Немые буквы не произносил(а) (climb, knife, debt, receipt, sword…)</label><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-4">Числа и годы прочитал(а) правильно (304 — three hundred and four, 1147 — eleven forty-seven)</label><label><input type="checkbox" class="chk" data-block="r1a" data-k="r1a-5">Имена собственные произнёс(ла) верно (Thames, Edinburgh, Hermitage…)</label></div>
+  
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleReveal('rv-r1a', this)" data-label="Показать транскрипции и произношение">Показать транскрипции и произношение</button>
+  <div class="reveal-box" id="rv-r1a" hidden><div class="table-scroll"><table class="reftable keytable"><tr class="grp"><td colspan="2">1. Tricky sounds</td></tr><tr><td><button type="button" class="say" data-say="heat" aria-label="Прослушать">🔊</button> <b>heat</b></td><td>/hiːt/</td></tr><tr><td><button type="button" class="say" data-say="zero" aria-label="Прослушать">🔊</button> <b>zero</b></td><td>/ˈzɪə.rəʊ/</td></tr><tr><td><button type="button" class="say" data-say="plants" aria-label="Прослушать">🔊</button> <b>plants</b></td><td>/plɑːnts/</td></tr><tr><td><button type="button" class="say" data-say="gases" aria-label="Прослушать">🔊</button> <b>gases</b></td><td>/ˈɡæs.ɪz/</td></tr><tr><td><button type="button" class="say" data-say="lose" aria-label="Прослушать">🔊</button> <b>lose</b></td><td>/luːz/</td></tr><tr><td><button type="button" class="say" data-say="other" aria-label="Прослушать">🔊</button> <b>other</b></td><td>/ˈʌð.ər/</td></tr><tr><td><button type="button" class="say" data-say="cause" aria-label="Прослушать">🔊</button> <b>cause</b></td><td>/kɔːz/</td></tr><tr><td><button type="button" class="say" data-say="purpose" aria-label="Прослушать">🔊</button> <b>purpose</b></td><td>/ˈpɜː.pəs/</td></tr><tr><td><button type="button" class="say" data-say="lead" aria-label="Прослушать">🔊</button> <b>lead</b></td><td>/liːd/ (глагол), /led/ (металл)</td></tr><tr><td><button type="button" class="say" data-say="further" aria-label="Прослушать">🔊</button> <b>further</b></td><td>/ˈfɜː.ðər/</td></tr><tr><td><button type="button" class="say" data-say="timber" aria-label="Прослушать">🔊</button> <b>timber</b></td><td>/ˈtɪm.bər/</td></tr><tr><td><button type="button" class="say" data-say="rare" aria-label="Прослушать">🔊</button> <b>rare</b></td><td>/reər/</td></tr><tr><td><button type="button" class="say" data-say="company" aria-label="Прослушать">🔊</button> <b>company</b></td><td>/ˈkʌm.pə.ni/</td></tr><tr><td><button type="button" class="say" data-say="accident" aria-label="Прослушать">🔊</button> <b>accident</b></td><td>/ˈæk.sɪ.dənt/</td></tr><tr><td><button type="button" class="say" data-say="though" aria-label="Прослушать">🔊</button> <b>though</b></td><td>/ðəʊ/</td></tr><tr><td><button type="button" class="say" data-say="through" aria-label="Прослушать">🔊</button> <b>through</b></td><td>/θruː/</td></tr><tr><td><button type="button" class="say" data-say="pattern" aria-label="Прослушать">🔊</button> <b>pattern</b></td><td>/ˈpæt.ən/</td></tr><tr><td><button type="button" class="say" data-say="typical" aria-label="Прослушать">🔊</button> <b>typical</b></td><td>/ˈtɪp.ɪ.kəl/</td></tr><tr><td><button type="button" class="say" data-say="enough" aria-label="Прослушать">🔊</button> <b>enough</b></td><td>/ɪˈnʌf/</td></tr><tr><td><button type="button" class="say" data-say="neither" aria-label="Прослушать">🔊</button> <b>neither</b></td><td>/ˈnaɪ.ðər/ или /ˈniː.ðər/</td></tr><tr><td><button type="button" class="say" data-say="creature" aria-label="Прослушать">🔊</button> <b>creature</b></td><td>/ˈkriː.tʃər/</td></tr><tr><td><button type="button" class="say" data-say="unique" aria-label="Прослушать">🔊</button> <b>unique</b></td><td>/juːˈniːk/</td></tr><tr><td><button type="button" class="say" data-say="fuel" aria-label="Прослушать">🔊</button> <b>fuel</b></td><td>/ˈfjuː.əl/</td></tr><tr><td><button type="button" class="say" data-say="catalogue" aria-label="Прослушать">🔊</button> <b>catalogue</b></td><td>/ˈkæt.ə.lɒɡ/</td></tr><tr><td><button type="button" class="say" data-say="increase" aria-label="Прослушать">🔊</button> <b>increase</b></td><td>/ɪnˈkriːs/ (глагол), /ˈɪn.kriːs/ (сущ.)</td></tr><tr><td><button type="button" class="say" data-say="determine" aria-label="Прослушать">🔊</button> <b>determine</b></td><td>/dɪˈtɜː.mɪn/</td></tr><tr><td><button type="button" class="say" data-say="unusual" aria-label="Прослушать">🔊</button> <b>unusual</b></td><td>/ʌnˈjuː.ʒu.əl/</td></tr><tr><td><button type="button" class="say" data-say="identified" aria-label="Прослушать">🔊</button> <b>identified</b></td><td>/aɪˈden.tɪ.faɪd/</td></tr><tr><td><button type="button" class="say" data-say="anxiety" aria-label="Прослушать">🔊</button> <b>anxiety</b></td><td>/æŋˈzaɪ.ə.ti/</td></tr><tr><td><button type="button" class="say" data-say="construction" aria-label="Прослушать">🔊</button> <b>construction</b></td><td>/kənˈstrʌk.ʃən/</td></tr><tr class="grp"><td colspan="2">2. Word stress</td></tr><tr><td><button type="button" class="say" data-say="even" aria-label="Прослушать">🔊</button> <b>even</b></td><td>/ˈiː.vən/</td></tr><tr><td><button type="button" class="say" data-say="almost" aria-label="Прослушать">🔊</button> <b>almost</b></td><td>/ˈɔːl.məʊst/</td></tr><tr><td><button type="button" class="say" data-say="percent" aria-label="Прослушать">🔊</button> <b>percent</b></td><td>/pəˈsent/</td></tr><tr><td><button type="button" class="say" data-say="effects" aria-label="Прослушать">🔊</button> <b>effects</b></td><td>/ɪˈfekts/</td></tr><tr><td><button type="button" class="say" data-say="aspects" aria-label="Прослушать">🔊</button> <b>aspects</b></td><td>/ˈæs.pekts/</td></tr><tr><td><button type="button" class="say" data-say="industry" aria-label="Прослушать">🔊</button> <b>industry</b></td><td>/ˈɪn.də.stri/</td></tr><tr><td><button type="button" class="say" data-say="footprint" aria-label="Прослушать">🔊</button> <b>footprint</b></td><td>/ˈfʊt.prɪnt/</td></tr><tr><td><button type="button" class="say" data-say="purchase" aria-label="Прослушать">🔊</button> <b>purchase</b></td><td>/ˈpɜː.tʃəs/</td></tr><tr><td><button type="button" class="say" data-say="symptoms" aria-label="Прослушать">🔊</button> <b>symptoms</b></td><td>/ˈsɪmp.təmz/</td></tr><tr><td><button type="button" class="say" data-say="developed" aria-label="Прослушать">🔊</button> <b>developed</b></td><td>/dɪˈvel.əpt/</td></tr><tr><td><button type="button" class="say" data-say="converted" aria-label="Прослушать">🔊</button> <b>converted</b></td><td>/kənˈvɜː.tɪd/</td></tr><tr><td><button type="button" class="say" data-say="capacity" aria-label="Прослушать">🔊</button> <b>capacity</b></td><td>/kəˈpæs.ə.ti/</td></tr><tr><td><button type="button" class="say" data-say="economy" aria-label="Прослушать">🔊</button> <b>economy</b></td><td>/ɪˈkɒn.ə.mi/</td></tr><tr><td><button type="button" class="say" data-say="significant" aria-label="Прослушать">🔊</button> <b>significant</b></td><td>/sɪɡˈnɪf.ɪ.kənt/</td></tr><tr><td><button type="button" class="say" data-say="discomfort" aria-label="Прослушать">🔊</button> <b>discomfort</b></td><td>/dɪsˈkʌm.fət/</td></tr><tr><td><button type="button" class="say" data-say="accelerate" aria-label="Прослушать">🔊</button> <b>accelerate</b></td><td>/əkˈsel.ə.reɪt/</td></tr><tr><td><button type="button" class="say" data-say="conservation" aria-label="Прослушать">🔊</button> <b>conservation</b></td><td>/ˌkɒn.səˈveɪ.ʃən/</td></tr><tr><td><button type="button" class="say" data-say="flexibility" aria-label="Прослушать">🔊</button> <b>flexibility</b></td><td>/ˌflek.səˈbɪl.ə.ti/</td></tr><tr><td><button type="button" class="say" data-say="satellite" aria-label="Прослушать">🔊</button> <b>satellite</b></td><td>/ˈsæt.ə.laɪt/</td></tr><tr><td><button type="button" class="say" data-say="advertisement" aria-label="Прослушать">🔊</button> <b>advertisement</b></td><td>/ədˈvɜː.tɪs.mənt/ (брит.)</td></tr><tr class="grp"><td colspan="2">3. Silent letters</td></tr><tr><td><button type="button" class="say" data-say="climb" aria-label="Прослушать">🔊</button> <b>climb</b></td><td>/klaɪm/</td></tr><tr><td><button type="button" class="say" data-say="knife" aria-label="Прослушать">🔊</button> <b>knife</b></td><td>/naɪf/</td></tr><tr><td><button type="button" class="say" data-say="sign" aria-label="Прослушать">🔊</button> <b>sign</b></td><td>/saɪn/</td></tr><tr><td><button type="button" class="say" data-say="answer" aria-label="Прослушать">🔊</button> <b>answer</b></td><td>/ˈɑːn.sər/</td></tr><tr><td><button type="button" class="say" data-say="would" aria-label="Прослушать">🔊</button> <b>would</b></td><td>/wʊd/</td></tr><tr><td><button type="button" class="say" data-say="island" aria-label="Прослушать">🔊</button> <b>island</b></td><td>/ˈaɪ.lənd/</td></tr><tr><td><button type="button" class="say" data-say="walking" aria-label="Прослушать">🔊</button> <b>walking</b></td><td>/ˈwɔː.kɪŋ/</td></tr><tr><td><button type="button" class="say" data-say="enough" aria-label="Прослушать">🔊</button> <b>enough</b></td><td>/ɪˈnʌf/</td></tr><tr><td><button type="button" class="say" data-say="knock" aria-label="Прослушать">🔊</button> <b>knock</b></td><td>/nɒk/</td></tr><tr><td><button type="button" class="say" data-say="designer" aria-label="Прослушать">🔊</button> <b>designer</b></td><td>/dɪˈzaɪ.nər/</td></tr><tr><td><button type="button" class="say" data-say="foreigner" aria-label="Прослушать">🔊</button> <b>foreigner</b></td><td>/ˈfɒr.ə.nər/</td></tr><tr><td><button type="button" class="say" data-say="mechanic" aria-label="Прослушать">🔊</button> <b>mechanic</b></td><td>/məˈkæn.ɪk/</td></tr><tr><td><button type="button" class="say" data-say="knight" aria-label="Прослушать">🔊</button> <b>knight</b></td><td>/naɪt/</td></tr><tr><td><button type="button" class="say" data-say="doubtful" aria-label="Прослушать">🔊</button> <b>doubtful</b></td><td>/ˈdaʊt.fəl/</td></tr><tr><td><button type="button" class="say" data-say="sword" aria-label="Прослушать">🔊</button> <b>sword</b></td><td>/sɔːd/</td></tr><tr><td><button type="button" class="say" data-say="receipt" aria-label="Прослушать">🔊</button> <b>receipt</b></td><td>/rɪˈsiːt/</td></tr><tr><td><button type="button" class="say" data-say="debt" aria-label="Прослушать">🔊</button> <b>debt</b></td><td>/det/</td></tr><tr><td><button type="button" class="say" data-say="character" aria-label="Прослушать">🔊</button> <b>character</b></td><td>/ˈkær.ək.tər/</td></tr><tr><td><button type="button" class="say" data-say="subtle" aria-label="Прослушать">🔊</button> <b>subtle</b></td><td>/ˈsʌt.əl/</td></tr><tr><td><button type="button" class="say" data-say="hustle" aria-label="Прослушать">🔊</button> <b>hustle</b></td><td>/ˈhʌs.əl/</td></tr><tr class="grp"><td colspan="2">4. Numbers</td></tr><tr><td><button type="button" class="say" data-say="three hundred and four" aria-label="Прослушать">🔊</button> <b>304</b></td><td>three hundred and four</td></tr><tr><td><button type="button" class="say" data-say="fourteen" aria-label="Прослушать">🔊</button> <b>14</b></td><td>fourteen</td></tr><tr><td><button type="button" class="say" data-say="forty" aria-label="Прослушать">🔊</button> <b>40</b></td><td>forty</td></tr><tr><td><button type="button" class="say" data-say="nineteen" aria-label="Прослушать">🔊</button> <b>19</b></td><td>nineteen</td></tr><tr><td><button type="button" class="say" data-say="ninety" aria-label="Прослушать">🔊</button> <b>90</b></td><td>ninety</td></tr><tr><td><button type="button" class="say" data-say="two thousand and four" aria-label="Прослушать">🔊</button> <b>2004</b></td><td>two thousand and four</td></tr><tr><td><button type="button" class="say" data-say="one thousand two hundred and thirty-four" aria-label="Прослушать">🔊</button> <b>1234</b></td><td>one thousand two hundred and thirty-four</td></tr><tr><td><button type="button" class="say" data-say="seven hundred and eighty-nine thousand" aria-label="Прослушать">🔊</button> <b>789 000</b></td><td>seven hundred and eighty-nine thousand</td></tr><tr class="grp"><td colspan="2">5. Years</td></tr><tr><td><button type="button" class="say" data-say="nineteen sixty-one" aria-label="Прослушать">🔊</button> <b>1961</b></td><td>nineteen sixty-one</td></tr><tr><td><button type="button" class="say" data-say="eleven forty-seven" aria-label="Прослушать">🔊</button> <b>1147</b></td><td>eleven forty-seven</td></tr><tr><td><button type="button" class="say" data-say="nineteen ninety-nine" aria-label="Прослушать">🔊</button> <b>1999</b></td><td>nineteen ninety-nine</td></tr><tr><td><button type="button" class="say" data-say="two thousand and one" aria-label="Прослушать">🔊</button> <b>2001</b></td><td>two thousand and one</td></tr><tr><td><button type="button" class="say" data-say="twenty twelve" aria-label="Прослушать">🔊</button> <b>2012</b></td><td>twenty twelve / two thousand and twelve</td></tr><tr><td><button type="button" class="say" data-say="twenty seventeen" aria-label="Прослушать">🔊</button> <b>2017</b></td><td>twenty seventeen</td></tr><tr><td><button type="button" class="say" data-say="twenty thirty" aria-label="Прослушать">🔊</button> <b>2030</b></td><td>twenty thirty / two thousand and thirty</td></tr><tr class="grp"><td colspan="2">6. Proper names</td></tr><tr><td><button type="button" class="say" data-say="the Earth" aria-label="Прослушать">🔊</button> <b>the Earth</b></td><td>/ði ɜːθ/</td></tr><tr><td><button type="button" class="say" data-say="Europe" aria-label="Прослушать">🔊</button> <b>Europe</b></td><td>/ˈjʊə.rəp/</td></tr><tr><td><button type="button" class="say" data-say="Australia" aria-label="Прослушать">🔊</button> <b>Australia</b></td><td>/ɒsˈtreɪ.li.ə/</td></tr><tr><td><button type="button" class="say" data-say="the Mediterranean" aria-label="Прослушать">🔊</button> <b>the Mediterranean</b></td><td>/ðə ˌmed.ɪ.tərˈeɪ.ni.ən/</td></tr><tr><td><button type="button" class="say" data-say="the Pacific Ocean" aria-label="Прослушать">🔊</button> <b>the Pacific Ocean</b></td><td>/ðə pəˈsɪf.ɪk ˈəʊ.ʃən/</td></tr><tr><td><button type="button" class="say" data-say="the Arctic Ocean" aria-label="Прослушать">🔊</button> <b>the Arctic Ocean</b></td><td>/ði ˈɑːk.tɪk ˈəʊ.ʃən/</td></tr><tr><td><button type="button" class="say" data-say="Saint Petersburg" aria-label="Прослушать">🔊</button> <b>Saint Petersburg</b></td><td>/sənt ˈpiː.tə.bɜːɡ/</td></tr><tr><td><button type="button" class="say" data-say="Karelia" aria-label="Прослушать">🔊</button> <b>Karelia</b></td><td>/kəˈreɪ.li.ə/</td></tr><tr><td><button type="button" class="say" data-say="Thames" aria-label="Прослушать">🔊</button> <b>Thames</b></td><td>/temz/</td></tr><tr><td><button type="button" class="say" data-say="Shakespeare" aria-label="Прослушать">🔊</button> <b>Shakespeare</b></td><td>/ˈʃeɪk.spɪər/</td></tr><tr><td><button type="button" class="say" data-say="Edinburgh" aria-label="Прослушать">🔊</button> <b>Edinburgh</b></td><td>/ˈed.ɪn.bər.ə/</td></tr><tr><td><button type="button" class="say" data-say="Hermitage" aria-label="Прослушать">🔊</button> <b>Hermitage</b></td><td>/ˈhɜː.mɪ.tɪdʒ/</td></tr><tr><td><button type="button" class="say" data-say="Siberia" aria-label="Прослушать">🔊</button> <b>Siberia</b></td><td>/saɪˈbɪə.ri.ə/</td></tr><tr><td><button type="button" class="say" data-say="Lake Onega" aria-label="Прослушать">🔊</button> <b>Lake Onega</b></td><td>/ˈleɪk əʊˈneɪ.ɡə/</td></tr><tr><td><button type="button" class="say" data-say="the Far East" aria-label="Прослушать">🔊</button> <b>the Far East</b></td><td>/ðə ˌfɑːr ˈiːst/</td></tr></table></div><p class="muted">🔊 — синтезированное произношение браузера (британский вариант, если он есть на устройстве).</p></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r1a" onclick="sendBlock('r1a')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r1a"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="2">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 1</div>
+  <h2>Card 1b: Intonation practice</h2>
+  <p>Прочитайте предложения, обращая внимание на паузы и интонацию: вводные слова, обстоятельства в начале, перечисления, условные предложения.</p>
+  <ol class="read-list"><li>In recent years, learning English online has become very popular.</li><li>However, traditional lessons with a teacher still have many advantages.</li><li>Not only does sport make you strong, but it also helps you feel happy.</li><li>According to recent studies, teenagers spend about four hours a day on their phones.</li><li>To stay healthy, doctors recommend eating fruit and doing sports.</li><li>Many people believe that success depends on hard work, patience, and a bit of luck.</li><li>If we cut down forests, many species of animals and birds will lose their homes.</li><li>As soon as the sun goes down, the city lights turn on and the streets become bright.</li><li>In spring, when the weather gets warmer, birds return from the south and build their nests.</li><li>In conclusion, I strongly believe that knowledge is the key to a good career.</li><li>Unfortunately, climate change is a big problem for our planet today.</li><li>Among the most useful animals on Earth are bees, which help plants grow and give us honey.</li><li>If you want to pass your exams, you must study hard and never give up.</li><li>The Internet has changed the way we talk, find information, and buy things.</li><li>As the temperature goes up, many insects appear earlier, damaging plants and crops.</li></ol>
+  
+  <div class="rec-block" id="rec-r1b">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">Минута на подготовку, затем запись до 3 минут.</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r1b">03:00</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r1b"></span><span id="stateText-r1b">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r1b" onclick="startRec('r1b')">🎙️ Начать (60 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stop-r1b" onclick="stopRec('r1b')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r1b" onclick="resetRec('r1b')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r1b"></div>
+    <div class="speak-playback" id="playback-r1b" hidden></div>
+  </div>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r1b" data-k="r1b-0">Делал(а) паузу после вводных слов и обстоятельств в начале предложения</label><label><input type="checkbox" class="chk" data-block="r1b" data-k="r1b-1">В перечислениях повышал(а) тон на каждом элементе и понижал(а) на последнем</label><label><input type="checkbox" class="chk" data-block="r1b" data-k="r1b-2">В условных и временных придаточных: повышение, в главной части — понижение</label><label><input type="checkbox" class="chk" data-block="r1b" data-k="r1b-3">Выделял(а) голосом смысловые центры, читал(а) не монотонно</label><label><input type="checkbox" class="chk" data-block="r1b" data-k="r1b-4">Не останавливался(ась) внутри смысловых групп</label></div>
+  
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleReveal('rv-r1b', this)" data-label="Показать интонационную разметку">Показать интонационную разметку</button>
+  <div class="reveal-box" id="rv-r1b" hidden><div class="table-scroll"><table class="reftable"><tr><th>№</th><th>Предложение</th><th>Интонационная разметка</th></tr><tr><td>1</td><td>In recent years, learning English online has become very popular.</td><td>Обстоятельство времени → пауза, затем понижение</td></tr><tr><td>2</td><td>However, traditional lessons with a teacher still have many advantages.</td><td>Вводное слово → пауза, контрастное ударение</td></tr><tr><td>3</td><td>Not only does sport make you strong, but it also helps you feel happy.</td><td>Инверсия, противопоставление → логическое ударение</td></tr><tr><td>4</td><td>According to recent studies, teenagers spend about four hours a day on their phones.</td><td>Вводное словосочетание → пауза</td></tr><tr><td>5</td><td>To stay healthy, doctors recommend eating fruit and doing sports.</td><td>Обстоятельство цели → пауза; перечисление → повышение</td></tr><tr><td>6</td><td>Many people believe that success depends on hard work, patience, and a bit of luck.</td><td>Перечисление → повышение на каждом элементе, понижение на последнем</td></tr><tr><td>7</td><td>If we cut down forests, many species of animals and birds will lose their homes.</td><td>Условное придаточное → повышение, главное → понижение</td></tr><tr><td>8</td><td>As soon as the sun goes down, the city lights turn on and the streets become bright.</td><td>Придаточное времени → повышение, главное → понижение</td></tr><tr><td>9</td><td>In spring, when the weather gets warmer, birds return from the south and build their nests.</td><td>Обстоятельство времени → пауза; перечисление → повышение</td></tr><tr><td>10</td><td>In conclusion, I strongly believe that knowledge is the key to a good career.</td><td>Вводное слово → пауза</td></tr><tr><td>11</td><td>Unfortunately, climate change is a big problem for our planet today.</td><td>Вводное слово → пауза</td></tr><tr><td>12</td><td>Among the most useful animals on Earth are bees, which help plants grow and give us honey.</td><td>Инверсия → пауза; перечисление → повышение</td></tr><tr><td>13</td><td>If you want to pass your exams, you must study hard and never give up.</td><td>Придаточное условия → повышение, главное → понижение</td></tr><tr><td>14</td><td>The Internet has changed the way we talk, find information, and buy things.</td><td>Перечисление → повышение, понижение на последнем</td></tr><tr><td>15</td><td>As the temperature goes up, many insects appear earlier, damaging plants and crops.</td><td>Обстоятельство времени → пауза; перечисление → повышение</td></tr></table></div></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r1b" onclick="sendBlock('r1b')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r1b"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="3">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 2</div>
+  <h2>Card 2: Asking questions</h2>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Карточка</div>
+    <p>You are considering joining an English language course at a local school and now you'd like to get more information. Ask fifteen direct questions to find out the following:</p>
+    <ol><li>location</li><li>opening hours</li><li>price for a month</li><li>duration of a lesson</li><li>number of days per week</li><li>minimum age</li><li>number of students in a group</li><li>B1 level groups</li><li>trial lesson</li><li>if textbooks are provided</li><li>opportunity to speak with native speakers</li><li>certificate</li><li>qualifications of teachers</li><li>necessity to take a final exam</li><li>kinds of teaching methods</li></ol>
+  </div>
+  
+  <div class="rec-block" id="rec-r2">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">Полторы минуты на подготовку, затем задайте все 15 вопросов вслух (запись до 5 минут).</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r2">05:00</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r2"></span><span id="stateText-r2">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r2" onclick="startRec('r2')">🎙️ Начать (90 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stop-r2" onclick="stopRec('r2')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r2" onclick="resetRec('r2')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r2"></div>
+    <div class="speak-playback" id="playback-r2" hidden></div>
+  </div>
+  <h3>Запишите вопросы письменно</h3>
+  <p class="muted">Необязательно, но полезно: преподаватель увидит и устный, и письменный вариант. Затем откройте образцы и сравните.</p>
+  <div class="qlist"><div class="qrow"><span class="qopt">1. location</span><input type="text" class="qtype" data-k="q2-1" data-opt="location" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Where is your school located?</span></div><div class="qrow"><span class="qopt">2. opening hours</span><input type="text" class="qtype" data-k="q2-2" data-opt="opening hours" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ What are your opening hours?</span></div><div class="qrow"><span class="qopt">3. price for a month</span><input type="text" class="qtype" data-k="q2-3" data-opt="price for a month" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ How much does the course cost for a month?</span></div><div class="qrow"><span class="qopt">4. duration of a lesson</span><input type="text" class="qtype" data-k="q2-4" data-opt="duration of a lesson" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ How long does each lesson last? / What is the duration of a lesson?</span></div><div class="qrow"><span class="qopt">5. number of days per week</span><input type="text" class="qtype" data-k="q2-5" data-opt="number of days per week" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ How many days per week are the classes conducted?</span></div><div class="qrow"><span class="qopt">6. minimum age</span><input type="text" class="qtype" data-k="q2-6" data-opt="minimum age" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ What is the minimum age for students?</span></div><div class="qrow"><span class="qopt">7. number of students in a group</span><input type="text" class="qtype" data-k="q2-7" data-opt="number of students in a group" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ How many students are there in a group?</span></div><div class="qrow"><span class="qopt">8. B1 level groups</span><input type="text" class="qtype" data-k="q2-8" data-opt="B1 level groups" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Do you offer / have courses for B1 level groups?</span></div><div class="qrow"><span class="qopt">9. trial lesson</span><input type="text" class="qtype" data-k="q2-9" data-opt="trial lesson" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Do you offer a free trial lesson?</span></div><div class="qrow"><span class="qopt">10. if textbooks are provided</span><input type="text" class="qtype" data-k="q2-10" data-opt="if textbooks are provided" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Are textbooks provided?</span></div><div class="qrow"><span class="qopt">11. opportunity to speak with native speakers</span><input type="text" class="qtype" data-k="q2-11" data-opt="opportunity to speak with native speakers" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Is there an opportunity to speak with native speakers?</span></div><div class="qrow"><span class="qopt">12. certificate</span><input type="text" class="qtype" data-k="q2-12" data-opt="certificate" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Do you give a certificate at the end of the course?</span></div><div class="qrow"><span class="qopt">13. qualifications of teachers</span><input type="text" class="qtype" data-k="q2-13" data-opt="qualifications of teachers" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ What qualifications do your teachers have?</span></div><div class="qrow"><span class="qopt">14. necessity to take a final exam</span><input type="text" class="qtype" data-k="q2-14" data-opt="necessity to take a final exam" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ Is it necessary to take a final exam at the end of the course?</span></div><div class="qrow"><span class="qopt">15. kinds of teaching methods</span><input type="text" class="qtype" data-k="q2-15" data-opt="kinds of teaching methods" placeholder="Ваш вопрос" autocomplete="off" spellcheck="false"><span class="qmodel" hidden>✓ What kinds of teaching methods do you use?</span></div></div>
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleModels(this)" data-label="Показать образцы вопросов">Показать образцы вопросов</button>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r2" data-k="r2-0">Задал(а) все 15 вопросов</label><label><input type="checkbox" class="chk" data-block="r2" data-k="r2-1">Все вопросы прямые — без «Can you tell me…» и «I&#x27;d like to know…»</label><label><input type="checkbox" class="chk" data-block="r2" data-k="r2-2">Порядок слов: вспомогательный глагол + подлежащее + основной глагол</label><label><input type="checkbox" class="chk" data-block="r2" data-k="r2-3">Называл(а) объект словами, а не it / they</label><label><input type="checkbox" class="chk" data-block="r2" data-k="r2-4">Правильно выбирал(а) вопросительное слово: How much / How long / How many / What</label></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r2" onclick="sendBlock('r2')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r2"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="4">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 3</div>
+  <h2>Card 3: Icebreaker interview</h2>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Ситуация</div>
+    <p>Interviewer: Hello everybody! It's Teenagers Round the World Channel. Our guest today is a teenager from Russia and we are going to discuss teenagers' attitude to school and plans for the future. We'd like to know our guest's point of view on this issue. Please answer fifteen questions.</p>
+  </div>
+  <p>Вопросы задаёт носитель языка, после каждого — 40 секунд на ответ, как на экзамене. Выберите уровень поддержки:</p>
+  <div class="seg" data-default="text" data-group="r3"><button type="button" class="seg-btn" data-lv-group="r3" data-lv="audio" onclick="setLevel('r3','audio')">Только аудио</button><button type="button" class="seg-btn" data-lv-group="r3" data-lv="text" onclick="setLevel('r3','text')">Аудио + текст вопросов</button><button type="button" class="seg-btn" data-lv-group="r3" data-lv="prompts" onclick="setLevel('r3','prompts')">Аудио + текст + опоры</button></div>
+  <div class="cue-box" id="cueBox" hidden>
+    <div class="cue-q" id="cueQ"></div>
+    <div class="cue-t" id="cueT"></div>
+  </div>
+  <audio id="interviewAudio" preload="metadata" src="audio/interview.mp3"></audio>
+  
+  <div class="rec-block" id="rec-r3">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">Нажмите «Начать»: включится аудио с вопросами, и сразу пойдёт запись. Отвечайте в паузах. Запись остановится сама после последнего вопроса.</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r3">13:08</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r3"></span><span id="stateText-r3">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r3" onclick="startRec('r3')">🎙️ Начать</button>
+      <button type="button" class="btn ghost" id="stop-r3" onclick="stopRec('r3')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r3" onclick="resetRec('r3')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r3"></div>
+    <div class="speak-playback" id="playback-r3" hidden></div>
+  </div>
+  <ol class="iq-list" data-lv-for="r3" data-lv-show="text prompts"><li class="iq" data-i="0"><div class="iq-text">What grade are you in this year? How many students are there in your class?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I&#x27;m in the ... grade this year. There are ... students in my class.</div></li><li class="iq" data-i="1"><div class="iq-text">Are you happy to be back to school? Why or why not?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ Yes, I am happy to be back because ... / No, I&#x27;m not very happy because ... / To be honest, I feel ...</div></li><li class="iq" data-i="2"><div class="iq-text">What is your school like?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ My school is ... (big / modern / old / small). It has ... (a gym, a library, a sports ground). The teachers are ... (nice / strict / friendly).</div></li><li class="iq" data-i="3"><div class="iq-text">What would you change about your school if you could?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ If I could change something, I would ... / I think it would be better if ... / I&#x27;d like to ...</div></li><li class="iq" data-i="4"><div class="iq-text">How did you spend your summer holidays? Where did you go and what did you do?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I spent my summer holidays ... (in the countryside / at the seaside / with my family). I went to ... I stayed at home and ... I visited ...</div></li><li class="iq" data-i="5"><div class="iq-text">Did you spend more time outdoors or indoors during the holidays?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I spent more time outdoors because ... / I spent more time indoors because ... / I spent time both outdoors and indoors.</div></li><li class="iq" data-i="6"><div class="iq-text">What did you mostly like and dislike about your summer holidays?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I liked ... most of all. / I really enjoyed ... because ... / What I disliked was ... because ...</div></li><li class="iq" data-i="7"><div class="iq-text">How much time did you spend on the Internet during the holidays? What did you mostly use it for?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I spent about ... hours a day on the Internet. I mostly used it for ... (watching videos, chatting with friends, playing games).</div></li><li class="iq" data-i="8"><div class="iq-text">How many books did you read from your school Literature list if you had it?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I read ... books from the list. / I didn&#x27;t read any because ... / I read a few, for example ...</div></li><li class="iq" data-i="9"><div class="iq-text">What do you usually do in your free time now that school has started?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ Now that school has started, I usually ... (do my homework, meet my friends, go to clubs). / I spend my free time ...</div></li><li class="iq" data-i="10"><div class="iq-text">What kind of people do you like to spend time with? What qualities do you value in a friend?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I like to spend time with people who are ... (honest, kind, open-minded). I value ... (loyalty, a sense of humour, reliability) in a friend.</div></li><li class="iq" data-i="11"><div class="iq-text">Have you already decided which subjects you are going to focus on this year? If yes, what are they?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ Yes, I have already decided. I&#x27;m going to focus on ... and ... because ... / No, I haven&#x27;t decided yet, but I&#x27;m thinking about ...</div></li><li class="iq" data-i="12"><div class="iq-text">Why have you decided to take an exam in English?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I have decided to take an exam in English because ... (it&#x27;s useful for my future career, I enjoy learning languages, I want to study abroad).</div></li><li class="iq" data-i="13"><div class="iq-text">What career are you thinking of pursuing in the future, and what makes you interested in this field?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I&#x27;m thinking of pursuing a career in ... because ... (I&#x27;ve always been interested in ..., I want to help people, it&#x27;s well-paid and interesting).</div></li><li class="iq" data-i="14"><div class="iq-text">What would you recommend to a teenager who wants to improve their English but doesn&#x27;t have much time?</div><div class="iq-prompt" data-lv-for="r3" data-lv-show="prompts">→ I would recommend ... (watching short videos, listening to podcasts, reading simple books). They could also ... / I think they should ...</div></li></ol>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-0">Ответил(а) на все 15 вопросов, ни один не пропустил(а)</label><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-1">Каждый ответ — 2–3 полных предложения, а не одно слово</label><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-2">Отвечал(а) в том же времени, что и вопрос (did → Past, have you decided → Present Perfect, would → would)</label><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-3">На «Why?» давал(а) причину (because…)</label><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-4">На составные вопросы ответил(а) на обе части</label><label><input type="checkbox" class="chk" data-block="r3" data-k="r3-5">Укладывался(ась) в 40 секунд на ответ</label></div>
+  
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleReveal('rv-r3', this)" data-label="Показать примерные ответы (B1)">Показать примерные ответы (B1)</button>
+  <div class="reveal-box" id="rv-r3" hidden><ol class="sample-list"><li><b>What grade are you in this year? How many students are there in your class?</b><br>I&#x27;m in the 11th grade this year. There are about 25 students in my class.</li><li><b>Are you happy to be back to school? Why or why not?</b><br>Yes, I am happy to be back because I missed my friends and teachers. Also, I like learning new things.</li><li><b>What is your school like?</b><br>My school is quite big and modern. It has a good library and a sports ground. The teachers are friendly.</li><li><b>What would you change about your school if you could?</b><br>If I could change something, I would make the breaks longer. I think it would help us relax more.</li><li><b>How did you spend your summer holidays? Where did you go and what did you do?</b><br>I spent my summer holidays at the seaside with my family. We swam a lot and went sightseeing.</li><li><b>Did you spend more time outdoors or indoors during the holidays?</b><br>I spent more time outdoors because the weather was wonderful and I enjoy swimming and walking.</li><li><b>What did you mostly like and dislike about your summer holidays?</b><br>I liked swimming in the sea most of all. What I disliked was the long journey to get there.</li><li><b>How much time did you spend on the Internet during the holidays? What did you mostly use it for?</b><br>I spent about two hours a day on the Internet. I mostly used it for watching videos and chatting with friends.</li><li><b>How many books did you read from your school Literature list if you had it?</b><br>I read three books from the list. They were quite interesting.</li><li><b>What do you usually do in your free time now that school has started?</b><br>Now that school has started, I usually do my homework and sometimes meet my friends at the weekend.</li><li><b>What kind of people do you like to spend time with? What qualities do you value in a friend?</b><br>I like to spend time with people who are honest and open-minded. I value loyalty and a sense of humour.</li><li><b>Have you already decided which subjects you are going to focus on this year? If yes, what are they?</b><br>Yes, I have already decided. I&#x27;m going to focus on English and History because I want to study law.</li><li><b>Why have you decided to take an exam in English?</b><br>I have decided to take an exam in English because it&#x27;s useful for my future career and I enjoy learning languages.</li><li><b>What career are you thinking of pursuing in the future, and what makes you interested in this field?</b><br>I&#x27;m thinking of pursuing a career in medicine because I&#x27;ve always been interested in biology and helping people.</li><li><b>What would you recommend to a teenager who wants to improve their English but doesn&#x27;t have much time?</b><br>I would recommend watching short videos or listening to podcasts in English every day. It doesn&#x27;t take much time but it really helps.</li></ol></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r3" onclick="sendBlock('r3')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r3"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="5">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 4</div>
+  <h2>Card 4a / 4b: Summer activities</h2>
+  <p>Посмотрите на фото и ответьте на вопросы. Выберите вариант:</p>
+  <div class="seg" data-default="4a" data-group="r4ab"><button type="button" class="seg-btn" data-lv-group="r4ab" data-lv="4a" onclick="setLevel('r4ab','4a')">4a — с опорной лексикой</button><button type="button" class="seg-btn" data-lv-group="r4ab" data-lv="4b" onclick="setLevel('r4ab','4b')">4b — без опор, вопросы сложнее</button></div>
+  <div class="photo-grid"><figure class="photo-card"><img src="img/c4-lake.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to jump into the lake / river / to swim / to have fun with friends / in the open air / in the countryside / to spend time outdoors / to enjoy summer weather</figcaption></figure><figure class="photo-card"><img src="img/c4-reading.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to read a book at home / to relax on her own / to spend time indoors / to enjoy a quiet afternoon</figcaption></figure><figure class="photo-card"><img src="img/c4-picnic.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to go on a picnic / to walk with friends / to spend time outdoors / to have a meal together</figcaption></figure><figure class="photo-card"><img src="img/c4-games.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to play computer games / to spend time online / to enjoy the hobby</figcaption></figure><figure class="photo-card"><img src="img/c4-volleyball.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to do sports / to play volleyball in a team / to stay active and fit / in the open air / a sunny day</figcaption></figure><figure class="photo-card"><img src="img/c4-cinema.jpg" alt="" loading="lazy"><figcaption data-lv-for="r4ab" data-lv-show="4a">to watch a movie at the cinema / to enjoy entertainment together / film genres / to have snacks</figcaption></figure></div>
+  <div class="phrase-note" data-lv-for="r4ab" data-lv-show="4a"><b>Полезные фразы:</b> In the picture I can see... / In the foreground (background)... / The picture shows... / This photo was taken... / There is / are ... (one / two / a group of) people in the picture. / They look ... / They are + V-ing / The weather is ... / The atmosphere is ... (relaxed / active / joyful / calm). / I think the people are enjoying themselves. / It looks like ... / In my opinion, ... / To be honest, I prefer...</div>
+  <ol class="read-list" data-lv-for="r4ab" data-lv-show="4a"><li>Which of these activities did you do this summer? What did you enjoy most of all?</li><li>Choose 2–3 activities that you didn&#x27;t do and explain why.</li><li>What is the difference between active and passive activities?</li><li>Describe the advantages and disadvantages of each activity.</li><li>Which activity helps you relax and which gives you energy?</li><li>What would you like to do next summer?</li></ol>
+  <ol class="read-list" data-lv-for="r4ab" data-lv-show="4b"><li>Which of these activities did you do this summer? What did you enjoy most of all and why?</li><li>Explain why you didn&#x27;t do some of the activities from the photos.</li><li>Look at the pictures. Which two activities do you think are the most different from each other? Compare them in terms of energy, company, and benefits.</li><li>If you had to choose only one activity from the pictures to do every day for a whole month, which one would you choose and why? What challenges would you face?</li><li>Which of the activities do you consider to have more disadvantages in comparison with the others? Explain why.</li><li>Imagine that you are a journalist writing an article about &quot;The Perfect Summer Day&quot;. Which three activities from the pictures would you include and in what order? Explain why this sequence would make a perfect day.</li></ol>
+  
+  <div class="rec-block" id="rec-r4ab">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">Минута на подготовку, затем ответьте на все 6 вопросов по порядку (запись до 5 минут).</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r4ab">05:00</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r4ab"></span><span id="stateText-r4ab">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r4ab" onclick="startRec('r4ab')">🎙️ Начать (60 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stop-r4ab" onclick="stopRec('r4ab')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r4ab" onclick="resetRec('r4ab')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r4ab"></div>
+    <div class="speak-playback" id="playback-r4ab" hidden></div>
+  </div>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r4ab" data-k="r4ab-0">Ответил(а) на все 6 вопросов</label><label><input type="checkbox" class="chk" data-block="r4ab" data-k="r4ab-1">Использовал(а) лексику, связанную с фото</label><label><input type="checkbox" class="chk" data-block="r4ab" data-k="r4ab-2">Сравнивал(а) и объяснял(а) выбор (because…, while…, compared to…)</label><label><input type="checkbox" class="chk" data-block="r4ab" data-k="r4ab-3">Говорил(а) полными предложениями, без долгих пауз</label></div>
+  
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleReveal('rv-r4ab', this)" data-label="Показать примерные ответы">Показать примерные ответы</button>
+  <div class="reveal-box" id="rv-r4ab" hidden><ol class="sample-list" data-lv-for="r4ab" data-lv-show="4a"><li><b>Which of these activities did you do this summer? What did you enjoy most of all?</b><br>This summer I went swimming with my friends and I also played volleyball. I enjoyed swimming most of all because the weather was hot and the water was warm.</li><li><b>Choose 2–3 activities that you didn&#x27;t do and explain why.</b><br>I didn&#x27;t go on a picnic because my friends were busy. I also didn&#x27;t watch a movie at the cinema because I prefer to watch films at home.</li><li><b>What is the difference between active and passive activities?</b><br>Active activities are things like swimming, playing volleyball or going on a picnic. You move a lot and spend energy. Passive activities are things like reading a book, watching a film or playing computer games. You sit and relax.</li><li><b>Describe the advantages and disadvantages of each activity.</b><br>The advantages of active activities are that they are healthy and you can spend time outdoors. The disadvantages are that they can be tiring and depend on good weather. Passive activities are relaxing and you can do them anytime, but they can be boring and bad for your health if you do them too often.</li><li><b>Which activity helps you relax and which gives you energy?</b><br>Reading a book or watching a film helps me relax. Swimming or playing volleyball gives me energy.</li><li><b>What would you like to do next summer?</b><br>Next summer I would like to go on a picnic with my friends and play volleyball on the beach. I think it would be fun.</li></ol><ol class="sample-list" data-lv-for="r4ab" data-lv-show="4b"><li><b>Which of these activities did you do this summer? What did you enjoy most of all and why?</b><br>This summer I spent a lot of time swimming in the lake with my friends. I enjoyed it most of all because it was a great way to cool down on hot days and we had a lot of fun together.</li><li><b>Explain why you didn&#x27;t do some of the activities from the photos.</b><br>I didn&#x27;t go on a picnic because my friends were on holiday, so we couldn&#x27;t organise it. I also didn&#x27;t play volleyball because I don&#x27;t have a team to play with. I would like to try it next year.</li><li><b>Look at the pictures. Which two activities do you think are the most different from each other? Compare them in terms of energy, company, and benefits.</b><br>I think swimming in the lake and reading at home are the most different. Swimming is active and energetic, while reading is calm and relaxing. Swimming is usually done with friends, while reading is an individual activity. The benefit of swimming is that it keeps you fit, while reading improves your knowledge and imagination.</li><li><b>If you had to choose only one activity from the pictures to do every day for a whole month, which one would you choose and why? What challenges would you face?</b><br>I would choose swimming because I enjoy it and it&#x27;s good for my health. The challenge would be that I might get bored doing the same activity every day, and I would need to be careful about sunburn.</li><li><b>Which of the activities do you consider to have more disadvantages in comparison with the others? Explain why.</b><br>I think playing computer games has the most disadvantages. It&#x27;s bad for your eyes, you spend a lot of time indoors, and it can be addictive. Other activities like swimming or playing volleyball are much healthier and more social.</li><li><b>Imagine that you are a journalist writing an article about &quot;The Perfect Summer Day&quot;. Which three activities from the pictures would you include and in what order? Explain why this sequence would make a perfect day.</b><br>I would start the day with swimming in the lake because it&#x27;s refreshing and energetic. Then I would go on a picnic with friends to have lunch together and enjoy nature. In the evening, I would watch a movie at the cinema to relax and finish the day. I think this sequence is perfect because it combines active and relaxing activities.</li></ol></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r4ab" onclick="sendBlock('r4ab')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r4ab"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="6">
+
+<div class="card">
+  <div class="eyebrow">Устная часть · Задание 4</div>
+  <h2>Card 4c / 4d: Monologue</h2>
+  <div class="exam-card">
+    <div class="exam-eyebrow">Карточка</div>
+    <p>Imagine that you and your friend are doing a school project “Summer holidays”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:</p>
+    <ul>
+      <li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li>
+      <li>mention the advantages (1–2) of the two types of summer activities;</li>
+      <li>mention the disadvantages (1–2) of the two types of summer activities;</li>
+      <li>express your opinion on the subject of the project — say which of the activities presented in the pictures you'd prefer and why.</li>
+    </ul>
+    <p>You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</p>
+  </div>
+  <div class="photo-grid two">
+    <figure class="photo-card"><img src="img/c4c-picnic.jpg" alt="Photo 1" loading="lazy"><figcaption>Photo 1</figcaption></figure>
+    <figure class="photo-card"><img src="img/c4c-reading.jpg" alt="Photo 2" loading="lazy"><figcaption>Photo 2</figcaption></figure>
+  </div>
+  <div class="seg" data-default="4c" data-group="r4cd"><button type="button" class="seg-btn" data-lv-group="r4cd" data-lv="4c" onclick="setLevel('r4cd','4c')">4c — с опорами</button><button type="button" class="seg-btn" data-lv-group="r4cd" data-lv="4d" onclick="setLevel('r4cd','4d')">4d — без опор</button></div>
+  <div class="table-scroll" data-lv-for="r4cd" data-lv-show="4c"><table class="reftable"><tr><th>Пункт плана</th><th>Опорная лексика</th></tr><tr><td>Описание: фото 1</td><td>a group of teenagers walking in the countryside / to carry a picnic basket / to hold a badminton racket and a ball / sunny weather / bright blue sky / green grass / to laugh and chat / to spend time with friends / outdoor activity / active and social / to enjoy nature</td></tr><tr><td>Описание: фото 2</td><td>a young woman reading a book / lying on a sofa at home / cosy atmosphere / to enjoy her free time / relaxed / to spend time alone / to be focused on the story / no electronic devices</td></tr><tr><td>Различия</td><td>reading alone at home vs spending time outdoors with friends / indoor vs outdoor activity / individual vs group activity / quiet vs energetic / passive relaxation vs active leisure</td></tr><tr><td>Преимущества: пикник</td><td>healthy and active / fresh air and sunshine / opportunity to socialise and make friends / fun and exciting / to combine with sports (badminton, football) / connects with nature / to create lasting memories / no screens</td></tr><tr><td>Преимущества: чтение дома</td><td>to improve concentration and imagination / to reduce stress / no eye strain from screen / can be done anywhere / to develop vocabulary and thinking / relaxing and calming / to expand horizons / cheap or free (if from library)</td></tr><tr><td>Недостатки: пикник</td><td>to depend on weather / to require planning and preparation / can be physically tiring / risk of insect bites or sunburn / may be expensive (food, transport) / to take more time</td></tr><tr><td>Недостатки: чтение дома</td><td>can be boring for some people / not interactive / limited to text and images / no sound or video / no social interaction</td></tr><tr><td>Что я предпочитаю</td><td>I prefer reading at home because: to relax without screens / to enjoy a quiet evening / to spend time alone / to enjoy the comfort of home. — I prefer going on a picnic because: to spend time with friends / to enjoy fresh air and nature / to stay active / to have fun outdoors / to escape from daily routine / to combine sports and food</td></tr></table></div>
+  
+  <div class="rec-block" id="rec-r4cd">
+    <div class="rec-head">🎙️ Запись ответа</div>
+    <p class="muted">2.5 минуты на подготовку, затем монолог до 3 минут — как на экзамене.</p>
+    <div class="speak-timer-row">
+      <div class="speak-clock" id="clock-r4cd">03:00</div>
+      <div class="speak-state"><span class="rec-dot hidden" id="dot-r4cd"></span><span id="stateText-r4cd">Готовы начать</span></div>
+    </div>
+    <div class="speak-controls">
+      <button type="button" class="btn" id="start-r4cd" onclick="startRec('r4cd')">🎙️ Начать (150 с на подготовку)</button>
+      <button type="button" class="btn ghost" id="stop-r4cd" onclick="stopRec('r4cd')" disabled>⏹ Стоп</button>
+      <button type="button" class="btn ghost" id="redo-r4cd" onclick="resetRec('r4cd')" disabled>🔁 Заново</button>
+    </div>
+    <div class="mic-error" id="micErr-r4cd"></div>
+    <div class="speak-playback" id="playback-r4cd" hidden></div>
+  </div>
+  
+  <h3>Самопроверка</h3>
+  <p class="muted">Отметьте то, что получилось. Неотмеченные пункты преподаватель увидит как зоны роста.</p>
+  <div class="checklist"><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-0">Объяснил(а) выбор фото и кратко описал(а) оба</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-1">Назвал(а) различия между фото</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-2">Назвал(а) 1–2 преимущества каждого вида отдыха</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-3">Назвал(а) 1–2 недостатка каждого вида отдыха</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-4">Высказал(а) мнение: что предпочитаю и почему</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-5">Есть начало (Hi! I&#x27;ve found…) и завершение (Let me know your opinion…)</label><label><input type="checkbox" class="chk" data-block="r4cd" data-k="r4cd-6">Уложился(ась) в 3 минуты, 12–15 предложений</label></div>
+  
+  <button type="button" class="btn ghost reveal-btn" onclick="toggleReveal('rv-r4cd', this)" data-label="Показать пример монолога">Показать пример монолога</button>
+  <div class="reveal-box" id="rv-r4cd" hidden><p>Hi! I&#x27;ve found two photos for our project &quot;Summer Holidays&quot;. The first photo shows a group of teenagers walking in the countryside. They are carrying a picnic basket and holding badminton rackets. The weather is sunny and they look happy and active. The second photo shows a girl reading a book at home. She is lying on a sofa, and the atmosphere looks calm and relaxing.</p><p>The main difference between the two photos is that the first one is an outdoor group activity, while the second one is an indoor individual activity. The first photo is about active leisure, while the second one is about quiet relaxation.</p><p>The advantages of going on a picnic are that you can spend time outdoors, enjoy fresh air, and socialise with friends. It&#x27;s also healthy because you walk and play sports. The advantages of reading at home are that it&#x27;s relaxing, improves concentration, and there are no screens.</p><p>However, going on a picnic depends on good weather and takes time to prepare. Reading at home can be boring for some people and you don&#x27;t interact with anyone.</p><p>Personally, I&#x27;d prefer going on a picnic because I enjoy being outdoors and spending time with friends. It&#x27;s a great way to create memories and escape from everyday routine.</p><p>Let me know your opinion about the photos.</p></div>
+  
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-r4cd" onclick="sendBlock('r4cd')">📤 Отправить преподавателю</button>
+    <span class="task-submit-status" id="sendStatus-r4cd"></span>
+  </div>
+  <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">К итогам →</button></div>
+</div>
+
+</section>
+<section class="page" data-page="7">
+
+<div class="card">
+  <div class="eyebrow">Финал</div>
+  <h2>Итоги устной части</h2>
+  <p class="muted">Какие блоки уже у преподавателя. Неотправленный блок можно открыть, записать и отправить в любой момент.</p>
+  <div class="sum-list"><div class="sum-row" data-rid="r1a"><span>Задание 1 · Card 1a: Phonetic traps</span><span class="pill-notsent" id="pill-r1a">не отправлено</span></div><div class="sum-row" data-rid="r1b"><span>Задание 1 · Card 1b: Intonation</span><span class="pill-notsent" id="pill-r1b">не отправлено</span></div><div class="sum-row" data-rid="r2"><span>Задание 2 · Card 2: Asking questions</span><span class="pill-notsent" id="pill-r2">не отправлено</span></div><div class="sum-row" data-rid="r3"><span>Задание 3 · Card 3: Interview</span><span class="pill-notsent" id="pill-r3">не отправлено</span></div><div class="sum-row" data-rid="r4ab"><span>Задание 4 · Card 4a/4b: Questions about photos</span><span class="pill-notsent" id="pill-r4ab">не отправлено</span></div><div class="sum-row" data-rid="r4cd"><span>Задание 4 · Card 4c/4d: Monologue</span><span class="pill-notsent" id="pill-r4cd">не отправлено</span></div></div>
+  <div class="task-submit">
+    <button type="button" class="btn cta" id="send-summary" onclick="sendSummary()">📤 Отправить итоговую сводку</button>
+    <span class="task-submit-status" id="sendStatus-summary"></span>
+  </div>
+  <p class="muted">Сводка — без аудио: какие блоки сделаны, какой уровень поддержки выбран и что отмечено в самопроверке.</p>
+  <div class="reset-link"><a onclick="oralReset()">Начать заново (очистить отметки на этом устройстве)</a></div>
+</div>
+
+</section>
+
+    </div>
+  </div>
+</div>
+
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+const TRAINER_TITLE = "Входное тестирование ЕГЭ: устная часть";
+const PAGE_LABELS = ["Старт", "Задание 1a", "Задание 1b", "Задание 2", "Задание 3", "Задание 4a/4b", "Задание 4c/4d", "Итоги"];
+const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
+const COURSE_NAME = "ЕГЭ 2027";
+const COURSE_ID = "ege-2027";
+
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const scrollArea = document.getElementById('scrollArea');
+  if(scrollArea) scrollArea.scrollTo({top:0, behavior:'smooth'});
+  if(!isRestoring) scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ---- sticker tier logic (uses window.RESULT_TIERS etc. from /assets/sticker-logic.js) ---- */
+function renderStickerForPct(pct){
+  if (typeof renderResultSticker === 'function') renderResultSticker(pct);
+}
+
+/* ===================================================================
+   Scoring engine shared by all ANGLE EGE skill-drill trainers.
+   Answerable item types, each identified by a unique data-q:
+     select.dq[data-q][data-ans]           -- dropdown matching
+     .mcq[data-q][data-ans] > .opt[data-val] -- multiple choice, click to lock
+     .qjudge[data-q][data-ans] > .jbtn[data-val] -- 2- or 3-way judge buttons
+     .gap[data-q][data-ans]                -- free-text fill-in-the-blank
+   ITEM_STATE[q] = {correct:bool, section:string} is the single source of
+   truth for the running score; every handler below updates it then calls
+   scheduleSave(). Sections are read from the item's data-section attribute
+   (falls back to 'Задание') so the results breakdown can group by exercise.
+   =================================================================== */
+const ITEM_STATE = {};
+
+function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`’‘´]/g,''); }
+
+/* Lock an answered item if it sits inside a [data-lock] container (diagnostic mode):
+   once checked, the answer can no longer be changed and re-checked. */
+function lockItem(el){
+  if(!el.closest('[data-lock]')) return;
+  if(el.tagName === 'SELECT') el.disabled = true; else el.readOnly = true;
+  el.classList.add('locked');
+}
+
+/* select.dq.deferred = no instant colour on change; marked only by a page check
+   (checkGapsIn) or by renderResults. Plain select.dq keeps the old instant behaviour. */
+function markSelect(sel, force){
+  if(sel.value === '') return;
+  if(sel.classList.contains('deferred') && !force){ if(!isRestoring) scheduleSave(); return; }
+  const ok = normAns(sel.value) === normAns(sel.dataset.ans);
+  sel.classList.toggle('correct', ok);
+  sel.classList.toggle('wrong', !ok);
+  ITEM_STATE[sel.dataset.q] = {correct: ok, section: sel.dataset.section || 'Задание'};
+  const ex = document.getElementById('explain-' + sel.dataset.q);
+  if(ex) ex.classList.add('show');
+  lockItem(sel);
+  if(!isRestoring) scheduleSave();
+}
+
+function markMcqOpt(optBtn){
+  const group = optBtn.closest('.mcq[data-q]');
+  if(!group || group.dataset.done) return;
+  group.dataset.done = '1';
+  const correctVal = group.dataset.ans;
+  const ok = optBtn.dataset.val === correctVal;
+  group.querySelectorAll('.opt').forEach(o=>{
+    o.classList.remove('chosen','correct','wrong');
+    if(o === optBtn){ o.classList.add('chosen', ok ? 'correct' : 'wrong'); }
+    else if(o.dataset.val === correctVal){ o.classList.add('correct'); }
+  });
+  ITEM_STATE[group.dataset.q] = {correct: ok, section: group.dataset.section || 'Задание'};
+  const mcqEx = group.closest('.item, .gap-item') ? group.closest('.item, .gap-item').querySelector('.qexplain') : null;
+  if(mcqEx) mcqEx.style.display = 'block';
+  if(!isRestoring) scheduleSave();
+}
+
+function markJudgeBtn(jbtn){
+  const group = jbtn.closest('.qjudge[data-q]');
+  if(!group || group.dataset.done) return;
+  group.dataset.done = '1';
+  const correctVal = group.dataset.ans;
+  const ok = jbtn.dataset.val === correctVal;
+  group.querySelectorAll('.jbtn').forEach(b=>{
+    b.classList.remove('chosen','is-right','is-wrong','reveal-correct');
+    if(b === jbtn){ b.classList.add('chosen', ok ? 'is-right' : 'is-wrong'); }
+    else if(b.dataset.val === correctVal){ b.classList.add('reveal-correct'); }
+  });
+  group.classList.toggle('judged-right', ok);
+  group.classList.toggle('judged-wrong', !ok);
+  const ex = group.querySelector('.qexplain');
+  if(ex) ex.style.display = 'block';
+  ITEM_STATE[group.dataset.q] = {correct: ok, section: group.dataset.section || 'Задание'};
+  if(!isRestoring) scheduleSave();
+}
+
+function checkGapsIn(containerId){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  let done = 0, total = 0;
+  container.querySelectorAll('.gap[data-q]').forEach(inp=>{
+    total++;
+    if(inp.value.trim() === '') return;
+    const acceptable = inp.dataset.ans.split('|');
+    const ok = acceptable.some(a => normAns(a) === normAns(inp.value));
+    inp.classList.toggle('correct', ok);
+    inp.classList.toggle('wrong', !ok);
+    const ex = document.getElementById('explain-' + inp.dataset.q);
+    if(ex) ex.classList.add('show');
+    ITEM_STATE[inp.dataset.q] = {correct: ok, section: inp.dataset.section || 'Задание'};
+    lockItem(inp);
+    done++;
+  });
+  container.querySelectorAll('select.dq.deferred[data-q]').forEach(sel=>{
+    total++;
+    if(sel.value === '') return;
+    markSelect(sel, true);
+    done++;
+  });
+  const status = container.querySelector('.page-status');
+  if(status){
+    status.textContent = `Проверено: ${done} / ${total}`;
+    status.classList.toggle('done', done === total);
+  }
+  if(!isRestoring) scheduleSave();
+}
+
+const ANSWERABLE = 'select.dq[data-q], .mcq[data-q], .qjudge[data-q], .gap[data-q]';
+
+/* What the student actually gave for an item (for the mistakes list). */
+function givenAnswer(el){
+  if(el.matches('.gap')) return el.value.trim();
+  if(el.matches('select')) return el.value ? el.options[el.selectedIndex].text : '';
+  const chosen = el.querySelector('.chosen');
+  return chosen ? chosen.textContent.trim() : '';
+}
+/* Human-readable correct answer: data-show wins, else first accepted answer / option text. */
+function correctAnswerText(el){
+  if(el.dataset.show) return el.dataset.show;
+  if(el.matches('select')){
+    const o = Array.from(el.options).find(o => o.value === el.dataset.ans);
+    return o ? o.text : el.dataset.ans;
+  }
+  return (el.dataset.ans || '').split('|')[0];
+}
+
+/* Totals count EVERY answerable item on the page in document order: an item the
+   student never answered counts as wrong (otherwise skipping inflates the %). */
+function computeGrandTotal(){
+  let correct = 0, total = 0;
+  const bySection = {};
+  const mistakes = [];
+  const seen = new Set();
+  document.querySelectorAll(ANSWERABLE).forEach(el=>{
+    const q = el.dataset.q;
+    if(seen.has(q)) return; seen.add(q);
+    const r = ITEM_STATE[q];
+    const ok = !!(r && r.correct);
+    const s = el.dataset.section || (r && r.section) || 'Задание';
+    total++; if(ok) correct++;
+    if(!bySection[s]) bySection[s] = {correct:0, total:0};
+    bySection[s].total++;
+    if(ok) bySection[s].correct++;
+    if(!ok){
+      const given = r ? givenAnswer(el) : '';
+      mistakes.push(`${el.dataset.label || q}: «${given || '—'}» → ${correctAnswerText(el)}`);
+    }
+  });
+  return {correct, total, bySection, mistakes};
+}
+
+/* Evaluate everything the student filled in but never checked page-by-page. */
+function evaluatePending(){
+  document.querySelectorAll('[data-check-gaps]').forEach(b=>{
+    const c = document.getElementById(b.dataset.checkGaps);
+    if(!c) return;
+    const pending = Array.from(c.querySelectorAll('.gap[data-q], select.dq.deferred[data-q]'))
+      .some(el => !ITEM_STATE[el.dataset.q] && (el.value||'').trim() !== '');
+    if(pending) checkGapsIn(b.dataset.checkGaps);
+  });
+}
+
+function renderResults(){
+  if(!isRestoring) evaluatePending();
+  const {correct, total, bySection} = computeGrandTotal();
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const panel = document.getElementById('resultsPanel');
+  if(!panel) return;
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${correct} из ${total}`;
+  const lines = Object.entries(bySection).map(([name, r])=>`${name}: ${r.correct}/${r.total}`);
+  document.getElementById('resultsBreakdown').textContent = lines.join('\n');
+  renderStickerForPct(pct);
+  if(!isRestoring) scheduleSave();
+  return {correct, total, pct, bySection};
+}
+
+async function submitResults(){
+  const btn = document.getElementById('sendBtn');
+  const status = document.getElementById('sendStatus');
+  const {correct, total, pct, bySection} = renderResults();
+  const name = (document.getElementById('studentName')||{}).value || '';
+  if(!name.trim()){
+    if(status){ status.textContent = 'Пожалуйста, укажите имя перед отправкой.'; status.style.color = 'var(--wrong)'; }
+    return;
+  }
+  if(btn) btn.disabled = true;
+  if(status){ status.textContent = 'Отправка…'; status.style.color = 'var(--muted)'; }
+  const breakdown = Object.entries(bySection).map(([n,r])=>`${n}: ${r.correct}/${r.total}`).join('; ');
+  const ml = computeGrandTotal().mistakes;
+  const mistakes = ml.length ? `${ml.length} неверных или пустых из ${total}:\n` + ml.join('\n') : 'Ошибок нет';
+  const payload = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    course_id: COURSE_ID,
+    subject: `${COURSE_NAME} — ${TRAINER_TITLE} — ${name}`,
+    test: TRAINER_TITLE,
+    student_name: name,
+    group: (document.getElementById('studentGroup')||{}).value || '',
+    score_percent: pct + '%',
+    score_fraction: `${correct}/${total}`,
+    breakdown: breakdown,
+    mistakes: mistakes,
+    submitted_at: new Date().toISOString()
+  };
+  try{
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: {'Content-Type':'application/json', Accept:'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.success){
+      if(status){ status.textContent = '✓ Результат отправлен преподавателю.'; status.style.color = 'var(--correct)'; }
+    } else {
+      if(status){ status.textContent = 'Не удалось отправить. Попробуйте ещё раз.'; status.style.color = 'var(--wrong)'; }
+      if(btn) btn.disabled = false;
+    }
+  } catch(err){
+    if(status){ status.textContent = 'Нет связи с сервером. Попробуйте ещё раз позже.'; status.style.color = 'var(--wrong)'; }
+    if(btn) btn.disabled = false;
+  }
+}
+
+document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
+  const jb  = e.target.closest('.qjudge[data-q] .jbtn'); if(jb){ markJudgeBtn(jb); return; }
+  const gb  = e.target.closest('[data-check-gaps]'); if(gb){ checkGapsIn(gb.dataset.checkGaps); return; }
+});
+
+/* ---- progress persistence ---- */
+let isRestoring = false;
+let saveTimer = null;
+const PROGRESS_KEY = 'angle-ege-progress:' + location.pathname;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function saveProgress(){
+  try{
+    const gapValues = {};
+    document.querySelectorAll('.gap[data-q]').forEach(i=>{ if(i.value) gapValues[i.dataset.q] = i.value; });
+    const selectValues = {};
+    document.querySelectorAll('select.dq[data-q]').forEach(s=>{ if(s.value) selectValues[s.dataset.q] = s.value; });
+    const data = {
+      name: (document.getElementById('studentName')||{}).value || '',
+      group: (document.getElementById('studentGroup')||{}).value || '',
+      page: current,
+      itemState: ITEM_STATE,
+      gapValues, selectValues,
+      savedAt: Date.now()
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+    showSavedIndicator();
+  }catch(e){ /* best-effort */ }
+}
+function applyRestore(data){
+  isRestoring = true;
+  try{
+    if(data.name){ const el = document.getElementById('studentName'); if(el) el.value = data.name; }
+    if(data.group){ const el = document.getElementById('studentGroup'); if(el) el.value = data.group; }
+    Object.entries(data.gapValues || {}).forEach(([q,v])=>{
+      const inp = document.querySelector(`.gap[data-q="${CSS.escape(q)}"]`);
+      if(inp) inp.value = v;
+    });
+    Object.entries(data.selectValues || {}).forEach(([q,v])=>{
+      const sel = document.querySelector(`select.dq[data-q="${CSS.escape(q)}"]`);
+      if(sel){ sel.value = v; markSelect(sel); }
+    });
+    Object.entries(data.itemState || {}).forEach(([q,r])=>{
+      ITEM_STATE[q] = r;
+      const mcqOpt = document.querySelector(`.mcq[data-q="${CSS.escape(q)}"] .opt[data-val]`);
+      if(mcqOpt){
+        const group = mcqOpt.closest('.mcq');
+        const correctVal = group.dataset.ans;
+        group.dataset.done = '1';
+        group.querySelectorAll('.opt').forEach(o=>{
+          if(o.dataset.val === correctVal) o.classList.add('correct');
+        });
+        const mcqEx = group.closest('.item, .gap-item') ? group.closest('.item, .gap-item').querySelector('.qexplain') : null;
+        if(mcqEx) mcqEx.style.display = 'block';
+      }
+      const gapInp = document.querySelector(`.gap[data-q="${CSS.escape(q)}"]`);
+      if(gapInp && gapInp.value){
+        gapInp.classList.toggle('correct', r.correct);
+        gapInp.classList.toggle('wrong', !r.correct);
+        const ex = document.getElementById('explain-' + q);
+        if(ex) ex.classList.add('show');
+        lockItem(gapInp);
+      }
+      const defSel = document.querySelector(`select.dq.deferred[data-q="${CSS.escape(q)}"]`);
+      if(defSel && defSel.value) markSelect(defSel, true);
+      const judgeGroup = document.querySelector(`.qjudge[data-q="${CSS.escape(q)}"]`);
+      if(judgeGroup){
+        judgeGroup.dataset.done = '1';
+        const correctVal = judgeGroup.dataset.ans;
+        judgeGroup.querySelectorAll('.jbtn').forEach(b=>{
+          if(b.dataset.val === correctVal) b.classList.add('reveal-correct');
+        });
+        judgeGroup.classList.toggle('judged-right', r.correct);
+        judgeGroup.classList.toggle('judged-wrong', !r.correct);
+        const ex = judgeGroup.querySelector('.qexplain');
+        if(ex) ex.style.display = 'block';
+      }
+    });
+    document.querySelectorAll('[data-check-gaps]').forEach(btn=>{
+      const container = document.getElementById(btn.dataset.checkGaps);
+      if(!container) return;
+      const total = container.querySelectorAll('.gap[data-q]').length;
+      const done = container.querySelectorAll('.gap.correct, .gap.wrong').length;
+      const status = container.querySelector('.page-status');
+      if(status && done){ status.textContent = `Проверено: ${done} / ${total}`; status.classList.toggle('done', done === total); }
+    });
+    if(typeof data.page === 'number') showPage(data.page);
+  } finally {
+    isRestoring = false;
+  }
+}
+function restoreProgress(){
+  try{
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
+    if(!hasAnswers) return;
+    const note = document.getElementById('restoreNote');
+    if(note){
+      note.hidden = false;
+      document.getElementById('restoreNoteText').textContent =
+        `Найден сохранённый прогресс${data.name ? ' — ' + data.name : ''}. Восстановить ответы?`;
+      document.getElementById('restoreYes').onclick = ()=>{ applyRestore(data); note.hidden = true; };
+      document.getElementById('restoreNo').onclick = ()=>{ note.hidden = true; };
+    } else {
+      applyRestore(data);
+    }
+  }catch(e){ /* best-effort */ }
+}
+function clearProgress(){
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('DOMContentLoaded', restoreProgress);
+
+
+/* ================= ORAL PART: recorder, interview sync, levels, Basin ================= */
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+const ORAL_COURSE = 'ANGLE · ЕГЭ 2027 · Первые уроки · Устная часть';
+const REC_CFG = {"r1a": {"prep": 60, "speak": 240, "title": "Задание 1 · Card 1a: Phonetic traps"}, "r1b": {"prep": 60, "speak": 180, "title": "Задание 1 · Card 1b: Intonation"}, "r2": {"prep": 90, "speak": 300, "title": "Задание 2 · Card 2: Asking questions"}, "r3": {"prep": 0, "speak": 788, "title": "Задание 3 · Card 3: Interview"}, "r4ab": {"prep": 60, "speak": 300, "title": "Задание 4 · Card 4a/4b: Questions about photos"}, "r4cd": {"prep": 150, "speak": 180, "title": "Задание 4 · Card 4c/4d: Monologue"}};
+const CUES = [[0.0, 35.27, 76.0], [76.0, 85.22, 125.95], [125.95, 132.96, 173.69], [173.69, 181.94, 222.67], [222.67, 232.65, 273.38], [273.38, 283.16, 323.89], [323.89, 333.06, 373.79], [373.79, 385.22, 425.95], [425.95, 435.32, 476.04], [476.04, 485.16, 525.89], [525.89, 536.83, 577.56], [577.56, 589.22, 629.95], [629.95, 638.4, 679.13], [679.13, 689.92, 730.66], [730.66, 741.69, 782.42]];
+const RECORDING_SUPPORTED = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+const REC = {};
+const LEVELS = {};
+const SENT = new Set();
+
+function fmtClock(sec){ sec = Math.max(0, Math.round(sec)); return String(Math.floor(sec/60)).padStart(2,'0') + ':' + String(sec%60).padStart(2,'0'); }
+function pickMime(){
+  for(const c of ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4']){
+    try{ if(MediaRecorder.isTypeSupported(c)) return c; }catch(e){}
+  }
+  return '';
+}
+function rs(id){ if(!REC[id]) REC[id] = {phase:'idle', stream:null, recorder:null, chunks:[], blob:null, timer:null, left:0}; return REC[id]; }
+function $(id){ return document.getElementById(id); }
+function setState(id, text){ $('stateText-'+id).textContent = text; }
+
+async function getMic(id){
+  const err = $('micErr-'+id);
+  err.classList.remove('show');
+  if(!RECORDING_SUPPORTED){
+    err.textContent = 'Запись не поддерживается в этом браузере. Откройте страницу в свежем Chrome, Edge или Safari. Самопроверку можно пройти и без записи.';
+    err.classList.add('show'); return null;
+  }
+  try{ return await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){
+    err.textContent = 'Нет доступа к микрофону. Разрешите доступ в настройках браузера и нажмите «Начать» ещё раз.';
+    err.classList.add('show'); return null;
+  }
+}
+
+async function startRec(id){
+  if(id === 'r3') return startInterview();
+  const st = rs(id), cfg = REC_CFG[id];
+  $('start-'+id).disabled = true;
+  st.stream = await getMic(id);
+  if(!st.stream){ $('start-'+id).disabled = false; return; }
+  $('stop-'+id).disabled = false;
+  if(cfg.prep > 0){
+    st.phase = 'prep'; st.left = cfg.prep;
+    setState(id, 'Подготовка — запись начнётся автоматически');
+    $('clock-'+id).textContent = fmtClock(st.left);
+    st.timer = setInterval(()=>{
+      st.left--; $('clock-'+id).textContent = fmtClock(st.left);
+      if(st.left <= 0){ clearInterval(st.timer); beginRec(id, cfg.speak); }
+    }, 1000);
+  } else beginRec(id, cfg.speak);
+}
+
+function beginRec(id, limit){
+  const st = rs(id);
+  st.phase = 'recording'; st.chunks = [];
+  const mime = pickMime();
+  const opts = {audioBitsPerSecond: 32000};
+  if(mime) opts.mimeType = mime;
+  try{ st.recorder = new MediaRecorder(st.stream, opts); }catch(e){ st.recorder = new MediaRecorder(st.stream); }
+  st.recorder.ondataavailable = ev=>{ if(ev.data && ev.data.size) st.chunks.push(ev.data); };
+  st.recorder.onstop = ()=>finishRec(id);
+  st.recorder.start(1000);
+  $('dot-'+id).classList.remove('hidden');
+  setState(id, 'Идёт запись');
+  $('stop-'+id).disabled = false;
+  st.left = limit;
+  $('clock-'+id).textContent = fmtClock(st.left);
+  if(id === 'r3') return;            /* interview: clock is driven by the audio */
+  st.timer = setInterval(()=>{
+    st.left--;
+    const c = $('clock-'+id); c.textContent = fmtClock(st.left); c.classList.toggle('warn', st.left <= 10);
+    if(st.left <= 0){ clearInterval(st.timer); stopRec(id); }
+  }, 1000);
+}
+
+function stopRec(id){
+  const st = rs(id);
+  if(st.timer) clearInterval(st.timer);
+  if(id === 'r3'){ const a = $('interviewAudio'); a.pause(); $('cueBox').hidden = true; }
+  if(st.phase === 'prep'){ resetRec(id); return; }
+  if(st.recorder && st.recorder.state !== 'inactive') st.recorder.stop(); else finishRec(id);
+  $('stop-'+id).disabled = true;
+}
+
+function finishRec(id){
+  const st = rs(id);
+  st.phase = 'done';
+  if(st.stream) st.stream.getTracks().forEach(t=>t.stop());
+  $('dot-'+id).classList.add('hidden');
+  if(st.chunks.length){
+    st.blob = new Blob(st.chunks, {type: (st.recorder && st.recorder.mimeType) || 'audio/webm'});
+    const pb = $('playback-'+id);
+    pb.innerHTML = `<audio controls src="${URL.createObjectURL(st.blob)}"></audio>`;
+    pb.hidden = false;
+    setState(id, 'Запись готова — прослушайте, пройдите самопроверку и отправьте');
+  } else setState(id, 'Запись не получилась — попробуйте ещё раз');
+  $('redo-'+id).disabled = false;
+}
+
+function resetRec(id){
+  const st = rs(id);
+  if(st.timer) clearInterval(st.timer);
+  try{ if(st.recorder && st.recorder.state !== 'inactive'){ st.recorder.onstop = null; st.recorder.stop(); } }catch(e){}
+  try{ if(st.stream) st.stream.getTracks().forEach(t=>t.stop()); }catch(e){}
+  if(id === 'r3'){ const a = $('interviewAudio'); a.pause(); a.currentTime = 0; $('cueBox').hidden = true; markCue(-1); }
+  REC[id] = null;
+  $('clock-'+id).textContent = fmtClock(REC_CFG[id].speak);
+  $('clock-'+id).classList.remove('warn');
+  setState(id, 'Готовы начать');
+  $('dot-'+id).classList.add('hidden');
+  $('start-'+id).disabled = false;
+  $('stop-'+id).disabled = true;
+  $('redo-'+id).disabled = true;
+  const pb = $('playback-'+id); pb.hidden = true; pb.innerHTML = '';
+}
+
+/* ---- Task 3: audio + recording together, cues from detected 40 s pauses ---- */
+async function startInterview(){
+  const id = 'r3', st = rs(id), a = $('interviewAudio');
+  $('start-'+id).disabled = true;
+  st.stream = await getMic(id);
+  if(!st.stream){ $('start-'+id).disabled = false; return; }
+  beginRec(id, a.duration || REC_CFG[id].speak);
+  a.currentTime = 0;
+  try{ await a.play(); }
+  catch(e){ setState(id, 'Не удалось включить аудио — нажмите «Стоп» и попробуйте ещё раз'); return; }
+  $('cueBox').hidden = false;
+  a.ontimeupdate = onInterviewTime;
+  a.onended = ()=>{ setTimeout(()=>{ if(rs(id).phase === 'recording') stopRec(id); }, 800); };
+}
+function markCue(i){ document.querySelectorAll('.iq').forEach(li=>li.classList.toggle('now', +li.dataset.i === i)); }
+function onInterviewTime(){
+  const t = $('interviewAudio').currentTime;
+  const dur = $('interviewAudio').duration || 0;
+  $('clock-r3').textContent = fmtClock(dur - t);
+  let i = -1, phase = '';
+  for(let k = 0; k < CUES.length; k++){
+    if(t >= CUES[k][0] && t < CUES[k][1]){ i = k; phase = 'listen'; break; }
+    if(t >= CUES[k][1] && t < CUES[k][2]){ i = k; phase = 'answer'; break; }
+  }
+  if(i < 0){ $('cueQ').textContent = 'Интервью завершается'; $('cueT').textContent = ''; markCue(-1); return; }
+  markCue(i);
+  if(phase === 'listen'){ $('cueQ').textContent = `Вопрос ${i+1} из 15 — слушайте`; $('cueT').textContent = '👂'; }
+  else { $('cueQ').textContent = `Ответ на вопрос ${i+1}`; $('cueT').textContent = fmtClock(CUES[i][2] - t); }
+}
+
+/* ---- levels (support toggles) ---- */
+function applyLevels(){
+  document.querySelectorAll('[data-lv-for]').forEach(el=>{
+    const g = el.dataset.lvFor;
+    el.hidden = !el.dataset.lvShow.split(' ').includes(LEVELS[g]);
+  });
+  document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active', LEVELS[b.dataset.lvGroup] === b.dataset.lv));
+}
+function setLevel(g, v){ LEVELS[g] = v; applyLevels(); oralSave(); }
+
+/* ---- reveal + models + TTS ---- */
+function toggleReveal(boxId, btn){
+  const box = $(boxId); box.hidden = !box.hidden;
+  btn.textContent = box.hidden ? btn.dataset.label : 'Скрыть';
+}
+function toggleModels(btn){
+  const els = document.querySelectorAll('.qmodel');
+  const show = els.length && els[0].hidden;
+  els.forEach(e=>e.hidden = !show);
+  btn.textContent = show ? 'Скрыть образцы' : btn.dataset.label;
+}
+function sayText(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const v = speechSynthesis.getVoices().find(v=>/en[-_]GB/i.test(v.lang)) || speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));
+  if(v) u.voice = v;
+  u.lang = v ? v.lang : 'en-GB'; u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+document.addEventListener('click', e=>{ const b = e.target.closest('.say[data-say]'); if(b) sayText(b.dataset.say); });
+
+/* ---- persistence (text, checkboxes, levels, sent status; never audio) ---- */
+const ORAL_KEY = 'angle-ege-oral:' + location.pathname;
+function oralSave(){
+  try{
+    const data = {name: ($('studentName')||{}).value || '', levels: LEVELS, sent: [...SENT], typed:{}, checks:{}};
+    document.querySelectorAll('.qtype[data-k]').forEach(i=>{ if(i.value) data.typed[i.dataset.k] = i.value; });
+    document.querySelectorAll('.chk[data-k]').forEach(c=>{ if(c.checked) data.checks[c.dataset.k] = 1; });
+    localStorage.setItem(ORAL_KEY, JSON.stringify(data));
+  }catch(e){}
+}
+function oralRestore(){
+  document.querySelectorAll('.seg').forEach(s=>{ LEVELS[s.dataset.group] = s.dataset.default; });
+  let data = null;
+  try{ data = JSON.parse(localStorage.getItem(ORAL_KEY) || 'null'); }catch(e){}
+  if(data){
+    if(data.name && $('studentName') && !$('studentName').value) $('studentName').value = data.name;
+    Object.assign(LEVELS, data.levels || {});
+    (data.sent || []).forEach(id=>SENT.add(id));
+    Object.entries(data.typed || {}).forEach(([k,v])=>{ const i = document.querySelector(`.qtype[data-k="${k}"]`); if(i) i.value = v; });
+    Object.keys(data.checks || {}).forEach(k=>{ const c = document.querySelector(`.chk[data-k="${k}"]`); if(c) c.checked = true; });
+  }
+  applyLevels(); renderSummary();
+}
+function oralReset(){ try{ localStorage.removeItem(ORAL_KEY); }catch(e){} location.reload(); }
+document.addEventListener('input', e=>{ if(e.target.matches('.qtype, #studentName')) oralSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('.chk')) oralSave(); });
+
+/* ---- sending (Basin: multipart with the audio file) ---- */
+function slug(s){ return (s||'student').trim().toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40); }
+function needName(statusEl){
+  const n = $('studentName');
+  if(n && n.value.trim()) return n.value.trim();
+  statusEl.textContent = 'Впишите имя вверху страницы и нажмите ещё раз.';
+  statusEl.style.color = 'var(--wrong)';
+  if(n) n.focus();
+  return null;
+}
+function selfcheck(id){
+  const all = [...document.querySelectorAll(`.chk[data-block="${id}"]`)];
+  const lab = c=>c.closest('label').textContent.trim();
+  return {yes: all.filter(c=>c.checked).map(lab), no: all.filter(c=>!c.checked).map(lab)};
+}
+const LEVEL_NAMES = {audio:'только аудио', text:'аудио + текст вопросов (3a)', prompts:'аудио + текст + опоры (3b)', '4a':'4a — с опорной лексикой', '4b':'4b — без опор', '4c':'4c — с опорами', '4d':'4d — без опор'};
+async function postBasin(fd){
+  const res = await fetch(BASIN_URL, {method:'POST', headers:{'Accept':'application/json'}, body: fd});
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+}
+async function sendBlock(id){
+  const status = $('sendStatus-'+id);
+  const name = needName(status); if(!name) return;
+  const btn = $('send-'+id); btn.disabled = true;
+  status.style.color = 'var(--muted)'; status.textContent = 'Отправляю…';
+  const st = rs(id), sc = selfcheck(id);
+  const fd = new FormData();
+  fd.append('course', ORAL_COURSE);
+  fd.append('exercise', REC_CFG[id].title);
+  fd.append('student', name);
+  if(LEVELS[id]) fd.append('support_level', LEVEL_NAMES[LEVELS[id]] || LEVELS[id]);
+  fd.append('selfcheck_confirmed', sc.yes.length ? sc.yes.join('\n') : 'Ничего не отмечено');
+  fd.append('selfcheck_not_confirmed', sc.no.length ? sc.no.join('\n') : '—');
+  if(id === 'r2'){
+    const lines = [...document.querySelectorAll('.qtype[data-k]')].map((i,n)=>`${n+1}. ${i.dataset.opt}: ${i.value.trim() || '—'}`);
+    fd.append('typed_questions', lines.join('\n'));
+  }
+  fd.append('timestamp', new Date().toISOString());
+  if(st.blob){
+    const ext = (st.blob.type||'').includes('ogg') ? 'ogg' : (st.blob.type||'').includes('mp4') ? 'm4a' : 'webm';
+    fd.append('recording', st.blob, `entry_oral_${id}_${slug(name)}.${ext}`);
+  } else fd.append('recording_note', 'Аудиозапись в этой сессии не делалась.');
+  try{
+    await postBasin(fd);
+    status.style.color = 'var(--correct)';
+    status.textContent = st.blob ? '✓ Отправлено преподавателю, с аудиозаписью' : '✓ Отправлено (без аудиозаписи)';
+    SENT.add(id); oralSave(); renderSummary();
+  }catch(e){
+    status.style.color = 'var(--wrong)';
+    status.textContent = 'Не удалось отправить. Проверьте интернет и попробуйте ещё раз.';
+  }finally{ btn.disabled = false; }
+}
+function renderSummary(){
+  Object.keys(REC_CFG).forEach(id=>{
+    const p = $('pill-'+id); if(!p) return;
+    const sent = SENT.has(id);
+    p.className = sent ? 'pill-sent' : 'pill-notsent';
+    p.textContent = sent ? '✓ отправлено' : 'не отправлено';
+  });
+}
+async function sendSummary(){
+  const status = $('sendStatus-summary');
+  const name = needName(status); if(!name) return;
+  status.style.color = 'var(--muted)'; status.textContent = 'Отправляю…';
+  const lines = Object.keys(REC_CFG).map(id=>{
+    const sc = selfcheck(id);
+    const lvl = LEVELS[id] ? ` [${LEVEL_NAMES[LEVELS[id]] || LEVELS[id]}]` : '';
+    return `${REC_CFG[id].title}${lvl}: ${SENT.has(id) ? 'отправлено' : 'НЕ отправлено'}; самопроверка ${sc.yes.length}/${sc.yes.length + sc.no.length}` +
+           (sc.no.length ? `\n   не получилось: ${sc.no.join('; ')}` : '');
+  });
+  const fd = new FormData();
+  fd.append('course', ORAL_COURSE);
+  fd.append('exercise', 'Итоговая сводка устной части');
+  fd.append('student', name);
+  fd.append('blocks_sent', `${SENT.size} из ${Object.keys(REC_CFG).length}`);
+  fd.append('breakdown', lines.join('\n'));
+  fd.append('timestamp', new Date().toISOString());
+  try{
+    await postBasin(fd);
+    status.style.color = 'var(--correct)'; status.textContent = '✓ Сводка отправлена преподавателю';
+  }catch(e){
+    status.style.color = 'var(--wrong)'; status.textContent = 'Не удалось отправить. Проверьте интернет и попробуйте ещё раз.';
+  }
+}
+document.addEventListener('DOMContentLoaded', oralRestore);
+
+buildDots();
+showPage(0);
+</script>
+</body>
+</html>
