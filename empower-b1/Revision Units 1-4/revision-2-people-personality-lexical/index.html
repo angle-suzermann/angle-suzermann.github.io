@@ -806,7 +806,7 @@ function lexChunkReport(){
   const out=[];
   document.querySelectorAll('textarea.prod-live').forEach(ta=>{
     const r=liveScan(ta);
-    out.push(`### ${ta.dataset.label}\nPeople & ability phrases used (${r.core.length}): ${r.core.join(', ')||'none'}\nAll chips on (${r.used.length}): ${r.used.join(', ')||'none'}\nNot used: ${r.notUsed.join(', ')||'none'}`+(r.warns.length?`\nWatch-out notes shown: ${r.warns.map(w=>w.replace(/<[^>]+>/g,'')).join(' | ')}`:''));
+    out.push(`### ${ta.dataset.label}\nTarget phrases used (${r.core.length}): ${r.core.join(', ')||'none'}\nAll chips on (${r.used.length}): ${r.used.join(', ')||'none'}\nNot used: ${r.notUsed.join(', ')||'none'}`+(r.warns.length?`\nWatch-out notes shown: ${r.warns.map(w=>w.replace(/<[^>]+>/g,'')).join(' | ')}`:''));
   });
   document.querySelectorAll('.spot-wrap').forEach(w=>{
     out.push(`### Noticing (${w.closest('.card').querySelector('h2').textContent.trim()})\nFound ${w.querySelectorAll('.chunk.found').length} / ${w.dataset.total} phrases`);
