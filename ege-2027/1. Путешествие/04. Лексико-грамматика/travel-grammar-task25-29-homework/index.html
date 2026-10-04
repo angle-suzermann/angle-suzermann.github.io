@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourist Destinations — Word Formation, Задания 25–29 — HOMEWORK</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="08. Tourist Destinations — Word Formation, Задания 25–29 — Homework">
+<meta name="ws:emoji"     content="🏛️">
+<meta name="ws:date"      content="2026-10-04">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, словообразование, задания 25-29, путешествие, word formation">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:.5; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; max-width:980px; margin:0 auto; padding:24px 20px 100px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p, .card li{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+.info-box{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:10px; padding:12px 16px; margin:12px 0; font-size:.92rem; }
+.info-box b{ color:var(--purple-dark); }
+.score-table{ border-collapse:collapse; margin:8px 0; font-size:.9rem; }
+.score-table td{ padding:4px 14px 4px 0; }
+.score-table td:last-child{ font-weight:700; color:var(--purple); }
+ol.algo li{ margin-bottom:6px; }
+details.fold{ margin-top:10px; }
+details.fold summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.model{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; margin-top:8px; font-size:.9rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:64px; }
+textarea.notes{ min-height:44px; font-size:.86rem; }
+select.fib-select{ font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:7px 10px; display:block; width:100%; max-width:100%; margin:6px 0; background:#fff; }
+select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+.speaker-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
+@media (max-width:640px){ .speaker-row{ grid-template-columns:1fr; } }
+.exam-points{ margin-top:12px; padding:12px 16px; border-radius:10px; background:#fff; border:2px solid var(--yellow); font-weight:700; color:var(--purple-dark); }
+.exam-points[hidden]{ display:none; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; color:var(--text); }
+.mcq .opt.chosen{ border-color:var(--purple); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.why{ display:none; font-size:.86rem; margin-top:8px; color:var(--purple-dark); background:#fff; border-radius:8px; padding:8px 12px; border-left:3px solid var(--yellow); }
+.mcq.answered + .why{ display:block; }
+
+.statement-list{ margin:8px 0; padding-left:0; list-style:none; }
+.statement-list li{ padding:6px 10px; border-radius:8px; margin:4px 0; background:var(--card-tint); font-size:.93rem; }
+
+.kw-line{ margin:8px 0; padding:10px 12px; background:var(--card-tint); border-radius:10px; line-height:2; }
+.kw-tok{ cursor:pointer; padding:2px 3px; border-radius:4px; user-select:none; }
+.kw-tok:hover{ background:#efe6fa; }
+.kw-tok.on{ background:var(--yellow); }
+.kw-tok.key{ box-shadow:inset 0 -3px 0 var(--purple); }
+
+.match-wrap{ display:grid; grid-template-columns:1fr 1.4fr; gap:18px; }
+.match-col{ display:flex; flex-direction:column; gap:8px; }
+.match{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 12px; font-size:.86rem; text-align:left; color:var(--text); }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecec; }
+@media (max-width:640px){ .match-wrap{ grid-template-columns:1fr; } }
+
+.listen-block{ background:var(--card-tint); border-radius:12px; padding:14px 16px; margin:10px 0 16px; }
+audio{ width:100%; margin-top:6px; }
+.script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:320px; overflow-y:auto; font-size:.88rem; line-height:1.6; }
+.script-panel p{ margin:0 0 10px; }
+.script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
+details.script-toggle{ margin-top:10px; }
+details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.phrase-bank span{ background:#fff; border:1px solid var(--border); border-radius:999px; padding:4px 11px; font-size:.82rem; color:var(--purple-dark); }
+
+.results-panel{ display:none; text-align:center; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; text-align:left; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; width:100%; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:10px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+  .card{ padding:18px 16px; }
+  .lesson-title{ font-size:.92rem; }
+  .namebar input{ width:150px; }
+}
+/* iOS: no auto-zoom on focus */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.reading.script-panel{ max-height:none; font-size:.95rem; line-height:1.65; background:#fff; }
+.txt-block{ display:grid; grid-template-columns:34px 1fr; gap:10px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.txt-block:last-child{ border-bottom:none; }
+.txt-block .lt{ width:30px; height:30px; border-radius:50%; background:var(--purple); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.txt-block p{ margin:0 0 8px; }
+.txt-block select.fib-select{ max-width:420px; }
+.headings-box{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; columns:2; column-gap:28px; font-size:.92rem; }
+@media (max-width:640px){ .headings-box{ columns:1; } }
+.headings-box div{ break-inside:avoid; padding:2px 0; }
+.headings-box b{ color:var(--purple); }
+select.fib-select.inline{ display:inline-block; width:auto; min-width:64px; margin:0 4px; padding:3px 6px; }
+.gap-text p{ line-height:2.1; }
+.restored{ display:none; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; margin-top:10px; font-size:.93rem; }
+.restored.show{ display:block; }
+.restored b{ color:var(--purple-dark); background:#fff3b0; padding:0 3px; border-radius:3px; }
+.note-box{ display:none; margin-top:10px; padding:10px 14px; border-radius:10px; background:#fff; border-left:4px solid var(--purple); font-size:.9rem; }
+.note-box.show{ display:block; }
+.q-row{ display:grid; grid-template-columns:1fr 190px; gap:12px; align-items:start; }
+.q-row select.fib-select{ margin:0; }
+@media (max-width:640px){ .q-row{ grid-template-columns:1fr; } }
+.q-num{ display:inline-block; min-width:28px; font-weight:800; color:var(--purple); }
+.q-opts{ list-style:none; padding:0; margin:6px 0 0; font-size:.92rem; }
+.q-opts b{ color:var(--purple); }
+.photo-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:10px 0; }
+@media (max-width:640px){ .photo-row{ grid-template-columns:1fr; } }
+.photo-row figure{ margin:0; background:var(--card-tint); border-radius:12px; overflow:hidden; }
+.photo-row img{ width:100%; height:170px; object-fit:cover; display:block; }
+.photo-row figcaption{ text-align:center; font-weight:800; color:var(--purple); padding:6px; }
+.def-text{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin:12px 0 6px; font-size:.93rem; }
+.def-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:4px 0 4px 14px; font-size:.9rem; }
+input.gap{ font-family:inherit; font-size:.9rem; border:none; border-bottom:2px solid var(--purple); background:#fff; padding:2px 6px; width:170px; border-radius:4px 4px 0 0; }
+input.gap.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.gap.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+.gap-key{ display:none; font-size:.78rem; color:var(--correct); font-weight:700; }
+.show-keys .gap-key{ display:inline; }
+.model{ display:none; }
+.show-keys .model{ display:block; }
+.strategy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0; }
+@media (max-width:640px){ .strategy-grid{ grid-template-columns:1fr; } }
+.strategy{ background:var(--card-tint); border-radius:12px; padding:14px 16px; font-size:.92rem; }
+
+.gtext p{ line-height:2.15; margin:0 0 10px; }
+.gnum{ display:inline-flex; align-items:center; justify-content:center; min-width:30px; height:24px; padding:0 6px; border-radius:12px; background:var(--purple); color:#fff; font-weight:800; font-size:.8rem; margin-right:4px; vertical-align:middle; }
+.base{ display:inline-block; font-size:.74rem; font-weight:800; letter-spacing:.5px; color:var(--purple-dark); background:var(--yellow); border-radius:6px; padding:1px 6px; margin-left:4px; vertical-align:middle; }
+input.gap{ width:150px; }
+.wbox{ background:var(--card-tint); border-radius:12px; padding:10px 14px; margin:10px 0; display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.92rem; }
+.wbox span b{ color:var(--purple); }
+.mini-title{ margin:18px 0 6px; color:var(--purple-dark); font-size:1.02rem; }
+.mini-title:first-child{ margin-top:0; }
+.blank{ display:inline-block; min-width:70px; border-bottom:2px solid var(--purple); margin:0 3px; }
+.optrow{ display:grid; grid-template-columns:1fr 200px; gap:10px; align-items:center; padding:8px 0; border-bottom:1px dashed var(--border); }
+.optrow:last-child{ border-bottom:none; }
+.optrow .opts{ font-size:.93rem; }
+.optrow .opts b{ color:var(--purple); }
+@media (max-width:640px){ .optrow{ grid-template-columns:1fr; } input.gap{ width:130px; } }
+.cat{ margin:16px 0 4px; color:var(--purple); font-size:.85rem; letter-spacing:1px; text-transform:uppercase; }
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Tourist Destinations — Word Formation, Задания 25–29 · Homework</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 18</span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+<div class="scroll-area" id="scrollArea"><div class="page-wrap">
+
+<section class="page active">
+  <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button onclick="clearProgress()">Start over (clear saved answers)</button></div>
+  <div class="card">
+    <div class="eyebrow">ANGLE · ЕГЭ-2027 · Грамматика и лексика · Homework</div>
+    <h2>Homework: Задания 25–29 × 15</h2>
+    <p>15 exam-format sets: a text from the 2025 exam materials and short texts about Chicago, Tasmania, Bath, Uluru, St. Isaac’s Cathedral, Murmansk, Altai and other places. Every set has 5 gaps, as in the 2027 exam. Check your score and click the numbers to see why each word fits.</p>
+    <div class="info-box"><b>Формат заданий 25–29 (ЕГЭ-2027, без изменений по сравнению с 2026):</b> текст с 5 пропусками. От слова в конце строки нужно образовать <b>однокоренное слово</b>, которое подходит по смыслу и грамматически. Базовый уровень сложности.
+   <table class="score-table"><tr><td>Каждый верный ответ</td><td>1 балл</td></tr><tr><td>Максимум за 25–29</td><td>5 баллов</td></tr><tr><td>Орфографическая ошибка</td><td>0 баллов за ответ</td></tr></table>Весь раздел «Грамматика и лексика» — 18 баллов, рекомендуемое время — 40 минут.</div>
+    
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Before you start · Page 2 of 18</div>
+    <h2>Алгоритм выполнения заданий 25–29: 4 главных шага</h2>
+    <p class="muted">Прочитайте перед выполнением и держите в голове на каждом тексте.</p>
+    <div class="item algo-step"><span class="algo-n">1</span><p class="q">Прочитайте весь текст, включая предложения без пропусков.</p></div><div class="item algo-step"><span class="algo-n">2</span><p class="q">Определите часть речи и член предложения по словам до и после пропуска.</p></div><div class="item algo-step"><span class="algo-n">3</span><p class="q">Существительное: число и лицо или понятие? Прилагательное или наречие: нужен ли отрицательный префикс?</p></div><div class="item algo-step"><span class="algo-n">4</span><p class="q">Проверьте, что слово существует и написано без ошибок; одно слово, без грамматических изменений.</p></div>
+    <details class="fold"><summary>Полный алгоритм (8 шагов)</summary><ol class="algo"><li>Прочитайте весь текст, включая предложения без пропусков.</li><li>Какая часть речи нужна? Посмотрите на слова до и после пропуска: артикль, предлог, прилагательное → существительное; перед существительным → прилагательное; при глаголе или прилагательном → наречие.</li><li>Какой член предложения пропущен? Подлежащее и дополнение — существительное, определение — прилагательное или существительное (entertainment park), сказуемое — глагол.</li><li>Если пропущенное слово — один из однородных членов, посмотрите, какой частью речи являются остальные.</li><li>Существительное: единственное или множественное число? Это лицо (-er, -or, -ist) или понятие (-tion, -ment, -ity, -ness)?</li><li>Плюс или минус? По смыслу решите, нужен ли отрицательный префикс (un-, in-, im-, dis-), и выберите тот, который употребляется с этим корнем (inexpensive, а не unexpensive).</li><li>Не изменяйте слово грамматически (was not known) — нужно одно новое слово (unknown). Не оставляйте опорное слово без изменений.</li><li>Проверьте, что такое слово существует (explorer, а не explorist), и орфографию: useful → usefully, tragic → tragically, fame → famous, envy → envious.</li></ol></details>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 3 of 18</div>
+    <h2>Set 1 · Tourism as a social phenomenon</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h1"><h3 class="mini-title">Tourism as a social phenomenon</h3><p>Tourism, holidaymaking and travel are these days more significant social phenomena than most <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (COMMENT)" data-acc="[&quot;commentators&quot;]" aria-label="gap 25"><span class="base">COMMENT</span> <span class="gap-key">commentators</span> have considered.</p><p>On the face of it there could not be a more trivial subject for a book. And indeed since social scientists have had <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (CONSIDER)" data-acc="[&quot;considerable&quot;]" aria-label="gap 26"><span class="base">CONSIDER</span> <span class="gap-key">considerable</span> difficulty explaining weightier topics such as work or politics it might be thought that they would have great difficulties in accounting for more trivial phenomena such as holidaymaking.</p><p>However there are <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (INTEREST)" data-acc="[&quot;interesting&quot;]" aria-label="gap 27"><span class="base">INTEREST</span> <span class="gap-key">interesting</span> parallels with the study of deviance.</p><p>This involves the <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (INVESTIGATE)" data-acc="[&quot;investigation&quot;]" aria-label="gap 28"><span class="base">INVESTIGATE</span> <span class="gap-key">investigation</span> of bizarre and idiosyncratic social practices</p><p>which happen to be defined as deviant in some societies but not <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (NECESSITY)" data-acc="[&quot;necessarily&quot;]" aria-label="gap 29"><span class="base">NECESSITY</span> <span class="gap-key">necessarily</span> in others.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h1" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; most … have considered — лица, мн. ч.: &lt;b&gt;commentators&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; have had … difficulty — прилагательное перед существительным: &lt;b&gt;considerable&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; there are … parallels → прилагательное &lt;b&gt;interesting&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; the … of — существительное: &lt;b&gt;investigation&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; but not … in others — наречие «обязательно»: &lt;b&gt;necessarily&lt;/b&gt;. В ключе подборки — NECESSARY, но перед in others нужно наречие; в исходнике опорное слово с опечаткой (NESESSITY)." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 1')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 4 of 18</div>
+    <h2>Set 2 · Chicago</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h2"><h3 class="mini-title">Chicago</h3><p>Following a recent renovation, the new Hancock Observatory invites you to enjoy Chicago’s best views from the city’s highest open-air Skywalk. It has quickly gained <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (POPULAR)" data-acc="[&quot;popularity&quot;]" aria-label="gap 25"><span class="base">POPULAR</span> <span class="gap-key">popularity</span> with both Chicagoans and visitors of the city.</p><p>Skywalk is Chicago’s highest open-air viewing area. It is 1,000 feet in the air! Everyone here can feel the strong wind and hear the dynamic buzz of the city below. The friendly staff will <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (CERTAIN)" data-acc="[&quot;certainly&quot;]" aria-label="gap 26"><span class="base">CERTAIN</span> <span class="gap-key">certainly</span> tell the real story behind Chicago’s “Windy City” nickname.</p><p>For those who feel <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (COMFORT)" data-acc="[&quot;uncomfortable&quot;]" aria-label="gap 27"><span class="base">COMFORT</span> <span class="gap-key">uncomfortable</span> about such a great height there are more relaxing indoor audio Sky Tours.</p><p>These 30-minute personal audio tours give a unique “overview” of Chicago’s wonderful sights and <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (REMARK)" data-acc="[&quot;remarkable&quot;]" aria-label="gap 28"><span class="base">REMARK</span> <span class="gap-key">remarkable</span> history! Sky Tours are available in English, Spanish and German.</p><p>History Wall is another popular <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (ATTRACT)" data-acc="[&quot;attraction&quot;]" aria-label="gap 29"><span class="base">ATTRACT</span> <span class="gap-key">attraction</span>. More than 100 photos on a great 80-foot display show Chicago’s rise from a small settlement to a great city.</p><p>As a tour guide I have been to the Skywalk <b>countless</b> times and still I can&#x27;t help admiring it.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h2" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «has quickly gained … with both Chicagoans» → существительное: &lt;b&gt;popularity&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «friendly staff will … tell the real» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;certainly&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «those who feel … about such a» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;uncomfortable&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «wonderful sights and … history! Sky Tours» → прилагательное: &lt;b&gt;remarkable&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «is another popular … . More than» → существительное: &lt;b&gt;attraction&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 2')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 5 of 18</div>
+    <h2>Set 3 · Tourism in Britain</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h3"><h3 class="mini-title">Tourism in Britain</h3><p>Tourism is already Britain’s fifth most important industry and it is also the fifth largest tourist industry in the world. It’s growing <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (RAPID)" data-acc="[&quot;rapidly&quot;]" aria-label="gap 25"><span class="base">RAPID</span> <span class="gap-key">rapidly</span>: the number of people employed in the industry increased by more than 50,000 a year.</p><p>Britain has a rich and varied cultural heritage. <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (COLOUR)" data-acc="[&quot;colourful&quot;]" aria-label="gap 26"><span class="base">COLOUR</span> <span class="gap-key">colourful</span> royal ceremonies attract millions of visitors each year.</p><p>London has an international reputation for its historic sites, museums and famous institutions. A city of infinite colour and <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (VARY)" data-acc="[&quot;variety&quot;]" aria-label="gap 27"><span class="base">VARY</span> <span class="gap-key">variety</span>, London is both historic and unceasingly modern, at the forefront of fashion, music and art.</p><p>Historic cities such as Oxford, Cambridge and Bath are visited by large numbers of<span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (FOREIGN)" data-acc="[&quot;foreigners&quot;]" aria-label="gap 28"><span class="base">FOREIGN</span> <span class="gap-key">foreigners</span>.</p><p>People who travel to Scotland, the Lake District and other areas of upland Britain find unique <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (EXCITE)" data-acc="[&quot;exciting&quot;]" aria-label="gap 29"><span class="base">EXCITE</span> <span class="gap-key">exciting</span> places and scenery which can vary over short distances.</p><p>Some of the most popular<b>attractions</b> outside London are the Jorvik Viking Centre in York, the Tudor ship in Portsmouth and National museum of Photography in Bradford.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h3" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «world. It’s growing … : the number» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;rapidly&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «varied cultural heritage. … royal ceremonies attract» → прилагательное: &lt;b&gt;colourful&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «infinite colour and … , London is» → существительное: &lt;b&gt;variety&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «large numbers of … .» → существительное-лицо, мн. ч.: &lt;b&gt;foreigners&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «Britain find unique … places and scenery» → прилагательное (-ing): «волнующий»: &lt;b&gt;exciting&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 3')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 6 of 18</div>
+    <h2>Set 4 · Visiting Tasmania</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h4"><h3 class="mini-title">Visiting Tasmania</h3><p>Are you planning a trip to Tasmania? Without a doubt, any <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (TOUR)" data-acc="[&quot;tourist&quot;]" aria-label="gap 25"><span class="base">TOUR</span> <span class="gap-key">tourist</span> will find some things to do there.</p><p>To begin with, driving up the east coast of Tasmania is one of the most <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (MEMORY)" data-acc="[&quot;memorable&quot;]" aria-label="gap 26"><span class="base">MEMORY</span> <span class="gap-key">memorable</span> things you can do there.</p><p>Tasmania’s east coast is <b>really</b> spectacular and along the way you’ll be able to stop for walks along cliff tops and swim in gorgeous beaches.</p><p>One more opportunity is to camp out at <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (NATION)" data-acc="[&quot;national&quot;]" aria-label="gap 27"><span class="base">NATION</span> <span class="gap-key">national</span> parks and do other cool activities.</p><p>One of the biggest <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (ATTRACT)" data-acc="[&quot;attractions&quot;]" aria-label="gap 28"><span class="base">ATTRACT</span> <span class="gap-key">attractions</span> along the east coast of Tasmania is Freycinet Park, renowned for the stunning Wineglass Bay and many routes for day walks, bird watching and mountaineering.</p><p>Besides climbing and hiking, there you can also eat a fresh oyster lunch at the “Freycinet Marine Farm”. It will certainly be an <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (FORGET)" data-acc="[&quot;unforgettable&quot;]" aria-label="gap 29"><span class="base">FORGET</span> <span class="gap-key">unforgettable</span> experience for you, so don’t miss a chance to visit Tasmania.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h4" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «a doubt, any … will find some» → существительное-лицо: &lt;b&gt;tourist&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «of the most … things you can» → прилагательное: &lt;b&gt;memorable&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «camp out at … parks and do» → прилагательное: &lt;b&gt;national&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «of the biggest … along the east» → существительное во мн. ч.: &lt;b&gt;attractions&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «certainly be an … experience for you,» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;unforgettable&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 4')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 7 of 18</div>
+    <h2>Set 5 · Blackpool</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h5"><h3 class="mini-title">Blackpool</h3><p>Blackpool is not on the list of top British places to go, but the northern seaside resort of Blackpool still draws tourists. About 6 million <b>visitors</b> come to the town every year.</p><p>Most of them are attracted by a great <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (SELECT)" data-acc="[&quot;selection&quot;]" aria-label="gap 25"><span class="base">SELECT</span> <span class="gap-key">selection</span> of arcades, shows and a quick few days sprawled on the sands.</p><p>Speaking about the things which <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (SYMBOL)" data-acc="[&quot;symbolise&quot;, &quot;symbolize&quot;]" aria-label="gap 26"><span class="base">SYMBOL</span> <span class="gap-key">symbolise</span> Blackpool, these are certainly the Blackpool Tower (an aging copy of The Eiffel Tower) and the Pleasure Beach.</p><p>The Pleasure Beach has everything from donkey races to places of great <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (NATURE)" data-acc="[&quot;natural&quot;]" aria-label="gap 27"><span class="base">NATURE</span> <span class="gap-key">natural</span> beauty.</p><p>Blackpool’s famous sea-front also boasts <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (TRADITION)" data-acc="[&quot;traditional&quot;]" aria-label="gap 28"><span class="base">TRADITION</span> <span class="gap-key">traditional</span> trams and horse-drawn carriages and a huge Sea-Life Centre where you can stare a shark straight in the eye.</p><p>Blackpool is known for a <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (TRUE)" data-acc="[&quot;truly&quot;]" aria-label="gap 29"><span class="base">TRUE</span> <span class="gap-key">truly</span> hospitable attitude to tourists, so don’t miss a chance to come here at least for a couple of days.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h5" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «by a great … of arcades, shows» → существительное: &lt;b&gt;selection&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «the things which … Blackpool, these are» → глагол: &lt;b&gt;symbolise&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «places of great … beauty.» → прилагательное: &lt;b&gt;natural&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «sea-front also boasts … trams and horse-drawn» → прилагательное: &lt;b&gt;traditional&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «known for a … hospitable attitude to» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;truly&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 5')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 8 of 18</div>
+    <h2>Set 6 · Bath</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h6"><h3 class="mini-title">Bath</h3><p>“Bath is the finest place on earth for you may enjoy it without getting tired”. These are the words of the 18th century <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (TRAVEL)" data-acc="[&quot;traveller&quot;]" aria-label="gap 25"><span class="base">TRAVEL</span> <span class="gap-key">traveller</span> James Boswell upon his first visit to the place.</p><p>He was right, of course. This is a <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (TRUE)" data-acc="[&quot;truly&quot;]" aria-label="gap 26"><span class="base">TRUE</span> <span class="gap-key">truly</span> glorious Georgian city with its well-preserved Roman remains and famous baths.</p><p>Bath is one of the easiest cities to explore with a compact centre of broad main streets lined with numerous historic <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (BUILD)" data-acc="[&quot;buildings&quot;]" aria-label="gap 27"><span class="base">BUILD</span> <span class="gap-key">buildings</span> and pretty shops.</p><p>Everything you could want to see is within walking distance but you can spend several days in Bath each day doing something different and something <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (EXCITE)" data-acc="[&quot;exciting&quot;]" aria-label="gap 28"><span class="base">EXCITE</span> <span class="gap-key">exciting</span>.</p><p>Don’t forget that nearby is the ancient and <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (MYSTERY)" data-acc="[&quot;mysterious&quot;]" aria-label="gap 29"><span class="base">MYSTERY</span> <span class="gap-key">mysterious</span> Stonehenge, a circle of enormous rocks on the edge of the Salisbury Plain.</p><p>Perhaps Bath and its surroundings have some greatest sights in Britain. A trip to this city or in any <b>direction</b> from it will lead you to an wonderful day.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h6" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «the 18th century … James Boswell upon» → существительное-лицо: &lt;b&gt;traveller&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «This is a … glorious Georgian city» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;truly&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «with numerous historic … and pretty shops.» → существительное во мн. ч.: &lt;b&gt;buildings&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «different and something … .» → прилагательное (-ing): «волнующий»: &lt;b&gt;exciting&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «the ancient and … Stonehenge, a circle» → прилагательное: &lt;b&gt;mysterious&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 6')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 9 of 18</div>
+    <h2>Set 7 · Chester</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h7"><h3 class="mini-title">Chester</h3><p>Chester is a tourist city with a population approaching 100,000. Like many British cities, it was <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (ORIGINAL)" data-acc="[&quot;originally&quot;]" aria-label="gap 25"><span class="base">ORIGINAL</span> <span class="gap-key">originally</span> founded by the Romans.</p><p>Chester’s popular <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (ATTRACT)" data-acc="[&quot;attraction&quot;]" aria-label="gap 26"><span class="base">ATTRACT</span> <span class="gap-key">attraction</span> and sights include the racecourse, the clock tower and the cathedral although it has a good range of shops as well.</p><p>Nowadays Chester is hoping to offer even more <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (ENTERTAIN)" data-acc="[&quot;entertainments&quot;]" aria-label="gap 27"><span class="base">ENTERTAIN</span> <span class="gap-key">entertainments</span> with a new racecourse.</p><p>Indeed Chester is most <b>famous</b> for its race days. At weekends, when the races are on, traffic into and out of the city can be very busy.</p><p>There’s also a new club “Cruise” which is made up from 6 rooms each representing a different country in the world. This is an <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (AMAZE)" data-acc="[&quot;amazing&quot;]" aria-label="gap 28"><span class="base">AMAZE</span> <span class="gap-key">amazing</span> club and if you manage to go to Chester, it is worth visiting.</p><p>One more thing to do is taking a river boat cruise during the summer months to learn a little more about the history of Chester and to <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (REAL)" data-acc="[&quot;really&quot;]" aria-label="gap 29"><span class="base">REAL</span> <span class="gap-key">really</span> appreciate the beautiful scenery.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h7" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «cities, it was … founded by the» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;originally&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «Chester’s popular … and sights include» → существительное: &lt;b&gt;attraction&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «offer even more … with a new» → существительное во мн. ч.: &lt;b&gt;entertainments&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «This is an … club and if» → прилагательное (-ing): «удивительный»: &lt;b&gt;amazing&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «Chester and to … appreciate the beautiful» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;really&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 7')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 10 of 18</div>
+    <h2>Set 8 · Central Park</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h8"><h3 class="mini-title">Central Park</h3><p>One of the world’s most well-known green spaces, Central Park in New York occupies 843 acres of land with European-style gardens, a lake and a reservoir. <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (NATURAL)" data-acc="[&quot;naturally&quot;]" aria-label="gap 25"><span class="base">NATURAL</span> <span class="gap-key">naturally</span>, among Central Park sights one should also mention an outdoor theater, a memorial to John Lennon and a very famous statue of Alice in Wonderland.</p><p>Many tourists consider Central Park to be a truly <b>beautiful</b> place.</p><p>It is important to say that this huge park was designed as a leisure space for all New Yorkers, <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (REGARD)" data-acc="[&quot;regardless&quot;]" aria-label="gap 26"><span class="base">REGARD</span> <span class="gap-key">regardless</span> of color or class.</p><p>Today, this “people’s park” is still one of the city’s most popular <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (ATTRACT)" data-acc="[&quot;attractions&quot;]" aria-label="gap 27"><span class="base">ATTRACT</span> <span class="gap-key">attractions</span>.</p><p>It is also a very popular place for numerous <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (JOG)" data-acc="[&quot;joggers&quot;]" aria-label="gap 28"><span class="base">JOG</span> <span class="gap-key">joggers</span>.</p><p>Even in winter with its snowstorms there is something to do there, like cross-country <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (SKI)" data-acc="[&quot;skiing&quot;]" aria-label="gap 29"><span class="base">SKI</span> <span class="gap-key">skiing</span>. If you plan to visit New York, Central Park is an absolute must for you.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h8" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «and a reservoir. … , among Central» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;naturally&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «all New Yorkers, … of color or» → наречие regardless (of) — «независимо от»: &lt;b&gt;regardless&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «city’s most popular … .» → существительное во мн. ч.: &lt;b&gt;attractions&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «place for numerous … .» → существительное-лицо, мн. ч.: &lt;b&gt;joggers&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «there, like cross-country … . If you» → существительное (-ing) — название занятия: &lt;b&gt;skiing&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 8')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 11 of 18</div>
+    <h2>Set 9 · Visiting Uluru</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h9"><h3 class="mini-title">Visiting Uluru</h3><p>If you are thinking of making the journey to witness the incredible red rock Uluru in person, here are some facts you should know before you leave. Thousands of <b>visitors</b> to Australia go to see Uluru.</p><p>Uluru is located west of the Simpson Desert 335 km southwest of Alice Springs. While some people believe it to be the largest monolith in the world, this title is <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (ACTUAL)" data-acc="[&quot;actually&quot;]" aria-label="gap 25"><span class="base">ACTUAL</span> <span class="gap-key">actually</span> held by Mount Augustus in Western Australia.</p><p>Uluru is known to undergo a series of colour changes. These can be just subtle <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (DIFFER)" data-acc="[&quot;difference&quot;]" aria-label="gap 26"><span class="base">DIFFER</span> <span class="gap-key">difference</span> when it rains.</p><p>However, the view undergoes amazing <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (TRANSFORM)" data-acc="[&quot;transformation&quot;]" aria-label="gap 27"><span class="base">TRANSFORM</span> <span class="gap-key">transformation</span> when caught by the spectacular sunset rays.</p><p>This is so partially because the surface of Uluru is full of <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (USUAL)" data-acc="[&quot;unusual&quot;]" aria-label="gap 28"><span class="base">USUAL</span> <span class="gap-key">unusual</span> caves and holes due to millions of years of erosion.</p><p>Uluru is a sacred site to the indigenous people of the area, and guides <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (COURAGE)" data-acc="[&quot;discourage&quot;]" aria-label="gap 29"><span class="base">COURAGE</span> <span class="gap-key">discourage</span> tourists from climbing the rock.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h9" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «this title is … held by Mount» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;actually&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «be just subtle … when it rains.» → существительное: &lt;b&gt;difference&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «view undergoes amazing … when caught by» → существительное: &lt;b&gt;transformation&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «is full of … caves and holes» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;unusual&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «area, and guides … tourists from climbing» → глагол; по смыслу нужно отрицание → префикс: &lt;b&gt;discourage&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 9')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 12 of 18</div>
+    <h2>Set 10 · Ferapontov Monastery in Vologda</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h10"><h3 class="mini-title">Ferapontov Monastery in Vologda</h3><p>Ferapontov monastery was founded in 1398. This was when Ferapont the Reverend established a new settlement on a lake not far from Vologda. There were many villages around this <b>beautiful</b> place and soon people started to come to him for advice.</p><p>Then some people decided to stay with him as monks. That’s <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (ACTUAL)" data-acc="[&quot;actually&quot;]" aria-label="gap 25"><span class="base">ACTUAL</span> <span class="gap-key">actually</span> how the monastery was started.</p><p>Later Ferapont built a wooden church and other <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (CONSTRUCT)" data-acc="[&quot;constructions&quot;]" aria-label="gap 26"><span class="base">CONSTRUCT</span> <span class="gap-key">constructions</span>. He left the monastery to build another one but never returned.</p><p>However, the monastery remained both a <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (FAME)" data-acc="[&quot;famous&quot;]" aria-label="gap 27"><span class="base">FAME</span> <span class="gap-key">famous</span> and popular place even without him.</p><p>Now tourists can enjoy its <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (AMAZE)" data-acc="[&quot;amazing&quot;]" aria-label="gap 28"><span class="base">AMAZE</span> <span class="gap-key">amazing</span> frescoes, created in 1502.</p><p>It may seem <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (POSSIBLE)" data-acc="[&quot;impossible&quot;]" aria-label="gap 29"><span class="base">POSSIBLE</span> <span class="gap-key">impossible</span>, but these frescoes have remained safe without restoration till the present day. Now the monastery is a museum. In 2000 the Ensemble of the Ferapontov Monastery was included in UNESCO’s World Heritage List.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h10" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «as monks. That’s … how the monastery» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;actually&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «church and other … . He left» → существительное во мн. ч.: &lt;b&gt;constructions&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «remained both a … and popular place» → прилагательное: &lt;b&gt;famous&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «can enjoy its … frescoes, created in» → прилагательное (-ing): «удивительный»: &lt;b&gt;amazing&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «It may seem … , but these» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;impossible&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 10')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 13 of 18</div>
+    <h2>Set 11 · St. Isaac’s Cathedral</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h11"><h3 class="mini-title">St. Isaac’s Cathedral</h3><p>St. Isaac’s Cathedral is one of the biggest Orthodox churches in Russia. The Cathedral was named in honour of St. Isaac of Dalmatia, who was <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (GREAT)" data-acc="[&quot;greatly&quot;]" aria-label="gap 25"><span class="base">GREAT</span> <span class="gap-key">greatly</span> respected by Peter I as he was born on St. Isaac’s day.</p><p>The first wooden church was built in 1710. Later the <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (CONSTRUCT)" data-acc="[&quot;construction&quot;]" aria-label="gap 26"><span class="base">CONSTRUCT</span> <span class="gap-key">construction</span> of a new cathedral began.</p><p>A lot of <b>famous</b> architects took part in creating the cathedral which was opened to public in 1858.</p><p><span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (TOUR)" data-acc="[&quot;tourists&quot;]" aria-label="gap 27"><span class="base">TOUR</span> <span class="gap-key">tourists</span> from all over the world come to see the cathedral every day.</p><p>They can go inside and enjoy the <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (AMAZE)" data-acc="[&quot;amazing&quot;]" aria-label="gap 28"><span class="base">AMAZE</span> <span class="gap-key">amazing</span> interiors of the building. Little do they know how much the cathedral suffered during the bomb attacks of the Second World War.</p><p>The services were revived in the cathedral in 1990 and take place regularly on big <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (RELIGION)" data-acc="[&quot;religious&quot;]" aria-label="gap 29"><span class="base">RELIGION</span> <span class="gap-key">religious</span> holidays and Sundays.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h11" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «Dalmatia, who was … respected by Peter» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;greatly&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «1710. Later the … of a new» → существительное: &lt;b&gt;construction&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; « … from all over» → существительное-лицо, мн. ч.: &lt;b&gt;tourists&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «and enjoy the … interiors of the» → прилагательное (-ing): «удивительный»: &lt;b&gt;amazing&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «regularly on big … holidays and Sundays.» → прилагательное: &lt;b&gt;religious&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 11')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 14 of 18</div>
+    <h2>Set 12 · Murmansk</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h12"><h3 class="mini-title">Murmansk</h3><p>The city of Murmansk was founded in 1916. At present Murmansk is the largest city situated above the Polar circle but its <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (POPULATE)" data-acc="[&quot;population&quot;]" aria-label="gap 25"><span class="base">POPULATE</span> <span class="gap-key">population</span> is still quite small.</p><p>Murmansk has severe climatic conditions. Summers are short and cold there. The polar night lasts from December 2 to January 11. Still, many <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (TOUR)" data-acc="[&quot;tourists&quot;]" aria-label="gap 26"><span class="base">TOUR</span> <span class="gap-key">tourists</span> come to visit Murmansk.</p><p>The city can boast of several major <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (ATTRACT)" data-acc="[&quot;attractions&quot;]" aria-label="gap 27"><span class="base">ATTRACT</span> <span class="gap-key">attractions</span>.</p><p>Among them you will find Lenin nuclear icebreaker, which is the first of its kind in the world. Now it is an <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (EXCITE)" data-acc="[&quot;exciting&quot;]" aria-label="gap 28"><span class="base">EXCITE</span> <span class="gap-key">exciting</span> museum which demonstrates the history of the exploration of the Arctic. There are some other really important museums in Murmansk – the Museum of Regional Studies, the Navy Museum of the Northern Fleet and so on.</p><p>If you are lucky to see the Northern lights, you will be <b>really</b> impressed.</p><p>It’s <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (POSSIBLE)" data-acc="[&quot;impossible&quot;]" aria-label="gap 29"><span class="base">POSSIBLE</span> <span class="gap-key">impossible</span> to forget this splendid view.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h12" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «circle but its … is still quite» → существительное: &lt;b&gt;population&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «11. Still, many … come to visit» → существительное-лицо, мн. ч.: &lt;b&gt;tourists&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «of several major … .» → существительное во мн. ч.: &lt;b&gt;attractions&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «it is an … museum which demonstrates» → прилагательное (-ing): «волнующий»: &lt;b&gt;exciting&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «It’s … to forget this» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;impossible&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 12')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 15 of 18</div>
+    <h2>Set 13 · The Altai Mountains</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h13"><h3 class="mini-title">The Altai Mountains</h3><p>The Altai Mountains are located in Russia on the border with Mongolia, Kazakhstan and China. They are considered one of the most <b>beautiful</b> mountain ranges in Russia.</p><p>The panoramic views from the mountain tops are <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (POSSIBLE)" data-acc="[&quot;impossible&quot;]" aria-label="gap 25"><span class="base">POSSIBLE</span> <span class="gap-key">impossible</span> to forget.</p><p>The colour pallet of the landscape changes <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (GREAT)" data-acc="[&quot;greatly&quot;]" aria-label="gap 26"><span class="base">GREAT</span> <span class="gap-key">greatly</span> with each season so you will never get tired of it.</p><p>What makes the Altai Mountains even more <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (ATTRACT)" data-acc="[&quot;attractive&quot;]" aria-label="gap 27"><span class="base">ATTRACT</span> <span class="gap-key">attractive</span> is that they are not easy to get to.</p><p><span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (VISIT)" data-acc="[&quot;visitors&quot;]" aria-label="gap 28"><span class="base">VISIT</span> <span class="gap-key">visitors</span> feel like they are the first to see this wild landscape.</p><p>The <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (NATURE)" data-acc="[&quot;natural&quot;]" aria-label="gap 29"><span class="base">NATURE</span> <span class="gap-key">natural</span> parks around the mountains are quite different; some areas are very cold and covered with snow year-round, while other areas are located near the low-lying Russian Taiga where the climate is mild.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h13" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «mountain tops are … to forget.» → прилагательное; по смыслу нужно отрицание → префикс: &lt;b&gt;impossible&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «the landscape changes … with each season» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;greatly&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «Mountains even more … is that they» → прилагательное: &lt;b&gt;attractive&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; « … feel like they» → существительное-лицо, мн. ч.: &lt;b&gt;visitors&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «The … parks around the» → прилагательное: &lt;b&gt;natural&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 13')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 16 of 18</div>
+    <h2>Set 14 · St. Basil’s Cathedral</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h14"><h3 class="mini-title">St. Basil’s Cathedral</h3><p>St. Basil’s Cathedral in Moscow was built between 1555 and 1561. According to legends, Ivan the Terrible blinded its <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (BUILD)" data-acc="[&quot;builder&quot;, &quot;builders&quot;]" aria-label="gap 25"><span class="base">BUILD</span> <span class="gap-key">builder</span> so that he could never build such a magnificent structure again.</p><p>However, these legends seem <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (TRUE)" data-acc="[&quot;untrue&quot;]" aria-label="gap 26"><span class="base">TRUE</span> <span class="gap-key">untrue</span>. Old documents say that the same Russian architect built another cathedral in Vladimir later.</p><p>There is a deep contrast between the <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (COLOUR)" data-acc="[&quot;colourful&quot;]" aria-label="gap 27"><span class="base">COLOUR</span> <span class="gap-key">colourful</span> exterior of the church and its modest interior.</p><p>People can see very few <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (DECORATE)" data-acc="[&quot;decorations&quot;]" aria-label="gap 28"><span class="base">DECORATE</span> <span class="gap-key">decorations</span> and very narrow corridors inside.</p><p>Several times throughout its history, the cathedral suffered <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (TERRIBLE)" data-acc="[&quot;terribly&quot;]" aria-label="gap 29"><span class="base">TERRIBLE</span> <span class="gap-key">terribly</span> from fires and enemy attacks.</p><p>In one legend, Napoleon even wanted to take the church back to France with him. As he couldn’t do this, he ordered his army to destroy the church. The soldiers had already lit up the gunpowder, but a <b>mysterious</b> rain prevented the fire.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h14" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «Terrible blinded its … so that he» → существительное-лицо: &lt;b&gt;builder&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «these legends seem … . Old documents» → нужная часть речи; по смыслу нужно отрицание → префикс: &lt;b&gt;untrue&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «contrast between the … exterior of the» → прилагательное: &lt;b&gt;colourful&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «see very few … and very narrow» → существительное во мн. ч.: &lt;b&gt;decorations&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «the cathedral suffered … from fires and» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;terribly&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 14')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 17 of 18</div>
+    <h2>Set 15 · Auckland</h2>
+    <p class="muted">Form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_h15"><h3 class="mini-title">Auckland</h3><p>Auckland is the largest and most populous city in New Zealand. The <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (POPULATE)" data-acc="[&quot;population&quot;]" aria-label="gap 25"><span class="base">POPULATE</span> <span class="gap-key">population</span> of Auckland is getting close to 1.4 million residents.</p><p>It is <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (CONVENIENT)" data-acc="[&quot;conveniently&quot;]" aria-label="gap 26"><span class="base">CONVENIENT</span> <span class="gap-key">conveniently</span> situated in the North Island of the country, between the Waitakere Ranges and the Hauraki Gulf.</p><p>The city enjoys an oceanic climate, which is <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (COMPARE)" data-acc="[&quot;comparable&quot;]" aria-label="gap 27"><span class="base">COMPARE</span> <span class="gap-key">comparable</span> to the climate in most of Europe.</p><p>Nothing can <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (APPOINT)" data-acc="[&quot;disappoint&quot;]" aria-label="gap 28"><span class="base">APPOINT</span> <span class="gap-key">disappoint</span> you about Auckland, which is why it is a popular destination for numerous immigrants to New Zealand.</p><p>Expats have an overall good experience when staying in Auckland. Most expats find it very easy to communicate with the locals, who are very <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (FRIEND)" data-acc="[&quot;friendly&quot;]" aria-label="gap 29"><span class="base">FRIEND</span> <span class="gap-key">friendly</span>.</p><p>Another positive thing about Auckland is the amount of nature and free space, which is appreciated a lot, especially by those coming from more densely inhabited <b>locations</b>.</p></div>
+    <div><button class="btn ghost" data-scope="sel_h15" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; «New Zealand. The … of Auckland is» → существительное: &lt;b&gt;population&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; «It is … situated in the» → наречие (-ly): поясняет глагол, прилагательное или всё предложение: &lt;b&gt;conveniently&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; «climate, which is … to the climate» → прилагательное: &lt;b&gt;comparable&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; «Nothing can … you about Auckland,» → глагол; по смыслу нужно отрицание → префикс: &lt;b&gt;disappoint&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; «who are very … .» → прилагательное на -ly (friend → friendly): &lt;b&gt;friendly&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Set 15')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Page 18 of 18</div>
+    <h2>Results</h2>
+    <p class="muted">Press “Check &amp; Submit” on the last set to see your score here.</p>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="completion-stickers" id="completionStickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+</div></div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ 2027';
+const PROGRESS_KEY = 'angle_progress::ege2027-travel-grammar-task25-29-homework';
+const PAGE_LABELS = ["Старт","Алгоритм", "Tourism as a social phenomenon", "Chicago", "Tourism in Britain", "Visiting Tasmania", "Blackpool", "Bath", "Chester", "Central Park", "Visiting Uluru", "Ferapontov Monastery in Vologda", "St. Isaac’s Cathedral", "Murmansk", "The Altai Mountains", "St. Basil’s Cathedral", "Auckland", "Итоги"];
+const VARIANTS = [{"key": "h1", "label": "Tourism as a social phenomenon"}, {"key": "h2", "label": "Chicago"}, {"key": "h3", "label": "Tourism in Britain"}, {"key": "h4", "label": "Visiting Tasmania"}, {"key": "h5", "label": "Blackpool"}, {"key": "h6", "label": "Bath"}, {"key": "h7", "label": "Chester"}, {"key": "h8", "label": "Central Park"}, {"key": "h9", "label": "Visiting Uluru"}, {"key": "h10", "label": "Ferapontov Monastery in Vologda"}, {"key": "h11", "label": "St. Isaac’s Cathedral"}, {"key": "h12", "label": "Murmansk"}, {"key": "h13", "label": "The Altai Mountains"}, {"key": "h14", "label": "St. Basil’s Cathedral"}, {"key": "h15", "label": "Auckland"}];
+const MATCH_SETS = [];
+
+const PTS = { t10: n => n>=7?3:n===6?2:n===5?1:0, t11: n => n>=6?2:n===5?1:0, t1218: n => n };
+const MAXP = { t10:3, t11:2, t1218:7 };
+function pw(n){ return n===1?'балл':(n>=2&&n<=4?'балла':'баллов'); }
+function checkSelects(btn){
+  const card = btn.closest('.card'); const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : card;
+  let n=0, t=0;
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{ t++; const ok = sel.value===sel.dataset.answer; sel.classList.toggle('is-correct',ok); sel.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points') || card.querySelector('.exam-points'); out.hidden=false;
+  const type = btn.dataset.type;
+  if(type){ const p = PTS[type](n); out.textContent = `Верно: ${n} из ${t} → на экзамене это ${p} ${pw(p)} из ${MAXP[type]}.` + (n<t?' Найдите в тексте, где вы ошиблись.':' Отлично!'); }
+  else out.textContent = `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function gapOk(inp){
+  const v = normalize(inp.value).replace(/[.…]/g,'').replace(/\s+/g,' ').trim();
+  return JSON.parse(inp.dataset.acc).some(a=>normalize(a).replace(/[.…]/g,'').replace(/\s+/g,' ').trim()===v);
+}
+function checkGaps(btn){
+  const card = btn.closest('.card'); let n=0,t=0;
+  card.querySelectorAll('input.gap').forEach(i=>{ t++; const ok=gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = card.querySelector('.gap-result'); out.hidden=false; out.textContent = `Верно: ${n} из ${t}.`;
+}
+function toggleKeys(btn){ btn.closest('.card').classList.toggle('show-keys'); }
+function showNote(btn){ const box = btn.closest('.item').querySelector('.note-box'); box.innerHTML = btn.dataset.note; box.classList.add('show'); if(btn.dataset.panel) highlightScript(btn.dataset.panel, btn.dataset.hl || null); }
+function toggleRestored(btn){ btn.closest('.card').querySelector('.restored').classList.toggle('show'); }
+let matchPick = null;
+function renderMatchSet(wrapId, pairs){
+  const wrap = document.getElementById(wrapId); if(!wrap) return;
+  const Lc = wrap.querySelector('.match-col.left'), Rc = wrap.querySelector('.match-col.right');
+  const right = [...pairs].sort(()=>Math.random()-0.5);
+  Lc.innerHTML = pairs.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[1])}</button>`).join('');
+  Rc.innerHTML = right.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[2])}</button>`).join('');
+  wrap.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(matchPick && matchPick.closest('.match-wrap') !== wrap){ matchPick.classList.remove('selected'); matchPick = null; }
+      if(!matchPick){ matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick === el){ el.classList.remove('selected'); matchPick = null; return; }
+      if(matchPick.parentElement === el.parentElement){ matchPick.classList.remove('selected'); matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick.dataset.id === el.dataset.id){
+        [matchPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.disabled = true; });
+        wrap.dataset.correctCount = wrap.querySelectorAll('.match.matched-correct').length/2;
+      } else { const a = matchPick, b = el; [a,b].forEach(x=>x.classList.add('wrong-flash')); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','wrong-flash')), 550); }
+      matchPick = null; scheduleSave();
+    };
+  });
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const n = [...document.querySelectorAll('#sel_'+v.key+' select.fib-select')].filter(s=>s.value===s.dataset.answer).length;
+    const p = PTS[v.type](n); return `${v.label}: ${n}/${v.type==='t11'?6:7} → ${p} из ${MAXP[v.type]}`;
+  }).join('\n');
+}
+function init(){
+  buildDots();
+  MATCH_SETS.forEach(m=>renderMatchSet(m[0], m[1]));
+  bindMcq(); bindProofs();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+PTS.g = n => n; MAXP.g = 7;
+function squash(s){ return (s||'').toLowerCase().replace(/[’‘`]/g,"'").replace(/[.…"]/g,'').replace(/\s+/g,''); }
+function gapOk(inp){ const v = squash(inp.value); return v !== '' && JSON.parse(inp.dataset.acc).some(a=>squash(a)===v); }
+function checkGapsExam(btn){
+  const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : btn.closest('.card');
+  let n=0, t=0;
+  scope.querySelectorAll('input.gap').forEach(i=>{ t++; const ok = gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points'); out.hidden = false;
+  out.textContent = btn.dataset.exam ? `Верно: ${n} из ${t} → ${n} ${pw(n)} (на экзамене 1 балл за каждый верный ответ).` + (n<t?' Найдите ошибки и проверьте их по подсказкам.':' Отлично!') : `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const s = document.getElementById('sel_'+v.key); if(!s) return '';
+    let n=0, t=0;
+    s.querySelectorAll('input.gap').forEach(i=>{ t++; if(gapOk(i)) n++; });
+    s.querySelectorAll('select.fib-select').forEach(x=>{ t++; if(x.value===x.dataset.answer) n++; });
+    return `${v.label}: ${n}/${t}`;
+  }).join('\n');
+}
+
+
+/* ================= HELPERS ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function examPoints(n){ return n; }
+
+/* ================= NAVIGATION ================= */
+let current = 0;
+function pauseAllAudio(){ document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} }); }
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  pauseAllAudio();
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= MCQ (instant feedback) ================= */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('is-correct'); }
+  else {
+    btn.classList.add('is-wrong');
+    const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('is-correct');
+  }
+  group.classList.add('answered');
+}
+function bindMcq(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+  });
+}
+function renderMcqList(containerId, items, prefix){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = items.map((it,i)=>{
+    const opts = it.opts.map((o,j)=>`<button type="button" class="opt" data-val="${j+1}">${String.fromCharCode(97+j)}) ${esc(o)}</button>`).join('');
+    const proof = it.proof ? `<button type="button" class="proof-btn" data-panel="${it.panel}" data-proof="${esc(it.proof)}">🔍 Найти в скрипте</button>` : '';
+    return `<div class="item"><p class="q"><b>${i+1}.</b> ${it.q} ${proof}</p>
+      <div class="mcq" data-correct="${it.ans}" data-id="${prefix}_${i+1}">${opts}</div>
+      ${it.why ? `<div class="why">${it.why}</div>` : ''}</div>`;
+  }).join('');
+}
+
+/* ================= SCRIPT + PROOF ================= */
+function renderScript(panelId, script){
+  document.getElementById(panelId).innerHTML = script.map(p=>`<p>${esc(p)}</p>`).join('');
+}
+function highlightScript(panelId, proofText){
+  const panel = document.getElementById(panelId); if(!panel) return;
+  const det = panel.closest('details'); if(det) det.open = true;
+  panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  if(!proofText) return;
+  for(const p of panel.querySelectorAll('p')){
+    const t = p.textContent, idx = t.indexOf(proofText);
+    if(idx !== -1){
+      p.innerHTML = esc(t.slice(0,idx)) + '<mark>' + esc(proofText) + '</mark>' + esc(t.slice(idx+proofText.length));
+      p.querySelector('mark').scrollIntoView({block:'center', behavior:'smooth'});
+      break;
+    }
+  }
+}
+function bindProofs(){
+  document.querySelectorAll('.proof-btn[data-proof]').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=> highlightScript(btn.dataset.panel, btn.dataset.proof);
+  });
+}
+
+/* ================= TASK 1 MATCHING (selects) ================= */
+function renderSpeakerSelects(containerId, v, withNotes){
+  const letters = ['A','B','C','D','E','F'];
+  document.getElementById(containerId).innerHTML = letters.map(L=>{
+    const opts = v.statements.map((s,idx)=>`<option value="${idx+1}">${idx+1}. ${esc(s)}</option>`).join('');
+    const notes = withNotes ? `<textarea class="notes" placeholder="Ключевые слова, которые вы услышали у ${L}…"></textarea>` : '';
+    return `<div class="item"><p class="q"><b>Speaker ${L}</b></p>
+      <div class="${withNotes?'speaker-row':''}">${notes}<select class="fib-select" data-answer="${v.answers[L]}" data-id="${v.key}_${L}"><option value="">— statement № —</option>${opts}</select></div></div>`;
+  }).join('');
+}
+/* ================= SCORING / SUBMIT ================= */
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function itemContext(el){
+  const item = el.closest('.item'); if(!item) return '';
+  const q = item.querySelector('p.q'); if(!q) return '';
+  const c = q.cloneNode(true); c.querySelectorAll('select,input,button,.kw-chip').forEach(x=>x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+}
+function collectScore(scope){
+  let correct=0, total=0; const wrong=[];
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    if(sel.value === sel.dataset.answer) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      const right = sel.querySelector(`option[value="${sel.dataset.answer}"]`);
+      wrong.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct "${right ? right.text : sel.dataset.answer}"`);
+    }
+  });
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    else {
+      const c = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      wrong.push(`${exTitle(g)} — ${itemContext(g)} → answered "${chosen ? chosen.textContent.trim() : '(not answered)'}", correct "${c ? c.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+  scope.querySelectorAll('input.gap').forEach(inp=>{
+    total++;
+    if(gapOk(inp)) correct++;
+    else wrong.push(`${exTitle(inp)} — ${inp.dataset.label||'gap'} → answered "${inp.value.trim() || '(not answered)'}", correct "${JSON.parse(inp.dataset.acc)[0]}"`);
+  });
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0), k = parseInt(c.dataset.correctCount||0);
+    total += t; correct += k;
+    if(k < t) wrong.push(`${exTitle(c)} (matching) — ${k}/${t} pairs matched correctly.`);
+  });
+  return {correct, total, wrong, pct: total ? Math.round(correct/total*100) : 0};
+}
+function subjectFor(extra){
+  const name = document.getElementById('studentName').value.trim();
+  const topic = document.title + (extra ? ' — ' + extra : '');
+  return topic.startsWith(COURSE_NAME) ? `${topic} — ${name}` : `${COURSE_NAME} — ${topic} — ${name}`;
+}
+async function sendForm(fields){
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  const {correct,total,wrong,pct} = collectScore(document);
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    const ok = sel.value === sel.dataset.answer; sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+  });
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${esc(nameInput.value.trim())} — ${correct} / ${total} correct`;
+  document.getElementById('resultsBreakdown').innerHTML = wrong.length
+    ? '<h3>Items to review</h3><ul>' + wrong.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;text-align:center;">All auto-checked items correct 🎉</p>';
+  if(typeof renderResultSticker === 'function') renderResultSticker(pct);
+  showPage(document.querySelectorAll('.page').length-1);
+  const status = document.getElementById('submitStatus');
+  status.textContent = 'Sending…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(''),
+      course: COURSE_NAME,
+      lesson: document.title,
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      result_tier: (typeof getResultTier === 'function') ? getResultTier(pct).label : '',
+      exam_grammar: examSummary(),
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    status.textContent = 'Sent to your teacher ✓';
+  }catch(e){ status.textContent = 'Could not send — check your internet connection and try again.'; }
+  scheduleSave();
+}
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  const {correct,total,wrong,pct} = collectScore(scope);
+  btn.disabled = true; statusEl.textContent = 'Отправляю…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(taskLabel + ' (частичная отправка)'),
+      course: COURSE_NAME,
+      lesson: document.title + ' — ' + taskLabel + ' (частичная отправка после задания)',
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+  }catch(e){ statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.'; }
+  finally{ btn.disabled = false; }
+}
+
+/* ================= SAVE & RESUME ================= */
+let isRestoring = false;
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt:new Date().toISOString(), page:current };
+    state.name = document.getElementById('studentName').value || '';
+    state.select = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c ? c.dataset.val : null; });
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.gaps = [...document.querySelectorAll('input.gap')].map(el=>el.value);
+    state.kw = [...document.querySelectorAll('.kw-tok')].map((t,i)=>t.classList.contains('on')?i:-1).filter(i=>i>=0);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show'); clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let s; try{ s = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(s.name) document.getElementById('studentName').value = s.name;
+  const sels = document.querySelectorAll('select.fib-select');
+  (s.select||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const groups = document.querySelectorAll('.mcq[data-correct]');
+  (s.mcq||[]).forEach((v,i)=>{ if(v==null || !groups[i]) return; const b = groups[i].querySelector(`.opt[data-val="${v}"]`); if(b) highlightMcq(groups[i], b); });
+  (s.matched||[]).forEach(id=>document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); el.disabled = true; }));
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{ c.dataset.correctCount = c.querySelectorAll('.match.matched-correct').length/2; });
+  const tas = document.querySelectorAll('textarea');
+  (s.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const gps = document.querySelectorAll('input.gap');
+  (s.gaps||[]).forEach((v,i)=>{ if(gps[i] && v) gps[i].value = v; });
+  const toks = document.querySelectorAll('.kw-tok');
+  (s.kw||[]).forEach(i=>{ if(toks[i]) toks[i].classList.add('on'); });
+  const has = (s.select||[]).some(v=>v) || (s.mcq||[]).some(v=>v!=null) || (s.textareas||[]).some(v=>v) || (s.matched||[]).length || (s.kw||[]).length;
+  if(has){
+    document.getElementById('restoreNoteText').textContent = `We found saved answers from ${s.savedAt ? new Date(s.savedAt).toLocaleString() : 'an earlier session'} — they've been filled back in.`;
+    document.getElementById('restoreNote').hidden = false;
+  }
+  if(typeof s.page === 'number') showPage(s.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, select, input.gap, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select')) scheduleSave(); });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santorini — Word Formation, Задания 25–29 — CLASSWORK</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="07. Santorini — Word Formation, Задания 25–29 — Classwork">
+<meta name="ws:emoji"     content="🏛️">
+<meta name="ws:date"      content="2026-10-04">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, словообразование, задания 25-29, путешествие, word formation">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:.55; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; max-width:980px; margin:0 auto; padding:24px 20px 100px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p, .card li{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+.info-box{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:10px; padding:12px 16px; margin:12px 0; font-size:.92rem; }
+.info-box b{ color:var(--purple-dark); }
+.score-table{ border-collapse:collapse; margin:8px 0; font-size:.9rem; }
+.score-table td{ padding:4px 14px 4px 0; }
+.score-table td:last-child{ font-weight:700; color:var(--purple); }
+ol.algo li{ margin-bottom:6px; }
+details.fold{ margin-top:10px; }
+details.fold summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.model{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; margin-top:8px; font-size:.9rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:64px; }
+textarea.notes{ min-height:44px; font-size:.86rem; }
+select.fib-select{ font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:7px 10px; display:block; width:100%; max-width:100%; margin:6px 0; background:#fff; }
+select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+.speaker-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
+@media (max-width:640px){ .speaker-row{ grid-template-columns:1fr; } }
+.exam-points{ margin-top:12px; padding:12px 16px; border-radius:10px; background:#fff; border:2px solid var(--yellow); font-weight:700; color:var(--purple-dark); }
+.exam-points[hidden]{ display:none; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; color:var(--text); }
+.mcq .opt.chosen{ border-color:var(--purple); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.why{ display:none; font-size:.86rem; margin-top:8px; color:var(--purple-dark); background:#fff; border-radius:8px; padding:8px 12px; border-left:3px solid var(--yellow); }
+.mcq.answered + .why{ display:block; }
+
+.statement-list{ margin:8px 0; padding-left:0; list-style:none; }
+.statement-list li{ padding:6px 10px; border-radius:8px; margin:4px 0; background:var(--card-tint); font-size:.93rem; }
+
+.kw-line{ margin:8px 0; padding:10px 12px; background:var(--card-tint); border-radius:10px; line-height:2; }
+.kw-tok{ cursor:pointer; padding:2px 3px; border-radius:4px; user-select:none; }
+.kw-tok:hover{ background:#efe6fa; }
+.kw-tok.on{ background:var(--yellow); }
+.kw-tok.key{ box-shadow:inset 0 -3px 0 var(--purple); }
+
+.match-wrap{ display:grid; grid-template-columns:1fr 1.4fr; gap:18px; }
+.match-col{ display:flex; flex-direction:column; gap:8px; }
+.match{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 12px; font-size:.86rem; text-align:left; color:var(--text); }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecec; }
+@media (max-width:640px){ .match-wrap{ grid-template-columns:1fr; } }
+
+.listen-block{ background:var(--card-tint); border-radius:12px; padding:14px 16px; margin:10px 0 16px; }
+audio{ width:100%; margin-top:6px; }
+.script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:320px; overflow-y:auto; font-size:.88rem; line-height:1.6; }
+.script-panel p{ margin:0 0 10px; }
+.script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
+details.script-toggle{ margin-top:10px; }
+details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.phrase-bank span{ background:#fff; border:1px solid var(--border); border-radius:999px; padding:4px 11px; font-size:.82rem; color:var(--purple-dark); }
+
+.results-panel{ display:none; text-align:center; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; text-align:left; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; width:100%; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:10px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+  .card{ padding:18px 16px; }
+  .lesson-title{ font-size:.92rem; }
+  .namebar input{ width:150px; }
+}
+/* iOS: no auto-zoom on focus */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.reading.script-panel{ max-height:none; font-size:.95rem; line-height:1.65; background:#fff; }
+.txt-block{ display:grid; grid-template-columns:34px 1fr; gap:10px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.txt-block:last-child{ border-bottom:none; }
+.txt-block .lt{ width:30px; height:30px; border-radius:50%; background:var(--purple); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.txt-block p{ margin:0 0 8px; }
+.txt-block select.fib-select{ max-width:420px; }
+.headings-box{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; columns:2; column-gap:28px; font-size:.92rem; }
+@media (max-width:640px){ .headings-box{ columns:1; } }
+.headings-box div{ break-inside:avoid; padding:2px 0; }
+.headings-box b{ color:var(--purple); }
+select.fib-select.inline{ display:inline-block; width:auto; min-width:64px; margin:0 4px; padding:3px 6px; }
+.gap-text p{ line-height:2.1; }
+.restored{ display:none; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; margin-top:10px; font-size:.93rem; }
+.restored.show{ display:block; }
+.restored b{ color:var(--purple-dark); background:#fff3b0; padding:0 3px; border-radius:3px; }
+.note-box{ display:none; margin-top:10px; padding:10px 14px; border-radius:10px; background:#fff; border-left:4px solid var(--purple); font-size:.9rem; }
+.note-box.show{ display:block; }
+.q-row{ display:grid; grid-template-columns:1fr 190px; gap:12px; align-items:start; }
+.q-row select.fib-select{ margin:0; }
+@media (max-width:640px){ .q-row{ grid-template-columns:1fr; } }
+.q-num{ display:inline-block; min-width:28px; font-weight:800; color:var(--purple); }
+.q-opts{ list-style:none; padding:0; margin:6px 0 0; font-size:.92rem; }
+.q-opts b{ color:var(--purple); }
+.photo-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:10px 0; }
+@media (max-width:640px){ .photo-row{ grid-template-columns:1fr; } }
+.photo-row figure{ margin:0; background:var(--card-tint); border-radius:12px; overflow:hidden; }
+.photo-row img{ width:100%; height:170px; object-fit:cover; display:block; }
+.photo-row figcaption{ text-align:center; font-weight:800; color:var(--purple); padding:6px; }
+.def-text{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin:12px 0 6px; font-size:.93rem; }
+.def-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:4px 0 4px 14px; font-size:.9rem; }
+input.gap{ font-family:inherit; font-size:.9rem; border:none; border-bottom:2px solid var(--purple); background:#fff; padding:2px 6px; width:170px; border-radius:4px 4px 0 0; }
+input.gap.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.gap.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+.gap-key{ display:none; font-size:.78rem; color:var(--correct); font-weight:700; }
+.show-keys .gap-key{ display:inline; }
+.model{ display:none; }
+.show-keys .model{ display:block; }
+.strategy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0; }
+@media (max-width:640px){ .strategy-grid{ grid-template-columns:1fr; } }
+.strategy{ background:var(--card-tint); border-radius:12px; padding:14px 16px; font-size:.92rem; }
+
+.gtext p{ line-height:2.15; margin:0 0 10px; }
+.gnum{ display:inline-flex; align-items:center; justify-content:center; min-width:30px; height:24px; padding:0 6px; border-radius:12px; background:var(--purple); color:#fff; font-weight:800; font-size:.8rem; margin-right:4px; vertical-align:middle; }
+.base{ display:inline-block; font-size:.74rem; font-weight:800; letter-spacing:.5px; color:var(--purple-dark); background:var(--yellow); border-radius:6px; padding:1px 6px; margin-left:4px; vertical-align:middle; }
+input.gap{ width:150px; }
+.wbox{ background:var(--card-tint); border-radius:12px; padding:10px 14px; margin:10px 0; display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.92rem; }
+.wbox span b{ color:var(--purple); }
+.mini-title{ margin:18px 0 6px; color:var(--purple-dark); font-size:1.02rem; }
+.mini-title:first-child{ margin-top:0; }
+.blank{ display:inline-block; min-width:70px; border-bottom:2px solid var(--purple); margin:0 3px; }
+.optrow{ display:grid; grid-template-columns:1fr 200px; gap:10px; align-items:center; padding:8px 0; border-bottom:1px dashed var(--border); }
+.optrow:last-child{ border-bottom:none; }
+.optrow .opts{ font-size:.93rem; }
+.optrow .opts b{ color:var(--purple); }
+@media (max-width:640px){ .optrow{ grid-template-columns:1fr; } input.gap{ width:130px; } }
+.cat{ margin:16px 0 4px; color:var(--purple); font-size:.85rem; letter-spacing:1px; text-transform:uppercase; }
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Santorini — Word Formation, Задания 25–29 · Classwork</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 10</span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+<div class="scroll-area" id="scrollArea"><div class="page-wrap">
+
+<section class="page active">
+  <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button onclick="clearProgress()">Start over (clear saved answers)</button></div>
+  <div class="card">
+    <div class="eyebrow">ANGLE · ЕГЭ-2027 · Грамматика и лексика · Кейс «Путешествие»</div>
+    <h2>Задания 25–29: word formation</h2>
+    <p>Today you will learn to form a new word from the word in capitals: decide which part of speech the sentence needs, choose the right suffix or prefix and check the spelling. Then you will do the Santorini exam task and two more sets from the 2025 exam materials.</p>
+    <div class="info-box"><b>Формат заданий 25–29 (ЕГЭ-2027, без изменений по сравнению с 2026):</b> текст с 5 пропусками. От слова в конце строки нужно образовать <b>однокоренное слово</b>, которое подходит по смыслу и грамматически. Базовый уровень сложности.
+   <table class="score-table"><tr><td>Каждый верный ответ</td><td>1 балл</td></tr><tr><td>Максимум за 25–29</td><td>5 баллов</td></tr><tr><td>Орфографическая ошибка</td><td>0 баллов за ответ</td></tr></table>Весь раздел «Грамматика и лексика» — 18 баллов, рекомендуемое время — 40 минут.</div>
+    
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Before you start · Page 2 of 10</div>
+    <h2>Алгоритм выполнения заданий 25–29: 4 главных шага</h2>
+    <p class="muted">Прочитайте перед выполнением и держите в голове на каждом тексте.</p>
+    <div class="item algo-step"><span class="algo-n">1</span><p class="q">Прочитайте весь текст, включая предложения без пропусков.</p></div><div class="item algo-step"><span class="algo-n">2</span><p class="q">Определите часть речи и член предложения по словам до и после пропуска.</p></div><div class="item algo-step"><span class="algo-n">3</span><p class="q">Существительное: число и лицо или понятие? Прилагательное или наречие: нужен ли отрицательный префикс?</p></div><div class="item algo-step"><span class="algo-n">4</span><p class="q">Проверьте, что слово существует и написано без ошибок; одно слово, без грамматических изменений.</p></div>
+    <details class="fold"><summary>Полный алгоритм (8 шагов)</summary><ol class="algo"><li>Прочитайте весь текст, включая предложения без пропусков.</li><li>Какая часть речи нужна? Посмотрите на слова до и после пропуска: артикль, предлог, прилагательное → существительное; перед существительным → прилагательное; при глаголе или прилагательном → наречие.</li><li>Какой член предложения пропущен? Подлежащее и дополнение — существительное, определение — прилагательное или существительное (entertainment park), сказуемое — глагол.</li><li>Если пропущенное слово — один из однородных членов, посмотрите, какой частью речи являются остальные.</li><li>Существительное: единственное или множественное число? Это лицо (-er, -or, -ist) или понятие (-tion, -ment, -ity, -ness)?</li><li>Плюс или минус? По смыслу решите, нужен ли отрицательный префикс (un-, in-, im-, dis-), и выберите тот, который употребляется с этим корнем (inexpensive, а не unexpensive).</li><li>Не изменяйте слово грамматически (was not known) — нужно одно новое слово (unknown). Не оставляйте опорное слово без изменений.</li><li>Проверьте, что такое слово существует (explorer, а не explorist), и орфографию: useful → usefully, tragic → tragically, fame → famous, envy → envious.</li></ol></details>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Parts of speech · Page 3 of 10</div>
+    <h2>Warm-up 1. Adjectives and verbs</h2>
+    <p>Form an adjective or a verb from the word in yellow. Look at the words before and after the gap.</p><div id="sel_w1"><h3 class="cat">Adjectives</h3><div class="item"><p>When he was 18, his results were so <span class="gnum">1</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="1 (IMPRESS)" data-acc="[&quot;impressive&quot;]" aria-label="gap 1"><span class="base">IMPRESS</span> <span class="gap-key">impressive</span> that Medvedev even had to drop out of college to focus on tennis.</p></div><div class="item"><p>It is a <span class="gnum">2</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="2 (POLITICS)" data-acc="[&quot;political&quot;]" aria-label="gap 2"><span class="base">POLITICS</span> <span class="gap-key">political</span> association of 53 member states, nearly all of them former territories of the British Empire.</p></div><div class="item"><p>How disappointed was I when I realized how <span class="gnum">3</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="3 (HELP)" data-acc="[&quot;helpless&quot;]" aria-label="gap 3"><span class="base">HELP</span> <span class="gap-key">helpless</span> he was, all alone in an unfamiliar country.</p></div><div class="item"><p>Every part on the new models is <span class="gnum">4</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="4 (CHANGEABLE)" data-acc="[&quot;interchangeable&quot;]" aria-label="gap 4"><span class="base">CHANGEABLE</span> <span class="gap-key">interchangeable</span> with those on the original. So, our customers do not need to worry.</p></div><div class="item"><p>The earliest eggs were soft, sort of like turtle or echidna eggs you might see on the beach. The harder <span class="gnum">5</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="5 (PROTECT)" data-acc="[&quot;protective&quot;]" aria-label="gap 5"><span class="base">PROTECT</span> <span class="gap-key">protective</span> shell came later.</p></div><h3 class="cat">Verbs</h3><div class="item"><p>Then the British decided to <span class="gnum">6</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="6 (COLONY)" data-acc="[&quot;colonise&quot;, &quot;colonize&quot;]" aria-label="gap 6"><span class="base">COLONY</span> <span class="gap-key">colonise</span> this place during the 1858 Fraser Canyon Gold Rush.</p></div><div class="item"><p>Some dunes cover parts of cities, destroying people’s livelihoods. Now we know, they communicate, but do they <span class="gnum">7</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="7 (APOLOGY)" data-acc="[&quot;apologise&quot;, &quot;apologize&quot;]" aria-label="gap 7"><span class="base">APOLOGY</span> <span class="gap-key">apologise</span>?</p></div><div class="item"><p>To accept the invitation to this doubtful event and <span class="gnum">8</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="8 (APPOINT)" data-acc="[&quot;disappoint&quot;]" aria-label="gap 8"><span class="base">APPOINT</span> <span class="gap-key">disappoint</span> his parents? Andrew was at a loss.</p></div><div class="item"><p>Maggie, don’t you want to <span class="gnum">9</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="9 (ARRANGE)" data-acc="[&quot;rearrange&quot;]" aria-label="gap 9"><span class="base">ARRANGE</span> <span class="gap-key">rearrange</span> the furniture in this room? If we get rid of some old rugs, it may look quite decent.</p></div><div class="item"><p>In other words, following this critique, students <span class="gnum">10</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="10 (WRITE)" data-acc="[&quot;rewrite&quot;]" aria-label="gap 10"><span class="base">WRITE</span> <span class="gap-key">rewrite</span> their papers and submit them for final evaluation.</p></div></div><div><button class="btn ghost" data-scope="sel_w1" onclick="checkGapsExam(this)">Проверить</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div><div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;1.&lt;/b&gt; so + прилагательное; results were … → &lt;b&gt;impressive&lt;/b&gt; (-ive)." onclick="showNote(this)">1</button><button type="button" class="proof-btn" data-note="&lt;b&gt;2.&lt;/b&gt; a … association — перед существительным прилагательное: &lt;b&gt;political&lt;/b&gt; (-al)." onclick="showNote(this)">2</button><button type="button" class="proof-btn" data-note="&lt;b&gt;3.&lt;/b&gt; how + прилагательное, по смыслу «беспомощный» (all alone) → &lt;b&gt;helpless&lt;/b&gt;." onclick="showNote(this)">3</button><button type="button" class="proof-btn" data-note="&lt;b&gt;4.&lt;/b&gt; is … with those — «взаимозаменяемый»: префикс inter- → &lt;b&gt;interchangeable&lt;/b&gt;." onclick="showNote(this)">4</button><button type="button" class="proof-btn" data-note="&lt;b&gt;5.&lt;/b&gt; The harder … shell — прилагательное перед shell → &lt;b&gt;protective&lt;/b&gt;." onclick="showNote(this)">5</button><button type="button" class="proof-btn" data-note="&lt;b&gt;6.&lt;/b&gt; decided to + глагол → суффикс -ise/-ize: &lt;b&gt;colonise&lt;/b&gt;." onclick="showNote(this)">6</button><button type="button" class="proof-btn" data-note="&lt;b&gt;7.&lt;/b&gt; do they + глагол → &lt;b&gt;apologise&lt;/b&gt;." onclick="showNote(this)">7</button><button type="button" class="proof-btn" data-note="&lt;b&gt;8.&lt;/b&gt; to accept … and … his parents — глагол со значением «огорчить»: &lt;b&gt;disappoint&lt;/b&gt;." onclick="showNote(this)">8</button><button type="button" class="proof-btn" data-note="&lt;b&gt;9.&lt;/b&gt; to + глагол; «переставить» → re-: &lt;b&gt;rearrange&lt;/b&gt;." onclick="showNote(this)">9</button><button type="button" class="proof-btn" data-note="&lt;b&gt;10.&lt;/b&gt; После критики работы переписывают → &lt;b&gt;rewrite&lt;/b&gt;." onclick="showNote(this)">10</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Warm-up 1')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Parts of speech · Page 4 of 10</div>
+    <h2>Warm-up 2. Nouns, adverbs and word chains</h2>
+    <p>Form a noun or an adverb from the word in yellow. In the last group all words come from ACT / ACTIVE.</p><div id="sel_w2"><h3 class="cat">Nouns</h3><div class="item"><p>During winter months most places are closed or are open at limited times so <span class="gnum">1</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="1 (EMPLOY)" data-acc="[&quot;unemployment&quot;]" aria-label="gap 1"><span class="base">EMPLOY</span> <span class="gap-key">unemployment</span> also goes up as most seasonal jobs come to an end in winter.</p></div><div class="item"><p>The University of Auckland also offers postgraduate studies, which will certainly broaden your academic and <span class="gnum">2</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="2 (EMPLOY)" data-acc="[&quot;employment&quot;]" aria-label="gap 2"><span class="base">EMPLOY</span> <span class="gap-key">employment</span> horizons.</p></div><div class="item"><p>She has many more prizes in important <span class="gnum">3</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="3 (CHAMPION)" data-acc="[&quot;championships&quot;]" aria-label="gap 3"><span class="base">CHAMPION</span> <span class="gap-key">championships</span> and competitions.</p></div><div class="item"><p><span class="gnum">4</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="4 (TOUR)" data-acc="[&quot;tourists&quot;]" aria-label="gap 4"><span class="base">TOUR</span> <span class="gap-key">tourists</span> can enjoy exhibitions on the history of Signal Hill and the history of communications.</p></div><div class="item"><p>However, when he was 9 years old, his mother saw an <span class="gnum">5</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="5 (ADVERTISE)" data-acc="[&quot;advertisement&quot;, &quot;advert&quot;]" aria-label="gap 5"><span class="base">ADVERTISE</span> <span class="gap-key">advertisement</span> for group tennis lessons.</p></div><div class="item"><p>Women’s oppression and <span class="gnum">6</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="6 (EQUALITY)" data-acc="[&quot;inequality&quot;]" aria-label="gap 6"><span class="base">EQUALITY</span> <span class="gap-key">inequality</span> was spurring women to become active in campaigning for change.</p></div><h3 class="cat">Adverbs</h3><div class="item"><p>Have you heard about the Commonwealth of Nations? It is <span class="gnum">7</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="7 (NORMAL)" data-acc="[&quot;normally&quot;]" aria-label="gap 7"><span class="base">NORMAL</span> <span class="gap-key">normally</span> known as the Commonwealth.</p></div><div class="item"><p>One more thing to do is taking a river boat cruise to learn a little more about the history of Chester and to <span class="gnum">8</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="8 (REAL)" data-acc="[&quot;really&quot;]" aria-label="gap 8"><span class="base">REAL</span> <span class="gap-key">really</span> appreciate the beautiful scenery.</p></div><div class="item"><p>So he ensured that a limited number of the Ravens would be kept here <span class="gnum">9</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="9 (PERMANENT)" data-acc="[&quot;permanently&quot;]" aria-label="gap 9"><span class="base">PERMANENT</span> <span class="gap-key">permanently</span>.</p></div><div class="item"><p>The covered Market is always busy at weekends and is surrounded by <span class="gnum">10</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="10 (BRIGHT)" data-acc="[&quot;brightly&quot;]" aria-label="gap 10"><span class="base">BRIGHT</span> <span class="gap-key">brightly</span> decorated antique and souvenir shops.</p></div><h3 class="cat">Word chains: ACT</h3><div class="item"><p>Birdwatching, or birding, is a form of wildlife observation which is a recreational <span class="gnum">11</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="11 (ACTIVE)" data-acc="[&quot;activity&quot;]" aria-label="gap 11"><span class="base">ACTIVE</span> <span class="gap-key">activity</span>.</p></div><div class="item"><p>Mario was <span class="gnum">12</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="12 (ACTIVE)" data-acc="[&quot;inactive&quot;]" aria-label="gap 12"><span class="base">ACTIVE</span> <span class="gap-key">inactive</span> for the first game after returning to practice, then played in Detroit.</p></div><div class="item"><p>All of the book’s heroes inspire readers to take <span class="gnum">13</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="13 (ACT)" data-acc="[&quot;action&quot;]" aria-label="gap 13"><span class="base">ACT</span> <span class="gap-key">action</span> in their own neighborhoods.</p></div><div class="item"><p>He was in his eighties and had lived an <span class="gnum">14</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="14 (ACT)" data-acc="[&quot;active&quot;]" aria-label="gap 14"><span class="base">ACT</span> <span class="gap-key">active</span> life as a farmer prior to his retirement.</p></div><div class="item"><p>He’s not a great <span class="gnum">15</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="15 (ACT)" data-acc="[&quot;actor&quot;]" aria-label="gap 15"><span class="base">ACT</span> <span class="gap-key">actor</span> but he gets roles anyway because of all the moviegoers interested in beefcake.</p></div></div><div><button class="btn ghost" data-scope="sel_w2" onclick="checkGapsExam(this)">Проверить</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div><div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;1.&lt;/b&gt; подлежащее + goes up; работы заканчиваются → &lt;b&gt;unemployment&lt;/b&gt;." onclick="showNote(this)">1</button><button type="button" class="proof-btn" data-note="&lt;b&gt;2.&lt;/b&gt; academic and … horizons — существительное в роли определения: &lt;b&gt;employment&lt;/b&gt;." onclick="showNote(this)">2</button><button type="button" class="proof-btn" data-note="&lt;b&gt;3.&lt;/b&gt; однородно с competitions (мн. ч.) → &lt;b&gt;championships&lt;/b&gt;." onclick="showNote(this)">3</button><button type="button" class="proof-btn" data-note="&lt;b&gt;4.&lt;/b&gt; подлежащее-лицо, can enjoy → &lt;b&gt;Tourists&lt;/b&gt;." onclick="showNote(this)">4</button><button type="button" class="proof-btn" data-note="&lt;b&gt;5.&lt;/b&gt; an … for — существительное: &lt;b&gt;advertisement&lt;/b&gt;." onclick="showNote(this)">5</button><button type="button" class="proof-btn" data-note="&lt;b&gt;6.&lt;/b&gt; oppression and … — по смыслу отрицательное: &lt;b&gt;inequality&lt;/b&gt;." onclick="showNote(this)">6</button><button type="button" class="proof-btn" data-note="&lt;b&gt;7.&lt;/b&gt; is … known — наречие перед причастием: &lt;b&gt;normally&lt;/b&gt;." onclick="showNote(this)">7</button><button type="button" class="proof-btn" data-note="&lt;b&gt;8.&lt;/b&gt; to … appreciate — наречие перед глаголом: &lt;b&gt;really&lt;/b&gt;." onclick="showNote(this)">8</button><button type="button" class="proof-btn" data-note="&lt;b&gt;9.&lt;/b&gt; would be kept … — как? → &lt;b&gt;permanently&lt;/b&gt;." onclick="showNote(this)">9</button><button type="button" class="proof-btn" data-note="&lt;b&gt;10.&lt;/b&gt; … decorated — наречие перед причастием: &lt;b&gt;brightly&lt;/b&gt;." onclick="showNote(this)">10</button><button type="button" class="proof-btn" data-note="&lt;b&gt;11.&lt;/b&gt; a recreational … — существительное после прилагательного: &lt;b&gt;activity&lt;/b&gt;." onclick="showNote(this)">11</button><button type="button" class="proof-btn" data-note="&lt;b&gt;12.&lt;/b&gt; По смыслу не играл первую игру → &lt;b&gt;inactive&lt;/b&gt;." onclick="showNote(this)">12</button><button type="button" class="proof-btn" data-note="&lt;b&gt;13.&lt;/b&gt; take action — коллокация: &lt;b&gt;action&lt;/b&gt;." onclick="showNote(this)">13</button><button type="button" class="proof-btn" data-note="&lt;b&gt;14.&lt;/b&gt; an … life — прилагательное: &lt;b&gt;active&lt;/b&gt;." onclick="showNote(this)">14</button><button type="button" class="proof-btn" data-note="&lt;b&gt;15.&lt;/b&gt; a great … gets roles → лицо: &lt;b&gt;actor&lt;/b&gt;." onclick="showNote(this)">15</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Warm-up 2')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Suffixes · Page 5 of 10</div>
+    <h2>Task 1. Travel nouns and adjectives</h2>
+    <p>Make a noun from each word in Part A and an adjective from each word in Part B. Some words have more than one correct answer — any of them is accepted.</p>
+  <h3 class="cat">Part A. Nouns: -er/-or, -ment, -tion, -ance/-ence, -ity, -ness</h3><div id="sel_nouns"><div class="item def-row" style="margin-left:0">ATTRACT → <span class="gnum">1</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="1 ()" data-acc="[&quot;attraction&quot;]" aria-label="gap 1"> <span class="gap-key">attraction</span></div><div class="item def-row" style="margin-left:0">VARY → <span class="gnum">2</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="2 ()" data-acc="[&quot;variety&quot;, &quot;variation&quot;]" aria-label="gap 2"> <span class="gap-key">variety</span></div><div class="item def-row" style="margin-left:0">FOREIGN → <span class="gnum">3</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="3 ()" data-acc="[&quot;foreigner&quot;, &quot;foreigners&quot;]" aria-label="gap 3"> <span class="gap-key">foreigner</span></div><div class="item def-row" style="margin-left:0">EXPECT → <span class="gnum">4</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="4 ()" data-acc="[&quot;expectation&quot;, &quot;expectations&quot;]" aria-label="gap 4"> <span class="gap-key">expectation</span></div><div class="item def-row" style="margin-left:0">PERFORM → <span class="gnum">5</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="5 ()" data-acc="[&quot;performance&quot;, &quot;performer&quot;]" aria-label="gap 5"> <span class="gap-key">performance</span></div><div class="item def-row" style="margin-left:0">POPULATE → <span class="gnum">6</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="6 ()" data-acc="[&quot;population&quot;]" aria-label="gap 6"> <span class="gap-key">population</span></div><div class="item def-row" style="margin-left:0">BUSY → <span class="gnum">7</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="7 ()" data-acc="[&quot;business&quot;]" aria-label="gap 7"> <span class="gap-key">business</span></div><div class="item def-row" style="margin-left:0">GOVERN → <span class="gnum">8</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="8 ()" data-acc="[&quot;government&quot;, &quot;governor&quot;]" aria-label="gap 8"> <span class="gap-key">government</span></div><div class="item def-row" style="margin-left:0">COMPETE → <span class="gnum">9</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="9 ()" data-acc="[&quot;competition&quot;, &quot;competitor&quot;]" aria-label="gap 9"> <span class="gap-key">competition</span></div><div class="item def-row" style="margin-left:0">INTELLIGENT → <span class="gnum">10</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="10 ()" data-acc="[&quot;intelligence&quot;]" aria-label="gap 10"> <span class="gap-key">intelligence</span></div><div class="item def-row" style="margin-left:0">ARGUE → <span class="gnum">11</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="11 ()" data-acc="[&quot;argument&quot;]" aria-label="gap 11"> <span class="gap-key">argument</span></div><div class="item def-row" style="margin-left:0">DECORATE → <span class="gnum">12</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="12 ()" data-acc="[&quot;decoration&quot;, &quot;decorator&quot;]" aria-label="gap 12"> <span class="gap-key">decoration</span></div></div><h3 class="cat">Part B. Adjectives: -ful, -ous, -al, -able, -ic, -ive, -ing, -less</h3><div id="sel_adjs"><div class="item def-row" style="margin-left:0">MYSTERY → <span class="gnum">1</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="1 ()" data-acc="[&quot;mysterious&quot;]" aria-label="gap 1"> <span class="gap-key">mysterious</span></div><div class="item def-row" style="margin-left:0">COLOUR → <span class="gnum">2</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="2 ()" data-acc="[&quot;colourful&quot;, &quot;colorful&quot;, &quot;colourless&quot;, &quot;colorless&quot;]" aria-label="gap 2"> <span class="gap-key">colourful</span></div><div class="item def-row" style="margin-left:0">SCIENCE → <span class="gnum">3</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="3 ()" data-acc="[&quot;scientific&quot;]" aria-label="gap 3"> <span class="gap-key">scientific</span></div><div class="item def-row" style="margin-left:0">NATURE → <span class="gnum">4</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="4 ()" data-acc="[&quot;natural&quot;]" aria-label="gap 4"> <span class="gap-key">natural</span></div><div class="item def-row" style="margin-left:0">BEAUTY → <span class="gnum">5</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="5 ()" data-acc="[&quot;beautiful&quot;]" aria-label="gap 5"> <span class="gap-key">beautiful</span></div><div class="item def-row" style="margin-left:0">RELIGION → <span class="gnum">6</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="6 ()" data-acc="[&quot;religious&quot;]" aria-label="gap 6"> <span class="gap-key">religious</span></div><div class="item def-row" style="margin-left:0">FAME → <span class="gnum">7</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="7 ()" data-acc="[&quot;famous&quot;]" aria-label="gap 7"> <span class="gap-key">famous</span></div><div class="item def-row" style="margin-left:0">COMFORT → <span class="gnum">8</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="8 ()" data-acc="[&quot;comfortable&quot;]" aria-label="gap 8"> <span class="gap-key">comfortable</span></div><div class="item def-row" style="margin-left:0">PEACE → <span class="gnum">9</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="9 ()" data-acc="[&quot;peaceful&quot;]" aria-label="gap 9"> <span class="gap-key">peaceful</span></div><div class="item def-row" style="margin-left:0">RELY → <span class="gnum">10</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="10 ()" data-acc="[&quot;reliable&quot;]" aria-label="gap 10"> <span class="gap-key">reliable</span></div><div class="item def-row" style="margin-left:0">VOLCANO → <span class="gnum">11</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="11 ()" data-acc="[&quot;volcanic&quot;]" aria-label="gap 11"> <span class="gap-key">volcanic</span></div><div class="item def-row" style="margin-left:0">MEMORY → <span class="gnum">12</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="12 ()" data-acc="[&quot;memorable&quot;]" aria-label="gap 12"> <span class="gap-key">memorable</span></div></div>
+  <div><button class="btn ghost" onclick="checkGapsExam(this)">Проверить</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Task 1 · suffixes')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Word families · Page 6 of 10</div>
+    <h2>Task 2. Word families</h2>
+    <p>Form the part of speech given in grey from the word in capitals.</p><h3 class="cat">Noun · adjective · adverb · verb</h3><div id="sel_fam"><div class="item def-row" style="margin-left:0">IMPRESSIVE <span class="muted">→ noun</span> → <span class="gnum">1</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="1 ()" data-acc="[&quot;impression&quot;]" aria-label="gap 1"> <span class="gap-key">impression</span></div><div class="item def-row" style="margin-left:0">IMPRESSIVE <span class="muted">→ adverb</span> → <span class="gnum">2</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="2 ()" data-acc="[&quot;impressively&quot;]" aria-label="gap 2"> <span class="gap-key">impressively</span></div><div class="item def-row" style="margin-left:0">MEMORY <span class="muted">→ adjective</span> → <span class="gnum">3</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="3 ()" data-acc="[&quot;memorable&quot;]" aria-label="gap 3"> <span class="gap-key">memorable</span></div><div class="item def-row" style="margin-left:0">MEMORY <span class="muted">→ verb</span> → <span class="gnum">4</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="4 ()" data-acc="[&quot;memorise&quot;, &quot;memorize&quot;]" aria-label="gap 4"> <span class="gap-key">memorise</span></div><div class="item def-row" style="margin-left:0">ATTRACT <span class="muted">→ noun</span> → <span class="gnum">5</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="5 ()" data-acc="[&quot;attraction&quot;]" aria-label="gap 5"> <span class="gap-key">attraction</span></div><div class="item def-row" style="margin-left:0">ATTRACT <span class="muted">→ adjective</span> → <span class="gnum">6</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="6 ()" data-acc="[&quot;attractive&quot;]" aria-label="gap 6"> <span class="gap-key">attractive</span></div><div class="item def-row" style="margin-left:0">AMAZING <span class="muted">→ noun</span> → <span class="gnum">7</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="7 ()" data-acc="[&quot;amazement&quot;]" aria-label="gap 7"> <span class="gap-key">amazement</span></div><div class="item def-row" style="margin-left:0">AMAZING <span class="muted">→ adverb</span> → <span class="gnum">8</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="8 ()" data-acc="[&quot;amazingly&quot;]" aria-label="gap 8"> <span class="gap-key">amazingly</span></div><div class="item def-row" style="margin-left:0">POPULATE <span class="muted">→ noun</span> → <span class="gnum">9</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="9 ()" data-acc="[&quot;population&quot;]" aria-label="gap 9"> <span class="gap-key">population</span></div><div class="item def-row" style="margin-left:0">COMFORT <span class="muted">→ adjective</span> → <span class="gnum">10</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="10 ()" data-acc="[&quot;comfortable&quot;]" aria-label="gap 10"> <span class="gap-key">comfortable</span></div><div class="item def-row" style="margin-left:0">COMFORT <span class="muted">→ adverb</span> → <span class="gnum">11</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="11 ()" data-acc="[&quot;comfortably&quot;]" aria-label="gap 11"> <span class="gap-key">comfortably</span></div><div class="item def-row" style="margin-left:0">ENTERTAIN <span class="muted">→ noun</span> → <span class="gnum">12</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="12 ()" data-acc="[&quot;entertainment&quot;, &quot;entertainer&quot;]" aria-label="gap 12"> <span class="gap-key">entertainment</span></div></div><div><button class="btn ghost" data-scope="sel_fam" onclick="checkGapsExam(this)">Проверить</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Task 2 · word families')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Exam task · Page 7 of 10</div>
+    <h2>Task 3. Santorini</h2>
+    <p class="muted">Exam format: form a word from the word in yellow so that it fits the text grammatically and lexically.</p>
+    <div class="script-panel reading gtext" id="sel_santorini"><h3 class="mini-title">Santorini</h3><p>Santorini is a small group of Greek islands. They were formed due to a <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (VOLCANO)" data-acc="[&quot;volcanic&quot;]" aria-label="gap 25"><span class="base">VOLCANO</span> <span class="gap-key">volcanic</span> eruption about 3,600 years ago. Volcanos are still very active in the area.</p><p>Tourists can fly to Santorini or take a ferry and enjoy the <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (NATURE)" data-acc="[&quot;natural&quot;]" aria-label="gap 26"><span class="base">NATURE</span> <span class="gap-key">natural</span> beauty in summer, when the islands are crowded and busy.</p><p>In winter Santorini seems <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (POPULATED)" data-acc="[&quot;unpopulated&quot;]" aria-label="gap 27"><span class="base">POPULATED</span> <span class="gap-key">unpopulated</span> and ferry service is not regular.</p><p>On one side of Santorini, visitors get a view of the local villages. This area is <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (HIGH)" data-acc="[&quot;highly&quot;]" aria-label="gap 28"><span class="base">HIGH</span> <span class="gap-key">highly</span> developed and rich. On another side of the islands tourists can enjoy black sand beaches and swim near the volcano. The third part of Santorini displays ancient ruins.</p><p>Although this section is not popular among tourists, it is a well-known site for <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (ARCHEOLOGY)" data-acc="[&quot;archeologists&quot;, &quot;archaeologists&quot;]" aria-label="gap 29"><span class="base">ARCHEOLOGY</span> <span class="gap-key">archeologists</span>. In fact, legends say that Santorini is the place where the lost civilization of Atlantis was once located.</p></div>
+    <div><button class="btn ghost" data-scope="sel_santorini" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; a … eruption — перед существительным нужно прилагательное: volcano → &lt;b&gt;volcanic&lt;/b&gt; (-ic)." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; the … beauty — прилагательное перед существительным: &lt;b&gt;natural&lt;/b&gt; (-al)." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; In winter … ferry service is not regular — смысл «безлюдный», отрицательный префикс: &lt;b&gt;unpopulated&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; is … developed — наречие перед причастием, «высоко»: &lt;b&gt;highly&lt;/b&gt; (а не high)." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; a site for … — кто изучает руины? Лица, мн. ч.: &lt;b&gt;archeologists&lt;/b&gt; (archaeologists). Пропуск «visitors» из исходного текста в формате 2027 уже вписан." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Task 3 · Santorini')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next → Practice</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Practice in class · Page 8 of 10</div>
+    <h2>Practice 1 · Are You Travel Compatible?</h2>
+    <p class="muted">Exam format (materials of 2025): form a word from the word in yellow.</p>
+    <div class="script-panel reading gtext" id="sel_p1"><h3 class="mini-title">Are You Travel Compatible?</h3><p>Going away with friends or your partner can be <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (STRESS)" data-acc="[&quot;stressful&quot;]" aria-label="gap 25"><span class="base">STRESS</span> <span class="gap-key">stressful</span> at the best of times, but you could be heading for trouble if you’re not travel compatible.</p><p>According to a new report, 55 per cent of British holiday makers travelling with friends had two serious <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (ARGUE)" data-acc="[&quot;arguments&quot;]" aria-label="gap 26"><span class="base">ARGUE</span> <span class="gap-key">arguments</span> during their stay.</p><p>The poll reveals that an <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (LUCK)" data-acc="[&quot;unlucky&quot;]" aria-label="gap 27"><span class="base">LUCK</span> <span class="gap-key">unlucky</span> seven per cent have even returned home within the first few days.</p><p>It’s a big risk holidaying with someone for the first time; this is when you will discover what they are <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (REAL)" data-acc="[&quot;really&quot;]" aria-label="gap 28"><span class="base">REAL</span> <span class="gap-key">really</span> like.</p><p>I would suggest, before committing to a friend’s holiday, first go for a trial run such as a weekend break to assess your <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (COMPATIBLE)" data-acc="[&quot;compatibility&quot;]" aria-label="gap 29"><span class="base">COMPATIBLE</span> <span class="gap-key">compatibility</span>.</p></div>
+    <div><button class="btn ghost" data-scope="sel_p1" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; can be … — после be прилагательное: &lt;b&gt;stressful&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; two serious … — существительное во мн. ч. (two!): &lt;b&gt;arguments&lt;/b&gt; (без e: argue → argument)." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; an … seven per cent — им не повезло, перед гласной an → &lt;b&gt;unlucky&lt;/b&gt;." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; what they are … like — наречие: &lt;b&gt;really&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; your … — после притяжательного существительное: &lt;b&gt;compatibility&lt;/b&gt;." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Practice 1')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Practice in class · Page 9 of 10</div>
+    <h2>Practice 2 · Adventure holidays</h2>
+    <p class="muted">Exam format (materials of 2025): form a word from the word in yellow.</p>
+    <div class="script-panel reading gtext" id="sel_p2"><h3 class="mini-title">Adventure holidays</h3><p>Adventure holidays are popular because they offer plenty of <span class="gnum">25</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="25 (EXCITE)" data-acc="[&quot;excitement&quot;]" aria-label="gap 25"><span class="base">EXCITE</span> <span class="gap-key">excitement</span>.</p><p>They are great fun, but can be very challenging. They give <span class="gnum">26</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="26 (ENERGY)" data-acc="[&quot;energetic&quot;]" aria-label="gap 26"><span class="base">ENERGY</span> <span class="gap-key">energetic</span> teenagers a chance to take part in many sporting activities.</p><p>If you take an adventure holiday, make sure that all of your <span class="gnum">27</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="27 (INSTRUCT)" data-acc="[&quot;instructors&quot;]" aria-label="gap 27"><span class="base">INSTRUCT</span> <span class="gap-key">instructors</span> are experienced.</p><p>If you discover that any of the staff are <span class="gnum">28</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="28 (QUALITY)" data-acc="[&quot;unqualified&quot;]" aria-label="gap 28"><span class="base">QUALITY</span> <span class="gap-key">unqualified</span>, do not go out with them.</p><p>Check that the centre provides all the <span class="gnum">29</span><input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="29 (SAFE)" data-acc="[&quot;safety&quot;]" aria-label="gap 29"><span class="base">SAFE</span> <span class="gap-key">safety</span> equipment that you need.</p></div>
+    <div><button class="btn ghost" data-scope="sel_p2" data-exam="1" onclick="checkGapsExam(this)">Проверить и посчитать баллы</button>
+    <button class="btn ghost" onclick="toggleKeys(this)">Show / hide answers</button><div class="exam-points" hidden></div></div>
+    <h3>After the task: prove it</h3>
+    <p class="muted">Check your answers first. Then click a number to see the rule and the clue in the text.</p>
+    <div class="item"><p class="q"><b>Check yourself — why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;25.&lt;/b&gt; plenty of … — существительное: &lt;b&gt;excitement&lt;/b&gt;." onclick="showNote(this)">25</button><button type="button" class="proof-btn" data-note="&lt;b&gt;26.&lt;/b&gt; … teenagers — прилагательное: &lt;b&gt;energetic&lt;/b&gt;." onclick="showNote(this)">26</button><button type="button" class="proof-btn" data-note="&lt;b&gt;27.&lt;/b&gt; your … are experienced — лица, мн. ч.: &lt;b&gt;instructors&lt;/b&gt; (-or)." onclick="showNote(this)">27</button><button type="button" class="proof-btn" data-note="&lt;b&gt;28.&lt;/b&gt; do not go out with them — значит, плохо подготовлены: &lt;b&gt;unqualified&lt;/b&gt;." onclick="showNote(this)">28</button><button type="button" class="proof-btn" data-note="&lt;b&gt;29.&lt;/b&gt; the … equipment — существительное в роли определения: &lt;b&gt;safety&lt;/b&gt; equipment." onclick="showNote(this)">29</button></p><div class="note-box"></div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Practice 2')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Page 10 of 10</div>
+    <h2>Results</h2>
+    <p class="muted">Press “Check &amp; Submit” on the last practice page to see your score here.</p>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="completion-stickers" id="completionStickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+</div></div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ 2027';
+const PROGRESS_KEY = 'angle_progress::ege2027-travel-grammar-task25-29-classwork';
+const PAGE_LABELS = ["Старт","Алгоритм", "Warm-up 1", "Warm-up 2", "Suffixes", "Word families", "Santorini", "Practice 1", "Practice 2", "Итоги"];
+const VARIANTS = [{"key": "santorini", "label": "Santorini"}, {"key": "p1", "label": "Are You Travel Compatible?"}, {"key": "p2", "label": "Adventure holidays"}];
+const MATCH_SETS = [];
+
+const PTS = { t10: n => n>=7?3:n===6?2:n===5?1:0, t11: n => n>=6?2:n===5?1:0, t1218: n => n };
+const MAXP = { t10:3, t11:2, t1218:7 };
+function pw(n){ return n===1?'балл':(n>=2&&n<=4?'балла':'баллов'); }
+function checkSelects(btn){
+  const card = btn.closest('.card'); const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : card;
+  let n=0, t=0;
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{ t++; const ok = sel.value===sel.dataset.answer; sel.classList.toggle('is-correct',ok); sel.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points') || card.querySelector('.exam-points'); out.hidden=false;
+  const type = btn.dataset.type;
+  if(type){ const p = PTS[type](n); out.textContent = `Верно: ${n} из ${t} → на экзамене это ${p} ${pw(p)} из ${MAXP[type]}.` + (n<t?' Найдите в тексте, где вы ошиблись.':' Отлично!'); }
+  else out.textContent = `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function gapOk(inp){
+  const v = normalize(inp.value).replace(/[.…]/g,'').replace(/\s+/g,' ').trim();
+  return JSON.parse(inp.dataset.acc).some(a=>normalize(a).replace(/[.…]/g,'').replace(/\s+/g,' ').trim()===v);
+}
+function checkGaps(btn){
+  const card = btn.closest('.card'); let n=0,t=0;
+  card.querySelectorAll('input.gap').forEach(i=>{ t++; const ok=gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = card.querySelector('.gap-result'); out.hidden=false; out.textContent = `Верно: ${n} из ${t}.`;
+}
+function toggleKeys(btn){ btn.closest('.card').classList.toggle('show-keys'); }
+function showNote(btn){ const box = btn.closest('.item').querySelector('.note-box'); box.innerHTML = btn.dataset.note; box.classList.add('show'); if(btn.dataset.panel) highlightScript(btn.dataset.panel, btn.dataset.hl || null); }
+function toggleRestored(btn){ btn.closest('.card').querySelector('.restored').classList.toggle('show'); }
+let matchPick = null;
+function renderMatchSet(wrapId, pairs){
+  const wrap = document.getElementById(wrapId); if(!wrap) return;
+  const Lc = wrap.querySelector('.match-col.left'), Rc = wrap.querySelector('.match-col.right');
+  const right = [...pairs].sort(()=>Math.random()-0.5);
+  Lc.innerHTML = pairs.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[1])}</button>`).join('');
+  Rc.innerHTML = right.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[2])}</button>`).join('');
+  wrap.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(matchPick && matchPick.closest('.match-wrap') !== wrap){ matchPick.classList.remove('selected'); matchPick = null; }
+      if(!matchPick){ matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick === el){ el.classList.remove('selected'); matchPick = null; return; }
+      if(matchPick.parentElement === el.parentElement){ matchPick.classList.remove('selected'); matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick.dataset.id === el.dataset.id){
+        [matchPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.disabled = true; });
+        wrap.dataset.correctCount = wrap.querySelectorAll('.match.matched-correct').length/2;
+      } else { const a = matchPick, b = el; [a,b].forEach(x=>x.classList.add('wrong-flash')); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','wrong-flash')), 550); }
+      matchPick = null; scheduleSave();
+    };
+  });
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const n = [...document.querySelectorAll('#sel_'+v.key+' select.fib-select')].filter(s=>s.value===s.dataset.answer).length;
+    const p = PTS[v.type](n); return `${v.label}: ${n}/${v.type==='t11'?6:7} → ${p} из ${MAXP[v.type]}`;
+  }).join('\n');
+}
+function init(){
+  buildDots();
+  MATCH_SETS.forEach(m=>renderMatchSet(m[0], m[1]));
+  bindMcq(); bindProofs();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+PTS.g = n => n; MAXP.g = 7;
+function squash(s){ return (s||'').toLowerCase().replace(/[’‘`]/g,"'").replace(/[.…"]/g,'').replace(/\s+/g,''); }
+function gapOk(inp){ const v = squash(inp.value); return v !== '' && JSON.parse(inp.dataset.acc).some(a=>squash(a)===v); }
+function checkGapsExam(btn){
+  const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : btn.closest('.card');
+  let n=0, t=0;
+  scope.querySelectorAll('input.gap').forEach(i=>{ t++; const ok = gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points'); out.hidden = false;
+  out.textContent = btn.dataset.exam ? `Верно: ${n} из ${t} → ${n} ${pw(n)} (на экзамене 1 балл за каждый верный ответ).` + (n<t?' Найдите ошибки и проверьте их по подсказкам.':' Отлично!') : `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const s = document.getElementById('sel_'+v.key); if(!s) return '';
+    let n=0, t=0;
+    s.querySelectorAll('input.gap').forEach(i=>{ t++; if(gapOk(i)) n++; });
+    s.querySelectorAll('select.fib-select').forEach(x=>{ t++; if(x.value===x.dataset.answer) n++; });
+    return `${v.label}: ${n}/${t}`;
+  }).join('\n');
+}
+
+
+/* ================= HELPERS ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function examPoints(n){ return n; }
+
+/* ================= NAVIGATION ================= */
+let current = 0;
+function pauseAllAudio(){ document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} }); }
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  pauseAllAudio();
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= MCQ (instant feedback) ================= */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('is-correct'); }
+  else {
+    btn.classList.add('is-wrong');
+    const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('is-correct');
+  }
+  group.classList.add('answered');
+}
+function bindMcq(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+  });
+}
+function renderMcqList(containerId, items, prefix){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = items.map((it,i)=>{
+    const opts = it.opts.map((o,j)=>`<button type="button" class="opt" data-val="${j+1}">${String.fromCharCode(97+j)}) ${esc(o)}</button>`).join('');
+    const proof = it.proof ? `<button type="button" class="proof-btn" data-panel="${it.panel}" data-proof="${esc(it.proof)}">🔍 Найти в скрипте</button>` : '';
+    return `<div class="item"><p class="q"><b>${i+1}.</b> ${it.q} ${proof}</p>
+      <div class="mcq" data-correct="${it.ans}" data-id="${prefix}_${i+1}">${opts}</div>
+      ${it.why ? `<div class="why">${it.why}</div>` : ''}</div>`;
+  }).join('');
+}
+
+/* ================= SCRIPT + PROOF ================= */
+function renderScript(panelId, script){
+  document.getElementById(panelId).innerHTML = script.map(p=>`<p>${esc(p)}</p>`).join('');
+}
+function highlightScript(panelId, proofText){
+  const panel = document.getElementById(panelId); if(!panel) return;
+  const det = panel.closest('details'); if(det) det.open = true;
+  panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  if(!proofText) return;
+  for(const p of panel.querySelectorAll('p')){
+    const t = p.textContent, idx = t.indexOf(proofText);
+    if(idx !== -1){
+      p.innerHTML = esc(t.slice(0,idx)) + '<mark>' + esc(proofText) + '</mark>' + esc(t.slice(idx+proofText.length));
+      p.querySelector('mark').scrollIntoView({block:'center', behavior:'smooth'});
+      break;
+    }
+  }
+}
+function bindProofs(){
+  document.querySelectorAll('.proof-btn[data-proof]').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=> highlightScript(btn.dataset.panel, btn.dataset.proof);
+  });
+}
+
+/* ================= TASK 1 MATCHING (selects) ================= */
+function renderSpeakerSelects(containerId, v, withNotes){
+  const letters = ['A','B','C','D','E','F'];
+  document.getElementById(containerId).innerHTML = letters.map(L=>{
+    const opts = v.statements.map((s,idx)=>`<option value="${idx+1}">${idx+1}. ${esc(s)}</option>`).join('');
+    const notes = withNotes ? `<textarea class="notes" placeholder="Ключевые слова, которые вы услышали у ${L}…"></textarea>` : '';
+    return `<div class="item"><p class="q"><b>Speaker ${L}</b></p>
+      <div class="${withNotes?'speaker-row':''}">${notes}<select class="fib-select" data-answer="${v.answers[L]}" data-id="${v.key}_${L}"><option value="">— statement № —</option>${opts}</select></div></div>`;
+  }).join('');
+}
+/* ================= SCORING / SUBMIT ================= */
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function itemContext(el){
+  const item = el.closest('.item'); if(!item) return '';
+  const q = item.querySelector('p.q'); if(!q) return '';
+  const c = q.cloneNode(true); c.querySelectorAll('select,input,button,.kw-chip').forEach(x=>x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+}
+function collectScore(scope){
+  let correct=0, total=0; const wrong=[];
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    if(sel.value === sel.dataset.answer) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      const right = sel.querySelector(`option[value="${sel.dataset.answer}"]`);
+      wrong.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct "${right ? right.text : sel.dataset.answer}"`);
+    }
+  });
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    else {
+      const c = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      wrong.push(`${exTitle(g)} — ${itemContext(g)} → answered "${chosen ? chosen.textContent.trim() : '(not answered)'}", correct "${c ? c.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+  scope.querySelectorAll('input.gap').forEach(inp=>{
+    total++;
+    if(gapOk(inp)) correct++;
+    else wrong.push(`${exTitle(inp)} — ${inp.dataset.label||'gap'} → answered "${inp.value.trim() || '(not answered)'}", correct "${JSON.parse(inp.dataset.acc)[0]}"`);
+  });
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0), k = parseInt(c.dataset.correctCount||0);
+    total += t; correct += k;
+    if(k < t) wrong.push(`${exTitle(c)} (matching) — ${k}/${t} pairs matched correctly.`);
+  });
+  return {correct, total, wrong, pct: total ? Math.round(correct/total*100) : 0};
+}
+function subjectFor(extra){
+  const name = document.getElementById('studentName').value.trim();
+  const topic = document.title + (extra ? ' — ' + extra : '');
+  return topic.startsWith(COURSE_NAME) ? `${topic} — ${name}` : `${COURSE_NAME} — ${topic} — ${name}`;
+}
+async function sendForm(fields){
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  const {correct,total,wrong,pct} = collectScore(document);
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    const ok = sel.value === sel.dataset.answer; sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+  });
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${esc(nameInput.value.trim())} — ${correct} / ${total} correct`;
+  document.getElementById('resultsBreakdown').innerHTML = wrong.length
+    ? '<h3>Items to review</h3><ul>' + wrong.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;text-align:center;">All auto-checked items correct 🎉</p>';
+  if(typeof renderResultSticker === 'function') renderResultSticker(pct);
+  showPage(document.querySelectorAll('.page').length-1);
+  const status = document.getElementById('submitStatus');
+  status.textContent = 'Sending…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(''),
+      course: COURSE_NAME,
+      lesson: document.title,
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      result_tier: (typeof getResultTier === 'function') ? getResultTier(pct).label : '',
+      exam_grammar: examSummary(),
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    status.textContent = 'Sent to your teacher ✓';
+  }catch(e){ status.textContent = 'Could not send — check your internet connection and try again.'; }
+  scheduleSave();
+}
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  const {correct,total,wrong,pct} = collectScore(scope);
+  btn.disabled = true; statusEl.textContent = 'Отправляю…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(taskLabel + ' (частичная отправка)'),
+      course: COURSE_NAME,
+      lesson: document.title + ' — ' + taskLabel + ' (частичная отправка после задания)',
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+  }catch(e){ statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.'; }
+  finally{ btn.disabled = false; }
+}
+
+/* ================= SAVE & RESUME ================= */
+let isRestoring = false;
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt:new Date().toISOString(), page:current };
+    state.name = document.getElementById('studentName').value || '';
+    state.select = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c ? c.dataset.val : null; });
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.gaps = [...document.querySelectorAll('input.gap')].map(el=>el.value);
+    state.kw = [...document.querySelectorAll('.kw-tok')].map((t,i)=>t.classList.contains('on')?i:-1).filter(i=>i>=0);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show'); clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let s; try{ s = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(s.name) document.getElementById('studentName').value = s.name;
+  const sels = document.querySelectorAll('select.fib-select');
+  (s.select||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const groups = document.querySelectorAll('.mcq[data-correct]');
+  (s.mcq||[]).forEach((v,i)=>{ if(v==null || !groups[i]) return; const b = groups[i].querySelector(`.opt[data-val="${v}"]`); if(b) highlightMcq(groups[i], b); });
+  (s.matched||[]).forEach(id=>document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); el.disabled = true; }));
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{ c.dataset.correctCount = c.querySelectorAll('.match.matched-correct').length/2; });
+  const tas = document.querySelectorAll('textarea');
+  (s.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const gps = document.querySelectorAll('input.gap');
+  (s.gaps||[]).forEach((v,i)=>{ if(gps[i] && v) gps[i].value = v; });
+  const toks = document.querySelectorAll('.kw-tok');
+  (s.kw||[]).forEach(i=>{ if(toks[i]) toks[i].classList.add('on'); });
+  const has = (s.select||[]).some(v=>v) || (s.mcq||[]).some(v=>v!=null) || (s.textareas||[]).some(v=>v) || (s.matched||[]).length || (s.kw||[]).length;
+  if(has){
+    document.getElementById('restoreNoteText').textContent = `We found saved answers from ${s.savedAt ? new Date(s.savedAt).toLocaleString() : 'an earlier session'} — they've been filled back in.`;
+    document.getElementById('restoreNote').hidden = false;
+  }
+  if(typeof s.page === 'number') showPage(s.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, select, input.gap, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select')) scheduleSave(); });
+
+</script>
+</body>
+</html>
