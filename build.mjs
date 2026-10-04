@@ -399,6 +399,17 @@ for (const course of courses) {
       /formspree\.io\/f\//.test(html) ? 'Formspree — ' + (meta.formspree || '?') :
       null;
 
+    /* «Продолжить, сохранено …» на карточке на странице курса — читаем
+       ключ localStorage, под которым материал сам (если это тест со
+       save/resume) хранит прогресс ученика. У 119 из ~160 материалов это
+       есть, но КАЖДЫЙ файл написан руками отдельно — единого формата
+       сохранённых данных нет (см. разбор перед тем, как это строить),
+       поэтому процент выполнения посчитать нельзя, а вот сам факт
+       сохранения и его дату — можно, через общее поле savedAt. Если в
+       файле такого ключа нет (не тест, или сделан по-другому) —
+       progressKey просто null, бейдж для него не рисуется. */
+    const progressKeyMatch = html.match(/PROGRESS_KEY\s*=\s*['"]([^'"]+)['"]/);
+
     materials.push({
       ...meta,
       url: `${BASE}/${rel}/`,
@@ -406,6 +417,7 @@ for (const course of courses) {
       group,
       courseCfg: course,
       backend,
+      progressKey: progressKeyMatch ? progressKeyMatch[1] : null,
       bytes: Buffer.byteLength(html),
     });
   }
@@ -477,13 +489,43 @@ ${extraScript}
 `;
 
 const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.group || '')}"
-     data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}">
+     data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
     </div>
     <div class="meta"><span>Unit ${esc(m.unit)}</span>${m.tags ? `<span>${esc(m.tags)}</span>` : ''}</div>
+    ${m.progressKey ? '<p class="resume-note" hidden></p>' : ''}
   </a>`;
+
+/* «Продолжить · сохранено …» — читает localStorage по ключу, который
+   сама страница теста использует для сохранения прогресса (см.
+   progressKey выше). Структура сохранённых данных у каждого файла своя
+   (fib/mcq/textareas/matched/…), единого формата нет, поэтому процент
+   выполнения не считаем — только факт «есть сохранённый черновик» и
+   дату (поле savedAt есть почти везде, где есть сам PROGRESS_KEY). Если
+   чтение/разбор не удалось (старый формат без savedAt, повреждённые
+   данные и т.п.) — просто не показываем подпись, ничего не ломаем. */
+const resumeScript = `<script>
+(function(){
+  document.querySelectorAll('.card[data-progress-key]').forEach(function(card){
+    var note = card.querySelector('.resume-note');
+    if(!note) return;
+    var raw;
+    try{ raw = localStorage.getItem(card.dataset.progressKey); }catch(e){ return; }
+    if(!raw) return;
+    var state;
+    try{ state = JSON.parse(raw); }catch(e){ return; }
+    if(!state || !state.savedAt) return;
+    var d = new Date(state.savedAt);
+    if(isNaN(d.getTime())) return;
+    var when;
+    try{ when = d.toLocaleDateString('ru-RU', {day:'numeric', month:'short'}); }catch(e){ return; }
+    note.textContent = '▶ Продолжить · сохранено ' + when;
+    note.hidden = false;
+  });
+})();
+</script>`;
 
 /* Панель сортировки — переставляет карточки внутри контейнера по дате
    (когда добавили материал), по имени или по теме (юниту). Разметка
@@ -1022,7 +1064,7 @@ for (const course of courses) {
     body: hasAnyContent
       ? `${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
-    extraScript: copyScript + (showFolderNav ? groupFolderScript : '') + (hasAnyContent ? sortScript('.course-block', '.card') : ''),
+    extraScript: copyScript + (showFolderNav ? groupFolderScript : '') + (hasAnyContent ? sortScript('.course-block', '.card') + resumeScript : ''),
   }));
 }
 

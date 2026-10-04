@@ -288,6 +288,12 @@ html, body{
   margin-left: 14px;
   color: #b8b2ab;
 }
+.resume-note{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--correct);
+  margin: 6px 0 0;
+}
 
 .pill{
   display: inline-block;
