@@ -138,6 +138,17 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 select.dq{ font-family:inherit; font-size:.88rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px; background:#fff; color:var(--text); min-width:220px; }
 select.dq.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
 select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+select.dq.inline{ min-width:0; max-width:100%; width:auto; padding:3px 6px; font-size:.86rem; vertical-align:baseline; }
+.gap.locked, select.dq.locked{ opacity:1; cursor:default; }
+select.dq:disabled{ -webkit-text-fill-color:currentColor; }
+.letter-text{ font-size:.95rem; line-height:2.1; background:var(--card-tint); border-radius:12px; padding:16px 18px; margin:12px 0; }
+.letter-text p{ margin:0 0 10px; }
+.mail-card{ border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:12px 0; font-size:.9rem; line-height:1.55; }
+.mail-card .mail-head{ font-size:.8rem; color:var(--muted); margin-bottom:8px; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
+.phrase-bank span{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:3px 10px; font-size:.82rem; }
+.inline-explain{ list-style:none; padding:0; margin:10px 0 0; }
+.inline-explain .gap-explain{ margin-top:6px; }
 .match-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--border); }
 .match-row:last-child{ border-bottom:none; }
 .match-row .mn{ font-size:.78rem; font-weight:800; color:var(--muted); min-width:22px; }
@@ -177,7 +188,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 .reset-link{ text-align:center; margin-top:6px; }
 .reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
 
-.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--purple); }
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.8; color:var(--yellow); }
 .angle-badge .wordmark{ width:110px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
 @media (max-width:640px){ .angle-badge{ display:none; } }
@@ -188,6 +199,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   .namebar input{ width:150px; }
   .save-indicator{ flex-basis:100%; }
 }
+
 
 </style>
 <style id="angle-v2">
@@ -282,7 +294,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   <div class="eyebrow">Задания 1–5 из 25</div>
   <h2>A, B или C?</h2>
   
-    <div class="qjudge" data-q="tfns-1" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-1" data-ans="A" data-section="Paraphrase Detective" data-label="1. The name of the fabric came from an Italian city." data-show="A — то же значение">
       <div class="qtext2"><b>1.</b> <span class="muted">Текст:</span> The word &#x27;jean&#x27; derives from the name of the Italian port city Genoa. The fabric was first made in Europe.<br>
       <span class="muted">Утверждение:</span> The name of the fabric came from an Italian city.</div>
       <div class="qbtns">
@@ -292,7 +304,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">derives from = came from; Italian port city Genoa → an Italian city (обобщение).</div>
     </div>
-    <div class="qjudge" data-q="tfns-2" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-2" data-ans="B" data-section="Paraphrase Detective" data-label="2. Levi Strauss originally sold material for making evening clothes." data-show="B — противоположное значение">
       <div class="qtext2"><b>2.</b> <span class="muted">Текст:</span> Levi Strauss sold a tough canvas material used for tents and wagon covers. He later switched to denim, which proved more suitable for miners&#x27; trousers.<br>
       <span class="muted">Утверждение:</span> Levi Strauss originally sold material for making evening clothes.</div>
       <div class="qbtns">
@@ -302,7 +314,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">tents and wagon covers ≠ evening clothes — практичный материал, а не нарядный: прямое противоречие.</div>
     </div>
-    <div class="qjudge" data-q="tfns-3" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-3" data-ans="C" data-section="Paraphrase Detective" data-label="3. Emperor penguins are the only birds that breed during the Antarctic winter." data-show="C — не указано в тексте">
       <div class="qtext2"><b>3.</b> <span class="muted">Текст:</span> Emperor penguins breed during the Antarctic winter. Males incubate the eggs for nearly four months without food.<br>
       <span class="muted">Утверждение:</span> Emperor penguins are the only birds that breed during the Antarctic winter.</div>
       <div class="qbtns">
@@ -312,7 +324,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст не сравнивает пингвинов с другими птицами — «the only» добавляет информацию, которой нет в тексте.</div>
     </div>
-    <div class="qjudge" data-q="tfns-4" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-4" data-ans="A" data-section="Paraphrase Detective" data-label="4. Gagarin&#x27;s space mission was short but ended successfully." data-show="A — то же значение">
       <div class="qtext2"><b>4.</b> <span class="muted">Текст:</span> Yuri Gagarin&#x27;s flight lasted only 108 minutes. Despite technical complications during re-entry, he landed safely.<br>
       <span class="muted">Утверждение:</span> Gagarin&#x27;s space mission was short but ended successfully.</div>
       <div class="qbtns">
@@ -322,7 +334,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">lasted only 108 minutes → short; landed safely → ended successfully; despite → but (контраст сохранён).</div>
     </div>
-    <div class="qjudge" data-q="tfns-5" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-5" data-ans="B" data-section="Paraphrase Detective" data-label="5. Home refrigerators became available in the 18th century." data-show="B — противоположное значение">
       <div class="qtext2"><b>5.</b> <span class="muted">Текст:</span> The first artificial cooling system appeared in 1748. However, the first home refrigerator was not invented until 1913.<br>
       <span class="muted">Утверждение:</span> Home refrigerators became available in the 18th century.</div>
       <div class="qbtns">
@@ -342,7 +354,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   <div class="eyebrow">Задания 6–10 из 25</div>
   <h2>A, B или C?</h2>
   
-    <div class="qjudge" data-q="tfns-6" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-6" data-ans="C" data-section="Paraphrase Detective" data-label="6. The Tretyakov Gallery is the most visited museum in Russia." data-show="C — не указано в тексте">
       <div class="qtext2"><b>6.</b> <span class="muted">Текст:</span> Millions of people visit the Tretyakov Gallery every year. It houses the world&#x27;s largest collection of Russian fine art.<br>
       <span class="muted">Утверждение:</span> The Tretyakov Gallery is the most visited museum in Russia.</div>
       <div class="qbtns">
@@ -352,7 +364,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст не сравнивает галерею с другими музеями России — превосходная степень не подтверждена текстом.</div>
     </div>
-    <div class="qjudge" data-q="tfns-7" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-7" data-ans="A" data-section="Paraphrase Detective" data-label="7. M. Lomonosov established Moscow State University." data-show="A — то же значение">
       <div class="qtext2"><b>7.</b> <span class="muted">Текст:</span> Moscow State University was founded in 1755 by M. Lomonosov. It is now named after him.<br>
       <span class="muted">Утверждение:</span> M. Lomonosov established Moscow State University.</div>
       <div class="qbtns">
@@ -362,7 +374,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">was founded by = established (синонимы); страдательный залог → действительный, смысл сохранён.</div>
     </div>
-    <div class="qjudge" data-q="tfns-8" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-8" data-ans="B" data-section="Paraphrase Detective" data-label="8. Catherine the Great opened the Hermitage to the public immediately after founding it." data-show="B — противоположное значение">
       <div class="qtext2"><b>8.</b> <span class="muted">Текст:</span> The Hermitage Museum was founded by Catherine the Great in 1764. It was opened to the public only in 1852.<br>
       <span class="muted">Утверждение:</span> Catherine the Great opened the Hermitage to the public immediately after founding it.</div>
       <div class="qbtns">
@@ -372,7 +384,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">only in 1852 (почти через 90 лет после основания) противоречит «immediately after founding it».</div>
     </div>
-    <div class="qjudge" data-q="tfns-9" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-9" data-ans="C" data-section="Paraphrase Detective" data-label="9. Crows are more intelligent than most other bird species." data-show="C — не указано в тексте">
       <div class="qtext2"><b>9.</b> <span class="muted">Текст:</span> Crows are known for their problem-solving skills and ability to recognise human faces. They can even pass this information to other crows.<br>
       <span class="muted">Утверждение:</span> Crows are more intelligent than most other bird species.</div>
       <div class="qbtns">
@@ -382,7 +394,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст описывает, что умеют вороны, но не сравнивает их с другими видами птиц — сравнение не подтверждено.</div>
     </div>
-    <div class="qjudge" data-q="tfns-10" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-10" data-ans="A" data-section="Paraphrase Detective" data-label="10. Fyodor Konyukhov has travelled to many remote and challenging places." data-show="A — то же значение">
       <div class="qtext2"><b>10.</b> <span class="muted">Текст:</span> Fyodor Konyukhov has visited both the North and South Poles. He has crossed the Atlantic 15 times.<br>
       <span class="muted">Утверждение:</span> Fyodor Konyukhov has travelled to many remote and challenging places.</div>
       <div class="qbtns">
@@ -402,7 +414,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   <div class="eyebrow">Задания 11–15 из 25</div>
   <h2>A, B или C?</h2>
   
-    <div class="qjudge" data-q="tfns-11" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-11" data-ans="B" data-section="Paraphrase Detective" data-label="11. Scientists agree on how the first people reached America." data-show="B — противоположное значение">
       <div class="qtext2"><b>11.</b> <span class="muted">Текст:</span> Some scientists believe that the first people arrived in America via a land bridge. Others argue that they travelled by boat along the coast.<br>
       <span class="muted">Утверждение:</span> Scientists agree on how the first people reached America.</div>
       <div class="qbtns">
@@ -412,7 +424,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Some … Others argue → разногласие учёных; «agree» — прямое противоречие.</div>
     </div>
-    <div class="qjudge" data-q="tfns-12" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-12" data-ans="C" data-section="Paraphrase Detective" data-label="12. Cairo is the most densely populated city in Africa." data-show="C — не указано в тексте">
       <div class="qtext2"><b>12.</b> <span class="muted">Текст:</span> The city of Cairo has a population of about 16 million people. It is known for its crowded streets and lack of personal space.<br>
       <span class="muted">Утверждение:</span> Cairo is the most densely populated city in Africa.</div>
       <div class="qbtns">
@@ -422,7 +434,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст даёт число жителей и говорит о тесноте, но не сравнивает Каир с другими городами Африки.</div>
     </div>
-    <div class="qjudge" data-q="tfns-13" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-13" data-ans="A" data-section="Paraphrase Detective" data-label="13. The light bulb had an unexpected effect on how people sleep." data-show="A — то же значение">
       <div class="qtext2"><b>13.</b> <span class="muted">Текст:</span> The invention of the light bulb allowed people to be productive at any time. It also changed people&#x27;s sleep patterns.<br>
       <span class="muted">Утверждение:</span> The light bulb had an unexpected effect on how people sleep.</div>
       <div class="qbtns">
@@ -432,7 +444,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">changed sleep patterns = had an effect on how people sleep; «also» намекает, что это был побочный, неожиданный эффект.</div>
     </div>
-    <div class="qjudge" data-q="tfns-14" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-14" data-ans="C" data-section="Paraphrase Detective" data-label="14. Pelmeni are usually served with sweet fillings." data-show="C — не указано в тексте">
       <div class="qtext2"><b>14.</b> <span class="muted">Текст:</span> Russian pelmeni are small dumplings with various fillings. They are traditionally made in winter and frozen outdoors.<br>
       <span class="muted">Утверждение:</span> Pelmeni are usually served with sweet fillings.</div>
       <div class="qbtns">
@@ -442,7 +454,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">«Various fillings» не уточняет, какие именно — информация о сладких начинках не дана в тексте.</div>
     </div>
-    <div class="qjudge" data-q="tfns-15" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-15" data-ans="C" data-section="Paraphrase Detective" data-label="15. Henna is used to treat skin problems." data-show="C — не указано в тексте">
       <div class="qtext2"><b>15.</b> <span class="muted">Текст:</span> Henna is made from dried and powdered leaves of the Lawsonia inermis plant. It is used to create temporary designs on skin.<br>
       <span class="muted">Утверждение:</span> Henna is used to treat skin problems.</div>
       <div class="qbtns">
@@ -462,7 +474,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   <div class="eyebrow">Задания 16–20 из 25</div>
   <h2>A, B или C?</h2>
   
-    <div class="qjudge" data-q="tfns-16" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-16" data-ans="A" data-section="Paraphrase Detective" data-label="16. Checking the news constantly can be harmful to your mental health." data-show="A — то же значение">
       <div class="qtext2"><b>16.</b> <span class="muted">Текст:</span> Some people believe that we should treat the news like a snack. They suggest checking headlines just twice a day.<br>
       <span class="muted">Утверждение:</span> Checking the news constantly can be harmful to your mental health.</div>
       <div class="qbtns">
@@ -472,7 +484,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Совет проверять новости только дважды в день подразумевает: постоянная проверка — это плохо (имплицитный смысл).</div>
     </div>
-    <div class="qjudge" data-q="tfns-17" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-17" data-ans="B" data-section="Paraphrase Detective" data-label="17. Acid rain is a natural phenomenon that occurs without human influence." data-show="B — противоположное значение">
       <div class="qtext2"><b>17.</b> <span class="muted">Текст:</span> Acid rain is caused by air pollution. Factories and vehicles release harmful gases into the atmosphere.<br>
       <span class="muted">Утверждение:</span> Acid rain is a natural phenomenon that occurs without human influence.</div>
       <div class="qbtns">
@@ -482,7 +494,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">caused by air pollution, factories, vehicles → влияние человека; «natural, without human influence» — прямое противоречие.</div>
     </div>
-    <div class="qjudge" data-q="tfns-18" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-18" data-ans="C" data-section="Paraphrase Detective" data-label="18. The Great Pyramid of Giza was built by thousands of workers." data-show="C — не указано в тексте">
       <div class="qtext2"><b>18.</b> <span class="muted">Текст:</span> The Great Pyramid of Giza comprises over two million stone blocks. Each block weighs about 2.5 tons.<br>
       <span class="muted">Утверждение:</span> The Great Pyramid of Giza was built by thousands of workers.</div>
       <div class="qbtns">
@@ -492,7 +504,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст даёт число блоков и их вес, но ничего не говорит о количестве рабочих.</div>
     </div>
-    <div class="qjudge" data-q="tfns-19" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-19" data-ans="A" data-section="Paraphrase Detective" data-label="19. The high cost of sustainable clothing is a barrier for many shoppers." data-show="A — то же значение">
       <div class="qtext2"><b>19.</b> <span class="muted">Текст:</span> Sustainable fashion is becoming more popular. However, 39% of consumers find sustainable garments too expensive.<br>
       <span class="muted">Утверждение:</span> The high cost of sustainable clothing is a barrier for many shoppers.</div>
       <div class="qbtns">
@@ -502,7 +514,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">too expensive = high cost; 39% of consumers = many shoppers; find … too expensive = is a barrier.</div>
     </div>
-    <div class="qjudge" data-q="tfns-20" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-20" data-ans="B" data-section="Paraphrase Detective" data-label="20. AI-generated essays are often accepted by university admissions officers." data-show="B — противоположное значение">
       <div class="qtext2"><b>20.</b> <span class="muted">Текст:</span> AI can write well-structured essays in two minutes. However, these essays have no voice and will not help a student get into university.<br>
       <span class="muted">Утверждение:</span> AI-generated essays are often accepted by university admissions officers.</div>
       <div class="qbtns">
@@ -522,7 +534,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   <div class="eyebrow">Задания 21–25 из 25</div>
   <h2>A, B или C?</h2>
   
-    <div class="qjudge" data-q="tfns-21" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-21" data-ans="C" data-section="Paraphrase Detective" data-label="21. Living in a dorm is more difficult than living alone." data-show="C — не указано в тексте">
       <div class="qtext2"><b>21.</b> <span class="muted">Текст:</span> Living in a dorm can be difficult because students come from different backgrounds. Their habits and expectations may vary widely.<br>
       <span class="muted">Утверждение:</span> Living in a dorm is more difficult than living alone.</div>
       <div class="qbtns">
@@ -532,7 +544,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст говорит, что жизнь в общежитии может быть трудной, но не сравнивает её с жизнью одному.</div>
     </div>
-    <div class="qjudge" data-q="tfns-22" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-22" data-ans="A" data-section="Paraphrase Detective" data-label="22. Learning a foreign language can have cognitive benefits." data-show="A — то же значение">
       <div class="qtext2"><b>22.</b> <span class="muted">Текст:</span> Learning a foreign language helps develop critical thinking. It also improves memory and concentration.<br>
       <span class="muted">Утверждение:</span> Learning a foreign language can have cognitive benefits.</div>
       <div class="qbtns">
@@ -542,7 +554,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">critical thinking, memory, concentration → cognitive benefits (обобщение конкретных примеров).</div>
     </div>
-    <div class="qjudge" data-q="tfns-23" data-ans="B" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-23" data-ans="B" data-section="Paraphrase Detective" data-label="23. Young male lions always remain with their mothers for life." data-show="B — противоположное значение">
       <div class="qtext2"><b>23.</b> <span class="muted">Текст:</span> Lions live in groups called prides. Young males are driven from their prides when they grow large enough to compete with dominant males.<br>
       <span class="muted">Утверждение:</span> Young male lions always remain with their mothers for life.</div>
       <div class="qbtns">
@@ -552,7 +564,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">driven from their prides (уходят) противоречит «always remain with their mothers» (остаются).</div>
     </div>
-    <div class="qjudge" data-q="tfns-24" data-ans="C" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-24" data-ans="C" data-section="Paraphrase Detective" data-label="24. Sao Paulo&#x27;s metro is the busiest in South America." data-show="C — не указано в тексте">
       <div class="qtext2"><b>24.</b> <span class="muted">Текст:</span> Sao Paulo&#x27;s metro system is known for being lively. People talk to each other and interact rather than staring at their phones.<br>
       <span class="muted">Утверждение:</span> Sao Paulo&#x27;s metro is the busiest in South America.</div>
       <div class="qbtns">
@@ -562,7 +574,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Текст описывает атмосферу (оживлённость), но не говорит о числе пассажиров и не сравнивает с другими городами.</div>
     </div>
-    <div class="qjudge" data-q="tfns-25" data-ans="A" data-section="Paraphrase Detective">
+    <div class="qjudge" data-q="tfns-25" data-ans="A" data-section="Paraphrase Detective" data-label="25. Emperor penguins use huddling to survive extreme cold." data-show="A — то же значение">
       <div class="qtext2"><b>25.</b> <span class="muted">Текст:</span> Emperor penguins can survive temperatures as low as minus 50 degrees Fahrenheit. They huddle together to keep warm during the Antarctic winter.<br>
       <span class="muted">Утверждение:</span> Emperor penguins use huddling to survive extreme cold.</div>
       <div class="qbtns">
@@ -700,14 +712,28 @@ function renderStickerForPct(pct){
    =================================================================== */
 const ITEM_STATE = {};
 
-function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`]/g,''); }
+function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`’‘´]/g,''); }
 
-function markSelect(sel){
+/* Lock an answered item if it sits inside a [data-lock] container (diagnostic mode):
+   once checked, the answer can no longer be changed and re-checked. */
+function lockItem(el){
+  if(!el.closest('[data-lock]')) return;
+  if(el.tagName === 'SELECT') el.disabled = true; else el.readOnly = true;
+  el.classList.add('locked');
+}
+
+/* select.dq.deferred = no instant colour on change; marked only by a page check
+   (checkGapsIn) or by renderResults. Plain select.dq keeps the old instant behaviour. */
+function markSelect(sel, force){
   if(sel.value === '') return;
+  if(sel.classList.contains('deferred') && !force){ if(!isRestoring) scheduleSave(); return; }
   const ok = normAns(sel.value) === normAns(sel.dataset.ans);
   sel.classList.toggle('correct', ok);
   sel.classList.toggle('wrong', !ok);
   ITEM_STATE[sel.dataset.q] = {correct: ok, section: sel.dataset.section || 'Задание'};
+  const ex = document.getElementById('explain-' + sel.dataset.q);
+  if(ex) ex.classList.add('show');
+  lockItem(sel);
   if(!isRestoring) scheduleSave();
 }
 
@@ -761,6 +787,13 @@ function checkGapsIn(containerId){
     const ex = document.getElementById('explain-' + inp.dataset.q);
     if(ex) ex.classList.add('show');
     ITEM_STATE[inp.dataset.q] = {correct: ok, section: inp.dataset.section || 'Задание'};
+    lockItem(inp);
+    done++;
+  });
+  container.querySelectorAll('select.dq.deferred[data-q]').forEach(sel=>{
+    total++;
+    if(sel.value === '') return;
+    markSelect(sel, true);
     done++;
   });
   const status = container.querySelector('.page-status');
@@ -771,20 +804,63 @@ function checkGapsIn(containerId){
   if(!isRestoring) scheduleSave();
 }
 
+const ANSWERABLE = 'select.dq[data-q], .mcq[data-q], .qjudge[data-q], .gap[data-q]';
+
+/* What the student actually gave for an item (for the mistakes list). */
+function givenAnswer(el){
+  if(el.matches('.gap')) return el.value.trim();
+  if(el.matches('select')) return el.value ? el.options[el.selectedIndex].text : '';
+  const chosen = el.querySelector('.chosen');
+  return chosen ? chosen.textContent.trim() : '';
+}
+/* Human-readable correct answer: data-show wins, else first accepted answer / option text. */
+function correctAnswerText(el){
+  if(el.dataset.show) return el.dataset.show;
+  if(el.matches('select')){
+    const o = Array.from(el.options).find(o => o.value === el.dataset.ans);
+    return o ? o.text : el.dataset.ans;
+  }
+  return (el.dataset.ans || '').split('|')[0];
+}
+
+/* Totals count EVERY answerable item on the page in document order: an item the
+   student never answered counts as wrong (otherwise skipping inflates the %). */
 function computeGrandTotal(){
   let correct = 0, total = 0;
   const bySection = {};
-  Object.values(ITEM_STATE).forEach(r=>{
-    total++; if(r.correct) correct++;
-    const s = r.section || 'Задание';
+  const mistakes = [];
+  const seen = new Set();
+  document.querySelectorAll(ANSWERABLE).forEach(el=>{
+    const q = el.dataset.q;
+    if(seen.has(q)) return; seen.add(q);
+    const r = ITEM_STATE[q];
+    const ok = !!(r && r.correct);
+    const s = el.dataset.section || (r && r.section) || 'Задание';
+    total++; if(ok) correct++;
     if(!bySection[s]) bySection[s] = {correct:0, total:0};
     bySection[s].total++;
-    if(r.correct) bySection[s].correct++;
+    if(ok) bySection[s].correct++;
+    if(!ok){
+      const given = r ? givenAnswer(el) : '';
+      mistakes.push(`${el.dataset.label || q}: «${given || '—'}» → ${correctAnswerText(el)}`);
+    }
   });
-  return {correct, total, bySection};
+  return {correct, total, bySection, mistakes};
+}
+
+/* Evaluate everything the student filled in but never checked page-by-page. */
+function evaluatePending(){
+  document.querySelectorAll('[data-check-gaps]').forEach(b=>{
+    const c = document.getElementById(b.dataset.checkGaps);
+    if(!c) return;
+    const pending = Array.from(c.querySelectorAll('.gap[data-q], select.dq.deferred[data-q]'))
+      .some(el => !ITEM_STATE[el.dataset.q] && (el.value||'').trim() !== '');
+    if(pending) checkGapsIn(b.dataset.checkGaps);
+  });
 }
 
 function renderResults(){
+  if(!isRestoring) evaluatePending();
   const {correct, total, bySection} = computeGrandTotal();
   const pct = total ? Math.round(correct/total*100) : 0;
   const panel = document.getElementById('resultsPanel');
@@ -811,7 +887,8 @@ async function submitResults(){
   if(btn) btn.disabled = true;
   if(status){ status.textContent = 'Отправка…'; status.style.color = 'var(--muted)'; }
   const breakdown = Object.entries(bySection).map(([n,r])=>`${n}: ${r.correct}/${r.total}`).join('; ');
-  const mistakes = Object.entries(ITEM_STATE).filter(([,r])=>!r.correct).length + ' неверных из ' + total;
+  const ml = computeGrandTotal().mistakes;
+  const mistakes = ml.length ? `${ml.length} неверных или пустых из ${total}:\n` + ml.join('\n') : 'Ошибок нет';
   const payload = {
     access_key: WEB3FORMS_ACCESS_KEY,
     course_id: COURSE_ID,
@@ -844,6 +921,7 @@ async function submitResults(){
 }
 
 document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
 document.addEventListener('click', e=>{
   const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
   const jb  = e.target.closest('.qjudge[data-q] .jbtn'); if(jb){ markJudgeBtn(jb); return; }
@@ -913,7 +991,10 @@ function applyRestore(data){
         gapInp.classList.toggle('wrong', !r.correct);
         const ex = document.getElementById('explain-' + q);
         if(ex) ex.classList.add('show');
+        lockItem(gapInp);
       }
+      const defSel = document.querySelector(`select.dq.deferred[data-q="${CSS.escape(q)}"]`);
+      if(defSel && defSel.value) markSelect(defSel, true);
       const judgeGroup = document.querySelector(`.qjudge[data-q="${CSS.escape(q)}"]`);
       if(judgeGroup){
         judgeGroup.dataset.done = '1';
@@ -945,7 +1026,7 @@ function restoreProgress(){
     const raw = localStorage.getItem(PROGRESS_KEY);
     if(!raw) return;
     const data = JSON.parse(raw);
-    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length;
+    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
     if(!hasAnswers) return;
     const note = document.getElementById('restoreNote');
     if(note){
@@ -964,6 +1045,7 @@ function clearProgress(){
   location.reload();
 }
 document.addEventListener('DOMContentLoaded', restoreProgress);
+
 
 buildDots();
 showPage(0);

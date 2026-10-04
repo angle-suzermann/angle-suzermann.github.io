@@ -138,6 +138,17 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 select.dq{ font-family:inherit; font-size:.88rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px; background:#fff; color:var(--text); min-width:220px; }
 select.dq.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
 select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+select.dq.inline{ min-width:0; max-width:100%; width:auto; padding:3px 6px; font-size:.86rem; vertical-align:baseline; }
+.gap.locked, select.dq.locked{ opacity:1; cursor:default; }
+select.dq:disabled{ -webkit-text-fill-color:currentColor; }
+.letter-text{ font-size:.95rem; line-height:2.1; background:var(--card-tint); border-radius:12px; padding:16px 18px; margin:12px 0; }
+.letter-text p{ margin:0 0 10px; }
+.mail-card{ border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:12px 0; font-size:.9rem; line-height:1.55; }
+.mail-card .mail-head{ font-size:.8rem; color:var(--muted); margin-bottom:8px; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
+.phrase-bank span{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:3px 10px; font-size:.82rem; }
+.inline-explain{ list-style:none; padding:0; margin:10px 0 0; }
+.inline-explain .gap-explain{ margin-top:6px; }
 .match-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--border); }
 .match-row:last-child{ border-bottom:none; }
 .match-row .mn{ font-size:.78rem; font-weight:800; color:var(--muted); min-width:22px; }
@@ -177,7 +188,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 .reset-link{ text-align:center; margin-top:6px; }
 .reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
 
-.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--purple); }
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.8; color:var(--yellow); }
 .angle-badge .wordmark{ width:110px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
 @media (max-width:640px){ .angle-badge{ display:none; } }
@@ -188,6 +199,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   .namebar input{ width:150px; }
   .save-indicator{ flex-basis:100%; }
 }
+
 
 </style>
 <style id="angle-v2">
@@ -292,7 +304,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «volunteer group».</p>
   
-    <div class="qjudge" data-q="t37-1-1" data-ans="yes" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-1" data-ans="yes" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · How often do you meet?" data-show="принять">
       <div class="qtext2"><b>1.</b> How often do you meet?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -300,7 +312,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о частоте встреч группы.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-2" data-ans="no" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-2" data-ans="no" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · How much money do you get for volunteering?" data-show="не принять">
       <div class="qtext2"><b>2.</b> How much money do you get for volunteering?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -308,7 +320,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Неуместный вопрос о деньгах: волонтёрство обычно не оплачивается, и спрашивать о деньгах в личной переписке невежливо.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-3" data-ans="yes" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-3" data-ans="yes" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · What kind of volunteer work does your group do?" data-show="принять">
       <div class="qtext2"><b>3.</b> What kind of volunteer work does your group do?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -316,7 +328,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о деятельности группы.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-4" data-ans="no" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-4" data-ans="no" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · When did you join the group?" data-show="не принять">
       <div class="qtext2"><b>4.</b> When did you join the group?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -324,7 +336,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос не о самой группе, а о личном действии автора письма.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-5" data-ans="yes" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-5" data-ans="yes" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · How many people are there in your group?" data-show="принять">
       <div class="qtext2"><b>5.</b> How many people are there in your group?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -332,7 +344,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о размере группы.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-6" data-ans="no" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-6" data-ans="no" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · Do you like volunteering?" data-show="не принять">
       <div class="qtext2"><b>6.</b> Do you like volunteering?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -340,7 +352,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос об отношении к волонтёрству в целом, а не о конкретной группе.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-7" data-ans="yes" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-7" data-ans="yes" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · What projects are you working on at the moment?" data-show="принять">
       <div class="qtext2"><b>7.</b> What projects are you working on at the moment?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -348,7 +360,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о текущих проектах группы.</div>
     </div>
-    <div class="qjudge" data-q="t37-1-8" data-ans="no" data-section="Письмо 1: volunteer group">
+    <div class="qjudge" data-q="t37-1-8" data-ans="no" data-section="Письмо 1: volunteer group" data-label="Письмо 1 · Why did you decide to join this volunteer group?" data-show="не принять">
       <div class="qtext2"><b>8.</b> Why did you decide to join this volunteer group?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -371,7 +383,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «stadium».</p>
   
-    <div class="qjudge" data-q="t37-2-1" data-ans="no" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-1" data-ans="no" data-section="Письмо 2: stadium" data-label="Письмо 2 · How often do you go to the stadium?" data-show="не принять">
       <div class="qtext2"><b>1.</b> How often do you go to the stadium?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -379,7 +391,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос не о стадионе, а о регулярности действий автора.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-2" data-ans="no" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-2" data-ans="no" data-section="Письмо 2: stadium" data-label="Письмо 2 · How much did the ticket cost?" data-show="не принять">
       <div class="qtext2"><b>2.</b> How much did the ticket cost?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -387,7 +399,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос не о стадионе, а о мероприятии, которое там проходило.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-3" data-ans="yes" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-3" data-ans="yes" data-section="Письмо 2: stadium" data-label="Письмо 2 · Where is the stadium located?" data-show="принять">
       <div class="qtext2"><b>3.</b> Where is the stadium located?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -395,7 +407,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о местонахождении.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-4" data-ans="no" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-4" data-ans="no" data-section="Письмо 2: stadium" data-label="Письмо 2 · Was it comfortable for you to sit at the stadium?" data-show="не принять">
       <div class="qtext2"><b>4.</b> Was it comfortable for you to sit at the stadium?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -403,7 +415,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о личных ощущениях автора, а не о самом стадионе.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-5" data-ans="yes" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-5" data-ans="yes" data-section="Письмо 2: stadium" data-label="Письмо 2 · Were the seats comfortable at the stadium?" data-show="принять">
       <div class="qtext2"><b>5.</b> Were the seats comfortable at the stadium?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -411,7 +423,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о качестве сидений на стадионе.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-6" data-ans="no" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-6" data-ans="no" data-section="Письмо 2: stadium" data-label="Письмо 2 · How many people were there at the stadium?" data-show="не принять">
       <div class="qtext2"><b>6.</b> How many people were there at the stadium?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -419,7 +431,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос не о стадионе, а о количестве человек на конкретном мероприятии.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-7" data-ans="yes" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-7" data-ans="yes" data-section="Письмо 2: stadium" data-label="Письмо 2 · How many people can the stadium hold?" data-show="принять">
       <div class="qtext2"><b>7.</b> How many people can the stadium hold?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -427,7 +439,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о вместимости стадиона.</div>
     </div>
-    <div class="qjudge" data-q="t37-2-8" data-ans="yes" data-section="Письмо 2: stadium">
+    <div class="qjudge" data-q="t37-2-8" data-ans="yes" data-section="Письмо 2: stadium" data-label="Письмо 2 · Was there a café there?" data-show="принять">
       <div class="qtext2"><b>8.</b> Was there a café there?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -450,7 +462,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «fitness centre».</p>
   
-    <div class="qjudge" data-q="t37-3-1" data-ans="yes" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-1" data-ans="yes" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · What are its opening hours?" data-show="принять">
       <div class="qtext2"><b>1.</b> What are its opening hours?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -458,7 +470,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о часах работы центра.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-2" data-ans="no" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-2" data-ans="no" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · When was the fitness centre opened?" data-show="не принять">
       <div class="qtext2"><b>2.</b> When was the fitness centre opened?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -466,7 +478,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Эта информация уже дана в письме: «a week ago».</div>
     </div>
-    <div class="qjudge" data-q="t37-3-3" data-ans="yes" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-3" data-ans="yes" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · What kinds of fitness classes do they offer?" data-show="принять">
       <div class="qtext2"><b>3.</b> What kinds of fitness classes do they offer?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -474,7 +486,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о предлагаемых занятиях.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-4" data-ans="yes" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-4" data-ans="yes" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · How much is a monthly membership?" data-show="принять">
       <div class="qtext2"><b>4.</b> How much is a monthly membership?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -482,7 +494,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Естественный вопрос о цене абонемента в фитнес-центр.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-5" data-ans="yes" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-5" data-ans="yes" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · Do they have a swimming pool?" data-show="принять">
       <div class="qtext2"><b>5.</b> Do they have a swimming pool?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -490,7 +502,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о наличии бассейна.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-6" data-ans="no" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-6" data-ans="no" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · Do you like the fitness centre?" data-show="не принять">
       <div class="qtext2"><b>6.</b> Do you like the fitness centre?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -498,7 +510,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о личных предпочтениях автора, а не о самом центре.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-7" data-ans="yes" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-7" data-ans="yes" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · Are there special discounts for students?" data-show="принять">
       <div class="qtext2"><b>7.</b> Are there special discounts for students?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -506,7 +518,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о скидках.</div>
     </div>
-    <div class="qjudge" data-q="t37-3-8" data-ans="no" data-section="Письмо 3: fitness centre">
+    <div class="qjudge" data-q="t37-3-8" data-ans="no" data-section="Письмо 3: fitness centre" data-label="Письмо 3 · Have you joined the fitness centre?" data-show="не принять">
       <div class="qtext2"><b>8.</b> Have you joined the fitness centre?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -529,7 +541,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «book club».</p>
   
-    <div class="qjudge" data-q="t37-4-1" data-ans="yes" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-1" data-ans="yes" data-section="Письмо 4: book club" data-label="Письмо 4 · Where do you usually meet?" data-show="принять">
       <div class="qtext2"><b>1.</b> Where do you usually meet?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -537,7 +549,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о месте встреч участников клуба.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-2" data-ans="no" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-2" data-ans="no" data-section="Письмо 4: book club" data-label="Письмо 4 · How much do you pay for the membership?" data-show="не принять">
       <div class="qtext2"><b>2.</b> How much do you pay for the membership?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -545,7 +557,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Неуместный вопрос: автор письма с друзьями сами организовали клуб.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-3" data-ans="yes" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-3" data-ans="yes" data-section="Письмо 4: book club" data-label="Письмо 4 · What kinds of books do you discuss in your book club?" data-show="принять">
       <div class="qtext2"><b>3.</b> What kinds of books do you discuss in your book club?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -553,7 +565,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о книгах, которые обсуждают в клубе.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-4" data-ans="no" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-4" data-ans="no" data-section="Письмо 4: book club" data-label="Письмо 4 · What is your favourite book?" data-show="не принять">
       <div class="qtext2"><b>4.</b> What is your favourite book?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -561,7 +573,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о личных предпочтениях автора, а не о клубе.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-5" data-ans="yes" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-5" data-ans="yes" data-section="Письмо 4: book club" data-label="Письмо 4 · How often do you meet?" data-show="принять">
       <div class="qtext2"><b>5.</b> How often do you meet?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -569,7 +581,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о частоте встреч.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-6" data-ans="yes" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-6" data-ans="yes" data-section="Письмо 4: book club" data-label="Письмо 4 · How many members are there in your book club?" data-show="принять">
       <div class="qtext2"><b>6.</b> How many members are there in your book club?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -577,7 +589,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о количестве участников.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-7" data-ans="no" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-7" data-ans="no" data-section="Письмо 4: book club" data-label="Письмо 4 · Who organized the book club?" data-show="не принять">
       <div class="qtext2"><b>7.</b> Who organized the book club?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -585,7 +597,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Эта информация уже дана в письме — клуб организовал сам автор.</div>
     </div>
-    <div class="qjudge" data-q="t37-4-8" data-ans="yes" data-section="Письмо 4: book club">
+    <div class="qjudge" data-q="t37-4-8" data-ans="yes" data-section="Письмо 4: book club" data-label="Письмо 4 · How can one join it?" data-show="принять">
       <div class="qtext2"><b>8.</b> How can one join it?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -608,7 +620,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «photo competition».</p>
   
-    <div class="qjudge" data-q="t37-5-1" data-ans="yes" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-1" data-ans="yes" data-section="Письмо 5: photo competition" data-label="Письмо 5 · What was the theme of the competition?" data-show="принять">
       <div class="qtext2"><b>1.</b> What was the theme of the competition?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -616,7 +628,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о теме конкурса.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-2" data-ans="yes" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-2" data-ans="yes" data-section="Письмо 5: photo competition" data-label="Письмо 5 · How many people took part?" data-show="принять">
       <div class="qtext2"><b>2.</b> How many people took part?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -624,7 +636,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о количестве участников.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-3" data-ans="no" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-3" data-ans="no" data-section="Письмо 5: photo competition" data-label="Письмо 5 · Do you like taking photos?" data-show="не принять">
       <div class="qtext2"><b>3.</b> Do you like taking photos?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -632,7 +644,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о хобби автора, а не о конкурсе.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-4" data-ans="yes" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-4" data-ans="yes" data-section="Письмо 5: photo competition" data-label="Письмо 5 · Did you win any prize?" data-show="принять">
       <div class="qtext2"><b>4.</b> Did you win any prize?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -640,7 +652,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Логичный вопрос об итоге конкретного соревнования.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-5" data-ans="yes" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-5" data-ans="yes" data-section="Письмо 5: photo competition" data-label="Письмо 5 · Who organised the competition?" data-show="принять">
       <div class="qtext2"><b>5.</b> Who organised the competition?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -648,7 +660,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос об организаторе.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-6" data-ans="no" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-6" data-ans="no" data-section="Письмо 5: photo competition" data-label="Письмо 5 · How often are photo competitions held in your city?" data-show="не принять">
       <div class="qtext2"><b>6.</b> How often are photo competitions held in your city?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -656,7 +668,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о конкурсах в целом, а не о конкретном событии.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-7" data-ans="no" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-7" data-ans="no" data-section="Письмо 5: photo competition" data-label="Письмо 5 · Where will the competition be held?" data-show="не принять">
       <div class="qtext2"><b>7.</b> Where will the competition be held?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -664,7 +676,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Конкурс уже прошёл («last week»), спрашивать о будущем месте нелогично.</div>
     </div>
-    <div class="qjudge" data-q="t37-5-8" data-ans="yes" data-section="Письмо 5: photo competition">
+    <div class="qjudge" data-q="t37-5-8" data-ans="yes" data-section="Письмо 5: photo competition" data-label="Письмо 5 · Who judged the competition?" data-show="принять">
       <div class="qtext2"><b>8.</b> Who judged the competition?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -687,7 +699,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   </div>
   <p class="muted">Отметьте, какие из восьми вопросов комиссия примет как вопросы о «kitten».</p>
   
-    <div class="qjudge" data-q="t37-6-1" data-ans="yes" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-1" data-ans="yes" data-section="Письмо 6: kitten" data-label="Письмо 6 · What did you name it?" data-show="принять">
       <div class="qtext2"><b>1.</b> What did you name it?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -695,7 +707,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос об имени котёнка.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-2" data-ans="no" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-2" data-ans="no" data-section="Письмо 6: kitten" data-label="Письмо 6 · How much did it cost?" data-show="не принять">
       <div class="qtext2"><b>2.</b> How much did it cost?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -703,7 +715,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Неуместный вопрос о стоимости подарка.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-3" data-ans="yes" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-3" data-ans="yes" data-section="Письмо 6: kitten" data-label="Письмо 6 · What colour is your kitten?" data-show="принять">
       <div class="qtext2"><b>3.</b> What colour is your kitten?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -711,7 +723,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос об окрасе котёнка.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-4" data-ans="no" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-4" data-ans="no" data-section="Письмо 6: kitten" data-label="Письмо 6 · What breed of kittens do you like?" data-show="не принять">
       <div class="qtext2"><b>4.</b> What breed of kittens do you like?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -719,7 +731,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос не о конкретном котёнке, а о предпочтениях автора в целом.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-5" data-ans="yes" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-5" data-ans="yes" data-section="Письмо 6: kitten" data-label="Письмо 6 · How old is it?" data-show="принять">
       <div class="qtext2"><b>5.</b> How old is it?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -727,7 +739,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Прямой вопрос о возрасте котёнка.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-6" data-ans="no" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-6" data-ans="no" data-section="Письмо 6: kitten" data-label="Письмо 6 · Have you bought any toys for it?" data-show="не принять">
       <div class="qtext2"><b>6.</b> Have you bought any toys for it?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -735,7 +747,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о действиях хозяина, а не о самом котёнке.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-7" data-ans="no" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-7" data-ans="no" data-section="Письмо 6: kitten" data-label="Письмо 6 · Do your parents like it?" data-show="не принять">
       <div class="qtext2"><b>7.</b> Do your parents like it?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -743,7 +755,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
       </div>
       <div class="qexplain" style="display:none">Вопрос о чувствах родителей, а не о котёнке.</div>
     </div>
-    <div class="qjudge" data-q="t37-6-8" data-ans="yes" data-section="Письмо 6: kitten">
+    <div class="qjudge" data-q="t37-6-8" data-ans="yes" data-section="Письмо 6: kitten" data-label="Письмо 6 · What does it like to eat?" data-show="принять">
       <div class="qtext2"><b>8.</b> What does it like to eat?</div>
       <div class="qbtns">
         <button class="jbtn" data-val="yes">✅ принять</button>
@@ -879,14 +891,28 @@ function renderStickerForPct(pct){
    =================================================================== */
 const ITEM_STATE = {};
 
-function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`]/g,''); }
+function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`’‘´]/g,''); }
 
-function markSelect(sel){
+/* Lock an answered item if it sits inside a [data-lock] container (diagnostic mode):
+   once checked, the answer can no longer be changed and re-checked. */
+function lockItem(el){
+  if(!el.closest('[data-lock]')) return;
+  if(el.tagName === 'SELECT') el.disabled = true; else el.readOnly = true;
+  el.classList.add('locked');
+}
+
+/* select.dq.deferred = no instant colour on change; marked only by a page check
+   (checkGapsIn) or by renderResults. Plain select.dq keeps the old instant behaviour. */
+function markSelect(sel, force){
   if(sel.value === '') return;
+  if(sel.classList.contains('deferred') && !force){ if(!isRestoring) scheduleSave(); return; }
   const ok = normAns(sel.value) === normAns(sel.dataset.ans);
   sel.classList.toggle('correct', ok);
   sel.classList.toggle('wrong', !ok);
   ITEM_STATE[sel.dataset.q] = {correct: ok, section: sel.dataset.section || 'Задание'};
+  const ex = document.getElementById('explain-' + sel.dataset.q);
+  if(ex) ex.classList.add('show');
+  lockItem(sel);
   if(!isRestoring) scheduleSave();
 }
 
@@ -940,6 +966,13 @@ function checkGapsIn(containerId){
     const ex = document.getElementById('explain-' + inp.dataset.q);
     if(ex) ex.classList.add('show');
     ITEM_STATE[inp.dataset.q] = {correct: ok, section: inp.dataset.section || 'Задание'};
+    lockItem(inp);
+    done++;
+  });
+  container.querySelectorAll('select.dq.deferred[data-q]').forEach(sel=>{
+    total++;
+    if(sel.value === '') return;
+    markSelect(sel, true);
     done++;
   });
   const status = container.querySelector('.page-status');
@@ -950,20 +983,63 @@ function checkGapsIn(containerId){
   if(!isRestoring) scheduleSave();
 }
 
+const ANSWERABLE = 'select.dq[data-q], .mcq[data-q], .qjudge[data-q], .gap[data-q]';
+
+/* What the student actually gave for an item (for the mistakes list). */
+function givenAnswer(el){
+  if(el.matches('.gap')) return el.value.trim();
+  if(el.matches('select')) return el.value ? el.options[el.selectedIndex].text : '';
+  const chosen = el.querySelector('.chosen');
+  return chosen ? chosen.textContent.trim() : '';
+}
+/* Human-readable correct answer: data-show wins, else first accepted answer / option text. */
+function correctAnswerText(el){
+  if(el.dataset.show) return el.dataset.show;
+  if(el.matches('select')){
+    const o = Array.from(el.options).find(o => o.value === el.dataset.ans);
+    return o ? o.text : el.dataset.ans;
+  }
+  return (el.dataset.ans || '').split('|')[0];
+}
+
+/* Totals count EVERY answerable item on the page in document order: an item the
+   student never answered counts as wrong (otherwise skipping inflates the %). */
 function computeGrandTotal(){
   let correct = 0, total = 0;
   const bySection = {};
-  Object.values(ITEM_STATE).forEach(r=>{
-    total++; if(r.correct) correct++;
-    const s = r.section || 'Задание';
+  const mistakes = [];
+  const seen = new Set();
+  document.querySelectorAll(ANSWERABLE).forEach(el=>{
+    const q = el.dataset.q;
+    if(seen.has(q)) return; seen.add(q);
+    const r = ITEM_STATE[q];
+    const ok = !!(r && r.correct);
+    const s = el.dataset.section || (r && r.section) || 'Задание';
+    total++; if(ok) correct++;
     if(!bySection[s]) bySection[s] = {correct:0, total:0};
     bySection[s].total++;
-    if(r.correct) bySection[s].correct++;
+    if(ok) bySection[s].correct++;
+    if(!ok){
+      const given = r ? givenAnswer(el) : '';
+      mistakes.push(`${el.dataset.label || q}: «${given || '—'}» → ${correctAnswerText(el)}`);
+    }
   });
-  return {correct, total, bySection};
+  return {correct, total, bySection, mistakes};
+}
+
+/* Evaluate everything the student filled in but never checked page-by-page. */
+function evaluatePending(){
+  document.querySelectorAll('[data-check-gaps]').forEach(b=>{
+    const c = document.getElementById(b.dataset.checkGaps);
+    if(!c) return;
+    const pending = Array.from(c.querySelectorAll('.gap[data-q], select.dq.deferred[data-q]'))
+      .some(el => !ITEM_STATE[el.dataset.q] && (el.value||'').trim() !== '');
+    if(pending) checkGapsIn(b.dataset.checkGaps);
+  });
 }
 
 function renderResults(){
+  if(!isRestoring) evaluatePending();
   const {correct, total, bySection} = computeGrandTotal();
   const pct = total ? Math.round(correct/total*100) : 0;
   const panel = document.getElementById('resultsPanel');
@@ -990,7 +1066,8 @@ async function submitResults(){
   if(btn) btn.disabled = true;
   if(status){ status.textContent = 'Отправка…'; status.style.color = 'var(--muted)'; }
   const breakdown = Object.entries(bySection).map(([n,r])=>`${n}: ${r.correct}/${r.total}`).join('; ');
-  const mistakes = Object.entries(ITEM_STATE).filter(([,r])=>!r.correct).length + ' неверных из ' + total;
+  const ml = computeGrandTotal().mistakes;
+  const mistakes = ml.length ? `${ml.length} неверных или пустых из ${total}:\n` + ml.join('\n') : 'Ошибок нет';
   const payload = {
     access_key: WEB3FORMS_ACCESS_KEY,
     course_id: COURSE_ID,
@@ -1023,6 +1100,7 @@ async function submitResults(){
 }
 
 document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
 document.addEventListener('click', e=>{
   const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
   const jb  = e.target.closest('.qjudge[data-q] .jbtn'); if(jb){ markJudgeBtn(jb); return; }
@@ -1092,7 +1170,10 @@ function applyRestore(data){
         gapInp.classList.toggle('wrong', !r.correct);
         const ex = document.getElementById('explain-' + q);
         if(ex) ex.classList.add('show');
+        lockItem(gapInp);
       }
+      const defSel = document.querySelector(`select.dq.deferred[data-q="${CSS.escape(q)}"]`);
+      if(defSel && defSel.value) markSelect(defSel, true);
       const judgeGroup = document.querySelector(`.qjudge[data-q="${CSS.escape(q)}"]`);
       if(judgeGroup){
         judgeGroup.dataset.done = '1';
@@ -1124,7 +1205,7 @@ function restoreProgress(){
     const raw = localStorage.getItem(PROGRESS_KEY);
     if(!raw) return;
     const data = JSON.parse(raw);
-    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length;
+    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
     if(!hasAnswers) return;
     const note = document.getElementById('restoreNote');
     if(note){
@@ -1143,6 +1224,7 @@ function clearProgress(){
   location.reload();
 }
 document.addEventListener('DOMContentLoaded', restoreProgress);
+
 
 buildDots();
 showPage(0);

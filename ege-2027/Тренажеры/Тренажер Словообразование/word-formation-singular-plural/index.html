@@ -138,6 +138,17 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 select.dq{ font-family:inherit; font-size:.88rem; padding:6px 10px; border:1.5px solid var(--border); border-radius:7px; background:#fff; color:var(--text); min-width:220px; }
 select.dq.correct{ border-color:var(--correct); background:#eafaf0; color:var(--correct); font-weight:700; }
 select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+select.dq.inline{ min-width:0; max-width:100%; width:auto; padding:3px 6px; font-size:.86rem; vertical-align:baseline; }
+.gap.locked, select.dq.locked{ opacity:1; cursor:default; }
+select.dq:disabled{ -webkit-text-fill-color:currentColor; }
+.letter-text{ font-size:.95rem; line-height:2.1; background:var(--card-tint); border-radius:12px; padding:16px 18px; margin:12px 0; }
+.letter-text p{ margin:0 0 10px; }
+.mail-card{ border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:12px 0; font-size:.9rem; line-height:1.55; }
+.mail-card .mail-head{ font-size:.8rem; color:var(--muted); margin-bottom:8px; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
+.phrase-bank span{ background:#fff; border:1.5px solid var(--border); border-radius:999px; padding:3px 10px; font-size:.82rem; }
+.inline-explain{ list-style:none; padding:0; margin:10px 0 0; }
+.inline-explain .gap-explain{ margin-top:6px; }
 .match-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--border); }
 .match-row:last-child{ border-bottom:none; }
 .match-row .mn{ font-size:.78rem; font-weight:800; color:var(--muted); min-width:22px; }
@@ -177,7 +188,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 .reset-link{ text-align:center; margin-top:6px; }
 .reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
 
-.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--purple); }
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.8; color:var(--yellow); }
 .angle-badge .wordmark{ width:110px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
 @media (max-width:640px){ .angle-badge{ display:none; } }
@@ -188,6 +199,7 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
   .namebar input{ width:150px; }
   .save-indicator{ flex-basis:100%; }
 }
+
 
 </style>
 <style id="angle-v2">
@@ -278,33 +290,34 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </section>
 <section class="page" data-page="1">
 
-<div class="card" id="wfpage1">
+<div class="card" id="wfpage1" data-lock="1">
   <div class="eyebrow">Задания 1–5 из 25</div>
   <h2>Заполните пропуски</h2>
+  <p class="muted">Впишите слова и нажмите «Проверить эту страницу». После проверки заполненный ответ изменить нельзя. Пустой пропуск можно заполнить и проверить позже.</p>
   
   <div class="gap-item">
     <div class="gn">1.</div>
-    <div class="gtext">Since the <input class="gap" data-q="wf-1" data-ans="appearance" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>APPEAR</b>) of the first Russian printed newspaper in the early 18th century, the country&#x27;s cultural life has changed dramatically.</div>
+    <div class="gtext">Since the <input class="gap" data-q="wf-1" data-ans="appearance" data-show="appearance" data-label="1 (APPEAR)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>APPEAR</b>) of the first Russian printed newspaper in the early 18th century, the country&#x27;s cultural life has changed dramatically.</div>
     <div class="gap-explain" id="explain-wf-1">Суффикс -ance (appear → appearance). Ед. число: сказуемое has changed стоит в ед. числе.</div>
   </div>
   <div class="gap-item">
     <div class="gn">2.</div>
-    <div class="gtext">Among the most significant <input class="gap" data-q="wf-2" data-ans="achievements" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ACHIEVE</b>) of Russian science, which were recognized worldwide, space exploration occupies a special place.</div>
+    <div class="gtext">Among the most significant <input class="gap" data-q="wf-2" data-ans="achievements" data-show="achievements" data-label="2 (ACHIEVE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ACHIEVE</b>) of Russian science, which were recognized worldwide, space exploration occupies a special place.</div>
     <div class="gap-explain" id="explain-wf-2">Суффикс -ment. Мн. число: придаточное which were recognized указывает на множественность.</div>
   </div>
   <div class="gap-item">
     <div class="gn">3.</div>
-    <div class="gtext">Everyone admired his <input class="gap" data-q="wf-3" data-ans="determination" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DETERMINE</b>) to overcome all obstacles and become a cosmonaut, despite numerous difficulties.</div>
+    <div class="gtext">Everyone admired his <input class="gap" data-q="wf-3" data-ans="determination" data-show="determination" data-label="3 (DETERMINE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DETERMINE</b>) to overcome all obstacles and become a cosmonaut, despite numerous difficulties.</div>
     <div class="gap-explain" id="explain-wf-3">Суффикс -ation. Ед. число: неисчисляемое существительное.</div>
   </div>
   <div class="gap-item">
     <div class="gn">4.</div>
-    <div class="gtext">Russian science has benefited from a number of important <input class="gap" data-q="wf-4" data-ans="improvements" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>IMPROVE</b>) made in the 19th century.</div>
+    <div class="gtext">Russian science has benefited from a number of important <input class="gap" data-q="wf-4" data-ans="improvements" data-show="improvements" data-label="4 (IMPROVE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>IMPROVE</b>) made in the 19th century.</div>
     <div class="gap-explain" id="explain-wf-4">Суффикс -ment (improve → improvement). Мн. число: оборот a number of + исчисляемое во мн. числе.</div>
   </div>
   <div class="gap-item">
     <div class="gn">5.</div>
-    <div class="gtext">Foreign experts have been surprised by the rapid <input class="gap" data-q="wf-5" data-ans="development" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DEVELOP</b>) of digital technologies in Russia over the past decade.</div>
+    <div class="gtext">Foreign experts have been surprised by the rapid <input class="gap" data-q="wf-5" data-ans="development" data-show="development" data-label="5 (DEVELOP)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DEVELOP</b>) of digital technologies in Russia over the past decade.</div>
     <div class="gap-explain" id="explain-wf-5">Суффикс -ment. Ед. число: неисчисляемое существительное.</div>
   </div>
   <div class="check-row">
@@ -317,33 +330,34 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </section>
 <section class="page" data-page="2">
 
-<div class="card" id="wfpage2">
+<div class="card" id="wfpage2" data-lock="1">
   <div class="eyebrow">Задания 6–10 из 25</div>
   <h2>Заполните пропуски</h2>
+  <p class="muted">Впишите слова и нажмите «Проверить эту страницу». После проверки заполненный ответ изменить нельзя. Пустой пропуск можно заполнить и проверить позже.</p>
   
   <div class="gap-item">
     <div class="gn">6.</div>
-    <div class="gtext">A wide range of traditions, associated with Russian national holidays, has been carefully preserved by public <input class="gap" data-q="wf-6" data-ans="organisations|organizations" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ORGANISE</b>) at different levels.</div>
+    <div class="gtext">A wide range of traditions, associated with Russian national holidays, has been carefully preserved by public <input class="gap" data-q="wf-6" data-ans="organisations|organizations" data-show="organisations" data-label="6 (ORGANISE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ORGANISE</b>) at different levels.</div>
     <div class="gap-explain" id="explain-wf-6">Суффикс -tion (organise → organisation). Мн. число: public organisations — подсказка в предлоге by без артикля a.</div>
   </div>
   <div class="gap-item">
     <div class="gn">7.</div>
-    <div class="gtext">The expedition included neither the <input class="gap" data-q="wf-7" data-ans="explorers" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLORE</b>) who first reached the Arctic nor the scientists who followed them.</div>
+    <div class="gtext">The expedition included neither the <input class="gap" data-q="wf-7" data-ans="explorers" data-show="explorers" data-label="7 (EXPLORE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLORE</b>) who first reached the Arctic nor the scientists who followed them.</div>
     <div class="gap-explain" id="explain-wf-7">Суффикс -er. Мн. число: neither the explorers … nor the scientists — однородные члены во мн. числе.</div>
   </div>
   <div class="gap-item">
     <div class="gn">8.</div>
-    <div class="gtext">Many people underestimate the <input class="gap" data-q="wf-8" data-ans="importance" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>IMPORTANT</b>) of learning foreign languages in the modern world.</div>
+    <div class="gtext">Many people underestimate the <input class="gap" data-q="wf-8" data-ans="importance" data-show="importance" data-label="8 (IMPORTANT)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>IMPORTANT</b>) of learning foreign languages in the modern world.</div>
     <div class="gap-explain" id="explain-wf-8">Суффикс -ance. Ед. число: неисчисляемое существительное.</div>
   </div>
   <div class="gap-item">
     <div class="gn">9.</div>
-    <div class="gtext">Visitors are attracted by the <input class="gap" data-q="wf-9" data-ans="exhibitions" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXHIBIT</b>) which are held in the halls of the Russian Museum.</div>
+    <div class="gtext">Visitors are attracted by the <input class="gap" data-q="wf-9" data-ans="exhibitions" data-show="exhibitions" data-label="9 (EXHIBIT)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXHIBIT</b>) which are held in the halls of the Russian Museum.</div>
     <div class="gap-explain" id="explain-wf-9">Суффикс -ion. Мн. число: придаточное which are held.</div>
   </div>
   <div class="gap-item">
     <div class="gn">10.</div>
-    <div class="gtext">The state invests heavily in the <input class="gap" data-q="wf-10" data-ans="education" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EDUCATE</b>) of young people, which has always been a priority in Russia.</div>
+    <div class="gtext">The state invests heavily in the <input class="gap" data-q="wf-10" data-ans="education" data-show="education" data-label="10 (EDUCATE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EDUCATE</b>) of young people, which has always been a priority in Russia.</div>
     <div class="gap-explain" id="explain-wf-10">Суффикс -ion. Ед. число: неисчисляемое, придаточное which has always been — глагол в ед. числе.</div>
   </div>
   <div class="check-row">
@@ -356,33 +370,34 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </section>
 <section class="page" data-page="3">
 
-<div class="card" id="wfpage3">
+<div class="card" id="wfpage3" data-lock="1">
   <div class="eyebrow">Задания 11–15 из 25</div>
   <h2>Заполните пропуски</h2>
+  <p class="muted">Впишите слова и нажмите «Проверить эту страницу». После проверки заполненный ответ изменить нельзя. Пустой пропуск можно заполнить и проверить позже.</p>
   
   <div class="gap-item">
     <div class="gn">11.</div>
-    <div class="gtext">The <input class="gap" data-q="wf-11" data-ans="performances" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>PERFORM</b>) which were given by the Bolshoi Theatre and the concerts organized by local musicians were highly appreciated.</div>
+    <div class="gtext">The <input class="gap" data-q="wf-11" data-ans="performances" data-show="performances" data-label="11 (PERFORM)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>PERFORM</b>) which were given by the Bolshoi Theatre and the concerts organized by local musicians were highly appreciated.</div>
     <div class="gap-explain" id="explain-wf-11">Суффикс -ance. Мн. число: придаточное which were given.</div>
   </div>
   <div class="gap-item">
     <div class="gn">12.</div>
-    <div class="gtext">The contest attracts the <input class="gap" data-q="wf-12" data-ans="competitors" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>COMPETE</b>) who have been preparing for months before the event.</div>
+    <div class="gtext">The contest attracts the <input class="gap" data-q="wf-12" data-ans="competitors" data-show="competitors" data-label="12 (COMPETE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>COMPETE</b>) who have been preparing for months before the event.</div>
     <div class="gap-explain" id="explain-wf-12">Суффикс -or. Мн. число: придаточное who have been preparing.</div>
   </div>
   <div class="gap-item">
     <div class="gn">13.</div>
-    <div class="gtext">The IT company is looking for a talented <input class="gap" data-q="wf-13" data-ans="developer" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DEVELOP</b>) to join their team.</div>
+    <div class="gtext">The IT company is looking for a talented <input class="gap" data-q="wf-13" data-ans="developer" data-show="developer" data-label="13 (DEVELOP)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DEVELOP</b>) to join their team.</div>
     <div class="gap-explain" id="explain-wf-13">Суффикс -er. Ед. число: исчисляемое существительное с артиклем a.</div>
   </div>
   <div class="gap-item">
     <div class="gn">14.</div>
-    <div class="gtext">Everyone was touched by her <input class="gap" data-q="wf-14" data-ans="kindness" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>KIND</b>) towards complete strangers.</div>
+    <div class="gtext">Everyone was touched by her <input class="gap" data-q="wf-14" data-ans="kindness" data-show="kindness" data-label="14 (KIND)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>KIND</b>) towards complete strangers.</div>
     <div class="gap-explain" id="explain-wf-14">Суффикс -ness. Ед. число: неисчисляемое существительное.</div>
   </div>
   <div class="gap-item">
     <div class="gn">15.</div>
-    <div class="gtext">There exist different <input class="gap" data-q="wf-15" data-ans="explanations" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLAIN</b>) of the origin of the Slavic languages, and none of them is universally accepted.</div>
+    <div class="gtext">There exist different <input class="gap" data-q="wf-15" data-ans="explanations" data-show="explanations" data-label="15 (EXPLAIN)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLAIN</b>) of the origin of the Slavic languages, and none of them is universally accepted.</div>
     <div class="gap-explain" id="explain-wf-15">Суффикс -tion. Мн. число: There exist different explanations … none of them.</div>
   </div>
   <div class="check-row">
@@ -395,33 +410,34 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </section>
 <section class="page" data-page="4">
 
-<div class="card" id="wfpage4">
+<div class="card" id="wfpage4" data-lock="1">
   <div class="eyebrow">Задания 16–20 из 25</div>
   <h2>Заполните пропуски</h2>
+  <p class="muted">Впишите слова и нажмите «Проверить эту страницу». После проверки заполненный ответ изменить нельзя. Пустой пропуск можно заполнить и проверить позже.</p>
   
   <div class="gap-item">
     <div class="gn">16.</div>
-    <div class="gtext">People often cherish <input class="gap" data-q="wf-16" data-ans="friendships" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>FRIEND</b>) formed during childhood, as they help cope with difficulties.</div>
+    <div class="gtext">People often cherish <input class="gap" data-q="wf-16" data-ans="friendships" data-show="friendships" data-label="16 (FRIEND)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>FRIEND</b>) formed during childhood, as they help cope with difficulties.</div>
     <div class="gap-explain" id="explain-wf-16">Суффикс -ship. Мн. число: местоимение they указывает на множественность.</div>
   </div>
   <div class="gap-item">
     <div class="gn">17.</div>
-    <div class="gtext">One of the most talented <input class="gap" data-q="wf-17" data-ans="writers" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>WRITE</b>) of his generation, whose novels are still widely read today, was born in a small Russian town.</div>
+    <div class="gtext">One of the most talented <input class="gap" data-q="wf-17" data-ans="writers" data-show="writers" data-label="17 (WRITE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>WRITE</b>) of his generation, whose novels are still widely read today, was born in a small Russian town.</div>
     <div class="gap-explain" id="explain-wf-17">Суффикс -er. Мн. число: конструкция one of the most talented + сущ. всегда требует мн. числа.</div>
   </div>
   <div class="gap-item">
     <div class="gn">18.</div>
-    <div class="gtext">Each of the <input class="gap" data-q="wf-18" data-ans="explorers" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLORE</b>) who set off on the expedition was carefully selected by the organisers.</div>
+    <div class="gtext">Each of the <input class="gap" data-q="wf-18" data-ans="explorers" data-show="explorers" data-label="18 (EXPLORE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>EXPLORE</b>) who set off on the expedition was carefully selected by the organisers.</div>
     <div class="gap-explain" id="explain-wf-18">Суффикс -er. Мн. число: конструкция each of the + сущ. требует мн. числа.</div>
   </div>
   <div class="gap-item">
     <div class="gn">19.</div>
-    <div class="gtext">The <input class="gap" data-q="wf-19" data-ans="decorators" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DECORATE</b>) who worked on the palace interiors were highly skilled craftsmen.</div>
+    <div class="gtext">The <input class="gap" data-q="wf-19" data-ans="decorators" data-show="decorators" data-label="19 (DECORATE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>DECORATE</b>) who worked on the palace interiors were highly skilled craftsmen.</div>
     <div class="gap-explain" id="explain-wf-19">Суффикс -or. Мн. число: придаточное who worked … were.</div>
   </div>
   <div class="gap-item">
     <div class="gn">20.</div>
-    <div class="gtext">The 19th century gave the world truly remarkable <input class="gap" data-q="wf-20" data-ans="inventions" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>INVENT</b>) such as the radio and the telephone.</div>
+    <div class="gtext">The 19th century gave the world truly remarkable <input class="gap" data-q="wf-20" data-ans="inventions" data-show="inventions" data-label="20 (INVENT)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>INVENT</b>) such as the radio and the telephone.</div>
     <div class="gap-explain" id="explain-wf-20">Суффикс -ion. Мн. число: such as + несколько примеров.</div>
   </div>
   <div class="check-row">
@@ -434,33 +450,34 @@ select.dq.wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wron
 </section>
 <section class="page" data-page="5">
 
-<div class="card" id="wfpage5">
+<div class="card" id="wfpage5" data-lock="1">
   <div class="eyebrow">Задания 21–25 из 25</div>
   <h2>Заполните пропуски</h2>
+  <p class="muted">Впишите слова и нажмите «Проверить эту страницу». После проверки заполненный ответ изменить нельзя. Пустой пропуск можно заполнить и проверить позже.</p>
   
   <div class="gap-item">
     <div class="gn">21.</div>
-    <div class="gtext">A variety of <input class="gap" data-q="wf-21" data-ans="nationalities" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>NATIONAL</b>) inhabiting Russia contribute to its rich cultural heritage.</div>
+    <div class="gtext">A variety of <input class="gap" data-q="wf-21" data-ans="nationalities" data-show="nationalities" data-label="21 (NATIONAL)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>NATIONAL</b>) inhabiting Russia contribute to its rich cultural heritage.</div>
     <div class="gap-explain" id="explain-wf-21">Суффикс -ity. Мн. число: a variety of nationalities … contribute (глагол во мн. числе).</div>
   </div>
   <div class="gap-item">
     <div class="gn">22.</div>
-    <div class="gtext">The government supported all the <input class="gap" data-q="wf-22" data-ans="organisations|organizations" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ORGANISE</b>) that were involved in the project.</div>
+    <div class="gtext">The government supported all the <input class="gap" data-q="wf-22" data-ans="organisations|organizations" data-show="organisations" data-label="22 (ORGANISE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ORGANISE</b>) that were involved in the project.</div>
     <div class="gap-explain" id="explain-wf-22">Суффикс -ation. Мн. число: придаточное that were involved.</div>
   </div>
   <div class="gap-item">
     <div class="gn">23.</div>
-    <div class="gtext">The <input class="gap" data-q="wf-23" data-ans="achievement" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ACHIEVE</b>) of a single talented scientist is often the result of years of hard work.</div>
+    <div class="gtext">The <input class="gap" data-q="wf-23" data-ans="achievement" data-show="achievement" data-label="23 (ACHIEVE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>ACHIEVE</b>) of a single talented scientist is often the result of years of hard work.</div>
     <div class="gap-explain" id="explain-wf-23">Суффикс -ment. Ед. число: сказуемое is стоит в ед. числе.</div>
   </div>
   <div class="gap-item">
     <div class="gn">24.</div>
-    <div class="gtext">Russian literature is famous for its outstanding <input class="gap" data-q="wf-24" data-ans="writers" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>WRITE</b>) of the 19th century, whose works are still widely read today.</div>
+    <div class="gtext">Russian literature is famous for its outstanding <input class="gap" data-q="wf-24" data-ans="writers" data-show="writers" data-label="24 (WRITE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>WRITE</b>) of the 19th century, whose works are still widely read today.</div>
     <div class="gap-explain" id="explain-wf-24">Суффикс -er. Мн. число: writers … whose works are (мн. число).</div>
   </div>
   <div class="gap-item">
     <div class="gn">25.</div>
-    <div class="gtext">The <input class="gap" data-q="wf-25" data-ans="participation" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>PARTICIPATE</b>) of local communities in the restoration of historical monuments, which was supported by the government, has contributed greatly to the preservation of cultural heritage.</div>
+    <div class="gtext">The <input class="gap" data-q="wf-25" data-ans="participation" data-show="participation" data-label="25 (PARTICIPATE)" data-section="Word Formation" autocomplete="off" spellcheck="false"> (<b>PARTICIPATE</b>) of local communities in the restoration of historical monuments, which was supported by the government, has contributed greatly to the preservation of cultural heritage.</div>
     <div class="gap-explain" id="explain-wf-25">Суффикс -ion. Ед. число: неисчисляемое существительное, сказуемое has contributed.</div>
   </div>
   <div class="check-row">
@@ -595,14 +612,28 @@ function renderStickerForPct(pct){
    =================================================================== */
 const ITEM_STATE = {};
 
-function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`]/g,''); }
+function normAns(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?'"`’‘´]/g,''); }
 
-function markSelect(sel){
+/* Lock an answered item if it sits inside a [data-lock] container (diagnostic mode):
+   once checked, the answer can no longer be changed and re-checked. */
+function lockItem(el){
+  if(!el.closest('[data-lock]')) return;
+  if(el.tagName === 'SELECT') el.disabled = true; else el.readOnly = true;
+  el.classList.add('locked');
+}
+
+/* select.dq.deferred = no instant colour on change; marked only by a page check
+   (checkGapsIn) or by renderResults. Plain select.dq keeps the old instant behaviour. */
+function markSelect(sel, force){
   if(sel.value === '') return;
+  if(sel.classList.contains('deferred') && !force){ if(!isRestoring) scheduleSave(); return; }
   const ok = normAns(sel.value) === normAns(sel.dataset.ans);
   sel.classList.toggle('correct', ok);
   sel.classList.toggle('wrong', !ok);
   ITEM_STATE[sel.dataset.q] = {correct: ok, section: sel.dataset.section || 'Задание'};
+  const ex = document.getElementById('explain-' + sel.dataset.q);
+  if(ex) ex.classList.add('show');
+  lockItem(sel);
   if(!isRestoring) scheduleSave();
 }
 
@@ -656,6 +687,13 @@ function checkGapsIn(containerId){
     const ex = document.getElementById('explain-' + inp.dataset.q);
     if(ex) ex.classList.add('show');
     ITEM_STATE[inp.dataset.q] = {correct: ok, section: inp.dataset.section || 'Задание'};
+    lockItem(inp);
+    done++;
+  });
+  container.querySelectorAll('select.dq.deferred[data-q]').forEach(sel=>{
+    total++;
+    if(sel.value === '') return;
+    markSelect(sel, true);
     done++;
   });
   const status = container.querySelector('.page-status');
@@ -666,20 +704,63 @@ function checkGapsIn(containerId){
   if(!isRestoring) scheduleSave();
 }
 
+const ANSWERABLE = 'select.dq[data-q], .mcq[data-q], .qjudge[data-q], .gap[data-q]';
+
+/* What the student actually gave for an item (for the mistakes list). */
+function givenAnswer(el){
+  if(el.matches('.gap')) return el.value.trim();
+  if(el.matches('select')) return el.value ? el.options[el.selectedIndex].text : '';
+  const chosen = el.querySelector('.chosen');
+  return chosen ? chosen.textContent.trim() : '';
+}
+/* Human-readable correct answer: data-show wins, else first accepted answer / option text. */
+function correctAnswerText(el){
+  if(el.dataset.show) return el.dataset.show;
+  if(el.matches('select')){
+    const o = Array.from(el.options).find(o => o.value === el.dataset.ans);
+    return o ? o.text : el.dataset.ans;
+  }
+  return (el.dataset.ans || '').split('|')[0];
+}
+
+/* Totals count EVERY answerable item on the page in document order: an item the
+   student never answered counts as wrong (otherwise skipping inflates the %). */
 function computeGrandTotal(){
   let correct = 0, total = 0;
   const bySection = {};
-  Object.values(ITEM_STATE).forEach(r=>{
-    total++; if(r.correct) correct++;
-    const s = r.section || 'Задание';
+  const mistakes = [];
+  const seen = new Set();
+  document.querySelectorAll(ANSWERABLE).forEach(el=>{
+    const q = el.dataset.q;
+    if(seen.has(q)) return; seen.add(q);
+    const r = ITEM_STATE[q];
+    const ok = !!(r && r.correct);
+    const s = el.dataset.section || (r && r.section) || 'Задание';
+    total++; if(ok) correct++;
     if(!bySection[s]) bySection[s] = {correct:0, total:0};
     bySection[s].total++;
-    if(r.correct) bySection[s].correct++;
+    if(ok) bySection[s].correct++;
+    if(!ok){
+      const given = r ? givenAnswer(el) : '';
+      mistakes.push(`${el.dataset.label || q}: «${given || '—'}» → ${correctAnswerText(el)}`);
+    }
   });
-  return {correct, total, bySection};
+  return {correct, total, bySection, mistakes};
+}
+
+/* Evaluate everything the student filled in but never checked page-by-page. */
+function evaluatePending(){
+  document.querySelectorAll('[data-check-gaps]').forEach(b=>{
+    const c = document.getElementById(b.dataset.checkGaps);
+    if(!c) return;
+    const pending = Array.from(c.querySelectorAll('.gap[data-q], select.dq.deferred[data-q]'))
+      .some(el => !ITEM_STATE[el.dataset.q] && (el.value||'').trim() !== '');
+    if(pending) checkGapsIn(b.dataset.checkGaps);
+  });
 }
 
 function renderResults(){
+  if(!isRestoring) evaluatePending();
   const {correct, total, bySection} = computeGrandTotal();
   const pct = total ? Math.round(correct/total*100) : 0;
   const panel = document.getElementById('resultsPanel');
@@ -706,7 +787,8 @@ async function submitResults(){
   if(btn) btn.disabled = true;
   if(status){ status.textContent = 'Отправка…'; status.style.color = 'var(--muted)'; }
   const breakdown = Object.entries(bySection).map(([n,r])=>`${n}: ${r.correct}/${r.total}`).join('; ');
-  const mistakes = Object.entries(ITEM_STATE).filter(([,r])=>!r.correct).length + ' неверных из ' + total;
+  const ml = computeGrandTotal().mistakes;
+  const mistakes = ml.length ? `${ml.length} неверных или пустых из ${total}:\n` + ml.join('\n') : 'Ошибок нет';
   const payload = {
     access_key: WEB3FORMS_ACCESS_KEY,
     course_id: COURSE_ID,
@@ -739,6 +821,7 @@ async function submitResults(){
 }
 
 document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
 document.addEventListener('click', e=>{
   const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
   const jb  = e.target.closest('.qjudge[data-q] .jbtn'); if(jb){ markJudgeBtn(jb); return; }
@@ -808,7 +891,10 @@ function applyRestore(data){
         gapInp.classList.toggle('wrong', !r.correct);
         const ex = document.getElementById('explain-' + q);
         if(ex) ex.classList.add('show');
+        lockItem(gapInp);
       }
+      const defSel = document.querySelector(`select.dq.deferred[data-q="${CSS.escape(q)}"]`);
+      if(defSel && defSel.value) markSelect(defSel, true);
       const judgeGroup = document.querySelector(`.qjudge[data-q="${CSS.escape(q)}"]`);
       if(judgeGroup){
         judgeGroup.dataset.done = '1';
@@ -840,7 +926,7 @@ function restoreProgress(){
     const raw = localStorage.getItem(PROGRESS_KEY);
     if(!raw) return;
     const data = JSON.parse(raw);
-    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length;
+    const hasAnswers = Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
     if(!hasAnswers) return;
     const note = document.getElementById('restoreNote');
     if(note){
@@ -859,6 +945,7 @@ function clearProgress(){
   location.reload();
 }
 document.addEventListener('DOMContentLoaded', restoreProgress);
+
 
 buildDots();
 showPage(0);
