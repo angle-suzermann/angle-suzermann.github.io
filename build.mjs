@@ -601,13 +601,14 @@ const isHierGroups = (list) => list.some((m) => m.group && m.group.includes('/')
    счётчики материалов один раз, дальше оба места просто рисуют плитки
    из готового дерева — чтобы не дублировать подсчёты и не разойтись
    в поведении между публичной страницей курса и панелью учителя. */
-const groupTileTree = (list) => {
-  const groups = [...new Set(list.map((m) => m.group).filter(Boolean))];
+const groupTileTree = (list, extras = []) => {
+  const groups = [...new Set([...list.map((m) => m.group), ...extras.map((e) => e.group)].filter(Boolean))];
   if (!groups.length) return null;
   const themes = [...new Set(groups.map(themeOf))]
     .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-  const countExact = (g) => list.filter((m) => m.group === g).length;
-  const countPrefix = (t) => list.filter((m) => m.group === t || (m.group && m.group.indexOf(t + '/') === 0)).length;
+  const inPrefix = (x, t) => x === t || (x && x.indexOf(t + '/') === 0);
+  const countExact = (g) => list.filter((m) => m.group === g).length + extras.filter((e) => e.group === g).reduce((n, e) => n + e.count, 0);
+  const countPrefix = (t) => list.filter((m) => inPrefix(m.group, t)).length + extras.filter((e) => inPrefix(e.group, t)).reduce((n, e) => n + e.count, 0);
   const ungroupedCount = list.filter((m) => !m.group).length;
   return { groups, themes, countExact, countPrefix, ungroupedCount };
 };
@@ -630,25 +631,36 @@ const groupTileHtml = (attrs, emoji, name, count, words = ['материал', '
    лежат в той же сетке плиток, что и темы курса, и открываются той же
    логикой «зайти внутрь» (см. groupFolderScript) — просто внутри не
    карточки материалов, а список файлов фидбека (см. personalFolderCard). */
+/* Личная папка ученика раскладывается на «листья» — группы вида
+   «Ульяна/1. Путешествие», которые идут через ТУ ЖЕ плиточную навигацию,
+   что и темы/навыки курса (тема → плитки → список). Файлы в корне папки
+   (если есть и подпапки) собираются в «Остальное». */
+const personalLeaves = (folders) => folders.flatMap((f) => {
+  const kids = f.tree.groups.filter(personalTreeHasFiles);
+  if (!kids.length) return [{ name: f.name, tree: f.tree }];
+  const out = kids.map((g) => ({ name: `${f.name}/${g.name}`, tree: g }));
+  if (f.tree.files.length) out.unshift({ name: `${f.name}/Остальное`, tree: { files: f.tree.files, groups: [] } });
+  return out;
+});
+const leafExtras = (leaves) => leaves.map((l) => ({ group: l.name, count: countPersonalFiles(l.tree) }));
 const countPersonalFiles = (node) => node.files.length + node.groups.reduce((sum, g) => sum + countPersonalFiles(g), 0);
 
-const groupFolderNav = (list, personalFolders = []) => {
-  const tree = groupTileTree(list);
-  if (!tree && !personalFolders.length) return '';
+const groupFolderNav = (list, leaves = []) => {
+  const tree = groupTileTree(list, leafExtras(leaves));
+  const leafSet = new Set(leaves.map((l) => l.name));
+  const fileWords = ['файл', 'файла', 'файлов'];
+  if (!tree) return '';
   const { groups, themes, countExact, countPrefix, ungroupedCount } = tree || { groups: [], themes: [], countExact: () => 0, countPrefix: () => 0, ungroupedCount: 0 };
 
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
     const count = hasSkills ? countPrefix(t) : countExact(t);
-    return groupTileHtml(` data-group-tile="${esc(t)}"${hasSkills ? ' data-has-skills="1"' : ''}`, '📁', t, count);
+    const isLeaf = !hasSkills && leafSet.has(t);
+    return groupTileHtml(` data-group-tile="${esc(t)}"${hasSkills ? ' data-has-skills="1"' : ''}${isLeaf ? ' data-personal="1"' : ''}`, '📁', t, count, isLeaf ? fileWords : undefined);
   });
   if (ungroupedCount) {
     topTiles.push(groupTileHtml(' data-group-tile=""', '📁', 'Без юнита', ungroupedCount));
   }
-  personalFolders.forEach((pf) => {
-    topTiles.push(groupTileHtml(` data-group-tile="${esc(pf.name)}" data-personal="1"`, '📁', pf.name, countPersonalFiles(pf.tree), ['файл', 'файла', 'файлов']));
-  });
-
   const skillGrids = themes
     .filter((t) => groups.some((g) => themeOf(g) === t && skillOf(g)))
     .map((t) => {
@@ -657,7 +669,7 @@ const groupFolderNav = (list, personalFolders = []) => {
       const allTile = groupTileHtml(` data-group-tile="${esc(t)}" data-prefix="1"`, '📂', 'Все', countPrefix(t));
       const skillTiles = skills.map((s) => {
         const full = `${t}/${s}`;
-        return groupTileHtml(` data-group-tile="${esc(full)}"`, '📁', s, countExact(full));
+        return groupTileHtml(` data-group-tile="${esc(full)}"${leafSet.has(full) ? ' data-personal="1"' : ''}`, '📁', s, countExact(full), leafSet.has(full) ? fileWords : undefined);
       }).join('\n');
       return `    <div class="tile-grid" data-skill-grid-for="${esc(t)}" hidden>
 ${allTile}
@@ -886,46 +898,21 @@ function groupFilesByLabel(files) {
   }
   return [...map.entries()].map(([label, variants]) => ({ label, variants }));
 }
-let personalNodeSeq = 0;
-/* Личная папка — тот же «плиточный» интерфейс, что у тем курса: подпапки
-   рисуются плитками (.tile-grid), клик открывает подпапку внутри той же
-   карточки (кнопка «← Назад» возвращает), файлы текущего уровня — списком.
-   Навигация самодостаточна (personalNavScript, делегирование кликов) и не
-   зависит от состояния общего каталога/панели — поэтому работает одинаково
-   на странице курса и в панели преподавателя. */
-const personalNavScript = `<script>
-(function(){
-  if(window.__pnav) return; window.__pnav = 1;
-  document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-pnode]');
-    if(!t) return;
-    var target = document.getElementById(t.getAttribute('data-pnode'));
-    if(!target) return;
-    e.preventDefault();
-    var card = t.closest('.personal-card');
-    if(card) card.querySelectorAll('.pnode').forEach(function(n){ n.hidden = true; });
-    target.hidden = false;
-  });
-})();
-</script>`;
-function renderPersonalNode(course, node, depth, ownId, parentId, title) {
-  const id = ownId || `pnode-${++personalNodeSeq}`;
-  const kids = node.groups.filter(personalTreeHasFiles).map((g) => ({ g, id: `pnode-${++personalNodeSeq}` }));
+function renderPersonalNode(course, node, depth) {
   const filesHtml = node.files.length
     ? `<ul class="personal-files">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
         const links = variants.map((v) => `<a href="${esc(personalFileHref(course, v.rel))}" target="_blank" rel="noopener">${esc(v.ext)}</a>`).join(' · ');
         return `        <li><span class="personal-label">${esc(label)}</span> <span class="personal-formats">${links}</span></li>`;
       }).join('\n')}\n      </ul>`
     : '';
-  const tilesHtml = kids.length
-    ? `<div class="tile-grid personal-tiles">\n${kids.map(({ g, id: kid }) => groupTileHtml(` data-pnode="${kid}"`, '📁', g.name, countPersonalFiles(g), ['файл', 'файла', 'файлов'])).join('\n')}\n    </div>`
-    : '';
-  const backHtml = parentId
-    ? `<button type="button" class="personal-back" data-pnode="${parentId}">← Назад</button><div class="personal-title">${esc(title || '')}</div>`
-    : '';
-  const here = `<div class="pnode" id="${id}"${depth ? ' hidden' : ''}>${backHtml}${tilesHtml}${filesHtml}</div>`;
-  const nested = kids.map(({ g, id: kid }) => renderPersonalNode(course, g, depth + 1, kid, id, g.name)).join('\n');
-  return `${here}\n${nested}${depth === 0 ? personalNavScript : ''}`;
+  const groupsHtml = node.groups
+    .filter(personalTreeHasFiles)
+    .map((g) => `      <div class="personal-group">
+        <h${Math.min(depth + 4, 6)}>${esc(g.name)}</h${Math.min(depth + 4, 6)}>
+        ${renderPersonalNode(course, g, depth + 1)}
+      </div>`)
+    .join('\n');
+  return `${filesHtml}${groupsHtml}`;
 }
 /* личная папка лежит в той же сетке плиток, что темы курса (см.
    groupFolderNav), а открывшись — в той же общей ленте, что карточки
@@ -933,7 +920,7 @@ function renderPersonalNode(course, node, depth, ownId, parentId, title) {
    data-group, чтобы её показывал/прятал тот же filterMaterials, только
    внутри не ссылка на материал, а список файлов фидбека. */
 const personalFolderCard = (course, folder) => `  <div class="card personal-card" data-group="${esc(folder.name)}">
-    <div class="row"><span class="name">📁 ${esc(folder.name)}</span></div>
+    <div class="row"><span class="name">📁 ${esc(folder.name.split('/').join(' — '))}</span></div>
     ${renderPersonalNode(course, folder.tree, 0)}
   </div>`;
 
@@ -1121,7 +1108,7 @@ for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
-  const personalFolders = findPersonalFoldersForStudent(path.join(ROOT, course.id));
+  const personalFolders = personalLeaves(findPersonalFoldersForStudent(path.join(ROOT, course.id)));
   const hasGroups = list.some((m) => m.group);
   const showFolderNav = hasGroups || personalFolders.length > 0;
   const hasAnyContent = list.length > 0 || personalFolders.length > 0;
@@ -1178,7 +1165,7 @@ const personalFolderStaffCard = (course, folder) => `  <div class="staff-card pe
        data-search="${esc(folder.name.toLowerCase())}"
        data-course="${esc(course.id)}" data-type="" data-status="published" data-group="${esc(folder.name)}"
        data-date="" data-title="${esc(folder.name)}" data-unit="">
-    <div class="row"><span class="name">📁 ${esc(folder.name)}</span></div>
+    <div class="row"><span class="name">📁 ${esc(folder.name.split('/').join(' — '))}</span></div>
     ${renderPersonalNode(course, folder.tree, 0)}
   </div>`;
 
@@ -1213,17 +1200,19 @@ for (const c of courses) {
   const groups = [...new Set(
     materials.filter((m) => m['course-id'] === c.id && m.group).map((m) => m.group)
   )].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-  const personalFolders = findPersonalFolders(path.join(ROOT, c.id));
+  const personalFolders = personalLeaves(findPersonalFolders(path.join(ROOT, c.id)));
   if (personalFolders.length) personalFoldersByCourse.set(c.id, personalFolders);
   if (groups.length || personalFolders.length) courseGroupsMap.set(c.id, groups);
 }
 
 const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
   const list = materials.filter((m) => m['course-id'] === courseId);
-  const tree = groupTileTree(list);
   const personalFolders = personalFoldersByCourse.get(courseId) || [];
-  if (!tree && !personalFolders.length) return '';
-  const { groups, themes, countExact, countPrefix } = tree || { groups: [], themes: [], countExact: () => 0, countPrefix: () => 0 };
+  const leafSet = new Set(personalFolders.map((l) => l.name));
+  const fileWords = ['файл', 'файла', 'файлов'];
+  const tree = groupTileTree(list, leafExtras(personalFolders));
+  if (!tree) return '';
+  const { groups, themes, countExact, countPrefix } = tree;
   /* «Без юнита» тут намеренно не выводим: в отличие от публичной
      страницы курса, где ungroupedCount мог бы означать реальные
      материалы без юнита, здесь courseGroupsMap уже гарантирует, что
@@ -1235,16 +1224,11 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
     const count = hasSkills ? countPrefix(t) : countExact(t);
+    const isLeaf = !hasSkills && leafSet.has(t);
     return groupTileHtml(
-      ` data-group-tile="${esc(t)}" data-course-tile="${esc(courseId)}"${hasSkills ? ` data-has-skills="${esc(courseId + '::' + t)}"` : ''}`,
-      '📁', t, count
+      ` data-group-tile="${esc(t)}" data-course-tile="${esc(courseId)}"${hasSkills ? ` data-has-skills="${esc(courseId + '::' + t)}"` : ''}${isLeaf ? ' data-personal="1"' : ''}`,
+      '📁', t, count, isLeaf ? fileWords : undefined
     );
-  });
-  personalFolders.forEach((pf) => {
-    topTiles.push(groupTileHtml(
-      ` data-group-tile="${esc(pf.name)}" data-course-tile="${esc(courseId)}" data-personal="1"`,
-      '📁', pf.name, countPersonalFiles(pf.tree), ['файл', 'файла', 'файлов']
-    ));
   });
   const groupGrid = `  <div class="tile-grid sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
 ${topTiles.join('\n')}
@@ -1258,7 +1242,7 @@ ${topTiles.join('\n')}
       const allTile = groupTileHtml(` data-group-tile="${esc(t)}" data-prefix="1" data-course-tile="${esc(courseId)}"`, '📂', 'Все', countPrefix(t));
       const skillTiles = skills.map((s) => {
         const full = `${t}/${s}`;
-        return groupTileHtml(` data-group-tile="${esc(full)}" data-course-tile="${esc(courseId)}"`, '📁', s, countExact(full));
+        return groupTileHtml(` data-group-tile="${esc(full)}" data-course-tile="${esc(courseId)}"${leafSet.has(full) ? ' data-personal="1"' : ''}`, '📁', s, countExact(full), leafSet.has(full) ? fileWords : undefined);
       }).join('\n');
       return `  <div class="tile-grid sub-tabs-skill" data-skill-for="${esc(courseId + '::' + t)}" hidden>
 ${allTile}
