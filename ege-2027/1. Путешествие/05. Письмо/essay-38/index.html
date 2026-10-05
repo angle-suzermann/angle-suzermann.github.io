@@ -9,12 +9,12 @@
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Путешествие">
-<meta name="ws:title"     content="05. Задание 38 — эссе, тренажёр">
+<meta name="ws:title"     content="03. Задание 38 — эссе, тренажёр (Classwork)">
 <meta name="ws:emoji"     content="✍️">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-10-05">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mnjekjvq">
-<meta name="ws:tags"      content="ЕГЭ, путешествие">
+<meta name="ws:tags"      content="ЕГЭ, письмо, задание 38, эссе, таблица, диаграмма, путешествие">
 <meta name="robots"       content="noindex, nofollow">
 
 <style>
@@ -160,6 +160,16 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
   }
 
 body{overflow-wrap:break-word;}
+  html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  @media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+  .pie-wrap{ display:flex; gap:20px; align-items:center; flex-wrap:wrap; margin:10px 0; }
+  .pie-legend{ list-style:none; padding:0; margin:0; font-size:14px; }
+  .pie-legend li{ display:flex; gap:8px; align-items:center; margin:5px 0; }
+  .pie-legend i{ width:14px; height:14px; border-radius:3px; flex:none; display:inline-block; }
+  .survey-q{ font-weight:700; color:var(--purple-dark); margin:10px 0 2px; }
+  .survey-q + .muted-note{ font-size:13px; color:#6B6475; margin:0 0 6px; }
+  .send-box{ margin-top:14px; padding:12px 14px; border:1.5px dashed var(--purple); border-radius:12px; background:#fff; }
+  .send-box .st{ font-size:13.5px; margin-left:8px; color:var(--purple-dark); }
 </style>
 </head>
 <body>
@@ -239,6 +249,7 @@ body{overflow-wrap:break-word;}
   <div class="card">
     <span class="tag">Кейс 1</span>
     <h1>Imagine that you are doing a project on why people in Zetland travel abroad.</h1>
+    <p class="survey-q">The survey question: Why do you travel abroad?</p><p class="muted-note">Choose one option.</p>
     <table><tr><th>Reason</th><th>Number of respondents (%)</th></tr>
       <tr><td>to see famous sights</td><td>40</td></tr>
       <tr><td>to get out of comfort zone</td><td>22</td></tr>
@@ -293,9 +304,10 @@ body{overflow-wrap:break-word;}
     <h1>Exam Task</h1>
     <div class="exam-block">
       <p>Imagine that you are doing a project on <b>why people in Zetland travel abroad</b>. You have found some data
-      on the subject – the results of the opinion polls (see the table below). <b>Comment on the data in the table
+      on the subject – the results of a survey conducted among people in Zetland (see the table below). <b>Comment on the survey data
       and give your opinion on the subject of the project.</b></p>
     </div>
+    <p class="survey-q">The survey question: Why do you travel abroad?</p><p class="muted-note">Choose one option.</p>
     <table><tr><th>Reason</th><th>Number of respondents (%)</th></tr>
       <tr><td>to see famous sights</td><td>40</td></tr>
       <tr><td>to get out of comfort zone</td><td>22</td></tr>
@@ -351,6 +363,7 @@ body{overflow-wrap:break-word;}
     </div>
     <h3>Самопроверка по чек-листу</h3>
     <div id="checklistA"></div>
+    <div class="send-box"><button class="btn" onclick="sendEssay(this,'essayA','Кейс 1 · why people in Zetland travel abroad')">📤 Отправить эссе учителю</button><span class="st"></span></div>
   </div>
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Дальше →</button></div>
 </section>
@@ -360,7 +373,8 @@ body{overflow-wrap:break-word;}
   <div class="card">
     <span class="tag">Кейс 2</span>
     <h1>Imagine that you are doing a project on why people from Zetland come to visit Russia.</h1>
-    <div id="barchart-intro" class="barchart"></div>
+    <p class="survey-q">The survey question: Why do you come to visit Russia?</p><p class="muted-note">Choose one option.</p>
+    <div id="barchart-intro" class="pie-wrap"></div>
   </div>
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Дальше →</button></div>
 </section>
@@ -397,10 +411,11 @@ body{overflow-wrap:break-word;}
     <h1>Exam Task</h1>
     <div class="exam-block">
       <p>Imagine that you are doing a project on <b>why people from Zetland come to visit Russia</b>. You have found
-      some data on the subject – the results of the opinion polls (see the diagram below). <b>Comment on the data in
-      the diagram and give your opinion on the subject of the project.</b></p>
+      some data on the subject – the results of a survey conducted among people in Zetland (see the pie chart below). <b>Comment on
+      the survey data and give your opinion on the subject of the project.</b></p>
     </div>
-    <div id="barchart-exam" class="barchart"></div>
+    <p class="survey-q">The survey question: Why do you come to visit Russia?</p><p class="muted-note">Choose one option.</p>
+    <div id="barchart-exam" class="pie-wrap"></div>
     <p><b>Write 200–250 words.</b></p>
     <div class="exam-block">
       <p><b>Use the following plan:</b></p>
@@ -408,17 +423,17 @@ body{overflow-wrap:break-word;}
       – select and report 2–3 facts;<br>
       – make 1–2 comparisons where relevant and give your comments;<br>
       – outline a difficulty that one can face travelling in Russia and suggest a way of overcoming it;<br>
-      – conclude by giving and explaining your opinion on the importance of travelling around your own country.</p>
+      – conclude by giving and explaining your opinion on why exploring one’s own country is important for its citizens.</p>
     </div>
     <div class="tip-box">
       <p><b>Tip!</b> The following introductory phrases and linking words can help you structure your answer and make it logical and coherent.</p>
       <ul>
         <li>These days more and more people</li>
         <li>For my project I have found some data on (why)</li>
-        <li>It is noticeable in the diagram that</li>
-        <li>What stands out in the diagram is</li>
+        <li>It is noticeable in the pie chart that</li>
+        <li>What stands out in the pie chart is</li>
         <li>One more feature worth mentioning is</li>
-        <li>The data in the diagram demonstrates that most people … rather than…</li>
+        <li>The data in the pie chart demonstrates that most people … rather than…</li>
         <li>Moreover,</li>
         <li>Undoubtedly, any person can face certain difficulties</li>
         <li>To my mind, one of the ways to overcome it</li>
@@ -432,6 +447,7 @@ body{overflow-wrap:break-word;}
     </div>
     <h3>Самопроверка по чек-листу</h3>
     <div id="checklistB"></div>
+    <div class="send-box"><button class="btn" onclick="sendEssay(this,'essayB','Кейс 2 · why people from Zetland come to visit Russia')">📤 Отправить эссе учителю</button><span class="st"></span></div>
   </div>
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Назад</button><button class="btn" onclick="nextPage()">Дальше →</button></div>
 </section>
@@ -444,6 +460,7 @@ body{overflow-wrap:break-word;}
     <p>Результат автопроверяемых упражнений (лексика + сопоставление) — вверху страницы. Перефраз и оба эссе
     проверяй по чек-листу и (для Кейса 1) по образцу — это части, где нужен собственный или учительский взгляд.</p>
     <div id="finalScore" class="card" style="background:var(--card-tint); margin-top:10px;"></div>
+    <div class="send-box"><button class="btn" onclick="sendEssay(this,'all','Итог: оба эссе + результат упражнений')">📤 Отправить всё учителю</button><span class="st"></span></div>
   </div>
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Назад</button><span class="spacer"></span></div>
   <footer class="done-msg">Задание 38 · Тренажёр для класса и дома</footer>
@@ -583,13 +600,17 @@ renderPlanScheme();
 
 function renderBarChart(containerId, data){
   const el = document.getElementById(containerId);
-  const max = Math.max(...data.map(d=>d.value));
-  el.innerHTML = data.map(d=>`
-    <div class="bar-row">
-      <div class="bar-label">${d.label}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(d.value/max*100).toFixed(1)}%"></div></div>
-      <div class="bar-value">${d.value.toFixed(1).replace('.',',')}%</div>
-    </div>`).join('');
+  const pal = ['#5E4877','#FED500','#9B86B5','#2D2926','#D9CFE6','#B9A400'];
+  const sorted = [...data].sort((x,y)=>y.value-x.value);
+  const tot = sorted.reduce((t,d)=>t+d.value,0); let a0 = -Math.PI/2, paths = '';
+  sorted.forEach((d,k)=>{
+    const a1 = a0 + 2*Math.PI*d.value/tot;
+    const x0=100+90*Math.cos(a0), y0=100+90*Math.sin(a0), x1=100+90*Math.cos(a1), y1=100+90*Math.sin(a1);
+    paths += `<path d="M100,100 L${x0.toFixed(1)},${y0.toFixed(1)} A90,90 0 ${a1-a0>Math.PI?1:0} 1 ${x1.toFixed(1)},${y1.toFixed(1)} Z" fill="${pal[k]}" stroke="#fff" stroke-width="2"/>`;
+    a0 = a1;
+  });
+  const leg = sorted.map((d,k)=>`<li><i style="background:${pal[k]}"></i>${d.label} — <b>${d.value.toFixed(1).replace('.',',')}%</b></li>`).join('');
+  el.innerHTML = `<svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="pie chart">${paths}</svg><ul class="pie-legend">${leg}</ul>`;
 }
 renderBarChart('barchart-intro', RUSSIA_DATA);
 renderBarChart('barchart-exam', RUSSIA_DATA);
@@ -795,6 +816,34 @@ document.addEventListener('input', e=>{ if(e.target.matches('input[type=text], t
 document.addEventListener('change', e=>{ if(e.target.matches('select, input[type=checkbox]')) scheduleSave(); });
 
 restoreProgress();
+
+/* ---------- send essays to the teacher (Web3Forms) ---------- */
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+function essayWords(t){ return (t||'').split(/\s+/).filter(w=>/[A-Za-zА-Яа-я0-9]/.test(w)).length; }
+function checklistState(boxId){
+  const box = document.getElementById(boxId); if(!box) return '';
+  const rows = [...box.querySelectorAll('input[type=checkbox]')];
+  return rows.length ? `${rows.filter(r=>r.checked).length} / ${rows.length} пунктов чек-листа отмечено` : '';
+}
+async function sendEssay(btn, id, label){
+  const st = btn.parentElement.querySelector('.st');
+  const name = (document.getElementById('studentName').value||'').trim();
+  if(!name){ document.getElementById('studentName').focus(); st.textContent = 'Впиши имя вверху страницы.'; return; }
+  const ids = id==='all' ? ['essayA','essayB'] : [id];
+  const parts = ids.map(x=>{ const t = document.getElementById(x).value.trim(); const cl = checklistState(x==='essayA'?'checklistA':'checklistB');
+    return `=== ${x==='essayA'?'Кейс 1 · travel abroad':'Кейс 2 · visit Russia'} (${essayWords(t)} слов${cl?'; '+cl:''}) ===\n${t || '(не написано)'}`; });
+  if(id!=='all' && !document.getElementById(id).value.trim()){ st.textContent = 'Сначала напиши эссе.'; return; }
+  const score = (document.getElementById('scorePill')||{}).textContent || '';
+  const fd = new FormData();
+  Object.entries({ access_key: WEB3FORMS_ACCESS_KEY, subject: `ЕГЭ 2027 · Задание 38 тренажёр — ${name}`, course: 'ЕГЭ 2027',
+    lesson: document.title + ' — ' + label, student: name, score: score, writing: parts.join('\n\n'), timestamp: new Date().toISOString() })
+    .forEach(([k,v])=>fd.append(k,v));
+  btn.disabled = true; st.textContent = 'Отправляю…';
+  try{ const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+       if(!r.ok) throw new Error(r.status); st.textContent = '✓ Отправлено учителю'; }
+  catch(e){ st.textContent = 'Не удалось отправить — проверь интернет и попробуй снова.'; }
+  finally{ btn.disabled = false; }
+}
 </script>
 </body>
 </html>
