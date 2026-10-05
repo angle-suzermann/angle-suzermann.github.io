@@ -329,7 +329,7 @@ function findPersonalFolders(courseDir) {
 const TEACHER_ONLY_FILE_RE = /для\s+учител|\(учитель\)/i;
 function filterStudentFacingTree(node) {
   const files = node.files.filter((f) => !TEACHER_ONLY_FILE_RE.test(f.name));
-  const groups = node.groups.map(filterStudentFacingTree).filter(personalTreeHasFiles);
+  const groups = node.groups.map((g) => ({ name: g.name, ...filterStudentFacingTree(g) })).filter(personalTreeHasFiles);
   return { files, groups };
 }
 function findPersonalFoldersForStudent(courseDir) {
@@ -886,21 +886,46 @@ function groupFilesByLabel(files) {
   }
   return [...map.entries()].map(([label, variants]) => ({ label, variants }));
 }
-function renderPersonalNode(course, node, depth) {
+let personalNodeSeq = 0;
+/* Личная папка — тот же «плиточный» интерфейс, что у тем курса: подпапки
+   рисуются плитками (.tile-grid), клик открывает подпапку внутри той же
+   карточки (кнопка «← Назад» возвращает), файлы текущего уровня — списком.
+   Навигация самодостаточна (personalNavScript, делегирование кликов) и не
+   зависит от состояния общего каталога/панели — поэтому работает одинаково
+   на странице курса и в панели преподавателя. */
+const personalNavScript = `<script>
+(function(){
+  if(window.__pnav) return; window.__pnav = 1;
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-pnode]');
+    if(!t) return;
+    var target = document.getElementById(t.getAttribute('data-pnode'));
+    if(!target) return;
+    e.preventDefault();
+    var card = t.closest('.personal-card');
+    if(card) card.querySelectorAll('.pnode').forEach(function(n){ n.hidden = true; });
+    target.hidden = false;
+  });
+})();
+</script>`;
+function renderPersonalNode(course, node, depth, ownId, parentId, title) {
+  const id = ownId || `pnode-${++personalNodeSeq}`;
+  const kids = node.groups.filter(personalTreeHasFiles).map((g) => ({ g, id: `pnode-${++personalNodeSeq}` }));
   const filesHtml = node.files.length
     ? `<ul class="personal-files">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
         const links = variants.map((v) => `<a href="${esc(personalFileHref(course, v.rel))}" target="_blank" rel="noopener">${esc(v.ext)}</a>`).join(' · ');
         return `        <li><span class="personal-label">${esc(label)}</span> <span class="personal-formats">${links}</span></li>`;
       }).join('\n')}\n      </ul>`
     : '';
-  const groupsHtml = node.groups
-    .filter(personalTreeHasFiles)
-    .map((g) => `      <div class="personal-group">
-        <h${Math.min(depth + 4, 6)}>${esc(g.name)}</h${Math.min(depth + 4, 6)}>
-        ${renderPersonalNode(course, g, depth + 1)}
-      </div>`)
-    .join('\n');
-  return `${filesHtml}${groupsHtml}`;
+  const tilesHtml = kids.length
+    ? `<div class="tile-grid personal-tiles">\n${kids.map(({ g, id: kid }) => groupTileHtml(` data-pnode="${kid}"`, '📁', g.name, countPersonalFiles(g), ['файл', 'файла', 'файлов'])).join('\n')}\n    </div>`
+    : '';
+  const backHtml = parentId
+    ? `<button type="button" class="personal-back" data-pnode="${parentId}">← Назад</button><div class="personal-title">${esc(title || '')}</div>`
+    : '';
+  const here = `<div class="pnode" id="${id}"${depth ? ' hidden' : ''}>${backHtml}${tilesHtml}${filesHtml}</div>`;
+  const nested = kids.map(({ g, id: kid }) => renderPersonalNode(course, g, depth + 1, kid, id, g.name)).join('\n');
+  return `${here}\n${nested}${depth === 0 ? personalNavScript : ''}`;
 }
 /* личная папка лежит в той же сетке плиток, что темы курса (см.
    groupFolderNav), а открывшись — в той же общей ленте, что карточки

@@ -551,3 +551,12 @@ html, body{
   color: var(--black);
   text-shadow: none;
 }
+
+/* навигация плитками внутри личной папки ученика (см. renderPersonalNode) */
+.personal-tiles{ margin: 6px 0 12px; }
+.personal-back{
+  appearance: none; border: 0; background: none; padding: 4px 0; margin: 0 0 4px;
+  color: var(--purple); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.personal-back:hover{ text-decoration: underline; }
+.personal-title{ font-weight: 700; font-size: 15px; color: var(--black); margin: 0 0 8px; }
