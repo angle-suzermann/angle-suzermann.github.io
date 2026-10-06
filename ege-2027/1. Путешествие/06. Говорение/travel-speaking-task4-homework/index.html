@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Photos, One Project — Устная часть, Задание 4 — HOMEWORK</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Путешествие">
+<meta name="ws:title"     content="09. Two Photos, One Project — Задание 4 (монолог) — Homework">
+<meta name="ws:emoji"     content="📸">
+<meta name="ws:date"      content="2026-10-06">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="ЕГЭ, устная часть, задание 4, монолог, фото, проект, путешествие">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:.5; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; max-width:980px; margin:0 auto; padding:24px 20px 100px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p, .card li{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+.info-box{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:10px; padding:12px 16px; margin:12px 0; font-size:.92rem; }
+.info-box b{ color:var(--purple-dark); }
+.score-table{ border-collapse:collapse; margin:8px 0; font-size:.9rem; }
+.score-table td{ padding:4px 14px 4px 0; }
+.score-table td:last-child{ font-weight:700; color:var(--purple); }
+ol.algo li{ margin-bottom:6px; }
+details.fold{ margin-top:10px; }
+details.fold summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.model{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; margin-top:8px; font-size:.9rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:64px; }
+textarea.notes{ min-height:44px; font-size:.86rem; }
+select.fib-select{ font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:7px 10px; display:block; width:100%; max-width:100%; margin:6px 0; background:#fff; }
+select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+.speaker-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
+@media (max-width:640px){ .speaker-row{ grid-template-columns:1fr; } }
+.exam-points{ margin-top:12px; padding:12px 16px; border-radius:10px; background:#fff; border:2px solid var(--yellow); font-weight:700; color:var(--purple-dark); }
+.exam-points[hidden]{ display:none; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; color:var(--text); }
+.mcq .opt.chosen{ border-color:var(--purple); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.why{ display:none; font-size:.86rem; margin-top:8px; color:var(--purple-dark); background:#fff; border-radius:8px; padding:8px 12px; border-left:3px solid var(--yellow); }
+.mcq.answered + .why{ display:block; }
+
+.statement-list{ margin:8px 0; padding-left:0; list-style:none; }
+.statement-list li{ padding:6px 10px; border-radius:8px; margin:4px 0; background:var(--card-tint); font-size:.93rem; }
+
+.kw-line{ margin:8px 0; padding:10px 12px; background:var(--card-tint); border-radius:10px; line-height:2; }
+.kw-tok{ cursor:pointer; padding:2px 3px; border-radius:4px; user-select:none; }
+.kw-tok:hover{ background:#efe6fa; }
+.kw-tok.on{ background:var(--yellow); }
+.kw-tok.key{ box-shadow:inset 0 -3px 0 var(--purple); }
+
+.match-wrap{ display:grid; grid-template-columns:1fr 1.4fr; gap:18px; }
+.match-col{ display:flex; flex-direction:column; gap:8px; }
+.match{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 12px; font-size:.86rem; text-align:left; color:var(--text); }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecec; }
+@media (max-width:640px){ .match-wrap{ grid-template-columns:1fr; } }
+
+.listen-block{ background:var(--card-tint); border-radius:12px; padding:14px 16px; margin:10px 0 16px; }
+audio{ width:100%; margin-top:6px; }
+.script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:320px; overflow-y:auto; font-size:.88rem; line-height:1.6; }
+.script-panel p{ margin:0 0 10px; }
+.script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
+details.script-toggle{ margin-top:10px; }
+details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.phrase-bank span{ background:#fff; border:1px solid var(--border); border-radius:999px; padding:4px 11px; font-size:.82rem; color:var(--purple-dark); }
+
+.results-panel{ display:none; text-align:center; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; text-align:left; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; width:100%; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:10px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+  .card{ padding:18px 16px; }
+  .lesson-title{ font-size:.92rem; }
+  .namebar input{ width:150px; }
+}
+/* iOS: no auto-zoom on focus */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.reading.script-panel{ max-height:none; font-size:.95rem; line-height:1.65; background:#fff; }
+.txt-block{ display:grid; grid-template-columns:34px 1fr; gap:10px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.txt-block:last-child{ border-bottom:none; }
+.txt-block .lt{ width:30px; height:30px; border-radius:50%; background:var(--purple); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.txt-block p{ margin:0 0 8px; }
+.txt-block select.fib-select{ max-width:420px; }
+.headings-box{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; columns:2; column-gap:28px; font-size:.92rem; }
+@media (max-width:640px){ .headings-box{ columns:1; } }
+.headings-box div{ break-inside:avoid; padding:2px 0; }
+.headings-box b{ color:var(--purple); }
+select.fib-select.inline{ display:inline-block; width:auto; min-width:64px; margin:0 4px; padding:3px 6px; }
+.gap-text p{ line-height:2.1; }
+.restored{ display:none; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; margin-top:10px; font-size:.93rem; }
+.restored.show{ display:block; }
+.restored b{ color:var(--purple-dark); background:#fff3b0; padding:0 3px; border-radius:3px; }
+.note-box{ display:none; margin-top:10px; padding:10px 14px; border-radius:10px; background:#fff; border-left:4px solid var(--purple); font-size:.9rem; }
+.note-box.show{ display:block; }
+.q-row{ display:grid; grid-template-columns:1fr 190px; gap:12px; align-items:start; }
+.q-row select.fib-select{ margin:0; }
+@media (max-width:640px){ .q-row{ grid-template-columns:1fr; } }
+.q-num{ display:inline-block; min-width:28px; font-weight:800; color:var(--purple); }
+.q-opts{ list-style:none; padding:0; margin:6px 0 0; font-size:.92rem; }
+.q-opts b{ color:var(--purple); }
+.photo-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:10px 0; }
+@media (max-width:640px){ .photo-row{ grid-template-columns:1fr; } }
+.photo-row figure{ margin:0; background:var(--card-tint); border-radius:12px; overflow:hidden; }
+.photo-row img{ width:100%; height:170px; object-fit:cover; display:block; }
+.photo-row figcaption{ text-align:center; font-weight:800; color:var(--purple); padding:6px; }
+.def-text{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin:12px 0 6px; font-size:.93rem; }
+.def-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:4px 0 4px 14px; font-size:.9rem; }
+input.gap{ font-family:inherit; font-size:.9rem; border:none; border-bottom:2px solid var(--purple); background:#fff; padding:2px 6px; width:170px; border-radius:4px 4px 0 0; }
+input.gap.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.gap.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+.gap-key{ display:none; font-size:.78rem; color:var(--correct); font-weight:700; }
+.show-keys .gap-key{ display:inline; }
+.model{ display:none; }
+.show-keys .model{ display:block; }
+.strategy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0; }
+@media (max-width:640px){ .strategy-grid{ grid-template-columns:1fr; } }
+.strategy{ background:var(--card-tint); border-radius:12px; padding:14px 16px; font-size:.92rem; }
+
+.sim{ background:#fff; border:1.5px solid var(--border); border-radius:14px; padding:14px 16px; margin:12px 0; }
+.sim-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+.sim-phase{ font-weight:800; color:var(--purple-dark); }
+.sim-clock{ font-size:1.6rem; font-weight:800; font-variant-numeric:tabular-nums; color:var(--purple); }
+.sim-bar{ height:8px; background:#EDE8F2; border-radius:6px; overflow:hidden; margin:8px 0; }
+.sim-bar i{ display:block; height:100%; width:0; background:var(--yellow); transition:width .25s linear; }
+.sim.speaking .sim-bar i{ background:var(--purple); }
+.sim.speaking .sim-phase::before{ content:'● '; color:#d33; }
+.sim-prompt{ min-height:1.4em; font-size:1.05rem; font-weight:700; margin:6px 0; }
+.sim-btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
+.sim-rec audio{ width:100%; margin-top:8px; }
+.sim-rec a{ display:inline-block; margin-top:6px; font-weight:700; color:var(--purple); }
+.sim-note{ font-size:.85rem; color:var(--muted); margin:6px 0 0; }
+.readtext{ background:#fff; border:1.5px solid var(--border); border-left:6px solid var(--yellow); border-radius:12px; padding:14px 18px; font-size:1.05rem; line-height:1.75; margin:10px 0; }
+.readtext p{ margin:0 0 10px; }
+.taskbox{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; font-size:.95rem; }
+.taskbox ul, .taskbox ol{ margin:6px 0 0; padding-left:22px; }
+.adfig{ margin:10px 0; text-align:center; }
+.adfig img{ max-width:100%; max-height:360px; border-radius:10px; border:1px solid var(--border); }
+.adfig figcaption{ font-weight:800; margin-top:4px; }
+.photos2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0; }
+.photos2 figure{ margin:0; text-align:center; }
+.photos2 img{ width:100%; height:220px; object-fit:cover; border-radius:10px; }
+.photos2 figcaption{ font-weight:800; font-size:.9rem; margin-top:4px; }
+@media (max-width:600px){ .photos2{ grid-template-columns:1fr; } .photos2 img{ height:auto; } }
+.qline{ display:grid; grid-template-columns:minmax(120px,32%) 1fr; gap:10px; align-items:start; margin:8px 0; }
+.qline .opt-name{ font-weight:700; padding-top:8px; }
+@media (max-width:600px){ .qline{ grid-template-columns:1fr; gap:4px; } }
+textarea.writing{ min-height:120px; font-size:1rem; line-height:1.6; }
+textarea.writing.short{ min-height:48px; }
+textarea.writing.mono{ min-height:300px; }
+.wc{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:6px 0 4px; font-size:.88rem; }
+.wc .n{ font-weight:800; padding:3px 10px; border-radius:999px; background:#EDE8F2; color:var(--purple-dark); }
+.wc .n.ok{ background:#eafaf0; color:#1d7a45; } .wc .n.warn{ background:#fff3cd; color:#7a5b00; }
+.checklist{ list-style:none; padding:0; margin:8px 0; }
+.checklist li{ display:flex; gap:10px; align-items:flex-start; padding:6px 0; border-bottom:1px dashed var(--border); font-size:.92rem; }
+.checklist input{ margin-top:3px; width:18px; height:18px; accent-color:var(--purple); }
+.model{ display:none; white-space:pre-wrap; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; font-size:.95rem; line-height:1.6; }
+.model.show{ display:block; }
+.mcq .opt{ text-align:left; white-space:normal; }
+.cat{ margin:16px 0 4px; color:var(--purple); font-size:.85rem; letter-spacing:1px; text-transform:uppercase; }
+.tapescript{ display:none; background:#fff; border:1px dashed var(--border); border-radius:10px; padding:10px 14px; font-size:.93rem; }
+.tapescript.show{ display:block; }
+.tapescript ol{ margin:4px 0 0; padding-left:20px; }
+input, textarea, select{ font-size:16px !important; }
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Two Photos, One Project — Устная часть, Задание 4 · Homework</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 12</span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+<div class="scroll-area" id="scrollArea"><div class="page-wrap">
+
+<section class="page active">
+  <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button onclick="clearProgress()">Start over (clear saved answers)</button></div>
+  <div class="card">
+    <div class="eyebrow">ANGLE · ЕГЭ-2027 · Устная часть · Homework</div>
+    <h2>Homework: Задание 4 × 9</h2>
+    <p>9 projects about travelling: adventure trips, ecotourism, educational travel, solo or group travel and more. In each one: answer an auto-checked question about the plan, record your voice message with the exam timer (2.5 minutes to prepare, 3 minutes to speak), write it down, check it with the checklist and compare with the model.</p>
+    <div class="info-box"><b>Формат задания 4 (ЕГЭ-2027, без изменений по сравнению с 2026):</b> монологическое высказывание в виде голосового сообщения другу: объяснить выбор двух фото для проекта (кратко описать и назвать различия), назвать достоинства и недостатки двух видов…, выразить мнение по теме проекта. 2,5 минуты на подготовку, до 3 минут на ответ, 12–15 фраз. Высокий уровень.
+<table class="score-table"><tr><td>Решение коммуникативной задачи (К1)</td><td>4 балла</td></tr><tr><td>Организация высказывания (К2)</td><td>3 балла</td></tr><tr><td>Языковое оформление (К3)</td><td>3 балла</td></tr><tr><td>Итого</td><td>10 баллов</td></tr></table>
+0 баллов по К1 → 0 за всё задание. Без обращения к другу в начале и заключительной фразы в конце теряются баллы по К2.</div>
+    
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Before you speak · Page 2 of 12</div>
+    <h2>Алгоритм выполнения задания 4: 4 главных шага</h2>
+    <p class="muted">Прочитайте перед тренировкой и держите в голове на каждом задании.</p>
+    <div class="item algo-step"><span class="algo-n">1</span><p class="q">Прочитайте тему проекта и 4 пункта плана. Пункты 2–4 сформулированы под тему: «two types of tourism», «which way you’d prefer» — повторите их формулировку.</p></div><div class="item algo-step"><span class="algo-n">2</span><p class="q">Начало: обращение к другу по имени + тема проекта. Конец: заключительная фраза (That’s all for now. Call me back!).</p></div><div class="item algo-step"><span class="algo-n">3</span><p class="q">Фото: кратко — кто, что делает (Present Continuous), где. Различия — те, что связаны с темой проекта, а не цвет одежды.</p></div><div class="item algo-step"><span class="algo-n">4</span><p class="q">По 1–2 достоинства и недостатка для каждого вида, мнение + почему. Связки между частями, 12–15 фраз, без пауз.</p></div>
+    <details class="fold"><summary>Полный алгоритм (13 шагов)</summary><ol class="algo"><li>2,5 минуты на подготовку, до 3 минут на ответ. Черновика нет: план держим в голове.</li><li>Настройтесь на условную ситуацию: вы оставляете голосовое сообщение другу, с которым делаете проект. Друг фотографии не видит. Фото вы нашли сами.</li><li>Вступление: обращение к другу по имени и тема проекта — точно как в задании: Hi, Sasha! I’ve found two photos for our project “Adventure trips”.</li><li>Краткое описание каждого фото: action (Present Continuous) + location + people + другие релевантные детали. Не перечисляйте всё подряд.</li><li>Различия — существенные для темы проекта: в одиночку / в группе, в городе / на природе, активный / спокойный, культурный / природный. Свяжите их с проектом.</li><li>Обоснуйте выбор: These photos are ideal for our project because they show two different…</li><li>Достоинства (1–2) для каждого из двух видов: + / + или ++ / ++. Используйте формулировку пункта: the advantages of the two adventure trips.</li><li>Недостатки (1–2) для каждого вида — тоже по каждому из двух.</li><li>Мнение по теме проекта точно по формулировке пункта 4 (which… you’d prefer and why / how you prefer to spend…) + обоснование.</li><li>Заключение: That’s all I wanted to tell you. Call me back and tell me what you think.</li><li>Связки: Firstly, Moreover, On the one hand… On the other hand, However, As for… Это баллы по К2.</li><li>12–15 фраз — эксперт считает грамматические основы. Одна фраза на пункт звучит как вопрос-ответ, а не монолог.</li><li>Не используйте заученные куски топиков вместо ответа на план: из-за них не успевают сказать заключение.</li></ol></details>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 3 of 12</div>
+    <h2>Project 1. Adventure trips</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Adventure trips”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two adventure trips;</li><li>mention the disadvantages (1–2) of the two adventure trips;</li><li>express your opinion on the subject of the project – which of the adventure trips presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v1_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v1_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which difference is relevant to the project “Adventure trips”?</p><div class="mcq" data-correct="3" data-id="h40_1"><button type="button" class="opt" data-val="1">a) In Photo 1 the sky is blue, while in Photo 2 there are trees.</button><button type="button" class="opt" data-val="2">b) In Photo 1 one climber has a green backpack.</button><button type="button" class="opt" data-val="3">c) In Photo 1 the climbers are walking through snow in the mountains, while in Photo 2 people are rafting on a fast river.</button></div><div class="why">Различие должно касаться типа приключения (горы и снег / вода и пороги), а не мелких деталей.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Adventure trips" data-file="adv" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Adventure trips" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Dima! I’ve found two photos for our project “Adventure trips”, and I’d like to tell you about them.
+
+The first photo shows a group of climbers who are hiking up a snowy mountain. They are carrying heavy backpacks and walking in a line. In the second photo we can see some people who are rafting down a fast mountain river in a boat.
+
+The main difference is that the first trip takes place on land, high in the mountains, while the second one is on the water. Another difference is that mountain climbing needs a lot of time and endurance, whereas rafting is short but very fast and exciting. These photos are ideal for our project because they show two popular kinds of adventure trips.
+
+As for the advantages, mountain climbing makes you stronger, and the views from the top are breathtaking. Rafting gives you a lot of adrenaline, and you can try it even without long training. However, both trips have their drawbacks. Climbing in snow can be dangerous because of avalanches and frostbite. Rafting can also be risky: if the boat turns over, you can get injured in the cold water.
+
+As for me, I would prefer rafting. I think so because I like water and team activities, and I don’t like cold weather.
+
+That’s all I wanted to tell you about the photos. Call me back and tell me what you think!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 1 · Adventure trips')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 4 of 12</div>
+    <h2>Project 2. Ecotourism activities</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Ecotourism activities”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two ecotourism activities;</li><li>mention the disadvantages (1–2) of the two ecotourism activities;</li><li>express your opinion on the subject of the project – which of the ecotourism activities presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v2_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v2_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which sentence describes Photo 1 correctly?</p><div class="mcq" data-correct="1" data-id="h41_1"><button type="button" class="opt" data-val="1">a) In the first photo some tourists are watching two leopards from an open jeep on a safari.</button><button type="button" class="opt" data-val="2">b) In the first photo there are leopards. Tree. Jeep.</button><button type="button" class="opt" data-val="3">c) In the first photo I like leopards.</button></div><div class="why">Описание: кто + что делает (Present Continuous) + где.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Ecotourism activities" data-file="eco" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Ecotourism activities" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hello, Polina! I’ve chosen two photos for our project “Ecotourism activities”. Let me tell you about them.
+
+In the first photo some tourists are on a safari. They are sitting in an open jeep and watching two leopards on a tree. The second photo shows two divers who are exploring a beautiful coral reef with fish and a turtle.
+
+The main difference is that the safari takes place on land, while diving is an underwater activity. Another difference is that on a safari you watch animals from a distance, whereas divers can swim right next to sea creatures. These photos suit our project well because both activities let people enjoy wild nature without destroying it.
+
+As for the advantages, a safari is suitable for everyone, even for children and elderly people. Diving lets you see a unique world which most people never see. On the other hand, both activities have their downsides. Safari tours are usually very expensive and long. Diving requires special training and equipment, and it can be dangerous for beginners.
+
+Personally, I would prefer diving. I love the sea, and I have always dreamt of seeing a coral reef with my own eyes.
+
+That’s all for now. Tell me what you think about the photos!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 2 · Ecotourism activities')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 5 of 12</div>
+    <h2>Project 3. Educational travel</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Educational travel”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two types of educational tours;</li><li>mention the disadvantages (1–2) of the two types of educational tours;</li><li>express your opinion on the subject of the project – which of the educational tours presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v3_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v3_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Point 4 says: “which of the educational tours presented in the pictures you’d prefer and why”. Which opinion follows it?</p><div class="mcq" data-correct="3" data-id="h42_1"><button type="button" class="opt" data-val="1">a) I think educational travel is very important for all people.</button><button type="button" class="opt" data-val="2">b) I like aquariums and London.</button><button type="button" class="opt" data-val="3">c) As for me, I would prefer a study trip abroad because I could practise my English.</button></div><div class="why">Мнение по формулировке пункта 4: какой из двух туров + почему.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Educational travel" data-file="edu" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Educational travel" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Kate! I’ve found two photos for our project “Educational travel”, and I’d like to discuss them with you.
+
+The first photo shows a group of schoolchildren in an oceanarium. They are walking through a glass tunnel and looking at sharks and fish. In the second photo we can see a group of teenagers posing near the Houses of Parliament in London. I suppose they are on a study trip abroad.
+
+The main difference is that the first trip is a short excursion in their own city, while the second one is a long trip to another country. Another difference is that in the oceanarium children learn about biology, whereas in London students learn a foreign language and culture. So these photos show two different types of educational tours.
+
+As for the advantages, an excursion to an oceanarium is cheap and easy to organise. A trip abroad helps you improve your language skills and become more independent. However, both tours have their disadvantages. An excursion lasts only a few hours, so you can’t learn very much. A study trip abroad is expensive, and some students may feel homesick.
+
+As for me, I would prefer a study trip to London. I think so because I want to speak English fluently and see the famous sights with my own eyes.
+
+That’s all I wanted to say. Call me back soon!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 3 · Educational travel')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 6 of 12</div>
+    <h2>Project 4. Forms of tourism</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Forms of tourism”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two forms of tourism (cultural vs. environmental);</li><li>mention the disadvantages (1–2) of the two forms of tourism (cultural vs. environmental);</li><li>express your opinion on the subject of the project – which form of tourism presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v4_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v4_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which difference is relevant to the project “Forms of tourism (cultural vs. environmental)”?</p><div class="mcq" data-correct="3" data-id="h43_1"><button type="button" class="opt" data-val="1">a) In Photo 1 it is sunny.</button><button type="button" class="opt" data-val="2">b) In Photo 1 the man is wearing a green T-shirt, while in Photo 2 people are in orange jackets.</button><button type="button" class="opt" data-val="3">c) In Photo 1 the tourist is exploring an ancient monument, while in Photo 2 people are watching wild animals in nature.</button></div><div class="why">Различие по теме: культурный туризм / экологический туризм. Одежда важна только если её связать с темой (orange jackets → cold, extreme conditions).</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Forms of tourism" data-file="forms" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Forms of tourism" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Artem! I’ve found two photos for our project “Forms of tourism”. I’d like to tell you about them.
+
+In the first photo a young man with a backpack is looking at the ruins of an ancient Greek temple. It is a hot sunny day. The second photo shows several tourists in warm orange jackets who are taking pictures of penguins on a rocky beach.
+
+The photos illustrate two different forms of tourism. The first one is cultural tourism: the man is exploring history and architecture. The second one is environmental tourism: people have come to a remote place to watch wild animals. Another difference is that the first destination is popular and easy to reach, while the second one is far away and visited by few people.
+
+Cultural tourism helps you learn about history and the art of other nations. Environmental tourism teaches people to respect nature and helps protect rare animals. However, both forms have their drawbacks. Famous monuments are often crowded with tourists, and it is hard to enjoy them. Trips to remote places are very expensive, and too many visitors can disturb wild animals.
+
+Personally, I would prefer cultural tourism. I am fond of history, and I would love to see the places I have read about in books.
+
+That’s all for now. Let me know what you think!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 4 · Forms of tourism')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 7 of 12</div>
+    <h2>Project 5. Leisure travel activities</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Leisure travel activities”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two activities attractive to leisure travellers;</li><li>mention the disadvantages (1–2) of the two activities attractive to leisure travellers;</li><li>express your opinion on the subject of the project – which of the leisure travel activities presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v5_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v5_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which sentence is a good introduction?</p><div class="mcq" data-correct="1" data-id="h44_1"><button type="button" class="opt" data-val="1">a) Hi, Lena! I’ve found two photos for our project “Leisure travel activities” and I’d like to share my ideas.</button><button type="button" class="opt" data-val="2">b) There are two photos. The first photo shows a woman.</button><button type="button" class="opt" data-val="3">c) Hello! Today I will tell you about shopping.</button></div><div class="why">Обращение к другу по имени + точная тема проекта.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Leisure travel activities" data-file="leis" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Leisure travel activities" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Lena! I’ve found two photos for our project “Leisure travel activities”, and I’d like to share my ideas with you.
+
+The first photo shows a young woman who is shopping in a big mall. She is holding a lot of colourful bags and looking at her phone. In the second photo a family is walking along a sandy beach. They are carrying inflatable toys, so I think they are going to swim.
+
+The main difference is that shopping is an indoor activity, while a beach holiday is spent outdoors. Another difference is that the woman is on her own, whereas the family is spending time together. These photos are good for our project because they show two popular things travellers like to do on holiday.
+
+As for the advantages, shopping abroad lets you buy unusual souvenirs and clothes, sometimes at lower prices. A beach holiday helps you relax and is great for the whole family. On the other hand, both activities have their disadvantages. Shopping can be very expensive, and you may spend all your money. Lying on the beach for too long can be boring and even harmful because of the hot sun.
+
+As for me, I would prefer the beach. I think so because I love swimming and I want to rest after a busy school year.
+
+That’s all I wanted to tell you. Call me back!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 5 · Leisure travel activities')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 8 of 12</div>
+    <h2>Project 6. Solo or group travel</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Solo or group travel”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two approaches to travelling;</li><li>mention the disadvantages (1–2) of the two approaches to travelling;</li><li>express your opinion on the subject of the project – which approach to travelling presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v6_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v6_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which pair of advantages fits point 2?</p><div class="mcq" data-correct="2" data-id="h45_1"><button type="button" class="opt" data-val="1">a) Travelling alone is good; travelling alone is cheap.</button><button type="button" class="opt" data-val="2">b) Travelling alone gives you freedom to plan your day; travelling in a group is safer and more fun.</button><button type="button" class="opt" data-val="3">c) Moscow is beautiful; London is beautiful.</button></div><div class="why">Достоинства — для каждого из двух подходов и по теме проекта.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Solo or group travel" data-file="solo" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Solo or group travel" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Misha! I’ve found two photos for our project “Solo or group travel”, and I’d like to discuss them with you.
+
+In the first photo a young woman is taking a selfie on Red Square in Moscow. She is smiling and looks very happy. The second photo shows a group of young people who are taking a selfie near Big Ben in London.
+
+The main difference is that the woman is travelling alone, while the young people are travelling in a group. That is exactly what our project is about. Another difference is that the girl can choose where to go herself, whereas the group has to agree on their plans.
+
+As for the advantages, solo travel gives you complete freedom: you can plan your day as you like. Moreover, you meet new people more easily. Group travel is safer, and it is much more fun to share your impressions with friends. However, both approaches have their drawbacks. Travelling alone can be lonely and sometimes dangerous. In a group you may argue about plans and waste time waiting for others.
+
+As for me, I would prefer travelling with my friends. I am a sociable person, and I like to share my emotions with people I know.
+
+That’s all for now. Tell me what you think about the photos!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 6 · Solo or group travel')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 9 of 12</div>
+    <h2>Project 7. Summer holiday decisions</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Summer holiday decisions”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two summer holiday decisions;</li><li>mention the disadvantages (1–2) of the two summer holiday decisions;</li><li>express your opinion on the subject of the project – how you prefer to spend your summer holidays and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v7_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v7_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Point 4 says: “how you prefer to spend your summer holidays and why”. Which opinion follows it?</p><div class="mcq" data-correct="1" data-id="h46_1"><button type="button" class="opt" data-val="1">a) As for me, I prefer to spend my summer holidays travelling with my family because…</button><button type="button" class="opt" data-val="2">b) As for me, I prefer the second photo because it is bright.</button><button type="button" class="opt" data-val="3">c) I think volunteers are good people.</button></div><div class="why">Формулировка пункта 4 здесь другая — не «which… you’d prefer», а «how you prefer to spend your summer holidays». Отвечаем именно на неё.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Summer holiday decisions" data-file="summ" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Summer holiday decisions" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Nastya! I’ve found two photos for our project “Summer holiday decisions”. I’d like to tell you about them.
+
+The first photo shows a happy family at an airport. They are pulling their suitcases, so I think they are going on holiday abroad. In the second photo we can see some young volunteers who are planting trees together with children in a park.
+
+The main difference is that the family has decided to travel and relax, while the volunteers have decided to spend their summer doing something useful for others. Another difference is that the family is going far away, whereas the volunteers are working in their own town. These photos show two different summer holiday decisions, so they are perfect for our project.
+
+As for the advantages, a trip abroad lets you see new places and have a good rest. Volunteering helps you make new friends and gain useful experience. However, both decisions have their downsides. Travelling abroad is expensive and can be tiring because of long flights. Volunteering is hard work, and you may not have enough time to relax before the new school year.
+
+As for me, I prefer to spend my summer holidays travelling with my family. I think so because summer is the only time when we can all be together and rest.
+
+That’s all I wanted to tell you. Call me back soon!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 7 · Summer holiday decisions')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 10 of 12</div>
+    <h2>Project 8. Weekends in the summertime</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “Weekends in the summertime”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two ways of spending a weekend in summer;</li><li>mention the disadvantages (1–2) of the two ways of spending a weekend in summer;</li><li>express your opinion on the subject of the project – which way of spending a summer weekend presented in the pictures you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v8_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v8_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which sentence is a good conclusion?</p><div class="mcq" data-correct="3" data-id="h47_1"><button type="button" class="opt" data-val="1">a) Thank you for your attention.</button><button type="button" class="opt" data-val="2">b) So, these are the photos.</button><button type="button" class="opt" data-val="3">c) That’s all I wanted to tell you about the photos. Call me back!</button></div><div class="why">Заключение голосового сообщения другу: завершающая фраза + надежда на ответ. «Thank you for your attention» — это для доклада.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: Weekends in the summertime" data-file="week" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · Weekends in the summertime" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hello, Sveta! I’ve found two photos for our project “Weekends in the summertime”, and I’d like to tell you about them.
+
+The first photo shows a family who are lying on a sandy beach. They are wearing sunglasses and smiling, so they are obviously having fun. In the second photo a young couple is standing on top of a mountain and admiring the view. They have backpacks, so I think they are hiking.
+
+The main difference is that the family is having a lazy, relaxing weekend, while the couple is spending an active weekend. Another difference is that the beach is crowded and easy to reach, whereas the mountains are quiet and far from the city. These photos show two popular ways of spending a weekend in summer.
+
+As for the advantages, a weekend on the beach is a perfect way to rest after a busy week. Hiking keeps you fit and lets you enjoy beautiful nature. However, both ways have their disadvantages. You can easily get sunburnt on the beach, and it is often noisy there. Hiking can be exhausting, and you need good weather and special equipment.
+
+As for me, I would prefer hiking. I think so because I sit at my desk all week, and at the weekend I want to move and breathe fresh air.
+
+That’s all for now. Call me back and tell me what you think!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 8 · Weekends in the summertime')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Homework · Page 11 of 12</div>
+    <h2>Project 9. The best way to travel</h2>
+    <div class="taskbox"><b>Task 4.</b> Imagine that you and your friend are doing a school project “The best way to travel”. You have found some photos to illustrate it but for technical reasons you cannot send them now. Leave a voice message to your friend explaining your choice of the photos and sharing some ideas about the project. In 2.5 minutes be ready to:
+    <ul><li>explain the choice of the illustrations for the project by briefly describing them and noting the differences;</li><li>mention the advantages (1–2) of the two types of travelling;</li><li>mention the disadvantages (1–2) of the two types of travelling;</li><li>express your opinion on the subject of the project – which way of travelling you’d prefer and why.</li></ul>
+    You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</div><div class="photos2"><figure><img src="img/v9_1.jpg" alt="Photo 1"><figcaption>Photo 1</figcaption></figure><figure><img src="img/v9_2.jpg" alt="Photo 2"><figcaption>Photo 2</figcaption></figure></div>
+    <h3>Step 1. Plan check</h3><div class="item"><p class="q"><b>1.</b> Which difference is relevant to the project “The best way to travel”?</p><div class="mcq" data-correct="3" data-id="h48_1"><button type="button" class="opt" data-val="1">a) The plane is white, while the hills are green.</button><button type="button" class="opt" data-val="2">b) The woman has headphones, while the man has a helmet.</button><button type="button" class="opt" data-val="3">c) Travelling by plane is very fast, while cycling is slow but lets you see the countryside.</button></div><div class="why">Различие по теме: скорость, комфорт, связь с природой, а не цвет и аксессуары.</div></div>
+    <h3>Step 2. Record your voice message</h3><div class="sim" data-label="Монолог: The best way to travel" data-file="best" data-plan="[{&quot;phase&quot;: &quot;prep&quot;, &quot;secs&quot;: 150, &quot;label&quot;: &quot;Подготовка: продумайте план&quot;}, {&quot;phase&quot;: &quot;speak&quot;, &quot;secs&quot;: 180, &quot;label&quot;: &quot;Голосовое сообщение другу&quot;}]">
+  <div class="sim-top"><span class="sim-phase">Тренировка в формате экзамена</span><span class="sim-clock">2:30</span></div>
+  <div class="sim-bar"><i></i></div><div class="sim-prompt"></div>
+  <div class="sim-btns"><button type="button" class="btn" onclick="simStart(this)">▶ Начать</button><button type="button" class="btn ghost" onclick="simStop(this)">■ Стоп</button></div>
+  <p class="sim-note">2,5 минуты на подготовку, сигнал, до 3 минут на ответ с записью.</p><div class="sim-rec"></div>
+</div>
+    <h3>Step 3. Write down your message</h3><textarea class="writing mono" data-label="Задание 4 · The best way to travel" data-mode="sent" placeholder="Hi, …! I’ve found two photos for our project…"></textarea><div class="wc"><span class="n">0</span><span class="note muted"></span></div>
+    <h3>Step 4. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>Обращение к другу по имени и тема проекта в начале</span></li><li><input type="checkbox" aria-label="check"><span>Оба фото описаны кратко: кто, что делает, где</span></li><li><input type="checkbox" aria-label="check"><span>Различия связаны с темой проекта; объяснено, почему фото подходят</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 достоинства для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>По 1–2 недостатка для каждого из двух видов</span></li><li><input type="checkbox" aria-label="check"><span>Мнение точно по формулировке пункта 4 + почему</span></li><li><input type="checkbox" aria-label="check"><span>Заключительная фраза в конце</span></li><li><input type="checkbox" aria-label="check"><span>12–15 фраз, связки между частями</span></li></ul><div><button class="btn ghost" onclick="toggleModel(this)">Показать / скрыть образец</button><div class="model">Hi, Vanya! I’ve found two photos for our project “The best way to travel”. I’d like to tell you about them.
+
+In the first photo a young woman is sitting in a plane. She is smiling, and she has headphones around her neck, so I think she is going to watch a film during the flight. The second photo shows a man who is riding a bike through green hills early in the morning.
+
+The main difference is that the woman is travelling by plane, which is a very fast way to travel, while the man is cycling, which is slow. Another difference is that the cyclist is enjoying nature, whereas the passenger can only see clouds from the window. These photos illustrate two completely different types of travelling.
+
+As for the advantages, flying saves a lot of time, and it is comfortable on long journeys. Cycling is good for your health, and it is free. However, both types have their drawbacks. Air tickets can be very expensive, and some people are afraid of flying. Cycling is tiring, and it is impossible to travel long distances by bike in bad weather.
+
+As for me, I would prefer travelling by plane. I think so because I like to reach new places quickly and spend more time exploring them.
+
+That’s all I wanted to tell you. Call me back soon!</div><p class="muted" style="font-size:.85rem">Откройте образец только после своей попытки.</p></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Project 9 · The best way to travel')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Page 12 of 12</div>
+    <h2>Results</h2>
+    <p class="muted">Press “Check &amp; Submit” on the last project to see your score here.</p>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="completion-stickers" id="completionStickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+</div></div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ 2027';
+const PROGRESS_KEY = 'angle_progress::ege2027-travel-speaking-task4-homework';
+const PAGE_LABELS = ["Старт","Алгоритм", "Adventure trips", "Ecotourism activities", "Educational travel", "Forms of tourism", "Leisure travel activities", "Solo or group travel", "Summer holiday decisions", "Weekends in the summertime", "The best way to travel", "Итоги"];
+const VARIANTS = [];
+const MATCH_SETS = [];
+
+const PTS = { t10: n => n>=7?3:n===6?2:n===5?1:0, t11: n => n>=6?2:n===5?1:0, t1218: n => n };
+const MAXP = { t10:3, t11:2, t1218:7 };
+function pw(n){ return n===1?'балл':(n>=2&&n<=4?'балла':'баллов'); }
+function checkSelects(btn){
+  const card = btn.closest('.card'); const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : card;
+  let n=0, t=0;
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{ t++; const ok = sel.value===sel.dataset.answer; sel.classList.toggle('is-correct',ok); sel.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points') || card.querySelector('.exam-points'); out.hidden=false;
+  const type = btn.dataset.type;
+  if(type){ const p = PTS[type](n); out.textContent = `Верно: ${n} из ${t} → на экзамене это ${p} ${pw(p)} из ${MAXP[type]}.` + (n<t?' Найдите в тексте, где вы ошиблись.':' Отлично!'); }
+  else out.textContent = `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function gapOk(inp){
+  const v = normalize(inp.value).replace(/[.…]/g,'').replace(/\s+/g,' ').trim();
+  return JSON.parse(inp.dataset.acc).some(a=>normalize(a).replace(/[.…]/g,'').replace(/\s+/g,' ').trim()===v);
+}
+function checkGaps(btn){
+  const card = btn.closest('.card'); let n=0,t=0;
+  card.querySelectorAll('input.gap').forEach(i=>{ t++; const ok=gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = card.querySelector('.gap-result'); out.hidden=false; out.textContent = `Верно: ${n} из ${t}.`;
+}
+function toggleKeys(btn){ btn.closest('.card').classList.toggle('show-keys'); }
+function showNote(btn){ const box = btn.closest('.item').querySelector('.note-box'); box.innerHTML = btn.dataset.note; box.classList.add('show'); if(btn.dataset.panel) highlightScript(btn.dataset.panel, btn.dataset.hl || null); }
+function toggleRestored(btn){ btn.closest('.card').querySelector('.restored').classList.toggle('show'); }
+let matchPick = null;
+function renderMatchSet(wrapId, pairs){
+  const wrap = document.getElementById(wrapId); if(!wrap) return;
+  const Lc = wrap.querySelector('.match-col.left'), Rc = wrap.querySelector('.match-col.right');
+  const right = [...pairs].sort(()=>Math.random()-0.5);
+  Lc.innerHTML = pairs.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[1])}</button>`).join('');
+  Rc.innerHTML = right.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[2])}</button>`).join('');
+  wrap.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(matchPick && matchPick.closest('.match-wrap') !== wrap){ matchPick.classList.remove('selected'); matchPick = null; }
+      if(!matchPick){ matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick === el){ el.classList.remove('selected'); matchPick = null; return; }
+      if(matchPick.parentElement === el.parentElement){ matchPick.classList.remove('selected'); matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick.dataset.id === el.dataset.id){
+        [matchPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.disabled = true; });
+        wrap.dataset.correctCount = wrap.querySelectorAll('.match.matched-correct').length/2;
+      } else { const a = matchPick, b = el; [a,b].forEach(x=>x.classList.add('wrong-flash')); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','wrong-flash')), 550); }
+      matchPick = null; scheduleSave();
+    };
+  });
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const n = [...document.querySelectorAll('#sel_'+v.key+' select.fib-select')].filter(s=>s.value===s.dataset.answer).length;
+    const p = PTS[v.type](n); return `${v.label}: ${n}/${v.type==='t11'?6:7} → ${p} из ${MAXP[v.type]}`;
+  }).join('\n');
+}
+function init(){
+  buildDots();
+  MATCH_SETS.forEach(m=>renderMatchSet(m[0], m[1]));
+  bindMcq(); bindProofs();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+function wordCount(t){ return (t||'').split(/\s+/).filter(w=>/[A-Za-zА-Яа-я0-9]/.test(w)).length; }
+function sentCount(t){ return (t||'').split(/[.!?]+(\s|$)/).filter(s=>s && /[A-Za-z]{2,}/.test(s)).length; }
+function updateWC(ta){
+  const box = ta.parentElement.querySelector('.wc .n'); if(!box) return;
+  if(ta.dataset.mode==='sent'){
+    const n = sentCount(ta.value); box.textContent = n + ' фраз';
+    box.className = 'n ' + (n===0 ? '' : (n>=12 && n<=18) ? 'ok' : 'warn');
+    const note = ta.parentElement.querySelector('.wc .note');
+    if(note) note.textContent = n===0 ? '' : n<12 ? 'Меньше 12 фраз — ответ будет неполным.' : n>18 ? 'Слишком много фраз — рискуете не уложиться в 3 минуты и не сказать заключение.' : 'Объём в норме.';
+    return;
+  }
+  const n = wordCount(ta.value); box.textContent = n + ' слов';
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea.writing')) updateWC(e.target); });
+document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>document.querySelectorAll('textarea.writing').forEach(updateWC), 400));
+function toggleModel(btn){ btn.parentElement.querySelector('.model').classList.toggle('show'); }
+function toggleScript(btn){ btn.parentElement.querySelector('.tapescript').classList.toggle('show'); }
+let SEND_SCOPE = document;
+document.addEventListener('click', e=>{ const b = e.target.closest('.task-submit button'); SEND_SCOPE = b ? b.closest('.card') : document; }, true);
+async function sendFormW(fields){
+  const scope = SEND_SCOPE || document;
+  const texts = [...scope.querySelectorAll('textarea.writing')].filter(t=>t.value.trim()).map(t=>`=== ${t.dataset.label} ===\n${t.value.trim()}`);
+  if(texts.length) fields.speaking_text = texts.join('\n\n');
+  const sims = [...scope.querySelectorAll('.sim')].map(s=>`${s.dataset.label}: ${s.dataset.done ? 'выполнено ' + s.dataset.done : 'не запускалось'}`);
+  if(sims.length) fields.exam_simulation = sims.join('\n');
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+document.addEventListener('DOMContentLoaded', ()=>{ window.sendForm = sendFormW; });
+function speakSummary(){ return [...document.querySelectorAll('.sim')].map(s=>`${s.dataset.label}: ${s.dataset.done ? 'выполнено' : '—'}`).join('\n'); }
+
+/* ---------- exam simulator ---------- */
+let AC = null;
+function beep(f=880, d=.18){ try{ AC = AC || new (window.AudioContext||window.webkitAudioContext)(); const o=AC.createOscillator(), g=AC.createGain(); o.frequency.value=f; o.connect(g); g.connect(AC.destination); g.gain.setValueAtTime(.15, AC.currentTime); o.start(); o.stop(AC.currentTime+d); }catch(e){} }
+function fmt(s){ s=Math.max(0,Math.ceil(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function pickVoice(){ const vs = speechSynthesis.getVoices(); return vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+function say(text){
+  return new Promise(res=>{
+    if(!('speechSynthesis' in window)){ setTimeout(res, 5000); return; }
+    try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); const v = pickVoice(); if(v) u.voice = v; u.lang = v ? v.lang : 'en-GB'; u.rate = .92;
+      let done=false; const fin=()=>{ if(!done){ done=true; res(); } }; u.onend=fin; u.onerror=fin; setTimeout(fin, 4000 + text.length*90); speechSynthesis.speak(u);
+    }catch(e){ setTimeout(res, 5000); }
+  });
+}
+const SIMS = new WeakMap();
+async function startRec(st){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const mime = ['audio/webm','audio/mp4','audio/ogg'].find(m=>window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+    const rec = new MediaRecorder(stream, mime ? {mimeType:mime} : undefined); st.chunks=[]; st.stream=stream; st.rec=rec;
+    rec.ondataavailable = e=>{ if(e.data.size) st.chunks.push(e.data); };
+    rec.onstop = ()=>{
+      const type = rec.mimeType || 'audio/webm'; const blob = new Blob(st.chunks, {type}); const url = URL.createObjectURL(blob);
+      const ext = /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm';
+      const name = ((document.getElementById('studentName')||{}).value||'answer').trim().replace(/\s+/g,'_') + '_' + st.el.dataset.file + '.' + ext;
+      st.el.querySelector('.sim-rec').innerHTML = `<audio controls src="${url}"></audio><a href="${url}" download="${name}">⬇ Скачать запись</a><p class="sim-note">Послушайте себя и проверьте по чек-листу. Запись не отправляется автоматически: если учитель просит, скачайте файл и пришлите его.</p>`;
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    rec.start(); return true;
+  }catch(e){ st.el.querySelector('.sim-rec').innerHTML = '<p class="sim-note">Микрофон недоступен — тренируйтесь с таймером без записи.</p>'; return false; }
+}
+function tick(st, secs, label, phase, prompt){
+  const el = st.el; el.querySelector('.sim-phase').textContent = label; el.querySelector('.sim-prompt').innerHTML = prompt || '';
+  el.classList.toggle('speaking', phase==='speak');
+  return new Promise(res=>{
+    const t0 = Date.now(); const bar = el.querySelector('.sim-bar i'); const clk = el.querySelector('.sim-clock');
+    st.timer = setInterval(()=>{ if(st.stopped){ clearInterval(st.timer); res(); return; }
+      const left = secs - (Date.now()-t0)/1000; clk.textContent = fmt(left); bar.style.width = Math.min(100, 100*(1-left/secs)) + '%';
+      if(left<=0){ clearInterval(st.timer); res(); } }, 200);
+  });
+}
+async function simStart(btn){
+  const el = btn.closest('.sim'); const old = SIMS.get(el); if(old && !old.stopped) return;
+  const plan = JSON.parse(el.dataset.plan); const st = {el, stopped:false}; SIMS.set(el, st);
+  el.querySelector('.sim-rec').innerHTML = '';
+  const showText = !el.querySelector('.sim-hide') || !el.querySelector('.sim-hide').checked;
+  let recOn = false;
+  for(const s of plan){
+    if(st.stopped) break;
+    if(s.phase==='say'){
+      el.classList.remove('speaking'); el.querySelector('.sim-phase').textContent = s.label; el.querySelector('.sim-clock').textContent = '🔊';
+      el.querySelector('.sim-prompt').innerHTML = showText ? s.text : '<span class="muted">(вопрос звучит — слушайте)</span>';
+      await say(s.text); continue;
+    }
+    if(s.phase==='speak' && !recOn){ recOn = true; await startRec(st); }
+    beep(s.phase==='speak' ? 880 : 520);
+    await tick(st, s.secs, s.label, s.phase, s.prompt);
+  }
+  beep(440, .35);
+  el.classList.remove('speaking'); el.querySelector('.sim-phase').textContent = st.stopped ? 'Остановлено' : 'Время вышло'; el.querySelector('.sim-prompt').innerHTML = '';
+  if(st.rec && st.rec.state !== 'inactive') st.rec.stop();
+  if(!st.stopped){ el.dataset.done = new Date().toLocaleString('ru-RU'); try{ saveProgress && saveProgress(); }catch(e){} }
+  st.stopped = true;
+}
+function simStop(btn){ const el = btn.closest('.sim'); const st = SIMS.get(el); if(!st) return; st.stopped = true; try{ speechSynthesis.cancel(); }catch(e){} }
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
+
+
+/* ================= HELPERS ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function examPoints(n){ return n; }
+
+/* ================= NAVIGATION ================= */
+let current = 0;
+function pauseAllAudio(){ document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} }); }
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  pauseAllAudio();
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= MCQ (instant feedback) ================= */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('is-correct'); }
+  else {
+    btn.classList.add('is-wrong');
+    const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('is-correct');
+  }
+  group.classList.add('answered');
+}
+function bindMcq(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+  });
+}
+function renderMcqList(containerId, items, prefix){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = items.map((it,i)=>{
+    const opts = it.opts.map((o,j)=>`<button type="button" class="opt" data-val="${j+1}">${String.fromCharCode(97+j)}) ${esc(o)}</button>`).join('');
+    const proof = it.proof ? `<button type="button" class="proof-btn" data-panel="${it.panel}" data-proof="${esc(it.proof)}">🔍 Найти в скрипте</button>` : '';
+    return `<div class="item"><p class="q"><b>${i+1}.</b> ${it.q} ${proof}</p>
+      <div class="mcq" data-correct="${it.ans}" data-id="${prefix}_${i+1}">${opts}</div>
+      ${it.why ? `<div class="why">${it.why}</div>` : ''}</div>`;
+  }).join('');
+}
+
+/* ================= SCRIPT + PROOF ================= */
+function renderScript(panelId, script){
+  document.getElementById(panelId).innerHTML = script.map(p=>`<p>${esc(p)}</p>`).join('');
+}
+function highlightScript(panelId, proofText){
+  const panel = document.getElementById(panelId); if(!panel) return;
+  const det = panel.closest('details'); if(det) det.open = true;
+  panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  if(!proofText) return;
+  for(const p of panel.querySelectorAll('p')){
+    const t = p.textContent, idx = t.indexOf(proofText);
+    if(idx !== -1){
+      p.innerHTML = esc(t.slice(0,idx)) + '<mark>' + esc(proofText) + '</mark>' + esc(t.slice(idx+proofText.length));
+      p.querySelector('mark').scrollIntoView({block:'center', behavior:'smooth'});
+      break;
+    }
+  }
+}
+function bindProofs(){
+  document.querySelectorAll('.proof-btn[data-proof]').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=> highlightScript(btn.dataset.panel, btn.dataset.proof);
+  });
+}
+
+/* ================= TASK 1 MATCHING (selects) ================= */
+function renderSpeakerSelects(containerId, v, withNotes){
+  const letters = ['A','B','C','D','E','F'];
+  document.getElementById(containerId).innerHTML = letters.map(L=>{
+    const opts = v.statements.map((s,idx)=>`<option value="${idx+1}">${idx+1}. ${esc(s)}</option>`).join('');
+    const notes = withNotes ? `<textarea class="notes" placeholder="Ключевые слова, которые вы услышали у ${L}…"></textarea>` : '';
+    return `<div class="item"><p class="q"><b>Speaker ${L}</b></p>
+      <div class="${withNotes?'speaker-row':''}">${notes}<select class="fib-select" data-answer="${v.answers[L]}" data-id="${v.key}_${L}"><option value="">— statement № —</option>${opts}</select></div></div>`;
+  }).join('');
+}
+/* ================= SCORING / SUBMIT ================= */
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function itemContext(el){
+  const item = el.closest('.item'); if(!item) return '';
+  const q = item.querySelector('p.q'); if(!q) return '';
+  const c = q.cloneNode(true); c.querySelectorAll('select,input,button,.kw-chip').forEach(x=>x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+}
+function collectScore(scope){
+  let correct=0, total=0; const wrong=[];
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    if(sel.value === sel.dataset.answer) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      const right = sel.querySelector(`option[value="${sel.dataset.answer}"]`);
+      wrong.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct "${right ? right.text : sel.dataset.answer}"`);
+    }
+  });
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    else {
+      const c = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      wrong.push(`${exTitle(g)} — ${itemContext(g)} → answered "${chosen ? chosen.textContent.trim() : '(not answered)'}", correct "${c ? c.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+  scope.querySelectorAll('input.gap').forEach(inp=>{
+    total++;
+    if(gapOk(inp)) correct++;
+    else wrong.push(`${exTitle(inp)} — ${inp.dataset.label||'gap'} → answered "${inp.value.trim() || '(not answered)'}", correct "${JSON.parse(inp.dataset.acc)[0]}"`);
+  });
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0), k = parseInt(c.dataset.correctCount||0);
+    total += t; correct += k;
+    if(k < t) wrong.push(`${exTitle(c)} (matching) — ${k}/${t} pairs matched correctly.`);
+  });
+  return {correct, total, wrong, pct: total ? Math.round(correct/total*100) : 0};
+}
+function subjectFor(extra){
+  const name = document.getElementById('studentName').value.trim();
+  const topic = document.title + (extra ? ' — ' + extra : '');
+  return topic.startsWith(COURSE_NAME) ? `${topic} — ${name}` : `${COURSE_NAME} — ${topic} — ${name}`;
+}
+async function sendForm(fields){
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  const {correct,total,wrong,pct} = collectScore(document);
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    const ok = sel.value === sel.dataset.answer; sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+  });
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${esc(nameInput.value.trim())} — ${correct} / ${total} correct`;
+  document.getElementById('resultsBreakdown').innerHTML = wrong.length
+    ? '<h3>Items to review</h3><ul>' + wrong.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;text-align:center;">All auto-checked items correct 🎉</p>';
+  if(typeof renderResultSticker === 'function') renderResultSticker(pct);
+  showPage(document.querySelectorAll('.page').length-1);
+  const status = document.getElementById('submitStatus');
+  status.textContent = 'Sending…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(''),
+      course: COURSE_NAME,
+      lesson: document.title,
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      result_tier: (typeof getResultTier === 'function') ? getResultTier(pct).label : '',
+      exam_speaking: speakSummary(),
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    status.textContent = 'Sent to your teacher ✓';
+  }catch(e){ status.textContent = 'Could not send — check your internet connection and try again.'; }
+  scheduleSave();
+}
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  const {correct,total,wrong,pct} = collectScore(scope);
+  btn.disabled = true; statusEl.textContent = 'Отправляю…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(taskLabel + ' (частичная отправка)'),
+      course: COURSE_NAME,
+      lesson: document.title + ' — ' + taskLabel + ' (частичная отправка после задания)',
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+  }catch(e){ statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.'; }
+  finally{ btn.disabled = false; }
+}
+
+/* ================= SAVE & RESUME ================= */
+let isRestoring = false;
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt:new Date().toISOString(), page:current };
+    state.name = document.getElementById('studentName').value || '';
+    state.select = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c ? c.dataset.val : null; });
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.gaps = [...document.querySelectorAll('input.gap')].map(el=>el.value);
+    state.kw = [...document.querySelectorAll('.kw-tok')].map((t,i)=>t.classList.contains('on')?i:-1).filter(i=>i>=0);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show'); clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let s; try{ s = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(s.name) document.getElementById('studentName').value = s.name;
+  const sels = document.querySelectorAll('select.fib-select');
+  (s.select||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const groups = document.querySelectorAll('.mcq[data-correct]');
+  (s.mcq||[]).forEach((v,i)=>{ if(v==null || !groups[i]) return; const b = groups[i].querySelector(`.opt[data-val="${v}"]`); if(b) highlightMcq(groups[i], b); });
+  (s.matched||[]).forEach(id=>document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); el.disabled = true; }));
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{ c.dataset.correctCount = c.querySelectorAll('.match.matched-correct').length/2; });
+  const tas = document.querySelectorAll('textarea');
+  (s.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const gps = document.querySelectorAll('input.gap');
+  (s.gaps||[]).forEach((v,i)=>{ if(gps[i] && v) gps[i].value = v; });
+  const toks = document.querySelectorAll('.kw-tok');
+  (s.kw||[]).forEach(i=>{ if(toks[i]) toks[i].classList.add('on'); });
+  const has = (s.select||[]).some(v=>v) || (s.mcq||[]).some(v=>v!=null) || (s.textareas||[]).some(v=>v) || (s.matched||[]).length || (s.kw||[]).length;
+  if(has){
+    document.getElementById('restoreNoteText').textContent = `We found saved answers from ${s.savedAt ? new Date(s.savedAt).toLocaleString() : 'an earlier session'} — they've been filled back in.`;
+    document.getElementById('restoreNote').hidden = false;
+  }
+  if(typeof s.page === 'number') showPage(s.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, select, input.gap, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select')) scheduleSave(); });
+
+</script>
+</body>
+</html>

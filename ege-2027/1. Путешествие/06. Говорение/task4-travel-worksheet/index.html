@@ -9,9 +9,9 @@
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
 <meta name="ws:unit"      content="Путешествие">
-<meta name="ws:title"     content="02. Задание 4 — Путешествия, интерактивный воркшит">
+<meta name="ws:title"     content="08. Задание 4 — Mass tourism, интерактивный воркшит — Classwork">
 <meta name="ws:emoji"     content="🧭">
-<meta name="ws:date"      content="2026-08-15">
+<meta name="ws:date"      content="2026-10-06">
 <meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="mnjekjvq">
 <meta name="ws:tags"      content="ЕГЭ, путешествие">
@@ -59,7 +59,7 @@ p{ line-height:1.5; }
 .lesson-title small{ display:block; font-weight:400; color:var(--muted); font-size:12px; margin-top:2px; }
 .namebar{ display:flex; align-items:center; gap:8px; }
 .namebar label{ font-size:13px; color:var(--muted); font-weight:700; white-space:nowrap; }
-.namebar input{ border:2px solid var(--border); border-radius:8px; padding:7px 10px; font-family:inherit; font-size:14px; width:200px; }
+.namebar input{ border:2px solid var(--border); border-radius:8px; padding:7px 10px; font-family:inherit; font-size:16px; width:200px; }
 .namebar input:focus{ outline:none; border-color:var(--purple); }
 .progress-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
 .progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; border:1px solid var(--border); }
@@ -90,7 +90,7 @@ p{ line-height:1.5; }
 .wordbox .wb-title{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; margin-bottom:6px; }
 .chip{ display:inline-block; background:#fff; border:1px solid var(--purple); color:var(--purple-dark); border-radius:20px; padding:5px 12px; margin:3px 4px 3px 0; font-size:13px; cursor:pointer; transition:.15s; }
 .chip:hover{ background:var(--purple); color:#fff; }
-textarea.answer{ width:100%; min-height:70px; border:2px solid var(--border); border-radius:10px; padding:10px 12px; font-family:inherit; font-size:14px; resize:vertical; }
+textarea.answer{ width:100%; min-height:70px; border:2px solid var(--border); border-radius:10px; padding:10px 12px; font-family:inherit; font-size:16px; resize:vertical; }
 textarea.answer:focus{ outline:none; border-color:var(--purple); }
 @media (max-width:720px){ .photo-block{ grid-template-columns:1fr; } }
 
@@ -132,13 +132,13 @@ ul.criteria{ padding-left:20px; }
 ul.criteria li{ margin-bottom:6px; }
 .blank-row{ margin-bottom:14px; }
 .blank-row p{ margin:0 0 6px; font-size:14px; }
-.blank-row textarea{ width:100%; min-height:44px; border:2px solid var(--border); border-radius:8px; padding:8px 10px; font-family:inherit; font-size:14px; resize:vertical; }
+.blank-row textarea{ width:100%; min-height:44px; border:2px solid var(--border); border-radius:8px; padding:8px 10px; font-family:inherit; font-size:16px; resize:vertical; }
 .blank-row textarea:focus{ outline:none; border-color:var(--purple); }
 
 /* Plan-scheme flow */
 .plan-flow{ display:grid; grid-template-columns:260px 1fr; gap:0 16px; align-items:stretch; }
 .plan-note{ background:var(--card-tint); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--purple-dark); display:flex; align-items:center; font-style:italic; }
-.plan-box{ background:#fff; border:2px solid var(--purple); border-radius:10px; padding:10px 14px; margin:5px 0; font-size:14px; display:flex; align-items:center; }
+.plan-box{ background:#fff; border:2px solid var(--purple); border-radius:10px; padding:10px 14px; margin:5px 0; font-size:14px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
 .plan-box b{ color:var(--purple-dark); }
 .plan-box small{ display:block; color:var(--muted); font-weight:400; }
 .plan-group{ grid-column:2; }
@@ -763,6 +763,7 @@ async function submitAll(){
     fd.append('task1_answers', [1,2,3].map(i=>document.getElementById('ans'+i).value).join(' ||| '));
     fd.append('task3_advantages', document.getElementById('adv').value);
     fd.append('task3_disadvantages', document.getElementById('disadv').value);
+    fd.append('task4_answer', [...document.querySelectorAll('.blank-row')].map(r=>{ const t=r.querySelector('textarea'); return t && t.value.trim() ? r.querySelector('p').textContent.trim()+' '+t.value.trim() : ''; }).filter(Boolean).join('\n'));
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Отправлено преподавателю ✓';
