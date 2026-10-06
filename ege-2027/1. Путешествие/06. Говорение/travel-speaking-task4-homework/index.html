@@ -737,9 +737,9 @@ async function startRec(st){
     rec.ondataavailable = e=>{ if(e.data.size) st.chunks.push(e.data); };
     rec.onstop = ()=>{
       const type = rec.mimeType || 'audio/webm'; const blob = new Blob(st.chunks, {type}); const url = URL.createObjectURL(blob);
-      const ext = /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm';
+      const ext = /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm'; st.blob = blob; st.ext = ext; st.sent = false;
       const name = ((document.getElementById('studentName')||{}).value||'answer').trim().replace(/\s+/g,'_') + '_' + st.el.dataset.file + '.' + ext;
-      st.el.querySelector('.sim-rec').innerHTML = `<audio controls src="${url}"></audio><a href="${url}" download="${name}">⬇ Скачать запись</a><p class="sim-note">Послушайте себя и проверьте по чек-листу. Запись не отправляется автоматически: если учитель просит, скачайте файл и пришлите его.</p>`;
+      st.el.querySelector('.sim-rec').innerHTML = `<audio controls src="${url}"></audio><a href="${url}" download="${name}">⬇ Скачать запись</a><p class="sim-note">Послушайте себя и проверьте по чек-листу. Запись уйдёт учителю вместе с результатом, когда вы нажмёте «Отправить» (файл можно и скачать).</p>`;
       stream.getTracks().forEach(t=>t.stop());
     };
     rec.start(); return true;
@@ -926,6 +926,26 @@ async function sendForm(fields){
   const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
   if(!r.ok) throw new Error('HTTP ' + r.status);
 }
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+/* Аудиозаписи уходят учителю через Basin одним письмом (все ещё не отправленные записи страницы/блока),
+   текстовый результат — как и раньше, через Web3Forms. */
+async function sendAudio(scope, label){
+  const items = [...scope.querySelectorAll('.sim')].map(el=>({el, st:SIMS.get(el)})).filter(x=>x.st && x.st.blob && !x.st.sent);
+  if(!items.length) return 0;
+  const student = document.getElementById('studentName').value.trim();
+  const slug = student.toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40) || 'student';
+  const fd = new FormData();
+  fd.append('course', COURSE_NAME);
+  fd.append('exercise', document.title + (label ? ' — ' + label : ''));
+  fd.append('student', student);
+  fd.append('recordings_list', items.map(x=>x.el.dataset.label).join('\n'));
+  fd.append('timestamp', new Date().toISOString());
+  items.forEach(x=>fd.append('recording_' + x.el.dataset.file, x.st.blob, slug + '_' + x.el.dataset.file + '.' + x.st.ext));
+  const r = await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+  items.forEach(x=>{ x.st.sent = true; });
+  return items.length;
+}
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
@@ -957,7 +977,10 @@ async function submitAll(){
       mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
       timestamp: new Date().toISOString()
     });
-    status.textContent = 'Sent to your teacher ✓';
+    let audioMsg = '';
+    try{ const n = await sendAudio(document, ''); audioMsg = n ? ' + audio (' + n + ')' : ''; }
+    catch(e){ audioMsg = ' — but the audio was not sent, press Submit again'; }
+    status.textContent = 'Sent to your teacher ✓' + audioMsg;
   }catch(e){ status.textContent = 'Could not send — check your internet connection and try again.'; }
   scheduleSave();
 }
@@ -979,7 +1002,10 @@ async function submitPartial(btn, taskLabel){
       mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
       timestamp: new Date().toISOString()
     });
-    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+    let audioMsg = '';
+    try{ const n = await sendAudio(scope, taskLabel); audioMsg = n ? ' + аудио (' + n + ')' : ''; }
+    catch(e){ audioMsg = ' — но аудио не отправилось, нажмите ещё раз'; }
+    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)` + audioMsg;
   }catch(e){ statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.'; }
   finally{ btn.disabled = false; }
 }
