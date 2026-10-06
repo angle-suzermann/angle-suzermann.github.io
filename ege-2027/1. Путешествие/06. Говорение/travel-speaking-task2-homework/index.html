@@ -590,8 +590,8 @@ async function sendFormW(fields){
   const sims = [...scope.querySelectorAll('.sim')].map(s=>`${s.dataset.label}: ${s.dataset.done ? 'выполнено ' + s.dataset.done : 'не запускалось'}`);
   if(sims.length) fields.exam_simulation = sims.join('\n');
   const fd = new FormData();
-  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
-  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  Object.entries(fields).forEach(([k,v])=>{ if(k!=='access_key') fd.append(k,v); });
+  const r = await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
   if(!r.ok) throw new Error('HTTP ' + r.status);
 }
 document.addEventListener('DOMContentLoaded', ()=>{ window.sendForm = sendFormW; });
@@ -804,8 +804,8 @@ function subjectFor(extra){
 }
 async function sendForm(fields){
   const fd = new FormData();
-  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
-  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  Object.entries(fields).forEach(([k,v])=>{ if(k!=='access_key') fd.append(k,v); });
+  const r = await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
   if(!r.ok) throw new Error('HTTP ' + r.status);
 }
 const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';

@@ -609,6 +609,8 @@ body{overflow-wrap:break-word;}
 <!-- /page-wrap -->
 
 <script>
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+
 const PAGE_LABELS = ["Обложка","Task 1","Task 2","Task 3","Task 4","План-схема","Образец","Фразы","Финиш"];
 let current = 0;
 
@@ -753,7 +755,6 @@ async function submitAll(){
 
   try{
     const fd = new FormData();
-  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'ЕГЭ 2027');
   fd.append('subject', ('ЕГЭ 2027 — ' + document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
@@ -765,7 +766,7 @@ async function submitAll(){
     fd.append('task3_disadvantages', document.getElementById('disadv').value);
     fd.append('task4_answer', [...document.querySelectorAll('.blank-row')].map(r=>{ const t=r.querySelector('textarea'); return t && t.value.trim() ? r.querySelector('p').textContent.trim()+' '+t.value.trim() : ''; }).filter(Boolean).join('\n'));
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    await fetch(BASIN_URL, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Отправлено преподавателю ✓';
   } catch(e){
     document.getElementById('submitStatus').textContent = 'Не удалось отправить — проверьте подключение к интернету и попробуйте снова.';
