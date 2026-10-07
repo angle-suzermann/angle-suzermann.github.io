@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Задание 38 — шаблоны эссе</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="38">
+<meta name="ws:title"     content="Задание 38: шаблоны эссе">
+<meta name="ws:emoji"     content="📊">
+<meta name="ws:date"      content="2026-10-07">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="task38, essay, project, writing, template, шаблон">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:.5; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
+
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:980px; margin:0 auto; padding:10px 20px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1.02rem; }
+.namebar{ display:flex; align-items:center; gap:8px; font-size:.85rem; }
+.namebar input{ font-family:inherit; padding:6px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:.85rem; width:190px; }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--yellow); width:0; transition:width .3s ease; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:27px; height:27px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; cursor:pointer; }
+.page-dot.active{ background:var(--purple); border-color:var(--purple); color:#fff; }
+
+.page-wrap{ position:relative; max-width:980px; margin:0 auto; padding:24px 20px 100px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.card{ background:var(--card); border-radius:16px; padding:24px 26px; margin-bottom:18px; box-shadow:0 10px 30px rgba(20,10,30,.18); }
+.card h2{ color:var(--purple); margin:0 0 6px; font-size:1.25rem; }
+.card h3{ color:var(--purple-dark); font-size:1.02rem; margin:18px 0 8px; }
+.card p, .card li{ line-height:1.55; }
+.muted{ color:var(--muted); font-size:.88rem; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:800; color:var(--purple); margin-bottom:4px; }
+.tag{ display:inline-block; background:var(--card-tint); color:var(--purple); border-radius:999px; padding:3px 11px; font-size:.74rem; font-weight:700; margin:2px 4px 2px 0; }
+.info-box{ background:var(--card-tint); border-left:4px solid var(--yellow); border-radius:10px; padding:12px 16px; margin:12px 0; font-size:.92rem; }
+.info-box b{ color:var(--purple-dark); }
+.score-table{ border-collapse:collapse; margin:8px 0; font-size:.9rem; }
+.score-table td{ padding:4px 14px 4px 0; }
+.score-table td:last-child{ font-weight:700; color:var(--purple); }
+ol.algo li{ margin-bottom:6px; }
+details.fold{ margin-top:10px; }
+details.fold summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.model{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; margin-top:8px; font-size:.9rem; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+.task-submit{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border); }
+.task-submit-status{ font-size:.85rem; color:var(--muted); }
+button{ font-family:inherit; cursor:pointer; border:none; }
+.btn{ background:var(--purple); color:#fff; font-weight:700; padding:11px 22px; border-radius:999px; font-size:.9rem; }
+.btn:hover{ background:var(--purple-dark); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--black); color:var(--yellow); text-transform:uppercase; letter-spacing:.03em; }
+.btn[disabled]{ opacity:.35; cursor:default; pointer-events:none; }
+
+textarea{ width:100%; font-family:inherit; font-size:.92rem; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; resize:vertical; min-height:64px; }
+textarea.notes{ min-height:44px; font-size:.86rem; }
+select.fib-select{ font-family:inherit; font-size:.9rem; border:1.5px solid var(--border); border-radius:8px; padding:7px 10px; display:block; width:100%; max-width:100%; margin:6px 0; background:#fff; }
+select.fib-select.is-correct{ border-color:var(--correct); background:#eafaf0; }
+select.fib-select.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+
+.item{ margin:12px 0; padding:12px 14px; background:var(--card-tint); border-radius:10px; }
+.item p.q{ margin:0 0 6px; }
+.speaker-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
+@media (max-width:640px){ .speaker-row{ grid-template-columns:1fr; } }
+.exam-points{ margin-top:12px; padding:12px 16px; border-radius:10px; background:#fff; border:2px solid var(--yellow); font-weight:700; color:var(--purple-dark); }
+.exam-points[hidden]{ display:none; }
+
+.mcq{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.mcq .opt{ text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 14px; font-size:.9rem; color:var(--text); }
+.mcq .opt.chosen{ border-color:var(--purple); font-weight:700; }
+.mcq .opt.is-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; font-weight:700; }
+.mcq .opt.is-wrong{ border-color:var(--wrong); background:#fdecec; color:var(--wrong); }
+.why{ display:none; font-size:.86rem; margin-top:8px; color:var(--purple-dark); background:#fff; border-radius:8px; padding:8px 12px; border-left:3px solid var(--yellow); }
+.mcq.answered + .why{ display:block; }
+
+.statement-list{ margin:8px 0; padding-left:0; list-style:none; }
+.statement-list li{ padding:6px 10px; border-radius:8px; margin:4px 0; background:var(--card-tint); font-size:.93rem; }
+
+.kw-line{ margin:8px 0; padding:10px 12px; background:var(--card-tint); border-radius:10px; line-height:2; }
+.kw-tok{ cursor:pointer; padding:2px 3px; border-radius:4px; user-select:none; }
+.kw-tok:hover{ background:#efe6fa; }
+.kw-tok.on{ background:var(--yellow); }
+.kw-tok.key{ box-shadow:inset 0 -3px 0 var(--purple); }
+
+.match-wrap{ display:grid; grid-template-columns:1fr 1.4fr; gap:18px; }
+.match-col{ display:flex; flex-direction:column; gap:8px; }
+.match{ background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:9px 12px; font-size:.86rem; text-align:left; color:var(--text); }
+.match.selected{ border-color:var(--purple); background:var(--card-tint); }
+.match.matched-correct{ border-color:var(--correct); background:#eafaf0; color:#23744a; cursor:default; }
+.match.wrong-flash{ border-color:var(--wrong); background:#fdecec; }
+@media (max-width:640px){ .match-wrap{ grid-template-columns:1fr; } }
+
+.listen-block{ background:var(--card-tint); border-radius:12px; padding:14px 16px; margin:10px 0 16px; }
+audio{ width:100%; margin-top:6px; }
+.script-panel{ background:#fdfbff; border:1.5px dashed var(--border); border-radius:12px; padding:14px 16px; margin-top:10px; max-height:320px; overflow-y:auto; font-size:.88rem; line-height:1.6; }
+.script-panel p{ margin:0 0 10px; }
+.script-panel mark{ background:var(--yellow); padding:1px 2px; border-radius:3px; }
+.proof-btn{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; margin-left:8px; white-space:nowrap; }
+details.script-toggle{ margin-top:10px; }
+details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:700; font-size:.9rem; }
+.phrase-bank{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.phrase-bank span{ background:#fff; border:1px solid var(--border); border-radius:999px; padding:4px 11px; font-size:.82rem; color:var(--purple-dark); }
+
+.results-panel{ display:none; text-align:center; }
+.results-panel.show{ display:block; }
+.big-score{ font-size:2.4rem; font-weight:900; color:var(--purple); }
+.breakdown-list{ font-size:.85rem; line-height:1.7; text-align:left; }
+.completion-stickers{ text-align:center; }
+.completion-sticker{ display:block; max-width:260px; width:100%; margin:12px auto 0; animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1); }
+.completion-sticker[hidden]{ display:none; }
+.completion-sticker--medium{ max-width:170px; }
+.completion-sticker--icon{ max-width:110px; }
+@keyframes stickerPop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+.result-caption{ text-align:center; font-size:.92rem; color:var(--muted); margin-top:6px; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; }
+#submitStatus{ font-size:.85rem; margin-top:8px; color:var(--muted); }
+.reset-link{ text-align:center; margin-top:10px; }
+.reset-link a{ color:var(--muted); font-size:.78rem; cursor:pointer; text-decoration:underline; }
+
+.angle-badge{ position:fixed; left:24px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:640px){
+  .angle-badge{ left:10px; bottom:8px; }
+  .angle-badge .wordmark{ width:60px; }
+  .angle-badge .credit{ font-size:7px; margin-top:2px; }
+  .card{ padding:18px 16px; }
+  .lesson-title{ font-size:.92rem; }
+  .namebar input{ width:150px; }
+}
+/* iOS: no auto-zoom on focus */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+
+.reading.script-panel{ max-height:none; font-size:.95rem; line-height:1.65; background:#fff; }
+.txt-block{ display:grid; grid-template-columns:34px 1fr; gap:10px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.txt-block:last-child{ border-bottom:none; }
+.txt-block .lt{ width:30px; height:30px; border-radius:50%; background:var(--purple); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.txt-block p{ margin:0 0 8px; }
+.txt-block select.fib-select{ max-width:420px; }
+.headings-box{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; columns:2; column-gap:28px; font-size:.92rem; }
+@media (max-width:640px){ .headings-box{ columns:1; } }
+.headings-box div{ break-inside:avoid; padding:2px 0; }
+.headings-box b{ color:var(--purple); }
+select.fib-select.inline{ display:inline-block; width:auto; min-width:64px; margin:0 4px; padding:3px 6px; }
+.gap-text p{ line-height:2.1; }
+.restored{ display:none; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; margin-top:10px; font-size:.93rem; }
+.restored.show{ display:block; }
+.restored b{ color:var(--purple-dark); background:#fff3b0; padding:0 3px; border-radius:3px; }
+.note-box{ display:none; margin-top:10px; padding:10px 14px; border-radius:10px; background:#fff; border-left:4px solid var(--purple); font-size:.9rem; }
+.note-box.show{ display:block; }
+.q-row{ display:grid; grid-template-columns:1fr 190px; gap:12px; align-items:start; }
+.q-row select.fib-select{ margin:0; }
+@media (max-width:640px){ .q-row{ grid-template-columns:1fr; } }
+.q-num{ display:inline-block; min-width:28px; font-weight:800; color:var(--purple); }
+.q-opts{ list-style:none; padding:0; margin:6px 0 0; font-size:.92rem; }
+.q-opts b{ color:var(--purple); }
+.photo-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:10px 0; }
+@media (max-width:640px){ .photo-row{ grid-template-columns:1fr; } }
+.photo-row figure{ margin:0; background:var(--card-tint); border-radius:12px; overflow:hidden; }
+.photo-row img{ width:100%; height:170px; object-fit:cover; display:block; }
+.photo-row figcaption{ text-align:center; font-weight:800; color:var(--purple); padding:6px; }
+.def-text{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin:12px 0 6px; font-size:.93rem; }
+.def-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:4px 0 4px 14px; font-size:.9rem; }
+input.gap{ font-family:inherit; font-size:.9rem; border:none; border-bottom:2px solid var(--purple); background:#fff; padding:2px 6px; width:170px; border-radius:4px 4px 0 0; }
+input.gap.is-correct{ border-color:var(--correct); background:#eafaf0; }
+input.gap.is-wrong{ border-color:var(--wrong); background:#fdecec; }
+.gap-key{ display:none; font-size:.78rem; color:var(--correct); font-weight:700; }
+.show-keys .gap-key{ display:inline; }
+.model{ display:none; }
+.show-keys .model{ display:block; }
+.strategy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0; }
+@media (max-width:640px){ .strategy-grid{ grid-template-columns:1fr; } }
+.strategy{ background:var(--card-tint); border-radius:12px; padding:14px 16px; font-size:.92rem; }
+
+.email{ background:#fff; border:1.5px solid var(--border); border-left:6px solid var(--purple); border-radius:12px; padding:14px 18px; margin:10px 0; font-size:.95rem; line-height:1.6; }
+.email .hdr{ color:var(--muted); font-size:.85rem; margin-bottom:8px; }
+.email .hdr b{ color:var(--purple-dark); }
+.email p{ margin:0 0 8px; }
+.taskbox{ background:var(--card-tint); border-radius:12px; padding:12px 16px; margin:10px 0; font-size:.93rem; }
+.taskbox ul{ margin:6px 0 0; padding-left:20px; }
+textarea.writing{ min-height:320px; font-size:1rem; line-height:1.6; }
+.wc{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:6px 0 4px; font-size:.88rem; }
+.wc .n{ font-weight:800; padding:3px 10px; border-radius:999px; background:#EDE8F2; color:var(--purple-dark); }
+.wc .n.ok{ background:#eafaf0; color:#1d7a45; } .wc .n.warn{ background:#fff3cd; color:#7a5b00; } .wc .n.bad{ background:#fdecec; color:#a12a2a; }
+.checklist{ list-style:none; padding:0; margin:8px 0; }
+.checklist li{ display:flex; gap:10px; align-items:flex-start; padding:6px 0; border-bottom:1px dashed var(--border); font-size:.92rem; }
+.checklist input{ margin-top:3px; width:18px; height:18px; accent-color:var(--purple); }
+.model{ display:none; white-space:pre-wrap; background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:12px 16px; font-size:.93rem; line-height:1.6; }
+.model.show{ display:block; }
+.data-table{ border-collapse:collapse; width:100%; max-width:560px; margin:8px 0; font-size:.93rem; background:#fff; }
+.data-table th, .data-table td{ border:1px solid var(--border); padding:6px 10px; text-align:left; }
+.data-table th{ background:#EDE8F2; color:var(--purple-dark); }
+.data-table td:last-child, .data-table th:last-child{ text-align:center; width:120px; }
+.bars{ max-width:620px; margin:8px 0; }
+.bar-row{ display:grid; grid-template-columns:minmax(120px,38%) 1fr 48px; gap:10px; align-items:center; margin:6px 0; font-size:.9rem; }
+.bar-row .track{ background:#EDE8F2; border-radius:6px; height:18px; overflow:hidden; }
+.bar-row .fill{ background:var(--purple); height:100%; border-radius:6px; }
+.bar-row b{ color:var(--purple-dark); }
+.pie-wrap{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin:8px 0; }
+.pie-legend{ list-style:none; padding:0; margin:0; font-size:.9rem; }
+.pie-legend li{ display:flex; gap:8px; align-items:center; margin:4px 0; }
+.pie-legend i{ width:14px; height:14px; border-radius:3px; display:inline-block; flex:none; }
+.poll{ font-weight:700; color:var(--purple-dark); margin:8px 0 2px; }
+.mcq .opt{ text-align:left; white-space:normal; }
+.cat{ margin:16px 0 4px; color:var(--purple); font-size:.85rem; letter-spacing:1px; text-transform:uppercase; }
+
+.bank{ display:none; flex-wrap:wrap; gap:6px; margin:8px 0; } .bank.show{ display:flex; }
+.bank span{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:999px; padding:3px 10px; font-size:.88rem; }
+.gaptext{ line-height:2.2; font-size:1rem; } .gaptext p{ margin:0 0 10px; }
+.gap-n{ font-size:.75rem; font-weight:800; color:var(--purple); margin:0 2px 0 4px; }
+.gap-key{ display:none; } .show-keys .gap-key{ display:inline; background:#eafaf0; border-radius:4px; padding:0 4px; margin-left:3px; font-size:.85rem; }
+.table-scroll{ overflow-x:auto; }
+
+.tpl{ display:grid; grid-template-columns:minmax(150px,200px) 1fr; gap:0; border:1.5px solid var(--border); border-radius:12px; overflow:hidden; margin:10px 0; background:#fff; }
+.tpl > div{ padding:10px 12px; border-bottom:1px solid var(--border); font-size:.93rem; line-height:1.55; }
+.tpl > div:nth-last-child(-n+2){ border-bottom:none; }
+.tpl .lab{ font-weight:800; color:var(--purple-dark); font-size:.85rem; }
+.tpl .lab small{ display:block; font-weight:600; color:var(--muted); margin-top:2px; }
+.tpl .txt .hint{ display:block; color:var(--muted); font-size:.82rem; margin-top:4px; }
+.tpl .txt .up{ display:block; margin-top:4px; }
+.tpl .txt .old{ color:var(--muted); } .tpl .txt .old::before{ content:'Базово: '; font-weight:700; } .tpl .txt .up::before{ content:'Сильнее: '; font-weight:700; color:var(--purple); }
+@media (max-width:640px){ .tpl{ grid-template-columns:1fr; } .tpl .lab{ border-bottom:none !important; padding-bottom:0; } }
+.letter{ background:#fff; border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; margin:10px 0; font-size:.95rem; line-height:1.65; }
+.letter p{ margin:0 0 10px; border-radius:6px; padding:2px 6px; position:relative; }
+.letter p .tag{ display:inline-block; font-size:.68rem; font-weight:800; letter-spacing:.3px; text-transform:uppercase; color:var(--purple-dark); background:rgba(255,255,255,.75); border-radius:999px; padding:0 8px; margin-right:6px; vertical-align:1px; }
+.letter .wcnt{ font-size:.82rem; color:var(--muted); margin-top:4px; }
+.frames{ border-collapse:collapse; width:100%; font-size:.88rem; background:#fff; }
+.frames th, .frames td{ border:1px solid var(--border); padding:6px 8px; vertical-align:top; text-align:left; }
+.frames th{ background:#EDE8F2; color:var(--purple-dark); }
+.frames td:first-child{ font-weight:800; color:var(--purple); text-align:center; width:30px; }
+.qcards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; margin:10px 0; }
+.qcard{ background:#fff; border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; font-size:.88rem; }
+.qcard b{ color:var(--purple-dark); display:block; } .qcard small{ color:var(--muted); display:block; margin-bottom:4px; }
+.qcard ul{ margin:4px 0 0; padding-left:18px; }
+.slot{ border:1.5px solid var(--border); border-radius:12px; padding:8px 10px 6px; margin:8px 0; }
+.slot .sh{ display:flex; justify-content:space-between; gap:8px; font-size:.84rem; font-weight:800; color:var(--purple-dark); }
+.slot .sh span:last-child{ font-weight:600; color:var(--muted); }
+.slot textarea{ min-height:46px; margin-top:4px; }
+.slot .ph{ font-size:.8rem; color:var(--muted); margin-top:2px; }
+.frames-wrap{}
+@media (max-width:640px){ .frames, .frames tbody, .frames tr, .frames td{ display:block; width:auto !important; } .frames tr:first-child{ display:none; } .frames tr{ border:1.5px solid var(--border); border-radius:10px; margin:8px 0; overflow:hidden; } .frames td{ border:none; border-bottom:1px dashed var(--border); } .frames td:last-child{ border-bottom:none; } .frames td:first-child{ text-align:left; background:#EDE8F2; } }
+.slot-total{ font-weight:800; color:var(--purple-dark); margin:8px 0; }
+
+.ptable{ border-collapse:collapse; font-size:.88rem; background:#fff; width:100%; }
+.ptable td, .ptable th{ border:1px solid var(--border); padding:5px 8px; text-align:left; vertical-align:top; }
+.ptable th{ background:#EDE8F2; color:var(--purple-dark); }
+.algo-step{ display:flex; gap:14px; align-items:flex-start; }.algo-step p.q{ margin:0; }.algo-n{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--yellow); color:var(--black); font-weight:800; display:flex; align-items:center; justify-content:center; }</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Задание 38 — шаблоны эссе</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name"><span class="save-indicator" id="saveIndicator"></span></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel">Page 1 / 8</span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+<div class="scroll-area" id="scrollArea"><div class="page-wrap">
+
+<section class="page active">
+  <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button onclick="clearProgress()">Start over (clear saved answers)</button></div>
+  <div class="card">
+    <div class="eyebrow">ANGLE · ЕГЭ-2027 · Письмо · Тренажёр 38</div>
+    <h2>Задание 38: шаблоны эссе</h2>
+    <p>Четыре шаблона для проекта на 14 баллов. <b>Шаблон 1</b> — базовый каркас из 5 абзацев с бюджетом слов (≈240 слов). <b>Шаблон 2</b> — тот же каркас с языком высокого уровня для К3 и К4. <b>Шаблон 3</b> — язык данных: доли, сравнения, ловушки арифметики. <b>Шаблон 4</b> — проблема, решение, мнение и нейтральный стиль. В конце вы соберёте своё эссе в конструкторе и отправите его учителю.</p>
+    <div class="info-box"><b>Формат задания 38 (ЕГЭ-2027, без изменений по сравнению с 2026):</b> развёрнутое письменное высказывание с элементами рассуждения на основе таблицы или диаграммы (проект). Выбрать одно из двух заданий — 38.1 (таблица) или 38.2 (диаграмма). 200–250 слов, рекомендуемое время — 60 минут. Высокий уровень.
+<table class="score-table"><tr><td>Решение коммуникативной задачи (К1)</td><td>3 балла</td></tr><tr><td>Организация текста (К2)</td><td>3 балла</td></tr><tr><td>Лексика (К3)</td><td>3 балла</td></tr><tr><td>Грамматика (К4)</td><td>3 балла</td></tr><tr><td>Орфография и пунктуация (К5)</td><td>2 балла</td></tr><tr><td>Итого</td><td>14 баллов</td></tr></table>
+0 по К1 → 0 за всё задание. Проверяются тексты от 180 до 275 слов. Числа пишем цифрами. Стиль нейтральный: без сокращений (I’m, don’t), риторических вопросов и Let’s.</div>
+    
+    <div class="nav-btns"><span></span><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Before you write · Page 2 of 8</div>
+    <h2>Алгоритм выполнения задания 38: 4 главных шага</h2>
+    <p class="muted">Шаблоны ниже — это алгоритм, разложенный по пунктам плана.</p>
+    <div class="item algo-step"><span class="algo-n">1</span><p class="q">Выберите 38.1 или 38.2 за 5 минут: где данные понятнее и где вы лучше знаете лексику для проблемы и мнения.</p></div><div class="item algo-step"><span class="algo-n">2</span><p class="q">Пять абзацев по плану: введение (тема + проект) → 2–3 факта с цифрами → 1–2 сравнения с комментарием → проблема + решение → вывод + мнение с обоснованием.</p></div><div class="item algo-step"><span class="algo-n">3</span><p class="q">В фактах и сравнениях — только цифры из таблицы, цифрами (40%). Сравнивайте через whereas, twice as many, nearly the same.</p></div><div class="item algo-step"><span class="algo-n">4</span><p class="q">Нейтральный стиль без сокращений и риторических вопросов. 200–250 слов, проверка по чек-листу.</p></div>
+    <details class="fold"><summary>Полный алгоритм (11 шагов)</summary><ol class="algo"><li>Прочитайте оба задания и выберите одно за 5 минут. Время: 60 минут на всё, 3–5 минут на финальную проверку.</li><li>Подчеркните тему проекта (WHAT / WHERE / WHY / HOW people…), страну (Zetland) и формулировку проблемы и вывода в плане.</li><li>Введение: общее предложение по теме + предложение о проекте (I have found some data for my project on…).</li><li>Факты: 2–3 факта с цифрами из таблицы (не только the majority — обязательно 40%). Упомяните не менее трёх опций.</li><li>Сравнения: 1–2 сравнения с комментарием (почему так): whereas, while, twice as many, the gap between… Сравнение без комментария — неполный пункт, если план требует комментарий.</li><li>Проблема: она должна относиться к теме из плана (problem that can arise with travelling abroad). Решение — конкретное и реальное.</li><li>Вывод и мнение: In conclusion, … I believe … because … Мнение по вопросу из последнего пункта плана с обоснованием.</li><li>Абзацы по плану; введение и заключение примерно одного объёма; основная часть больше.</li><li>Нейтральный стиль: без I’m, don’t, can’t, без риторических вопросов, без Let’s и разговорной лексики.</li><li>Лексика и грамматика высокого уровня: пассив, Complex Subject, условные предложения, причастные обороты, синонимы.</li><li>Посчитайте слова (50% — одно слово), проверьте по чек-листу и орфографию — один вариант английского (British или American).</li></ol></details>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Шаблон 1 · Page 3 of 8</div>
+    <h2>Template 1. The basic frame (≈240 words)</h2>
+    <p>Пять абзацев — пять пунктов плана. Курсивом — то, что меняется в каждом задании, остальное можно выучить. Бюджет слов помогает уложиться в 200–250: если абзац «разросся», сократите комментарий, а не факты.</p>
+  <div class="tpl"><div class="lab" style="background:#EDE8F2">Вступление<small>≈ 45–55 слов</small></div><div class="txt">Nowadays <i>[тема в общем виде]</i> is becoming more and more popular. I am doing a project on <i>[тема проекта — как в задании]</i>, and I have found some data on the subject – the results of a survey conducted among <i>[аудитория из задания]</i>. In this essay I am going to analyse the data and give my opinion.<span class="hint">Аспект 1. Тему проекта и аудиторию берём из задания, но своими словами не искажаем.</span></div><div class="lab" style="background:#E3F1E8">Факты (2–3)<small>≈ 35–45 слов</small></div><div class="txt">According to the <i>[table / diagram]</i>, the most popular <i>[reason / answer]</i> is “<i>[A]</i>” with <i>[x]</i>% of the respondents. It is followed by “<i>[B]</i>” (<i>[y]</i>%). Only <i>[z]</i>% of the people surveyed <i>[E]</i>.<span class="hint">Аспект 2. Ровно 2–3 факта с цифрами. Числа — цифрами (так требует инструкция ЕГЭ).</span></div><div class="lab" style="background:#DCEBFA">Сравнение + комментарий<small>≈ 50–60 слов</small></div><div class="txt">I would like to make a comparison. “<i>[C]</i>” (<i>[x]</i>%) is chosen by twice as many respondents as “<i>[D]</i>” (<i>[y]</i>%). This is not surprising because <i>[причина именно этой разницы]</i>.<span class="hint">Аспект 3. Сравнение арифметически верное + комментарий «почему». Лучше брать опции, которых не было в фактах.</span></div><div class="lab" style="background:#FFF3B8">Проблема + решение<small>≈ 40–55 слов</small></div><div class="txt">However, a problem can arise with <i>[тема проблемы — слово в слово из плана]</i>. The thing is that <i>[проблема + последствие]</i>. A possible solution to this problem is <i>[решение, которое снимает именно эту проблему]</i>.<span class="hint">Аспект 4. Проблема — ровно про то, что названо в плане; решение — к этой проблеме, а не «вообще».</span></div><div class="lab" style="background:#F6E3EC">Вывод + мнение<small>≈ 30–45 слов</small></div><div class="txt">In conclusion, I would like to say that, in my opinion, <i>[ответ на вопрос из последнего пункта плана]</i> because <i>[объяснение]</i>. <i>[ещё один аргумент]</i>.<span class="hint">Аспект 5. Мнение отвечает именно на вопрос плана и обязательно объяснено.</span></div></div>
+  <h3>Как это выглядит в эссе</h3><div class="taskbox"><b>38.1</b> Imagine that you are doing a project on <b>why people in Zetland travel abroad</b>. You have found some data on the subject – the results of a survey conducted among people in Zetland (see the table below). Comment on the survey data and give your opinion on the subject of the project.</div><p class="poll">The survey question: Why do you travel abroad?</p><p class="muted" style="margin:0 0 6px;font-size:.88rem">Choose one option.</p><table class="data-table"><tr><th>Reason</th><th>Number of respondents (%)</th></tr><tr><td>To see famous sights</td><td>40</td></tr><tr><td>To get out of comfort zone</td><td>22</td></tr><tr><td>To practise a foreign language</td><td>17</td></tr><tr><td>To meet new people</td><td>12</td></tr><tr><td>To taste local food</td><td>9</td></tr></table>
+    <div class="taskbox">Write 200–250 words. Use the following plan:<ul><li>make an opening statement on the subject of the project;</li><li>select and report 2–3 facts;</li><li>make 1–2 comparisons where relevant and give your comments;</li><li>outline a problem that can arise with travelling abroad and suggest a way of solving it;</li><li>conclude by giving and explaining your opinion on the importance of travelling in human life.</li></ul></div><div class="letter"><b>Образец по шаблону 1</b><p style="background:#EDE8F2"><span class="tag">Вступление</span>Nowadays travelling abroad is becoming more and more popular. I am doing a project on why people in Zetland travel abroad, and I have found some data on the subject – the results of a survey conducted among people in Zetland. In this essay I am going to analyse the data and give my opinion.</p><p style="background:#E3F1E8"><span class="tag">Факты (2–3)</span>According to the table, the most popular reason is “To see famous sights” with 40% of the respondents. It is followed by “To get out of comfort zone” (22%). Only 9% of the people surveyed travel abroad to taste local food.</p><p style="background:#DCEBFA"><span class="tag">Сравнение + комментарий</span>I would like to make a comparison. The number of people who travel to see famous sights is more than twice as high as the number of those who go abroad to practise a foreign language (40% and 17%). This is not surprising because sightseeing is the main purpose of most tourist trips, while a language can also be learnt at home.</p><p style="background:#FFF3B8"><span class="tag">Проблема + решение</span>However, a problem can arise with travelling abroad. Many travellers do not speak the local language, so they find it difficult to ask for directions or order food. A possible solution to this problem is to learn some basic phrases before the trip or to use a translation app.</p><p style="background:#F6E3EC"><span class="tag">Вывод + мнение</span>In conclusion, I would like to say that, in my opinion, travelling plays an important role in human life because it broadens people’s horizons. Moreover, it helps them understand other cultures and become more tolerant.</p><div class="wcnt">241 слов</div></div>
+  <h3>Task 1. Learn the frame</h3><p>Fill in the template words in this essay skeleton. Try from memory first, then open the word bank.</p>
+  <div style="margin-bottom:10px"><button class="btn ghost" onclick="toggleBank(this)">📖 Word bank</button><div class="bank"><span>project</span><span>survey</span><span>among</span><span>analyse</span><span>According</span><span>followed</span><span>comparison</span><span>surprising</span><span>arise</span><span>solution</span><span>conclusion</span><span>opinion</span></div></div><div class="gaptext"><p>Nowadays online learning is becoming more and more popular. I am doing a <span class="gap-n">1</span><input class="gap" data-n="1" data-label="tpl1 gap 1" data-acc="[&quot;project&quot;]" aria-label="gap 1" style="width:110px"><span class="gap-key">project</span> on how teenagers in Zetland study foreign languages, and I have found some data on the subject – the results of a <span class="gap-n">2</span><input class="gap" data-n="2" data-label="tpl1 gap 2" data-acc="[&quot;survey&quot;]" aria-label="gap 2" style="width:110px"><span class="gap-key">survey</span> conducted <span class="gap-n">3</span><input class="gap" data-n="3" data-label="tpl1 gap 3" data-acc="[&quot;among&quot;]" aria-label="gap 3" style="width:110px"><span class="gap-key">among</span> teenagers in Zetland. In this essay I am going to <span class="gap-n">4</span><input class="gap" data-n="4" data-label="tpl1 gap 4" data-acc="[&quot;analyse&quot;, &quot;analyze&quot;]" aria-label="gap 4" style="width:110px"><span class="gap-key">analyse</span> the data and give my opinion.</p><p><span class="gap-n">5</span><input class="gap" data-n="5" data-label="tpl1 gap 5" data-acc="[&quot;According&quot;]" aria-label="gap 5" style="width:110px"><span class="gap-key">According</span> to the diagram, the most popular way is “Mobile apps” with 38% of the respondents. It is <span class="gap-n">6</span><input class="gap" data-n="6" data-label="tpl1 gap 6" data-acc="[&quot;followed&quot;]" aria-label="gap 6" style="width:110px"><span class="gap-key">followed</span> by “Watching films” (26%). …</p><p>I would like to make a <span class="gap-n">7</span><input class="gap" data-n="7" data-label="tpl1 gap 7" data-acc="[&quot;comparison&quot;]" aria-label="gap 7" style="width:110px"><span class="gap-key">comparison</span>. … This is not <span class="gap-n">8</span><input class="gap" data-n="8" data-label="tpl1 gap 8" data-acc="[&quot;surprising&quot;]" aria-label="gap 8" style="width:110px"><span class="gap-key">surprising</span> because …</p><p>However, a problem can <span class="gap-n">9</span><input class="gap" data-n="9" data-label="tpl1 gap 9" data-acc="[&quot;arise&quot;]" aria-label="gap 9" style="width:110px"><span class="gap-key">arise</span> with learning a language online. … A possible <span class="gap-n">10</span><input class="gap" data-n="10" data-label="tpl1 gap 10" data-acc="[&quot;solution&quot;]" aria-label="gap 10" style="width:110px"><span class="gap-key">solution</span> to this problem is …</p><p>In <span class="gap-n">11</span><input class="gap" data-n="11" data-label="tpl1 gap 11" data-acc="[&quot;conclusion&quot;]" aria-label="gap 11" style="width:110px"><span class="gap-key">conclusion</span>, I would like to say that, in my <span class="gap-n">12</span><input class="gap" data-n="12" data-label="tpl1 gap 12" data-acc="[&quot;opinion&quot;]" aria-label="gap 12" style="width:110px"><span class="gap-key">opinion</span>, …</p></div>
+  <button class="btn ghost" onclick="checkGaps(this)">Проверить</button> <button class="btn ghost" onclick="toggleKeys(this)">Показать ответы</button><div class="gap-result" hidden></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Template 1 · frame')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Шаблон 2 · Page 4 of 8</div>
+    <h2>Template 2. Upgrade the language (К3 + К4)</h2>
+    <p>Задание 38 — высокого уровня: по лексике и грамматике 3 балла получает текст с разнообразной лексикой и сложными структурами без ошибок. Сильный шаблон не длиннее базового — он точнее: доли словами, безличные конструкции, условные, инверсия.</p>
+  <div class="tpl"><div class="lab" style="background:#EDE8F2">Вступление</div><div class="txt"><span class="old">Nowadays … is becoming more and more popular. I am doing a project on…</span><span class="up">It is a well-known fact that… / The matter of … is rather controversial nowadays. For my project on <i>[…]</i>, I have found the results of a survey conducted among <i>[…]</i>, which I would like to comment on.</span><span class="hint">Цепляющее первое предложение + придаточное which. Без вопросов к читателю.</span></div><div class="lab" style="background:#E3F1E8">Факты (2–3)</div><div class="txt"><span class="old">According to the table, the most popular… It is followed by…</span><span class="up">What stands out in the table is that two fifths of the respondents (40%)… · The second most popular option, chosen by 22%, is… · whereas only 9% of those surveyed…</span><span class="hint">Доли словами (a quarter, two fifths) + цифры; связки whereas, while.</span></div><div class="lab" style="background:#DCEBFA">Сравнение + комментарий</div><div class="txt"><span class="old">I would like to make a comparison… This is not surprising because…</span><span class="up">Comparing the figures, it can be seen that A is more than twice as popular as B (40% and 17% respectively). · A possible explanation for this might be that… · It seems quite natural that…</span><span class="hint">Безличные конструкции (it can be seen), respectively, осторожный комментарий (might be, it seems).</span></div><div class="lab" style="background:#FFF3B8">Проблема + решение</div><div class="txt"><span class="old">However, a problem can arise with… A possible solution is…</span><span class="up">Undoubtedly, certain problems may arise with <i>[…]</i>. One of them is that… If <i>[…]</i>, they are likely to <i>[…]</i>. · One of the possible solutions is <i>[…]</i>, so that <i>[…]</i>.</span><span class="hint">Условное предложение, be likely to, so that — К4 «высокий уровень».</span></div><div class="lab" style="background:#F6E3EC">Вывод + мнение</div><div class="txt"><span class="old">In conclusion, I would like to say that, in my opinion…</span><span class="up">To sum up, I firmly believe that… · Not only does it <i>[…]</i>, but it also <i>[…]</i>. · Should people <i>[…]</i>, they would <i>[…]</i>.</span><span class="hint">Инверсия и разнообразные формулы мнения — не «I think» в каждом абзаце.</span></div></div><div class="letter"><b>Образец по шаблону 2 — то же задание, язык высокого уровня</b><p style="background:#EDE8F2"><span class="tag">Вступление</span>It is a well-known fact that travelling abroad has become an essential part of modern life. For my project on why people in Zetland travel abroad, I have found the results of a survey conducted among people in Zetland, which I would like to comment on.</p><p style="background:#E3F1E8"><span class="tag">Факты (2–3)</span>What stands out in the table is that two fifths of the respondents (40%) go abroad to see famous sights. The second most popular reason, chosen by 22%, is to get out of their comfort zone, whereas tasting local food is mentioned by only 9% of those surveyed.</p><p style="background:#DCEBFA"><span class="tag">Сравнение + комментарий</span>Comparing the figures, it can be seen that seeing famous sights is more than twice as popular as practising a foreign language (40% and 17% respectively). A possible explanation for this might be that most people associate trips with famous landmarks, while a language can be studied without leaving home.</p><p style="background:#FFF3B8"><span class="tag">Проблема + решение</span>Undoubtedly, certain problems may arise with travelling abroad. One of them is the language barrier: if tourists do not speak the local language, they are likely to face difficulties in everyday situations. One of the possible solutions is to learn basic phrases in advance or to download an offline translation app, so that communication becomes much easier.</p><p style="background:#F6E3EC"><span class="tag">Вывод + мнение</span>To sum up, I firmly believe that travelling is of great importance in human life. Not only does it broaden people’s horizons, but it also teaches them to respect other cultures and to cope with unfamiliar situations.</p><div class="wcnt">238 слов</div></div>
+  <div class="info-box"><b>Сравните:</b> базовый образец — 241 слов, сильный — 238. Объём тот же, а язык другого уровня.</div>
+  <h3>Task 2. Upgrade without mistakes</h3><p>A wrong “clever” phrase costs points in К3–К4. Choose the correct sentence.</p><div class="item"><p class="q"><b>1.</b> Which sentence is correct?</p><div class="mcq" data-correct="1" data-id="upg_1"><button type="button" class="opt" data-val="1">a) Seeing sights is more than twice as popular as practising a language.</button><button type="button" class="opt" data-val="2">b) Seeing sights is more than two times popular than practising a language.</button><button type="button" class="opt" data-val="3">c) Seeing sights is twice more popular as practising a language.</button></div><div class="why"><i>twice / three times as + прилагательное + as</i>. «two times popular than» — ошибка (её же исправляли в образце с вебинара).</div></div><div class="item"><p class="q"><b>2.</b> Which sentence is correct?</p><div class="mcq" data-correct="3" data-id="upg_2"><button type="button" class="opt" data-val="1">a) What stands out in the table, that 40% of respondents go abroad to see sights.</button><button type="button" class="opt" data-val="2">b) What is standing out of the table is that 40% go abroad to see sights.</button><button type="button" class="opt" data-val="3">c) What stands out in the table is that 40% of the respondents go abroad to see sights.</button></div><div class="why">Устойчивая конструкция <i>What stands out in the table is that…</i></div></div><div class="item"><p class="q"><b>3.</b> Which sentence is correct?</p><div class="mcq" data-correct="3" data-id="upg_3"><button type="button" class="opt" data-val="1">a) The number of people who choose sightseeing are higher.</button><button type="button" class="opt" data-val="2">b) The amount of people who choose sightseeing is higher.</button><button type="button" class="opt" data-val="3">c) The number of people who choose sightseeing is higher.</button></div><div class="why">Для людей — <i>the number of</i>, и глагол в единственном числе: <i>the number … is</i>.</div></div><div class="item"><p class="q"><b>4.</b> Which sentence is correct?</p><div class="mcq" data-correct="1" data-id="upg_4"><button type="button" class="opt" data-val="1">a) If tourists do not speak the language, they are likely to face difficulties.</button><button type="button" class="opt" data-val="2">b) If tourists will not speak the language, they face difficulties.</button><button type="button" class="opt" data-val="3">c) If tourists don’t speak the language, they’ll face difficulties.</button></div><div class="why">После <i>if</i> не ставим will; краткие формы (don’t, they’ll) нарушают нейтральный стиль.</div></div><div class="item"><p class="q"><b>5.</b> Which sentence is correct?</p><div class="mcq" data-correct="2" data-id="upg_5"><button type="button" class="opt" data-val="1">a) The possible explaining for this is that most people associate trips with landmarks.</button><button type="button" class="opt" data-val="2">b) A possible explanation for this might be that most people associate trips with landmarks.</button><button type="button" class="opt" data-val="3">c) A possible explanation of this might be what most people associate trips with landmarks.</button></div><div class="why"><i>an explanation for</i> + <i>might be that…</i></div></div><div class="item"><p class="q"><b>6.</b> Which sentence is correct?</p><div class="mcq" data-correct="1" data-id="upg_6"><button type="button" class="opt" data-val="1">a) Not only does it broaden people’s horizons, but it also teaches tolerance.</button><button type="button" class="opt" data-val="2">b) Not only it broadens people’s horizons, but it also teaches tolerance.</button><button type="button" class="opt" data-val="3">c) Not only does it broadens people’s horizons, but also teaches tolerance.</button></div><div class="why">Инверсия после <i>Not only</i>: does + глагол без -s.</div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Template 2 · upgrades')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Шаблон 3 · Page 5 of 8</div>
+    <h2>Template 3. The language of data</h2>
+    <p>Факты и сравнения — это аспекты 2 и 3. Их проверяют по цифрам: неверная арифметика = неточный аспект.</p>
+  <h3>Доли</h3><div class="table-scroll"><table class="ptable"><tr><th>%</th><th>Словами</th><th>%</th><th>Словами</th></tr><tr><td>5%</td><td>one in twenty</td><td>50%</td><td>half</td></tr><tr><td>10%</td><td>one in ten</td><td>75%</td><td>three quarters</td></tr><tr><td>20%</td><td>a fifth / one in five</td><td>29–32%</td><td>just under a third</td></tr><tr><td>25%</td><td>a quarter</td><td>26–27%</td><td>just over a quarter</td></tr><tr><td>≈33%</td><td>a third</td><td>45–48%</td><td>nearly / almost half</td></tr><tr><td>40%</td><td>two fifths</td><td>≈</td><td>approximately, roughly, about</td></tr></table></div><h3>Сравнения</h3><div class="tpl"><div class="lab" style="background:#DCEBFA">Во сколько раз</div><div class="txt"><i>A is twice / three times as popular as B · twice as many respondents chose A as B</i></div><div class="lab" style="background:#DCEBFA">На сколько</div><div class="txt"><i>A is 5 percentage points more popular than B · the gap between A and B is 15 percentage points</i></div><div class="lab" style="background:#DCEBFA">Почти поровну</div><div class="txt"><i>A and B are chosen by almost the same proportion of respondents · A (16%) is almost as popular as B (17%)</i></div><div class="lab" style="background:#DCEBFA">Больше / меньше</div><div class="txt"><i>A is slightly / far / considerably more popular than B · the figure for A is higher than that for B</i></div><div class="lab" style="background:#DCEBFA">Крайние значения</div><div class="txt"><i>A is by far the most popular option · B is the least popular option</i></div><div class="lab" style="background:#DCEBFA">Контраст</div><div class="txt"><i>whereas / while · by contrast · in comparison with · … 40% and 17% respectively</i></div></div><h3>Шесть ловушек</h3><ol class="algo"><li>40% и 20% — это <b>twice as many</b> или <b>20 percentage points more</b>, но не «20% more»: 20% от 20 — это 4.</li><li>Проверяйте арифметику: twice ≈ ×2 (29% и 14% — almost twice), three times ≈ ×3.</li><li>Числа пишем цифрами — так требует инструкция к заданию 38 в ЕГЭ.</li><li>Называем опцию точно, как в таблице (в кавычках или точным пересказом), и не путаем аудиторию опроса.</li><li>2–3 факта, а не вся таблица: перечисление всех строк съедает слова и не даёт дополнительных баллов.</li><li>Для сравнения удобнее брать опции, которых не было в фактах, — тогда абзацы не повторяют друг друга.</li></ol>
+  <h3>Task 3. Check the facts</h3><p>A survey of teenagers in Zetland:</p><p class="poll">The survey question: What do you do during your summer holidays?</p><p class="muted" style="margin:0 0 6px;font-size:.88rem">Choose one option.</p><div class="bars"><div class="bar-row"><span>Travelling with parents</span><div class="track"><div class="fill" style="width:46%"></div></div><b>32%</b></div><div class="bar-row"><span>Hanging out with friends</span><div class="track"><div class="fill" style="width:39%"></div></div><b>27%</b></div><div class="bar-row"><span>Trying out a new hobby</span><div class="track"><div class="fill" style="width:24%"></div></div><b>17%</b></div><div class="bar-row"><span>Reading</span><div class="track"><div class="fill" style="width:23%"></div></div><b>16%</b></div><div class="bar-row"><span>Doing nothing</span><div class="track"><div class="fill" style="width:11%"></div></div><b>8%</b></div></div><div class="item"><p class="q"><b>1.</b> Which statement is correct?</p><div class="mcq" data-correct="3" data-id="data_1"><button type="button" class="opt" data-val="1">a) Travelling with parents is 24% more popular than doing nothing.</button><button type="button" class="opt" data-val="2">b) Travelling with parents is twice as popular as doing nothing.</button><button type="button" class="opt" data-val="3">c) Travelling with parents is four times as popular as doing nothing.</button></div><div class="why">32 : 8 = 4 → four times as popular. Разница 24 — это percentage points, а не «24%».</div></div><div class="item"><p class="q"><b>2.</b> Which statement is correct?</p><div class="mcq" data-correct="2" data-id="data_2"><button type="button" class="opt" data-val="1">a) Trying out a new hobby is twice as popular as reading.</button><button type="button" class="opt" data-val="2">b) Trying out a new hobby and reading are chosen by almost the same proportion of teenagers.</button><button type="button" class="opt" data-val="3">c) Reading is far more popular than trying out a new hobby.</button></div><div class="why">17% и 16% — почти поровну.</div></div><div class="item"><p class="q"><b>3.</b> Which statement is correct?</p><div class="mcq" data-correct="3" data-id="data_3"><button type="button" class="opt" data-val="1">a) Over half of the respondents travel with their parents.</button><button type="button" class="opt" data-val="2">b) Exactly a quarter of the respondents travel with their parents.</button><button type="button" class="opt" data-val="3">c) Just under a third of the respondents travel with their parents.</button></div><div class="why">32% — чуть меньше трети (33%).</div></div><div class="item"><p class="q"><b>4.</b> Which statement is correct?</p><div class="mcq" data-correct="1" data-id="data_4"><button type="button" class="opt" data-val="1">a) Hanging out with friends is chosen by just over a quarter of the respondents.</button><button type="button" class="opt" data-val="2">b) Hanging out with friends is chosen by one in ten respondents.</button><button type="button" class="opt" data-val="3">c) Hanging out with friends is chosen by nearly half of the respondents.</button></div><div class="why">27% — чуть больше четверти.</div></div><div class="item"><p class="q"><b>5.</b> Which statement is correct?</p><div class="mcq" data-correct="2" data-id="data_5"><button type="button" class="opt" data-val="1">a) Travelling with parents is 50% more popular than hanging out with friends.</button><button type="button" class="opt" data-val="2">b) Travelling with parents is 5 percentage points more popular than hanging out with friends.</button><button type="button" class="opt" data-val="3">c) Travelling with parents is five times more popular than hanging out with friends.</button></div><div class="why">32 − 27 = 5 percentage points.</div></div><div class="item"><p class="q"><b>6.</b> Which statement is correct?</p><div class="mcq" data-correct="2" data-id="data_6"><button type="button" class="opt" data-val="1">a) Only 8 % of respondents prefers doing nothing.</button><button type="button" class="opt" data-val="2">b) Only 8% of the respondents prefer doing nothing.</button><button type="button" class="opt" data-val="3">c) Only eight percents of the respondents prefer doing nothing.</button></div><div class="why">Цифрами, <i>per cent</i> не во множественном числе, <i>respondents prefer</i>.</div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Template 3 · data')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Шаблон 4 · Page 6 of 8</div>
+    <h2>Template 4. Problem, solution, opinion — in a neutral style</h2>
+    <p>Аспекты 4 и 5 чаще всего теряют не из-за языка, а из-за того, что проблема или мнение «не про то». Аспект 6 — нейтральный стиль во всём тексте.</p>
+  <div class="tpl"><div class="lab" style="background:#FFF3B8">Проблема</div><div class="txt">One of the problems that can arise with <i>[X из плана]</i> is that… · Undoubtedly, certain problems may arise with <i>[X]</i>. One of them is…<span class="hint">X — слово в слово из плана. Проблема конкретная, с последствием (As a result, … / If …, they will …).</span></div><div class="lab" style="background:#FFF3B8">Решение</div><div class="txt">A possible solution to this problem is to… · One of the ways to overcome this difficulty is… · This could be solved by…, so that…<span class="hint">Решение снимает именно эту проблему. Если его можно вставить в любое эссе («больше информировать людей») — аспект раскрыт неполно.</span></div><div class="lab" style="background:#FFF3B8">Мнение: importance of X</div><div class="txt">To sum up, I am convinced that X is essential / of great importance because…<span class="hint">Сказать, важно ли, и объяснить.</span></div><div class="lab" style="background:#FFF3B8">Мнение: whether one should X</div><div class="txt">In conclusion, I believe that one should (not)… because…<span class="hint">Чёткое да / нет + причина.</span></div><div class="lab" style="background:#FFF3B8">Мнение: role / reasons</div><div class="txt">All in all, from my point of view, X plays a key role in… since…<span class="hint">Ответить на вопрос плана, не пересказывать факты.</span></div></div><h3>Нейтральный стиль</h3><ul class="checklist"><li><span>Без кратких форм: do not, it is, cannot.</span></li><li><span>Без риторических вопросов, восклицаний и Let’s.</span></li><li><span>Без обращения к читателю (you): people / one / teenagers.</span></li><li><span>Без разговорной лексики: a lot of → many / a great number of; kids → children; super → extremely.</span></li><li><span>Без личных историй — это проект, а не письмо другу.</span></li></ul>
+  <h3>Task 4. Neutral or not?</h3><div id="sel_sty"><div class="item"><div class="q-row"><p class="q"><b>1.</b> Don’t forget that travelling abroad is expensive.</p><select class="fib-select" data-answer="1" data-id="sty_1"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>2.</b> Why do people travel abroad? Let’s find out!</p><select class="fib-select" data-answer="1" data-id="sty_2"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>3.</b> Lots of guys like hanging out with friends.</p><select class="fib-select" data-answer="1" data-id="sty_3"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>4.</b> As you can see, sightseeing is super popular.</p><select class="fib-select" data-answer="1" data-id="sty_4"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>5.</b> It can be seen that sightseeing is the most popular reason.</p><select class="fib-select" data-answer="0" data-id="sty_5"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>6.</b> A great number of respondents prefer travelling with their parents.</p><select class="fib-select" data-answer="0" data-id="sty_6"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>7.</b> Personally, I believe that reading is essential for teenagers.</p><select class="fib-select" data-answer="0" data-id="sty_7"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div><div class="item"><div class="q-row"><p class="q"><b>8.</b> I think it’s awesome!</p><select class="fib-select" data-answer="1" data-id="sty_8"><option value="">— ? —</option><option value="1">нарушение стиля</option><option value="0">нейтрально</option></select></div></div></div><button class="btn ghost" onclick="checkSelects(this)">Проверить</button><div class="exam-points" hidden></div>
+  <div class="item"><p class="q"><b>Why?</b> <button type="button" class="proof-btn" data-note="&lt;b&gt;1.&lt;/b&gt; Краткая форма и повелительное наклонение." onclick="showNote(this)">1</button><button type="button" class="proof-btn" data-note="&lt;b&gt;2.&lt;/b&gt; Риторический вопрос и Let’s." onclick="showNote(this)">2</button><button type="button" class="proof-btn" data-note="&lt;b&gt;3.&lt;/b&gt; Разговорные lots of, guys." onclick="showNote(this)">3</button><button type="button" class="proof-btn" data-note="&lt;b&gt;4.&lt;/b&gt; Обращение к читателю и super." onclick="showNote(this)">4</button><button type="button" class="proof-btn" data-note="&lt;b&gt;5.&lt;/b&gt; Нейтральная безличная конструкция." onclick="showNote(this)">5</button><button type="button" class="proof-btn" data-note="&lt;b&gt;6.&lt;/b&gt; Нейтрально." onclick="showNote(this)">6</button><button type="button" class="proof-btn" data-note="&lt;b&gt;7.&lt;/b&gt; Мнение выражено нейтрально." onclick="showNote(this)">7</button><button type="button" class="proof-btn" data-note="&lt;b&gt;8.&lt;/b&gt; Краткая форма, восклицание, разговорное awesome." onclick="showNote(this)">8</button></p><div class="note-box"></div></div>
+  <h3>Task 5. Does it fit the plan?</h3><div class="item"><p class="q"><b>1.</b> …outline a problem that can arise with <b>learning to play a musical instrument</b> and suggest a way of solving it. <b>Which problem fits?</b></p><div class="mcq" data-correct="1" data-id="pick_1"><button type="button" class="opt" data-val="1">a) Learning an instrument requires daily practice, which many students cannot fit into their busy schedules.</button><button type="button" class="opt" data-val="2">b) Many teenagers prefer listening to music on their phones.</button><button type="button" class="opt" data-val="3">c) 29% of the respondents refuse to attend music schools.</button></div><div class="why">Проблема про само обучение игре. Второй вариант — повтор данных, третий — не про обучение.</div></div><div class="item"><p class="q"><b>2.</b> Problem: <i>tourists do not speak the local language.</i> <b>Which solution solves this problem?</b></p><div class="mcq" data-correct="1" data-id="pick_2"><button type="button" class="opt" data-val="1">a) To learn basic phrases before the trip or to use a translation app.</button><button type="button" class="opt" data-val="2">b) To choose cheaper hotels.</button><button type="button" class="opt" data-val="3">c) To travel with friends and family.</button></div><div class="why">Решение должно снимать именно языковой барьер.</div></div><div class="item"><p class="q"><b>3.</b> …conclude by giving and explaining your opinion on <b>whether one should be able to play a musical instrument</b>. <b>Which conclusion fits?</b></p><div class="mcq" data-correct="3" data-id="pick_3"><button type="button" class="opt" data-val="1">a) In conclusion, music schools should be closer to people’s homes.</button><button type="button" class="opt" data-val="2">b) To sum up, 29% of the respondents want fast results.</button><button type="button" class="opt" data-val="3">c) In my opinion, it is not necessary for everyone to play an instrument, because people have different talents.</button></div><div class="why">Ответ на вопрос плана (да / нет) + объяснение. Остальное — не о том или повтор фактов.</div></div>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Template 4 · problem &amp; style')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn" onclick="nextPage()">Next →</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Конструктор · Page 7 of 8</div>
+    <h2>Task 6. Build your essay with the template</h2>
+    <div class="taskbox"><b>38.1</b> Imagine that you are doing a project on <b>why some Zetlanders refuse to attend music schools</b>. You have found some data on the subject – the results of a survey conducted among people in Zetland (see the table below). Comment on the survey data and give your opinion on the subject of the project.</div><p class="poll">The survey question: Why do you refuse to attend a music school?</p><p class="muted" style="margin:0 0 6px;font-size:.88rem">Choose one option.</p><table class="data-table"><tr><th>Reason</th><th>Number of respondents (%)</th></tr><tr><td>No fast results</td><td>29</td></tr><tr><td>Time-consuming</td><td>23</td></tr><tr><td>Not interested in music</td><td>19</td></tr><tr><td>Far from home</td><td>15</td></tr><tr><td>No money for a quality instrument</td><td>14</td></tr></table>
+    <div class="taskbox">Write 200–250 words. Use the following plan:<ul><li>make an opening statement on the subject of the project;</li><li>select and report 2–3 facts;</li><li>make 1–2 comparisons where relevant and give your comments;</li><li>outline a problem that can arise with learning to play a musical instrument and suggest a way of solving it;</li><li>conclude by giving and explaining your opinion on whether one should be able to play a musical instrument.</li></ul></div><p class="muted" style="font-size:.85rem">Данные — из образца 2025 года, формулировка — в формате 2026–2027.</p>
+  <p><b>Step 1.</b> Fill in each paragraph of the template. The counter shows the word budget for each one.</p><div class="slot" data-part="intro" data-bud="45–55" style="background:#EDE8F2"><div class="sh"><span>Вступление</span><span class="sn">0 / 45–55 слов</span></div><textarea placeholder="Music is an important part of many people’s lives. I am doing a project on why some Zetlanders refuse to attend music schools, and I have found… In this essay…"></textarea></div><div class="slot" data-part="facts" data-bud="35–45" style="background:#E3F1E8"><div class="sh"><span>Факты (2–3)</span><span class="sn">0 / 35–45 слов</span></div><textarea placeholder="According to the table, the most popular reason is “No fast results” with 29%… It is followed by… Only 14%…"></textarea></div><div class="slot" data-part="comp" data-bud="50–60" style="background:#DCEBFA"><div class="sh"><span>Сравнение + комментарий</span><span class="sn">0 / 50–60 слов</span></div><textarea placeholder="I would like to make a comparison. “Not interested in music” (19%)… “Far from home” (15%)… This is not surprising because…"></textarea></div><div class="slot" data-part="prob" data-bud="40–55" style="background:#FFF3B8"><div class="sh"><span>Проблема + решение</span><span class="sn">0 / 40–55 слов</span></div><textarea placeholder="However, a problem can arise with learning to play a musical instrument. The thing is that… A possible solution to this problem is…"></textarea></div><div class="slot" data-part="concl" data-bud="30–45" style="background:#F6E3EC"><div class="sh"><span>Вывод + мнение</span><span class="sn">0 / 30–45 слов</span></div><textarea placeholder="In conclusion, I would like to say that, in my opinion, it is (not) necessary for everyone to… because…"></textarea></div><div class="slot-total">Всего в шаблоне: 0 слов (норма 200–250)</div>
+  <button class="btn" onclick="assemble(this)">Собрать эссе ↓</button>
+  <p class="asm-note muted" hidden>Эссе собрано по абзацам. Перечитайте связки между абзацами и проверьте по чек-листу.</p>
+  <h3>Step 2. Your essay</h3><textarea class="writing" data-label="Task 38 · music schools (template)" data-min="200" data-max="250" data-cmin="180" data-cmax="275" placeholder="Music is an important part of…"></textarea>
+    <div class="wc"><span class="n">0 слов</span><span class="note muted"></span></div>
+  <h3>Step 3. Check yourself</h3><ul class="checklist"><li><input type="checkbox" aria-label="check"><span>200–250 слов (проверяется 180–275; если больше 275 — эксперт читает только 250)</span></li><li><input type="checkbox" aria-label="check"><span>Вступление: тема проекта и аудитория опроса как в задании</span></li><li><input type="checkbox" aria-label="check"><span>2–3 факта с цифрами (числа — цифрами)</span></li><li><input type="checkbox" aria-label="check"><span>1–2 арифметически верных сравнения + комментарий «почему»</span></li><li><input type="checkbox" aria-label="check"><span>Проблема — ровно по теме плана, решение снимает именно её</span></li><li><input type="checkbox" aria-label="check"><span>Мнение отвечает на вопрос плана и объяснено</span></li><li><input type="checkbox" aria-label="check"><span>5 абзацев по плану, связки между всеми частями</span></li><li><input type="checkbox" aria-label="check"><span>Нейтральный стиль: без кратких форм, вопросов, you, разговорных слов</span></li><li><input type="checkbox" aria-label="check"><span>Сложная грамматика без ошибок: пассив, условные, придаточные, Complex Subject</span></li></ul>
+  <div><button class="btn ghost" onclick="toggleModel(this)">Show / hide a model on Template 1</button><div class="model" style="white-space:normal;background:#fff;border-color:var(--border)"><div class="letter"><b>Образец по шаблону 1</b><p style="background:#EDE8F2"><span class="tag">Вступление</span>Music is an important part of many people’s lives. I am doing a project on why some Zetlanders refuse to attend music schools, and I have found some data on the subject – the results of a survey conducted among people in Zetland. In this essay I am going to analyse the data and give my opinion.</p><p style="background:#E3F1E8"><span class="tag">Факты (2–3)</span>According to the table, the most popular reason is “No fast results” with 29% of the respondents. It is followed by “Time-consuming” (23%). Only 14% of the people surveyed say that they have no money for a quality instrument.</p><p style="background:#DCEBFA"><span class="tag">Сравнение + комментарий</span>I would like to make a comparison. The number of people who are not interested in music (19%) is a little higher than the number of those who think that music schools are too far from home (15%). This is not surprising because motivation matters more than distance: people who love music will travel to a school even if it is far away.</p><p style="background:#FFF3B8"><span class="tag">Проблема + решение</span>However, a problem can arise with learning to play a musical instrument. A good instrument is often very expensive, so many families cannot afford it. A possible solution to this problem is to rent an instrument from the school or to buy a second-hand one.</p><p style="background:#F6E3EC"><span class="tag">Вывод + мнение</span>In conclusion, I would like to say that, in my opinion, it is not necessary for everyone to be able to play a musical instrument because people have different talents. However, I believe that every child should have a chance to try it.</p><div class="wcnt">246 слов</div></div></div></div>
+  <div style="margin-top:10px"><button class="btn ghost" onclick="toggleModel(this)">Show / hide a model on Template 2 (strong)</button><div class="model" style="white-space:normal;background:#fff;border-color:var(--border)"><div class="letter"><b>Полный образец по шаблону 2 (сильный)</b><p style="background:#EDE8F2"><span class="tag">Вступление</span>It is widely believed that music develops creativity and patience, yet music schools are not always popular. For my project on why some Zetlanders refuse to attend music schools, I have found the results of a survey conducted among people in Zetland, which I am going to analyse in this essay.</p><p style="background:#E3F1E8"><span class="tag">Факты (2–3)</span>What stands out in the table is that the most common reason, given by 29% of the respondents, is the lack of fast results. Almost a quarter of those surveyed (23%) find music lessons too time-consuming, whereas 14% cannot afford a quality instrument.</p><p style="background:#DCEBFA"><span class="tag">Сравнение + комментарий</span>Comparing the figures, it can be seen that the proportion of people who are not interested in music (19%) is slightly higher than that of those who complain about the distance to school (15%). It seems quite natural, since motivation matters more than location: a person who loves music will travel across the city to study.</p><p style="background:#FFF3B8"><span class="tag">Проблема + решение</span>Undoubtedly, certain problems may arise with learning to play a musical instrument. One of them is the high cost of a good instrument, which many families cannot afford. One of the possible solutions is to rent an instrument from the school or to buy a second-hand one, which would make lessons affordable for more families.</p><p style="background:#F6E3EC"><span class="tag">Вывод + мнение</span>To sum up, I am convinced that it is not essential for everyone to play a musical instrument, as people have different talents and interests. Nevertheless, every child should be given a chance to try, because music may turn out to be their true calling.</p><div class="wcnt">250 слов</div></div><ul class="checklist"><li><span><b>Вступление:</b> It is widely believed that… yet… + тема проекта и аудитория из задания + придаточное which.</span></li><li><span><b>Факты:</b> 3 факта с цифрами; доли словами (almost a quarter), связка whereas.</span></li><li><span><b>Сравнение:</b> 19% и 15% — опции, которых не было в фактах; slightly higher than that of; комментарий It seems quite natural, since…</span></li><li><span><b>Проблема + решение:</b> Проблема — именно learning to play a musical instrument; решение снимает её (rent / second-hand); придаточные which.</span></li><li><span><b>Мнение:</b> Ответ на вопрос плана «whether one should…» + две причины; Passive (should be given), may turn out.</span></li><li><span><b>Стиль (аспект 6):</b> Ни одной краткой формы, вопроса к читателю или разговорного слова.</span></li></ul></div></div>
+  <p class="muted" style="font-size:.85rem">Смотрите образцы после своего эссе.</p>
+    <div class="task-submit"><button type="button" class="btn ghost" onclick="submitPartial(this,'Task 6 · essay')">📤 Отправить результат этого задания учителю</button><span class="task-submit-status"></span></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><button class="btn cta" onclick="submitAll()">Check &amp; Submit</button></div>
+  </div>
+</section>
+<section class="page">
+  <div class="card">
+    <div class="eyebrow">Page 8 of 8</div>
+    <h2>Results</h2>
+    <p class="muted">Press “Check &amp; Submit” on the last page to see your score here.</p>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big-score" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted"></div>
+      <div class="completion-stickers" id="completionStickers">
+  <img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+  <img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+  <img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+  <img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+  <img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+  <img class="completion-sticker" data-tier="fire" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+  <img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+  <img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+  <img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+</div>
+<p id="resultCaption" class="result-caption"></p>
+      <div class="breakdown-list" id="resultsBreakdown"></div>
+    </div>
+    <div id="submitStatus"></div>
+    <div class="nav-btns"><button class="btn ghost" onclick="prevPage()">← Back</button><span></span></div>
+    <div class="reset-link"><a onclick="clearProgress()">Start over (clear saved answers)</a></div>
+  </div>
+</section>
+</div></div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ 2027';
+const PROGRESS_KEY = 'angle_progress::ege2027-task38-templates';
+const PAGE_LABELS = ["Старт","Алгоритм", "Шаблон 1", "Шаблон 2", "Данные", "Проблема и стиль", "Конструктор", "Итоги"];
+const VARIANTS = [];
+const MATCH_SETS = [];
+
+const PTS = { t10: n => n>=7?3:n===6?2:n===5?1:0, t11: n => n>=6?2:n===5?1:0, t1218: n => n };
+const MAXP = { t10:3, t11:2, t1218:7 };
+function pw(n){ return n===1?'балл':(n>=2&&n<=4?'балла':'баллов'); }
+function checkSelects(btn){
+  const card = btn.closest('.card'); const scope = btn.dataset.scope ? document.getElementById(btn.dataset.scope) : card;
+  let n=0, t=0;
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{ t++; const ok = sel.value===sel.dataset.answer; sel.classList.toggle('is-correct',ok); sel.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = btn.parentElement.querySelector('.exam-points') || card.querySelector('.exam-points'); out.hidden=false;
+  const type = btn.dataset.type;
+  if(type){ const p = PTS[type](n); out.textContent = `Верно: ${n} из ${t} → на экзамене это ${p} ${pw(p)} из ${MAXP[type]}.` + (n<t?' Найдите в тексте, где вы ошиблись.':' Отлично!'); }
+  else out.textContent = `Верно: ${n} из ${t}.` + (n<t?' Посмотрите ещё раз на ошибки.':' Отлично!');
+}
+function gapOk(inp){
+  const v = normalize(inp.value).replace(/[.…]/g,'').replace(/\s+/g,' ').trim();
+  return JSON.parse(inp.dataset.acc).some(a=>normalize(a).replace(/[.…]/g,'').replace(/\s+/g,' ').trim()===v);
+}
+function checkGaps(btn){
+  const card = btn.closest('.card'); let n=0,t=0;
+  card.querySelectorAll('input.gap').forEach(i=>{ t++; const ok=gapOk(i); i.classList.toggle('is-correct',ok); i.classList.toggle('is-wrong',!ok); if(ok) n++; });
+  const out = card.querySelector('.gap-result'); out.hidden=false; out.textContent = `Верно: ${n} из ${t}.`;
+}
+function toggleKeys(btn){ btn.closest('.card').classList.toggle('show-keys'); }
+function showNote(btn){ const box = btn.closest('.item').querySelector('.note-box'); box.innerHTML = btn.dataset.note; box.classList.add('show'); if(btn.dataset.panel) highlightScript(btn.dataset.panel, btn.dataset.hl || null); }
+function toggleRestored(btn){ btn.closest('.card').querySelector('.restored').classList.toggle('show'); }
+let matchPick = null;
+function renderMatchSet(wrapId, pairs){
+  const wrap = document.getElementById(wrapId); if(!wrap) return;
+  const Lc = wrap.querySelector('.match-col.left'), Rc = wrap.querySelector('.match-col.right');
+  const right = [...pairs].sort(()=>Math.random()-0.5);
+  Lc.innerHTML = pairs.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[1])}</button>`).join('');
+  Rc.innerHTML = right.map(p=>`<button type="button" class="match" data-id="${p[0]}">${esc(p[2])}</button>`).join('');
+  wrap.querySelectorAll('.match').forEach(el=>{
+    el.onclick = ()=>{
+      if(el.classList.contains('matched-correct')) return;
+      if(matchPick && matchPick.closest('.match-wrap') !== wrap){ matchPick.classList.remove('selected'); matchPick = null; }
+      if(!matchPick){ matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick === el){ el.classList.remove('selected'); matchPick = null; return; }
+      if(matchPick.parentElement === el.parentElement){ matchPick.classList.remove('selected'); matchPick = el; el.classList.add('selected'); return; }
+      if(matchPick.dataset.id === el.dataset.id){
+        [matchPick, el].forEach(x=>{ x.classList.remove('selected'); x.classList.add('matched-correct'); x.disabled = true; });
+        wrap.dataset.correctCount = wrap.querySelectorAll('.match.matched-correct').length/2;
+      } else { const a = matchPick, b = el; [a,b].forEach(x=>x.classList.add('wrong-flash')); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','wrong-flash')), 550); }
+      matchPick = null; scheduleSave();
+    };
+  });
+}
+function examSummary(){
+  return VARIANTS.map(v=>{
+    const n = [...document.querySelectorAll('#sel_'+v.key+' select.fib-select')].filter(s=>s.value===s.dataset.answer).length;
+    const p = PTS[v.type](n); return `${v.label}: ${n}/${v.type==='t11'?6:7} → ${p} из ${MAXP[v.type]}`;
+  }).join('\n');
+}
+function init(){
+  buildDots();
+  MATCH_SETS.forEach(m=>renderMatchSet(m[0], m[1]));
+  bindMcq(); bindProofs();
+  showPage(0);
+  restoreProgress();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+function wordCount(t){ return (t||'').split(/\s+/).filter(w=>/[A-Za-zА-Яа-я0-9]/.test(w)).length; }
+function updateWC(ta){
+  const box = ta.parentElement.querySelector('.wc .n'); if(!box) return;
+  const n = wordCount(ta.value), lo=+ta.dataset.min, hi=+ta.dataset.max, clo=+ta.dataset.cmin, chi=+ta.dataset.cmax;
+  box.textContent = n + ' слов';
+  box.className = 'n ' + (n===0 ? '' : (n>=lo && n<=hi) ? 'ok' : (n>=clo && n<=chi) ? 'warn' : 'bad');
+  const note = ta.parentElement.querySelector('.wc .note');
+  if(note) note.textContent = n===0 ? '' : (n>=lo && n<=hi) ? 'Объём в норме.' : n<clo ? `Меньше ${clo} слов — работа не проверяется.` : n>chi ? `Больше ${chi} слов — эксперт прочитает только первые ${hi}.` : `Допустимо (${clo}–${chi}), но лучше ${lo}–${hi}.`;
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea.writing')) updateWC(e.target); });
+document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>document.querySelectorAll('textarea.writing').forEach(updateWC), 400));
+function toggleModel(btn){ btn.parentElement.querySelector('.model').classList.toggle('show'); }
+let SEND_SCOPE = document;
+document.addEventListener('click', e=>{ const b = e.target.closest('.task-submit button'); SEND_SCOPE = b ? b.closest('.card') : document; }, true);
+async function sendFormW(fields){
+  const scope = SEND_SCOPE || document;
+  const texts = [...scope.querySelectorAll('textarea.writing')].filter(t=>t.value.trim()).map(t=>`=== ${t.dataset.label} (${wordCount(t.value)} слов) ===\n${t.value.trim()}`);
+  if(texts.length) fields.writing = texts.join('\n\n');
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+document.addEventListener('DOMContentLoaded', ()=>{ window.sendForm = sendFormW; });
+function examSummary(){
+  return [...document.querySelectorAll('textarea.writing')].map(t=>`${t.dataset.label}: ${wordCount(t.value)} слов`).join('\n');
+}
+function toggleBank(btn){ btn.parentElement.querySelector('.bank').classList.toggle('show'); }
+
+function slotWords(t){ return (t||'').split(/\s+/).filter(w=>/[A-Za-z0-9]/.test(w)).length; }
+function updSlot(ta){ const s=ta.closest('.slot'); if(!s) return; s.querySelector('.sn').textContent = slotWords(ta.value) + ' / ' + s.dataset.bud + ' слов';
+  const c=ta.closest('.card'); const tot=[...c.querySelectorAll('.slot textarea')].reduce((a,x)=>a+slotWords(x.value),0); const o=c.querySelector('.slot-total'); if(o) o.textContent='Всего в шаблоне: ' + tot + ' слов (норма 200–250)'; }
+document.addEventListener('input', e=>{ if(e.target.matches('.slot textarea')) updSlot(e.target); });
+document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>document.querySelectorAll('.slot textarea').forEach(updSlot), 500));
+function assemble(btn){
+  const c=btn.closest('.card'); const v=k=>(c.querySelector(`.slot[data-part="${k}"] textarea`).value||'').trim();
+  const text=['intro','facts','comp','prob','concl'].map(v).filter(Boolean).join('\n\n');
+  const ta=c.querySelector('textarea.writing'); ta.value=text.trim(); updateWC(ta); ta.dispatchEvent(new Event('input',{bubbles:true}));
+  const n=c.querySelector('.asm-note'); n.hidden=false; ta.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+
+/* ================= HELPERS ================= */
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’"]/g,'').replace(/\s+/g,' '); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function examPoints(n){ return n; }
+
+/* ================= NAVIGATION ================= */
+let current = 0;
+function pauseAllAudio(){ document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} }); }
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent = i+1; d.title = label;
+    d.onclick = ()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  pauseAllAudio();
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ================= MCQ (instant feedback) ================= */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-correct','is-wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('is-correct'); }
+  else {
+    btn.classList.add('is-wrong');
+    const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('is-correct');
+  }
+  group.classList.add('answered');
+}
+function bindMcq(){
+  document.querySelectorAll('.mcq .opt').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=>{ highlightMcq(btn.closest('.mcq'), btn); scheduleSave(); };
+  });
+}
+function renderMcqList(containerId, items, prefix){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = items.map((it,i)=>{
+    const opts = it.opts.map((o,j)=>`<button type="button" class="opt" data-val="${j+1}">${String.fromCharCode(97+j)}) ${esc(o)}</button>`).join('');
+    const proof = it.proof ? `<button type="button" class="proof-btn" data-panel="${it.panel}" data-proof="${esc(it.proof)}">🔍 Найти в скрипте</button>` : '';
+    return `<div class="item"><p class="q"><b>${i+1}.</b> ${it.q} ${proof}</p>
+      <div class="mcq" data-correct="${it.ans}" data-id="${prefix}_${i+1}">${opts}</div>
+      ${it.why ? `<div class="why">${it.why}</div>` : ''}</div>`;
+  }).join('');
+}
+
+/* ================= SCRIPT + PROOF ================= */
+function renderScript(panelId, script){
+  document.getElementById(panelId).innerHTML = script.map(p=>`<p>${esc(p)}</p>`).join('');
+}
+function highlightScript(panelId, proofText){
+  const panel = document.getElementById(panelId); if(!panel) return;
+  const det = panel.closest('details'); if(det) det.open = true;
+  panel.querySelectorAll('p').forEach(p=>{ if(p.querySelector('mark')) p.textContent = p.textContent; });
+  if(!proofText) return;
+  for(const p of panel.querySelectorAll('p')){
+    const t = p.textContent, idx = t.indexOf(proofText);
+    if(idx !== -1){
+      p.innerHTML = esc(t.slice(0,idx)) + '<mark>' + esc(proofText) + '</mark>' + esc(t.slice(idx+proofText.length));
+      p.querySelector('mark').scrollIntoView({block:'center', behavior:'smooth'});
+      break;
+    }
+  }
+}
+function bindProofs(){
+  document.querySelectorAll('.proof-btn[data-proof]').forEach(btn=>{
+    if(btn.dataset.bound) return; btn.dataset.bound='1';
+    btn.onclick = ()=> highlightScript(btn.dataset.panel, btn.dataset.proof);
+  });
+}
+
+/* ================= TASK 1 MATCHING (selects) ================= */
+function renderSpeakerSelects(containerId, v, withNotes){
+  const letters = ['A','B','C','D','E','F'];
+  document.getElementById(containerId).innerHTML = letters.map(L=>{
+    const opts = v.statements.map((s,idx)=>`<option value="${idx+1}">${idx+1}. ${esc(s)}</option>`).join('');
+    const notes = withNotes ? `<textarea class="notes" placeholder="Ключевые слова, которые вы услышали у ${L}…"></textarea>` : '';
+    return `<div class="item"><p class="q"><b>Speaker ${L}</b></p>
+      <div class="${withNotes?'speaker-row':''}">${notes}<select class="fib-select" data-answer="${v.answers[L]}" data-id="${v.key}_${L}"><option value="">— statement № —</option>${opts}</select></div></div>`;
+  }).join('');
+}
+/* ================= SCORING / SUBMIT ================= */
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function itemContext(el){
+  const item = el.closest('.item'); if(!item) return '';
+  const q = item.querySelector('p.q'); if(!q) return '';
+  const c = q.cloneNode(true); c.querySelectorAll('select,input,button,.kw-chip').forEach(x=>x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim().slice(0,90);
+}
+function collectScore(scope){
+  let correct=0, total=0; const wrong=[];
+  scope.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    total++;
+    if(sel.value === sel.dataset.answer) correct++;
+    else {
+      const said = sel.value ? sel.options[sel.selectedIndex].text : '(not answered)';
+      const right = sel.querySelector(`option[value="${sel.dataset.answer}"]`);
+      wrong.push(`${exTitle(sel)} — ${itemContext(sel)} → answered "${said}", correct "${right ? right.text : sel.dataset.answer}"`);
+    }
+  });
+  scope.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++;
+    const chosen = g.querySelector('.opt.chosen');
+    if(chosen && chosen.dataset.val === g.dataset.correct) correct++;
+    else {
+      const c = g.querySelector(`.opt[data-val="${g.dataset.correct}"]`);
+      wrong.push(`${exTitle(g)} — ${itemContext(g)} → answered "${chosen ? chosen.textContent.trim() : '(not answered)'}", correct "${c ? c.textContent.trim() : g.dataset.correct}"`);
+    }
+  });
+  scope.querySelectorAll('input.gap').forEach(inp=>{
+    total++;
+    if(gapOk(inp)) correct++;
+    else wrong.push(`${exTitle(inp)} — ${inp.dataset.label||'gap'} → answered "${inp.value.trim() || '(not answered)'}", correct "${JSON.parse(inp.dataset.acc)[0]}"`);
+  });
+  scope.querySelectorAll('[data-total-pairs]').forEach(c=>{
+    const t = parseInt(c.dataset.totalPairs||0), k = parseInt(c.dataset.correctCount||0);
+    total += t; correct += k;
+    if(k < t) wrong.push(`${exTitle(c)} (matching) — ${k}/${t} pairs matched correctly.`);
+  });
+  return {correct, total, wrong, pct: total ? Math.round(correct/total*100) : 0};
+}
+function subjectFor(extra){
+  const name = document.getElementById('studentName').value.trim();
+  const topic = document.title + (extra ? ' — ' + extra : '');
+  return topic.startsWith(COURSE_NAME) ? `${topic} — ${name}` : `${COURSE_NAME} — ${topic} — ${name}`;
+}
+async function sendForm(fields){
+  const fd = new FormData();
+  Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+}
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  const {correct,total,wrong,pct} = collectScore(document);
+  document.querySelectorAll('select.fib-select[data-answer]').forEach(sel=>{
+    const ok = sel.value === sel.dataset.answer; sel.classList.toggle('is-correct', ok); sel.classList.toggle('is-wrong', !ok);
+  });
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = pct + '%';
+  document.getElementById('resultsFraction').textContent = `${esc(nameInput.value.trim())} — ${correct} / ${total} correct`;
+  document.getElementById('resultsBreakdown').innerHTML = wrong.length
+    ? '<h3>Items to review</h3><ul>' + wrong.map(w=>`<li>${esc(w)}</li>`).join('') + '</ul>'
+    : '<p style="color:var(--correct);font-weight:700;text-align:center;">All auto-checked items correct 🎉</p>';
+  if(typeof renderResultSticker === 'function') renderResultSticker(pct);
+  showPage(document.querySelectorAll('.page').length-1);
+  const status = document.getElementById('submitStatus');
+  status.textContent = 'Sending…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(''),
+      course: COURSE_NAME,
+      lesson: document.title,
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      result_tier: (typeof getResultTier === 'function') ? getResultTier(pct).label : '',
+      exam_writing: examSummary(),
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    status.textContent = 'Sent to your teacher ✓';
+  }catch(e){ status.textContent = 'Could not send — check your internet connection and try again.'; }
+  scheduleSave();
+}
+async function submitPartial(btn, taskLabel){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
+  const scope = btn.closest('.card');
+  const statusEl = btn.parentElement.querySelector('.task-submit-status');
+  const {correct,total,wrong,pct} = collectScore(scope);
+  btn.disabled = true; statusEl.textContent = 'Отправляю…';
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: subjectFor(taskLabel + ' (частичная отправка)'),
+      course: COURSE_NAME,
+      lesson: document.title + ' — ' + taskLabel + ' (частичная отправка после задания)',
+      student: nameInput.value.trim(),
+      score: `${correct} / ${total} (${pct}%)`,
+      mistakes: wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.',
+      timestamp: new Date().toISOString()
+    });
+    statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
+  }catch(e){ statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.'; }
+  finally{ btn.disabled = false; }
+}
+
+/* ================= SAVE & RESUME ================= */
+let isRestoring = false;
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt:new Date().toISOString(), page:current };
+    state.name = document.getElementById('studentName').value || '';
+    state.select = [...document.querySelectorAll('select.fib-select')].map(el=>el.value);
+    state.mcq = [...document.querySelectorAll('.mcq[data-correct]')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c ? c.dataset.val : null; });
+    state.matched = [...document.querySelectorAll('.match.matched-correct')].map(x=>x.dataset.id);
+    state.textareas = [...document.querySelectorAll('textarea')].map(el=>el.value);
+    state.gaps = [...document.querySelectorAll('input.gap')].map(el=>el.value);
+    state.kw = [...document.querySelectorAll('.kw-tok')].map((t,i)=>t.classList.contains('on')?i:-1).filter(i=>i>=0);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  }catch(e){}
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator'); if(!el) return;
+  el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show'); clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let s; try{ s = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(s.name) document.getElementById('studentName').value = s.name;
+  const sels = document.querySelectorAll('select.fib-select');
+  (s.select||[]).forEach((v,i)=>{ if(sels[i] && v) sels[i].value = v; });
+  const groups = document.querySelectorAll('.mcq[data-correct]');
+  (s.mcq||[]).forEach((v,i)=>{ if(v==null || !groups[i]) return; const b = groups[i].querySelector(`.opt[data-val="${v}"]`); if(b) highlightMcq(groups[i], b); });
+  (s.matched||[]).forEach(id=>document.querySelectorAll(`.match[data-id="${id}"]`).forEach(el=>{ el.classList.add('matched-correct'); el.disabled = true; }));
+  document.querySelectorAll('[data-total-pairs]').forEach(c=>{ c.dataset.correctCount = c.querySelectorAll('.match.matched-correct').length/2; });
+  const tas = document.querySelectorAll('textarea');
+  (s.textareas||[]).forEach((v,i)=>{ if(tas[i] && v) tas[i].value = v; });
+  const gps = document.querySelectorAll('input.gap');
+  (s.gaps||[]).forEach((v,i)=>{ if(gps[i] && v) gps[i].value = v; });
+  const toks = document.querySelectorAll('.kw-tok');
+  (s.kw||[]).forEach(i=>{ if(toks[i]) toks[i].classList.add('on'); });
+  const has = (s.select||[]).some(v=>v) || (s.mcq||[]).some(v=>v!=null) || (s.textareas||[]).some(v=>v) || (s.matched||[]).length || (s.kw||[]).length;
+  if(has){
+    document.getElementById('restoreNoteText').textContent = `We found saved answers from ${s.savedAt ? new Date(s.savedAt).toLocaleString() : 'an earlier session'} — they've been filled back in.`;
+    document.getElementById('restoreNote').hidden = false;
+  }
+  if(typeof s.page === 'number') showPage(s.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.matches('textarea, select, input.gap, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select')) scheduleSave(); });
+
+</script>
+</body>
+</html>
