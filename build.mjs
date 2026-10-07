@@ -899,11 +899,23 @@ function groupFilesByLabel(files) {
   return [...map.entries()].map(([label, variants]) => ({ label, variants }));
 }
 function renderPersonalNode(course, node, depth) {
+  /* документы — плитки (как папки), а не список: плитка открывает основной
+     формат (HTML, если есть, иначе первый), остальные форматы — ссылками ниже */
+  const fileIcon = (variants) => (variants.some((v) => v.ext === 'HTML') ? '🧩' : variants.some((v) => v.ext === 'PDF') ? '📄' : '📎');
   const filesHtml = node.files.length
-    ? `<ul class="personal-files">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
-        const links = variants.map((v) => `<a href="${esc(personalFileHref(course, v.rel))}" target="_blank" rel="noopener">${esc(v.ext)}</a>`).join(' · ');
-        return `        <li><span class="personal-label">${esc(label)}</span> <span class="personal-formats">${links}</span></li>`;
-      }).join('\n')}\n      </ul>`
+    ? `<div class="tile-grid personal-file-grid">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
+        const main = variants.find((v) => v.ext === 'HTML') || variants[0];
+        const formats = variants.length > 1
+          ? variants.map((v) => `<a href="${esc(personalFileHref(course, v.rel))}" target="_blank" rel="noopener">${esc(v.ext)}</a>`).join(' · ')
+          : esc(main.ext);
+        return `      <div class="tile file-tile">
+        <a class="file-open" href="${esc(personalFileHref(course, main.rel))}" target="_blank" rel="noopener">
+          <span class="tile-icon"><span class="tile-emoji">${fileIcon(variants)}</span></span>
+          <span class="tile-name">${esc(label)}</span>
+        </a>
+        <span class="tile-count personal-formats">${formats}</span>
+      </div>`;
+      }).join('\n')}\n    </div>`
     : '';
   const groupsHtml = node.groups
     .filter(personalTreeHasFiles)
