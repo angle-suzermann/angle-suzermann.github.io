@@ -172,6 +172,14 @@ header.topbar,.topbar{background:rgba(255,255,255,.8);}
 .page-dots::-webkit-scrollbar{display:none;}
 .page-dot{width:22px;height:22px;font-size:11px;flex:0 0 auto;}
 .page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 2px 6px rgba(94,72,119,.4);}
+
+/* DEMO-READABILITY-FIX - no gap under header; light text on purple/dark areas */
+.page-wrap{padding-top:6px;}
+.finish-card,.finish-card h2,.finish-card p,.finish-card td,.finish-card th{color:#fff;}
+.finish-card .finish-summary th{color:var(--yellow,#FED500);}
+.note-box,.email-preview .hdr,.wordbox .wcount:not(.ok):not(.bad){color:#5a5268;}
+.rec-btn{background:#b83a2b;}
+@media (max-width:600px){.mtable{table-layout:auto;}.mtable td:last-child,.mtable th:last-child{width:auto;}.mtable td,.mtable th{overflow-wrap:anywhere;}.mtable select{min-width:0;width:100%;max-width:100%;padding:4px 0;font-size:13px;}.mtable td,.mtable th{padding:5px 3px;}.mtable td:first-child,.mtable th:first-child{width:auto;}}
 </style>
 </head>
 <body>
