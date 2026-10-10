@@ -1167,7 +1167,7 @@ const staffCard = (m) => {
       <span>${(m.bytes / 1024).toFixed(0)} КБ</span>
     </div>
     <div class="actions">
-      <a class="open" href="${esc(m.url)}">Открыть</a>
+      <a class="open" href="${esc(m.url)}" target="_blank" rel="noopener">Открыть</a>
       <button type="button" data-copy="${esc(m.url)}">Копировать ссылку</button>
       ${repo}
     </div>
