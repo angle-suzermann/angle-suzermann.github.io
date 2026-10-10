@@ -92,6 +92,19 @@ input.fib.is-wrong, select.fib.is-wrong{ border-bottom-color:var(--wrong); backg
 .angle-badge .wordmark{ width:104px; height:auto; display:block; filter:drop-shadow(0 1px 3px rgba(45,25,60,.45)); }
 .angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; text-shadow:0 1px 3px rgba(45,25,60,.5); }
 @media (max-width:480px){ .angle-badge .wordmark{ width:78px; } .angle-badge{ left:14px; bottom:12px; } }
+
+/* ANGLE-UNIFIED-HEADER v1 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
+.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
+.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
+.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
+.namebar input{padding:5px 8px;}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{height:8px;}
+.progress-label{font-size:12px;white-space:nowrap;}
+.page-dots{gap:4px;margin-top:8px;}
+.page-dot{width:22px;height:22px;font-size:11px;}
 </style>
 </head>
 <body>

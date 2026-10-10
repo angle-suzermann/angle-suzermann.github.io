@@ -45,7 +45,7 @@ overflow-x:hidden;
 html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
 .scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background-color:#ffffff;}
-.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.3; transition:background-image .3s ease; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center 40%; opacity:0.5; transition:background-image .3s ease; }
 .bg-photo.bg-lecture{ background-image:url('img/img1.jpg'); }
 .bg-photo.bg-leaves{ background-image:url('img/img2.jpg'); }
 .bg-photo.bg-books{ background-image:url('img/img3.jpg'); }
@@ -201,6 +201,19 @@ details.script-toggle summary{ cursor:pointer; color:var(--purple); font-weight:
 }
 
 body{overflow-wrap:break-word;}
+
+/* ANGLE-UNIFIED-HEADER v1 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
+.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
+.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
+.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
+.namebar input{padding:5px 8px;}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{height:8px;}
+.progress-label{font-size:12px;white-space:nowrap;}
+.page-dots{gap:4px;margin-top:8px;}
+.page-dot{width:22px;height:22px;font-size:11px;}
 </style>
 </head>
 <body>

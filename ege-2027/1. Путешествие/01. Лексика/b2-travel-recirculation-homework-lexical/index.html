@@ -26,7 +26,7 @@
 html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
 body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:.5; pointer-events:none; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; pointer-events:none; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
 .scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
 
@@ -318,6 +318,19 @@ input, textarea, select{ font-size:16px !important; }
 .upg-new .gap{margin-left:2px;}
 input.gap{max-width:100%;box-sizing:border-box;}
 .fix-orig{color:var(--wrong);font-size:.93rem;} .fix-orig s{text-decoration-thickness:2px;}
+
+/* ANGLE-UNIFIED-HEADER v1 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
+.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
+.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
+.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
+.namebar input{padding:5px 8px;}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{height:8px;}
+.progress-label{font-size:12px;white-space:nowrap;}
+.page-dots{gap:4px;margin-top:8px;}
+.page-dot{width:22px;height:22px;font-size:11px;}
 </style>
 </head>
 <body>

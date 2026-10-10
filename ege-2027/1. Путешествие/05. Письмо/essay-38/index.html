@@ -42,7 +42,7 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
   background-repeat:no-repeat, no-repeat, no-repeat;}
 .bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/img1.jpg');
     background-size:cover; background-position:center 45%; opacity:0.5; }
-  .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(45,25,60,.55), rgba(69,52,88,.85)); }
+  .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
 
   .angle-badge{ position:fixed; left:18px; bottom:16px; z-index:9999; pointer-events:none;
     display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); }
@@ -170,6 +170,19 @@ body{overflow-wrap:break-word;}
   .survey-q + .muted-note{ font-size:13px; color:#6B6475; margin:0 0 6px; }
   .send-box{ margin-top:14px; padding:12px 14px; border:1.5px dashed var(--purple); border-radius:12px; background:#fff; }
   .send-box .st{ font-size:13.5px; margin-left:8px; color:var(--purple-dark); }
+
+/* ANGLE-UNIFIED-HEADER v1 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
+.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
+.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
+.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
+.namebar input{padding:5px 8px;}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{height:8px;}
+.progress-label{font-size:12px;white-space:nowrap;}
+.page-dots{gap:4px;margin-top:8px;}
+.page-dot{width:22px;height:22px;font-size:11px;}
 </style>
 </head>
 <body>
