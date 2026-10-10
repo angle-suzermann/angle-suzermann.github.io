@@ -559,3 +559,7 @@ html, body{
 .file-tile .file-open{ display: flex; flex-direction: column; align-items: center; gap: 3px; color: inherit; text-decoration: none; width: 100%; }
 .file-tile .tile-name{ min-height: 0; justify-content: center; }
 .file-tile .personal-formats{ font-size: 11px; font-weight: 700; }
+
+/* цветной логотип-название курса (Academy Stars 2–5) в заголовке страницы и в крошках */
+.heading-logo{ height: 1.6em; width: auto; display: block; }
+.crumb-logo{ height: 1.7em; width: auto; vertical-align: middle; display: inline-block; }

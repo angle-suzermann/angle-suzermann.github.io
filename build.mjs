@@ -459,7 +459,7 @@ const ANGLE_BADGE = `<div class="angle-badge">${ANGLE_WORDMARK}<div class="credi
    должен быть размером с этот эмодзи и вписываться в строку текста
    (.heading-icon--inline, высота 1em); без этого флага — крупный фирменный
    стикер ANGLE Student/ANGLE Teacher, для него размер прежний (1.6em). */
-const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', headingIconSmall = false }) => `<!DOCTYPE html>
+const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', headingIconSmall = false, headingLogo = '' }) => `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -477,7 +477,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <div class="bg-wash"></div>
 ${ANGLE_BADGE}
 <header class="cat-header">
-  <h1>${headingIcon ? `<img class="heading-icon${headingIconSmall ? ' heading-icon--inline' : ''}" src="${BASE}${headingIcon}" alt="">` : ''}${esc(heading)}</h1>
+  <h1 data-name="${esc(heading)}"${headingLogo ? ` data-logo="${BASE}${headingLogo}"` : ''}>${headingLogo ? `${headingIcon ? `<img class="heading-icon" src="${BASE}${headingIcon}" alt="">` : ''}<img class="heading-logo" src="${BASE}${headingLogo}" alt="${esc(heading)}">` : `${headingIcon ? `<img class="heading-icon${headingIconSmall ? ' heading-icon--inline' : ''}" src="${BASE}${headingIcon}" alt="">` : ''}${esc(heading)}`}</h1>
   ${sub ? `<p>${esc(sub)}</p>` : ''}
 </header>
 <div class="page">
@@ -727,8 +727,8 @@ const groupFolderScript = `<script>
   function renderCrumbs(){
     if(!crumbsEl) return;
     if(view === 'top'){ crumbsEl.hidden = true; crumbsEl.innerHTML = ''; return; }
-    var courseName = courseNameEl ? courseNameEl.textContent.trim() : 'Курс';
-    var parts = [{ label: courseName, action: 'top' }];
+    var courseName = courseNameEl ? (courseNameEl.getAttribute('data-name') || courseNameEl.textContent).trim() : 'Курс';
+    var parts = [{ label: courseName, action: 'top', logo: courseNameEl ? courseNameEl.getAttribute('data-logo') : '' }];
     if(view === 'skills'){
       parts.push({ label: currentTheme, action: 'skills' });
     } else if(currentIsPersonal){
@@ -741,7 +741,7 @@ const groupFolderScript = `<script>
     }
     crumbsEl.innerHTML = parts.map(function(p, i){
       if(i === parts.length - 1) return '<span class="crumb-current">' + crumbEsc(p.label) + '</span>';
-      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + crumbEsc(p.label) + '</button>';
+      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + (p.logo ? '<img class="crumb-logo" src="' + crumbEsc(p.logo) + '" alt="' + crumbEsc(p.label) + '">' : crumbEsc(p.label)) + '</button>';
     }).join('<span class="crumb-sep">/</span>');
     crumbsEl.hidden = false;
   }
@@ -1115,6 +1115,16 @@ const COURSE_HEADING_ICON_MAP = {
   'a2-key-for-schools': 'a2-key.png',
 };
 
+/* Цветной логотип-название курса (Academy Stars 2–5) вписывается в строку
+   заголовка страницы курса и в первую «хлебную крошку»; плитки курсов
+   остаются со своими логотипами из LOGO_MAP. */
+const COURSE_TITLE_LOGO = {
+  as2: '/assets/brand/course/as2-title.png',
+  as3: '/assets/brand/course/as3-title.png',
+  as4: '/assets/brand/course/as4-title.png',
+  as5: '/assets/brand/course/as5-title.png',
+};
+
 /* --- страница курса: только опубликованное --- */
 for (const course of courses) {
   const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
@@ -1132,6 +1142,7 @@ for (const course of courses) {
     heading: headingIconPath ? course.name : `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     headingIcon: headingIconPath,
     headingIconSmall: true,
+    headingLogo: COURSE_TITLE_LOGO[course.id] || '',
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: hasAnyContent
       ? `${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`
@@ -1277,6 +1288,7 @@ const courseUrlMapJson = JSON.stringify(
    renderStaffCrumbs в staffScript) — та же идея, что courseUrlMap выше,
    только текст вместо ссылки. */
 const courseNameMapJson = JSON.stringify(Object.fromEntries(courses.map((c) => [c.id, c.name])));
+const courseLogoMapJson = JSON.stringify(Object.fromEntries(courses.filter((c) => COURSE_TITLE_LOGO[c.id]).map((c) => [c.id, `${BASE}${COURSE_TITLE_LOGO[c.id]}`])));
 const familyNameMapJson = JSON.stringify(Object.fromEntries(familyOrder));
 
 const filterBtns = [
@@ -1298,6 +1310,7 @@ const staffScript = `<script>
   var courseUrlMap = ${courseUrlMapJson};
   var courseGroupIds = ${courseGroupIdsJson};
   var courseNameMap = ${courseNameMapJson};
+  var courseLogoMap = ${courseLogoMapJson};
   var familyNameMap = ${familyNameMapJson};
   var courseLinkBtn = document.getElementById('courseLinkBtn');
   var hint = document.getElementById('pickHint');
@@ -1327,7 +1340,7 @@ const staffScript = `<script>
     if(courseNavFamily && familyNameMap[courseNavFamily]){
       parts.push({ label: familyNameMap[courseNavFamily], action: 'family' });
     }
-    parts.push({ label: courseNameMap[courseNavCourseId] || courseNavCourseId, action: 'course' });
+    parts.push({ label: courseNameMap[courseNavCourseId] || courseNavCourseId, action: 'course', logo: courseLogoMap[courseNavCourseId] || '' });
     var themeName = (courseNavTheme && (courseNavLevel === 'skill' || courseNavLevel === 'materials'))
       ? courseNavTheme.slice(courseNavTheme.indexOf('::') + 2)
       : null;
@@ -1341,7 +1354,7 @@ const staffScript = `<script>
     }
     crumbsEl.innerHTML = parts.map(function(p, i){
       if(i === parts.length - 1) return '<span class="crumb-current">' + staffCrumbEsc(p.label) + '</span>';
-      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + staffCrumbEsc(p.label) + '</button>';
+      return '<button type="button" class="crumb-link" data-crumb-action="' + p.action + '">' + (p.logo ? '<img class="crumb-logo" src="' + staffCrumbEsc(p.logo) + '" alt="' + staffCrumbEsc(p.label) + '">' : staffCrumbEsc(p.label)) + '</button>';
     }).join('<span class="crumb-sep">/</span>');
     crumbsEl.hidden = false;
   }
