@@ -66,27 +66,24 @@ html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:li
     background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9));
   }
 
-  header.topbar{ position:relative; flex:0 0 auto; z-index:50; background:var(--purple); color:#fff; padding:14px 20px; box-shadow:0 3px 10px rgba(0,0,0,.25); }
-  .topbar-inner{ max-width:900px; margin:0 auto; }
-  .brand-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-  .brand-row .title{ font-weight:800; font-size:1.15rem; }
-  .brand-row .subtitle{ font-size:.85rem; opacity:.9; }
-  .namebar{ display:flex; align-items:center; gap:8px; }
-  .namebar label{ font-size:.8rem; opacity:.9; }
-  .namebar input{
-    border:none; border-radius:8px; padding:6px 10px; font-size:.9rem;
-    font-family:inherit; width:150px;
-  }
-  .progress-track{ margin-top:10px; background:rgba(255,255,255,.25); border-radius:20px; height:10px; overflow:hidden; }
-  .progress-fill{ background:var(--yellow); height:100%; width:14.3%; transition:width .3s ease; border-radius:20px; }
-  .progress-label{ font-size:.78rem; margin-top:4px; opacity:.9; }
-  .dots{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
-  .dot{
-    width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.25);
-    color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center;
-    cursor:pointer; border:2px solid transparent;
-  }
-  .dot.active{ background:var(--yellow); color:var(--purple-dark); }
+  .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 20px 12px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.lesson-title{ font-weight:700; color:var(--purple); font-size:1.02rem; line-height:1.25; }
+.lesson-title small{ display:block; font-weight:400; color:var(--muted); font-size:.76rem; margin-top:2px; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.82rem; color:var(--muted); }
+.namebar input{ font-family:inherit; border:1.5px solid var(--border); border-radius:8px; padding:5px 9px; font-size:.85rem; width:150px; }
+.namebar input:focus{ outline:2px solid var(--purple); border-color:var(--purple); }
+.save-indicator{ font-size:.7rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; margin-left:4px;}
+.save-indicator.show{ opacity:1; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; border:1px solid var(--border);}
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--purple-dark)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.72rem; color:var(--muted); white-space:nowrap; font-weight:600;}
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:26px; height:26px; border-radius:50%; background:var(--card-tint); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:var(--muted); cursor:pointer; }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.page-dot:hover{ border-color:var(--purple); }
 
   .wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:22px 18px 140px; }
   .page{ display:none; animation:fadein .3s ease; }
@@ -259,19 +256,28 @@ audio.rec-playback{ display:none; height:34px; }
 .send-rec-btn:disabled{ opacity:.5; cursor:not-allowed; }
 .rec-status{ width:100%; font-size:.85em; font-weight:700; color:var(--muted); }
 
-/* ANGLE-UNIFIED-HEADER v2 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
-.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
-.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
-.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
-.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
-.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
-.namebar input{padding:5px 8px;}
-.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+/* ANGLE-UNIFIED-HEADER v3 - compact header as in Empower Unit 4 / 4B. Max height 150px phone / 110px desktop. Same block in every worksheet. */
+header.topbar,.topbar{background:rgba(255,255,255,.8);}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
 .progress-track{height:8px;}
-.progress-label{font-size:12px;white-space:nowrap;}
-.page-dots{gap:4px;margin-top:8px;}
-.page-dot{width:22px;height:22px;font-size:11px;}
-.topbar{background:rgba(255,255,255,.9);}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;gap:4px;margin-top:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{width:22px;height:22px;font-size:11px;flex:0 0 auto;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 2px 6px rgba(94,72,119,.4);}
 </style>
 </head>
 <body>
@@ -283,15 +289,18 @@ audio.rec-playback{ display:none; height:34px; }
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-row">
-      <div>
-        <div class="title">Unit 2 Sound Practice</div>
-        <div class="subtitle">Long i — magic e (i_e)</div>
+      <span class="lesson-title">Unit 2 Sound Practice<small>Long i — magic e (i_e)</small></span>
+      <div class="namebar">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Your name">
+        <span class="save-indicator" id="saveIndicator"></span>
       </div>
-      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your name"><span class="save-indicator" id="saveIndicator"></span></div>
     </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-label" id="progressLabel">Page 1 / 7</div>
-    <div class="dots" id="dots"></div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Page 1 / 7</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
   </div>
 </header>
 
@@ -457,10 +466,10 @@ const PAGE_LABELS = ["Sound","Listen","Sort","Spell","Rhyme","Read","Finish"];
 let current = 0;
 
 function buildDots(){
-  const wrap = document.getElementById('dots');
+  const wrap = document.getElementById('pageDots');
   PAGE_LABELS.forEach((label,i)=>{
     const d = document.createElement('div');
-    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.className = 'page-dot' + (i===0 ? ' active' : '');
     d.textContent = i+1;
     d.title = label;
     d.onclick = ()=>showPage(i);
@@ -474,7 +483,7 @@ function showPage(n){
   pages.forEach((p,i)=>p.classList.toggle('active', i===current));
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
   if (current === 6) computeResults();
   window.scrollTo({top:0, behavior:'smooth'});
 }

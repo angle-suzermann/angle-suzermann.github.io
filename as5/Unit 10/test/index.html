@@ -236,19 +236,28 @@ select.dd.is-wrong{ border-color:var(--wrong) !important; color:var(--wrong); }
   .nav-btns button{ padding:11px 14px; font-size:13.5px; }
 }
 
-/* ANGLE-UNIFIED-HEADER v2 - compact header as in Empower Unit 4 / 4B. Same block in every worksheet. */
-.topbar-inner{padding:calc(10px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 12px calc(18px + env(safe-area-inset-left,0px));}
-.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;}
-.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:6px 16px 6px 10px;}
-.lesson-sub{display:block;font-weight:400;font-size:12px;line-height:1.25;color:var(--purple-dark,#453458);margin-top:2px;}
-.namebar{display:flex;align-items:center;gap:6px;font-size:13px;}
-.namebar input{padding:5px 8px;}
-.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+/* ANGLE-UNIFIED-HEADER v3 - compact header as in Empower Unit 4 / 4B. Max height 150px phone / 110px desktop. Same block in every worksheet. */
+header.topbar,.topbar{background:rgba(255,255,255,.8);}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
 .progress-track{height:8px;}
-.progress-label{font-size:12px;white-space:nowrap;}
-.page-dots{gap:4px;margin-top:8px;}
-.page-dot{width:22px;height:22px;font-size:11px;}
-.topbar{background:rgba(255,255,255,.9);}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;gap:4px;margin-top:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{width:22px;height:22px;font-size:11px;flex:0 0 auto;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 2px 6px rgba(94,72,119,.4);}
 </style>
 </head>
 <body>
