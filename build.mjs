@@ -968,10 +968,10 @@ const COLLAPSED_FAMILIES = ['Oxford Phonics'];
    course-id, эмодзи останется запасным вариантом для всех остальных. */
 const LOGO_MAP = {
   'ege-2027': 'ege-2027.png',
-  as2: 'academy-stars-angle.png',
-  as3: 'academy-stars-angle.png',
-  as4: 'academy-stars-angle.png',
-  as5: 'academy-stars-angle.png',
+  as2: 'academy-stars-2.png',
+  as3: 'academy-stars-3.png',
+  as4: 'academy-stars-4.png',
+  as5: 'academy-stars-5.png',
   'empower-b1': 'empower-b1.png',
   'gateway/gateway-to-the-world-b1': 'gateway-to-the-world-b1.png',
   'gateway/gateway-to-the-world-b2': 'gateway-to-the-world-b2.png',
@@ -1001,7 +1001,7 @@ const tileIconFor = (course) => LOGO_MAP[course.id]
    иконками заголовков страниц курса (см. COURSE_HEADING_ICON_MAP ниже),
    переиспользуем те же картинки, где это в тему. */
 const FAMILY_ICON_MAP = {
-  'Academy Stars': 'academy-stars.png',
+  'Academy Stars': 'academy-stars-angle.png',
   Gateway: 'gateway-door.png',
   'Oxford Phonics': 'oxford-phonics.png',
 };
@@ -1098,10 +1098,10 @@ ${landingStandaloneBlock}`,
 const COURSE_HEADING_ICON_MAP = {
   'gateway/gateway-to-the-world-b1': 'gateway-door.png',
   'gateway/gateway-to-the-world-b2': 'gateway-door.png',
-  as2: 'academy-stars.png',
-  as3: 'academy-stars.png',
-  as4: 'academy-stars.png',
-  as5: 'academy-stars.png',
+  as2: 'academy-stars-angle.png',
+  as3: 'academy-stars-angle.png',
+  as4: 'academy-stars-angle.png',
+  as5: 'academy-stars-angle.png',
   'ege-2027': 'ege.png',
   'empower-b1': 'empower.png',
   'gateway/gw-b2': 'gw-b2.png',
