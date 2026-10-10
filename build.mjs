@@ -968,10 +968,10 @@ const COLLAPSED_FAMILIES = ['Oxford Phonics'];
    course-id, эмодзи останется запасным вариантом для всех остальных. */
 const LOGO_MAP = {
   'ege-2027': 'ege-2027.png',
-  as2: 'academy-stars-2.png',
-  as3: 'academy-stars-3.png',
-  as4: 'academy-stars-4.png',
-  as5: 'academy-stars-5.png',
+  as2: 'academy-stars-angle.png',
+  as3: 'academy-stars-angle.png',
+  as4: 'academy-stars-angle.png',
+  as5: 'academy-stars-angle.png',
   'empower-b1': 'empower-b1.png',
   'gateway/gateway-to-the-world-b1': 'gateway-to-the-world-b1.png',
   'gateway/gateway-to-the-world-b2': 'gateway-to-the-world-b2.png',
