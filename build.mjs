@@ -488,7 +488,7 @@ ${extraScript}
 </html>
 `;
 
-const card = (m) => `  <a class="card" href="${esc(m.url)}" data-group="${esc(m.group || '')}"
+const card = (m) => `  <a class="card" href="${esc(m.url)}" target="_blank" rel="noopener" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
