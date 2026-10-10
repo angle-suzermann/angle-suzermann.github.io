@@ -1115,15 +1115,11 @@ const COURSE_HEADING_ICON_MAP = {
   'a2-key-for-schools': 'a2-key.png',
 };
 
-/* Цветной логотип-название курса (Academy Stars 2–5) вписывается в строку
-   заголовка страницы курса и в первую «хлебную крошку»; плитки курсов
-   остаются со своими логотипами из LOGO_MAP. */
-const COURSE_TITLE_LOGO = {
-  as2: '/assets/brand/course/as2-title.png',
-  as3: '/assets/brand/course/as3-title.png',
-  as4: '/assets/brand/course/as4-title.png',
-  as5: '/assets/brand/course/as5-title.png',
-};
+/* Картинка-название курса вместо текста в шапке и «хлебной крошке» (механизм
+   работает, но сейчас отключён: в шапке снова текст с названием курса и
+   стикер-звёзды). Чтобы включить для курса — добавить сюда
+   course-id: '/assets/brand/course/<файл>.png'. */
+const COURSE_TITLE_LOGO = {};
 
 /* --- страница курса: только опубликованное --- */
 for (const course of courses) {
@@ -1141,7 +1137,7 @@ for (const course of courses) {
     title: `${course.name} — материалы`,
     heading: headingIconPath ? course.name : `${course.emoji ? course.emoji + ' ' : ''}${course.name}`,
     headingIcon: headingIconPath,
-    headingIconSmall: true,
+    headingIconSmall: !/academy-stars-angle/.test(headingIconPath || ''),
     headingLogo: COURSE_TITLE_LOGO[course.id] || '',
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: hasAnyContent
