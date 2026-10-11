@@ -567,4 +567,7 @@ html, body{
 /* ---- вырез/статус-бар iPhone: шапка уходит под прозрачный статус-бар (приложение с экрана «Домой») ---- */
 .cat-header{ padding-top: calc(32px + env(safe-area-inset-top, 0px)); }
 .page{ padding-top: calc(128px + env(safe-area-inset-top, 0px)); }
-html{ background: #2d193c; }
+html{ background: #2b1d33; min-height: 100%; }
+body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
+/* слои фона чуть выходят за нижний край, чтобы под индикатором «Домой» не оставалось полосы */
+.bg-photo, .bg-wash{ bottom: -120px; }
