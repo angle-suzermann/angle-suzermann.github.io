@@ -493,17 +493,41 @@ ${ANGLE_BADGE}
 ${body}
 </div>
 <script>
-/* Приложение с экрана «Домой»: материалы открываем в том же окне, а не во внутреннем браузере Safari
-   (у него своя белая рамка сверху и снизу). Внешние ссылки не трогаем. */
-if (window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) {
+/* Приложение с экрана «Домой», панель преподавателя. iOS считает «своими» только страницы внутри папки,
+   с которой иконку добавили (/${staffPath}/). Материалы лежат вне её, и iOS открывал их во встроенном
+   браузере Safari с белыми рамками сверху и снизу. Поэтому в таком режиме материал показываем
+   поверх каталога, в iframe на весь экран, с кнопкой «Каталог». В обычном браузере ничего не меняется. */
+(function () {
+  var standalone = window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if (!standalone) return;
+  var inStaff = location.pathname.indexOf('${BASE}/${staffPath}/') === 0;
+  var overlay = null;
+  function closeOverlay() { if (overlay) { overlay.remove(); overlay = null; } }
+  function openOverlay(href) {
+    closeOverlay();
+    overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:-120px;z-index:100000;background:#2b1d33;';
+    var f = document.createElement('iframe');
+    f.src = href;
+    f.setAttribute('allow', 'microphone; camera; autoplay; clipboard-write; fullscreen');
+    f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:calc(100% - 120px);border:0;background:#2b1d33;';
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = '← Каталог';
+    b.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);bottom:calc(132px + env(safe-area-inset-bottom,0px));z-index:2;padding:6px 14px;border:0;border-radius:999px;background:#FED500;color:#2D2926;font:800 13px/1.2 sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.35);opacity:.92;';
+    b.addEventListener('click', function () { history.back(); });
+    overlay.appendChild(f); overlay.appendChild(b);
+    document.body.appendChild(overlay);
+    history.pushState({ angleOverlay: 1 }, '');
+  }
+  window.addEventListener('popstate', closeOverlay);
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[target="_blank"]');
-    if (a && a.origin === location.origin && !e.metaKey && !e.ctrlKey) {
-      e.preventDefault();
-      location.assign(a.href);
-    }
+    if (!a || a.origin !== location.origin || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    if (inStaff) openOverlay(a.href); else location.assign(a.href);
   }, true);
-}
+})();
 </script>
 ${extraScript}
 </body>
