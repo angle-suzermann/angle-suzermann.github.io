@@ -505,6 +505,8 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
 (function () {
   var standalone = window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   if (!standalone) return;
+  if (window.__angleShell) return;
+  window.__angleShell = true;
   var inStaff = location.pathname.indexOf('${BASE}/${staffPath}/') === 0;
   var overlay = null;
   function closeOverlay() { if (overlay) { overlay.remove(); overlay = null; } }
@@ -532,6 +534,48 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
     e.preventDefault();
     openOverlay(a.href);
   }, true);
+
+  /* Панель ученика в приложении: переходы между страницами (главная, курс, хаб) без перезагрузки — как в панели
+     преподавателя, где всё одна страница. Каждая загрузка страницы заставляла iOS заново «расширять» окно, и фон
+     с значком ползли вниз. Здесь страница подгружается и подменяется на месте, окно не пересчитывается. */
+  if (!inStaff) {
+    var curPath = location.pathname;
+    var swap = function (url, push) {
+      fetch(url, { credentials: 'same-origin' }).then(function (r) {
+        if (!r.ok) throw new Error('http');
+        return r.text();
+      }).then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        if (push) history.pushState({ angleNav: 1, view: 'top', currentTheme: null, currentGroup: null, currentPrefix: false, currentIsPersonal: false }, '', url);
+        curPath = new URL(url, location.href).pathname;
+        document.title = doc.title;
+        while (document.body.firstChild) document.body.removeChild(document.body.firstChild);
+        Array.prototype.slice.call(doc.body.childNodes).forEach(function (n) {
+          if (n.nodeName === 'SCRIPT') {
+            var s = document.createElement('script');
+            s.textContent = n.textContent;
+            document.body.appendChild(s);
+          } else {
+            document.body.appendChild(document.importNode(n, true));
+          }
+        });
+        window.scrollTo(0, 0);
+      }).catch(function () { location.assign(url); });
+    };
+    window.addEventListener('popstate', function (e) {
+      if (location.pathname !== curPath) {
+        e.stopImmediatePropagation();
+        swap(location.href, false);
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || a.origin !== location.origin || e.metaKey || e.ctrlKey || e.shiftKey || a.hasAttribute('download')) return;
+      if (a.pathname === location.pathname || a.pathname.slice(-1) !== '/') return;
+      e.preventDefault();
+      swap(a.href, true);
+    }, true);
+  }
 })();
 </script>
 ${extraScript}
