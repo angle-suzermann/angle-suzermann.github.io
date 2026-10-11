@@ -54,11 +54,11 @@
       "formspree": "mdaqrvdd"
     },
     {
-      "id": "gateway/gw-b2",
-      "name": "GW B2",
+      "id": "gateway/gateway-to-the-world-b1",
+      "name": "B1",
       "family": "Gateway",
-      "emoji": "🌍",
-      "formspree": "xoeaqeyz"
+      "emoji": "🚪",
+      "formspree": ""
     },
     {
       "id": "gateway/gateway-to-the-world-b2",
@@ -68,11 +68,11 @@
       "formspree": "xoeaqeyz"
     },
     {
-      "id": "gateway/gateway-to-the-world-b1",
-      "name": "B1",
+      "id": "gateway/gw-b2",
+      "name": "GW B2",
       "family": "Gateway",
-      "emoji": "🚪",
-      "formspree": ""
+      "emoji": "🌍",
+      "formspree": "xoeaqeyz"
     },
     {
       "id": "ege-2027",
