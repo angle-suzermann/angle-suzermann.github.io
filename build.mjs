@@ -498,7 +498,10 @@ ${body}
 if (window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) {
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[target="_blank"]');
-    if (a && a.origin === location.origin) a.removeAttribute('target');
+    if (a && a.origin === location.origin && !e.metaKey && !e.ctrlKey) {
+      e.preventDefault();
+      location.assign(a.href);
+    }
   }, true);
 }
 </script>
