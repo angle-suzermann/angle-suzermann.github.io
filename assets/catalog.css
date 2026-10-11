@@ -124,11 +124,11 @@ html, body{
 }
 /* фирменный стикер ANGLE перед заголовком «ANGLE Student»/«ANGLE Teacher»
    (см. page({ headingIcon }) в build.mjs) — вместо обычного юникод-эмодзи */
-.heading-icon{ height: 1.6em; width: auto; display: block; }
+.heading-icon{ height: 1.76em; width: auto; display: block; }
 /* headingIconSmall — стикер заменяет собой конкретный юникод-эмодзи (курс,
    семья курсов), должен быть размером с этот эмодзи и вписываться в
    строку текста, а не выделяться крупнее заголовка */
-.heading-icon--inline{ height: 1em; }
+.heading-icon--inline{ height: 1.1em; }
 .cat-header p{ margin: 0; opacity: 0.92; font-size: 13px; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
 .cat-header .logo{ display: none; }
 .cat-header .credit{ display: none; }
