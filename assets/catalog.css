@@ -567,9 +567,9 @@ html, body{
 /* ---- вырез/статус-бар iPhone: шапка уходит под прозрачный статус-бар (приложение с экрана «Домой») ---- */
 .cat-header{ padding-top: calc(32px + env(safe-area-inset-top, 0px)); }
 .page{ padding-top: calc(128px + env(safe-area-inset-top, 0px)); }
-html{ background: #2b1d33; min-height: 100%; }
-body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
+html{ background: #1f1a26; min-height: 100%; }
+body{ background: transparent; min-height: calc(100vh + 2px); min-height: calc(100dvh + 2px); }
 /* слои фона чуть выходят за нижний край, чтобы под индикатором «Домой» не оставалось полосы */
 .bg-photo, .bg-wash{ bottom: -120px; }
-/* шапка без сплошной плашки: тёмный градиент сверху (под статус-баром читаются часы) плавно уходит в прозрачность, фото видно целиком */
-.cat-header{ background: linear-gradient(180deg, rgba(55,38,72,.92) 0%, rgba(55,38,72,.7) 55%, rgba(55,38,72,0) 100%); -webkit-transform: translateZ(0); transform: translateZ(0); }
+
+/* iOS (приложение с экрана «Домой»): на короткой странице нижняя полоса не закрашивалась фоном, пока страница не прокручивалась. Страница всегда чуть выше экрана (+2px), а цвет html совпадает с низом затемнения */
