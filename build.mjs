@@ -1278,13 +1278,10 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
   const tree = groupTileTree(list, leafExtras(personalFolders));
   if (!tree) return '';
   const { groups, themes, countExact, countPrefix } = tree;
-  /* «Без юнита» тут намеренно не выводим: в отличие от публичной
-     страницы курса, где ungroupedCount мог бы означать реальные
-     материалы без юнита, здесь courseGroupsMap уже гарантирует, что
-     courseId вообще есть в списке только если у курса есть хотя бы
-     один материал с группой — а сами материалы без группы просто
-     останутся доступны через плитку курса без захода в юниты, если
-     когда-нибудь у курса будут и те, и другие. */
+  /* «Без юнита»: материалы курса без папки (например, инструкции MEE в
+     GW B2) раньше в панели были недоступны через плитки, если у курса
+     есть хотя бы одна папка — теперь для них есть своя плитка. */
+  const ungroupedCount = list.filter((m) => !m.group).length;
 
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
@@ -1295,6 +1292,9 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
       '📁', t, count, isLeaf ? fileWords : undefined
     );
   });
+  if (ungroupedCount) {
+    topTiles.push(groupTileHtml(` data-group-tile="" data-course-tile="${esc(courseId)}"`, '📁', 'Без юнита', ungroupedCount));
+  }
   const groupGrid = `  <div class="tile-grid sub-tabs-group" data-group-for="${esc(courseId)}" hidden>
 ${topTiles.join('\n')}
   </div>`;
