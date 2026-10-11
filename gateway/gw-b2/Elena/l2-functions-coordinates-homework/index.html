@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#453458">
+<title>IB Maths Prep · Lesson 2 · Functions & Coordinates · Homework · lexical</title>
+<meta name="ws:type" content="worksheet">
+<meta name="ws:course" content="GW B2">
+<meta name="ws:course-id" content="gateway/gw-b2">
+<meta name="ws:unit" content="Elena">
+<meta name="ws:title" content="04. Functions & Coordinates (Homework)">
+<meta name="ws:emoji" content="📐">
+<meta name="ws:date" content="2026-10-11">
+<meta name="ws:status" content="draft">
+<meta name="ws:formspree" content="xoeaqeyz">
+<meta name="ws:tags" content="IB maths, maths in English, lexical">
+<meta name="robots" content="noindex, nofollow">
+
+<style>@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}</style>
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;overflow-x:hidden;max-width:100%;overscroll-behavior-x:none;touch-action:pan-y;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text);line-height:1.55;}
+.app-shell{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;}
+.bg-photo{position:absolute;inset:0;z-index:0;background-color:#3a2a4a;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23FED500' stroke-opacity='.35'%3E%3Cpath d='M0 0H240M0 40H240M0 80H240M0 120H240M0 160H240M0 200H240M0 0V240M40 0V240M80 0V240M120 0V240M160 0V240M200 0V240' stroke-width='.6'/%3E%3Cpath d='M40 200L200 200L40 80Z' stroke-width='2.4' stroke-opacity='.8'/%3E%3Ccircle cx='160' cy='80' r='38' stroke-width='2' stroke-opacity='.7'/%3E%3Cpath d='M40 185H55V200' stroke-width='1.6' stroke-opacity='.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:240px 240px;background-position:center 40%;opacity:0.5;pointer-events:none;}
+.bg-wash{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9));pointer-events:none;}
+.topbar{position:relative;flex:0 0 auto;z-index:60;background:#fff;border-bottom:3px solid var(--purple);box-shadow:0 2px 10px rgba(45,25,60,.08);}
+.topbar-inner{max-width:900px;margin:0 auto;}
+.namebar label{font-weight:700;color:var(--purple-dark);}
+.namebar input{border:1.5px solid var(--border);border-radius:8px;font-family:inherit;}
+.save-indicator{font-size:.72rem;color:var(--correct);opacity:0;transition:opacity .3s ease;white-space:nowrap;}
+.save-indicator.show{opacity:1;}
+.progress-track{background:#ece6f2;border-radius:999px;overflow:hidden;}
+.progress-fill{height:100%;width:0;border-radius:999px;transition:width .3s ease;}
+.progress-label{color:var(--purple-dark);font-weight:700;}
+.page-dot{border:1.5px solid var(--border);background:#fff;color:var(--purple-dark);cursor:pointer;font-weight:700;}
+.scroll-area{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:2;}
+.page-wrap{max-width:860px;margin:0 auto;padding:16px 16px 150px;}
+.page{display:none;}
+.page.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.card{background:var(--card);border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,10,30,.25);}
+.card h2{color:var(--purple);font-size:1.25rem;margin:0 0 6px;padding-left:10px;border-left:4px solid var(--yellow);}
+.card h3{color:var(--purple-dark);font-size:1rem;margin:16px 0 6px;}
+.instr{color:var(--muted);font-size:.92rem;margin:4px 0 14px;}
+.tip{background:#fffbe6;border:1px solid #f0dd8a;border-radius:10px;padding:10px 14px;font-size:.92rem;margin:12px 0;}
+.tip b{color:var(--purple-dark);}
+.outcome{background:var(--card-tint);border-left:4px solid var(--purple);border-radius:8px;padding:10px 14px;margin:10px 0;}
+.outcome li{margin:4px 0;}
+.math{font-family:'Cambria Math','STIX Two Math','Times New Roman',serif;font-size:1.05em;white-space:nowrap;}
+.item{padding:12px 0;border-top:1px dashed var(--border);}
+.item:first-of-type{border-top:none;}
+.q{margin:0 0 8px;font-weight:600;}
+.qnum{display:inline-block;min-width:22px;color:var(--purple);font-weight:800;}
+.mcq{display:flex;flex-wrap:wrap;gap:8px;}
+.opt{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--text);text-align:left;}
+.opt:hover{border-color:var(--purple);}
+.opt.chosen{border-color:var(--purple);}
+.opt.correct{background:#e8f7ee;border-color:var(--correct);color:#226b43;font-weight:700;}
+.opt.wrong{background:#fdecea;border-color:var(--wrong);color:#9b2f22;}
+.explain{display:none;font-size:.88rem;color:var(--purple-dark);background:var(--card-tint);border-radius:8px;padding:7px 11px;margin-top:8px;}
+.explain.show{display:block;}
+.fib,.sel{border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font:inherit;font-size:.92rem;min-width:120px;background:#fff;color:var(--text);}
+.fib.wide{min-width:220px;}
+.fib{max-width:100%;}
+.fib:focus,.sel:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(94,72,119,.15);}
+.is-correct{border-color:var(--correct)!important;background:#e8f7ee!important;}
+.is-wrong{border-color:var(--wrong)!important;background:#fdecea!important;}
+.key{display:none;font-size:.85rem;color:#226b43;margin-left:6px;}
+.key.show{display:inline;}
+.type-hint{font-size:.85rem;background:var(--card-tint);border-radius:8px;padding:8px 12px;margin:8px 0 12px;}
+.type-hint code{background:#fff;border:1px solid var(--border);border-radius:4px;padding:0 5px;}
+.match-set{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:.92rem;cursor:pointer;text-align:left;color:var(--text);}
+.match.selected{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(254,213,0,.45);}
+.match.matched-correct{border-color:var(--correct);background:#e8f7ee;color:#226b43;cursor:default;}
+.match.wrong-flash{border-color:var(--wrong);background:#fdecea;}
+.match-score{font-size:.85rem;color:var(--muted);margin-top:8px;}
+.order-list{display:flex;flex-direction:column;gap:8px;}
+.order-item{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;cursor:pointer;background:#fff;}
+.order-item.picked{border-color:var(--purple);background:var(--card-tint);}
+.order-item.pos-correct{border-color:var(--correct);background:#e8f7ee;}
+.order-item.pos-wrong{border-color:var(--wrong);background:#fdecea;}
+.order-num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--yellow);color:var(--black);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+.order-item:not(.picked) .order-num{background:#eee;color:#bbb;}
+.small-btn{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.82rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;margin-top:10px;}
+.phrase-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+.phrase-box span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.88rem;color:var(--purple-dark);font-weight:600;}
+.solution{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:12px 16px;line-height:2.1;}
+textarea.written{width:100%;min-height:150px;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;font-size:.95rem;resize:vertical;}
+.word-count{font-size:.8rem;color:var(--muted);text-align:right;}
+.needs-review{color:var(--wrong);}
+.nav-btns{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.nav-btns button,.btn{background:var(--purple);color:#fff;border:none;border-radius:22px;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer;}
+.nav-btns .ghost{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.check-page{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.btn-main{background:var(--yellow);color:var(--black);font-size:1.05rem;padding:12px 26px;}
+.timer{display:inline-flex;align-items:center;gap:10px;background:var(--card-tint);border-radius:22px;padding:6px 8px 6px 14px;font-weight:800;color:var(--purple-dark);}
+.timer.done{background:#fdecea;color:var(--wrong);}
+.deck{text-align:center;}
+.flip-card{perspective:1000px;width:100%;max-width:520px;height:220px;margin:8px auto;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;}
+.flip-front{background:var(--purple);color:#fff;}
+.flip-front .ru{font-size:1.5rem;font-weight:800;}
+.flip-front .hintline{font-size:.8rem;opacity:.75;margin-top:10px;}
+.flip-back{background:#fff;border:2px solid var(--purple);transform:rotateY(180deg);}
+.flip-back .en{font-size:1.4rem;font-weight:800;color:var(--purple);}
+.flip-back .def{font-size:.92rem;margin-top:6px;}
+.flip-back .ex{font-size:.88rem;color:var(--muted);font-style:italic;margin-top:6px;}
+.card-speak{margin-top:8px;background:var(--yellow);border:none;border-radius:16px;padding:4px 12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.deck-controls{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.deck-controls button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);border-radius:18px;padding:6px 14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.gloss{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;}
+.gloss td,.gloss th{border-bottom:1px solid var(--border);padding:6px 8px;text-align:left;vertical-align:top;}
+.gloss th{color:var(--purple);}
+.gloss-wrap{overflow-x:auto;max-width:100%;}
+.restore-note{background:#fffbe6;border:1px solid #f0dd8a;border-radius:8px;padding:10px 14px;font-size:.88rem;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.restore-note[hidden]{display:none!important;}
+.restore-note button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.results{text-align:center;}
+.results[hidden]{display:none!important;}
+.big-score{font-size:2.6rem;font-weight:800;color:var(--purple);}
+.breakdown{text-align:left;font-size:.9rem;max-width:520px;margin:10px auto;}
+.breakdown div{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:4px 0;}
+#submitStatus{font-weight:700;margin-top:10px;}
+.completion-stickers{text-align:center;}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1);}
+.completion-sticker[hidden]{display:none;}
+.completion-sticker--medium{max-width:170px;}
+.completion-sticker--icon{max-width:110px;}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+.result-caption{text-align:center;font-size:.92rem;color:var(--muted);margin-top:6px;}
+.angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
+.angle-badge .wordmark{width:96px;height:auto;display:block;}
+.angle-badge .wordmark path{stroke:#5E4877;stroke-width:90;paint-order:stroke;}
+.angle-badge .credit{margin-top:3px;margin-left:3px;font-weight:400;font-size:10px;text-shadow:0 0 2px #5E4877,0 0 2px #5E4877;}
+@media (max-width:600px){.match-set{gap:8px;}.match{font-size:.85rem;padding:7px 9px;}.card{padding:16px 14px;}.flip-card{height:240px;}}
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+
+.bg-photo{background-image:url('img/bg-photo.jpg');background-size:cover;background-position:center 40%;}
+
+/* ---- lexical layer (port of lexical.py) ---- */
+.op{font-size:.72rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:0 0 2px;}
+.outcome-lex{background:#fff;border:1.5px dashed var(--purple);border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:.92rem;line-height:1.5;color:var(--purple-dark);}
+.lex-intro{background:rgba(255,255,255,.96);}
+.text-box{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:12px 14px;line-height:1.75;}
+.spot-keys{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;}
+.spot-key{border:1.5px solid var(--border);background:#fff;border-radius:16px;padding:5px 11px;font-weight:800;font-size:.85rem;color:var(--purple-dark);}
+.spot-key.found{background:#eaf7f0;border-color:var(--correct);color:var(--correct);}
+.spot-count{font-size:.85rem;color:var(--muted);font-weight:700;margin:4px 0;}
+.spot-text p{margin:0 0 10px;}
+.spot-text .w{cursor:pointer;border-radius:3px;}
+.spot-text .w:hover{background:var(--card-tint);}
+.spot-text .w.miss{background:#fbebe8;color:var(--wrong);transition:background .2s;}
+.spot-text .chunk.found{background:var(--yellow);border-radius:4px;padding:1px 3px;font-weight:700;}
+.spot-text .chunk.found .w{cursor:default;background:transparent;}
+.spot-msg{font-size:.86rem;font-weight:700;min-height:1.2em;color:var(--muted);margin:4px 0 0;}
+.spot-msg.ok{color:var(--correct);} .spot-msg.no{color:var(--wrong);}
+.byline{color:var(--muted);font-size:.82rem;margin:4px 0 0;}
+.chunk-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;}
+@media (max-width:640px){.chunk-cards{grid-template-columns:1fr;}}
+.chunk-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;}
+.chunk-card summary{cursor:pointer;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-height:44px;list-style:none;}
+.chunk-card summary::-webkit-details-marker{display:none;}
+.chunk-card[open]{border-color:var(--purple);}
+.cc-chunk{font-weight:800;color:var(--purple);}
+.cc-pattern{font-size:.8rem;color:var(--muted);font-weight:700;}
+.cc-body{padding:0 12px 10px;font-size:.9rem;line-height:1.5;}
+.cc-body p{margin:4px 0;}
+.cc-ex{font-style:italic;}
+.cc-watch{color:#8a5a00;}
+.src-tag{font-style:normal;font-size:.68rem;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:4px;white-space:nowrap;}
+.src-text,.src-dialogue{background:var(--yellow);color:var(--black);} .src-made{background:var(--card-tint);color:var(--muted);}
+.plain{color:var(--muted);font-style:italic;}
+.upg-new{margin:2px 0 0;line-height:2.2;}
+.upg-new::before{content:'✔ ';color:var(--correct);font-weight:800;}
+.fib.narrow{min-width:70px;width:80px;}
+.word-bank{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px;}
+.word-bank span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-weight:700;color:var(--purple-dark);font-size:.85rem;cursor:pointer;user-select:none;}
+.word-bank span.used{opacity:.4;text-decoration:line-through;}
+.word-bank span.used:hover{opacity:.7;}
+.bank-text{line-height:2.3;}
+.bank-gap{cursor:pointer;min-width:110px;width:auto;}
+.bank-gap.active-gap{border-color:var(--yellow)!important;box-shadow:0 0 0 3px rgba(254,213,0,.45);}
+.live-chips{background:var(--card-tint);border-radius:10px;padding:10px 12px;margin:8px 0;}
+.live-group{margin:2px 0 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.live-group-title{width:100%;margin:2px 0 0;font-size:.74rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.live-chip{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:4px 10px;font-size:.82rem;font-weight:700;color:var(--purple-dark);transition:all .2s;}
+.live-chip.on{background:#eaf7f0;border-color:var(--correct);color:var(--correct);}
+.live-chip.on::before{content:'✓ ';}
+.wc-row{display:flex;justify-content:flex-end;}
+.live-count{font-size:.8rem;font-weight:800;color:var(--muted);}
+.live-count.ok{color:var(--correct);}
+.live-warn{margin:6px 0 0;padding-left:20px;font-size:.86rem;color:#8a5a00;line-height:1.5;}
+.live-warn:empty{display:none;}
+.live-warn li{margin:3px 0;}
+
+.gl-search{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font:inherit;font-size:.95rem;margin:4px 0 6px;}
+.gl-search:focus{outline:none;border-color:var(--purple);}
+.gl-coll{font-size:.84rem;color:var(--purple-dark);}
+.gl-coll b{color:var(--purple);background:#fff7cc;border-radius:3px;padding:0 2px;}
+.gl-ex{font-size:.84rem;color:var(--muted);}
+.gl-watch{font-size:.84rem;color:#8a5a00;}
+.gl-table tr[hidden]{display:none;}
+.gl-play{width:40px;}
+.gl-btn{background:var(--yellow);border:none;border-radius:50%;width:34px;height:34px;font-size:15px;cursor:pointer;line-height:34px;padding:0;}
+.gl-table tr.gl-on td{background:#fff7cc;}
+.gl-table tr.gl-on .gl-btn{box-shadow:0 0 0 3px var(--purple);}
+.gl-audio-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 8px;}
+.gl-all{background:var(--purple);color:#fff;border:none;border-radius:20px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;}
+.gl-stop{background:#fff;color:var(--purple);border:1.5px solid var(--purple);border-radius:20px;padding:7px 14px;font:inherit;font-weight:700;cursor:pointer;}
+.gl-speed{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.gl-speed select{border:1.5px solid var(--border);border-radius:8px;padding:4px 6px;font:inherit;font-size:.85rem;}
+@media (max-width:600px){.gl-table thead{display:none;}.gl-table tr{display:block;border-bottom:1px solid var(--border);padding:6px 0;}.gl-table td{display:block;border:none;padding:2px 4px;}.gl-play{width:auto;}}
+
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+</style>
+</head><body>
+<div class="app-shell">
+  <div class="bg-photo"></div><div class="bg-wash"></div>
+  <header class="topbar"><div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">IB Maths · L2 Homework · lexical</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your name" autocomplete="off"><span class="save-indicator" id="saveIndicator"></span></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel"></span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div></header>
+  <div class="scroll-area" id="scrollArea"><div class="page-wrap">
+    <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button type="button" onclick="clearProgress()">Start over (clear saved answers)</button></div>
+    <section class="page" data-label="Start"><div class="card"><h2>Homework · Lesson 2 <span class="src-tag src-made">lexical version</span></h2><p>Functions, lines, circles and vectors in English. About 30–40 minutes.</p>
+<div class="outcome"><b>This homework checks that you can:</b><ul><li>recall the English terms from the lesson;</li><li>tell what each question wants;</li><li>solve coordinate-geometry questions written in English;</li><li>write two full solutions in English.</li></ul></div>
+<div class="tip"><b>Rule for today:</b> work on paper first, then type. On the real test the paper is all the examiner sees.</div><div class="nav-btns"><span></span><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="Phrases"><div class="outcome-lex"><b>By the end of this page you can</b> recall the phrases from the lesson in new problems, use them in a new text, and fix the typical translation mistakes.</div><div class="card"><p class="op">Operation · recall from first letters</p><h2>A. Recall the phrase</h2><p class="instr">New sentences, same phrases. Type the <b>whole phrase</b>; the first letters help you.</p><div class="item"><p class="q"><span class="qnum">1.</span> <input type="text" class="fib wide" data-answer-list="Sketch the graph of|Draw the graph of|Plot the graph of" placeholder="S_____ t__ g____ o_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> y = x² − 1.</p></div><div class="item"><p class="q"><span class="qnum">2.</span> The circle x² + y² = 25 <input type="text" class="fib" data-answer-list="passes through" placeholder="p_____ t______" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> (3, 4).</p></div><div class="item"><p class="q"><span class="qnum">3.</span> Find <input type="text" class="fib wide" data-answer-list="the gradient of" placeholder="t__ g_______ o_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> the line through (0, 2) and (4, 10).</p></div><div class="item"><p class="q"><span class="qnum">4.</span> Is the point (2, 9) <input type="text" class="fib" data-answer-list="on" placeholder="o_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> the line y = 4x + 1?</p></div><div class="item"><p class="q"><span class="qnum">5.</span> Express x <input type="text" class="fib" data-answer-list="in terms of" placeholder="i_ t____ o_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> y.</p></div><div class="item"><p class="q"><span class="qnum">6.</span> The line 3y = x <input type="text" class="fib wide" data-answer-list="is perpendicular to" placeholder="i_ p____________ t_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> y = −3x + 1.</p></div><div class="item"><p class="q"><span class="qnum">7.</span> Find <input type="text" class="fib wide" data-answer-list="the magnitude of" placeholder="t__ m________ o_" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> the vector (6, 8).</p></div><div class="item"><p class="q"><span class="qnum">8.</span> Find a circle <input type="text" class="fib" data-answer-list="with centre|centred at" placeholder="w___ c_____" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> (0, 0) with radius 3.</p></div></div><div class="card"><p class="op">Operation · use the phrases in a new text</p><h2>B. Complete the solution</h2><p class="instr">Click a gap, then a phrase from the box. Two phrases are extra. Changed your mind? Click the filled gap, or the greyed-out phrase, to take it back.</p><p class="byline">Maya’s solution <span class="src-tag src-made">written for this worksheet</span></p><div class="bank-ex" id="bank1"><div class="word-bank"><span data-token="lies on">lies on</span><span data-token="sketch the graph of">sketch the graph of</span><span data-token="is perpendicular to">is perpendicular to</span><span data-token="in terms of">in terms of</span><span data-token="the magnitude of">the magnitude of</span><span data-token="the midpoint of">the midpoint of</span><span data-token="with centre">with centre</span><span data-token="intersects the y-axis at">intersects the y-axis at</span><span data-token="the gradient of">the gradient of</span></div><div class="text-box bank-text"><p>Question: the line L passes through A(−1, 1) and B(3, 9). First I found <input type="text" class="fib bank-gap" readonly data-answer-list="the gradient of" data-label="gap 1" placeholder="  1  "><span class="key"></span> L: it is 8 ÷ 4 = 2. So L is y = 2x + 3, and it <input type="text" class="fib bank-gap" readonly data-answer-list="intersects the y-axis at" data-label="gap 2" placeholder="  2  "><span class="key"></span> (0, 3). Next I found <input type="text" class="fib bank-gap" readonly data-answer-list="the midpoint of" data-label="gap 3" placeholder="  3  "><span class="key"></span> AB, which is (1, 5). The point (1, 5) <input type="text" class="fib bank-gap" readonly data-answer-list="lies on" data-label="gap 4" placeholder="  4  "><span class="key"></span> L, of course. A second line, y = −x/2, <input type="text" class="fib bank-gap" readonly data-answer-list="is perpendicular to" data-label="gap 5" placeholder="  5  "><span class="key"></span> L, because 2 × (−1/2) = −1. To finish, I wrote x <input type="text" class="fib bank-gap" readonly data-answer-list="in terms of" data-label="gap 6" placeholder="  6  "><span class="key"></span> y: x = (y − 3)/2, and I used it to <input type="text" class="fib bank-gap" readonly data-answer-list="sketch the graph of" data-label="gap 7" placeholder="  7  "><span class="key"></span> L.</p></div></div></div><div class="card"><p class="op">Operation · judge the range</p><h2>C. Odd one out</h2><p class="instr">All options but one go with the phrase. Find the one that does <b>not</b>.</p><div class="item"><p class="q"><span class="qnum">1.</span> Which verb does NOT go with “___ the graph of y = x²”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">sketch</button><button type="button" class="opt" data-val="b">draw</button><button type="button" class="opt" data-val="c">build</button><button type="button" class="opt" data-val="d">plot</button></div><div class="explain"><b>Sketch / draw / plot</b> a graph. <i>Build a graph</i> is a calque of “построить”.</div></div><div class="item"><p class="q"><span class="qnum">2.</span> Which does NOT go with “the line ___ the point (1, 2)”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">passes through</button><button type="button" class="opt" data-val="b">goes through</button><button type="button" class="opt" data-val="c">passes via</button></div><div class="explain"><b>passes through</b> or <b>goes through</b>; not <i>via</i>.</div></div><div class="item"><p class="q"><span class="qnum">3.</span> Which does NOT fit “the ___ of the vector a”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">magnitude</button><button type="button" class="opt" data-val="b">length</button><button type="button" class="opt" data-val="c">module</button></div><div class="explain"><b>magnitude</b> or <b>length</b>. <i>Module</i> is a calque.</div></div><div class="item"><p class="q"><span class="qnum">4.</span> Which does NOT fit “the line is ___ to y = 2x”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">parallel</button><button type="button" class="opt" data-val="b">perpendicular</button><button type="button" class="opt" data-val="c">equal with</button></div><div class="explain"><b>parallel to</b>, <b>perpendicular to</b>. <i>Equal with</i> is not used for lines.</div></div><div class="item"><p class="q"><span class="qnum">5.</span> Which does NOT fit “the circle ___ (2, −1)”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">with centre</button><button type="button" class="opt" data-val="b">centred at</button><button type="button" class="opt" data-val="c">with the centre in</button></div><div class="explain"><b>with centre (2, −1)</b> or <b>centred at (2, −1)</b>.</div></div><div class="item"><p class="q"><span class="qnum">6.</span> Which does NOT fit “the ___ product of a and b”?</p><div class="mcq" data-correct="c"><button type="button" class="opt" data-val="a">scalar</button><button type="button" class="opt" data-val="b">dot</button><button type="button" class="opt" data-val="c">scalar multiplication</button></div><div class="explain"><b>the scalar (dot) product</b>.</div></div></div><div class="card"><p class="op">Operation · repair</p><h2>D. Fix the translation mistakes</h2><p class="instr">Each sentence has a Russian-to-English slip (underlined). Type the correct words for the underlined part only.</p><div class="item"><p class="q"><span class="qnum">1.</span> <u>Build</u> the graph of y = 2x.<br><input type="text" class="fib wide" data-answer-list="Sketch|Draw|Plot" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">2.</span> Line M is perpendicular <u>with</u> L.<br><input type="text" class="fib wide" data-answer-list="to" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">3.</span> Find the <u>module</u> of a.<br><input type="text" class="fib wide" data-answer-list="magnitude|length" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">4.</span> Express y <u>through</u> x.<br><input type="text" class="fib wide" data-answer-list="in terms of" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">5.</span> A circle <u>with the centre in</u> (0, 0).<br><input type="text" class="fib wide" data-answer-list="with centre|centred at" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">6.</span> The line <u>crosses with</u> the x-axis at (3, 0).<br><input type="text" class="fib wide" data-answer-list="crosses|intersects|meets" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">7.</span> Find the <u>middle of the segment</u> AB.<br><input type="text" class="fib wide" data-answer-list="midpoint of|the midpoint of" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">8.</span> Find the <u>angle coefficient</u> of the line.<br><input type="text" class="fib wide" data-answer-list="gradient|slope" placeholder="correct words" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></p></div><p class="instr" style="margin-top:14px">Need a word? The <b>Glossary</b> is on the page before Finish.</p><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check this page</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="Questions"><div class="card"><h2>2. What does the question want?</h2><div class="item"><p class="q"><span class="qnum">1.</span> The gradient of a horizontal line is…</p><div class="mcq" data-correct="a"><button type="button" class="opt" data-val="a">0</button><button type="button" class="opt" data-val="b">1</button><button type="button" class="opt" data-val="c">undefined</button></div><div class="explain">A horizontal line does not go up at all: gradient 0. A vertical line (x = 3) has no gradient.</div></div><div class="item"><p class="q"><span class="qnum">2.</span> The line x = 3 is…</p><div class="mcq" data-correct="b"><button type="button" class="opt" data-val="a">horizontal</button><button type="button" class="opt" data-val="b">vertical</button><button type="button" class="opt" data-val="c">through the origin</button></div><div class="explain">All points have x = 3: a vertical line.</div></div><div class="item"><p class="q"><span class="qnum">3.</span> Two lines are parallel when…</p><div class="mcq" data-correct="b"><button type="button" class="opt" data-val="a">their gradients multiply to −1</button><button type="button" class="opt" data-val="b">their gradients are equal</button><button type="button" class="opt" data-val="c">their y-intercepts are equal</button></div><div class="explain">Parallel = same gradient. Perpendicular = gradients multiply to −1.</div></div><div class="item"><p class="q"><span class="qnum">4.</span> If a · b = 0 (and a, b are not zero), then a and b are…</p><div class="mcq" data-correct="b"><button type="button" class="opt" data-val="a">parallel</button><button type="button" class="opt" data-val="b">perpendicular</button><button type="button" class="opt" data-val="c">equal</button></div><div class="explain">a · b = |a||b| cos θ = 0 means cos θ = 0, so θ = 90°.</div></div><div class="item"><p class="q"><span class="qnum">5.</span> The centre of (x + 1)² + (y − 4)² = 9 is…</p><div class="mcq" data-correct="b"><button type="button" class="opt" data-val="a">(1, −4)</button><button type="button" class="opt" data-val="b">(−1, 4)</button><button type="button" class="opt" data-val="c">(1, 4)</button></div><div class="explain">(x − a)² + (y − b)² = r² has centre (a, b). Here x + 1 = x − (−1), so a = −1.</div></div><div class="item"><p class="q"><span class="qnum">6.</span> “Plot the points” means…</p><div class="mcq" data-correct="a"><button type="button" class="opt" data-val="a">mark them exactly on the axes</button><button type="button" class="opt" data-val="b">draw a rough shape</button><button type="button" class="opt" data-val="c">calculate their distance</button></div><div class="explain">Plot = mark accurately. Sketch = show the shape without exact points.</div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="Problems"><div class="card"><h2>3. Exam-style problems</h2><p class="instr">Work on paper, then type the final answer. Press <b>Check this page</b> when you finish.</p><div class="type-hint">How to type: × as <code>x</code> or <code>*</code>, powers with <code>^</code> (x² is <code>x^2</code>), π as <code>pi</code>, √ as <code>sqrt</code>, minus as <code>-</code>, fractions as <code>1/2</code>. Spaces don’t matter.</div><div class="item"><p class="q"><span class="qnum">1.</span> g(x) = 5 − 2x. Find g(3).</p><input type="text" class="fib" data-answer-list="-1" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">2.</span> Find the gradient of the line through (−1, 2) and (3, −6).</p><input type="text" class="fib" data-answer-list="-2" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">3.</span> Find the midpoint of (4, −3) and (−2, 7).</p>( <input type="text" class="fib" data-answer-list="1" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="x-coordinate"><span class="key"></span> , <input type="text" class="fib" data-answer-list="2" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false" data-label="y-coordinate"><span class="key"></span> )</div><div class="item"><p class="q"><span class="qnum">4.</span> Find the distance between (−1, −1) and (2, 3).</p><input type="text" class="fib" data-answer-list="5" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">5.</span> Find the equation of the line with gradient −2 through (1, 5), in the form y = mx + c.</p><input type="text" class="fib wide" data-answer-list="y=-2x+7" placeholder="y = …" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">6.</span> A line passes through the origin and is perpendicular to y = −3x + 4. Find its equation.</p><input type="text" class="fib wide" data-answer-list="y=x/3|y=1/3x|y=(1/3)x|y=0.333x|3y=x" placeholder="y = …" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">7.</span> Write down the radius of x² + y² = 49.</p><input type="text" class="fib" data-answer-list="7" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">8.</span> a = (−5, 12). Find |a|.</p><input type="text" class="fib" data-answer-list="13" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">9.</span> a = (1, 2) and b = (4, −2). Find a · b.</p><input type="text" class="fib" data-answer-list="0" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check this page</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="Write it"><div class="outcome-lex"><b>By the end of this page you can</b> write two full solutions in English that use at least <b>2 phrases from the list in each</b>, without the usual Russian-to-English slips.</div><div class="card"><p class="op">Operation · use the phrases</p><h2>Write the solutions in English</h2><p class="instr">Write each solution as you would on the test. The phrase chips light up as you use them; orange notes appear if a Russian habit slips in. Linking words light up too, but they don’t count.</p><h3>Task A</h3><p>A(0, 0), B(4, 2) and C(−1, 2). Show that angle BAC is a right angle.</p><div class="live-item"><div class="live-chips"><div class="live-group"><p class=live-group-title>Coordinates &amp; vectors</p><span class="live-chip" data-id="sketch">sketch the graph of</span><span class="live-chip" data-id="intersect">intersects … at</span><span class="live-chip" data-id="through">passes through</span><span class="live-chip" data-id="gradient">the gradient of</span><span class="live-chip" data-id="lies">lies on</span><span class="live-chip" data-id="midpoint">the midpoint of</span><span class="live-chip" data-id="perp">is perpendicular to</span><span class="live-chip" data-id="parallel">is parallel to</span><span class="live-chip" data-id="terms">in terms of</span><span class="live-chip" data-id="centre">centre (a, b) / centred at</span><span class="live-chip" data-id="magnitude">the magnitude of</span><span class="live-chip" data-id="scalar">the scalar product</span></div><div class="live-group"><p class=live-group-title>Linking a solution (don’t count)</p><span class="live-chip" data-id="let">Let …</span><span class="live-chip" data-id="since">Since …</span><span class="live-chip" data-id="therefore">Therefore / So</span><span class="live-chip" data-id="hence">Hence</span><span class="live-chip" data-id="gives">which gives</span><span class="live-chip" data-id="required">as required</span></div></div><textarea class="written prod-live" data-label="Task A: show angle BAC = 90 degrees" data-chunks="[{&quot;id&quot;: &quot;sketch&quot;, &quot;label&quot;: &quot;sketch the graph of&quot;, &quot;re&quot;: &quot;\\b(sketch|sketches|sketched|sketching|plot|plots|plotted|plotting|draw|draws|drew|drawn|drawing)\\b[^.]{0,12}\\bgraph\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;intersect&quot;, &quot;label&quot;: &quot;intersects \u2026 at&quot;, &quot;re&quot;: &quot;\\b(intersect|intersects|intersected|meets|meet|met|crosses|cross|crossed)\\b(?! with)[^.]{0,25}\\bat\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;through&quot;, &quot;label&quot;: &quot;passes through&quot;, &quot;re&quot;: &quot;\\bpass(es|ed|ing)? through\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;gradient&quot;, &quot;label&quot;: &quot;the gradient of&quot;, &quot;re&quot;: &quot;\\bgradients? (of|is)\\b|\\bslope of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;lies&quot;, &quot;label&quot;: &quot;lies on&quot;, &quot;re&quot;: &quot;\\b(lie|lies|lay|lying) on\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;midpoint&quot;, &quot;label&quot;: &quot;the midpoint of&quot;, &quot;re&quot;: &quot;\\bmid-?points? of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;perp&quot;, &quot;label&quot;: &quot;is perpendicular to&quot;, &quot;re&quot;: &quot;\\bperpendicular to\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;parallel&quot;, &quot;label&quot;: &quot;is parallel to&quot;, &quot;re&quot;: &quot;\\bparallel to\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;terms&quot;, &quot;label&quot;: &quot;in terms of&quot;, &quot;re&quot;: &quot;\\bin terms of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;centre&quot;, &quot;label&quot;: &quot;centre (a, b) / centred at&quot;, &quot;re&quot;: &quot;\\bcent(re|er) ?\\(|\\bcent(re|er)d? at\\b|\\bcent(re|er) is\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;magnitude&quot;, &quot;label&quot;: &quot;the magnitude of&quot;, &quot;re&quot;: &quot;\\bmagnitude of\\b|\\bmagnitude is\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;scalar&quot;, &quot;label&quot;: &quot;the scalar product&quot;, &quot;re&quot;: &quot;\\b(scalar|dot) product\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;let&quot;, &quot;label&quot;: &quot;Let \u2026&quot;, &quot;re&quot;: &quot;\\blet\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;since&quot;, &quot;label&quot;: &quot;Since \u2026&quot;, &quot;re&quot;: &quot;\\bsince\\b|\\bbecause\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;therefore&quot;, &quot;label&quot;: &quot;Therefore / So&quot;, &quot;re&quot;: &quot;\\btherefore\\b|\\bso\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;hence&quot;, &quot;label&quot;: &quot;Hence&quot;, &quot;re&quot;: &quot;\\bhence\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;gives&quot;, &quot;label&quot;: &quot;which gives&quot;, &quot;re&quot;: &quot;\\bwhich gives\\b|\\bwe get\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;required&quot;, &quot;label&quot;: &quot;as required&quot;, &quot;re&quot;: &quot;\\bas required\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}]" data-warn="[{&quot;re&quot;: &quot;\\bbuil(d|ds|t|ding)\\b[^.]{0,15}\\bgraph\\b&quot;, &quot;msg&quot;: &quot;\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0433\u0440\u0430\u0444\u0438\u043a = &lt;b&gt;sketch / draw / plot&lt;/b&gt; the graph.&quot;}, {&quot;re&quot;: &quot;\\b(perpendicular|parallel) with\\b&quot;, &quot;msg&quot;: &quot;&lt;b&gt;perpendicular to / parallel to&lt;/b&gt;, not &lt;i&gt;with&lt;/i&gt;.&quot;}, {&quot;re&quot;: &quot;\\bmodul(e|us) of\\b&quot;, &quot;msg&quot;: &quot;\u0434\u043b\u0438\u043d\u0430 \u0432\u0435\u043a\u0442\u043e\u0440\u0430 = &lt;b&gt;the magnitude of&lt;/b&gt; a.&quot;}, {&quot;re&quot;: &quot;\\bthrough (x|y|t)\\b(?! *=)&quot;, &quot;msg&quot;: &quot;\u0432\u044b\u0440\u0430\u0437\u0438\u0442\u044c \u0447\u0435\u0440\u0435\u0437 x = &lt;b&gt;in terms of x&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\bcent(re|er) in\\b&quot;, &quot;msg&quot;: &quot;\u0441 \u0446\u0435\u043d\u0442\u0440\u043e\u043c \u0432 = &lt;b&gt;with centre (a, b)&lt;/b&gt; / &lt;b&gt;centred at&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\bangle(ar)? coefficient\\b&quot;, &quot;msg&quot;: &quot;\u0443\u0433\u043b\u043e\u0432\u043e\u0439 \u043a\u043e\u044d\u0444\u0444\u0438\u0446\u0438\u0435\u043d\u0442 = &lt;b&gt;gradient&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\b(intersect|intersects|intersected|cross|crosses) with\\b&quot;, &quot;msg&quot;: &quot;\u043f\u0435\u0440\u0435\u0441\u0435\u043a\u0430\u0435\u0442 \u043e\u0441\u044c = &lt;b&gt;intersects the axis&lt;/b&gt; (no &lt;i&gt;with&lt;/i&gt;).&quot;}, {&quot;re&quot;: &quot;\\b(lie|lies) in the (line|circle|curve)\\b&quot;, &quot;msg&quot;: &quot;\u043b\u0435\u0436\u0438\u0442 \u043d\u0430 \u043f\u0440\u044f\u043c\u043e\u0439 = &lt;b&gt;lies on&lt;/b&gt; the line.&quot;}, {&quot;re&quot;: &quot;\\bmiddle of the (segment|line)\\b&quot;, &quot;msg&quot;: &quot;\u0441\u0435\u0440\u0435\u0434\u0438\u043d\u0430 \u043e\u0442\u0440\u0435\u0437\u043a\u0430 = &lt;b&gt;the midpoint of&lt;/b&gt; AB.&quot;}, {&quot;re&quot;: &quot;\\bscalar multiplication\\b&quot;, &quot;msg&quot;: &quot;\u0441\u043a\u0430\u043b\u044f\u0440\u043d\u043e\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u0435 = &lt;b&gt;scalar product&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;(^|[^\\d,(])\\d+,\\d{1,2}([^\\d,]|$)&quot;, &quot;msg&quot;: &quot;Decimal comma? In English write a &lt;b&gt;decimal point&lt;/b&gt;: 2.5, not 2,5. (Coordinates are fine: (2, 5).)&quot;}]" data-min-chunks="2" placeholder="Write your full solution here…"></textarea><div class="word-count"></div><div class="wc-row"><span class="live-count">Phrases from the list: 0 / 2</span></div><ul class="live-warn"></ul></div><h3>Task B</h3><p>A circle has centre (2, −1) and passes through (5, 3). Find its radius and its equation.</p><div class="item"><p class="q">Final answer: radius =</p><input type="text" class="fib" data-answer-list="5" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></div><div class="live-item"><div class="live-chips"><div class="live-group"><p class=live-group-title>Coordinates &amp; vectors</p><span class="live-chip" data-id="sketch">sketch the graph of</span><span class="live-chip" data-id="intersect">intersects … at</span><span class="live-chip" data-id="through">passes through</span><span class="live-chip" data-id="gradient">the gradient of</span><span class="live-chip" data-id="lies">lies on</span><span class="live-chip" data-id="midpoint">the midpoint of</span><span class="live-chip" data-id="perp">is perpendicular to</span><span class="live-chip" data-id="parallel">is parallel to</span><span class="live-chip" data-id="terms">in terms of</span><span class="live-chip" data-id="centre">centre (a, b) / centred at</span><span class="live-chip" data-id="magnitude">the magnitude of</span><span class="live-chip" data-id="scalar">the scalar product</span></div><div class="live-group"><p class=live-group-title>Linking a solution (don’t count)</p><span class="live-chip" data-id="let">Let …</span><span class="live-chip" data-id="since">Since …</span><span class="live-chip" data-id="therefore">Therefore / So</span><span class="live-chip" data-id="hence">Hence</span><span class="live-chip" data-id="gives">which gives</span><span class="live-chip" data-id="required">as required</span></div></div><textarea class="written prod-live" data-label="Task B: circle centre (2,-1) through (5,3)" data-chunks="[{&quot;id&quot;: &quot;sketch&quot;, &quot;label&quot;: &quot;sketch the graph of&quot;, &quot;re&quot;: &quot;\\b(sketch|sketches|sketched|sketching|plot|plots|plotted|plotting|draw|draws|drew|drawn|drawing)\\b[^.]{0,12}\\bgraph\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;intersect&quot;, &quot;label&quot;: &quot;intersects \u2026 at&quot;, &quot;re&quot;: &quot;\\b(intersect|intersects|intersected|meets|meet|met|crosses|cross|crossed)\\b(?! with)[^.]{0,25}\\bat\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;through&quot;, &quot;label&quot;: &quot;passes through&quot;, &quot;re&quot;: &quot;\\bpass(es|ed|ing)? through\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;gradient&quot;, &quot;label&quot;: &quot;the gradient of&quot;, &quot;re&quot;: &quot;\\bgradients? (of|is)\\b|\\bslope of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;lies&quot;, &quot;label&quot;: &quot;lies on&quot;, &quot;re&quot;: &quot;\\b(lie|lies|lay|lying) on\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;midpoint&quot;, &quot;label&quot;: &quot;the midpoint of&quot;, &quot;re&quot;: &quot;\\bmid-?points? of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;perp&quot;, &quot;label&quot;: &quot;is perpendicular to&quot;, &quot;re&quot;: &quot;\\bperpendicular to\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;parallel&quot;, &quot;label&quot;: &quot;is parallel to&quot;, &quot;re&quot;: &quot;\\bparallel to\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;terms&quot;, &quot;label&quot;: &quot;in terms of&quot;, &quot;re&quot;: &quot;\\bin terms of\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;centre&quot;, &quot;label&quot;: &quot;centre (a, b) / centred at&quot;, &quot;re&quot;: &quot;\\bcent(re|er) ?\\(|\\bcent(re|er)d? at\\b|\\bcent(re|er) is\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;magnitude&quot;, &quot;label&quot;: &quot;the magnitude of&quot;, &quot;re&quot;: &quot;\\bmagnitude of\\b|\\bmagnitude is\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;scalar&quot;, &quot;label&quot;: &quot;the scalar product&quot;, &quot;re&quot;: &quot;\\b(scalar|dot) product\\b&quot;, &quot;group&quot;: &quot;Coordinates &amp; vectors&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;let&quot;, &quot;label&quot;: &quot;Let \u2026&quot;, &quot;re&quot;: &quot;\\blet\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;since&quot;, &quot;label&quot;: &quot;Since \u2026&quot;, &quot;re&quot;: &quot;\\bsince\\b|\\bbecause\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;therefore&quot;, &quot;label&quot;: &quot;Therefore / So&quot;, &quot;re&quot;: &quot;\\btherefore\\b|\\bso\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;hence&quot;, &quot;label&quot;: &quot;Hence&quot;, &quot;re&quot;: &quot;\\bhence\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;gives&quot;, &quot;label&quot;: &quot;which gives&quot;, &quot;re&quot;: &quot;\\bwhich gives\\b|\\bwe get\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}, {&quot;id&quot;: &quot;required&quot;, &quot;label&quot;: &quot;as required&quot;, &quot;re&quot;: &quot;\\bas required\\b&quot;, &quot;group&quot;: &quot;Linking a solution (don\u2019t count)&quot;, &quot;core&quot;: false}]" data-warn="[{&quot;re&quot;: &quot;\\bbuil(d|ds|t|ding)\\b[^.]{0,15}\\bgraph\\b&quot;, &quot;msg&quot;: &quot;\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0433\u0440\u0430\u0444\u0438\u043a = &lt;b&gt;sketch / draw / plot&lt;/b&gt; the graph.&quot;}, {&quot;re&quot;: &quot;\\b(perpendicular|parallel) with\\b&quot;, &quot;msg&quot;: &quot;&lt;b&gt;perpendicular to / parallel to&lt;/b&gt;, not &lt;i&gt;with&lt;/i&gt;.&quot;}, {&quot;re&quot;: &quot;\\bmodul(e|us) of\\b&quot;, &quot;msg&quot;: &quot;\u0434\u043b\u0438\u043d\u0430 \u0432\u0435\u043a\u0442\u043e\u0440\u0430 = &lt;b&gt;the magnitude of&lt;/b&gt; a.&quot;}, {&quot;re&quot;: &quot;\\bthrough (x|y|t)\\b(?! *=)&quot;, &quot;msg&quot;: &quot;\u0432\u044b\u0440\u0430\u0437\u0438\u0442\u044c \u0447\u0435\u0440\u0435\u0437 x = &lt;b&gt;in terms of x&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\bcent(re|er) in\\b&quot;, &quot;msg&quot;: &quot;\u0441 \u0446\u0435\u043d\u0442\u0440\u043e\u043c \u0432 = &lt;b&gt;with centre (a, b)&lt;/b&gt; / &lt;b&gt;centred at&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\bangle(ar)? coefficient\\b&quot;, &quot;msg&quot;: &quot;\u0443\u0433\u043b\u043e\u0432\u043e\u0439 \u043a\u043e\u044d\u0444\u0444\u0438\u0446\u0438\u0435\u043d\u0442 = &lt;b&gt;gradient&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;\\b(intersect|intersects|intersected|cross|crosses) with\\b&quot;, &quot;msg&quot;: &quot;\u043f\u0435\u0440\u0435\u0441\u0435\u043a\u0430\u0435\u0442 \u043e\u0441\u044c = &lt;b&gt;intersects the axis&lt;/b&gt; (no &lt;i&gt;with&lt;/i&gt;).&quot;}, {&quot;re&quot;: &quot;\\b(lie|lies) in the (line|circle|curve)\\b&quot;, &quot;msg&quot;: &quot;\u043b\u0435\u0436\u0438\u0442 \u043d\u0430 \u043f\u0440\u044f\u043c\u043e\u0439 = &lt;b&gt;lies on&lt;/b&gt; the line.&quot;}, {&quot;re&quot;: &quot;\\bmiddle of the (segment|line)\\b&quot;, &quot;msg&quot;: &quot;\u0441\u0435\u0440\u0435\u0434\u0438\u043d\u0430 \u043e\u0442\u0440\u0435\u0437\u043a\u0430 = &lt;b&gt;the midpoint of&lt;/b&gt; AB.&quot;}, {&quot;re&quot;: &quot;\\bscalar multiplication\\b&quot;, &quot;msg&quot;: &quot;\u0441\u043a\u0430\u043b\u044f\u0440\u043d\u043e\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u0435 = &lt;b&gt;scalar product&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;(^|[^\\d,(])\\d+,\\d{1,2}([^\\d,]|$)&quot;, &quot;msg&quot;: &quot;Decimal comma? In English write a &lt;b&gt;decimal point&lt;/b&gt;: 2.5, not 2,5. (Coordinates are fine: (2, 5).)&quot;}]" data-min-chunks="2" placeholder="Write your full solution here…"></textarea><div class="word-count"></div><div class="wc-row"><span class="live-count">Phrases from the list: 0 / 2</span></div><ul class="live-warn"></ul></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="Glossary"><div class="card"><p class="op">Operation · reference</p><h2>Glossary</h2><p class="instr">Your reference for this lesson. Learn each word <b>with the words around it</b>: the small words in <b>bold</b> are the ones that usually go wrong. Press 🔊 to hear a row, or <b>Play all</b> to listen to the whole glossary. Type in the box to search in English or Russian.</p><div class="gl-audio-bar"><button type="button" class="gl-all" onclick="glPlayAll()">▶ Play all</button><button type="button" class="gl-stop" onclick="glStop()">■ Stop</button><label class="gl-speed">Speed <select onchange="glSpeed(this.value)"><option value="0.85">slower</option><option value="1" selected>normal</option><option value="1.15">faster</option></select></label></div><input type="search" class="gl-search" placeholder="Search in English or Russian…" oninput="glFilter(this)" autocomplete="off"><h3>The 12 phrases of this lesson</h3><div class="gloss-wrap"><table class="gloss gl-table"><thead><tr><th></th><th>Phrase</th><th>Pattern</th><th>Watch out</th></tr></thead><tbody><tr data-q="sketch the graph of sketch / draw / plot + the graph of + function"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-sketch.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>sketch the graph of</b></td><td>sketch / draw / plot + the graph of + function</td><td class="gl-watch">построить график = <b>sketch / draw / plot the graph</b>. Not <i>build the graph</i>.</td></tr><tr data-q="intersects the y-axis at intersects / meets / crosses + the axis (no “with”) + at + point"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-intersect.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>intersects the y-axis at</b></td><td>intersects / meets / crosses + the axis (no “with”) + at + point</td><td class="gl-watch">пересекается <b>с</b> осью = <b>intersects the axis</b> (no <i>with</i>), <b>at</b> (0, −2).</td></tr><tr data-q="passes through passes through + point"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-through.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>passes through</b></td><td>passes through + point</td><td class="gl-watch">проходит через точку = <b>passes through</b> (2, 1). Not <i>passes via</i> or <i>goes over</i>.</td></tr><tr data-q="the gradient of the gradient of + line · a gradient of + number"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-gradient.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>the gradient of</b></td><td>the gradient of + line · a gradient of + number</td><td class="gl-watch">угловой коэффициент = <b>gradient</b> (US: slope). Not <i>angle coefficient</i>.</td></tr><tr data-q="lies on a point + lies on + a line / curve"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-lies.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>lies on</b></td><td>a point + lies on + a line / curve</td><td class="gl-watch">лежит на прямой = <b>lies on</b> the line. Not <i>lies in</i> or <i>belongs the line</i>.</td></tr><tr data-q="the midpoint of the midpoint of + ab"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-midpoint.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>the midpoint of</b></td><td>the midpoint of + AB</td><td class="gl-watch">середина отрезка = <b>the midpoint of AB</b>. Not <i>the middle of the segment</i>.</td></tr><tr data-q="is perpendicular to be perpendicular + to"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-perp.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>is perpendicular to</b></td><td>be perpendicular + to</td><td class="gl-watch"><b>perpendicular to</b>, not <i>perpendicular with</i>.</td></tr><tr data-q="is parallel to be parallel + to"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-parallel.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>is parallel to</b></td><td>be parallel + to</td><td class="gl-watch"><b>parallel to</b>, not <i>parallel with</i>.</td></tr><tr data-q="in terms of express + y + in terms of + x"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-terms.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>in terms of</b></td><td>express + y + in terms of + x</td><td class="gl-watch">выразить y через x = <b>express y in terms of x</b>. Not <i>through x</i>.</td></tr><tr data-q="centre (3, −2) with centre (a, b) · centred at (a, b) · has centre (a, b)"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-centre.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>centre (3, −2)</b></td><td>with centre (a, b) · centred at (a, b) · has centre (a, b)</td><td class="gl-watch">с центром в точке = <b>with centre (3, −2)</b> or <b>centred at</b>. Not <i>with the centre in</i>.</td></tr><tr data-q="the magnitude of the magnitude of + vector"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-magnitude.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>the magnitude of</b></td><td>the magnitude of + vector</td><td class="gl-watch">модуль (длина) вектора = <b>the magnitude of a</b>. Not <i>the module of</i>.</td></tr><tr data-q="the scalar product the scalar (dot) product of a and b"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/c-scalar.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td><b>the scalar product</b></td><td>the scalar (dot) product of a and b</td><td class="gl-watch">скалярное произведение = <b>scalar product</b> (or dot product). Not <i>scalar multiplication</i>.</td></tr></tbody></table></div><h3>25 key terms and how they are used</h3><div class="gloss-wrap"><table class="gloss gl-table"><thead><tr><th></th><th>Russian</th><th>English + typical phrases</th><th>Meaning · example</th></tr></thead><tbody><tr data-q="функция function a rule that gives one output for each input"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-00.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>функция</td><td><b>function</b><br><span class="gl-coll">f <b>of</b> x · <b>the function</b> f · f <b>is defined by</b> …</span></td><td>a rule that gives one output for each input<br><i class="gl-ex">f(x) = 3x² − 2 is a function.</i></td></tr><tr data-q="область определения domain the set of input values (x)"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-01.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>область определения</td><td><b>domain</b><br><span class="gl-coll">the domain <b>of</b> f · <b>state</b> the domain</span></td><td>the set of input values (x)<br><i class="gl-ex">The domain of f is x ≥ 0.</i></td></tr><tr data-q="область значений range the set of output values (y)"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-02.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>область значений</td><td><b>range</b><br><span class="gl-coll">the range <b>of</b> f · <b>find</b> the range</span></td><td>the set of output values (y)<br><i class="gl-ex">The range of f is y ≥ −2.</i></td></tr><tr data-q="график graph the picture of a function on axes"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-03.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>график</td><td><b>graph</b><br><span class="gl-coll"><b>sketch / plot / draw</b> the graph <b>of</b> …</span></td><td>the picture of a function on axes<br><i class="gl-ex">Sketch the graph of y = x².</i></td></tr><tr data-q="ось (оси) axis (axes) the x-axis and the y-axis"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-04.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>ось (оси)</td><td><b>axis (axes)</b><br><span class="gl-coll"><b>the</b> x-axis · <b>on</b> the axes · <b>label</b> the axes</span></td><td>the x-axis and the y-axis<br><i class="gl-ex">The curve meets the x-axis twice.</i></td></tr><tr data-q="начало координат origin the point (0, 0)"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-05.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>начало координат</td><td><b>origin</b><br><span class="gl-coll"><b>through the</b> origin · <b>about the</b> origin</span></td><td>the point (0, 0)<br><i class="gl-ex">The line passes through the origin.</i></td></tr><tr data-q="координаты coordinates the numbers that give the position of a point"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-06.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>координаты</td><td><b>coordinates</b><br><span class="gl-coll">the coordinates <b>of</b> A · A <b>has</b> coordinates (2, 3)</span></td><td>the numbers that give the position of a point<br><i class="gl-ex">Write down the coordinates of A.</i></td></tr><tr data-q="угловой коэффициент gradient the steepness of a line: (change in y) ÷ (change in x)"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-07.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>угловой коэффициент</td><td><b>gradient</b><br><span class="gl-coll">the gradient <b>of</b> AB · <b>a gradient of</b> 3 · <b>has</b> gradient 3</span></td><td>the steepness of a line: (change in y) ÷ (change in x)<br><i class="gl-ex">The gradient of AB is 2.</i></td></tr><tr data-q="точка пересечения с осью y y-intercept where a graph crosses the y-axis"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-08.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>точка пересечения с осью y</td><td><b>y-intercept</b><br><span class="gl-coll">it <b>intersects the y-axis at</b> (0, −7)</span></td><td>where a graph crosses the y-axis<br><i class="gl-ex">The y-intercept of y = 4x − 7 is −7.</i></td></tr><tr data-q="прямая straight line a line with constant gradient"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-09.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>прямая</td><td><b>straight line</b><br><span class="gl-coll"><b>the equation of</b> the line · a line <b>through</b> A and B</span></td><td>a line with constant gradient<br><i class="gl-ex">Find the equation of the straight line.</i></td></tr><tr data-q="параллельный parallel never meeting; with the same gradient"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-10.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>параллельный</td><td><b>parallel</b><br><span class="gl-coll"><b>parallel to</b> y = 2x · parallel lines <b>have the same</b> gradient</span></td><td>never meeting; with the same gradient<br><i class="gl-ex">The lines are parallel.</i></td></tr><tr data-q="перпендикулярный perpendicular at right angles"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-11.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>перпендикулярный</td><td><b>perpendicular</b><br><span class="gl-coll"><b>perpendicular to</b> … · gradients <b>multiply to</b> −1</span></td><td>at right angles<br><i class="gl-ex">L₁ is perpendicular to L₂.</i></td></tr><tr data-q="отрезок line segment the part of a line between two points"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-12.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>отрезок</td><td><b>line segment</b><br><span class="gl-coll"><b>the</b> line segment <b>AB</b></span></td><td>the part of a line between two points<br><i class="gl-ex">the line segment AB</i></td></tr><tr data-q="середина отрезка midpoint the point halfway between two points"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-13.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>середина отрезка</td><td><b>midpoint</b><br><span class="gl-coll">the midpoint <b>of</b> AB</span></td><td>the point halfway between two points<br><i class="gl-ex">M is the midpoint of AB.</i></td></tr><tr data-q="расстояние distance how far apart two points are"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-14.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>расстояние</td><td><b>distance</b><br><span class="gl-coll">the distance <b>between</b> P <b>and</b> Q · the distance <b>from</b> P <b>to</b> Q</span></td><td>how far apart two points are<br><i class="gl-ex">Find the distance between P and Q.</i></td></tr><tr data-q="выразить через in terms of using only the given letter"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-15.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>выразить через</td><td><b>in terms of</b><br><span class="gl-coll"><b>express</b> y <b>in terms of</b> x</span></td><td>using only the given letter<br><i class="gl-ex">Express y in terms of x.</i></td></tr><tr data-q="окружность circle all points at one distance from a centre"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-16.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>окружность</td><td><b>circle</b><br><span class="gl-coll">a circle <b>with centre</b> (3, −2) <b>and radius</b> 5</span></td><td>all points at one distance from a centre<br><i class="gl-ex">(x − 3)² + (y + 2)² = 25 is a circle.</i></td></tr><tr data-q="центр centre the middle point of a circle"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-17.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>центр</td><td><b>centre</b><br><span class="gl-coll"><b>centre</b> (3, −2) · <b>centred at</b> (3, −2)</span></td><td>the middle point of a circle<br><i class="gl-ex">The centre is (3, −2).</i></td></tr><tr data-q="радиус radius (pl. radii) distance from the centre to the circle"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-18.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>радиус</td><td><b>radius (pl. radii)</b><br><span class="gl-coll"><b>of radius</b> 5 · <b>radius</b> 5</span></td><td>distance from the centre to the circle<br><i class="gl-ex">The radius is 5.</i></td></tr><tr data-q="вектор vector a quantity with size and direction"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-19.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>вектор</td><td><b>vector</b><br><span class="gl-coll">the vector <b>from</b> A <b>to</b> B · vector AB</span></td><td>a quantity with size and direction<br><i class="gl-ex">a = (3, 4) is a vector.</i></td></tr><tr data-q="координаты вектора components the numbers in a column vector"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-20.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>координаты вектора</td><td><b>components</b><br><span class="gl-coll">the x-component <b>of</b> a</span></td><td>the numbers in a column vector<br><i class="gl-ex">The components of a are 3 and 4.</i></td></tr><tr data-q="длина (модуль) вектора magnitude the length of a vector, |a|"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-21.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>длина (модуль) вектора</td><td><b>magnitude</b><br><span class="gl-coll">the magnitude <b>of</b> a · |a|</span></td><td>the length of a vector, |a|<br><i class="gl-ex">The magnitude of a is 5.</i></td></tr><tr data-q="скалярное произведение scalar product (dot product) a · b = a₁b₁ + a₂b₂"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-22.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>скалярное произведение</td><td><b>scalar product (dot product)</b><br><span class="gl-coll">the scalar product <b>of</b> a <b>and</b> b</span></td><td>a · b = a₁b₁ + a₂b₂<br><i class="gl-ex">The scalar product of a and b is 2.</i></td></tr><tr data-q="точка пересечения point of intersection where two graphs meet"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-23.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>точка пересечения</td><td><b>point of intersection</b><br><span class="gl-coll">the point of intersection <b>of</b> L₁ <b>and</b> L₂ · L₁ <b>meets</b> L₂ <b>at</b> …</span></td><td>where two graphs meet<br><i class="gl-ex">Find the point of intersection of the lines.</i></td></tr><tr data-q="решить графически solve graphically use a graph to find the solution"><td class="gl-play"><button type="button" class="gl-btn" data-src="audio/t-24.mp3" onclick="glPlay(this)" aria-label="Listen">🔊</button></td><td>решить графически</td><td><b>solve graphically</b><br><span class="gl-coll"><b>use the graph to</b> solve …</span></td><td>use a graph to find the solution<br><i class="gl-ex">Solve the equation graphically.</i></td></tr></tbody></table></div><p class="gl-none" hidden>Nothing found. Try another word.</p><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Finish →</button></div></div></section>
+<section class="page" data-label="Finish"><div class="card"><h2>Finish &amp; send</h2><p>Press the button to check everything and send your homework to your teacher.</p>
+<p class="instr">Your answers are saved on this device as you work. When you press the button, the auto-checked score, your written solutions and a list of mistakes go to your teacher.</p>
+<div style="text-align:center;margin:16px 0"><button type="button" class="btn btn-main" onclick="submitAll()">Check &amp; Submit</button></div>
+<div class="results" id="results" hidden>
+  <div class="big-score" id="bigScore"></div><p id="scoreLine"></p>
+  <div class="completion-stickers"><img class="completion-sticker" data-tier="eggcellent-a" hidden alt="">
+<img class="completion-sticker completion-sticker--icon" data-tier="eggcellent-b" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="perfect" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="excellent" hidden alt="">
+<img class="completion-sticker" data-tier="amazing_work" hidden alt="">
+<img class="completion-sticker" data-tier="i_love_it" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="awesome" hidden alt="">
+<img class="completion-sticker" data-tier="too_cool-a" hidden alt="">
+<img class="completion-sticker" data-tier="too_cool-b" hidden alt="">
+<img class="completion-sticker" data-tier="vzhukh" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="youre_a_star" hidden alt="">
+<img class="completion-sticker" data-tier="fire" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="great_work" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="good_job" hidden alt="">
+<img class="completion-sticker" data-tier="good_vibes" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="nice" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="not_bad" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="hehe" hidden alt="">
+<img class="completion-sticker completion-sticker--icon" data-tier="strawberry-a" hidden alt="">
+<img class="completion-sticker completion-sticker--icon" data-tier="strawberry-b" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="keep_going" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="you_tried" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="loading" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="strawberry-sparkle" hidden alt="">
+<img class="completion-sticker completion-sticker--icon" data-tier="plain" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="strawberry-full" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="no_luck" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="still_lost" hidden alt="">
+<img class="completion-sticker completion-sticker--medium" data-tier="not_hehe" hidden alt=""></div><p id="resultCaption" class="result-caption"></p>
+  <div class="breakdown" id="breakdown"></div>
+  <p class="instr">Wrong answers are now marked red on each page. Go back, look at them, and fix what you can.</p>
+  <div id="submitStatus"></div>
+</div>
+<div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button></div></div></section>
+  </div></div>
+</div>
+<div class="angle-badge"><svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg><div class="credit">by Viktoria Syuzyova</div></div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+const COURSE_NAME = "IB Maths Prep";
+const PROGRESS_KEY = "angle_progress::ib-maths-l2-homework-lexical";
+const VOCAB = [{"ru": "функция", "en": "function", "def": "a rule that gives one output for each input", "ex": "f(x) = 3x² − 2 is a function."}, {"ru": "область определения", "en": "domain", "def": "the set of input values (x)", "ex": "The domain of f is x ≥ 0."}, {"ru": "область значений", "en": "range", "def": "the set of output values (y)", "ex": "The range of f is y ≥ −2."}, {"ru": "график", "en": "graph", "def": "the picture of a function on axes", "ex": "Sketch the graph of y = x²."}, {"ru": "ось (оси)", "en": "axis (axes)", "def": "the x-axis and the y-axis", "ex": "The curve meets the x-axis twice."}, {"ru": "начало координат", "en": "origin", "def": "the point (0, 0)", "ex": "The line passes through the origin."}, {"ru": "координаты", "en": "coordinates", "def": "the numbers that give the position of a point", "ex": "Write down the coordinates of A."}, {"ru": "угловой коэффициент", "en": "gradient", "def": "the steepness of a line: (change in y) ÷ (change in x)", "ex": "The gradient of AB is 2."}, {"ru": "точка пересечения с осью y", "en": "y-intercept", "def": "where a graph crosses the y-axis", "ex": "The y-intercept of y = 4x − 7 is −7."}, {"ru": "прямая", "en": "straight line", "def": "a line with constant gradient", "ex": "Find the equation of the straight line."}, {"ru": "параллельный", "en": "parallel", "def": "never meeting; with the same gradient", "ex": "The lines are parallel."}, {"ru": "перпендикулярный", "en": "perpendicular", "def": "at right angles", "ex": "L₁ is perpendicular to L₂."}, {"ru": "отрезок", "en": "line segment", "def": "the part of a line between two points", "ex": "the line segment AB"}, {"ru": "середина отрезка", "en": "midpoint", "def": "the point halfway between two points", "ex": "M is the midpoint of AB."}, {"ru": "расстояние", "en": "distance", "def": "how far apart two points are", "ex": "Find the distance between P and Q."}, {"ru": "выразить через", "en": "in terms of", "def": "using only the given letter", "ex": "Express y in terms of x."}, {"ru": "окружность", "en": "circle", "def": "all points at one distance from a centre", "ex": "(x − 3)² + (y + 2)² = 25 is a circle."}, {"ru": "центр", "en": "centre", "def": "the middle point of a circle", "ex": "The centre is (3, −2)."}, {"ru": "радиус", "en": "radius (pl. radii)", "def": "distance from the centre to the circle", "ex": "The radius is 5."}, {"ru": "вектор", "en": "vector", "def": "a quantity with size and direction", "ex": "a = (3, 4) is a vector."}, {"ru": "координаты вектора", "en": "components", "def": "the numbers in a column vector", "ex": "The components of a are 3 and 4."}, {"ru": "длина (модуль) вектора", "en": "magnitude", "def": "the length of a vector, |a|", "ex": "The magnitude of a is 5."}, {"ru": "скалярное произведение", "en": "scalar product (dot product)", "def": "a · b = a₁b₁ + a₂b₂", "ex": "The scalar product of a and b is 2."}, {"ru": "точка пересечения", "en": "point of intersection", "def": "where two graphs meet", "ex": "Find the point of intersection of the lines."}, {"ru": "решить графически", "en": "solve graphically", "def": "use a graph to find the solution", "ex": "Solve the equation graphically."}];
+/* ===== ANGLE paged worksheet engine (IB Maths in English) ===== */
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+let current = 0;
+let isRestoring = false;
+
+/* ---------- helpers ---------- */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function normalize(s){
+  return (s||'').toString().toLowerCase()
+    .replace(/[−–—]/g,'-')
+    .replace(/[×*·∙]/g,'x')
+    .replace(/²/g,'^2').replace(/³/g,'^3').replace(/⁴/g,'^4')
+    .replace(/≤/g,'<=').replace(/≥/g,'>=')
+    .replace(/π/g,'pi').replace(/√/g,'sqrt').replace(/°/g,'').replace(/degrees?/g,'').replace(/cm\^?[23²³]?|m\^?[23²³]?\b/g,'')
+    .replace(/[€'"‘’“”]/g,'')
+    .replace(/euros?|eur\b/g,'')
+    .replace(/\s+/g,'')
+    .replace(/\.$/,'');
+}
+function answers(el){ return (el.dataset.answerList || el.dataset.answer || '').split('|'); }
+function isRight(el){ const v = normalize(el.value); return v !== '' && answers(el).some(a => normalize(a) === v); }
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function itemContext(el){
+  const item = el.closest('.item');
+  if(item){ const q = item.querySelector('.q'); if(q){ const c=q.cloneNode(true); c.querySelectorAll('select,input,.key').forEach(x=>x.remove()); const t=c.textContent.replace(/\s+/g,' ').trim(); if(t) return t.slice(0,90); } }
+  if(el.dataset.label) return el.dataset.label;
+  return '';
+}
+function describeWrong(el, said, correct){
+  const ctx = itemContext(el);
+  return `${exTitle(el)}${ctx ? ' — ' + ctx : ''} → answered "${said && said.trim() ? said.trim() : '(blank)'}", correct "${correct}"`;
+}
+
+/* ---------- pages ---------- */
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  document.querySelectorAll('.page').forEach((p,i)=>{
+    const d = document.createElement('div'); d.className='page-dot'; d.textContent=i+1; d.title=p.dataset.label||('Page '+(i+1));
+    d.onclick=()=>showPage(i); wrap.appendChild(d);
+  });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* ---------- MCQ: instant highlight ---------- */
+function highlightMcq(group, btn){
+  const correct = group.dataset.correct;
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','chosen'));
+  btn.classList.add('chosen');
+  if(btn.dataset.val === correct){ btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('correct'); }
+  const ex = group.parentElement.querySelector('.explain'); if(ex) ex.classList.add('show');
+}
+function initMcq(){ document.querySelectorAll('.mcq .opt').forEach(b=>{ b.onclick=()=>{ highlightMcq(b.closest('.mcq'), b); scheduleSave(); }; }); }
+
+/* ---------- page check (gaps + selects, no submit) ---------- */
+function checkPage(btn){
+  const page = btn.closest('.page');
+  page.querySelectorAll('.fib,.sel').forEach(el=>{
+    const ok = isRight(el);
+    el.classList.toggle('is-correct', ok); el.classList.toggle('is-wrong', !ok);
+    const key = el.nextElementSibling;
+    if(key && key.classList.contains('key')){ key.textContent = ok ? '' : '→ ' + answers(el)[0]; key.classList.toggle('show', !ok); }
+  });
+}
+function clearMarks(el){ el.classList.remove('is-correct','is-wrong'); const k=el.nextElementSibling; if(k&&k.classList.contains('key')) k.classList.remove('show'); }
+
+/* ---------- click-to-match ---------- */
+function initMatch(){
+  document.querySelectorAll('.match-set').forEach(set=>{
+    const pairs = JSON.parse(set.dataset.pairs);
+    const left = document.createElement('div'); left.className='match-col';
+    const right = document.createElement('div'); right.className='match-col';
+    shuffle(pairs.map((p,i)=>({t:p[0],id:i}))).forEach(o=>left.appendChild(mkMatch(o.t,o.id,'L')));
+    shuffle(pairs.map((p,i)=>({t:p[1],id:i}))).forEach(o=>right.appendChild(mkMatch(o.t,o.id,'R')));
+    set.appendChild(left); set.appendChild(right);
+    set.dataset.totalPairs = pairs.length; set.dataset.correctCount = 0;
+    const score = document.createElement('div'); score.className='match-score'; score.id = set.id+'-score';
+    set.after(score); updateMatchScore(set);
+    let first = null;
+    set.querySelectorAll('.match').forEach(el=>{
+      el.onclick=()=>{
+        if(el.classList.contains('matched-correct')) return;
+        if(!first){ first=el; el.classList.add('selected'); return; }
+        if(first===el){ el.classList.remove('selected'); first=null; return; }
+        if(first.dataset.side===el.dataset.side){ first.classList.remove('selected'); first=el; el.classList.add('selected'); return; }
+        const a=first, b=el; first=null;
+        if(a.dataset.id===b.dataset.id){
+          [a,b].forEach(x=>{x.classList.remove('selected'); x.classList.add('matched-correct');});
+          set.dataset.correctCount = set.querySelectorAll('.match.matched-correct[data-side="L"]').length;
+          updateMatchScore(set); scheduleSave();
+        } else {
+          [a,b].forEach(x=>x.classList.add('wrong-flash'));
+          set.dataset.misses = (+set.dataset.misses||0)+1;
+          setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','wrong-flash')),600);
+          scheduleSave();
+        }
+      };
+    });
+  });
+}
+function mkMatch(t,id,side){ const b=document.createElement('button'); b.className='match'; b.type='button'; b.dataset.id=id; b.dataset.side=side; b.innerHTML=t; return b; }
+function updateMatchScore(set){
+  const s = document.getElementById(set.id+'-score');
+  if(s) s.textContent = `Matched: ${set.dataset.correctCount} / ${set.dataset.totalPairs}` + ((+set.dataset.misses||0) ? ` · wrong tries: ${set.dataset.misses}` : '');
+}
+
+/* ---------- click-to-order ---------- */
+const orderState = {};
+function initOrder(){
+  document.querySelectorAll('.order-set').forEach(set=>{
+    orderState[set.id] = [];
+    const list = set.querySelector('.order-list');
+    shuffle([...list.children]).forEach(c=>list.appendChild(c));
+    list.querySelectorAll('.order-item').forEach(it=>{ it.onclick=()=>orderClick(set,it); });
+  });
+}
+function orderClick(set, it){
+  if(it.classList.contains('picked')) return;
+  orderState[set.id].push(it.dataset.id);
+  it.classList.add('picked'); it.querySelector('.order-num').textContent = orderState[set.id].length;
+  if(orderState[set.id].length === set.querySelectorAll('.order-item').length) markOrder(set);
+  scheduleSave();
+}
+function markOrder(set){
+  const correct = set.dataset.order.split(',');
+  orderState[set.id].forEach((id,i)=>{ const el=set.querySelector(`.order-item[data-id="${id}"]`); el.classList.toggle('pos-correct', id===correct[i]); el.classList.toggle('pos-wrong', id!==correct[i]); });
+}
+function resetOrder(btn){
+  const set = btn.closest('.card').querySelector('.order-set');
+  orderState[set.id] = [];
+  set.querySelectorAll('.order-item').forEach(it=>{ it.classList.remove('picked','pos-correct','pos-wrong'); it.querySelector('.order-num').textContent=''; });
+  scheduleSave();
+}
+
+/* ---------- flashcards ---------- */
+let deckOrder = [], deckPos = 0;
+function initDeck(){
+  if(typeof VOCAB === 'undefined') return;
+  const tb = document.getElementById('glossBody');
+  if(tb) tb.innerHTML = VOCAB.map(v=>`<tr><td>${v.ru}</td><td><b>${v.en}</b></td><td>${v.def}</td></tr>`).join('');
+  if(!document.getElementById('deck')) return;
+  deckOrder = VOCAB.map((_,i)=>i); renderCard();
+  const card = document.getElementById('flipCard');
+  card.onclick = e=>{ if(e.target.closest('.card-speak')) return; card.classList.toggle('flipped'); };
+}
+function renderCard(){
+  const v = VOCAB[deckOrder[deckPos]];
+  document.getElementById('flipCard').classList.remove('flipped');
+  document.getElementById('cardRu').textContent = v.ru;
+  document.getElementById('cardEn').textContent = v.en;
+  document.getElementById('cardDef').textContent = v.def;
+  document.getElementById('cardEx').textContent = v.ex;
+  document.getElementById('deckCount').textContent = `card ${deckPos+1} / ${VOCAB.length}`;
+}
+function deckNext(){ deckPos=(deckPos+1)%VOCAB.length; renderCard(); }
+function deckPrev(){ deckPos=(deckPos-1+VOCAB.length)%VOCAB.length; renderCard(); }
+function deckShuffle(){ shuffle(deckOrder); deckPos=0; renderCard(); }
+function speak(text){ try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='en-GB'; u.rate=.92; speechSynthesis.speak(u);}catch(e){} }
+function speakCard(){ const v=VOCAB[deckOrder[deckPos]]; speak(v.en + '. ' + v.ex); }
+
+/* ---------- timer ---------- */
+let timerIv = null;
+function startTimer(btn, minutes){
+  clearInterval(timerIv);
+  const box = btn.closest('.timer'); const out = box.querySelector('.t'); let t = minutes*60;
+  box.classList.remove('done'); btn.textContent='Restart';
+  const draw=()=>{ out.textContent = `${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`; };
+  draw();
+  timerIv = setInterval(()=>{ t--; draw(); if(t<=0){ clearInterval(timerIv); box.classList.add('done'); out.textContent="Time's up"; } },1000);
+}
+
+/* ---------- written answers ---------- */
+function initWritten(){
+  document.querySelectorAll('textarea.written').forEach(ta=>{
+    const wc = ta.nextElementSibling;
+    const upd=()=>{ const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; if(wc) wc.textContent = n + ' words'; };
+    ta.addEventListener('input', upd); upd();
+  });
+}
+
+/* ---------- save & resume ---------- */
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const st = { savedAt:new Date().toISOString(), page:current };
+    st.name = document.getElementById('studentName').value || '';
+    st.fib = [...document.querySelectorAll('.fib')].map(e=>e.value);
+    st.sel = [...document.querySelectorAll('.sel')].map(e=>e.value);
+    st.mcq = [...document.querySelectorAll('.mcq')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c?c.dataset.val:null; });
+    st.matched = {}; st.misses = {};
+    document.querySelectorAll('.match-set').forEach(s=>{ st.matched[s.id]=[...s.querySelectorAll('.match.matched-correct[data-side="L"]')].map(x=>x.dataset.id); st.misses[s.id]=+s.dataset.misses||0; });
+    st.order = orderState;
+    st.ta = [...document.querySelectorAll('textarea')].map(e=>e.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(st));
+    const el = document.getElementById('saveIndicator');
+    if(el){ el.textContent='✓ Saved '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2200); }
+  }catch(e){}
+}
+let saveTimer=null;
+function scheduleSave(){ if(isRestoring) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveProgress,400); }
+function restoreProgress(){
+  let st; try{ const raw=localStorage.getItem(PROGRESS_KEY); if(!raw) return; st=JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(st.name) document.getElementById('studentName').value = st.name;
+  const f=document.querySelectorAll('.fib'); (st.fib||[]).forEach((v,i)=>{ if(f[i]&&v) f[i].value=v; });
+  const s=document.querySelectorAll('.sel'); (st.sel||[]).forEach((v,i)=>{ if(s[i]&&v) s[i].value=v; });
+  const g=document.querySelectorAll('.mcq'); (st.mcq||[]).forEach((v,i)=>{ if(v==null||!g[i]) return; const b=g[i].querySelector(`.opt[data-val="${v}"]`); if(b) highlightMcq(g[i],b); });
+  Object.keys(st.matched||{}).forEach(id=>{
+    const set=document.getElementById(id); if(!set) return;
+    (st.matched[id]||[]).forEach(mid=>set.querySelectorAll(`.match[data-id="${mid}"]`).forEach(x=>x.classList.add('matched-correct')));
+    set.dataset.correctCount=(st.matched[id]||[]).length; set.dataset.misses=(st.misses||{})[id]||0; updateMatchScore(set);
+  });
+  Object.keys(st.order||{}).forEach(id=>{
+    const set=document.getElementById(id); if(!set) return;
+    (st.order[id]||[]).forEach(oid=>{ const it=set.querySelector(`.order-item[data-id="${oid}"]`); if(it) { isRestoring=false; orderClick(set,it); isRestoring=true; } });
+  });
+  const t=document.querySelectorAll('textarea'); (st.ta||[]).forEach((v,i)=>{ if(t[i]&&v){ t[i].value=v; t[i].dispatchEvent(new Event('input')); } });
+  const has = (st.fib||[]).some(v=>v)||(st.sel||[]).some(v=>v)||(st.mcq||[]).some(v=>v!=null)||(st.ta||[]).some(v=>v)||Object.values(st.matched||{}).some(a=>a.length)||Object.values(st.order||{}).some(a=>a.length);
+  if(has){ const n=document.getElementById('restoreNote'); document.getElementById('restoreNoteText').textContent=`We found saved answers from ${st.savedAt?new Date(st.savedAt).toLocaleString():'an earlier session'} — they've been filled back in.`; n.hidden=false; }
+  if(typeof st.page==='number') showPage(st.page);
+  isRestoring = false;
+}
+function clearProgress(){ if(!confirm('This will erase all your saved answers on this device. Continue?')) return; try{ localStorage.removeItem(PROGRESS_KEY); localStorage.removeItem(PROGRESS_KEY+'::lex'); }catch(e){} location.reload(); }
+document.addEventListener('input', e=>{ if(e.target.matches('.fib,.sel,textarea,#studentName')){ clearMarks(e.target); scheduleSave(); } });
+document.addEventListener('change', e=>{ if(e.target.matches('.sel')){ clearMarks(e.target); scheduleSave(); } });
+
+/* ---------- stickers (shared site assets, loaded from /assets/) ---------- */
+const FALLBACK_TIERS=[{min:90,label:'Eggcellent!'},{min:75,label:'On fire!'},{min:60,label:'Good vibes!'},{min:40,label:'Off to a good start'},{min:0,label:'Try again!'}];
+function tierLabel(pct){ try{ if(typeof getResultTier==='function') return getResultTier(pct).label; }catch(e){} return FALLBACK_TIERS.find(t=>pct>=t.min).label; }
+function showSticker(pct){
+  try{
+    if(typeof STICKER_DATA!=='undefined'){
+      document.querySelectorAll('.completion-sticker').forEach(img=>{ const d=STICKER_DATA[img.dataset.tier]; if(d && !img.getAttribute('src')) img.src = d.startsWith('data:') ? d : 'data:image/png;'+'base'+'64,'+d; });
+    }
+    if(typeof renderResultSticker==='function') renderResultSticker(pct);
+  }catch(e){}
+}
+
+/* ---------- submit ---------- */
+async function submitAll(){
+  const ni = document.getElementById('studentName');
+  if(!ni.value.trim()){ ni.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0; const wrong=[]; const sections={};
+  const add=(el,ok)=>{ const t=exTitle(el)||'Other'; sections[t]=sections[t]||[0,0]; sections[t][1]++; if(ok) sections[t][0]++; };
+  document.querySelectorAll('.fib,.sel').forEach(el=>{
+    total++; const ok=isRight(el); add(el,ok);
+    el.classList.toggle('is-correct',ok); el.classList.toggle('is-wrong',!ok);
+    if(ok) correct++; else wrong.push(describeWrong(el, el.value, answers(el)[0]));
+  });
+  document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
+    total++; const c=g.querySelector('.opt.chosen'); const ok=!!c && c.dataset.val===g.dataset.correct; add(g,ok);
+    if(ok) correct++; else { const cb=g.querySelector(`.opt[data-val="${g.dataset.correct}"]`); wrong.push(describeWrong(g, c?c.textContent:'', cb?cb.textContent.trim():'')); }
+  });
+  document.querySelectorAll('.match-set').forEach(s=>{
+    const t=+s.dataset.totalPairs, c=+s.dataset.correctCount, m=+s.dataset.misses||0;
+    // a pair only scores if matched; wrong tries are reported to the teacher, not deducted
+    total+=t; correct+=c; const k=exTitle(s); sections[k]=sections[k]||[0,0]; sections[k][0]+=c; sections[k][1]+=t;
+    if(c<t || m) wrong.push(`${exTitle(s)} (matching) — ${c}/${t} pairs matched, ${m} wrong tries.`);
+  });
+  document.querySelectorAll('.order-set').forEach(s=>{
+    const corr=s.dataset.order.split(','), got=orderState[s.id]||[];
+    let c=0; corr.forEach((id,i)=>{ if(got[i]===id) c++; });
+    total+=corr.length; correct+=c; const k=exTitle(s); sections[k]=sections[k]||[0,0]; sections[k][0]+=c; sections[k][1]+=corr.length;
+    if(c<corr.length) wrong.push(`${exTitle(s)} (order) — ${c}/${corr.length} steps in the right place.`);
+  });
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const panel = document.getElementById('results'); panel.hidden=false;
+  document.getElementById('bigScore').textContent = pct+'%';
+  document.getElementById('scoreLine').textContent = `${ni.value.trim()} — ${correct} / ${total} auto-checked items correct`;
+  document.getElementById('breakdown').innerHTML = Object.entries(sections).map(([k,v])=>`<div><span>${k}</span><b>${v[0]} / ${v[1]}</b></div>`).join('');
+  showSticker(pct);
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+
+  const studentName = ni.value.trim();
+  const topicLabel = document.title;
+  const subjectLine = topicLabel.startsWith(COURSE_NAME) ? `${topicLabel} — ${studentName}` : `${COURSE_NAME} — ${topicLabel} — ${studentName}`;
+  const status = document.getElementById('submitStatus'); status.textContent='Sending…';
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('subject', subjectLine);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', topicLabel);
+    fd.append('student', studentName);
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('result_tier', tierLabel(pct));
+    document.querySelectorAll('textarea.written').forEach((ta,i)=>{
+      const words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+      fd.append(`written_${i+1}_task`, ta.dataset.label || `Written task ${i+1}`);
+      fd.append(`written_${i+1}_text`, ta.value.trim() || '(not written)');
+      fd.append(`written_${i+1}_words`, String(words));
+    });
+    if(typeof lexChunkReport==='function') fd.append('chunks_used', lexChunkReport());
+    fd.append('mistakes', wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+    status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
+  }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
+}
+
+/* ---------- init ---------- */
+function initAll(){ buildDots(); initMcq(); initMatch(); initOrder(); initDeck(); initWritten(); isRestoring=true; showPage(0); isRestoring=false; restoreProgress(); }
+document.addEventListener('DOMContentLoaded', initAll);
+
+
+/* ===== lexical layer (port of lexical.py) ===== */
+const LEX_KEY = PROGRESS_KEY + '::lex';
+function lexSave(){
+  if(isRestoring) return;
+  try{ const s={spots:{}}; document.querySelectorAll('.spot-wrap').forEach(w=>{s.spots[w.id]=[...w.querySelectorAll('.chunk.found')].map(c=>c.dataset.id);}); localStorage.setItem(LEX_KEY, JSON.stringify(s)); }catch(e){}
+}
+function spotUpdate(w){
+  const n=w.querySelectorAll('.spot-key.found').length, t=parseInt(w.dataset.total);   /* count keys, not spans */
+  w.querySelector('.spot-count').innerHTML=`Found <b>${n}</b> / ${t}`+(n===t?' — all of them! ✓':'');
+}
+function spotMark(w,id){
+  w.querySelectorAll(`.chunk[data-id="${id}"]`).forEach(c=>c.classList.add('found'));
+  const k=w.querySelector(`.spot-key[data-id="${id}"]`); if(k && !k.classList.contains('found')){k.classList.add('found'); k.textContent='✓ '+k.dataset.full;}
+}
+document.addEventListener('click',e=>{
+  const word=e.target.closest('.spot-text .w'); if(!word) return;
+  const w=word.closest('.spot-wrap'), msg=w.querySelector('.spot-msg'), ch=word.closest('.chunk');
+  if(ch){ if(ch.classList.contains('found')) return; spotMark(w,ch.dataset.id); spotUpdate(w);
+    msg.textContent='Yes! “'+ch.textContent.trim()+'”'; msg.className='spot-msg ok'; lexSave(); return; }
+  word.classList.add('miss'); setTimeout(()=>word.classList.remove('miss'),600);
+  msg.textContent='Not this one. Look for a whole phrase around one of the key words.'; msg.className='spot-msg no';
+});
+/* word bank: click a gap, then a phrase; undo both ways */
+let activeGap=null;
+document.addEventListener('click',e=>{
+  const gapEl=e.target.closest('.bank-gap');
+  if(gapEl){
+    const ex=gapEl.closest('.bank-ex');
+    if(activeGap && activeGap!==gapEl) activeGap.classList.remove('active-gap');
+    if(gapEl.value){ const t=[...ex.querySelectorAll('.word-bank span.used')].find(x=>x.dataset.token===gapEl.value); if(t) t.classList.remove('used'); gapEl.value=''; clearMarks(gapEl); scheduleSave(); }
+    activeGap=gapEl; gapEl.classList.add('active-gap'); return;
+  }
+  const tok=e.target.closest('.word-bank span'); if(!tok) return;
+  const ex=tok.closest('.bank-ex');
+  if(tok.classList.contains('used')){
+    const g=[...ex.querySelectorAll('.bank-gap')].find(x=>x.value===tok.dataset.token);
+    if(g){ g.value=''; clearMarks(g); if(activeGap===g){activeGap=null; g.classList.remove('active-gap');} }
+    tok.classList.remove('used'); scheduleSave(); return;
+  }
+  if(!activeGap || activeGap.closest('.bank-ex')!==ex){ alert('First click an empty gap in the text, then click a phrase from the box.'); return; }
+  if(activeGap.value){ const p=[...ex.querySelectorAll('.word-bank span.used')].find(x=>x.dataset.token===activeGap.value); if(p) p.classList.remove('used'); }
+  activeGap.value=tok.dataset.token; clearMarks(activeGap); tok.classList.add('used'); activeGap.classList.remove('active-gap'); activeGap=null; scheduleSave();
+});
+function bankRestore(){ document.querySelectorAll('.bank-ex').forEach(ex=>{ const vals=[...ex.querySelectorAll('.bank-gap')].map(g=>g.value).filter(Boolean);
+  ex.querySelectorAll('.word-bank span').forEach(t=>{ const i=vals.indexOf(t.dataset.token); t.classList.toggle('used', i>=0); if(i>=0) vals.splice(i,1); }); }); }
+/* live chunk detector */
+function lexNorm(s){return ' '+(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/[−–]/g,'-').replace(/\s+/g,' ')+' ';}
+function liveScan(ta){
+  const data=JSON.parse(ta.dataset.chunks||'[]'), warn=JSON.parse(ta.dataset.warn||'[]');
+  const text=lexNorm(ta.value), box=ta.closest('.live-item'); const used=[], core=[];
+  data.forEach(c=>{ const on=new RegExp(c.re,'i').test(text); if(on){used.push(c.label); if(c.core!==false) core.push(c.label);}
+    const chip=box.querySelector(`.live-chip[data-id="${c.id}"]`); if(chip) chip.classList.toggle('on',on); });
+  const min=parseInt(ta.dataset.minChunks||'0'), cnt=box.querySelector('.live-count');
+  if(cnt){cnt.textContent=`Phrases from the list: ${core.length} / ${min}`+(core.length>=min?' ✓':''); cnt.classList.toggle('ok',core.length>=min);}
+  const warns=warn.filter(w=>new RegExp(w.re,'i').test(text)).map(w=>w.msg);
+  box.querySelector('.live-warn').innerHTML=warns.map(m=>'<li>'+m+'</li>').join('');
+  return {used, core, notUsed:data.filter(c=>c.core!==false && !used.includes(c.label)).map(c=>c.label), warns};
+}
+document.addEventListener('input',e=>{ if(e.target.matches('textarea.prod-live')) liveScan(e.target); });
+function lexChunkReport(){
+  const out=[];
+  document.querySelectorAll('textarea.prod-live').forEach(ta=>{ const r=liveScan(ta);
+    out.push(`### ${ta.dataset.label}\nTarget phrases used (${r.core.length} / ${ta.dataset.minChunks} needed): ${r.core.join(', ')||'none'}\nAll chips on (${r.used.length}): ${r.used.join(', ')||'none'}\nNot used: ${r.notUsed.join(', ')||'none'}`+(r.warns.length?`\nWatch-out notes shown: ${r.warns.map(w=>w.replace(/<[^>]+>/g,'')).join(' | ')}`:'')); });
+  document.querySelectorAll('.spot-wrap').forEach(w=>{ out.push(`### Noticing (${w.closest('.card').querySelector('h2').textContent.trim()})\nFound ${w.querySelectorAll('.spot-key.found').length} / ${w.dataset.total} phrases`); });
+  return out.join('\n\n')||'(none)';
+}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{   /* after restoreProgress() */
+  try{ const s=JSON.parse(localStorage.getItem(LEX_KEY)||'{}'); Object.entries(s.spots||{}).forEach(([id,ids])=>{const w=document.getElementById(id); if(w) ids.forEach(x=>spotMark(w,x));}); }catch(e){}
+  document.querySelectorAll('.spot-wrap').forEach(spotUpdate); bankRestore();
+  document.querySelectorAll('textarea.prod-live').forEach(liveScan);
+},0));
+
+function glFilter(inp){ const q=inp.value.trim().toLowerCase(); let n=0;
+  document.querySelectorAll('.gl-table tbody tr').forEach(tr=>{ const ok=!q || tr.dataset.q.includes(q) || tr.textContent.toLowerCase().includes(q); tr.hidden=!ok; if(ok) n++; });
+  const none=document.querySelector('.gl-none'); if(none) none.hidden = n>0; }
+const glAudio = new Audio(); let glQueue = [], glRate = 1;
+function glMark(tr){ document.querySelectorAll('.gl-table tr.gl-on').forEach(r=>r.classList.remove('gl-on')); if(tr){ tr.classList.add('gl-on'); try{ tr.scrollIntoView({block:'center', behavior:'smooth'}); }catch(e){} } }
+function glStart(btn){ glMark(btn.closest('tr')); glAudio.src = btn.dataset.src; glAudio.playbackRate = glRate; glAudio.play().catch(()=>{}); }
+function glPlay(btn){ glQueue = []; glStart(btn); }
+function glPlayAll(){ const b=[...document.querySelectorAll('.gl-table tbody tr:not([hidden]) .gl-btn')]; if(!b.length) return; glQueue=b.slice(1); glStart(b[0]); }
+function glStop(){ glQueue=[]; try{ glAudio.pause(); }catch(e){} glMark(null); }
+function glSpeed(v){ glRate=parseFloat(v)||1; glAudio.playbackRate=glRate; }
+glAudio.addEventListener('ended', ()=>{ if(glQueue.length) glStart(glQueue.shift()); else glMark(null); });
+const _showPageOrig = showPage; showPage = function(n){ glStop(); _showPageOrig(n); };
+
+</script>
+</body></html>
