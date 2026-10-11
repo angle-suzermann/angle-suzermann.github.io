@@ -470,6 +470,24 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<script>
+/* iOS-приложение с экрана «Домой»: при запуске окно короче экрана (снизу тёмная полоса), потом само выравнивается. Скрываем страницу до выравнивания и сами запускаем его прокруткой на 1px */
+(function(){try{
+  var st = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if(!st) return;
+  var d = document.documentElement;
+  function ok(){ return window.innerHeight >= screen.height - 2; }
+  if(ok()) return;
+  d.style.opacity = '0';
+  var shown = false;
+  function show(){ if(shown) return; shown = true; d.style.transition = 'opacity .15s'; d.style.opacity = '1'; }
+  window.addEventListener('resize', function(){ if(ok()) setTimeout(show, 30); });
+  function kick(){ window.scrollTo(0, 1); setTimeout(function(){ window.scrollTo(0, 0); }, 40); }
+  window.addEventListener('load', kick);
+  window.addEventListener('pageshow', kick);
+  setTimeout(show, 1000);
+}catch(e){}})();
+</script>
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css">
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
