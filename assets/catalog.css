@@ -572,11 +572,6 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 /* слои фона чуть выходят за нижний край, чтобы под индикатором «Домой» не оставалось полосы */
 .bg-photo, .bg-wash{ bottom: -120px; }
 
-/* iOS-приложение с экрана «Домой»: фон и значок считаются от верха и высоты экрана (--sh ставит скрипт в head), а не от нижнего края окна, которое первые секунды короче и потом расширяется */
-html.is-standalone{ background: #1a171f; }
-html.is-standalone .bg-photo, html.is-standalone .bg-wash{ top: 0; bottom: auto; height: calc(var(--sh, 100vh) + 120px); }
-html.is-standalone .angle-badge{ bottom: auto; top: calc(var(--sh, 100vh) - 18px); transform: translateY(-100%); }
-
 /* кнопка «← Все курсы» (или «← Oxford Phonics») на верхнем экране курса и хаба; глубже работают «← Назад» и крошки */
 .up-row{ margin: 0 0 14px; }
 .up-row[hidden]{ display: none; }

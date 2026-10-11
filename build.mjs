@@ -473,20 +473,6 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<script>
-/* iOS-приложение с экрана «Домой»: первые ~1.5 с окно страницы короче экрана (внизу полоса под индикатором «Домой»), потом плавно расширяется, и всё, что привязано к низу окна (фон, значок ANGLE), ползёт вниз. Считаем положение этих элементов от верха и от высоты экрана (она не меняется) */
-(function(){try{
-  var st = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-  if(!st) return;
-  document.documentElement.classList.add('is-standalone');
-  function setSh(){
-    var w = screen.width, h = screen.height, portrait = window.innerHeight >= window.innerWidth;
-    document.documentElement.style.setProperty('--sh', (portrait ? Math.max(w, h) : Math.min(w, h)) + 'px');
-  }
-  setSh();
-  window.addEventListener('orientationchange', function(){ setTimeout(setSh, 300); });
-}catch(e){}})();
-</script>
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
