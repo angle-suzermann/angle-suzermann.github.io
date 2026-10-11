@@ -492,6 +492,16 @@ ${ANGLE_BADGE}
 <div class="page">
 ${body}
 </div>
+<script>
+/* Приложение с экрана «Домой»: материалы открываем в том же окне, а не во внутреннем браузере Safari
+   (у него своя белая рамка сверху и снизу). Внешние ссылки не трогаем. */
+if (window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[target="_blank"]');
+    if (a && a.origin === location.origin) a.removeAttribute('target');
+  }, true);
+}
+</script>
 ${extraScript}
 </body>
 </html>
