@@ -42,16 +42,16 @@
       "textbookUrl": "https://drive.google.com/drive/folders/12b_sfS6acx_-aGV6PWv_iCbDrUnJIyk0?usp=sharing"
     },
     {
+      "id": "ege-2027",
+      "name": "ЕГЭ 2027",
+      "emoji": "🎓",
+      "formspree": "mnjekjvq"
+    },
+    {
       "id": "empower-b1",
       "name": "Empower B1+",
       "emoji": "🚀",
       "formspree": "mjgnlwdp"
-    },
-    {
-      "id": "expert-advanced",
-      "name": "Expert Advanced",
-      "emoji": "🎯",
-      "formspree": "mdaqrvdd"
     },
     {
       "id": "gateway/gateway-to-the-world-b1",
@@ -75,10 +75,10 @@
       "formspree": "xoeaqeyz"
     },
     {
-      "id": "ege-2027",
-      "name": "ЕГЭ 2027",
-      "emoji": "🎓",
-      "formspree": "mnjekjvq"
+      "id": "placement-tests",
+      "name": "Placement tests",
+      "emoji": "🧭",
+      "formspree": ""
     },
     {
       "id": "oxford-phonics/1",
@@ -117,16 +117,16 @@
       "formspree": "mlgqqwpk"
     },
     {
-      "id": "placement-tests",
-      "name": "Placement tests",
-      "emoji": "🧭",
-      "formspree": ""
-    },
-    {
       "id": "a2-key-for-schools",
       "name": "A2 Key for Schools",
       "emoji": "🔑",
       "formspree": "efmiykcu"
+    },
+    {
+      "id": "expert-advanced",
+      "name": "Expert Advanced",
+      "emoji": "🎯",
+      "formspree": "mdaqrvdd"
     }
   ],
   "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте.",
