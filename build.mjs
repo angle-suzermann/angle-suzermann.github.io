@@ -192,6 +192,10 @@ const ICON_TAGS =
   `<link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">\n` +
   `<link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">\n` +
   `<link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">\n` +
+  `<meta name="apple-mobile-web-app-capable" content="yes">\n` +
+  `<meta name="mobile-web-app-capable" content="yes">\n` +
+  `<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n` +
+  `<meta name="theme-color" content="#453458">\n` +
   `<meta name="apple-mobile-web-app-title" content="ANGLE">\n`;
 
 function ogTags(html, file) {
@@ -242,6 +246,7 @@ function injectHead(dir) {
       .replace(/<link\b[^>]*\brel=["'](?:shortcut\s+)?icon["'][^>]*>\s*/gi, '')
       .replace(/<link\b[^>]*\brel=["']apple-touch-icon(?:-precomposed)?["'][^>]*>\s*/gi, '')
       .replace(/<meta\b[^>]*\bname=["']apple-mobile-web-app-title["'][^>]*>\s*/gi, '')
+      .replace(/<meta\b[^>]*\bname=["'](?:apple-mobile-web-app-capable|mobile-web-app-capable|apple-mobile-web-app-status-bar-style|theme-color)["'][^>]*>\s*/gi, '')
       .replace(/<meta\b[^>]*\b(?:property|name)=["'](?:og|twitter):[^"']*["'][^>]*>\s*/gi, '');
     /* ставим после <meta charset>, если он есть: кодировка должна быть объявлена
        в первом килобайте страницы, иначе кириллица может отобразиться криво */
@@ -463,7 +468,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css">
@@ -471,6 +476,10 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
 <meta name="apple-mobile-web-app-title" content="ANGLE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#5E4877">
 </head>
 <body>
 <div class="bg-photo"></div>

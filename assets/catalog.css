@@ -563,3 +563,8 @@ html, body{
 /* цветной логотип-название курса (Academy Stars 2–5) в заголовке страницы и в крошках */
 .heading-logo{ height: 1.6em; width: auto; display: block; }
 .crumb-logo{ height: 1.7em; width: auto; vertical-align: middle; display: inline-block; }
+
+/* ---- вырез/статус-бар iPhone: шапка уходит под прозрачный статус-бар (приложение с экрана «Домой») ---- */
+.cat-header{ padding-top: calc(32px + env(safe-area-inset-top, 0px)); }
+.page{ padding-top: calc(128px + env(safe-area-inset-top, 0px)); }
+html{ background: #2d193c; }
