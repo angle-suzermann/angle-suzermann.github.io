@@ -81,7 +81,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 /* Версия иконок сайта. Браузеры (особенно Safari) очень долго держат старую
    иконку в памяти. Поменяли favicon.ico / apple-touch-icon.png — увеличьте
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
-const ICON_VERSION = 8;
+const ICON_VERSION = 9;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 
