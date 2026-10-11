@@ -471,21 +471,16 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <script>
-/* iOS-приложение с экрана «Домой»: при запуске окно короче экрана (снизу тёмная полоса), потом само выравнивается. Скрываем страницу до выравнивания и сами запускаем его прокруткой на 1px */
+/* iOS-приложение с экрана «Домой»: первые ~1.5 с окно страницы короче экрана (внизу полоса под индикатором «Домой»), потом плавно расширяется, и всё, что привязано к низу окна (фон, значок ANGLE), ползёт вниз. Считаем положение этих элементов от верха и от высоты экрана (она не меняется) */
 (function(){try{
   var st = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   if(!st) return;
-  var d = document.documentElement;
-  function ok(){ return window.innerHeight >= screen.height - 2; }
-  if(ok()) return;
-  d.style.opacity = '0';
-  var shown = false;
-  function show(){ if(shown) return; shown = true; d.style.transition = 'opacity .15s'; d.style.opacity = '1'; }
-  window.addEventListener('resize', function(){ if(ok()) setTimeout(show, 30); });
-  function kick(){ window.scrollTo(0, 1); setTimeout(function(){ window.scrollTo(0, 0); }, 40); }
-  window.addEventListener('load', kick);
-  window.addEventListener('pageshow', kick);
-  setTimeout(show, 1000);
+  function setSh(){
+    var w = screen.width, h = screen.height, portrait = window.innerHeight >= window.innerWidth;
+    document.documentElement.style.setProperty('--sh', (portrait ? Math.max(w, h) : Math.min(w, h)) + 'px');
+  }
+  setSh();
+  window.addEventListener('orientationchange', function(){ setTimeout(setSh, 300); });
 }catch(e){}})();
 </script>
 <title>${esc(title)}</title>
