@@ -15,6 +15,7 @@
    ============================================================ */
 
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -81,6 +82,8 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
    иконку в памяти. Поменяли favicon.ico / apple-touch-icon.png — увеличьте
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
 const ICON_VERSION = 6;
+/* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
+const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 
 /* Адрес сайта целиком — нужен для превью ссылок в Telegram/WhatsApp/VK:
    картинка превью должна быть с полным адресом. Берётся из repoUrl,
@@ -475,6 +478,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 (function(){try{
   var st = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   if(!st) return;
+  document.documentElement.classList.add('is-standalone');
   function setSh(){
     var w = screen.width, h = screen.height, portrait = window.innerHeight >= window.innerWidth;
     document.documentElement.style.setProperty('--sh', (portrait ? Math.max(w, h) : Math.min(w, h)) + 'px');
@@ -484,7 +488,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 }catch(e){}})();
 </script>
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="${BASE}/assets/catalog.css">
+<link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
