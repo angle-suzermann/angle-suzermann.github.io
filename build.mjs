@@ -464,7 +464,7 @@ const ANGLE_BADGE = `<div class="angle-badge">${ANGLE_WORDMARK}<div class="credi
    должен быть размером с этот эмодзи и вписываться в строку текста
    (.heading-icon--inline, высота 1em); без этого флага — крупный фирменный
    стикер ANGLE Student/ANGLE Teacher, для него размер прежний (1.6em). */
-const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', headingIconSmall = false, headingLogo = '' }) => `<!DOCTYPE html>
+const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', headingIconSmall = false, headingLogo = '', parent = null }) => `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -490,7 +490,8 @@ ${ANGLE_BADGE}
   ${sub ? `<p>${esc(sub)}</p>` : ''}
 </header>
 <div class="page">
-${body}
+${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href="${esc(parent.href)}" data-label="${esc(parent.label)}">← ${esc(parent.label)}</a></div>
+` : ''}${body}
 </div>
 <script>
 /* Приложение с экрана «Домой», панель преподавателя. iOS считает «своими» только страницы внутри папки,
@@ -752,6 +753,8 @@ const groupFolderScript = `<script>
   var sortToolbarEl = document.querySelector('.sort-toolbar');
   var crumbsEl = document.getElementById('folderCrumbs');
   var courseNameEl = document.querySelector('.cat-header h1');
+  var upRow = document.getElementById('upRow');
+  var upLinkEl = document.getElementById('upLink');
   var view = 'top';
   var currentTheme = null;
   var currentGroup = null;
@@ -774,7 +777,9 @@ const groupFolderScript = `<script>
     if(!crumbsEl) return;
     if(view === 'top'){ crumbsEl.hidden = true; crumbsEl.innerHTML = ''; return; }
     var courseName = courseNameEl ? (courseNameEl.getAttribute('data-name') || courseNameEl.textContent).trim() : 'Курс';
-    var parts = [{ label: courseName, action: 'top', logo: courseNameEl ? courseNameEl.getAttribute('data-logo') : '' }];
+    var parts = [];
+    if(upLinkEl) parts.push({ label: upLinkEl.dataset.label, action: 'up' });
+    parts.push({ label: courseName, action: 'top', logo: courseNameEl ? courseNameEl.getAttribute('data-logo') : '' });
     if(view === 'skills'){
       parts.push({ label: currentTheme, action: 'skills' });
     } else if(currentIsPersonal){
@@ -795,6 +800,7 @@ const groupFolderScript = `<script>
     crumbsEl.addEventListener('click', function(e){
       var btn = e.target.closest('[data-crumb-action]');
       if(!btn) return;
+      if(btn.dataset.crumbAction === 'up'){ location.href = upLinkEl.href; return; }
       if(btn.dataset.crumbAction === 'top') showTop();
       else if(btn.dataset.crumbAction === 'skills') showSkills(currentTheme);
       pushFolderNav();
@@ -815,6 +821,7 @@ const groupFolderScript = `<script>
     if(materials) materials.hidden = view !== 'materials';
     if(sortToolbarEl) sortToolbarEl.hidden = view !== 'materials' || currentIsPersonal;
     backBtn.hidden = view === 'top';
+    if(upRow) upRow.hidden = view !== 'top';
     renderCrumbs();
     if(view === 'materials') filterMaterials(currentGroup, currentPrefix);
     /* ссылка на конкретную папку — видна только когда открыт её список
@@ -1100,6 +1107,17 @@ ${tiles}
   </div>`;
 }).join('\n');
 
+/* куда ведёт «← назад» с верхнего экрана курса: на хаб семьи (Oxford Phonics) или на список курсов */
+const parentOf = (courseId) => {
+  for (const [fid, famName] of familyOrder) {
+    if (!COLLAPSED_FAMILIES.includes(famName)) continue;
+    const fam = familyCourses.get(fid);
+    const prefix = familyPrefix(fam);
+    if (prefix && fam.some((c) => c.id === courseId)) return { href: `${BASE}/${prefix}/`, label: famName };
+  }
+  return { href: `${BASE}/`, label: 'Все курсы' };
+};
+
 /* хаб-страницы схлопнутых семей — плитки по уровням, ведущие на реальные
    страницы курсов; генерируются только если есть общий префикс пути. */
 for (const [fid, famName] of familyOrder) {
@@ -1115,6 +1133,7 @@ for (const [fid, famName] of familyOrder) {
     headingIcon: FAMILY_ICON_MAP[famName] ? `/assets/brand/course/${FAMILY_ICON_MAP[famName]}` : '',
     headingIconSmall: true,
     sub: 'Выберите уровень',
+    parent: { href: `${BASE}/`, label: 'Все курсы' },
     body: `  <div class="tile-grid">
 ${fam.map((c) => tileFor(c, c.name.replace(famName, '').trim() || c.name)).join('\n')}
   </div>`,
@@ -1185,6 +1204,7 @@ for (const course of courses) {
     headingIcon: headingIconPath,
     headingIconSmall: !/academy-stars-angle/.test(headingIconPath || ''),
     headingLogo: COURSE_TITLE_LOGO[course.id] || '',
+    parent: parentOf(course.id),
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: hasAnyContent
       ? `${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`

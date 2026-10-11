@@ -575,3 +575,7 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 /* iOS (приложение с экрана «Домой»): первую секунду после запуска окно страницы короче экрана, потом расширяется, и всё, что привязано к нижнему краю (фон, значок ANGLE), «ползло» вниз. Привязываем к верху и считаем высоту от экрана (100vh), тогда ничего не двигается */
 .bg-photo, .bg-wash{ top: 0; bottom: auto; height: calc(100vh + 120px); }
 .angle-badge{ bottom: auto; top: 100vh; transform: translateY(calc(-100% - 18px)); }
+
+/* кнопка «← Все курсы» (или «← Oxford Phonics») на верхнем экране курса и хаба; глубже работают «← Назад» и крошки */
+.up-row{ margin: 0 0 14px; }
+.up-row[hidden]{ display: none; }
