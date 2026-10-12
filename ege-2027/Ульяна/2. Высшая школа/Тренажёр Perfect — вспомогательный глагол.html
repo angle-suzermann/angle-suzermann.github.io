@@ -518,7 +518,7 @@ function toggleReveal(btn){
 }
 
 /* ---- shared helpers ---- */
-function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"']/g,'').replace(/\s+/g,' '); }
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/[\u2019\u2018]/g,"'").replace(/won't/g,'will not').replace(/can't/g,'cannot').replace(/n't\b/g,' not').replace(/'ve\b/g,' have').replace(/['"\u201c\u201d]/g,'').replace(/[.,!?;:]/g,'').replace(/\s+/g,' '); }
 function matchAns(input){
   const list = input.dataset.ansList;
   if (list){ return list.split('|').some(a=>normalize(input.value)===normalize(a)); }
