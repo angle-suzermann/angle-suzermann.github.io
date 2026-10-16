@@ -451,6 +451,7 @@ function checkAnswers(){
   const result = document.getElementById("result");
   result.textContent = `Результат: ${correct} из ${total}`;
   result.style.color = correct === total ? "var(--correct)" : "var(--text)";
+  awardSticker(total ? Math.round(correct/total*100) : 0, result);
   document.getElementById('scrollArea').scrollTo({top:0, behavior:"smooth"});
   scheduleSave();
 }
@@ -575,5 +576,8 @@ document.addEventListener('input', e=>{ if(e.target.matches('#studentName')) sch
 
 restoreProgress();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

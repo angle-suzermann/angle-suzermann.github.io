@@ -845,6 +845,7 @@ function checkAll(){
     breakdown.push({label: groups[p], score: `${c} / ${PILL_TOTALS[p]}`});
   });
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('finishBig').innerHTML = `${correct}<span> / ${total}</span>`;
   const list = document.getElementById('breakdownList');
   list.innerHTML = breakdown.map(b=>`<li><span>${b.label}</span><b>${b.score}</b></li>`).join('');
@@ -922,5 +923,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

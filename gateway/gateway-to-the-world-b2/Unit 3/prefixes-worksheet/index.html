@@ -228,6 +228,7 @@ function checkAnswers() {
   const scoreDiv = document.getElementById('score');
   scoreDiv.style.display = 'block';
   scoreDiv.textContent = `Score: ${correctCount} / ${items.length}`;
+  awardSticker(items.length ? Math.round(correctCount/items.length*100) : 0, scoreDiv);
 }
 
 function resetWorksheet() {
@@ -239,6 +240,7 @@ function resetWorksheet() {
     hint.style.display = 'none';
   });
   document.getElementById('score').style.display = 'none';
+  if(typeof clearAwardSticker==='function') clearAwardSticker();
   try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
 }
 
@@ -299,5 +301,8 @@ document.addEventListener('input', e=>{ if(e.target.matches('input.gap')) schedu
 restoreProgress();
 </script>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

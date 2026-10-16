@@ -413,6 +413,7 @@ async function submitAll(){
   const total = parseInt(container.dataset.totalPairs || VOCAB.length);
   const correct = parseInt(container.dataset.correctCount || 0);
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
 
   const wrongList = [];
   document.querySelectorAll('#matchContainer .match[data-id]').forEach(el=>{
@@ -437,6 +438,7 @@ async function submitAll(){
     fd.append('student', nameInput.value.trim());
     fd.append('group', document.getElementById('studentGroup').value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
         fd.append('production_review_notes', productionNotes.length ? productionNotes.join('\\n') : 'All 8 answered and used the target expression.');
     fd.append('responses', collectResponses());
 fd.append('mistakes', wrongList.length ? wrongList.join('\\n') : 'No mistakes on the matching task.');
@@ -532,5 +534,8 @@ function wrapMatchContainer(){
 }
 window.addEventListener('DOMContentLoaded', init);
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

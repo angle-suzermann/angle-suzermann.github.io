@@ -502,6 +502,7 @@ async function submitCase(){
     errorHunt: t3Score+' / 6',
     total: (mcqCorrect+t2Score+t3Score)+' / 22'
   };
+  const awardPct = Math.round((mcqCorrect+t2Score+t3Score)/22*100);
   const fd = new FormData();
   fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
   fd.append('course', 'Expert Advanced');
@@ -510,6 +511,7 @@ async function submitCase(){
   fd.append('student_name', name);
   fd.append('timestamp', new Date().toISOString());
   fd.append('scores_summary', JSON.stringify(summary));
+  if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(awardPct).label);
   fd.append('case_report_text', reportBox.value.trim());
   const mistakesArr = collectMistakes();
   fd.append('mistakes', mistakesArr.length ? mistakesArr.join('\n') : 'No mistakes — all items correct.');
@@ -522,6 +524,7 @@ async function submitCase(){
     });
     if(res.ok){
       stampOk.classList.add('show');
+      awardSticker(awardPct, stampOk);
     } else {
       stampFail.classList.add('show');
     }
@@ -530,5 +533,8 @@ async function submitCase(){
   }
 }
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

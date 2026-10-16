@@ -512,6 +512,7 @@ async function submitAll(){
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   const summary = document.getElementById('scoreSummary');
   summary.innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   summary.style.display = 'block';
@@ -524,6 +525,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
@@ -537,5 +539,8 @@ initArticleSelects();
 buildDots();
 showPage(0);
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

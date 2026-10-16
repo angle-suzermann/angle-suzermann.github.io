@@ -727,6 +727,7 @@ async function submitAll(){
   }
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary').hidden = false;
   document.getElementById('scriptSection').hidden = false;
@@ -743,6 +744,7 @@ async function submitAll(){
     fd.append('exercise', 'Unit 8 - Developing Vocabulary and Listening - Homework');
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
      fd.append('own_sentence_for_review', ownSentence);
  fd.append('ex1_examples_for_review', ex1Examples.join('\n'));
 fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
@@ -895,5 +897,8 @@ showPage(0);
   document.querySelectorAll('audio[id^="audioTrack"]').forEach(function(a){ a.src = AUDIO_SRC; });
 })();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

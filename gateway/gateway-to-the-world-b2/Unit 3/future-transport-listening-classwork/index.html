@@ -647,6 +647,7 @@ async function submitAll(){
   }
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary').hidden = false;
 
@@ -660,6 +661,7 @@ async function submitAll(){
     fd.append('lesson', 'Gateway to the World B2 — Unit 3 — Future Transport — CLASSWORK');
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
         fd.append('semi_controlled_sentences', [...document.querySelectorAll('.semi-answer')].map(ta=>`[${ta.dataset.chunk}] ${ta.value.trim()}`).join('\n'));
     fd.append('freer_writing', freer ? freer.value.trim() : '');
 fd.append('mistakes', allNotes.length ? allNotes.join('\n') : 'No mistakes — all auto-checked items correct.');
@@ -703,5 +705,8 @@ renderControlledBank();
 renderControlled();
 renderSemi();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

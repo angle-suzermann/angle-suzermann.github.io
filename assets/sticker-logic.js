@@ -12,7 +12,7 @@
    so a multi-panel page still calls this exact same function, never a local copy. Added
    2026-09-27 while unifying the last few pages that had their own copy of this logic. */
 const RESULT_TIERS = [
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh','youre_a_star'], label: 'Eggcellent!' },
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh','youre_a_star','imagination-a','imagination-b'], label: 'Eggcellent!' },
   { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
   { min: 60,  stickers: ['good_vibes','nice','not_bad','hehe'],  label: 'Good vibes!' },
   { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried','loading','strawberry-sparkle'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },

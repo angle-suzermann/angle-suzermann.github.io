@@ -774,6 +774,7 @@ async function submitAll(){
   if(!window.task2Score){ checkTask2(); }
   const {correct, total} = window.task2Score || {correct:0,total:TASK2_WORDS.length};
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   const task2Mistakes = window.task2Mistakes || [];
   const mistakesText = task2Mistakes.length ? task2Mistakes.join('\n') : 'No mistakes — all items correct.';
 
@@ -806,5 +807,8 @@ buildWordBank();
 showPage(0);
 </script>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

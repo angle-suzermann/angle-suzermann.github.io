@@ -493,6 +493,7 @@ async function submitAll(){
 
   const mistakesText = mistakes.length ? mistakes.join('\n') : 'No mistakes — all items correct.';
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById("scoreSummary").innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById("scoreSummary").hidden = false;
 
@@ -505,6 +506,7 @@ async function submitAll(){
     fd.append("exercise", "Travel & Grand Canyon Recirculation - EGE 19-36");
     fd.append("student", nameInput.value.trim());
     fd.append("score", `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
     fd.append("mistakes", mistakesText);
     fd.append("timestamp", new Date().toISOString());
     await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{"Accept":"application/json"}, body: fd });
@@ -526,5 +528,8 @@ window.onload = function(){
   showPage(0);
 };
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

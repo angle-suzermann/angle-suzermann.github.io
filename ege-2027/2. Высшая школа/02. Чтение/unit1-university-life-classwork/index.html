@@ -823,6 +823,7 @@ function submitAll(){
   });
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('resultsPercent').textContent = pct+'%';
   document.getElementById('resultsFraction').textContent = `${correct} / ${total} correct`;
   const bd = document.getElementById('resultsBreakdown');
@@ -843,6 +844,7 @@ function submitAll(){
   fd.append('lesson', document.title);
   fd.append('student', nameInput.value.trim());
   fd.append('score', `${correct} / ${total} (${pct}%)`);
+  if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
    fd.append('reflection', reflection);
 fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
   if(reflection)  fd.append('timestamp', new Date().toISOString());
@@ -931,5 +933,8 @@ renderCard();
 restoreProgress();
 </script>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

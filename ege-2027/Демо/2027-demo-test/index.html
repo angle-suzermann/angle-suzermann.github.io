@@ -888,6 +888,7 @@ function checkAll(){
   document.getElementById('scoreReading').textContent = reading + ' / 12';
   document.getElementById('scoreGrammar').textContent = grammar + ' / 18';
   document.getElementById('totalScore').textContent = total + ' / 42';
+  awardSticker(Math.round(total/42*100), document.getElementById('totalScore'));
   document.getElementById('resultsOutput').style.display = 'block';
 }
 
@@ -916,6 +917,7 @@ async function sendToTeacher(){
     fd.append('reading', document.getElementById('scoreReading').textContent);
     fd.append('grammar_vocab', document.getElementById('scoreGrammar').textContent);
     fd.append('total', document.getElementById('totalScore').textContent);
+    try{ fd.append('result_tier', getResultTier(Math.round(parseInt(document.getElementById('totalScore').textContent)/42*100)).label); }catch(e){}
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'Ошибок нет — все задания выполнены верно.');
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
     if(res.ok){
@@ -1028,5 +1030,8 @@ document.addEventListener('change', e=>{ if(e.target.matches('select, input[type
 
 restoreProgress();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

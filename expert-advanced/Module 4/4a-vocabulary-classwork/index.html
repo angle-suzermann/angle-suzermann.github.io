@@ -699,6 +699,7 @@ async function submitAll(){
   }
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — score: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary').hidden = false;
 
@@ -717,6 +718,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
         fd.append('production_sentences', productionNotes.length ? productionNotes.join('\n') : '(none written)');
 fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
@@ -740,5 +742,8 @@ buildGapFillInto('phrasalNounFib', PHRASAL_NOUN_FIB, 1);
 showPage(0);
 
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

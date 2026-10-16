@@ -392,6 +392,7 @@ async function submitAll(){
   const professionDone = professionAnswers.filter(v=>v.length>0).length;
 
   const pct = total ? Math.round(correct/total*100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   document.getElementById('scoreSummary').innerHTML = `<strong>${nameInput.value.trim()}</strong> — Task 1 (auto-checked): ${correct} / ${total} (${pct}%) <span class="score-pill">${pct}%</span><br>
     Task 2 (professions): ${professionDone}/${PROFESSIONS.length} answered — reviewed by teacher`;
   document.getElementById('scoreSummary').hidden = false;
@@ -404,6 +405,7 @@ async function submitAll(){
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
     fd.append('score', `Task 1: ${correct} / ${total} (${pct}%)`);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes in Task 1 — all correct.');
     const professionText = PROFESSIONS.map((p,i)=>`${p}: ${professionAnswers[i]||'(blank)'}`).join('\n');
     fd.append('task2_professions', professionText);
@@ -490,5 +492,8 @@ renderProfessions();
 showPage(0);
 restoreProgress();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

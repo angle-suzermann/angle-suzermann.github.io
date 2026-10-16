@@ -313,6 +313,7 @@ async function doSend(total, totalItems){
     fd.append('lesson', document.title);
     fd.append('student', name);
     fd.append('score', total + '/' + totalItems);
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier((totalItems ? Math.round(total/totalItems*100) : 0)).label);
     fd.append('sets_checked', Object.keys(window.setScores).length + '/4');
     const allMistakes = Object.values(window.setMistakes).reduce((a,b)=>a.concat(b),[]);
     fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
@@ -325,6 +326,7 @@ async function doSend(total, totalItems){
     if(res.ok){
       status.style.color = 'var(--correct)';
       status.textContent = 'Sent! Thank you, ' + name + '.';
+      awardSticker(totalItems ? Math.round(total/totalItems*100) : 0, status);
     } else {
       status.style.color = 'var(--wrong)';
       status.textContent = 'Something went wrong — please try again or tell your teacher directly.';
@@ -363,5 +365,8 @@ renderPage();
   update();
 })();
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>
