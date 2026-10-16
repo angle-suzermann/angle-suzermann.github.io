@@ -1,0 +1,14 @@
+/* ANGLE · кнопка «Скачать шаблон» для заданий ЕГЭ 37, 38 и устной части 4 (как в тренажёрах шаблонов). Подключение: <link rel="stylesheet" href="/assets/ege/dl-btn.css"> */
+.dl-btn{ position:relative; display:inline-flex; align-items:center; gap:14px; max-width:100%; box-sizing:border-box; margin:10px 0 18px; padding:10px 100px 10px 10px; background:#fff; color:#2D2926 !important; text-decoration:none !important; border:1px solid rgba(94,72,119,.28); border-radius:999px; box-shadow:0 1px 2px rgba(45,41,38,.05), 0 8px 22px rgba(94,72,119,.10); transition:border-color .2s, box-shadow .2s, transform .2s; }
+.dl-btn:hover{ border-color:#5E4877; box-shadow:0 2px 4px rgba(45,41,38,.06), 0 12px 28px rgba(94,72,119,.18); transform:translateY(-1px); }
+.dl-btn .ic{ flex:none; width:38px; height:38px; border-radius:50%; background:#5E4877; display:flex; align-items:center; justify-content:center; }
+.dl-btn .ic svg{ width:18px; height:18px; stroke:#FED500; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s; }
+.dl-btn:hover .ic svg{ transform:translateY(2px); }
+.dl-btn .k{ display:block; font-size:.66rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#5E4877; }
+.dl-btn .t{ display:block; font-size:.98rem; font-weight:700; line-height:1.25; }
+.dl-btn .t::after{ content:''; display:block; width:28px; height:2px; margin-top:4px; background:#FED500; border-radius:2px; transition:width .25s; }
+.dl-btn:hover .t::after{ width:100%; }
+.dl-btn .stk{ position:absolute; right:6px; bottom:-4px; width:88px; height:66px; background:center/contain no-repeat; transform:rotate(-4deg); transform-origin:bottom left; transition:transform .25s; pointer-events:none; }
+.dl-btn:hover .stk{ transform:rotate(4deg) translateY(-4px) scale(1.05); }
+.dl-btn .stk{ background-image:url('/assets/ege/dl-sticker.webp'); }
+@media (max-width:480px){ .dl-btn{ padding-right:84px; } .dl-btn .stk{ width:72px; height:54px; } }
