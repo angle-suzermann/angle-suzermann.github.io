@@ -1215,6 +1215,7 @@ async function submitAll(){
   });
 
   var pct = total ? Math.round(correct / total * 100) : 0;
+  setTimeout(function(){ awardSticker(pct); }, 0);
   var level = levelFor(correct);
 
   var w1 = document.getElementById('writing1').value.trim();
@@ -1241,6 +1242,7 @@ async function submitAll(){
     fd.append('exercise', 'Gateway 2nd Edition \u2014 Placement Test');
     fd.append('student', nameInput.value.trim());
     fd.append('score', correct + '/' + total + ' (' + pct + '%)');
+    if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
     fd.append('suggested_level', level);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('writing_task_1_email', w1 + '\n\n[' + w1Words + ' words]');
@@ -1262,5 +1264,8 @@ async function submitAll(){
 buildDots();
 showPage(0);
 </script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>

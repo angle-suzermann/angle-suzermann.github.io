@@ -1064,6 +1064,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   });
 
   const pct = Math.round((correct/total)*100);
+  setTimeout(function(){ awardSticker(pct); }, 0);
 
   function levelFor(score){
     if(score <= 5)  return "Starter level";
@@ -1091,6 +1092,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
   fd.append('exercise', 'Academy Stars — Placement Test');
   fd.append('student', studentName);
   fd.append('score', correct + '/' + total);
+  if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
   fd.append('suggested_level', level);
   fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
 
@@ -1110,5 +1112,8 @@ document.getElementById('quizForm').addEventListener('submit', function(e){
 });
 </script>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
 </body>
 </html>
