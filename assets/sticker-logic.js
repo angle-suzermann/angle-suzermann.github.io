@@ -23,7 +23,16 @@ const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','strawberry-spark
 const MEDIUM_STICKERS = new Set(['no_luck','still_lost','youre_a_star','loading','hehe','not_hehe','strawberry-sparkle']);
 const ICON_STICKERS = new Set(['plain']);
 function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
-function getResultTier(pct){ return RESULT_TIERS.find(t => pct >= t.min); }
+/* Мягкая шкала для диагностических страниц (placement tests): страница ставит
+   window.STICKER_GENTLE = true до подключения скриптов. Верхние три уровня те же,
+   в нижних нет «Try again!», no_luck, still_lost, not_hehe, you_tried.
+   Добавлено 2026-10-16. */
+const GENTLE_TIERS = [
+  RESULT_TIERS[0], RESULT_TIERS[1], RESULT_TIERS[2],
+  { min: 40, stickers: ['strawberry-a','strawberry-b','keep_going','loading','strawberry-sparkle'], label: 'Solid start', caption: "A solid start! This shows us exactly where to begin." },
+  { min: 0,  stickers: ['strawberry-a','strawberry-b','strawberry-sparkle','loading','keep_going'], label: 'Fresh start', caption: "Great — now we know where to start. Every level begins somewhere!" }
+];
+function getResultTier(pct){ return (window.STICKER_GENTLE ? GENTLE_TIERS : RESULT_TIERS).find(t => pct >= t.min); }
 function renderResultSticker(pct, wrap, capEl){
   wrap = wrap || document.getElementById('completionStickers');
   if(!wrap || typeof STICKER_DATA === 'undefined') return;
