@@ -267,7 +267,12 @@
     if (!groups.length) { alert('Write your answers first, then save them.'); return; }
     var name = studentName();
     var base = fileBase(name);
-    if (kind === 'doc') { download(makeDoc(groups, name), base + '.doc'); return; }
+    if (kind === 'doc' || kind === 'both') download(makeDoc(groups, name), base + '.doc');
+    if (kind === 'doc') return;
+    if (kind === 'both') { setTimeout(function () { exportPdf(groups, name, base); }, 600); return; }
+    exportPdf(groups, name, base);
+  }
+  function exportPdf(groups, name, base) {
     var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     ready.then(function () {
       download(buildPdf(makePages(groups, name)), base + '.pdf');
@@ -309,14 +314,13 @@
   var ARROW = '<svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>';
   function makeBar() {
     var bar = document.createElement('div'); bar.className = 'sw-bar';
-    [['Word · .doc', 'Save my writing', 'doc'], ['PDF', 'Save my writing', 'pdf']].forEach(function (o) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn';
-      b.innerHTML = '<span class="sw-ic">' + ARROW + '</span><span><span class="sw-k"></span><span class="sw-t"></span></span><span class="sw-stk"></span>';
-      b.querySelector('.sw-k').textContent = o[0];
-      b.querySelector('.sw-t').textContent = o[1];
-      b.addEventListener('click', function () { exportAs(o[2]); });
-      bar.appendChild(b);
-    });
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn';
+    b.innerHTML = '<span class="sw-ic">' + ARROW + '</span><span><span class="sw-k"></span><span class="sw-t"></span></span><span class="sw-stk"></span>';
+    b.querySelector('.sw-k').textContent = 'Word + PDF';
+    b.querySelector('.sw-t').textContent = 'Save my writing';
+    /* одна кнопка — два файла: сначала Word, через паузу PDF (браузер может один раз спросить разрешение на несколько загрузок) */
+    b.addEventListener('click', function () { exportAs('both'); });
+    bar.appendChild(b);
     return bar;
   }
   /* на каждый блок (карточку/задание/совместное письмо), где есть поле письма, — одна панель сразу под последним полем */
