@@ -99,7 +99,6 @@ input.fib, input.fib-fz{border:none;border-bottom:2px solid var(--purple);backgr
 input.fib:focus, input.fib-fz:focus{outline:none;border-bottom-color:var(--yellow);}
 input.is-correct, select.is-correct{background:#e8f7ee;border-color:var(--correct)!important;color:var(--correct)!important;}
 input.is-wrong, select.is-wrong{background:#fbeae7;border-color:var(--wrong)!important;color:var(--wrong)!important;}
-.answer-reveal{color:var(--purple);font-weight:700;font-style:italic;margin-left:6px;font-size:.88em;}
 .reveal-btn-sm{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--purple);background:#fff;color:var(--purple);border-radius:50%;cursor:pointer;font-size:.78rem;line-height:1;margin-left:6px;padding:4px 6px;vertical-align:middle;font-family:inherit;}
 .reveal-btn-sm:hover{background:var(--card-tint);}
 select.dd{font-family:inherit;font-size:.92rem;padding:5px 8px;border-radius:7px;border:1.5px solid var(--purple);}
@@ -710,14 +709,8 @@ function revealOne(btn){
   const item = btn.closest(".item");
   const fib = item.querySelector(".fib[data-answer]");
   if(fib){
-    const next = fib.nextElementSibling;
-    if(!(next && next.classList && next.classList.contains("answer-reveal"))){
-      const ans = fib.dataset.answer.split("|")[0];
-      const span = document.createElement("span");
-      span.className = "answer-reveal";
-      span.textContent = "\u2192 " + ans;
-      fib.insertAdjacentElement("afterend", span);
-    }
+    fib.value = fib.dataset.answer.split("|")[0];
+    fib.classList.add("is-correct");
   }
   const mcq = item.querySelector(".mcq[data-correct]");
   if(mcq){
