@@ -1,0 +1,29 @@
+<!-- ===== Совместное письмо (live) — вставить в любой воркшит ==========
+  1) Туда, где должно быть письмо:
+       <div class="collab" data-room="unit9-story" data-mode="blocks"
+            data-prompt="Write a short story. Use at least 5 new words."></div>
+     data-room — любое имя комнаты (латиница/цифры/дефис). Одна комната = один набор текстов.
+                 Новое занятие → новое имя комнаты (или кнопка «Очистить комнату» у учителя).
+     data-mode — стартовый режим: blocks (блок на каждого) | shared (общий текст).
+  2) Перед </body>:
+       <script src="/assets/collab-config.js"></script>
+       <script src="/assets/collab.js"></script>
+  3) Ссылка ученикам — обычный адрес страницы. Учителю — тот же адрес + ?teacher=<teacherKey>
+     (teacherKey задан в assets/collab-config.js). Учитель переключает режимы и чистит комнату.
+
+  Правила базы (Firebase → Realtime Database → Rules), вставить целиком и Publish:
+  {
+    "rules": {
+      "rooms": {
+        "$room": {
+          ".read": true,
+          "mode": { ".write": true, ".validate": "newData.val() == 'blocks' || newData.val() == 'shared'" },
+          "blocks": { ".write": true, "$uid": { ".validate": "newData.hasChildren(['name','text']) && newData.child('text').val().length <= 5000 && newData.child('name').val().length <= 40" } },
+          "paras":  { ".write": true, "$pid": { ".validate": "newData.hasChildren(['name','text']) && newData.child('text').val().length <= 5000 && newData.child('name').val().length <= 40" } }
+        }
+      }
+    }
+  }
+  Что это даёт: писать можно только в rooms/…, размер текста ограничен, мусорных полей нет.
+  Чего не даёт: защиты от того, что кто-то со ссылкой напишет под чужим именем. Для уроков это нормально.
+================================================================= -->
