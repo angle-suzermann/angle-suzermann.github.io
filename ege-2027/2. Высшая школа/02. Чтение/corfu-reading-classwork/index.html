@@ -234,6 +234,61 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
 </style>
 <meta name="theme-color" content="#453458">
+<style>
+.match-wrap .has-pair-badge{ position:relative; }
+.match-wrap .has-pair-badge::after{
+  content: attr(data-pair-badge);
+  position:absolute; top:-9px; right:-9px;
+  min-width:18px; height:18px; padding:0 2px;
+  border-radius:50%;
+  background:var(--yellow,#FED500); color:var(--black,#2D2926);
+  font-size:11px; font-weight:700; line-height:18px; text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+  pointer-events:none;
+}
+</style>
+<script>
+(function(){
+  function initWrap(wrap){
+    if(wrap.__badgeInit) return;
+    wrap.__badgeInit = true;
+    var used = 0;
+    function assign(){
+      var groups = {};
+      wrap.querySelectorAll('[data-id].matched-correct').forEach(function(el){
+        var id = el.dataset.id;
+        (groups[id] = groups[id] || []).push(el);
+      });
+      Object.keys(groups).forEach(function(id){
+        var els = groups[id];
+        if(els.length < 2 || els[0].dataset.pairBadge) return;
+        var idx = ++used;
+        els.forEach(function(el){
+          el.dataset.pairBadge = idx;
+          el.classList.add('has-pair-badge');
+        });
+      });
+    }
+    assign();
+    new MutationObserver(assign).observe(wrap, {subtree:true, attributes:true, attributeFilter:['class']});
+  }
+  function scan(node){
+    if(!node || node.nodeType !== 1) return;
+    if(node.classList && node.classList.contains('match-wrap')) initWrap(node);
+    if(node.querySelectorAll) node.querySelectorAll('.match-wrap').forEach(initWrap);
+  }
+  function start(){
+    scan(document.body);
+    new MutationObserver(function(mutations){
+      mutations.forEach(function(m){
+        m.addedNodes.forEach(scan);
+      });
+    }).observe(document.body, {childList:true, subtree:true});
+  }
+  if(document.body) start();
+  else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
 </head>
 <body>
 
