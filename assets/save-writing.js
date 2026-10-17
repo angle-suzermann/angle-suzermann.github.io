@@ -274,41 +274,61 @@
     });
   }
 
-  /* ---------- кнопка ---------- */
-  function ui() {
+  /* ---------- кнопки: под полями письма, не поверх страницы ---------- */
+  var cssDone = false;
+  function addCss() {
+    if (cssDone) return; cssDone = true;
     var css = document.createElement('style');
     css.textContent = [
-      '.sw-wrap{position:fixed;left:14px;bottom:max(14px,env(safe-area-inset-bottom));z-index:9998;font-family:inherit}',
-      '.sw-main,.sw-opt{font:inherit;font-weight:700;font-size:14px;cursor:pointer;border-radius:999px;border:2px solid ' + PURPLE + ';padding:9px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25)}',
-      '.sw-main{background:#ffd400;color:#111;border-color:#ffd400}',
-      '.sw-menu{display:none;flex-direction:column;gap:8px;margin:0 0 8px}',
-      '.sw-wrap.open .sw-menu{display:flex}',
-      '.sw-opt{background:#fff;color:' + PURPLE + '}',
-      '.sw-opt:hover{background:' + PURPLE + ';color:#fff}',
-      '@media print{.sw-wrap{display:none}}'
+      '.sw-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 4px;font-family:inherit}',
+      '.sw-label{font-weight:700;font-size:13px;color:' + PURPLE + '}',
+      '.sw-btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;border-radius:999px;border:2px solid ' + PURPLE + ';padding:6px 14px;background:#fff;color:' + PURPLE + '}',
+      '.sw-btn:hover{background:' + PURPLE + ';color:#fff}',
+      '@media (hover:none) and (pointer:coarse){.sw-btn{padding:9px 16px}}',
+      '@media print{.sw-bar{display:none}}'
     ].join('\n');
     document.head.appendChild(css);
-    var w = document.createElement('div'); w.className = 'sw-wrap';
-    var m = document.createElement('div'); m.className = 'sw-menu';
-    function opt(label, kind) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-opt'; b.textContent = label;
-      b.addEventListener('click', function () { w.classList.remove('open'); exportAs(kind); });
-      m.appendChild(b);
+  }
+  function makeBar() {
+    var bar = document.createElement('div'); bar.className = 'sw-bar';
+    var lab = document.createElement('span'); lab.className = 'sw-label'; lab.textContent = '⬇ Save my writing:';
+    bar.appendChild(lab);
+    [['Word (.doc)', 'doc'], ['PDF', 'pdf']].forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn'; b.textContent = o[0];
+      b.addEventListener('click', function () { exportAs(o[1]); });
+      bar.appendChild(b);
+    });
+    return bar;
+  }
+  /* на каждый блок (карточку/задание/совместное письмо), где есть поле письма, — одна панель сразу под последним полем */
+  function placeBars() {
+    var all = document.querySelectorAll('textarea, input'), groups = [];
+    for (var i = 0; i < all.length; i++) {
+      var f = all[i];
+      if (!isOpenInput(f)) continue;
+      var box = f.closest('.collab') || sectionOf(f);
+      var g = null;
+      for (var j = 0; j < groups.length; j++) if (groups[j].box === box) g = groups[j];
+      if (!g) { g = { box: box, last: f }; groups.push(g); } else g.last = f;
     }
-    opt('Word (.doc)', 'doc'); opt('PDF', 'pdf');
-    var main = document.createElement('button'); main.type = 'button'; main.className = 'sw-main';
-    main.textContent = '⬇ Save my writing';
-    main.addEventListener('click', function () { w.classList.toggle('open'); });
-    w.appendChild(m); w.appendChild(main);
-    document.body.appendChild(w);
+    var added = 0;
+    groups.forEach(function (g) {
+      if (g.box.getAttribute('data-sw-bar')) return;
+      var anchor = g.last;
+      if (g.box.classList && g.box.classList.contains('collab')) anchor = g.box;
+      else while (anchor.parentElement && anchor.parentElement !== g.box) anchor = anchor.parentElement;
+      addCss();
+      g.box.setAttribute('data-sw-bar', '1');
+      anchor.insertAdjacentElement('afterend', makeBar());
+      added++;
+    });
+    return added;
   }
 
-  var shown = false;
-  function tryShow() { if (!shown && hasCandidates()) { shown = true; ui(); } return shown; }
   function boot() {
+    placeBars();
     /* поля совместного письма создаются позже загрузки страницы — проверяем несколько раз */
-    if (tryShow()) return;
-    var n = 0, t = setInterval(function () { if (tryShow() || ++n > 12) clearInterval(t); }, 1000);
+    var n = 0, t = setInterval(function () { placeBars(); if (++n > 12) clearInterval(t); }, 1000);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();

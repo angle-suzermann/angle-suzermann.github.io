@@ -83,7 +83,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
-const SW_VERSION = 1;
+const SW_VERSION = 2;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 
