@@ -8,6 +8,10 @@
   2) Перед </body>:
        <script src="/assets/collab-config.js"></script>
        <script src="/assets/collab.js"></script>
+  2а) Разные группы на одной странице: добавь к ссылке ?room=группа-б (перекрывает data-room).
+      Ссылка ученикам: страница?room=группа-б ; учителю: страница?room=группа-б&teacher=<teacherKey>.
+  2б) Отправка на почту: ученик жмёт «Send to teacher» — приходит его текст + вся комната (Web3Forms,
+      тот же адрес, что у тестов; метка курса — из <meta ws:formspree>). Учитель: «Отправить итог на почту».
   3) Ссылка ученикам — обычный адрес страницы. Учителю — тот же адрес + ?teacher=<teacherKey>
      (teacherKey задан в assets/collab-config.js). Учитель переключает режимы и чистит комнату.
 

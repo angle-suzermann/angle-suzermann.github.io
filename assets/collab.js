@@ -98,7 +98,8 @@
 
   /* ---------- компонент ---------- */
   function init(root) {
-    var room = safeKey(root.getAttribute('data-room') || 'default');
+    var qs = new URLSearchParams(location.search);
+    var room = safeKey(qs.get('room') || root.getAttribute('data-room') || 'default');
     var defMode = root.getAttribute('data-mode') === 'shared' ? 'shared' : 'blocks';
     var prompt = root.getAttribute('data-prompt') || '';
     var cfg = window.ANGLE_FIREBASE || {};
@@ -124,7 +125,7 @@
     var foot = el('p', 'cb-note');
     root.appendChild(join); root.appendChild(body); root.appendChild(foot);
 
-    var btnBlocks, btnShared, btnCopy, btnClear;
+    var btnBlocks, btnShared, btnCopy, btnClear, btnSend;
     function mkBtn(label, cls, fn) {
       var b = el('button', 'cb-btn ' + (cls || ''), label); b.type = 'button'; b.addEventListener('click', fn); return b;
     }
@@ -135,6 +136,8 @@
     }
     btnCopy = mkBtn('Скопировать всё', '', copyAll);
     bar.appendChild(btnCopy);
+    btnSend = mkBtn(isTeacher ? 'Отправить итог на почту' : 'Send to teacher', 'main', sendResult);
+    bar.appendChild(btnSend);
     if (isTeacher) {
       btnClear = mkBtn('Очистить комнату', '', function () {
         if (confirm('Удалить все тексты в этой комнате?')) {
@@ -286,6 +289,56 @@
       foot.textContent = isTeacher
         ? 'Teacher view: you see everything live. Switch the mode at the top.'
         : (data.mode === 'blocks' ? 'You edit only your own box. Everyone else sees it live.' : 'You edit only your own paragraphs. Add a new one to continue the text.');
+    }
+
+    function meta(n) { var m = document.querySelector('meta[name="' + n + '"]'); return m ? m.getAttribute('content') : ''; }
+    function compile(onlyMine) {
+      var out = [];
+      if (data.mode === 'blocks') {
+        Object.keys(data.blocks || {}).forEach(function (k) {
+          var b = data.blocks[k];
+          if (b.text && (!onlyMine || k === uid)) out.push(b.name + ':\n' + b.text);
+        });
+      } else {
+        Object.keys(data.paras || {}).sort().forEach(function (k) {
+          var p = data.paras[k];
+          if (p.text && (!onlyMine || p.uid === uid)) out.push(p.text + '  (' + p.name + ')');
+        });
+      }
+      return out.join('\n\n');
+    }
+    function sendResult() {
+      var label = btnSend.textContent;
+      var mine = isTeacher ? compile(false) : compile(true);
+      if (!isTeacher && !name) { status.textContent = 'Enter your name first'; return; }
+      if (!mine) { status.textContent = isTeacher ? 'Комната пока пустая' : 'Write something first'; return; }
+      var course = meta('ws:course'), title = meta('ws:title') || document.title;
+      var who = isTeacher ? 'вся комната' : name;
+      var payload = {
+        access_key: '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234',
+        course: course,
+        course_id: meta('ws:formspree'),
+        subject: (course ? course + ' — ' : '') + title + ' — ' + who,
+        test: title,
+        student_name: who,
+        group: room,
+        mode: data.mode === 'shared' ? 'общий текст' : 'блок на каждого',
+        text: mine,
+        whole_room: compile(false),
+        submitted_at: new Date().toLocaleString('ru-RU')
+      };
+      btnSend.disabled = true; btnSend.textContent = '…';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (r.ok) { btnSend.textContent = isTeacher ? 'Отправлено ✓' : 'Sent ✓'; setTimeout(function () { btnSend.textContent = label; btnSend.disabled = false; }, 2500); return; }
+        return r.json().then(function (d) { throw new Error((d && d.error) || 'error'); });
+      }).catch(function (e) {
+        btnSend.textContent = label; btnSend.disabled = false;
+        status.textContent = 'Could not send: ' + e.message;
+      });
     }
 
     function copyAll() {
