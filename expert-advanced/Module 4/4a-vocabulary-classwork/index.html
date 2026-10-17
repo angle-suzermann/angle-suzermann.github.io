@@ -816,5 +816,272 @@ showPage(0);
 <script src="/assets/sticker-data.js"></script>
 <script src="/assets/sticker-logic.js"></script>
 <script src="/assets/sticker-auto.js"></script>
+<style>
+#inkCanvas{ position:absolute; top:0; left:0; z-index:500; pointer-events:none; touch-action:none; }
+.ink-toggle{
+  position:fixed; left:50%; bottom:16px; transform:translateX(-50%); z-index:9999;
+  width:52px; height:52px; border-radius:50%; border:none;
+  background:var(--purple,#5E4877); color:#fff; font-size:1.3rem;
+  box-shadow:0 4px 14px rgba(45,25,60,.35); cursor:pointer;
+}
+.ink-toggle.active{ background:var(--yellow,#FED500); color:var(--black,#2D2926); }
+.ink-panel{
+  position:fixed; left:50%; bottom:76px; transform:translateX(-50%); z-index:9999;
+  background:#fff; border:1.5px solid var(--purple,#5E4877); border-radius:14px;
+  padding:10px; box-shadow:0 8px 24px rgba(45,25,60,.3);
+  display:flex; flex-direction:column; gap:8px; width:238px;
+}
+.ink-panel[hidden]{ display:none; }
+.ink-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.ink-tool{
+  width:38px; height:38px; border-radius:8px; border:1.5px solid var(--neutral-border,#e4e0e8);
+  background:#fff; font-size:1.05rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.ink-tool.active{ border-color:var(--purple,#5E4877); background:#f3eef8; }
+.ink-color{
+  width:26px; height:26px; border-radius:50%; border:2px solid #fff;
+  outline:1.5px solid var(--neutral-border,#e4e0e8); cursor:pointer; padding:0;
+}
+.ink-color.active{ outline:2.5px solid var(--black,#2D2926); }
+.ink-action{
+  flex:1 1 auto; border:1.5px solid var(--purple,#5E4877); background:#fff; color:var(--purple,#5E4877);
+  border-radius:8px; padding:7px 8px; font-size:.82rem; font-weight:700; cursor:pointer; font-family:inherit;
+}
+.ink-action:hover{ background:#f3eef8; }
+</style>
+<canvas id="inkCanvas"></canvas>
+<button type="button" class="ink-toggle" id="inkToggle" title="Рисование">✏️</button>
+<div class="ink-panel" id="inkPanel" hidden>
+  <div class="ink-row">
+    <button type="button" class="ink-tool active" data-tool="pen" title="Ручка">✏️</button>
+    <button type="button" class="ink-tool" data-tool="highlighter" title="Маркер">🖍️</button>
+    <button type="button" class="ink-tool" data-tool="line" title="Линия">╱</button>
+    <button type="button" class="ink-tool" data-tool="arrow" title="Стрелка">➔</button>
+    <button type="button" class="ink-tool" data-tool="rect" title="Прямоугольник">▭</button>
+    <button type="button" class="ink-tool" data-tool="ellipse" title="Овал">◯</button>
+    <button type="button" class="ink-tool" data-tool="eraser" title="Ластик">🧹</button>
+  </div>
+  <div class="ink-row">
+    <button type="button" class="ink-color active" data-color="#2D2926" style="background:#2D2926" title="Чёрный"></button>
+    <button type="button" class="ink-color" data-color="#d6342c" style="background:#d6342c" title="Красный"></button>
+    <button type="button" class="ink-color" data-color="#2e6fd6" style="background:#2e6fd6" title="Синий"></button>
+    <button type="button" class="ink-color" data-color="#3fa66b" style="background:#3fa66b" title="Зелёный"></button>
+    <button type="button" class="ink-color" data-color="#FED500" style="background:#FED500" title="Жёлтый"></button>
+    <button type="button" class="ink-color" data-color="#5E4877" style="background:#5E4877" title="Фиолетовый"></button>
+    <button type="button" class="ink-color" data-color="#e8578c" style="background:#e8578c" title="Розовый"></button>
+    <button type="button" class="ink-color" data-color="#1f9e94" style="background:#1f9e94" title="Бирюзовый"></button>
+    <button type="button" class="ink-color" data-color="#e8762c" style="background:#e8762c" title="Оранжевый"></button>
+    <button type="button" class="ink-color" data-color="#8a5a3f" style="background:#8a5a3f" title="Коричневый"></button>
+  </div>
+  <div class="ink-row">
+    <button type="button" id="inkClear" class="ink-action">🗑️ Очистить</button>
+    <button type="button" id="inkDone" class="ink-action">✓ Готово</button>
+  </div>
+</div>
+<script>
+(function(){
+  var canvas = document.getElementById('inkCanvas');
+  var ctx = canvas.getContext('2d');
+  var toggle = document.getElementById('inkToggle');
+  var panel = document.getElementById('inkPanel');
+  var activeTool = 'pen';
+  var activeColor = '#2D2926';
+  var drawing = false;
+  var current = null;
+  var dpr = Math.max(1, window.devicePixelRatio || 1);
+
+  var hostEl = document.querySelector('.scroll-area') || document.body;
+  if(canvas.parentElement !== hostEl) hostEl.appendChild(canvas);
+
+  var STORE_KEY = 'angle_ink::' + location.pathname;
+  var allStrokes = {};
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    if(raw) allStrokes = JSON.parse(raw) || {};
+  }catch(e){}
+
+  function pageKey(){
+    var p = document.querySelector('.page.active[data-page]');
+    return p ? ('p' + p.getAttribute('data-page')) : 'single';
+  }
+  function strokesFor(key){
+    if(!allStrokes[key]) allStrokes[key] = [];
+    return allStrokes[key];
+  }
+  function persist(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(allStrokes)); }catch(e){}
+  }
+
+  function hostSize(){
+    return { w: hostEl.scrollWidth, h: hostEl.scrollHeight };
+  }
+
+  function resizeCanvas(){
+    var size = hostSize();
+    dpr = Math.max(1, window.devicePixelRatio || 1);
+    canvas.style.width = size.w + 'px';
+    canvas.style.height = size.h + 'px';
+    canvas.width = Math.round(size.w * dpr);
+    canvas.height = Math.round(size.h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    redrawInk();
+  }
+
+  function strokeStyleFor(tool){
+    if(tool === 'highlighter') return { width: 16, alpha: .35, cap: 'butt', comp: 'source-over' };
+    if(tool === 'eraser') return { width: 22, alpha: 1, cap: 'round', comp: 'destination-out' };
+    return { width: 3, alpha: 1, cap: 'round', comp: 'source-over' };
+  }
+
+  function drawPath(s){
+    if(!s.points || s.points.length < 2) return;
+    var st = strokeStyleFor(s.tool);
+    ctx.save();
+    ctx.globalCompositeOperation = st.comp;
+    ctx.globalAlpha = st.alpha;
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = st.width;
+    ctx.lineCap = st.cap;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(s.points[0][0], s.points[0][1]);
+    for(var i=1;i<s.points.length;i++){ ctx.lineTo(s.points[i][0], s.points[i][1]); }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawShape(s){
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    if(s.tool === 'rect'){
+      var x = Math.min(s.x1, s.x2), y = Math.min(s.y1, s.y2);
+      var w = Math.abs(s.x2 - s.x1), h = Math.abs(s.y2 - s.y1);
+      ctx.strokeRect(x, y, w, h);
+    } else if(s.tool === 'ellipse'){
+      var cx = (s.x1 + s.x2) / 2, cy = (s.y1 + s.y2) / 2;
+      var rx = Math.abs(s.x2 - s.x1) / 2, ry = Math.abs(s.y2 - s.y1) / 2;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, Math.max(rx,1), Math.max(ry,1), 0, 0, Math.PI*2);
+      ctx.stroke();
+    } else if(s.tool === 'line' || s.tool === 'arrow'){
+      ctx.beginPath();
+      ctx.moveTo(s.x1, s.y1);
+      ctx.lineTo(s.x2, s.y2);
+      ctx.stroke();
+      if(s.tool === 'arrow'){
+        var ang = Math.atan2(s.y2 - s.y1, s.x2 - s.x1);
+        var ah = 12;
+        ctx.beginPath();
+        ctx.moveTo(s.x2, s.y2);
+        ctx.lineTo(s.x2 - ah*Math.cos(ang - Math.PI/7), s.y2 - ah*Math.sin(ang - Math.PI/7));
+        ctx.moveTo(s.x2, s.y2);
+        ctx.lineTo(s.x2 - ah*Math.cos(ang + Math.PI/7), s.y2 - ah*Math.sin(ang + Math.PI/7));
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function redrawInk(){
+    var size = hostSize();
+    ctx.clearRect(0, 0, size.w, size.h);
+    var list = strokesFor(pageKey());
+    list.forEach(function(s){
+      if(s.type === 'path') drawPath(s);
+      else drawShape(s);
+    });
+    if(current){
+      if(current.type === 'path') drawPath(current);
+      else drawShape(current);
+    }
+  }
+  window.redrawInk = redrawInk;
+
+  function pt(e){
+    var r = canvas.getBoundingClientRect();
+    return [e.clientX - r.left, e.clientY - r.top];
+  }
+
+  function onDown(e){
+    if(canvas.style.pointerEvents === 'none') return;
+    drawing = true;
+    var p = pt(e);
+    if(activeTool === 'pen' || activeTool === 'highlighter' || activeTool === 'eraser'){
+      current = { type:'path', tool:activeTool, color:activeColor, points:[p] };
+    } else {
+      current = { type:'shape', tool:activeTool, color:activeColor, x1:p[0], y1:p[1], x2:p[0], y2:p[1] };
+    }
+    redrawInk();
+  }
+  function onMove(e){
+    if(!drawing || !current) return;
+    var p = pt(e);
+    if(current.type === 'path'){ current.points.push(p); }
+    else { current.x2 = p[0]; current.y2 = p[1]; }
+    redrawInk();
+  }
+  function onUp(){
+    if(!drawing || !current) return;
+    drawing = false;
+    strokesFor(pageKey()).push(current);
+    current = null;
+    redrawInk();
+    persist();
+  }
+
+  canvas.addEventListener('pointerdown', onDown);
+  canvas.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', onUp);
+  window.addEventListener('pointercancel', onUp);
+
+  function setToolActive(on){
+    canvas.style.pointerEvents = on ? 'auto' : 'none';
+    toggle.classList.toggle('active', on);
+    panel.hidden = !on;
+  }
+
+  toggle.addEventListener('click', function(){ setToolActive(panel.hidden); });
+  document.getElementById('inkDone').addEventListener('click', function(){ setToolActive(false); });
+  document.getElementById('inkClear').addEventListener('click', function(){
+    if(!confirm('Стереть пометки на этой странице?')) return;
+    allStrokes[pageKey()] = [];
+    redrawInk();
+    persist();
+  });
+  document.querySelectorAll('.ink-tool').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.ink-tool').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTool = btn.dataset.tool;
+    });
+  });
+  document.querySelectorAll('.ink-color').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.ink-color').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeColor = btn.dataset.color;
+    });
+  });
+
+  var resizeTimer = null;
+  function scheduleResize(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(resizeCanvas, 150); }
+  window.addEventListener('resize', scheduleResize);
+  if(window.ResizeObserver){ new ResizeObserver(scheduleResize).observe(hostEl); }
+
+  var pageObserver = new MutationObserver(function(muts){
+    for(var i=0;i<muts.length;i++){
+      if(muts[i].attributeName === 'class'){ scheduleResize(); return; }
+    }
+  });
+  pageObserver.observe(hostEl, { attributes:true, attributeFilter:['class'], subtree:true });
+
+  resizeCanvas();
+})();
+</script>
 </body>
 </html>
