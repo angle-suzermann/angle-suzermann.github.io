@@ -846,7 +846,7 @@ showPage(0);
 .ink-color.active{ outline:2.5px solid var(--black,#2D2926); }
 .ink-sticker-btn{
   width:26px; height:26px; border-radius:7px; border:1.5px solid var(--neutral-border,#e4e0e8);
-  background-size:cover; background-position:center; background-color:#fff;
+  background-size:contain; background-repeat:no-repeat; background-position:center; background-color:#fff;
   font-size:.8rem; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0;
 }
 .ink-sticker-btn.active{ border-color:var(--purple,#5E4877); background-color:#f3eef8; }
@@ -1039,7 +1039,8 @@ showPage(0);
     if(s.img){
       var im = getStickerImage(s.img);
       if(im && im.complete && im.naturalWidth){
-        ctx.drawImage(im, s.x - s.size/2, s.y - s.size/2, s.size, s.size);
+        var k = Math.min(s.size/im.naturalWidth, s.size/im.naturalHeight), dw = im.naturalWidth*k, dh = im.naturalHeight*k;
+        ctx.drawImage(im, s.x - dw/2, s.y - dh/2, dw, dh);
       }
     } else if(s.emoji){
       ctx.font = Math.round(s.size*0.9) + 'px sans-serif';
