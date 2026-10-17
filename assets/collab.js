@@ -91,6 +91,7 @@
     if (text != null) e.textContent = text;
     return e;
   }
+  function wc(n) { return n + (n === 1 ? ' word' : ' words'); }
   function words(t) { t = (t || '').trim(); return t ? t.split(/\s+/).length : 0; }
   function rid() { return Math.random().toString(36).slice(2, 10); }
   function safeKey(s) { return String(s).replace(/[.#$\[\]\/]/g, '_'); }
@@ -177,7 +178,7 @@
     function own(path, textarea, extra, metaEl) {
       textarea.addEventListener('input', function () {
         var t = textarea.value.slice(0, MAX_TEXT);
-        metaEl.textContent = words(t) + ' words';
+        metaEl.textContent = wc(words(t));
         var obj = { uid: uid, name: name, text: t, ts: Date.now() };
         for (var k in extra) obj[k] = extra[k];
         queueSend(path, obj);
@@ -246,7 +247,7 @@
         if (t) { c.field.classList.remove('cb-empty'); c.field.textContent = t; }
         else { c.field.classList.add('cb-empty'); c.field.textContent = '…'; }
       }
-      c.meta.textContent = words(c.canEdit ? c.field.value : item.text) + ' words';
+      c.meta.textContent = wc(words(c.canEdit ? c.field.value : item.text));
       return c;
     }
 
