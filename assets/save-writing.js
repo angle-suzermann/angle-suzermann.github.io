@@ -276,26 +276,45 @@
 
   /* ---------- кнопки: под полями письма, не поверх страницы ---------- */
   var cssDone = false;
+  /* адрес стикера: рядом со скриптом (учитывает basePath сайта) */
+  function stickerUrl() {
+    var sc = document.querySelector('script[src*="save-writing.js"]');
+    var base = '';
+    if (sc) { var m = (sc.getAttribute('src') || '').match(/^(.*)\/assets\/save-writing\.js/); if (m) base = m[1]; }
+    return base + '/assets/brand/save-sticker.webp';
+  }
   function addCss() {
     if (cssDone) return; cssDone = true;
     var css = document.createElement('style');
+    /* вид как у кнопок «Скачать шаблоны» в тренажёрах 37/38: белая таблетка, фиолетовый круг со стрелкой, жёлтое подчёркивание, стикер сбоку */
     css.textContent = [
-      '.sw-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 4px;font-family:inherit}',
-      '.sw-label{font-weight:700;font-size:13px;color:' + PURPLE + '}',
-      '.sw-btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;border-radius:999px;border:2px solid ' + PURPLE + ';padding:6px 14px;background:#fff;color:' + PURPLE + '}',
-      '.sw-btn:hover{background:' + PURPLE + ';color:#fff}',
-      '@media (hover:none) and (pointer:coarse){.sw-btn{padding:9px 16px}}',
+      '.sw-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:12px 0 22px;font-family:inherit}',
+      '.sw-btn{position:relative;display:inline-flex;align-items:center;gap:14px;max-width:100%;box-sizing:border-box;padding:10px 100px 10px 10px;background:#fff;color:#2D2926;border:1px solid rgba(94,72,119,.28);border-radius:999px;box-shadow:0 1px 2px rgba(45,41,38,.05),0 8px 22px rgba(94,72,119,.10);cursor:pointer;font:inherit;text-align:left;transition:border-color .2s,box-shadow .2s,transform .2s}',
+      '.sw-btn:hover{border-color:#5E4877;box-shadow:0 2px 4px rgba(45,41,38,.06),0 12px 28px rgba(94,72,119,.18);transform:translateY(-1px)}',
+      '.sw-ic{flex:none;width:38px;height:38px;border-radius:50%;background:#5E4877;display:flex;align-items:center;justify-content:center}',
+      '.sw-ic svg{width:18px;height:18px;stroke:#FED500;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}',
+      '.sw-btn:hover .sw-ic svg{transform:translateY(2px)}',
+      '.sw-k{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5E4877}',
+      '.sw-t{display:block;font-size:.98rem;font-weight:700;line-height:1.25}',
+      '.sw-t::after{content:"";display:block;width:28px;height:2px;margin-top:4px;background:#FED500;border-radius:2px;transition:width .25s}',
+      '.sw-btn:hover .sw-t::after{width:100%}',
+      '.sw-stk{position:absolute;right:6px;bottom:-4px;width:88px;height:66px;background:center/contain no-repeat;transform:rotate(-4deg);transform-origin:bottom left;transition:transform .25s;pointer-events:none}',
+      '.sw-btn:hover .sw-stk{transform:rotate(4deg) translateY(-4px) scale(1.05)}',
+      '@media (max-width:520px){.sw-btn{padding-right:92px}.sw-stk{width:78px;height:58px}}',
       '@media print{.sw-bar{display:none}}'
     ].join('\n');
+    css.textContent += '\n.sw-stk{background-image:url(' + stickerUrl() + ')}';
     document.head.appendChild(css);
   }
+  var ARROW = '<svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>';
   function makeBar() {
     var bar = document.createElement('div'); bar.className = 'sw-bar';
-    var lab = document.createElement('span'); lab.className = 'sw-label'; lab.textContent = '⬇ Save my writing:';
-    bar.appendChild(lab);
-    [['Word (.doc)', 'doc'], ['PDF', 'pdf']].forEach(function (o) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn'; b.textContent = o[0];
-      b.addEventListener('click', function () { exportAs(o[1]); });
+    [['Word · .doc', 'Save my writing', 'doc'], ['PDF', 'Save my writing', 'pdf']].forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn';
+      b.innerHTML = '<span class="sw-ic">' + ARROW + '</span><span><span class="sw-k"></span><span class="sw-t"></span></span><span class="sw-stk"></span>';
+      b.querySelector('.sw-k').textContent = o[0];
+      b.querySelector('.sw-t').textContent = o[1];
+      b.addEventListener('click', function () { exportAs(o[2]); });
       bar.appendChild(b);
     });
     return bar;
