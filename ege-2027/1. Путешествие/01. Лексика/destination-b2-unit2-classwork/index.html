@@ -99,6 +99,9 @@ input.fib, input.fib-fz{border:none;border-bottom:2px solid var(--purple);backgr
 input.fib:focus, input.fib-fz:focus{outline:none;border-bottom-color:var(--yellow);}
 input.is-correct, select.is-correct{background:#e8f7ee;border-color:var(--correct)!important;color:var(--correct)!important;}
 input.is-wrong, select.is-wrong{background:#fbeae7;border-color:var(--wrong)!important;color:var(--wrong)!important;}
+.answer-reveal{color:var(--purple);font-weight:700;font-style:italic;margin-left:6px;font-size:.88em;}
+.reveal-btn{width:100%;background:transparent;border:2px solid var(--purple);color:var(--purple);margin-top:10px;font-family:inherit;font-weight:700;padding:12px;border-radius:10px;cursor:pointer;font-size:.95rem;}
+.reveal-btn:hover{background:var(--card-tint);}
 select.dd{font-family:inherit;font-size:.92rem;padding:5px 8px;border-radius:7px;border:1.5px solid var(--purple);}
 
 .mcq{display:flex;flex-direction:column;gap:6px;}
@@ -335,6 +338,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
       <h1>Finish</h1>
       <p>Check that every exercise is complete, then submit. Your score is calculated automatically and sent to your teacher.</p>
       <button class="nav-btns submit-btn" style="width:100%;" onclick="submitAll()"><span class="submit-icon">✓</span> Check &amp; Submit</button>
+      <button type="button" class="reveal-btn" onclick="showAnswers()">👁 Показать ответы (для учителя)</button>
       <div id="scoreSummary" hidden></div>
       <div id="submitStatus"></div>
       <p style="color:rgba(0,0,0,.35);font-size:9px;margin-top:22px;">Photo: Dino Reichmuth / Unsplash</p>
@@ -701,6 +705,24 @@ function normalize(s){ return (s||"").trim().toLowerCase().replace(/['’"]/g,""
 function matchAny(value, answerStr){
   const v = normalize(value);
   return answerStr.split("|").some(a=>normalize(a)===v);
+}
+
+function showAnswers(){
+  document.querySelectorAll(".fib[data-answer]").forEach(inp=>{
+    const next = inp.nextElementSibling;
+    if(next && next.classList && next.classList.contains("answer-reveal")) return;
+    const ans = inp.dataset.answer.split("|")[0];
+    const span = document.createElement("span");
+    span.className = "answer-reveal";
+    span.textContent = "\u2192 " + ans;
+    inp.insertAdjacentElement("afterend", span);
+  });
+  document.querySelectorAll(".mcq[data-correct]").forEach(g=>{
+    g.closest(".item").classList.add("checked");
+    g.querySelectorAll(".opt").forEach(o=>{
+      o.classList.toggle("correct-ans", normalize(o.dataset.val)===normalize(g.dataset.correct));
+    });
+  });
 }
 
 async function submitAll(){
