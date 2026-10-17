@@ -1076,20 +1076,22 @@ restoreProgress();
 <style>
 #inkCanvas{ position:absolute; top:0; left:0; z-index:500; pointer-events:none; touch-action:none; }
 .ink-toggle{
-  position:fixed; left:50%; bottom:16px; transform:translateX(-50%); z-index:9999;
+  position:fixed; left:16px; top:50%; transform:translateY(-50%); z-index:9999;
   width:52px; height:52px; border-radius:50%; border:none;
   background:var(--purple,#5E4877); color:#fff; font-size:1.3rem;
   box-shadow:0 4px 14px rgba(45,25,60,.35); cursor:pointer;
 }
 .ink-toggle.active{ background:var(--yellow,#FED500); color:var(--black,#2D2926); }
 .ink-panel{
-  position:fixed; left:50%; bottom:76px; transform:translateX(-50%); z-index:9999;
+  position:fixed; left:76px; top:50%; transform:translateY(-50%); z-index:9999;
   background:#fff; border:1.5px solid var(--purple,#5E4877); border-radius:14px;
   padding:10px; box-shadow:0 8px 24px rgba(45,25,60,.3);
-  display:flex; flex-direction:column; gap:8px; width:238px;
+  display:flex; flex-direction:column; gap:10px; width:auto;
+  max-height:86vh; overflow-y:auto;
 }
 .ink-panel[hidden]{ display:none; }
-.ink-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.ink-row{ display:flex; flex-direction:column; gap:6px; }
+.ink-row.ink-colors{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px; }
 .ink-tool{
   width:38px; height:38px; border-radius:8px; border:1.5px solid var(--neutral-border,#e4e0e8);
   background:#fff; font-size:1.05rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -1101,15 +1103,16 @@ restoreProgress();
 }
 .ink-color.active{ outline:2.5px solid var(--black,#2D2926); }
 .ink-action{
-  flex:1 1 auto; border:1.5px solid var(--purple,#5E4877); background:#fff; color:var(--purple,#5E4877);
-  border-radius:8px; padding:7px 8px; font-size:.82rem; font-weight:700; cursor:pointer; font-family:inherit;
+  width:38px; height:38px; border:1.5px solid var(--purple,#5E4877); background:#fff; color:var(--purple,#5E4877);
+  border-radius:8px; padding:0; font-size:1.05rem; font-weight:700; cursor:pointer; font-family:inherit;
+  display:flex; align-items:center; justify-content:center;
 }
 .ink-action:hover{ background:#f3eef8; }
 </style>
 <canvas id="inkCanvas"></canvas>
 <button type="button" class="ink-toggle" id="inkToggle" title="Рисование">✏️</button>
 <div class="ink-panel" id="inkPanel" hidden>
-  <div class="ink-row">
+  <div class="ink-row ink-tools">
     <button type="button" class="ink-tool active" data-tool="pen" title="Ручка">✏️</button>
     <button type="button" class="ink-tool" data-tool="highlighter" title="Маркер">🖍️</button>
     <button type="button" class="ink-tool" data-tool="line" title="Линия">╱</button>
@@ -1118,7 +1121,7 @@ restoreProgress();
     <button type="button" class="ink-tool" data-tool="ellipse" title="Овал">◯</button>
     <button type="button" class="ink-tool" data-tool="eraser" title="Ластик">🧹</button>
   </div>
-  <div class="ink-row">
+  <div class="ink-row ink-colors">
     <button type="button" class="ink-color active" data-color="#2D2926" style="background:#2D2926" title="Чёрный"></button>
     <button type="button" class="ink-color" data-color="#d6342c" style="background:#d6342c" title="Красный"></button>
     <button type="button" class="ink-color" data-color="#2e6fd6" style="background:#2e6fd6" title="Синий"></button>
@@ -1130,9 +1133,9 @@ restoreProgress();
     <button type="button" class="ink-color" data-color="#e8762c" style="background:#e8762c" title="Оранжевый"></button>
     <button type="button" class="ink-color" data-color="#8a5a3f" style="background:#8a5a3f" title="Коричневый"></button>
   </div>
-  <div class="ink-row">
-    <button type="button" id="inkClear" class="ink-action">🗑️ Очистить</button>
-    <button type="button" id="inkDone" class="ink-action">✓ Готово</button>
+  <div class="ink-row ink-actions">
+    <button type="button" id="inkClear" class="ink-action" title="Очистить">🗑️</button>
+    <button type="button" id="inkDone" class="ink-action" title="Готово">✓</button>
   </div>
 </div>
 <script>
