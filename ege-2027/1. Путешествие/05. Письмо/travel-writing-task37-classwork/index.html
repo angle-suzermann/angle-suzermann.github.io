@@ -316,6 +316,77 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   else document.addEventListener('DOMContentLoaded', start);
 })();
 </script>
+<style>
+.reveal-btn-sm{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--purple,#5E4877);background:#fff;color:var(--purple,#5E4877);border-radius:50%;cursor:pointer;font-size:.78rem;line-height:1;margin-left:6px;padding:4px 6px;vertical-align:middle;font-family:inherit;}
+.reveal-btn-sm:hover{background:var(--card-tint,#f6f2fa);}
+input.reveal-filled{background:#e8f7ee!important;border-color:var(--correct,#3fa66b)!important;color:var(--correct,#3fa66b)!important;}
+.opt.reveal-correct{background:#e8f7ee!important;border-color:var(--correct,#3fa66b)!important;color:var(--correct,#3fa66b)!important;}
+</style>
+<script>
+(function(){
+  function norm(s){ return (s||"").trim().toLowerCase().replace(/['’"]/g,"").replace(/\s+/g," "); }
+  function getAns(el){
+    var v = el.dataset.answer;
+    if(v==null) v = el.dataset.answers;
+    if(v==null) v = el.dataset.ansList;
+    if(v==null) v = el.dataset.answerList;
+    if(v==null) return null;
+    return v.split("|")[0];
+  }
+  function mkBtn(onReveal){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "reveal-btn-sm";
+    btn.title = "Показать ответ";
+    btn.textContent = "\u{1F441}";
+    btn.onclick = function(){ onReveal(); btn.remove(); };
+    return btn;
+  }
+  function addFibBtn(inp){
+    if(inp.__revealDone) return;
+    inp.__revealDone = true;
+    var btn = mkBtn(function(){
+      inp.value = getAns(inp);
+      inp.classList.add("reveal-filled");
+    });
+    inp.insertAdjacentElement("afterend", btn);
+  }
+  function addMcqBtn(grp){
+    if(grp.__revealDone) return;
+    grp.__revealDone = true;
+    var btn = mkBtn(function(){
+      grp.querySelectorAll(".opt[data-val]").forEach(function(o){
+        if(norm(o.dataset.val) === norm(grp.dataset.correct)) o.classList.add("reveal-correct");
+      });
+    });
+    var item = grp.closest(".item");
+    var q = item ? item.querySelector("p") : null;
+    if(q) q.insertAdjacentElement("afterend", btn);
+    else grp.insertAdjacentElement("afterend", btn);
+  }
+  function scan(root){
+    if(!root || root.nodeType !== 1) return;
+    var inputs = [];
+    if(root.tagName === "INPUT") inputs.push(root);
+    if(root.querySelectorAll) inputs = inputs.concat(Array.prototype.slice.call(root.querySelectorAll("input")));
+    inputs.forEach(function(inp){ if(getAns(inp) !== null) addFibBtn(inp); });
+    var groups = [];
+    if(root.hasAttribute && root.hasAttribute("data-correct")) groups.push(root);
+    if(root.querySelectorAll) groups = groups.concat(Array.prototype.slice.call(root.querySelectorAll("[data-correct]")));
+    groups.forEach(function(g){ if(g.querySelector(".opt[data-val]")) addMcqBtn(g); });
+  }
+  function start(){
+    scan(document.body);
+    new MutationObserver(function(muts){
+      muts.forEach(function(m){
+        m.addedNodes.forEach(scan);
+      });
+    }).observe(document.body, {childList:true, subtree:true});
+  }
+  if(document.body) start();
+  else document.addEventListener("DOMContentLoaded", start);
+})();
+</script>
 </head>
 <body>
 <div class="app-shell">
