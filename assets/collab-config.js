@@ -5,5 +5,5 @@
    (см. _templates/collab-snippet.html). */
 window.ANGLE_FIREBASE = {
   databaseURL: 'https://angle-7fc46-default-rtdb.firebaseio.com',
-  teacherKey: 'angle'   /* ссылка для учителя: страница?teacher=angle  — смени на своё слово */
+  teacherKey: 'vika-sx9jg9'   /* ссылка для учителя: страница?teacher=vika-sx9jg9  — не показывай её ученикам */
 };
