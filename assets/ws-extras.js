@@ -74,7 +74,12 @@
   /* ---------- «Показать ответ» ---------- */
   var tm = document.querySelector('meta[name="ws:type"]');
   var type = tm ? (tm.getAttribute('content') || '') : '';
-  var REVEAL = type === 'worksheet' || type === 'warmup';
+  /* Глаз только на классной работе. Явный <meta name="ws:kind" content="classwork|homework"> главнее;
+     без него решает имя папки страницы: «classwork» в адресе = классная работа, всё остальное (homework, vocab, warmup и т.д.) без глаза. */
+  var km = document.querySelector('meta[name="ws:kind"]');
+  var kind = km ? (km.getAttribute('content') || '').toLowerCase() : '';
+  var isClasswork = kind ? kind === 'classwork' : /classwork/i.test(decodeURIComponent(location.pathname));
+  var REVEAL = (type === 'worksheet' || type === 'warmup') && isClasswork;
 
   function norm(s) { return (s || '').trim().toLowerCase().replace(/['’"]/g, '').replace(/\s+/g, ' '); }
   function getAns(el) {
