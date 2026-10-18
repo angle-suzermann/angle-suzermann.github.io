@@ -31,6 +31,46 @@
   st.textContent = css;
   (document.head || document.documentElement).appendChild(st);
 
+  /* ---------- британский голос для озвучки (🔊 и т.п.) ----------
+     Все страницы озвучивают через speechSynthesis. Здесь один раз подменяем speak():
+     английским фразам ставим en-GB и лучший из доступных британских голосов.
+     Другие языки (например, русский) не трогаем. */
+  (function () {
+    var ss = window.speechSynthesis;
+    if (!ss || !window.SpeechSynthesisUtterance || ss.__gbPatched) return;
+    ss.__gbPatched = true;
+    /* чем выше, тем естественнее: нейронные голоса Edge/Windows, Google UK, затем Apple */
+    var PREF = [/natural|online/i, /google uk english/i, /(^|\s)(sonia|ryan|libby|maisie|thomas)\b/i,
+      /premium|enhanced/i, /(^|\s)(daniel|kate|serena|oliver|arthur|martha)\b/i];
+    var picked = null;
+    function isGB(v) { return /^en[-_]GB$/i.test(v.lang || ''); }
+    function pick() {
+      var vs = ss.getVoices ? ss.getVoices() : [];
+      var gb = vs.filter(isGB);
+      if (!gb.length) return null;
+      for (var i = 0; i < PREF.length; i++) {
+        for (var j = 0; j < gb.length; j++) { if (PREF[i].test(gb[j].name)) return gb[j]; }
+      }
+      return gb[0];
+    }
+    function refresh() { var v = pick(); if (v) picked = v; }
+    refresh();
+    if (ss.addEventListener) ss.addEventListener('voiceschanged', refresh);
+    var orig = ss.speak;
+    ss.speak = function (u) {
+      try {
+        var l = u && u.lang ? String(u.lang) : '';
+        if (u && (!l || /^en/i.test(l))) {
+          u.lang = 'en-GB';
+          if (!picked) refresh();
+          if (picked) u.voice = picked;
+          if (!(u.rate > 0) || u.rate > 1) u.rate = 0.95;
+        }
+      } catch (e) { }
+      return orig.call(ss, u);
+    };
+  })();
+
   /* ---------- «Показать ответ» ---------- */
   var tm = document.querySelector('meta[name="ws:type"]');
   var type = tm ? (tm.getAttribute('content') || '') : '';
