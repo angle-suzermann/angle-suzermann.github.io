@@ -260,10 +260,10 @@ function injectHead(dir) {
        скрипт сам решает, показывать ли кнопку (есть ли поля для письменных ответов) */
     const isMaterial = /<meta\b[^>]*\bname=["']ws:course-id["']/i.test(cleaned)
       && !/<meta\b[^>]*\bname=["']ws:type["'][^>]*\bcontent=["']presentation["']/i.test(cleaned);
-    const swTag = isMaterial && !/save-writing\.js/.test(cleaned)
+    const swTag = isMaterial && !/<script\b[^>]*save-writing\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/save-writing.js?v=${SW_VERSION}" defer></script>\n` : '';
     /* глаз «показать ответ» + цвета пар в matching: assets/ws-extras.js, на каждый материал */
-    const wxTag = isMaterial && !/ws-extras\.js/.test(cleaned)
+    const wxTag = isMaterial && !/<script\b[^>]*ws-extras\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/ws-extras.js?v=${WX_VERSION}" defer></script>\n` : '';
     const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}${wxTag}`;
     const out = /<meta\s+charset=[^>]*>/i.test(cleaned)
