@@ -653,5 +653,35 @@ restoreProgress();
 updateWordCount();
 
 </script>
+<script>
+/* "Show answer" eye for word-bank gaps (readonly inputs are skipped by the shared ws-extras.js, so these get their own eye; same .reveal-btn-sm style) */
+(function(){
+  function add(){
+    document.querySelectorAll('.fib[readonly][data-answer]').forEach(function(inp){
+      if(inp.__revealDone) return;
+      inp.__revealDone = true;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'reveal-btn-sm'; b.title = 'Show answer'; b.setAttribute('aria-label','Show answer'); b.textContent = '\u{1F441}';
+      b.onclick = function(){
+        var word = inp.dataset.answer;
+        document.querySelectorAll('.word-bank').forEach(function(bank){
+          var toks = [].slice.call(bank.children);
+          toks.forEach(function(t){ if(inp.value && t.dataset.token === inp.value && t.classList.contains('used')) t.classList.remove('used'); });
+          var free = toks.filter(function(t){ return t.dataset.token === word && !t.classList.contains('used'); })[0];
+          if(free) free.classList.add('used');
+        });
+        inp.value = word;
+        inp.classList.remove('is-wrong');
+        inp.classList.add('reveal-filled');
+        if(typeof scheduleSave === 'function') scheduleSave();
+        b.remove();
+      };
+      inp.insertAdjacentElement('afterend', b);
+    });
+  }
+  add();
+  setTimeout(add, 600);
+})();
+</script>
 </body>
 </html>
