@@ -53,7 +53,7 @@ body{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text
 .page-dot.active{background:linear-gradient(135deg,var(--yellow),var(--purple));border-color:var(--purple);color:var(--black);}
 @media (max-width:600px){.lesson-title{font-size:.95rem;}}
 .scroll-area{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative;z-index:2;touch-action:pan-y;}
-.page-wrap{max-width:900px;margin:0 auto;padding:14px 14px 140px;}
+.page-wrap{max-width:900px;margin:0 auto;padding:14px 14px calc(140px + env(safe-area-inset-bottom,0px));}
 .page{display:none;} .page.active{display:block;animation:fadein .25s ease;}
 @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 .card{background:var(--card);border-radius:14px;padding:20px 18px;margin:16px 0;box-shadow:0 6px 22px rgba(45,25,60,.10);border:1px solid var(--border);}
@@ -161,10 +161,10 @@ mark.ev.lit{background:var(--yellow);border-radius:3px;padding:0 2px;}
 .reset-link a{font-size:.8rem;color:rgba(255,255,255,.8);cursor:pointer;text-decoration:underline;}
 .start-list{line-height:1.7;padding-left:20px;}
 /* badge */
-.angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
+.angle-badge{position:fixed;left:18px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
 .angle-badge .wordmark{width:100px;height:auto;display:block;overflow:visible;}
 .angle-badge .credit{margin-top:3px;margin-left:2px;font-family:'Apercu Pro',sans-serif;font-weight:400;font-size:10px;}
-@media (max-width:480px){.angle-badge .wordmark{width:74px;}.angle-badge{left:10px;bottom:8px;}.angle-badge .credit{font-size:9px;}}
+@media (max-width:480px){.angle-badge .wordmark{width:74px;}.angle-badge{left:10px;bottom:calc(8px + env(safe-area-inset-bottom,0px));}.angle-badge .credit{font-size:9px;}}
 
 .fix-orig{color:var(--wrong);margin:0 0 2px;font-size:.93rem;}
 .fix-orig i{text-decoration:line-through;text-decoration-color:rgba(214,80,63,.6);}
