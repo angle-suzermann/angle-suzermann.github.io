@@ -749,6 +749,41 @@ renderPage();
 }
 .ink-action:disabled{ opacity:.35; cursor:default; }
 .ink-action:hover:not(:disabled){ background:#f3eef8; }
+.note-toggle{
+  position:fixed; left:16px; top:calc(50% + 50px); transform:translateY(-50%); z-index:9999;
+  width:40px; height:40px; border-radius:50%; border:none;
+  background:var(--yellow,#FED500); color:var(--black,#2D2926);
+  box-shadow:0 3px 10px rgba(45,25,60,.35); cursor:grab; touch-action:none;
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.note-toggle:active{ cursor:grabbing; }
+.note-toggle.active{ background:var(--purple,#5E4877); color:#fff; }
+.note-panel{
+  position:fixed; left:60px; top:calc(50% + 50px); transform:translateY(-50%); z-index:9999;
+  background:#fffbe6; border:1.5px solid #e8d36a; border-radius:10px;
+  box-shadow:0 8px 24px rgba(45,25,60,.3);
+  width:220px; height:200px; min-width:160px; min-height:140px;
+  display:flex; flex-direction:column; resize:both; overflow:hidden;
+}
+.note-panel[hidden]{ display:none; }
+.note-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:6px 8px; font-size:.78rem; font-weight:700; color:#8c6f00;
+  border-bottom:1px solid #e8d36a; flex:0 0 auto;
+}
+.note-close{ border:none; background:none; cursor:pointer; font-size:.85rem; color:#8c6f00; padding:0 2px; line-height:1; }
+.note-text{
+  flex:1 1 auto; border:none; background:transparent; resize:none; padding:8px;
+  font-family:inherit; font-size:.85rem; color:#4a3b00; min-height:0;
+}
+.note-text:focus{ outline:none; }
+.note-foot{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:3px 8px; font-size:.66rem; color:#a08d3f; flex:0 0 auto;
+}
+.note-saved{ opacity:0; transition:opacity .3s; }
+.note-saved.show{ opacity:1; }
+.note-clear{ border:none; background:none; cursor:pointer; font-size:.78rem; padding:0 2px; }
 </style>
 <canvas id="inkCanvas"></canvas>
 <canvas id="laserCanvas"></canvas>
@@ -765,6 +800,7 @@ renderPage();
     <button type="button" class="ink-tool" data-tool="ellipse" title="Овал">◯</button>
     <button type="button" class="ink-tool" data-tool="eraser" title="Ластик">🧹</button>
     <button type="button" class="ink-tool" data-tool="laser" title="Лазерная указка">🔴</button>
+    <button type="button" class="ink-tool" data-tool="text" title="Текст">T</button>
   </div>
   <div class="ink-row ink-colors">
     <button type="button" class="ink-color active" data-color="#2D2926" style="background:#2D2926" title="Чёрный"></button>
@@ -791,6 +827,20 @@ renderPage();
     <button type="button" id="inkDone" class="ink-action" title="Готово">✓</button>
   </div>
 </div>
+<button type="button" class="note-toggle" id="noteToggle" title="Заметки (перетащи, чтобы передвинуть)">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
+</button>
+<div class="note-panel" id="notePanel" hidden>
+  <div class="note-head">
+    <span>Заметки</span>
+    <button type="button" id="noteClose" class="note-close" title="Закрыть">✕</button>
+  </div>
+  <textarea id="noteText" class="note-text" placeholder="Пиши здесь..."></textarea>
+  <div class="note-foot">
+    <span class="note-saved" id="noteSaved">✓ сохранено</span>
+    <button type="button" id="noteClear" class="note-clear" title="Очистить заметки">🗑️</button>
+  </div>
+</div>
 <script>
 (function(){
   var canvas = document.getElementById('inkCanvas');
@@ -804,6 +854,7 @@ renderPage();
   var activeTool = 'pen';
   var activeColor = '#2D2926';
   var activeStamp = null;
+  var activeTextInput = null;
   var drawing = false;
   var current = null;
   var dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -943,6 +994,56 @@ renderPage();
     ctx.restore();
   }
 
+  function drawText(s){
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = s.color;
+    var size = s.size || 20;
+    ctx.font = size + 'px "Apercu Pro","Helvetica Neue",Arial,sans-serif';
+    ctx.textBaseline = 'top';
+    var lines = String(s.text || '').split('\n');
+    var lh = Math.round(size * 1.25);
+    lines.forEach(function(line, i){ ctx.fillText(line, s.x, s.y + i*lh); });
+    ctx.restore();
+  }
+
+  function commitTextInput(ta, p, save){
+    if(activeTextInput !== ta) return;
+    activeTextInput = null;
+    var val = ta.value;
+    if(ta.parentNode) ta.parentNode.removeChild(ta);
+    if(!save || !val.trim()) { redrawInk(); return; }
+    strokesFor(pageKey()).push({ type:'text', x:p[0], y:p[1], text:val, color:activeColor, size:20 });
+    redoStacks[pageKey()] = [];
+    redrawInk();
+    persist();
+    updateUndoRedoButtons();
+  }
+  function startTextInput(p){
+    if(activeTextInput) commitTextInput(activeTextInput, activeTextInput.__pt, true);
+    var ta = document.createElement('textarea');
+    ta.className = 'ink-text-input';
+    ta.rows = 1;
+    ta.style.cssText = 'position:absolute;left:' + p[0] + 'px;top:' + p[1] + 'px;min-width:120px;max-width:60vw;' +
+      'font:20px \"Apercu Pro\",\"Helvetica Neue\",Arial,sans-serif;color:' + activeColor + ';background:rgba(255,255,255,.85);' +
+      'border:1.5px dashed ' + activeColor + ';border-radius:4px;padding:2px 4px;z-index:600;resize:none;overflow:hidden;line-height:1.25;';
+    ta.__pt = p;
+    hostEl.appendChild(ta);
+    activeTextInput = ta;
+    function autosize(){ ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+    ta.addEventListener('input', autosize);
+    ta.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ e.preventDefault(); commitTextInput(ta, p, false); }
+      else if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); commitTextInput(ta, p, true); }
+    });
+    ta.addEventListener('blur', function(){ commitTextInput(ta, p, true); });
+    autosize();
+    /* defer focus to a macrotask: the pointerdown's own default handling can
+       otherwise blur a textarea focused synchronously inside this handler */
+    setTimeout(function(){ ta.focus(); }, 0);
+  }
+
   function redrawInk(){
     var size = hostSize();
     ctx.clearRect(0, 0, size.w, size.h);
@@ -950,6 +1051,7 @@ renderPage();
     list.forEach(function(s){
       if(s.type === 'path') drawPath(s);
       else if(s.type === 'stamp') drawStamp(s);
+      else if(s.type === 'text') drawText(s);
       else drawShape(s);
     });
     if(current){
@@ -977,6 +1079,10 @@ renderPage();
       redrawInk();
       persist();
       updateUndoRedoButtons();
+      return;
+    }
+    if(activeTool === 'text'){
+      startTextInput(p);
       return;
     }
     drawing = true;
@@ -1034,6 +1140,7 @@ renderPage();
   requestAnimationFrame(laserLoop);
 
   function setToolActive(on){
+    if(!on && activeTextInput) commitTextInput(activeTextInput, activeTextInput.__pt, true);
     canvas.style.pointerEvents = on ? 'auto' : 'none';
     toggle.classList.toggle('active', on);
     panel.hidden = !on;
@@ -1089,6 +1196,7 @@ renderPage();
   document.getElementById('inkDone').addEventListener('click', function(){ setToolActive(false); });
   document.getElementById('inkClear').addEventListener('click', function(){
     if(!confirm('Стереть пометки на этой странице?')) return;
+    if(activeTextInput) commitTextInput(activeTextInput, activeTextInput.__pt, false);
     allStrokes[pageKey()] = [];
     redoStacks[pageKey()] = [];
     redrawInk();
@@ -1118,6 +1226,7 @@ renderPage();
 
   document.querySelectorAll('.ink-tool').forEach(function(btn){
     btn.addEventListener('click', function(){
+      if(activeTextInput && btn.dataset.tool !== 'text') commitTextInput(activeTextInput, activeTextInput.__pt, true);
       document.querySelectorAll('.ink-tool').forEach(function(b){ b.classList.remove('active'); });
       document.querySelectorAll('.ink-sticker-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
@@ -1179,6 +1288,94 @@ renderPage();
   pageObserver.observe(hostEl, { attributes:true, attributeFilter:['class'], subtree:true });
 
   resizeCanvas();
+})();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('noteToggle');
+  var panel = document.getElementById('notePanel');
+  var closeBtn = document.getElementById('noteClose');
+  var clearBtn = document.getElementById('noteClear');
+  var textEl = document.getElementById('noteText');
+  var savedEl = document.getElementById('noteSaved');
+  if(!toggle || !panel) return;
+
+  var KEY = 'angle_notes::' + location.pathname;
+  try{
+    var saved = localStorage.getItem(KEY);
+    if(saved) textEl.value = saved;
+  }catch(e){}
+
+  var saveTimer = null, hideTimer = null;
+  function scheduleSaveNote(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try{ localStorage.setItem(KEY, textEl.value); }catch(e){}
+      savedEl.classList.add('show');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function(){ savedEl.classList.remove('show'); }, 1500);
+    }, 400);
+  }
+  textEl.addEventListener('input', scheduleSaveNote);
+
+  function clampPos(left, top, w, h){
+    left = Math.max(4, Math.min(window.innerWidth - w - 4, left));
+    top = Math.max(4, Math.min(window.innerHeight - h - 4, top));
+    return [left, top];
+  }
+  function positionPanel(){
+    var r = toggle.getBoundingClientRect();
+    var pw = panel.offsetWidth || 220;
+    var ph = panel.offsetHeight || 200;
+    var left = r.right + 8;
+    if(left + pw > window.innerWidth - 8) left = r.left - pw - 8;
+    var top = r.top + r.height / 2 - ph / 2;
+    var clamped = clampPos(left, top, pw, ph);
+    panel.style.left = clamped[0] + 'px';
+    panel.style.top = clamped[1] + 'px';
+    panel.style.transform = 'none';
+  }
+  function setOpen(on){
+    panel.hidden = !on;
+    toggle.classList.toggle('active', on);
+    if(on){ positionPanel(); textEl.focus(); }
+  }
+
+  var dragging = false, dragMoved = false, dsx = 0, dsy = 0, dol = 0, dot = 0;
+  toggle.addEventListener('pointerdown', function(e){
+    dragging = true; dragMoved = false;
+    dsx = e.clientX; dsy = e.clientY;
+    var r = toggle.getBoundingClientRect();
+    dol = r.left; dot = r.top;
+    try{ toggle.setPointerCapture(e.pointerId); }catch(err){}
+  });
+  toggle.addEventListener('pointermove', function(e){
+    if(!dragging) return;
+    var dx = e.clientX - dsx, dy = e.clientY - dsy;
+    if(Math.abs(dx) > 4 || Math.abs(dy) > 4) dragMoved = true;
+    if(dragMoved){
+      var pos = clampPos(dol + dx, dot + dy, toggle.offsetWidth, toggle.offsetHeight);
+      toggle.style.left = pos[0] + 'px';
+      toggle.style.top = pos[1] + 'px';
+      toggle.style.transform = 'none';
+      if(!panel.hidden) positionPanel();
+    }
+  });
+  function endDrag(){ dragging = false; }
+  toggle.addEventListener('pointerup', endDrag);
+  toggle.addEventListener('pointercancel', endDrag);
+  toggle.addEventListener('click', function(e){
+    if(dragMoved){ dragMoved = false; e.preventDefault(); return; }
+    setOpen(panel.hidden);
+  });
+  closeBtn.addEventListener('click', function(){ setOpen(false); });
+  clearBtn.addEventListener('click', function(){
+    if(!confirm('Удалить все заметки на этой странице?')) return;
+    textEl.value = '';
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    textEl.focus();
+  });
+  window.addEventListener('resize', function(){ if(!panel.hidden) positionPanel(); });
 })();
 </script>
 </body>
