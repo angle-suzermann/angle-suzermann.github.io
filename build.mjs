@@ -84,6 +84,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
 const SW_VERSION = 4;
+const WX_VERSION = 1;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 
@@ -261,7 +262,10 @@ function injectHead(dir) {
       && !/<meta\b[^>]*\bname=["']ws:type["'][^>]*\bcontent=["']presentation["']/i.test(cleaned);
     const swTag = isMaterial && !/save-writing\.js/.test(cleaned)
       ? `<script src="${BASE}/assets/save-writing.js?v=${SW_VERSION}" defer></script>\n` : '';
-    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}`;
+    /* глаз «показать ответ» + цвета пар в matching: assets/ws-extras.js, на каждый материал */
+    const wxTag = isMaterial && !/ws-extras\.js/.test(cleaned)
+      ? `<script src="${BASE}/assets/ws-extras.js?v=${WX_VERSION}" defer></script>\n` : '';
+    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}${wxTag}`;
     const out = /<meta\s+charset=[^>]*>/i.test(cleaned)
       ? cleaned.replace(/<meta\s+charset=[^>]*>/i, (m) => `${m}\n${tags}`)
       : cleaned.replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${tags}`);

@@ -1102,5 +1102,43 @@ restoreProgress();
   resizeCanvas();
 })();
 </script>
+<script>
+/* «Показать ответ» для пропусков с банком слов: свой глаз у каждого пропуска (общий стиль .reveal-btn-sm из ws-extras.js) */
+(function(){
+  function answers(){
+    var a = {};
+    [].concat(OCEAN_SENTENCES_1, OCEAN_SENTENCES_2).forEach(function(s){ Object.assign(a, s.answers); });
+    return a;
+  }
+  function add(){
+    var ans = answers();
+    document.querySelectorAll('.fib[data-blank]').forEach(function(inp){
+      if(inp.__revealDone) return;
+      inp.__revealDone = true;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'reveal-btn-sm'; b.title = 'Показать ответ'; b.textContent = '\u{1F441}';
+      b.onclick = function(){
+        var word = ans[inp.dataset.blank];
+        document.querySelectorAll('.word-bank').forEach(function(bank){
+          [].forEach.call(bank.children, function(t){
+            if(t.dataset.token === inp.value && t.classList.contains('used')) t.classList.remove('used');
+            if(t.dataset.token === word) t.classList.add('used');
+          });
+        });
+        inp.value = word;
+        inp.classList.remove('is-wrong');
+        inp.classList.add('reveal-filled');
+        if(typeof scheduleSave === 'function') scheduleSave();
+        b.remove();
+      };
+      inp.insertAdjacentElement('afterend', b);
+    });
+  }
+  var t = setInterval(function(){
+    if(document.querySelector('.fib[data-blank]')){ add(); clearInterval(t); }
+  }, 300);
+  setTimeout(function(){ clearInterval(t); }, 15000);
+})();
+</script>
 </body>
 </html>
