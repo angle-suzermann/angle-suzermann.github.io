@@ -11,7 +11,7 @@
 <meta name="ws:title"     content="04. Unit 1 — Informal Email 1 — Homework">
 <meta name="ws:emoji"     content="✉️">
 <meta name="ws:date"      content="2026-10-18">
-<meta name="ws:status"    content="draft">
+<meta name="ws:status"    content="published">
 <meta name="ws:formspree" content="xdvxrcsn">
 <meta name="ws:tags"      content="writing, informal email, functional language">
 <meta name="robots" content="noindex, nofollow">
@@ -189,6 +189,8 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .page-dots::-webkit-scrollbar{display:none;}
 .page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
 .page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+/* No "show answer" eye on homework (shared ws-extras.js would add one; hidden here on purpose) */
+body .reveal-btn-sm{ display:none !important; }
 </style>
 <meta name="theme-color" content="#453458">
 </head>
@@ -652,36 +654,6 @@ showPage(0);
 restoreProgress();
 updateWordCount();
 
-</script>
-<script>
-/* "Show answer" eye for word-bank gaps (readonly inputs are skipped by the shared ws-extras.js, so these get their own eye; same .reveal-btn-sm style) */
-(function(){
-  function add(){
-    document.querySelectorAll('.fib[readonly][data-answer]').forEach(function(inp){
-      if(inp.__revealDone) return;
-      inp.__revealDone = true;
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'reveal-btn-sm'; b.title = 'Show answer'; b.setAttribute('aria-label','Show answer'); b.textContent = '\u{1F441}';
-      b.onclick = function(){
-        var word = inp.dataset.answer;
-        document.querySelectorAll('.word-bank').forEach(function(bank){
-          var toks = [].slice.call(bank.children);
-          toks.forEach(function(t){ if(inp.value && t.dataset.token === inp.value && t.classList.contains('used')) t.classList.remove('used'); });
-          var free = toks.filter(function(t){ return t.dataset.token === word && !t.classList.contains('used'); })[0];
-          if(free) free.classList.add('used');
-        });
-        inp.value = word;
-        inp.classList.remove('is-wrong');
-        inp.classList.add('reveal-filled');
-        if(typeof scheduleSave === 'function') scheduleSave();
-        b.remove();
-      };
-      inp.insertAdjacentElement('afterend', b);
-    });
-  }
-  add();
-  setTimeout(add, 600);
-})();
 </script>
 </body>
 </html>
