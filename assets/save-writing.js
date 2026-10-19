@@ -11,7 +11,7 @@
   if (window.__angleSaveWriting) return;
   window.__angleSaveWriting = true;
 
-  var PURPLE = '#5b2e8b';
+  var PURPLE = '#5E4877';
   var SKIP_ID = /^(studentName|studentGroup|name|group|student|nick)$/i;
 
   function meta(n) {
@@ -25,7 +25,12 @@
   }
 
   /* ---------- поиск полей ---------- */
+  /* служебные поля (заметки, рисование, шапка с именем) — не письменные ответы */
+  function isTool(f) {
+    return !!f.closest('.note-panel,.wt-panel,.ink-panel,header,.topbar,[data-sw-skip]') || /(^|\s)ink-text-input(\s|$)/.test(f.className || '');
+  }
   function isOpenInput(f) {
+    if (isTool(f)) return false;
     if (f.tagName === 'TEXTAREA') return true;
     if (f.tagName !== 'INPUT') return false;
     var t = (f.getAttribute('type') || 'text').toLowerCase();
@@ -131,44 +136,90 @@
   }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+  /* ---------- общее для Word и PDF: фирменный бланк ANGLE ---------- */
+  var PURPLE_D = '#453458', YEL = '#FED500', LAV = '#f6f2fa', LINE = '#e2dbea';
+  function assetBase() {
+    var sc = document.querySelector('script[src*="save-writing.js"]');
+    var m = sc && (sc.getAttribute('src') || '').match(/^(.*)\/assets\/save-writing\.js/);
+    return m ? m[1] : '';
+  }
+  function dateLong() { return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+  function courseLine() {
+    var c = meta('ws:course'), u = meta('ws:unit');
+    return [c, u && u !== c ? u : ''].filter(Boolean).join(' · ');
+  }
+  function countWords(groups) {
+    var n = 0;
+    groups.forEach(function (g) { g.items.forEach(function (it) { var t = it.a.trim(); if (t) n += t.split(/\s+/).length; }); });
+    return n;
+  }
+  function loadImg(url) {
+    return new Promise(function (res) {
+      var im = new Image();
+      im.onload = function () { res(im); }; im.onerror = function () { res(null); };
+      im.src = url;
+    });
+  }
+
   /* ---------- Word ---------- */
   function makeDoc(groups, name) {
     var title = meta('ws:title') || document.title;
+    var sans = 'Calibri,Arial,sans-serif';
     var h = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>' + esc(title) + '</title>' +
-      '<style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.4}h1{color:' + PURPLE + ';font-size:20pt;margin:0 0 4pt}' +
-      'h2{color:' + PURPLE + ';font-size:14pt;margin:16pt 0 4pt}.meta{color:#777;font-size:10pt;margin:0 0 12pt}' +
-      '.q{color:' + PURPLE + ';font-weight:bold;margin:10pt 0 2pt}.a{margin:0 0 6pt}</style></head><body>' +
-      '<h1>' + esc(title) + '</h1><p class="meta">' + (name ? esc(name) + ' · ' : '') + new Date().toLocaleDateString('en-GB') + ' · ANGLE</p>';
+      '<style>body{font-family:' + sans + ';font-size:11.5pt;line-height:1.4;color:#2D2926}' +
+      'h2{color:' + PURPLE + ';font-size:14pt;margin:18pt 0 6pt;padding-left:8pt;border-left:4pt solid ' + YEL + '}' +
+      '.k{color:' + PURPLE + ';font-size:8pt;font-weight:bold;letter-spacing:1.5pt;margin:10pt 0 0}' +
+      '.q{font-weight:bold;margin:1pt 0 3pt}.a{margin:0}</style></head><body>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
+      '<td bgcolor="' + PURPLE_D + '" style="padding:14pt 18pt"><span style="font-family:' + sans + ';font-size:28pt;font-weight:bold;font-style:italic;color:' + YEL + ';letter-spacing:3pt">ANGLE</span><br>' +
+      '<span style="font-size:9pt;color:#e9dff5">by Viktoria Syuzyova</span></td>' +
+      '<td bgcolor="' + PURPLE_D + '" align="right" valign="top" style="padding:16pt 18pt;color:#e9dff5;font-size:9pt"><span style="color:' + YEL + ';font-weight:bold;letter-spacing:1.5pt">WRITTEN ANSWERS</span><br>' + esc(courseLine()) + '<br>' + esc(dateLong()) + '</td></tr></table>' +
+      '<p style="margin:14pt 0 8pt"><span style="background:' + YEL + ';color:' + PURPLE + ';font-weight:bold;font-size:15pt">&nbsp;&nbsp;' + esc(title) + '&nbsp;&nbsp;</span></p>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-bottom:6pt"><tr>' +
+      '<td width="40%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">NAME</span><br>' + esc(name || ' ') + '</td><td width="4%"></td>' +
+      '<td width="30%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">DATE</span><br>' + esc(dateLong()) + '</td><td width="4%"></td>' +
+      '<td width="22%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">WORDS</span><br>' + countWords(groups) + '</td></tr></table>';
+    var qn = 0;
     groups.forEach(function (g) {
       if (g.title) h += '<h2>' + esc(g.title) + '</h2>';
       g.items.forEach(function (it) {
-        if (it.q) h += '<p class="q">' + esc(it.q) + '</p>';
-        h += '<p class="a">' + esc(it.a).replace(/\n/g, '<br>') + '</p>';
+        if (it.q) { qn++; h += '<p class="k">QUESTION ' + qn + '</p><p class="q">' + esc(it.q) + '</p>'; }
+        h += '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-bottom:6pt"><tr><td bgcolor="' + LAV + '" style="border-left:3pt solid ' + PURPLE + ';border-top:1pt solid ' + LINE + ';border-right:1pt solid ' + LINE + ';border-bottom:1pt solid ' + LINE + ';padding:7pt 10pt"><p class="a">' + esc(it.a).replace(/\n/g, '<br>') + '</p></td></tr></table>';
       });
     });
+    h += '<p style="margin:18pt 0 0;border-top:2.25pt solid ' + YEL + ';padding-top:4pt;font-size:8.5pt;color:#7a7288"><b style="color:' + PURPLE + '">ANGLE</b><br>by Viktoria Syuzyova</p>';
     h += '</body></html>';
     return new Blob(['﻿', h], { type: 'application/msword;charset=utf-8' });
   }
 
   /* ---------- PDF (без библиотек) ---------- */
-  var PW = 595.28, PH = 841.89, SC = 2, MG = 52;
+  var PW = 595.28, PH = 841.89, SC = 2, MG = 44;
 
   function fontFamily() {
     var ff = getComputedStyle(document.body).fontFamily || 'Arial, sans-serif';
     return ff;
   }
-  function makePages(groups, name) {
+  function makePages(groups, name, logos) {
     var ff = fontFamily();
     var pages = [], cv, cx, y;
-    function newPage() {
+    var CW = PW - MG * 2;
+    function mark(img, x, yy, h) {
+      var w = h * 2190 / 640;
+      if (img) cx.drawImage(img, x, yy, w, h);
+      else { cx.fillStyle = YEL; font(h * .8, true); cx.fillText('ANGLE', x, yy + h * .8); }
+      return w;
+    }
+    function newPage(first) {
       cv = document.createElement('canvas');
       cv.width = Math.round(PW * SC); cv.height = Math.round(PH * SC);
       cx = cv.getContext('2d');
       cx.scale(SC, SC);
       cx.fillStyle = '#fff'; cx.fillRect(0, 0, PW, PH);
       cx.textBaseline = 'alphabetic';
-      y = MG;
       pages.push(cv);
+      if (first) return;
+      cx.fillStyle = YEL; cx.fillRect(0, 0, PW, 5);
+      y = MG - 4;
     }
     function font(size, bold) { cx.font = (bold ? 'bold ' : '') + size + 'px ' + ff; }
     function wrap(text, size, bold, width) {
@@ -192,32 +243,88 @@
       });
       return lines;
     }
-    function put(text, size, bold, color, gapBefore, gapAfter) {
-      var lh = size * 1.45, width = PW - MG * 2;
-      var lines = wrap(text, size, bold, width);
-      y += gapBefore;
-      lines.forEach(function (ln) {
-        if (y + lh > PH - MG) { newPage(); }
-        font(size, bold); cx.fillStyle = color;
-        y += lh; cx.fillText(ln, MG, y - size * 0.28);
-      });
-      y += gapAfter;
+    function rrect(x, yy, w, h, r, fill, stroke) {
+      cx.beginPath(); cx.moveTo(x + r, yy); cx.arcTo(x + w, yy, x + w, yy + h, r); cx.arcTo(x + w, yy + h, x, yy + h, r);
+      cx.arcTo(x, yy + h, x, yy, r); cx.arcTo(x, yy, x + w, yy, r); cx.closePath();
+      if (fill) { cx.fillStyle = fill; cx.fill(); } if (stroke) { cx.strokeStyle = stroke; cx.lineWidth = .8; cx.stroke(); }
     }
-    newPage();
-    put(meta('ws:title') || document.title, 20, true, PURPLE, 0, 2);
-    put((name ? name + ' · ' : '') + new Date().toLocaleDateString('en-GB') + ' · ANGLE', 10.5, false, '#777', 0, 8);
+    function room(h) { if (y + h > PH - 62) newPage(false); }
+
+    /* первая страница: фиолетовая шапка, логотип, подпись под ним, метка с названием */
+    newPage(true);
+    var g0 = cx.createLinearGradient(0, 0, PW, 110);
+    g0.addColorStop(0, '#3a2a4a'); g0.addColorStop(1, PURPLE);
+    cx.fillStyle = g0; cx.fillRect(0, 0, PW, 112);
+    mark(logos.yellow, MG, 24, 34);
+    font(8.5, false); cx.fillStyle = '#e9dff5'; cx.fillText('by Viktoria Syuzyova', MG + 1, 74);
+    cx.textAlign = 'right';
+    font(8, true); cx.fillStyle = YEL; cx.fillText('WRITTEN ANSWERS', PW - MG, 34);
+    font(9, false); cx.fillStyle = '#e9dff5';
+    var cl = courseLine(); if (cl) cx.fillText(cl, PW - MG, 49);
+    cx.fillText(dateLong(), PW - MG, cl ? 63 : 49);
+    cx.textAlign = 'left';
+    var title = meta('ws:title') || document.title;
+    var tl = wrap(title, 14, true, CW - 48), tH = tl.length * 19 + 14, ty = 112 - 14;
+    var tw = 0; tl.forEach(function (l) { font(14, true); tw = Math.max(tw, cx.measureText(l).width); });
+    tw = Math.min(CW, tw + 48);
+    cx.fillStyle = YEL; cx.beginPath(); cx.moveTo(MG, ty); cx.lineTo(MG + tw, ty); cx.lineTo(MG + tw - 12, ty + tH); cx.lineTo(MG, ty + tH); cx.closePath(); cx.fill();
+    font(14, true); cx.fillStyle = PURPLE;
+    tl.forEach(function (l, i) { cx.fillText(l, MG + 14, ty + 21 + i * 19); });
+    y = ty + tH + 26;
+    /* имя / дата / слова */
+    var cols = [['NAME', name || ''], ['DATE', dateLong()], ['WORDS', String(countWords(groups))]], cw = (CW - 28) / 3;
+    cols.forEach(function (c, i) {
+      var x = MG + i * (cw + 14);
+      font(7.5, true); cx.fillStyle = PURPLE; cx.fillText(c[0], x, y);
+      font(11, false); cx.fillStyle = '#2D2926'; cx.fillText(c[1], x, y + 15);
+      cx.strokeStyle = '#cfc4dc'; cx.lineWidth = 1; cx.beginPath(); cx.moveTo(x, y + 21); cx.lineTo(x + cw, y + 21); cx.stroke();
+    });
+    y += 34;
+
+    var qn = 0;
     groups.forEach(function (g) {
-      if (g.title) put(g.title, 14, true, PURPLE, 12, 2);
+      if (g.title) {
+        var hl = wrap(g.title, 14, true, CW - 14);
+        room(hl.length * 19 + 40);
+        y += 12;
+        cx.fillStyle = YEL; cx.fillRect(MG, y - 2, 4, hl.length * 19 + 2);
+        font(14, true); cx.fillStyle = PURPLE;
+        hl.forEach(function (l, i) { cx.fillText(l, MG + 12, y + 13 + i * 19); });
+        y += hl.length * 19 + 10;
+      }
       g.items.forEach(function (it) {
-        if (it.q) put(it.q, 11.5, true, PURPLE, 8, 0);
-        put(it.a, 12, false, '#111', 2, 4);
+        var ql = it.q ? wrap(it.q, 11, true, CW) : [];
+        var al = wrap(it.a, 11.5, false, CW - 22), lh = 16;
+        room((ql.length ? 14 + ql.length * 15 : 0) + Math.min(al.length, 3) * lh + 22);
+        if (it.q) {
+          qn++;
+          font(7.5, true); cx.fillStyle = PURPLE; cx.fillText('QUESTION ' + qn, MG, y + 8);
+          font(11, true); cx.fillStyle = '#2D2926';
+          ql.forEach(function (l, i) { cx.fillText(l, MG, y + 22 + i * 15); });
+          y += 14 + ql.length * 15;
+        }
+        var i = 0;
+        while (i < al.length) {
+          var fit = Math.max(1, Math.floor((PH - 62 - y - 16) / lh)), take = Math.min(fit, al.length - i);
+          var bh = take * lh + 14;
+          rrect(MG, y, CW, bh, 6, LAV, LINE);
+          cx.fillStyle = PURPLE; cx.fillRect(MG, y + 3, 3, bh - 6);
+          font(11.5, false); cx.fillStyle = '#2D2926';
+          for (var k = 0; k < take; k++) cx.fillText(al[i + k], MG + 14, y + 7 + lh * (k + 1) - 4);
+          y += bh + 8; i += take;
+          if (i < al.length) newPage(false);
+        }
+        y += 6;
       });
     });
-    /* нумерация */
-    pages.forEach(function (p, i) {
-      var c = p.getContext('2d');
-      c.font = '9px ' + ff; c.fillStyle = '#999';
-      c.fillText('ANGLE · ' + (i + 1) + ' / ' + pages.length, MG, PH - 28);
+    /* нижний колонтитул на каждой странице: жёлтая линия, логотип с подписью под ним, номер страницы */
+    pages.forEach(function (p, idx) {
+      cx = p.getContext('2d'); cx.setTransform(SC, 0, 0, SC, 0, 0);
+      cx.fillStyle = YEL; cx.fillRect(MG, PH - 50, CW, 2.5);
+      if (logos.purple) cx.drawImage(logos.purple, MG, PH - 42, 12 * 2190 / 640, 12);
+      else { font(10, true); cx.fillStyle = PURPLE; cx.fillText('ANGLE', MG, PH - 32); }
+      font(7.5, false); cx.fillStyle = '#7a7288'; cx.fillText('by Viktoria Syuzyova', MG, PH - 22);
+      cx.textAlign = 'right'; font(8.5, false); cx.fillText('Page ' + (idx + 1) + ' / ' + pages.length, PW - MG, PH - 30); cx.textAlign = 'left';
     });
     return pages;
   }
@@ -274,8 +381,11 @@
   }
   function exportPdf(groups, name, base) {
     var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var ab = assetBase();
     ready.then(function () {
-      download(buildPdf(makePages(groups, name)), base + '.pdf');
+      return Promise.all([loadImg(ab + '/assets/brand/angle-wordmark.svg'), loadImg(ab + '/assets/brand/angle-wordmark-purple.svg')]);
+    }).then(function (im) {
+      download(buildPdf(makePages(groups, name, { yellow: im[0], purple: im[1] })), base + '.pdf');
     });
   }
 
@@ -323,7 +433,10 @@
     bar.appendChild(b);
     return bar;
   }
-  /* на каждый блок (карточку/задание/совместное письмо), где есть поле письма, — одна панель сразу под последним полем */
+  /* Где стоит кнопка:
+     • в задании на письмо — сразу под последним полем (карточка / совместное письмо);
+     • в постраничных воркшитах — ещё и внизу каждой страницы без такого поля (в прокручиваемой области);
+     • если страниц нет и кнопки ещё нет, — в конце содержимого. Никогда не в шапке и не поверх бейджа. */
   function placeBars() {
     var all = document.querySelectorAll('textarea, input'), groups = [];
     for (var i = 0; i < all.length; i++) {
@@ -334,17 +447,33 @@
       for (var j = 0; j < groups.length; j++) if (groups[j].box === box) g = groups[j];
       if (!g) { g = { box: box, last: f }; groups.push(g); } else g.last = f;
     }
+    if (!groups.length) return 0;
     var added = 0;
     groups.forEach(function (g) {
       if (g.box.getAttribute('data-sw-bar')) return;
       var anchor = g.last;
       if (g.box.classList && g.box.classList.contains('collab')) anchor = g.box;
+      else if (g.box === document.body) anchor = g.last.closest('p,div,li') || g.last;
       else while (anchor.parentElement && anchor.parentElement !== g.box) anchor = anchor.parentElement;
       addCss();
       g.box.setAttribute('data-sw-bar', '1');
       anchor.insertAdjacentElement('afterend', makeBar());
       added++;
     });
+    var pages = document.querySelectorAll('.page');
+    if (pages.length) {
+      for (var k = 0; k < pages.length; k++) {
+        var pg = pages[k];
+        if (pg.getAttribute('data-sw-page') || pg.querySelector('.sw-bar')) continue;
+        addCss();
+        pg.setAttribute('data-sw-page', '1');
+        pg.appendChild(makeBar());
+        added++;
+      }
+    } else if (!document.querySelector('.sw-bar')) {
+      var wrap = document.querySelector('.page-wrap, main, .wrap') || document.body;
+      addCss(); wrap.appendChild(makeBar()); added++;
+    }
     return added;
   }
 

@@ -83,7 +83,8 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
-const SW_VERSION = 4;
+const SW_VERSION = 5;
+const WT_VERSION = 1;
 const WX_VERSION = 2;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
@@ -247,7 +248,9 @@ function injectHead(dir) {
     if (e.isDirectory()) { injectHead(p); continue; }
     if (!/\.html?$/i.test(e.name)) continue;
     const src = fs.readFileSync(p, 'utf8');
-    if (!/<head(?:\s[^>]*)?>/i.test(src)) continue;
+    /* у нескольких материалов нет <head> (файл начинается с <title>): им теги ставим в самое начало */
+    const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
+    if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
     const cleaned = src
       .replace(/<link\b[^>]*\brel=["'](?:shortcut\s+)?icon["'][^>]*>\s*/gi, '')
       .replace(/<link\b[^>]*\brel=["']apple-touch-icon(?:-precomposed)?["'][^>]*>\s*/gi, '')
@@ -265,10 +268,15 @@ function injectHead(dir) {
     /* глаз «показать ответ» + цвета пар в matching: assets/ws-extras.js, на каждый материал */
     const wxTag = isMaterial && !/<script\b[^>]*ws-extras\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/ws-extras.js?v=${WX_VERSION}" defer></script>\n` : '';
-    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}${wxTag}`;
-    const out = /<meta\s+charset=[^>]*>/i.test(cleaned)
-      ? cleaned.replace(/<meta\s+charset=[^>]*>/i, (m) => `${m}\n${tags}`)
-      : cleaned.replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${tags}`);
+    /* док инструментов (заметки + рисование): assets/ws-tools.js, на каждый материал; страницы со старой вшитой копией (#inkToggle) скрипт пропускает */
+    const wtTag = isMaterial && !/<script\b[^>]*ws-tools\.js/i.test(cleaned)
+      ? `<script src="${BASE}/assets/ws-tools.js?v=${WT_VERSION}" defer></script>\n` : '';
+    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}`;
+    const out = !hasHead
+      ? `${tags}${cleaned}`
+      : /<meta\s+charset=[^>]*>/i.test(cleaned)
+        ? cleaned.replace(/<meta\s+charset=[^>]*>/i, (m) => `${m}\n${tags}`)
+        : cleaned.replace(/<head(?:\s[^>]*)?>/i, (h) => `${h}\n${tags}`);
     if (out !== src) fs.writeFileSync(p, out);
   }
 }
