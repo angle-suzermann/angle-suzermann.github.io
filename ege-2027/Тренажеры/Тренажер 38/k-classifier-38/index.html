@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Задание 38 — классификатор ошибок K1–K5</title>
+<meta name="theme-color" content="#453458">
+<title>Задание 38 · Классификатор ошибок K1–K5</title>
 <meta name="ws:type"      content="worksheet">
 <meta name="ws:course"    content="ЕГЭ 2027">
 <meta name="ws:course-id" content="ege-2027">
@@ -26,7 +27,7 @@
 html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
 body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
 .app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
-.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; pointer-events:none; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; pointer-events:none; }
 .bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
 .scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
 .topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
@@ -44,7 +45,7 @@ body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--te
 .page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
 .save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
 .save-indicator.show{ opacity:1; }
-.page-wrap{ max-width:860px; margin:0 auto; padding:16px 16px 90px; }
+.page-wrap{ max-width:860px; margin:0 auto; padding:16px 16px 150px; }
 .page{ display:none; } .page.active{ display:block; animation:fadein .25s ease; }
 @keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
 .card{ background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:14px; box-shadow:0 4px 18px rgba(0,0,0,.15); }
@@ -97,6 +98,13 @@ table.sum td, table.sum th{ border-bottom:1px solid var(--border); padding:6px 8
 .big{ font-size:2.4rem; font-weight:800; color:var(--purple); text-align:center; }
 ul.rules{ margin:6px 0 6px 18px; padding:0; font-size:.88rem; line-height:1.5; }
 ul.rules li{ margin-bottom:4px; }
+.completion-stickers{text-align:center;}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1);}
+.completion-sticker[hidden]{display:none;}
+.completion-sticker--medium{max-width:170px;}
+.completion-sticker--icon{max-width:110px;}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+.result-caption{text-align:center;font-size:.92rem;color:var(--muted);margin-top:6px;}
 .results-panel{ display:none; }
 .results-panel.show{ display:block; }
 .results-panel h3{ margin-top:10px; }
@@ -106,9 +114,45 @@ ul.rules li{ margin-bottom:4px; }
 .angle-badge .wordmark{ width:110px; height:auto; display:block; }
 .angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
 @media (max-width:600px){ .angle-badge{ left:10px; bottom:8px; } .angle-badge .wordmark{ width:60px; } }
+
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0;}
+.calc label{font-size:.8rem;color:var(--purple-dark);font-weight:700;display:flex;flex-direction:column;gap:3px;}
+.calc input[type=number]{border:1.5px solid var(--border);border-radius:8px;padding:5px 8px;font-family:inherit;font-size:.9rem;width:100%;}
+.calc .chk{flex-direction:row;align-items:center;font-weight:400;gap:6px;}
+.est-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px;text-align:center;}
+.est-cell{background:var(--card-tint);border-radius:10px;padding:8px 4px;}
+.est-cell b{display:block;font-size:1.3rem;color:var(--purple);}
+.est-cell span{font-size:.72rem;color:var(--muted);}
+.est-total{text-align:center;margin-top:8px;font-weight:800;color:var(--purple-dark);}
+.skill{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:4px 0;font-size:.88rem;}
 /* iOS: no auto-zoom on focus */
 html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 @media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
 </style>
 </head>
 <body>
@@ -118,7 +162,7 @@ html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand-row">
-        <span class="lesson-title">Задание 38 · Классификатор ошибок K1–K5</span>
+        <span class="lesson-title">Задание 38 · Ошибки K1–K5</span>
         <div class="namebar">
           <label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name">
           <span class="save-indicator" id="saveIndicator"></span>
@@ -151,7 +195,6 @@ html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 </div>
 <script src="/assets/sticker-data.js"></script>
 <script src="/assets/sticker-logic.js"></script>
-<script src="/assets/sticker-auto.js"></script>
 <script>
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 const COURSE_NAME = 'ЕГЭ 2027';
@@ -349,17 +392,46 @@ function buildSummary(){
     <div class="results-panel" id="resultsPanel">
       <div class="big" id="resultsPercent"></div>
       <div id="resultsFraction" class="muted" style="text-align:center"></div>
+      <div class="completion-stickers" id="completionStickers"></div><p id="resultCaption" class="result-caption"></p>
       <div id="resultsBreakdown"></div>
     </div>
+  </div>
+  <div class="card"><h2>Как ты видишь ошибки</h2>
+    <p class="muted">Доля ошибок, которые ты нашёл(а) в тренажёре, по критериям. Это тренировочный показатель, а не баллы за эссе.</p>
+    <div id="skillBox"></div>
+  </div>
+  <div class="card"><h2>Прикинь баллы за своё эссе</h2>
+    <p class="muted">Проверь свой текст по шпаргалке и впиши, сколько нашлось. Оценка ориентировочная: так считает эксперт, но сам текст читает не он.</p>
+    <h3>K1</h3>
+    <div class="calc">
+      <label>Аспектов не раскрыто (из 6)<input type="number" min="0" max="6" value="0" data-c="k1nr"></label>
+      <label>Неполно / неточно<input type="number" min="0" max="6" value="0" data-c="k1in"></label>
+      <label>Нарушений стиля (по типам)<input type="number" min="0" max="9" value="0" data-c="k1st"></label>
+    </div>
+    <h3>K2</h3>
+    <div class="calc">
+      <label>Ошибок в организации<input type="number" min="0" max="30" value="0" data-c="k2"></label>
+      <label class="chk"><input type="checkbox" data-c="noIntro"> нет вступления</label>
+      <label class="chk"><input type="checkbox" data-c="noConc"> нет заключения</label>
+    </div>
+    <h3>K3–K5</h3>
+    <div class="calc">
+      <label>K3 · лексических<input type="number" min="0" max="30" value="0" data-c="k3"></label>
+      <label>K4 · грамматических (разных)<input type="number" min="0" max="30" value="0" data-c="k4"></label>
+      <label>K5 · орфографических<input type="number" min="0" max="30" value="0" data-c="k5s"></label>
+      <label>K5 · пунктуационных<input type="number" min="0" max="30" value="0" data-c="k5p"></label>
+    </div>
+    <div class="est-row" id="estRow"></div>
+    <div class="est-total" id="estTotal"></div>
   </div>
   <div class="card"><h2>Сколько ошибок — сколько баллов</h2>
     <p class="muted">Задание 38 — 14 баллов: K1 до 3, K2 до 3, K3 до 3, K4 до 3, K5 до 2. Нулевой K1 обнуляет всё задание.</p>
     <table class="sum">
       <tr><th></th><th>3</th><th>2</th><th>1</th><th>0</th></tr>
-      <tr><td><b>K1</b></td><td>все аспекты полно (допускается 1 неточный и 1 нарушение стиля)</td><td>1 аспект не раскрыт, или 2–3 неточных; до 3 нарушений стиля</td><td>2 аспекта не раскрыты, или 4–5 неточных; до 4 нарушений стиля</td><td>остальные случаи, объём вне нормы, &gt;30% чужого текста</td></tr>
+      <tr><td><b>K1</b></td><td>все аспекты полно (допускается 1 неточный и 1 нарушение стиля)</td><td>1 аспект не раскрыт (и до 1 неточного), или 2–3 неточных; до 3 нарушений стиля</td><td>1 не раскрыт и 2–3 неточных, или 2 не раскрыты (и до 1 неточного), или 4–5 неточных; до 4 нарушений стиля</td><td>остальные случаи, объём вне нормы, &gt;30% чужого текста</td></tr>
       <tr><td><b>K2</b></td><td>нет ошибок</td><td>1–3 ошибки</td><td>4–5 ошибок, или нет вступления/заключения</td><td>6+ ошибок, нет вступления и заключения, нет абзацев</td></tr>
       <tr><td><b>K3</b></td><td>до 1</td><td>2–3</td><td>4</td><td>5+</td></tr>
-      <tr><td><b>K4</b></td><td>до 2 разных</td><td>3–4</td><td>5–7</td><td>8+</td></tr>
+      <tr><td><b>K4</b></td><td>до 2 неповторяющихся</td><td>3–4</td><td>5–7</td><td>8+</td></tr>
       <tr><td><b>K5</b></td><td>—</td><td>до 1 орфографической и/или 1 пунктуационной</td><td>2–4</td><td>5+</td></tr>
     </table>
     <p class="muted">Повторяющиеся ошибки на одно правило (в лексике, грамматике, орфографии) считаются как одна. В пунктуации разные случаи апострофа, запятые после разных вводных слов и каждая опция без кавычек считаются отдельно.</p>
@@ -446,7 +518,38 @@ function computeScore(){
   });
   return {ok, total:ITEMS.length, wrong, per, pct:Math.round(ok/ITEMS.length*100)};
 }
+
+function calcEstimate(){
+  const v={}; document.querySelectorAll('[data-c]').forEach(e=>{ v[e.dataset.c]= e.type==='checkbox' ? e.checked : Math.max(0,parseInt(e.value)||0); });
+  const st = v.k1st<=1?3:v.k1st<=3?2:v.k1st===4?1:0;
+  let ct;
+  if(v.k1nr===0) ct = v.k1in<=1?3:v.k1in<=3?2:v.k1in<=5?1:0;
+  else if(v.k1nr===1) ct = v.k1in<=1?2:v.k1in<=3?1:0;
+  else if(v.k1nr===2) ct = v.k1in<=1?1:0;
+  else ct = 0;
+  const k1 = Math.min(st,ct);
+  let k2 = v.k2===0?3:v.k2<=3?2:v.k2<=5?1:0;
+  if(v.noIntro && v.noConc) k2 = 0; else if(v.noIntro || v.noConc) k2 = Math.min(k2,1);
+  const k3 = v.k3<=1?3:v.k3<=3?2:v.k3===4?1:0;
+  const k4 = v.k4<=2?3:v.k4<=4?2:v.k4<=7?1:0;
+  const tot5 = v.k5s+v.k5p;
+  const k5 = (v.k5s<=1 && v.k5p<=1)?2:tot5<=4?1:0;
+  const pts = [k1,k2,k3,k4,k5];
+  const sum = k1===0 ? 0 : pts.reduce((a,b)=>a+b,0);
+  document.getElementById('estRow').innerHTML = ['K1','K2','K3','K4','K5'].map((k,i)=>`<div class="est-cell"><b>${pts[i]}</b><span>${k} из ${i===4?2:3}</span></div>`).join('');
+  document.getElementById('estTotal').textContent = (k1===0 ? 'K1 = 0, поэтому всё задание получает 0. ' : '') + `Ориентировочно: ${sum} из 14`;
+}
+document.addEventListener('input', e=>{ if(e.target.matches('[data-c]')) calcEstimate(); });
+document.addEventListener('change', e=>{ if(e.target.matches('[data-c]')) calcEstimate(); });
+function updateSkill(){
+  const per={K1:[0,0],K2:[0,0],K3:[0,0],K4:[0,0],K5:[0,0]};
+  ITEMS.forEach(it=>{ if(done[it.id]!=='checked') return; const sel=ans[it.id]||[];
+    it.errs.forEach(e=>{ const k=e.k[0]; per[k][1]++; if(e.k.some(x=>sel.includes(x))) per[k][0]++; }); });
+  document.getElementById('skillBox').innerHTML = Object.entries(per).map(([k,[a,b]])=>`<div class="skill"><span><b>${k}</b> · ${KNAMES[k]}</span><b>${b?a+' из '+b:'—'}</b></div>`).join('');
+}
+
 function updateSummary(){
+  updateSkill();
   const s = computeScore();
   const checked = Object.values(done).filter(v=>v==='checked').length;
   document.getElementById('sumBig').textContent = `${s.ok} / ${s.total}`;
@@ -468,7 +571,7 @@ async function submitAll(){
   document.getElementById('resultsPercent').textContent = s.pct+'%';
   document.getElementById('resultsFraction').textContent = `${nameInput.value.trim()} — ${s.ok} / ${s.total} correct`;
   document.getElementById('resultsBreakdown').innerHTML = s.wrong.length ? '<h3>Items to review</h3><ul>'+s.wrong.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul>' : '<p style="color:var(--correct);font-weight:700;text-align:center;">All items correct 🎉</p>';
-  if(typeof awardSticker==='function') awardSticker(s.pct, document.getElementById('resultsFraction'));
+  try{ if(typeof renderResultSticker==='function') renderResultSticker(s.pct); }catch(e){}
   const status = document.getElementById('submitStatus'); status.textContent='Sending…';
   const name = nameInput.value.trim(), topic = document.title;
   try{
@@ -558,7 +661,7 @@ function clearProgress(){
 }
 document.addEventListener('input', e=>{ if(e.target.id==='studentName') scheduleSave(); });
 
-buildPages(); buildDots(); showPage(0); ITEMS.forEach(it=>renderItem(it.id)); restoreProgress();
+buildPages(); calcEstimate(); buildDots(); showPage(0); ITEMS.forEach(it=>renderItem(it.id)); restoreProgress();
 </script>
 </body>
 </html>
