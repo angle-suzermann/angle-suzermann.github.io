@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Задание 38 — классификатор ошибок K1–K5</title>
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="38">
+<meta name="ws:title"     content="Задание 38: классификатор ошибок K1–K5">
+<meta name="ws:emoji"     content="🔎">
+<meta name="ws:date"      content="2026-10-20">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="task38, essay, criteria, errors, K1-K5, оценивание, классификатор">
+<meta name="robots"       content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/angle.css">
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; height:100%; overflow:hidden; max-width:100%; overscroll-behavior-x:none; color-scheme:light; }
+body{ font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif; color:var(--text); background:var(--card-tint); overflow-wrap:break-word; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; pointer-events:none; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); pointer-events:none; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; position:relative; z-index:2; touch-action:pan-y; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:3px solid var(--purple); box-shadow:0 2px 10px rgba(45,25,60,.08); }
+.topbar-inner{ max-width:860px; margin:0 auto; padding:8px 16px 6px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.lesson-title{ font-weight:800; color:var(--purple); font-size:1rem; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.82rem; flex-wrap:wrap; }
+.namebar input{ border:1.5px solid var(--border); border-radius:8px; padding:5px 8px; font-family:inherit; font-size:.85rem; width:150px; }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:6px; }
+.progress-track{ flex:1; height:8px; background:var(--card-tint); border-radius:6px; overflow:hidden; }
+.progress-fill{ height:100%; width:0; background:var(--yellow); transition:width .3s; }
+.progress-label{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+.page-dots{ display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.page-dot{ min-width:26px; height:26px; padding:0 6px; border-radius:13px; background:var(--card-tint); color:var(--purple); font-size:.74rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1px solid var(--border); }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.page-wrap{ max-width:860px; margin:0 auto; padding:16px 16px 90px; }
+.page{ display:none; } .page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+.card{ background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:14px; box-shadow:0 4px 18px rgba(0,0,0,.15); }
+.card h2{ margin:0 0 6px; color:var(--purple); font-size:1.15rem; }
+.card h3{ margin:12px 0 4px; color:var(--purple-dark); font-size:.98rem; }
+.card p{ margin:6px 0; line-height:1.5; font-size:.93rem; }
+.muted{ color:var(--muted); }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note[hidden]{ display:none !important; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; }
+.klegend{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:8px; margin-top:8px; }
+.krow{ display:flex; gap:10px; align-items:flex-start; background:var(--card-tint); border-radius:10px; padding:8px 10px; font-size:.86rem; line-height:1.4; }
+.kbadge{ flex:0 0 auto; background:var(--purple); color:#fff; font-weight:800; border-radius:8px; padding:2px 8px; font-size:.85rem; }
+.tag{ display:inline-block; font-size:.68rem; font-weight:800; padding:2px 7px; border-radius:10px; margin-left:4px; vertical-align:middle; letter-spacing:.2px; }
+.tag.fipi{ background:#e3f4ea; color:#1f6b41; }
+.tag.expert{ background:#fff4c2; color:#6a5300; }
+.tag.disputed{ background:#fde3df; color:#9b2c1f; }
+.item{ border:2px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:12px; background:#fff; }
+.item.ok{ border-color:var(--correct); background:#f3fbf6; }
+.item.bad{ border-color:var(--wrong); background:#fff6f4; }
+.item.shown{ border-color:var(--muted); background:#f7f5fa; }
+.item .num{ font-size:.72rem; font-weight:800; color:var(--muted); letter-spacing:.4px; }
+.ctx{ font-size:.8rem; color:var(--muted); margin:2px 0 4px; }
+.stext{ font-family:Georgia,'Times New Roman',serif; font-size:1.02rem; line-height:1.5; background:var(--card-tint); border-left:4px solid var(--yellow); padding:9px 12px; border-radius:6px; margin:6px 0 10px; }
+.kpick{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+.kchip{ border:2px solid var(--purple); background:#fff; color:var(--purple); font-weight:800; font-family:inherit; font-size:.9rem; padding:6px 14px; border-radius:18px; cursor:pointer; }
+.kchip.sel{ background:var(--purple); color:#fff; }
+.kchip:disabled{ cursor:default; }
+.kchip.right{ background:var(--correct); border-color:var(--correct); color:#fff; }
+.kchip.miss{ background:#fff; border-color:var(--correct); color:var(--correct); border-style:dashed; }
+.kchip.extra{ background:var(--wrong); border-color:var(--wrong); color:#fff; }
+.cnt{ font-size:.78rem; color:var(--muted); margin-left:6px; }
+.actions{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.btn{ border:none; border-radius:20px; padding:8px 18px; font-family:inherit; font-weight:800; font-size:.85rem; cursor:pointer; }
+.btn.primary{ background:var(--yellow); color:var(--black); }
+.btn.ghost{ background:#fff; color:var(--purple); border:1.5px solid var(--purple); }
+.btn.cta{ background:var(--yellow); color:var(--black); font-size:1rem; padding:12px 26px; }
+.btn:disabled{ opacity:.45; cursor:default; }
+.fb{ margin-top:10px; font-size:.88rem; line-height:1.45; }
+.fb .err{ border-top:1px dashed var(--border); padding:7px 0; }
+.fb .err b{ color:var(--purple-dark); }
+.verdict{ font-weight:800; margin-bottom:2px; }
+.verdict.ok{ color:var(--correct); } .verdict.bad{ color:var(--wrong); }
+.note{ font-size:.82rem; background:#fff4c2; border-radius:8px; padding:6px 10px; margin-top:6px; }
+.nav-btns{ display:flex; justify-content:space-between; gap:10px; margin-top:16px; }
+.nav-btns .btn{ background:var(--purple); color:#fff; }
+.nav-btns .btn.next{ background:var(--yellow); color:var(--black); }
+table.sum{ width:100%; border-collapse:collapse; font-size:.86rem; margin-top:8px; }
+table.sum td, table.sum th{ border-bottom:1px solid var(--border); padding:6px 8px; text-align:left; vertical-align:top; }
+.big{ font-size:2.4rem; font-weight:800; color:var(--purple); text-align:center; }
+ul.rules{ margin:6px 0 6px 18px; padding:0; font-size:.88rem; line-height:1.5; }
+ul.rules li{ margin-bottom:4px; }
+.results-panel{ display:none; }
+.results-panel.show{ display:block; }
+.results-panel h3{ margin-top:10px; }
+.results-panel ul{ font-size:.82rem; line-height:1.4; padding-left:18px; }
+/* ANGLE badge: bottom-left, opacity .8 */
+.angle-badge{ position:fixed; left:28px; bottom:24px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.8; color:var(--yellow); }
+.angle-badge .wordmark{ width:110px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:600px){ .angle-badge{ left:10px; bottom:8px; } .angle-badge .wordmark{ width:60px; } }
+/* iOS: no auto-zoom on focus */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+@media (hover:none) and (pointer:coarse){ input, select, textarea{ font-size:16px !important; } }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div>
+  <div class="bg-wash"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <span class="lesson-title">Задание 38 · Классификатор ошибок K1–K5</span>
+        <div class="namebar">
+          <label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your full name">
+          <span class="save-indicator" id="saveIndicator"></span>
+          <a href="#" class="topbar-reset" onclick="clearProgress();return false;" style="font-size:.78rem;color:var(--muted);margin-left:4px;white-space:nowrap;" title="Delete all saved answers on this page and start over">↺ Start over</a>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel"></span>
+      </div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+  </header>
+  <div class="scroll-area" id="scrollArea">
+    <div class="page-wrap" id="pageWrap">
+      <div class="restore-note" id="restoreNote" hidden>
+        <span id="restoreNoteText"></span>
+        <button onclick="clearProgress()">Start over (clear saved answers)</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
+<script>
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+const COURSE_NAME = 'ЕГЭ 2027';
+const PROGRESS_KEY = 'angle_progress::ege2027-task38-k-classifier';
+const KS = ['K1','K2','K3','K4','K5'];
+const KNAMES = {K1:'Решение коммуникативной задачи',K2:'Организация текста',K3:'Лексика',K4:'Грамматика',K5:'Орфография и пунктуация'};
+const SRC = {fipi:'критерии ФИПИ', expert:'рекомендация экспертов', disputed:'эксперты расходятся'};
+
+/* src: fipi = Критерии оценивания задания 38 + методичка ФИПИ «по итогам ЕГЭ 2025» (Вербицкая и др., 2026) и методичка по итогам ЕГЭ 2026;
+        expert = правило ведущих клиники 18.10.26, в документах ФИПИ напрямую не найдено;
+        disputed = клиника и документ расходятся или документ допускает два прочтения. */
+const ITEMS = [
+ /* §1 */
+ {id:1,p:1,text:"I’m doing a project on “…”",errs:[
+   {k:['K1'],what:"Краткая форма I’m в нейтральном стиле",why:"Нарушение нейтрального стиля (аспект 6 в K1). Стилистических ошибок четыре типа: риторические вопросы, разговорное Let’s…, сниженная лексика (folks), краткие формы. Ошибки одного типа считаются за одну.",src:'fipi'}]},
+ {id:2,p:1,text:"I have found some data on this issue. I am going to comment on this data.",errs:[
+   {k:['K1'],what:"Не сказано, что данные — результаты опроса, и где они представлены",why:"Нужно: a table / a pie chart with the results of a survey conducted among … Если опрос не назван как источник данных, аспект 1 неточный (±). Допустимо, только если об опросе сказано в §2.",src:'fipi'}]},
+ {id:3,p:1,text:"I have found a pie-chart with results of relevant opinion poll.",errs:[
+   {k:['K5'],what:"pie-chart через дефис",why:"Орфография: pie chart пишется раздельно.",src:'fipi'},
+   {k:['K4'],what:"Нет артикля: with THE results",why:"Артикли — грамматика (K4). Каждый случай — отдельное правило, поэтому ошибки считаются отдельно.",src:'fipi'},
+   {k:['K4'],what:"Нет артикля: of A relevant … poll",why:"Исчисляемое существительное в единственном числе без артикля. Сам синоним opinion poll допустим: методичка прямо разрешает его вместо survey.",src:'fipi'}]},
+ {id:4,p:1,text:"I am going to comment on the data in the table below.",errs:[
+   {k:['K2'],what:"below — ссылка на то, чего нет в твоём тексте",why:"In the table / pie chart below — логическая ошибка (K2): в твоей работе таблицы нет.",src:'fipi'}]},
+ {id:5,p:1,text:"In this essay I will describe my findings.",errs:[
+   {k:['K3'],what:"my findings",why:"Это не твои находки, а данные опроса. Неверное слово в контексте — лексика. Глагол describe для данных опроса тоже не рекомендуют.",src:'fipi'}]},
+ {id:6,p:1,text:"While I was doing a project on chess, I found a pie chart with the results of a survey conducted among Zetland teenagers.",errs:[
+   {k:['K4'],what:"While I was doing … I found",why:"В задании сказано: You are doing a project. Прошедшее время в такой конструкции методичка считает грамматической ошибкой. Допустимо: Doing a project on … I have found / I found … или While doing a project on …",src:'fipi'}]},
+ {id:7,p:1,text:"We conducted a survey among Zetland teenagers and made a pie chart.",errs:[
+   {k:['K1'],what:"Автор «провёл опрос» и «сделал диаграмму», и ещё «мы»",why:"Ты нашёл(ла) готовые данные. Если автор говорит, что сам провёл опрос или составил таблицу, или пишет «мы», аспект 1 неточный (±).",src:'fipi'}]},
+ /* §2 */
+ {id:8,p:2,ctx:"В задании — pie chart.",text:"According to the table the most common reason is …",errs:[
+   {k:['K1'],what:"table вместо pie chart",why:"Фактическая ошибка: источник назван неверно. Каждое неверное употребление считается отдельно.",src:'fipi'},
+   {k:['K5'],what:"Нет запятой после вводной фразы",why:"Запятая после всех типов вводных слов и конструкций — пунктуация (K5). Пропуск после одной и той же фразы, повторённый в тексте, считается одной ошибкой, а после разных — разными.",src:'fipi'}]},
+ {id:9,p:2,text:"According to the data on the table, …",errs:[
+   {k:['K2','K4'],what:"on the table вместо in / from the table",why:"Формально это предлог (грамматика). Но в линкере ошибка читается как ошибка средств связи (K2), и клиника рекомендует ставить K2. Прямого примера в методичке нет.",src:'disputed'}]},
+ {id:10,p:2,ctx:"В §1 опрос не упоминался.",text:"Forty-eight percent of the respondents choose “Build hospitals and schools”.",errs:[
+   {k:['K2'],what:"Число прописано словами",why:"В §2–3 числа пишутся цифрами: слова вместо цифр — логическая ошибка (K2).",src:'fipi'},
+   {k:['K2'],what:"respondents без упоминания опроса",why:"Ссылка на респондентов, если опрос раньше не упомянут, — логическая ошибка. Если аудитория уже названа, 12% choose… допустимо.",src:'fipi'}]},
+ {id:11,p:2,text:"As can be seen from the table, many interviewees choose …",errs:[
+   {k:['K3'],what:"interviewees",why:"Это не интервьюируемые. Нужно: respondents / those surveyed / those polled.",src:'fipi'}]},
+ {id:12,p:2,text:"According to the data, many respondents chose the response “…” while answering the survey question “…” (28%). Almost a quarter opt for the response “…” (26%).",errs:[
+   {k:['K2'],what:"chose / opt — то прошедшее, то настоящее",why:"В описании результатов опроса смешение настоящего и прошедшего — логическая ошибка (K2). Выбери одно время, лучше Present.",src:'fipi'},
+   {k:['K1'],what:"Almost a quarter для 26%",why:"Неверная интерпретация цифр делает аспект неточным. Almost — чуть меньше четверти; для 26% подойдёт about / approximately / more than a quarter.",src:'fipi'}]},
+ {id:13,p:2,text:"Many respondents mention that …",errs:[
+   {k:['K1','K3'],what:"mention при опросе «Choose one option»",why:"Респондент выбирает один вариант и ничего не «упоминает». Методичка называет это содержательной ошибкой (K1), а в списке неудачных глаголов (describe, mention, vote, mark, pick) — ещё и лексической. Подойдёт: choose / opt for / think.",src:'fipi'},
+   {k:['K1'],what:"Нет процентов",why:"В п. 2 нужны цифры из данных, иначе факты не приведены.",src:'expert'}]},
+ {id:14,p:2,ctx:"Слово response уже было введено в предыдущем предложении.",text:"Approximately a tenth of the respondents choose “…” (with 19% of the votes).",errs:[
+   {k:['K1'],what:"a tenth для 19%",why:"Неверная интерпретация цифр. 19% — это примерно a fifth.",src:'fipi'},
+   {k:['K3'],what:"votes",why:"Респонденты опроса не голосуют: vote в этой ситуации не используют. Нужно: those surveyed / respondents.",src:'fipi'}]},
+ {id:15,p:2,text:"50% of students choose “Develop public transport”.",errs:[
+   {k:['K4'],what:"of students вместо of the students",why:"Речь о конкретных участниках опроса, поэтому нужен определённый артикль: of the students / of the respondents. Его отсутствие — грамматическая ошибка.",src:'fipi'}]},
+ {id:16,p:2,text:"As can be seen from the statistic, …",errs:[
+   {k:['K2','K4'],what:"statistic вместо statistics",why:"Форма числа — грамматика (K4). Но ошибка внутри линкера, и клиника рекомендует K2. Документ прямо этот случай не разбирает.",src:'disputed'}]},
+ {id:17,p:2,text:"As is seen from the data, 48% of the respondents choose to build hospitals and schools. 20% want to improve internet excess.",errs:[
+   {k:['K1','K2'],what:"Нет упоминания опроса",why:"Респонденты названы, но опрос в тексте не упомянут: по методичке это логическая ошибка (K2). На клинике ставили K1 (нет привязки к опросу).",src:'disputed'},
+   {k:['K3'],what:"excess вместо access",why:"Если из-за ошибки в написании получилось другое слово (think — thing, see — sea), это лексическая ошибка, а не орфографическая.",src:'fipi'}]},
+ {id:18,p:2,text:"Approximately 45 percents of the respondents opt for “…”.",errs:[
+   {k:['K4'],what:"percents",why:"У percent нет множественного числа: 45 percent / 45%. Множественное число — грамматическая ошибка.",src:'fipi'}]},
+ {id:19,p:2,text:"The most popular response is To make new friends (36%).",errs:[
+   {k:['K5'],what:"Опция с большой буквы без кавычек",why:"Пунктуационная ошибка. Правильно: “To make new friends” (в 2026 принимается и строчная буква в кавычках: “to make new friends”). Пять опций без кавычек — уже 0 по K5.",src:'fipi'}]},
+ {id:20,p:2,text:"Overall, 11% of the respondents choose online education because it allows them to combine work with studies.",errs:[
+   {k:['K2'],what:"Overall для частного факта",why:"Overall подводит итог. Использовать его, когда речь об одной-двух опциях, — ошибка в средствах связи.",src:'fipi'}]},
+ /* §3 */
+ {id:21,p:3,ctx:"Сравнение двух вариантов, цифры в предложении не указаны.",text:"… the response “…” is higher than the response “…”. It can be inferred that …",errs:[
+   {k:['K2'],what:"the response is higher",why:"Выше не ответ, а показатель: the figure for the response … is higher than the figure for … Так учат на клинике; прямого правила в критериях нет.",src:'expert'},
+   {k:['K1'],what:"Нет процентов",why:"Сравнение без цифр: аспект неточный.",src:'expert'}]},
+ {id:22,p:3,text:"The number of the respondents who … is larger then the number of the respondents who … (% and %)",errs:[
+   {k:['K3'],what:"then вместо than",why:"Написание изменило слово — это лексика (K3). И ещё: respectively после двух цифр советуют добавлять, но ошибкой его отсутствие критерии не называют.",src:'fipi'}]},
+ {id:23,p:3,text:"… is more common than … (% versus %). It can be inferred that … is more interesting than …",errs:[
+   {k:['K1'],what:"Неразвёрнутый комментарий",why:"Комментарий должен быть пространным: объяснение выбора фактов, причины различия или вывод. «More interesting» ничего не объясняет, аспект 3 неточный.",src:'fipi'}]},
+ {id:24,p:3,text:"It can be seen that, building hospitals and schools is the most important thing that should be done first to improve living conditions in the country. It means school students are ill and need more schools.",errs:[
+   {k:['K1'],what:"Нет Zetland school students",why:"Аудитория опроса должна звучать на протяжении всей работы: в §2, 3, 4 нельзя вдруг писать про всех жителей. Неточность аспекта (±).",src:'fipi'},
+   {k:['K2'],what:"Ложный вывод: «значит, школьники больны»",why:"Вывод, которого нет в данных, — логическая ошибка. Смягчай выводы: may / might prioritise.",src:'fipi'}],
+  note:"Лишняя запятая после It can be seen that клиника не штрафовала."},
+ {id:25,p:3,text:"Young Zetlanders prefer high education to vocational training.",errs:[
+   {k:['K3'],what:"high education вместо higher education",why:"Это лексика, не грамматика: устойчивое сочетание со сравнительной степенью (higher education, younger generation).",src:'fipi'}]},
+ {id:26,p:3,text:"In the other hand, the number of those surveyed who choose “…” is higher.",errs:[
+   {k:['K2'],what:"In the other hand",why:"Ошибка в устойчивой связке (On the other hand) — это K2, а не орфография и не грамматика.",src:'fipi'}]},
+ /* §4 */
+ {id:27,p:4,text:"There are some problems that can arise with doing household chores. Many teenagers can not do household chores because they do not have enough time. To solve this problem you can make a table of household chores to manage your time properly.",errs:[
+   {k:['K1'],what:"Проблема не про doing, а про not doing",why:"Проблема должна лежать в той сфере, что названа в плане: проблема с выполнением дел, а не с их невыполнением. Аспект 4 — самый слабый в ЕГЭ 2026.",src:'fipi'},
+   {k:['K2'],what:"teenagers → you / your",why:"Неправильное местоимение — логическая ошибка. После teenagers — they / their.",src:'fipi'},
+   {k:['K5'],what:"can not",why:"Пишется слитно: cannot.",src:'expert'}]},
+ {id:28,p:4,text:"Some problems can be revealed from the data in the table. One of them is that teenagers arent ready to live in the country …",errs:[
+   {k:['K2'],what:"«проблемы видны из таблицы»",why:"Судя по статистике… — если такой информации в данных нет, это логическая ошибка. Проблему лучше вводить своими словами.",src:'fipi'},
+   {k:['K5'],what:"arent без апострофа",why:"Апостроф по кодификатору — пунктуация (K5): пропущенный или лишний. Разные случаи апострофа (притяжательный, краткая форма) считаются разными ошибками.",src:'fipi'},
+   {k:['K1'],what:"Краткая форма (стиль)",why:"Краткая форма — нарушение нейтрального стиля. Типы: I’m / he’s; don’t / aren’t; can’t / mustn’t (needn’t можно). Один тип = одна ошибка.",src:'fipi'}]},
+ {id:29,p:4,text:"One problem that can arise with taking part in sports competitions is that …",errs:[
+   {k:['K2'],what:"Нет связки в начале абзаца",why:"Критерии требуют логические переходы между всеми частями текста. Клиника замечает: One of the problems / There are some problems на практике принимают как связку.",src:'fipi'}]},
+ {id:30,p:4,text:"I suggest to solve this problem by …",errs:[
+   {k:['K4'],what:"suggest to solve",why:"После suggest — герундий: suggest solving. Неличные формы глагола — грамматика.",src:'fipi'}]},
+ {id:31,p:4,text:"The best solution of this problem is …",errs:[
+   {k:['K4'],what:"solution of → solution to",why:"Предлог — грамматика. Исключение: послелог во фразовом глаголе — это лексика.",src:'fipi'}]},
+ {id:32,p:4,ctx:"В таблице нет данных о зарплатах.",text:"Judging by the statistics, the main problem is low salaries.",errs:[
+   {k:['K2'],what:"Judging by the statistics … без данных",why:"Если в статистике такой информации нет, это логическая ошибка. Если бы проблема следовала из цифр (например, самый непопулярный вариант), ошибки бы не было.",src:'fipi'}]},
+ /* §5 */
+ {id:33,p:5,text:"In my opinion, … is very important …",errs:[
+   {k:['K2'],what:"Нет перехода к заключению",why:"Между абзацами нужны связки; для вывода: To conclude, I think … / In conclusion, …",src:'fipi'}]},
+ {id:34,p:5,text:"To conclude, celebrating holidays plays a big role in people life. People celebrate many holidays such as Christmas, New Year and Easter.",errs:[
+   {k:['K1'],what:"Нет I think и нет объяснения",why:"Заключение: явное «я считаю», сам ответ на вопрос плана и обоснование. Нет явного мнения — аспект неполный, нет объяснения — ±.",src:'fipi'},
+   {k:['K4'],what:"people life → people’s lives",why:"Притяжательный падеж и множественное число — грамматика.",src:'fipi'}]},
+ {id:35,p:5,text:"In conclusion, I think people should learn foreign languages because you can communicate with native speakers and read books in original.",errs:[
+   {k:['K2'],what:"people → you",why:"Референция: после people — they.",src:'fipi'},
+   {k:['K4'],what:"in original → in the original",why:"Пропущенный артикль — грамматика.",src:'fipi'}]},
+ {id:36,p:5,text:"Reading is very important for young people.",errs:[
+   {k:['K1'],what:"Нет I think и нет объяснения",why:"Общая фраза без «я считаю» и без обоснования не соответствует плану: аспект 5 не засчитывается.",src:'fipi'},
+   {k:['K2'],what:"Абзац из одного предложения",why:"В этом жанре абзац не может состоять из одного короткого простого предложения. Одна и та же фраза может снижать и K1, и K2.",src:'fipi'}]},
+ {id:37,p:5,text:"In counclusion, I think that learning languages is important because it opens many doors.",errs:[
+   {k:['K5'],what:"counclusion",why:"Орфография (слово не изменило значение): K5. А вот In the other hand — это K2, потому что ошибка в самой связке.",src:'fipi'}]}
+];
+
+const PAGES = [
+  {key:'rules',label:'Старт'},
+  {key:'p1',label:'§1',p:1,title:'§1 · Вступление'},
+  {key:'p2',label:'§2',p:2,title:'§2 · Факты'},
+  {key:'p3',label:'§3',p:3,title:'§3 · Сравнение'},
+  {key:'p4',label:'§4',p:4,title:'§4 · Проблема и решение'},
+  {key:'p5',label:'§5',p:5,title:'§5 · Мнение'},
+  {key:'sum',label:'Итог'}
+];
+
+let current = 0, isRestoring = false, submitted = false;
+const ans = {}, done = {};
+
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function tagHtml(src){ return `<span class="tag ${src}">${SRC[src]}</span>`; }
+function isCorrect(item, sel){
+  const union = new Set(); item.errs.forEach(e=>e.k.forEach(k=>union.add(k)));
+  if(sel.some(k=>!union.has(k))) return false;
+  return item.errs.every(e=>e.k.some(k=>sel.includes(k)));
+}
+
+function buildPages(){
+  const wrap = document.getElementById('pageWrap');
+  PAGES.forEach((pg,i)=>{ const s=document.createElement('section'); s.className='page'; s.dataset.page=i; s.id='pg_'+pg.key; wrap.appendChild(s); });
+  buildRules();
+  PAGES.filter(p=>p.p).forEach(buildItemsPage);
+  buildSummary();
+  PAGES.forEach((pg,i)=>addNav(document.getElementById('pg_'+pg.key), i));
+}
+
+function buildRules(){
+  document.getElementById('pg_rules').innerHTML = `
+  <div class="card">
+    <h2>Что тренируем</h2>
+    <p>Перед тобой предложения из реальных ответов на задание 38. В каждом есть ошибки. Выбери <b>все критерии, в которых они есть</b>, и нажми «Проверить»: подсказка «Ошибок: N» показывает, сколько ошибок в предложении. Так ты учишься видеть работу глазами эксперта и проверять свои эссе.</p>
+    <div class="klegend">
+      <div class="krow"><span class="kbadge">K1</span><span><b>Решение коммуникативной задачи.</b> Содержание по 6 аспектам: вступление, факты, сравнение, проблема и решение, мнение, нейтральный стиль.</span></div>
+      <div class="krow"><span class="kbadge">K2</span><span><b>Организация текста.</b> Логика, абзацы, связки между частями, местоимения (they / it).</span></div>
+      <div class="krow"><span class="kbadge">K3</span><span><b>Лексика.</b> Выбор слова, сочетаемость, послелоги фразовых глаголов, написание, изменившее слово.</span></div>
+      <div class="krow"><span class="kbadge">K4</span><span><b>Грамматика.</b> Артикли, времена, неличные формы, предлоги, числа, степени сравнения.</span></div>
+      <div class="krow"><span class="kbadge">K5</span><span><b>Орфография и пунктуация.</b> Написание слов, запятые, кавычки, апострофы.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Откуда правила</h2>
+    <p>${tagHtml('fipi')} прямо следует из критериев ФИПИ и методичек по ЕГЭ.<br>
+       ${tagHtml('expert')} так объясняют эксперты ЕГЭ; в документах напрямую не сказано.<br>
+       ${tagHtml('disputed')} эксперты ставят по-разному — принимаем оба ответа.</p>
+  </div>`;
+}
+
+function buildItemsPage(pg){
+  const items = ITEMS.filter(i=>i.p===pg.p);
+  let html = `<div class="card"><h2>${pg.title}</h2><p class="muted">${items.length} предложений. Отметь все критерии, в которых есть ошибки.</p></div>`;
+  items.forEach(it=>{
+    html += `<div class="item" id="it_${it.id}">
+      <div class="num">№ ${it.id} · ${pg.label}</div>
+      ${it.ctx?`<div class="ctx">${esc(it.ctx)}</div>`:''}
+      <div class="stext">${esc(it.text)}</div>
+      <div class="kpick" data-id="${it.id}">
+        ${KS.map(k=>`<button class="kchip" data-k="${k}" title="${esc(KNAMES[k])}">${k}</button>`).join('')}
+        <span class="cnt">Ошибок: ${it.errs.length}</span>
+      </div>
+      <div class="actions">
+        <button class="btn primary" data-act="check" data-id="${it.id}">Проверить</button>
+        <button class="btn ghost" data-act="show" data-id="${it.id}">👁 Показать ответ</button>
+      </div>
+      <div class="fb" id="fb_${it.id}"></div>
+    </div>`;
+  });
+  document.getElementById('pg_'+pg.key).innerHTML = html;
+}
+
+function buildSummary(){
+  document.getElementById('pg_sum').innerHTML = `
+  <div class="card"><h2>Результат</h2>
+    <div class="big" id="sumBig">0 / ${ITEMS.length}</div>
+    <p class="muted" id="sumSub" style="text-align:center"></p>
+    <table class="sum" id="sumTable"></table>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn cta" id="checkBtn" onclick="submitAll()">Check &amp; Submit</button>
+      <p class="muted" id="submitStatus" style="margin-top:8px"></p>
+    </div>
+    <div class="results-panel" id="resultsPanel">
+      <div class="big" id="resultsPercent"></div>
+      <div id="resultsFraction" class="muted" style="text-align:center"></div>
+      <div id="resultsBreakdown"></div>
+    </div>
+  </div>
+  <div class="card"><h2>Сколько ошибок — сколько баллов</h2>
+    <p class="muted">Задание 38 — 14 баллов: K1 до 3, K2 до 3, K3 до 3, K4 до 3, K5 до 2. Нулевой K1 обнуляет всё задание.</p>
+    <table class="sum">
+      <tr><th></th><th>3</th><th>2</th><th>1</th><th>0</th></tr>
+      <tr><td><b>K1</b></td><td>все аспекты полно (допускается 1 неточный и 1 нарушение стиля)</td><td>1 аспект не раскрыт, или 2–3 неточных; до 3 нарушений стиля</td><td>2 аспекта не раскрыты, или 4–5 неточных; до 4 нарушений стиля</td><td>остальные случаи, объём вне нормы, &gt;30% чужого текста</td></tr>
+      <tr><td><b>K2</b></td><td>нет ошибок</td><td>1–3 ошибки</td><td>4–5 ошибок, или нет вступления/заключения</td><td>6+ ошибок, нет вступления и заключения, нет абзацев</td></tr>
+      <tr><td><b>K3</b></td><td>до 1</td><td>2–3</td><td>4</td><td>5+</td></tr>
+      <tr><td><b>K4</b></td><td>до 2 разных</td><td>3–4</td><td>5–7</td><td>8+</td></tr>
+      <tr><td><b>K5</b></td><td>—</td><td>до 1 орфографической и/или 1 пунктуационной</td><td>2–4</td><td>5+</td></tr>
+    </table>
+    <p class="muted">Повторяющиеся ошибки на одно правило (в лексике, грамматике, орфографии) считаются как одна. В пунктуации разные случаи апострофа, запятые после разных вводных слов и каждая опция без кавычек считаются отдельно.</p>
+  </div>
+  <div class="card"><h2>Шпаргалка</h2>
+    <h3>K1 · Решение коммуникативной задачи</h3>
+    <ul class="rules">
+      <li>Назван проект и опрос как источник данных; ты нашёл(ла) данные, а не «провёл(а) опрос» и не «мы» ${tagHtml('fipi')}</li>
+      <li>Аудитория опроса звучит во всех абзацах ${tagHtml('fipi')}</li>
+      <li>table и pie chart не путать; mention, describe, vote, mark, pick для опроса не годятся ${tagHtml('fipi')}</li>
+      <li>Цифры трактуй верно: almost a quarter ≠ 26% ${tagHtml('fipi')}</li>
+      <li>Проблема из нужной сферы и реалистичное решение; в заключении явное мнение + объяснение ${tagHtml('fipi')}</li>
+      <li>Стиль: нет риторических вопросов, Let’s, folks и кратких форм (can’t тоже) ${tagHtml('fipi')}</li>
+    </ul>
+    <h3>K2 · Организация</h3>
+    <ul class="rules">
+      <li>Числа в §2–3 цифрами; одно время в описании опроса; без in the table below ${tagHtml('fipi')}</li>
+      <li>«Судя по статистике…» только если это есть в данных ${tagHtml('fipi')}</li>
+      <li>Местоимения: после teenagers / people — they, не you ${tagHtml('fipi')}</li>
+      <li>Связки между всеми абзацами; абзац не из одного предложения; Overall — только для итога ${tagHtml('fipi')}</li>
+    </ul>
+    <h3>K3 · Лексика</h3>
+    <ul class="rules">
+      <li>Неверное слово и сочетаемость; послелоги фразовых глаголов; пропуск слова без влияния на грамматику ${tagHtml('fipi')}</li>
+      <li>Написание, изменившее слово: excess / access, then / than ${tagHtml('fipi')}</li>
+    </ul>
+    <h3>K4 · Грамматика</h3>
+    <ul class="rules">
+      <li>Артикли (the respondents, of the students), предлоги, неличные формы, числа, притяжательный падеж ${tagHtml('fipi')}</li>
+      <li>percent без -s; statistics — множественное; data допускает оба варианта ${tagHtml('fipi')}</li>
+    </ul>
+    <h3>K5 · Орфография и пунктуация</h3>
+    <ul class="rules">
+      <li>Запятая после вводных слов и в перечислении; точка в конце; апостроф (нужный и лишний) ${tagHtml('fipi')}</li>
+      <li>Опция из таблицы — в кавычках; кавычки открыть и закрыть ${tagHtml('fipi')}</li>
+      <li>can not → cannot ${tagHtml('expert')}</li>
+    </ul>
+  </div>`;
+}
+
+function addNav(sec, i){
+  const nav = document.createElement('div'); nav.className='nav-btns';
+  nav.innerHTML = (i>0?'<button class="btn" onclick="prevPage()">← Back</button>':'<span></span>') +
+                  (i<PAGES.length-1?'<button class="btn next" onclick="nextPage()">Next →</button>':'<span></span>');
+  sec.appendChild(nav);
+}
+
+function renderItem(id){
+  const it = ITEMS.find(x=>x.id===id); const box = document.getElementById('it_'+id);
+  if(!box) return;
+  const sel = ans[id]||[], st = done[id];
+  box.classList.remove('ok','bad','shown');
+  box.querySelectorAll('.kchip').forEach(b=>{
+    const k = b.dataset.k;
+    b.classList.remove('sel','right','miss','extra'); b.disabled = !!st;
+    if(!st){ if(sel.includes(k)) b.classList.add('sel'); }
+    else{
+      const hit = it.errs.some(e=>e.k.includes(k));
+      if(sel.includes(k)) b.classList.add(hit?'right':'extra'); else if(hit) b.classList.add('miss');
+    }
+  });
+  box.querySelectorAll('.actions .btn').forEach(b=>b.disabled=!!st);
+  const fb = document.getElementById('fb_'+id);
+  if(!st){ fb.innerHTML=''; return; }
+  const ok = st==='checked' && isCorrect(it, sel);
+  box.classList.add(st==='shown'?'shown':(ok?'ok':'bad'));
+  let h = st==='checked' ? `<div class="verdict ${ok?'ok':'bad'}">${ok?'✓ Верно':'✗ Не совпало'}</div>` : `<div class="verdict">Ответ (не засчитан)</div>`;
+  it.errs.forEach(e=>{ h += `<div class="err"><b>${e.k.join(' / ')}</b> · ${esc(e.what)} ${tagHtml(e.src)}<br>${esc(e.why)}</div>`; });
+  if(it.note) h += `<div class="note">${esc(it.note)}</div>`;
+  fb.innerHTML = h;
+}
+
+function computeScore(){
+  let ok=0; const wrong=[]; const per={};
+  PAGES.filter(p=>p.p).forEach(p=>per[p.p]={ok:0,n:0,label:p.title});
+  ITEMS.forEach(it=>{
+    per[it.p].n++;
+    const sel = ans[it.id]||[];
+    if(done[it.id]==='checked' ? isCorrect(it,sel) : false){ ok++; per[it.p].ok++; }
+    else{
+      const exp = it.errs.map(e=>e.k.join('/')).join(', ');
+      wrong.push(`§${it.p} №${it.id} — «${it.text.slice(0,70)}${it.text.length>70?'…':''}» → выбрано ${sel.length?sel.join(','):'(пусто)'}, верно ${exp}`);
+    }
+  });
+  return {ok, total:ITEMS.length, wrong, per, pct:Math.round(ok/ITEMS.length*100)};
+}
+function updateSummary(){
+  const s = computeScore();
+  const checked = Object.values(done).filter(v=>v==='checked').length;
+  document.getElementById('sumBig').textContent = `${s.ok} / ${s.total}`;
+  document.getElementById('sumSub').textContent = checked<s.total ? `Проверено ${checked} из ${s.total}. Неотвеченные засчитаются как ошибки при отправке.` : `Все проверены (${s.pct}%).`;
+  document.getElementById('sumTable').innerHTML = '<tr><th>Раздел</th><th>Верно</th></tr>' + Object.values(s.per).map(r=>`<tr><td>${r.label}</td><td>${r.ok} / ${r.n}</td></tr>`).join('');
+}
+
+async function sendForm(fields){
+  const fd = new FormData(); Object.entries(fields).forEach(([k,v])=>fd.append(k,v));
+  const r = await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:fd});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+}
+async function submitAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); return; }
+  ITEMS.forEach(it=>{ if(!done[it.id]){ done[it.id]='checked'; } renderItem(it.id); });
+  const s = computeScore(); updateSummary();
+  const panel = document.getElementById('resultsPanel'); panel.classList.add('show');
+  document.getElementById('resultsPercent').textContent = s.pct+'%';
+  document.getElementById('resultsFraction').textContent = `${nameInput.value.trim()} — ${s.ok} / ${s.total} correct`;
+  document.getElementById('resultsBreakdown').innerHTML = s.wrong.length ? '<h3>Items to review</h3><ul>'+s.wrong.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul>' : '<p style="color:var(--correct);font-weight:700;text-align:center;">All items correct 🎉</p>';
+  if(typeof awardSticker==='function') awardSticker(s.pct, document.getElementById('resultsFraction'));
+  const status = document.getElementById('submitStatus'); status.textContent='Sending…';
+  const name = nameInput.value.trim(), topic = document.title;
+  try{
+    await sendForm({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: topic.startsWith(COURSE_NAME) ? `${topic} — ${name}` : `${COURSE_NAME} — ${topic} — ${name}`,
+      course: COURSE_NAME, lesson: topic, student: name,
+      score: `${s.ok} / ${s.total} (${s.pct}%)`,
+      result_tier: (typeof getResultTier==='function') ? getResultTier(s.pct).label : '',
+      mistakes: s.wrong.length ? s.wrong.join('\n') : 'No mistakes — all items correct.',
+      timestamp: new Date().toISOString()
+    });
+    status.textContent='Sent to your teacher ✓'; submitted=true;
+  }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
+  scheduleSave();
+}
+
+function buildDots(){
+  const w = document.getElementById('pageDots');
+  PAGES.forEach((p,i)=>{ const d=document.createElement('div'); d.className='page-dot'; d.textContent=p.label; d.title=p.title||p.label; d.onclick=()=>showPage(i); w.appendChild(d); });
+}
+function showPage(n){
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0,behavior:'smooth'});
+  if(PAGES[current].key==='sum') updateSummary();
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); } function prevPage(){ showPage(current-1); }
+
+document.addEventListener('click', e=>{
+  const chip = e.target.closest('.kchip');
+  if(chip && !chip.disabled){
+    const id = +chip.closest('.kpick').dataset.id, k = chip.dataset.k;
+    const cur = new Set(ans[id]||[]); cur.has(k)?cur.delete(k):cur.add(k);
+    ans[id] = KS.filter(x=>cur.has(x)); renderItem(id); scheduleSave(); return;
+  }
+  const btn = e.target.closest('[data-act]');
+  if(btn && !btn.disabled){
+    const id = +btn.dataset.id;
+    if(btn.dataset.act==='check'){
+      if(!(ans[id]||[]).length){
+        const c = document.querySelector(`#it_${id} .cnt`); const it = ITEMS.find(x=>x.id===id);
+        c.textContent='Выбери хотя бы один критерий'; c.style.color='var(--wrong)';
+        setTimeout(()=>{ c.textContent='Ошибок: '+it.errs.length; c.style.color=''; },1800); return;
+      }
+      done[id]='checked';
+    } else done[id]='shown';
+    renderItem(id); scheduleSave();
+  }
+});
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify({savedAt:new Date().toISOString(), page:current, name:document.getElementById('studentName').value||'', ans, done}));
+    const el = document.getElementById('saveIndicator');
+    el.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    el.classList.add('show'); clearTimeout(saveProgress._t); saveProgress._t = setTimeout(()=>el.classList.remove('show'), 2200);
+  }catch(e){}
+}
+let saveTimer=null; function scheduleSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveProgress,400); }
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); }catch(e){ return; }
+  if(!raw) return; let st; try{ st = JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(st.name) document.getElementById('studentName').value = st.name;
+  Object.assign(ans, st.ans||{}); Object.assign(done, st.done||{});
+  ITEMS.forEach(it=>renderItem(it.id));
+  const has = Object.keys(st.done||{}).length || Object.values(st.ans||{}).some(a=>a.length);
+  if(has){
+    const when = st.savedAt ? new Date(st.savedAt).toLocaleString() : '';
+    document.getElementById('restoreNoteText').textContent = `We found saved answers from ${when||'an earlier session'} — they've been filled back in.`;
+    document.getElementById('restoreNote').hidden = false;
+  }
+  if(typeof st.page==='number') showPage(st.page);
+  isRestoring = false;
+}
+function clearProgress(){
+  if(!confirm('This will erase all your saved answers on this device. Continue?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+document.addEventListener('input', e=>{ if(e.target.id==='studentName') scheduleSave(); });
+
+buildPages(); buildDots(); showPage(0); ITEMS.forEach(it=>renderItem(it.id)); restoreProgress();
+</script>
+</body>
+</html>
