@@ -35,7 +35,9 @@
     if (f.tagName !== 'INPUT') return false;
     var t = (f.getAttribute('type') || 'text').toLowerCase();
     if (t !== 'text') return false;
-    if (f.hasAttribute('data-ans') || f.hasAttribute('data-ans-list')) return false;
+    /* поля с ключом ответа (data-ans, data-answer, data-answers, data-ans-list…) и пропуски .fib — это упражнения, не письмо */
+    for (var ai = 0; ai < f.attributes.length; ai++) if (/^data-(ans|answer|correct)/i.test(f.attributes[ai].name)) return false;
+    if (f.classList.contains('fib')) return false;
     if (SKIP_ID.test(f.id || '') || SKIP_ID.test(f.name || '')) return false;
     var ml = parseInt(f.getAttribute('maxlength') || '0', 10);
     if (ml && ml < 40) return false;

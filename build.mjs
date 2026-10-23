@@ -83,7 +83,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
-const SW_VERSION = 6;
+const SW_VERSION = 7;
 const WT_VERSION = 2;
 const WX_VERSION = 2;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
@@ -203,6 +203,8 @@ const ICON_TAGS =
   `<meta name="mobile-web-app-capable" content="yes">\n` +
   `<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n` +
   `<meta name="theme-color" content="#453458">\n` +
+  `<meta name="color-scheme" content="only light">\n` +
+  `<meta name="supported-color-schemes" content="light">\n` +
   `<meta name="apple-mobile-web-app-title" content="ANGLE">\n`;
 
 function ogTags(html, file) {
