@@ -148,11 +148,13 @@ function studentCardBody(s,n,readonly){
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':' <span class="sub">(not started)</span>'}</h2>${rows}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
 }
-function openCard(sid){
+function openCard(sid,n){
   const s=C().students.find(x=>x.id===sid);if(!s)return;
-  const n=parseInt(ui.tab.replace('u',''))||1;
-  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${studentCardBody(s,n,true)}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} · ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
-  $('#cardDlg').showModal();
+  const started=C().units.filter(u=>u.active);
+  if(n==null){const t=parseInt(ui.tab.replace('u',''))||1;n=started.find(u=>u.n===t)?t:(started.length?started[started.length-1].n:t)}
+  const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
+  if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
 
 function viewPhonics(){
@@ -223,6 +225,8 @@ document.addEventListener('click',e=>{
     if(!live||!st||!st.key){toast('Connect the Google Sheet and run makeParentKeys first');pl.textContent='No key yet';return}
     const url=location.origin+location.pathname+'?a='+encodeURIComponent(cfg.url)+'&p='+encodeURIComponent(st.key);
     (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>{toast('Parent link copied: '+st.name);pl.textContent='Copied ✓'},()=>{prompt('Copy this link',url)});return}
+  const ct=e.target.closest('[data-ctab]');
+  if(ct){const [i,n]=ct.dataset.ctab.split('|');openCard(i,+n);return}
   const pt=e.target.closest('[data-ptab]');
   if(pt){ui.tab=pt.dataset.ptab;renderParent();return}
   const d=e.target.closest('.dot[data-t]');
