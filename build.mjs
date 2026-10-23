@@ -105,10 +105,11 @@ const ORIGIN = (() => {
    а если и её нет — общая site.jpg. Добавили курс — попросите Claude
    нарисовать для него картинки. */
 const OG_VERSION = 2;
-const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice', presentation: 'Presentation' };
+const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test', warmup: 'Warm-up', worksheet: 'Practice', presentation: 'Presentation', tracker: 'Homework tracker' };
 const COURSE_EN = { 'ege-2027': 'EGE 2027', 'placement-tests': 'Placement Tests' };
 const courseNameEn = (id) => COURSE_EN[id] || (courses.find((c) => c.id === id) || {}).name || '';
 function materialKind(meta, relDir) {
+  if (/(^|\/)homework-tracker$/.test(relDir)) return 'tracker';
   const s = `${relDir} ${meta.title || ''}`.toLowerCase();
   if (s.includes('homework')) return 'homework';
   if (s.includes('classwork')) return 'classwork';
@@ -225,7 +226,7 @@ function ogTags(html, file) {
   const parts = [];
   if (courseId) parts.push(courseNameEn(courseId));
   else parts.push('Systematic English Studio');
-  if (kind !== 'course' && /^\d+[a-z]?$/i.test(meta.unit || '')) parts.push(`Unit ${meta.unit}`);
+  if (kind !== 'course' && kind !== 'tracker' && /^\d+[a-z]?$/i.test(meta.unit || '')) parts.push(`Unit ${meta.unit}`);
   if (kind !== 'course') parts.push(KIND_LABEL[kind]);
   parts.push('by Viktoria Syuzyova');
   const desc = parts.join(' · ');
