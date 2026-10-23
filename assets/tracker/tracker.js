@@ -151,7 +151,7 @@ function studentCardBody(s,n,readonly){
 function openCard(sid){
   const s=C().students.find(x=>x.id===sid);if(!s)return;
   const n=parseInt(ui.tab.replace('u',''))||1;
-  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${studentCardBody(s,n,true)}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} · ANGLE English studio</div>`;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${studentCardBody(s,n,true)}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} · ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
   $('#cardDlg').showModal();
 }
 
@@ -220,9 +220,9 @@ function renderParent(){
 document.addEventListener('click',e=>{
   const pl=e.target.closest('[data-plink]');
   if(pl){const st=C().students.find(x=>x.id===pl.dataset.plink);
-    if(!live||!st||!st.key){toast('Connect the Google Sheet and run makeParentKeys first');return}
+    if(!live||!st||!st.key){toast('Connect the Google Sheet and run makeParentKeys first');pl.textContent='No key yet';return}
     const url=location.origin+location.pathname+'?a='+encodeURIComponent(cfg.url)+'&p='+encodeURIComponent(st.key);
-    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast('Parent link copied: '+st.name),()=>{prompt('Copy this link',url)});return}
+    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>{toast('Parent link copied: '+st.name);pl.textContent='Copied ✓'},()=>{prompt('Copy this link',url)});return}
   const pt=e.target.closest('[data-ptab]');
   if(pt){ui.tab=pt.dataset.ptab;renderParent();return}
   const d=e.target.closest('.dot[data-t]');
