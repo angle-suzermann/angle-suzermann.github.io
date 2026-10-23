@@ -742,11 +742,6 @@
  "Flyers": {
   "sections": [
    {
-    "id": "sec1",
-    "name": "Must Include",
-    "points": 5
-   },
-   {
     "id": "sec2",
     "name": "Vocabulary and Reading",
     "points": 5
