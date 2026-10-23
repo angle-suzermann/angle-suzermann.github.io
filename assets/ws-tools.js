@@ -46,7 +46,29 @@
     '.wt-nt:focus{outline:none}',
     '.wt-nf{display:flex;align-items:center;justify-content:space-between;padding:3px 8px;font-size:.66rem;color:#a08d3f;flex:0 0 auto}',
     '.wt-nf button{border:none;background:none;cursor:pointer;font-size:.78rem;padding:0 2px}',
-    '.wt-saved{opacity:0;transition:opacity .3s}.wt-saved.show{opacity:1}'
+    '.wt-saved{opacity:0;transition:opacity .3s}.wt-saved.show{opacity:1}',
+    /* толщина линии */
+    '.wt-widths{grid-template-columns:repeat(5,32px)}',
+    '.wt-w{width:32px;height:26px;border-radius:8px;border:1.5px solid #e4e0e8;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}',
+    '.wt-w i{display:block;width:20px;border-radius:99px;background:' + BLACK + '}',
+    '.wt-w.on{border-color:' + PURPLE + ';background:#f3eef8}',
+    /* таймер */
+    '#wtTimerBtn{background:#fff;color:' + PURPLE + ';border:2px solid ' + PURPLE + '}#wtTimerBtn.on{background:' + PURPLE + ';color:#fff}',
+    '.wt-timer{width:232px;align-items:stretch}',
+    '.wt-tm-modes{display:grid;grid-template-columns:1fr 1fr;gap:5px}',
+    '.wt-tm-modes button,.wt-tm-pre button,.wt-tm-go button{border:1.5px solid #e4e0e8;background:#fff;border-radius:8px;cursor:pointer;font:inherit;font-size:.82rem;padding:6px 4px;color:' + BLACK + '}',
+    '.wt-tm-modes button.on{border-color:' + PURPLE + ';background:#f3eef8;font-weight:700}',
+    '.wt-tm-pre{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}',
+    '.wt-tm-pre button{padding:6px 0;font-size:.76rem}.wt-tm-pre button.on{border-color:' + PURPLE + ';background:#f3eef8;font-weight:700}',
+    '.wt-tm-cust{display:flex;align-items:center;gap:6px;font-size:.8rem;color:#6b6475}',
+    '.wt-tm-cust input{width:64px;border:1.5px solid #e4e0e8;border-radius:8px;padding:5px 6px;font:inherit;font-size:16px}',
+    '.wt-tm-big{font-size:2.1rem;font-weight:800;text-align:center;color:' + PURPLE + ';font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1.1}',
+    '.wt-tm-go{display:grid;grid-template-columns:2fr 1fr;gap:5px}',
+    '.wt-tm-go button.main{background:' + PURPLE + ';border-color:' + PURPLE + ';color:#fff;font-weight:700}',
+    '.wt-pill{position:fixed;z-index:9997;background:' + PURPLE + ';color:#fff;border-radius:99px;padding:5px 13px;font-size:.95rem;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 3px 10px rgba(45,25,60,.35);cursor:pointer;user-select:none;-webkit-user-select:none;font-family:inherit;display:none}',
+    '.wt-pill.show{display:block}.wt-pill.paused{background:#7b6a8e}',
+    '.wt-pill.done{background:#d6342c;animation:wtBlink .8s steps(2,start) infinite}',
+    '@keyframes wtBlink{50%{opacity:.45}}'
   ].join('\n');
   document.head.appendChild(st);
 
@@ -73,7 +95,9 @@
   noteBtn.id = 'wtNoteBtn'; noteBtn.type = 'button'; noteBtn.title = 'Заметки (перетащи, чтобы передвинуть)';
   var inkBtn = el('button', 'wt-btn', '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>');
   inkBtn.id = 'wtInkBtn'; inkBtn.type = 'button'; inkBtn.title = 'Рисование (перетащи, чтобы передвинуть)';
-  dock.appendChild(noteBtn); dock.appendChild(inkBtn);
+  var timerBtn = el('button', 'wt-btn', '<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg>');
+  timerBtn.id = 'wtTimerBtn'; timerBtn.type = 'button'; timerBtn.title = 'Таймер (перетащи, чтобы передвинуть)';
+  dock.appendChild(noteBtn); dock.appendChild(inkBtn); dock.appendChild(timerBtn);
   document.body.appendChild(dock);
 
   var panel = el('div', 'wt-panel'); panel.hidden = true;
@@ -82,6 +106,10 @@
     var b = el('button', 'wt-t' + (t[0] === 'pen' ? ' on' : ''), t[1]); b.type = 'button'; b.dataset.tool = t[0]; b.title = t[2]; gTools.appendChild(b);
   });
   var fillBtn = el('button', 'wt-t', '◧'); fillBtn.type = 'button'; fillBtn.title = 'Прозрачная заливка у фигур'; gTools.appendChild(fillBtn);
+  var gWidths = el('div', 'wt-grid wt-widths');
+  [2, 3, 5, 8, 12].forEach(function (w) {
+    var b = el('button', 'wt-w' + (w === 3 ? ' on' : ''), '<i style="height:' + Math.min(w, 12) + 'px"></i>'); b.type = 'button'; b.dataset.w = w; b.title = 'Толщина ' + w; gWidths.appendChild(b);
+  });
   var gColors = el('div', 'wt-grid wt-colors');
   COLORS.forEach(function (c, i) {
     var b = el('button', 'wt-c' + (i === 0 ? ' on' : '')); b.type = 'button'; b.dataset.color = c[0]; b.title = c[1]; b.style.background = c[0]; gColors.appendChild(b);
@@ -95,7 +123,7 @@
   var gActs = el('div', 'wt-grid wt-acts');
   var undoB = el('button', 'wt-a', '↶'), redoB = el('button', 'wt-a', '↷'), clearB = el('button', 'wt-a', '🗑️'), doneB = el('button', 'wt-a', '✓');
   [undoB, redoB, clearB, doneB].forEach(function (b, i) { b.type = 'button'; b.title = ['Отменить', 'Повторить', 'Стереть всё на странице', 'Готово'][i]; gActs.appendChild(b); });
-  panel.appendChild(gTools); panel.appendChild(gColors); panel.appendChild(gStk); panel.appendChild(gActs);
+  panel.appendChild(gTools); panel.appendChild(gWidths); panel.appendChild(gColors); panel.appendChild(gStk); panel.appendChild(gActs);
   document.body.appendChild(panel);
 
   var notePanel = el('div', 'wt-panel wt-note'); notePanel.hidden = true;
@@ -104,21 +132,31 @@
     '<div class="wt-nf"><span class="wt-saved">✓ сохранено</span><button type="button" title="Очистить заметки">🗑️</button></div>';
   document.body.appendChild(notePanel);
 
+  var tmPanel = el('div', 'wt-panel wt-timer'); tmPanel.hidden = true;
+  tmPanel.innerHTML = '<div class="wt-tm-modes"><button type="button" data-m="down">Таймер</button><button type="button" data-m="up">Секундомер</button></div>' +
+    '<div class="wt-tm-pre">' + [[30, '30 с'], [60, '1 мин'], [120, '2 мин'], [180, '3 мин'], [300, '5 мин']].map(function (p) { return '<button type="button" data-sec="' + p[0] + '">' + p[1] + '</button>'; }).join('') + '</div>' +
+    '<label class="wt-tm-cust">Своё время: <input type="number" min="1" max="180" inputmode="numeric" placeholder="мин"></label>' +
+    '<div class="wt-tm-big">01:00</div>' +
+    '<div class="wt-tm-go"><button type="button" class="main">Старт</button><button type="button" data-reset>Сброс</button></div>';
+  document.body.appendChild(tmPanel);
+  var pill = el('div', 'wt-pill'); pill.title = 'Таймер: нажми, чтобы открыть'; document.body.appendChild(pill);
+
   /* ---------- положение дока: над бейджем ANGLE, можно перетащить ---------- */
   var DOCK_KEY = 'angle_dock_v2';
   function headerBottom() { var h = document.querySelector('.topbar,header'); return h ? Math.max(0, h.getBoundingClientRect().bottom) : 0; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function placeDock(left, top) {
-    var w = dock.offsetWidth || 40, h = dock.offsetHeight || 88;
+    var w = dock.offsetWidth || 40, h = dock.offsetHeight || 136;
     left = clamp(left, 6, window.innerWidth - w - 6);
     top = clamp(top, headerBottom() + 6, window.innerHeight - h - 6);
     dock.style.left = left + 'px'; dock.style.top = top + 'px';
+    if (pill) placePill();
     return [left, top];
   }
   function defaultDock() {
     var badge = document.querySelector('.angle-badge');
     var bTop = badge ? badge.getBoundingClientRect().top : window.innerHeight - 14;
-    var h = dock.offsetHeight || 88;
+    var h = dock.offsetHeight || 136;
     var left = badge ? Math.max(8, badge.getBoundingClientRect().left) : 14;
     placeDock(left, bTop - h - 10);
   }
@@ -168,6 +206,7 @@
   function reposition() {
     if (!panel.hidden) attach(panel, inkBtn);
     if (!notePanel.hidden) attach(notePanel, noteBtn);
+    if (!tmPanel.hidden) attach(tmPanel, timerBtn);
   }
 
   /* ---------- заметки ---------- */
@@ -182,7 +221,7 @@
       saved.classList.add('show'); clearTimeout(hTimer); hTimer = setTimeout(function () { saved.classList.remove('show'); }, 1500);
     }, 400);
   });
-  function setNote(on) { noteBtn.classList.toggle('on', on); if (on) { setInk(false); attach(notePanel, noteBtn); } else notePanel.hidden = true; }
+  function setNote(on) { noteBtn.classList.toggle('on', on); if (on) { setInk(false); setTimerPanel(false); attach(notePanel, noteBtn); } else notePanel.hidden = true; }
   noteBtn.addEventListener('click', function () { setNote(notePanel.hidden); });
   notePanel.querySelector('.wt-nx').addEventListener('click', function () { setNote(false); });
   notePanel.querySelector('.wt-nf button').addEventListener('click', function () {
@@ -241,6 +280,14 @@
     return { w: host.clientWidth, h: host.scrollHeight };
   }
   var SZ = { w: 0, h: 0 };
+  /* Масштаб страницы (Ctrl +/−) и ширина окна меняют, где стоит колонка с заданиями. Поэтому координаты рисунка хранятся
+     от левого края колонки (а не от края окна), и пометки остаются на тех же словах при любом масштабе. */
+  var AX = 0;
+  function calcAX() {
+    var a = document.querySelector('.page.active') || document.querySelector('.page-wrap, main, .wrap, .container');
+    var ir = ink.getBoundingClientRect();
+    AX = a && a.offsetWidth ? a.getBoundingClientRect().left - ir.left : SZ.w / 2;
+  }
   function resize() {
     SZ = measure(); dpr = Math.max(1, window.devicePixelRatio || 1);
     [ink, laserCv].forEach(function (cv) {
@@ -248,7 +295,7 @@
       cv.width = Math.round(SZ.w * dpr); cv.height = Math.round(SZ.h * dpr);
     });
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw(); refreshActs();
+    calcAX(); draw(); refreshActs();
   }
   var imgs = {};
   function stickerImg(key) {
@@ -256,16 +303,17 @@
     if (typeof STICKER_DATA === 'undefined' || !STICKER_DATA[key]) return null;
     var im = new Image(); im.onload = draw; im.src = STICKER_DATA[key]; imgs[key] = im; return im;
   }
-  function pathStyle(tool) {
-    if (tool === 'highlighter') return { w: 16, a: .35, cap: 'butt', comp: 'source-over' };
-    if (tool === 'eraser') return { w: 22, a: 1, cap: 'round', comp: 'destination-out' };
-    return { w: 3, a: 1, cap: 'round', comp: 'source-over' };
+  function pathStyle(tool, w) {
+    w = w || 3;
+    if (tool === 'highlighter') return { w: w * 5, a: .35, cap: 'butt', comp: 'source-over' };
+    if (tool === 'eraser') return { w: w * 7, a: 1, cap: 'round', comp: 'destination-out' };
+    return { w: w, a: 1, cap: 'round', comp: 'source-over' };
   }
   function drawOne(s) {
     ctx.save();
     if (s.type === 'path') {
       if (s.points && s.points.length > 1) {
-        var ps = pathStyle(s.tool);
+        var ps = pathStyle(s.tool, s.w);
         ctx.globalCompositeOperation = ps.comp; ctx.globalAlpha = ps.a; ctx.strokeStyle = s.color; ctx.lineWidth = ps.w; ctx.lineCap = ps.cap; ctx.lineJoin = 'round';
         ctx.beginPath(); ctx.moveTo(s.points[0][0], s.points[0][1]);
         for (var i = 1; i < s.points.length; i++) ctx.lineTo(s.points[i][0], s.points[i][1]);
@@ -289,7 +337,7 @@
       var size = s.size || 20; ctx.fillStyle = s.color; ctx.font = size + 'px "Apercu Pro","Helvetica Neue",Arial,sans-serif'; ctx.textBaseline = 'top';
       String(s.text || '').split('\n').forEach(function (ln, i) { ctx.fillText(ln, s.x, s.y + i * Math.round(size * 1.25)); });
     } else {  // shape
-      ctx.strokeStyle = s.color; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.strokeStyle = s.color; ctx.lineWidth = s.w || 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       var x = Math.min(s.x1, s.x2), y = Math.min(s.y1, s.y2), w = Math.abs(s.x2 - s.x1), h = Math.abs(s.y2 - s.y1);
       if (s.tool === 'rect') { shapeFill(s, function () { ctx.beginPath(); ctx.rect(x, y, w, h); }); ctx.strokeRect(x, y, w, h); }
       else if (s.tool === 'ellipse') { ctx.beginPath(); ctx.ellipse(x + w / 2, y + h / 2, Math.max(w / 2, 1), Math.max(h / 2, 1), 0, 0, Math.PI * 2); shapeFillNow(s); ctx.stroke(); }
@@ -297,7 +345,7 @@
       else {
         ctx.beginPath(); ctx.moveTo(s.x1, s.y1); ctx.lineTo(s.x2, s.y2); ctx.stroke();
         if (s.tool === 'arrow') {
-          var a = Math.atan2(s.y2 - s.y1, s.x2 - s.x1), ah = 12;
+          var a = Math.atan2(s.y2 - s.y1, s.x2 - s.x1), ah = 10 + (s.w || 3) * 1.6;
           ctx.beginPath(); ctx.moveTo(s.x2, s.y2); ctx.lineTo(s.x2 - ah * Math.cos(a - Math.PI / 7), s.y2 - ah * Math.sin(a - Math.PI / 7));
           ctx.moveTo(s.x2, s.y2); ctx.lineTo(s.x2 - ah * Math.cos(a + Math.PI / 7), s.y2 - ah * Math.sin(a + Math.PI / 7)); ctx.stroke();
         }
@@ -312,7 +360,8 @@
   function bbox(s) {
     if (s.points) {
       var xs = s.points.map(function (p) { return p[0]; }), ys = s.points.map(function (p) { return p[1]; });
-      return [Math.min.apply(0, xs) - 8, Math.min.apply(0, ys) - 8, Math.max.apply(0, xs) + 8, Math.max.apply(0, ys) + 8];
+      var pd = 8 + (s.w || 3) * (s.tool === 'highlighter' ? 2.5 : .5);
+      return [Math.min.apply(0, xs) - pd, Math.min.apply(0, ys) - pd, Math.max.apply(0, xs) + pd, Math.max.apply(0, ys) + pd];
     }
     if (s.x1 != null) return [Math.min(s.x1, s.x2) - 6, Math.min(s.y1, s.y2) - 6, Math.max(s.x1, s.x2) + 6, Math.max(s.y1, s.y2) + 6];
     if (s.type === 'text') {
@@ -324,6 +373,7 @@
   }
   function draw() {
     ctx.clearRect(0, 0, SZ.w, SZ.h);
+    ctx.save(); ctx.translate(AX, 0);
     list().forEach(drawOne);
     if (cur) drawOne(cur);
     if (sel && list().indexOf(sel) >= 0) {
@@ -333,11 +383,18 @@
       ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(b[2] - 4, b[1] - 4); ctx.lineTo(b[2] + 4, b[1] + 4); ctx.moveTo(b[2] + 4, b[1] - 4); ctx.lineTo(b[2] - 4, b[1] + 4); ctx.stroke();
       ctx.restore();
     } else sel = null;
+    ctx.restore();
   }
 
   /* ---------- рисование: ввод ---------- */
-  var tool = 'pen', color = '#2D2926', fill = false, stamp = null, drawing = false, textTa = null;
-  function pt(e) { var r = ink.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+  var tool = 'pen', color = '#2D2926', fill = false, stamp = null, drawing = false, textTa = null, lw = 3;
+  try { var sw = parseInt(localStorage.getItem('angle_ink_w'), 10); if (sw > 0) { lw = sw; gWidths.querySelectorAll('.wt-w').forEach(function (b) { b.classList.toggle('on', +b.dataset.w === lw); }); } } catch (e) { }
+  gWidths.addEventListener('click', function (e) {
+    var b = e.target.closest('.wt-w'); if (!b) return;
+    lw = +b.dataset.w; try { localStorage.setItem('angle_ink_w', lw); } catch (x) { }
+    gWidths.querySelectorAll('.wt-w').forEach(function (x) { x.classList.toggle('on', x === b); });
+  });
+  function pt(e) { var r = ink.getBoundingClientRect(); return [e.clientX - r.left - AX, e.clientY - r.top]; }
 
   function segDist(p, a, b) {
     var dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * dx + dy * dy;
@@ -396,7 +453,7 @@
   function startText(p) {
     commitText(true);
     var ta = document.createElement('textarea'); ta.rows = 1; ta.__pt = p;
-    ta.style.cssText = 'position:absolute;left:' + p[0] + 'px;top:' + p[1] + 'px;min-width:120px;max-width:60vw;font:20px "Apercu Pro","Helvetica Neue",Arial,sans-serif;color:' + color +
+    ta.style.cssText = 'position:absolute;left:' + (p[0] + AX) + 'px;top:' + p[1] + 'px;min-width:120px;max-width:60vw;font:20px "Apercu Pro","Helvetica Neue",Arial,sans-serif;color:' + color +
       ';background:rgba(255,255,255,.85);border:1.5px dashed ' + color + ';border-radius:4px;padding:2px 4px;z-index:600;resize:none;overflow:hidden;line-height:1.25;';
     host.appendChild(ta); textTa = ta;
     function auto() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
@@ -419,13 +476,13 @@
     }
     if (tool === 'text') { startText(p); return; }
     drawing = true;
-    cur = (tool === 'pen' || tool === 'highlighter' || tool === 'eraser') ? { type: 'path', tool: tool, color: color, points: [p] }
-      : { type: 'shape', tool: tool, color: color, fill: fill && (tool === 'rect' || tool === 'ellipse' || tool === 'triangle'), x1: p[0], y1: p[1], x2: p[0], y2: p[1] };
+    cur = (tool === 'pen' || tool === 'highlighter' || tool === 'eraser') ? { type: 'path', tool: tool, color: color, w: lw, points: [p] }
+      : { type: 'shape', tool: tool, color: color, w: lw, fill: fill && (tool === 'rect' || tool === 'ellipse' || tool === 'triangle'), x1: p[0], y1: p[1], x2: p[0], y2: p[1] };
     draw();
   });
   var trail = [];
   ink.addEventListener('pointermove', function (e) {
-    if (tool === 'laser' && ink.style.pointerEvents === 'auto') { var lp = pt(e); trail.push({ x: lp[0], y: lp[1], t: Date.now() }); }
+    if (tool === 'laser' && ink.style.pointerEvents === 'auto') { var lp = pt(e); trail.push({ x: lp[0] + AX, y: lp[1], t: Date.now() }); }
     if (!drawing || !cur) return;
     var p = pt(e);
     if (cur.type === 'path') cur.points.push(p); else { cur.x2 = p[0]; cur.y2 = p[1]; }
@@ -481,14 +538,22 @@
     });
     reposition();
   }
-  if (typeof STICKER_DATA !== 'undefined') addEgg();
-  else { var sd = document.createElement('script'); sd.src = base + '/assets/sticker-data.js'; sd.onload = addEgg; document.head.appendChild(sd); }
+  function haveAllEgg() { return typeof STICKER_DATA !== 'undefined' && EGG.every(function (k) { return STICKER_DATA[k]; }); }
+  if (haveAllEgg()) addEgg();
+  else if (typeof STICKER_DATA !== 'undefined' && window.fetch) {
+    /* на странице вшит старый, неполный набор стикеров (аудирование ЕГЭ): докладываем недостающие из общего файла */
+    fetch(base + '/assets/sticker-data.js').then(function (r) { return r.text(); }).then(function (t) {
+      var o = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1));
+      for (var k in o) if (!STICKER_DATA[k]) STICKER_DATA[k] = o[k];
+      addEgg();
+    }).catch(addEgg);
+  } else { var sd = document.createElement('script'); sd.src = base + '/assets/sticker-data.js'; sd.onload = addEgg; document.head.appendChild(sd); }
 
   var inkOn = false;
   function setInk(on) {
     if (!on) commitText(true);
     inkOn = on; inkBtn.classList.toggle('on', on);
-    if (on) { setNote(false); attach(panel, inkBtn); } else panel.hidden = true;
+    if (on) { setNote(false); setTimerPanel(false); attach(panel, inkBtn); } else panel.hidden = true;
     ink.style.pointerEvents = (on && tool !== 'select') ? 'auto' : 'none';
   }
   inkBtn.addEventListener('click', function () { setInk(!inkOn); });
@@ -497,6 +562,77 @@
       var i = list().indexOf(sel); if (i >= 0) { var s = sel; list().splice(i, 1); sel = null; push({ k: 'del', s: s, i: i }); draw(); e.preventDefault(); }
     }
   });
+
+  /* ---------- таймер: обратный отсчёт и секундомер; состояние переживает перезагрузку страницы ---------- */
+  var TM_KEY = 'angle_timer::' + location.pathname;
+  var tm = { mode: 'down', total: 60000, running: false, t0: 0, acc: 0, done: false };
+  try { var ts = JSON.parse(localStorage.getItem(TM_KEY) || 'null'); if (ts) for (var tk in ts) tm[tk] = ts[tk]; } catch (e) { }
+  var tmBig = tmPanel.querySelector('.wt-tm-big'), tmMain = tmPanel.querySelector('.wt-tm-go .main'), tmCust = tmPanel.querySelector('.wt-tm-cust input');
+  function tmSave() { try { localStorage.setItem(TM_KEY, JSON.stringify(tm)); } catch (e) { } }
+  function tmElapsed() { return tm.acc + (tm.running ? Date.now() - tm.t0 : 0); }
+  function tmFmt(ms) {
+    var s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    function z(n) { return (n < 10 ? '0' : '') + n; }
+    return (h ? h + ':' + z(m) : z(m)) + ':' + z(x);
+  }
+  var ac = null;
+  function tmUnlock() { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) { } }
+  function tmBeep() {
+    try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) { }
+    if (!ac) return;
+    [0, .35, .7].forEach(function (d) {
+      var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = 880; g.gain.value = .18; o.connect(g); g.connect(ac.destination);
+      o.start(ac.currentTime + d); o.stop(ac.currentTime + d + .22);
+    });
+  }
+  function placePill() {
+    if (!pill.classList.contains('show')) return;
+    var d = dock.getBoundingClientRect(), pw = pill.offsetWidth, ph = pill.offsetHeight;
+    var left = d.right + 8; if (left + pw > window.innerWidth - 6) left = d.left - pw - 8;
+    pill.style.left = Math.max(6, left) + 'px'; pill.style.top = (d.bottom - 40 + (40 - ph) / 2) + 'px';
+  }
+  function tmRender() {
+    var up = tm.mode === 'up', el_ = tmElapsed(), shown = up ? el_ : Math.max(0, tm.total - el_);
+    var txt = tmFmt(shown);
+    tmBig.textContent = txt; pill.textContent = txt;
+    tmMain.textContent = tm.running ? 'Пауза' : (tm.acc > 0 && !tm.done ? 'Продолжить' : 'Старт');
+    tmMain.disabled = tm.done;
+    tmPanel.querySelectorAll('[data-m]').forEach(function (b) { b.classList.toggle('on', b.dataset.m === tm.mode); });
+    tmPanel.querySelector('.wt-tm-pre').style.display = tmCust.parentNode.style.display = up ? 'none' : '';
+    tmPanel.querySelectorAll('[data-sec]').forEach(function (b) { b.classList.toggle('on', +b.dataset.sec * 1000 === tm.total); });
+    var vis = tm.running || tm.acc > 0 || tm.done;
+    pill.classList.toggle('show', vis); pill.classList.toggle('paused', vis && !tm.running && !tm.done); pill.classList.toggle('done', tm.done);
+    timerBtn.classList.toggle('on', !tmPanel.hidden);
+    placePill();
+  }
+  function tmTick() {
+    if (tm.running && tm.mode === 'down' && tmElapsed() >= tm.total) { tm.running = false; tm.acc = tm.total; tm.done = true; tmSave(); tmBeep(); }
+    tmRender();
+  }
+  function tmReset() { tm.running = false; tm.acc = 0; tm.t0 = 0; tm.done = false; tmSave(); tmRender(); }
+  tmMain.addEventListener('click', function () {
+    tmUnlock();
+    if (tm.running) { tm.acc = tmElapsed(); tm.running = false; }
+    else { tm.t0 = Date.now(); tm.running = true; tm.done = false; }
+    tmSave(); tmRender();
+  });
+  tmPanel.querySelector('[data-reset]').addEventListener('click', tmReset);
+  tmPanel.querySelector('.wt-tm-modes').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-m]'); if (!b || b.dataset.m === tm.mode) return; tm.mode = b.dataset.m; tmReset();
+  });
+  tmPanel.querySelector('.wt-tm-pre').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-sec]'); if (!b) return; tm.total = +b.dataset.sec * 1000; tmCust.value = ''; tmReset();
+  });
+  tmCust.addEventListener('input', function () {
+    var v = parseInt(tmCust.value, 10); if (v > 0 && v <= 180) { tm.total = v * 60000; tmReset(); }
+  });
+  function setTimerPanel(on) {
+    if (on) { setNote(false); setInk(false); tmRender(); attach(tmPanel, timerBtn); } else tmPanel.hidden = true;
+    timerBtn.classList.toggle('on', on);
+  }
+  timerBtn.addEventListener('click', function () { setTimerPanel(tmPanel.hidden); });
+  pill.addEventListener('click', function () { if (tm.done) tmReset(); else setTimerPanel(tmPanel.hidden); });
+  setInterval(tmTick, 250); tmRender();
 
   var rt; function later() { clearTimeout(rt); rt = setTimeout(resize, 150); }
   window.addEventListener('resize', later);

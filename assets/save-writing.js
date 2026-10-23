@@ -1,4 +1,4 @@
-/* ANGLE save-writing — ученик скачивает свои письменные ответы как Word (.doc) и PDF.
+/* ANGLE save-writing — ученик скачивает свои письменные ответы как PDF.
    Подключается автоматически при сборке (build.mjs) ко всем материалам, править страницы не нужно.
    Что попадает в файл:
      • все <textarea> с текстом (в том числе свой блок в совместном письме);
@@ -136,7 +136,7 @@
   }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* ---------- общее для Word и PDF: фирменный бланк ANGLE ---------- */
+  /* ---------- общее для PDF: фирменный бланк ANGLE ---------- */
   var PURPLE_D = '#453458', YEL = '#FED500', LAV = '#f6f2fa', LINE = '#e2dbea';
   function assetBase() {
     var sc = document.querySelector('script[src*="save-writing.js"]');
@@ -159,37 +159,6 @@
       im.onload = function () { res(im); }; im.onerror = function () { res(null); };
       im.src = url;
     });
-  }
-
-  /* ---------- Word ---------- */
-  function makeDoc(groups, name) {
-    var title = meta('ws:title') || document.title;
-    var sans = 'Calibri,Arial,sans-serif';
-    var h = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>' + esc(title) + '</title>' +
-      '<style>body{font-family:' + sans + ';font-size:11.5pt;line-height:1.4;color:#2D2926}' +
-      'h2{color:' + PURPLE + ';font-size:14pt;margin:18pt 0 6pt;padding-left:8pt;border-left:4pt solid ' + YEL + '}' +
-      '.k{color:' + PURPLE + ';font-size:8pt;font-weight:bold;letter-spacing:1.5pt;margin:10pt 0 0}' +
-      '.q{font-weight:bold;margin:1pt 0 3pt}.a{margin:0}</style></head><body>' +
-      '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
-      '<td bgcolor="' + PURPLE_D + '" style="padding:14pt 18pt"><span style="font-family:' + sans + ';font-size:28pt;font-weight:bold;font-style:italic;color:' + YEL + ';letter-spacing:3pt">ANGLE</span><br>' +
-      '<span style="font-size:9pt;color:#e9dff5">by Viktoria Syuzyova</span></td>' +
-      '<td bgcolor="' + PURPLE_D + '" align="right" valign="top" style="padding:16pt 18pt;color:#e9dff5;font-size:9pt"><span style="color:' + YEL + ';font-weight:bold;letter-spacing:1.5pt">WRITTEN ANSWERS</span><br>' + esc(courseLine()) + '<br>' + esc(dateLong()) + '</td></tr></table>' +
-      '<p style="margin:14pt 0 8pt"><span style="background:' + YEL + ';color:' + PURPLE + ';font-weight:bold;font-size:15pt">&nbsp;&nbsp;' + esc(title) + '&nbsp;&nbsp;</span></p>' +
-      '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-bottom:6pt"><tr>' +
-      '<td width="40%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">NAME</span><br>' + esc(name || ' ') + '</td><td width="4%"></td>' +
-      '<td width="30%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">DATE</span><br>' + esc(dateLong()) + '</td><td width="4%"></td>' +
-      '<td width="22%" style="border-bottom:1.5pt solid #cfc4dc;padding:2pt 0"><span style="font-size:8pt;color:' + PURPLE + ';font-weight:bold;letter-spacing:1.5pt">WORDS</span><br>' + countWords(groups) + '</td></tr></table>';
-    var qn = 0;
-    groups.forEach(function (g) {
-      if (g.title) h += '<h2>' + esc(g.title) + '</h2>';
-      g.items.forEach(function (it) {
-        if (it.q) { qn++; h += '<p class="k">QUESTION ' + qn + '</p><p class="q">' + esc(it.q) + '</p>'; }
-        h += '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-bottom:6pt"><tr><td bgcolor="' + LAV + '" style="border-left:3pt solid ' + PURPLE + ';border-top:1pt solid ' + LINE + ';border-right:1pt solid ' + LINE + ';border-bottom:1pt solid ' + LINE + ';padding:7pt 10pt"><p class="a">' + esc(it.a).replace(/\n/g, '<br>') + '</p></td></tr></table>';
-      });
-    });
-    h += '<p style="margin:18pt 0 0;border-top:2.25pt solid ' + YEL + ';padding-top:4pt;font-size:8.5pt;color:#7a7288"><b style="color:' + PURPLE + '">ANGLE</b><br>by Viktoria Syuzyova</p>';
-    h += '</body></html>';
-    return new Blob(['﻿', h], { type: 'application/msword;charset=utf-8' });
   }
 
   /* ---------- PDF (без библиотек) ---------- */
@@ -369,14 +338,11 @@
     return new Blob(chunks, { type: 'application/pdf' });
   }
 
-  function exportAs(kind) {
+  function exportAs() {
     var groups = collect();
     if (!groups.length) { alert('Write your answers first, then save them.'); return; }
     var name = studentName();
     var base = fileBase(name);
-    if (kind === 'doc' || kind === 'both') download(makeDoc(groups, name), base + '.doc');
-    if (kind === 'doc') return;
-    if (kind === 'both') { setTimeout(function () { exportPdf(groups, name, base); }, 600); return; }
     exportPdf(groups, name, base);
   }
   function exportPdf(groups, name, base) {
@@ -426,10 +392,9 @@
     var bar = document.createElement('div'); bar.className = 'sw-bar';
     var b = document.createElement('button'); b.type = 'button'; b.className = 'sw-btn';
     b.innerHTML = '<span class="sw-ic">' + ARROW + '</span><span><span class="sw-k"></span><span class="sw-t"></span></span><span class="sw-stk"></span>';
-    b.querySelector('.sw-k').textContent = 'Word + PDF';
+    b.querySelector('.sw-k').textContent = 'PDF';
     b.querySelector('.sw-t').textContent = 'Save my writing';
-    /* одна кнопка — два файла: сначала Word, через паузу PDF (браузер может один раз спросить разрешение на несколько загрузок) */
-    b.addEventListener('click', function () { exportAs('both'); });
+    b.addEventListener('click', function () { exportAs(); });
     bar.appendChild(b);
     return bar;
   }
