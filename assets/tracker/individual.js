@@ -132,7 +132,7 @@ function viewBlock(pl,bi,only){
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
     const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
-    const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
+    const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
     return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}<span class="wcnt">${gs.done} of ${gs.n} confirmed</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(b.name)}</h2><div class="sub">${sc.done} of ${sc.n} confirmed${sc.wait?` · <b class="waitc">${sc.wait} waiting for review</b>`:''} · ${sc.e} of ${sc.p} points</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
 }
@@ -145,6 +145,7 @@ function addBar(pl,bi){
     <div style="grid-column:1/-1"><label>Tasks (one per line)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
     <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week label</label><input type="text" id="ntWeek" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
+    <div style="grid-column:1/-1"><label>Link (optional; used for every task above that has no link of its own. Or write a link after a | on a line)</label><input type="text" id="ntLink" placeholder="https://"></div>
     <div><label>Points each</label><input type="number" id="ntPts" value="5" min="0"></div>
     <div><label>New block (optional)</label><input type="text" id="ntBlockNew" placeholder="${b?'leave empty: '+esc(b.name):'Block 1'}"></div></div>
     <p class="erow"><button class="btn" data-addtask="1">Add</button>${pl.blocks.length?'<button class="btn ghost" data-addclose="1">Close</button>':''}</p></div>`:'';
@@ -182,7 +183,7 @@ function render(){
 /* ---------- events ---------- */
 const find=s=>{const [bi,n]=s.split('|');const b=P().blocks[+bi];return{b,t:b.tasks.find(x=>x.n===+n)}};
 const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value})};
-function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:o.task,mode:'',link:'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
+function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:o.task,mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
   const pn=e.target.closest('[data-plan]');if(pn){ui.plan=pn.dataset.plan;ui.tab=null;ui.review=false;render();return}
@@ -231,14 +232,15 @@ document.addEventListener('click',e=>{
   const gg=e.target.closest('[data-gaddgo]');
   if(gg){const box=gg.closest('[data-gadd]'),[bi,k]=box.dataset.gadd.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k),src=b.tasks.find(t=>gKey(t)===key),inp=box.querySelector('[data-gaddt]');
     const txt=inp.value.trim();if(!txt){toast('Write the task first');return}
-    mkTask(b,{task:txt,kind:box.querySelector('[data-gaddk]').value,points:5,week:src?src.week:'',date:src?src.date:''});render();return}
+    mkTask(b,{task:txt,kind:box.querySelector('[data-gaddk]').value,points:5,week:src?src.week:'',date:src?src.date:'',link:box.querySelector('[data-gaddl]').value.trim()});render();return}
   const ad=e.target.closest('[data-addtask]');
   if(ad){const lines=$('#ntTask').value.split('\n').map(x=>x.trim()).filter(Boolean);if(!lines.length){toast('Write the task first');return}
     const bnew=$('#ntBlockNew').value.trim();let b=bnew?P().blocks.find(x=>x.name===bnew):(ui.tab&&ui.tab[0]==='b'?P().blocks[parseInt(ui.tab.slice(1))]:null);
     if(!b){b={name:bnew||'Block 1',tasks:[]};P().blocks.push(b)}
     const gv=$('#ntGroup').value;let week='',date='';
     if(gv==='__new'||bnew){week=$('#ntWeek').value.trim();date=readDates(document,'nd')}else{const [w,d]=gv.split('|');week=w;date=d}
-    lines.forEach(task=>mkTask(b,{task,kind:$('#ntKind').value,points:+$('#ntPts').value||0,week,date}));
+    const link0=$('#ntLink').value.trim();
+    lines.forEach(line=>{const m=line.split('|'),task=m[0].trim(),lk=(m[1]||'').trim()||link0;if(task)mkTask(b,{task,kind:$('#ntKind').value,points:+$('#ntPts').value||0,week,date,link:lk})});
     ui.tab='b'+P().blocks.indexOf(b);ui.review=false;ui.addOpen=false;toast(lines.length+' task'+(lines.length>1?'s':'')+' added');render();return}
   }
   if(e.target.closest('[data-plink]')){const pl=P();
@@ -255,7 +257,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('change',e=>{
   if(e.target.id==='ntGroup'){const nb=$('#ntNewBox');if(nb)nb.style.display=e.target.value==='__new'?'':'none'}
 });
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-gaddt]')){e.preventDefault();e.target.closest('[data-gadd]').querySelector('[data-gaddgo]').click()}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-gaddt],[data-gaddl]')){e.preventDefault();e.target.closest('[data-gadd]').querySelector('[data-gaddgo]').click()}});
 
 /* ---------- boot ---------- */
 (async function(){
