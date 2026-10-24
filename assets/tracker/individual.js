@@ -25,11 +25,12 @@ const today=()=>new Date().toISOString().slice(0,10);
 const setSync=(s,t)=>{const el=$('#sync');el.className='sync '+s;$('#syncTxt').textContent=t};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)};
 const KINDS={before:'Before the lesson',classwork:'Classwork',homework:'Homework'};
-const NDATES=Math.max(1,window.TRACKER_DATES||1);            // lessons per week: how many dates a week header can carry
+/* lessons per week: how many dates a week header can carry. TRACKER_DATES is a number, or {planId: number} */
+const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[ui.plan]:t;return Math.max(1,+v||1)};
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
 const gKey=t=>(t.week||'')+'|'+(t.date||'');
 const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
-const dateInputs=(vals,cls)=>Array.from({length:Math.max(NDATES,vals.length)},(_,i)=>`<input type="text" class="${cls}" value="${esc(vals[i]||'')}" placeholder="${i<NDATES?'Date '+(i+1)+(i?' (optional)':''):'Date'} · e.g. Oct, 29">`).join('');
+const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<input type="text" class="${cls}" value="${esc(vals[i]||'')}" placeholder="${i<ndates()?'Date '+(i+1)+(i?' (optional)':''):'Date'} · e.g. Oct, 29">`).join('');
 const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.value.trim()).filter(Boolean).join(' · ');
 
 /* ---------- stores ---------- */
