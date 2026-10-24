@@ -964,6 +964,8 @@ async function submitAll(){
     fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
+    // Also record the result in the progress tracker (percent + mistakes; the teacher sees the mistakes, parents do not)
+    try{ const mm=/\((\d+)%\)/.exec(String(fd.get('score')||'')); if(mm){ const ms=String(fd.get('mistakes')||''); fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'B1', student:String(fd.get('student')||''), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:+mm[1], note:/^No mistakes/.test(ms)?'':ms.split(/\\n|\n/).slice(0,12).join('\n') }) }); } }catch(_){}
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
   } catch(e){
