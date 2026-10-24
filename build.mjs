@@ -274,7 +274,10 @@ function injectHead(dir) {
     /* док инструментов (заметки + рисование): assets/ws-tools.js, на каждый материал; страницы со старой вшитой копией (#inkToggle) скрипт пропускает */
     const wtTag = isMaterial && !/<script\b[^>]*ws-tools\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/ws-tools.js?v=${WT_VERSION}" defer></script>\n` : '';
-    const tags = `${ICON_TAGS}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}`;
+    /* трекеры: непрозрачная строка состояния (iOS 26 размывает верх страницы под прозрачной) */
+    const isTracker = /name=["']ws:audience["'][^>]*content=["']teacher["']|content=["']teacher["'][^>]*name=["']ws:audience["']/i.test(src);
+    const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"') : ICON_TAGS;
+    const tags = `${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
