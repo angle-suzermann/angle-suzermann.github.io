@@ -112,11 +112,19 @@ function taskCard(pl,bi,t){
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
   else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
   const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
-  const ed=!STUDENT&&ui.tedit===bi+'|'+t.n?`<div class="tedit" data-te="${bi}|${t.n}"><div class="xgrid"><div style="grid-column:1/-1"><label>Task</label><input type="text" data-f="task" value="${esc(t.task)}"></div>
+  let ed='';
+  if(!STUDENT&&ui.tedit===bi+'|'+t.n){
+    const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
+    const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
+    ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(t.task)}"></div>
     <div><label>Kind</label><select data-f="kind">${kindOpts(k)}</select></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
-    <div><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div><div><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
-    <div style="grid-column:1/-1"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
-    <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`:'';
+    <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
+    <div class="c-full tnew" style="display:none"><label>Week label</label><input type="text" class="tw" placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
+    <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
+    <div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
+    <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
+    <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
+  }
   return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt">${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
@@ -207,6 +215,9 @@ document.addEventListener('click',e=>{
   const ts=e.target.closest('[data-tsave]');
   if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
     box.querySelectorAll('[data-f]').forEach(inp=>{const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
+    const sel=box.querySelector('[data-tgroup]');
+    if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){w=box.querySelector('.tw').value.trim();d=readDates(box,'td');if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
+      if((t.week||'')!==w)setF(b,t,'week',w);if((t.date||'')!==d)setF(b,t,'date',d)}
     ui.tedit=null;toast('Saved');render();return}
   const td=e.target.closest('[data-tdel]');
   if(td){const {b,t}=find(td.closest('[data-te]').dataset.te);if(!confirm('Delete this task? This cannot be undone.'))return;
@@ -255,6 +266,7 @@ document.addEventListener('click',e=>{
   if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.iui2');location.reload();return}
 });
 document.addEventListener('change',e=>{
+  if(e.target.matches('[data-tgroup]')){const nb=e.target.closest('.tedit').querySelector('.tnew');nb.style.display=e.target.value==='__new'?'':'none'}
   if(e.target.id==='ntGroup'){const nb=$('#ntNewBox');if(nb)nb.style.display=e.target.value==='__new'?'':'none'}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-gaddt],[data-gaddl]')){e.preventDefault();e.target.closest('[data-gadd]').querySelector('[data-gaddgo]').click()}});

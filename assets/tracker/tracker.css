@@ -193,3 +193,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .gadd select{flex:0 0 auto;width:auto;max-width:150px}
 .gadd .btn{flex:0 0 auto}
 .gadd{flex-wrap:wrap}.gadd input[data-gaddt]{flex:2 1 200px}.gadd input[data-gaddl]{flex:1 1 140px}
+.tegrid{display:grid;grid-template-columns:170px 100px 1fr;gap:10px;align-items:end}
+.tegrid .c-full{grid-column:1/-1}
+.tegrid input,.tegrid select{width:100%;box-sizing:border-box}
+@media (max-width:560px){.tegrid{grid-template-columns:1fr 1fr}.tegrid .c-grow{grid-column:1/-1}}
