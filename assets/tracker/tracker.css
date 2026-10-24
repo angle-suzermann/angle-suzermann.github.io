@@ -139,8 +139,12 @@ body.ind .card.hint{background:#fff7d6;color:#5b4a00;font-size:14px;margin-botto
 .kd{width:5px;height:16px;border-radius:3px;display:inline-block}
 .k-before{--kc:#1f9d8a}.k-classwork{--kc:#3a78c9}.k-homework{--kc:#7a5f99}
 .kd.k-before{background:#1f9d8a}.kd.k-classwork{background:#3a78c9}.kd.k-homework{background:#7a5f99}
-.wk{display:flex;align-items:center;gap:8px;margin:16px 0 8px}
-.wk:first-of-type{margin-top:4px}
+.wgrp{border-radius:16px;padding:0 8px 2px;margin:0 0 22px;border:1px solid #e6dff0;background:#faf8fd}
+.wgrp.w1{background:#fcf9f4;border-color:#efe5d6}
+.wgrp:last-child{margin-bottom:4px}
+.wk{display:flex;align-items:center;gap:8px;margin:0 -8px 10px;padding:9px 12px;border-radius:15px 15px 0 0;background:#ece5f6;border-bottom:1px solid #ddd2ee}
+.wgrp.w1 .wk{background:#f6ead6;border-bottom-color:#ead9bd}
+.wcnt{margin-left:auto;font-size:12px;font-weight:700;color:#6b6475;white-space:nowrap}
 .dchip{background:var(--yellow,#FED500);color:#2D2926;font-weight:800;font-size:13px;border-radius:999px;padding:3px 11px}
 .wlab{color:#6b6475;font-size:12.5px;font-weight:700;letter-spacing:.02em}
 .task{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ece8f1;border-left:5px solid var(--kc,#7a5f99);border-radius:12px;padding:10px 12px;margin-bottom:8px}

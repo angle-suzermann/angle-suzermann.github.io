@@ -102,7 +102,7 @@ function viewBlock(pl,bi,only){
   const tasks=only?b.tasks.filter(t=>t.suggested&&t.status!=='✓'):b.tasks;
   if(!tasks.length)return '';
   const sc=score(b.tasks);
-  const body=groupWeeks(tasks).map(g=>`<div class="wk">${g.date?`<span class="dchip">${esc(g.date)}</span>`:''}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}</div>${g.items.map(t=>taskCard(pl,bi,t)).join('')}`).join('');
+  const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items);return `<section class="wgrp w${gi%2}"><div class="wk">${g.date?`<span class="dchip">${esc(g.date)}</span>`:''}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}<span class="wcnt">${gs.done} of ${gs.n} confirmed</span></div>${g.items.map(t=>taskCard(pl,bi,t)).join('')}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(b.name)}</h2><div class="sub">${sc.done} of ${sc.n} confirmed${sc.wait?` · <b class="waitc">${sc.wait} waiting for review</b>`:''} · ${sc.e} of ${sc.p} points</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
 }
 function addForm(pl,bi){
