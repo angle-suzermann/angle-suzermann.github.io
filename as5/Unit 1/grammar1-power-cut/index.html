@@ -421,7 +421,7 @@ async function submitAll(){
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     // Also record the result in the progress tracker (stays off while the address below is empty)
-    const TRACKER_RESULTS_URL = '';
+    const TRACKER_RESULTS_URL = 'https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec';
     if(TRACKER_RESULTS_URL){
       try{ await fetch(TRACKER_RESULTS_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'as5', student:nameInput.value.trim(), hw:'Grammar 1 — Past Continuous (Power Cut)', pct:pct, pts:correct, max:total, note:wrongList.slice(0,12).join('\n') }) }); }catch(_){}
     }
