@@ -39,8 +39,8 @@ const Sheets={
 };
 const QP=new URLSearchParams(location.search);
 const PARENT=!!(QP.get('a')&&QP.get('p'));
-/* data requests: 20 s limit, one automatic retry, then a clear error with a Try again button */
-async function fetchT(url,opts,ms){ms=ms||20000;let err;
+/* data requests: 45 s limit, one automatic retry, then a clear error with a Try again button */
+async function fetchT(url,opts,ms){ms=ms||45000;let err;
   for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
     try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});clearTimeout(t);return r}
     catch(e){clearTimeout(t);err=e.name==='AbortError'?new Error('The server did not answer in time.'):new Error('No connection to the server.')}}
