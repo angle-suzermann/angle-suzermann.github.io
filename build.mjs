@@ -1375,7 +1375,12 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
   /* «Без юнита»: материалы курса без папки (например, инструкции MEE в
      GW B2) раньше в панели были недоступны через плитки, если у курса
      есть хотя бы одна папка — теперь для них есть своя плитка. */
-  const ungroupedCount = list.filter((m) => !m.group).length;
+  const ungroupedCount = list.filter((m) => !m.group && m.audience !== 'teacher').length;
+  const trackerTiles = list.filter((m) => m.audience === 'teacher').map((m) => `      <a class="tile tile-tracker" href="${esc(m.url)}" target="_blank" rel="noopener">
+        <span class="tile-icon"><span class="tile-emoji">📊</span></span>
+        <span class="tile-name">Homework tracker</span>
+        <span class="tile-count">открыть трекер</span>
+      </a>`);
 
   const topTiles = themes.map((t) => {
     const hasSkills = groups.some((g) => themeOf(g) === t && skillOf(g));
@@ -1386,6 +1391,7 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
       '📁', t, count, isLeaf ? fileWords : undefined
     );
   });
+  topTiles.unshift(...trackerTiles);
   if (ungroupedCount) {
     topTiles.push(groupTileHtml(` data-group-tile="" data-course-tile="${esc(courseId)}"`, '📁', 'Без юнита', ungroupedCount));
   }
