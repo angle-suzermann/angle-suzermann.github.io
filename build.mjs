@@ -109,7 +109,7 @@ const KIND_LABEL = { homework: 'Homework', classwork: 'Classwork', test: 'Test',
 const COURSE_EN = { 'ege-2027': 'EGE 2027', 'placement-tests': 'Placement Tests' };
 const courseNameEn = (id) => COURSE_EN[id] || (courses.find((c) => c.id === id) || {}).name || '';
 function materialKind(meta, relDir) {
-  if (/(^|\/)homework-tracker$/.test(relDir)) return 'tracker';
+  if (/(^|\/)(0-)?homework-tracker$/.test(relDir)) return 'tracker';
   const s = `${relDir} ${meta.title || ''}`.toLowerCase();
   if (s.includes('homework')) return 'homework';
   if (s.includes('classwork')) return 'classwork';
