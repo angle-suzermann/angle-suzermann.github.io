@@ -143,7 +143,7 @@ function studentCardBody(s,n,readonly){
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
     return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} pts</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
-  return `<div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(s.name)}</h3><div>${esc(c)} · overall progress</div><div>${o.e} of ${o.p} points</div></div></div>
+  return `${ringsTop(c,s,o)}
    <div class="mini">${minis}${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':' <span class="sub">(not started)</span>'}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
@@ -218,15 +218,24 @@ function meeSum(rows){const due=rows.filter(r=>r.status==='done'||r.status==='mi
 function ring2(r,R,col,w){const C2=2*Math.PI*R,v=Math.max(0,Math.min(1,r||0));
   return `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-opacity=".18" stroke-width="${w}"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${(C2*v).toFixed(1)} ${C2.toFixed(1)}" transform="rotate(-90 60 60)"/>`}
 const ACT_LABELS={1:'Needs encouragement',2:'Steady',3:'Very active'};
-function actFor(c,s){const n=String(s.name).toLowerCase();return (D.act||[]).filter(r=>String(r.course)===c&&String(r.student).toLowerCase()===n)}
+function actFor(c,s,kind='activity'){const n=String(s.name).toLowerCase();return (D.act||[]).filter(r=>String(r.course)===c&&String(r.student).toLowerCase()===n&&(r.kind||'activity')===kind)}
 function actAvg(a){return a.length?a.reduce((x,r)=>x+Number(r.score),0)/a.length/3:null}
-function meeBlock(rows,s,teacher){const a=s?actFor(ui.course,s):[];if(!rows.length&&!a.length&&!teacher)return'';const m=meeSum(rows),aa=actAvg(a);
-  const svg=`<svg viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Homework rings">${ring2(m.sub,50,'#6b21a8',11)}${ring2(m.q,36,'#eab308',10)}${ring2(aa,22,'#0f766e',10)}</svg>`;
-  const pc=v=>v==null?'–':Math.round(v*100)+'%';
+const Q_LABELS={1:'Needs more care',2:'Good',3:'Excellent'};
+const pcT=v=>v==null?'–':Math.round(v*100)+'%';
+function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
+/* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
+function ringsTop(c,s,o){
+  const rows=meeFor(c,s),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
+  const sub=m.sub!=null?m.sub:o.r,subTxt=m.sub!=null?`${m.done} of ${m.due} online tasks`:`${o.e} of ${o.p} points`;
+  const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
+  const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
+  return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> Handed in: <b>${pcT(sub)}</b> (${subTxt})</div><div><b style="color:#eab308">●</b> Quality of work: <b>${pcT(qual)}</b> (${qTxt})</div><div><b style="color:#0f766e">●</b> Activity in class: <b>${pcT(actAvg(act))}</b> (${lvl(act,ACT_LABELS)})</div></div></div>`}
+function meeBlock(rows,s,teacher){
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
     return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}</small></div><span class="tag">${lab}</span></div>`}).join('');
-  return `<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>
-   <div class="scard-top">${svg}<div class="who"><div><b style="color:#6b21a8">●</b> Handed in: ${pc(m.sub)} (${m.done} of ${m.due} due)</div><div><b style="color:#eab308">●</b> Average score of handed-in work: ${pc(m.q)}</div><div><b style="color:#0f766e">●</b> Activity in class: ${a.length?ACT_LABELS[Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'–'}</div></div></div>${list}${teacher&&s?`<div class="sub" style="margin:10px 0 4px">Rate class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>`:''}`}
+  const rate=teacher&&s?`<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
+   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>`:'';
+  return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+rate}
 
 function renderParent(){
   const c=Object.keys(D.courses)[0];ui.course=c;const cc=C(),st=cc.students[0];
@@ -240,6 +249,10 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  const qb=e.target.closest('[data-qual]');
+  if(qb){const box=qb.closest('[data-actfor]'),st3=C().students.find(x=>x.id===box.dataset.actfor);
+    const row={course:ui.course,student:st3.name,date:new Date().toISOString().slice(0,10),lessons:'',score:+qb.dataset.qual,note:'',kind:'quality'};
+    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});toast('Saved: '+st3.name+' quality '+row.score+'/3');openCard(st3.id);return}
   const ab=e.target.closest('[data-act]');
   if(ab){const box=ab.closest('[data-actfor]'),st2=C().students.find(x=>x.id===box.dataset.actfor);const les=+box.querySelector('[data-actles]').value;
     const row={course:ui.course,student:st2.name,date:new Date().toISOString().slice(0,10),lessons:les,score:+ab.dataset.act,note:''};
