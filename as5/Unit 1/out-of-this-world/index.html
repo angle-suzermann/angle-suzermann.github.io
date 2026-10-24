@@ -483,7 +483,7 @@ async function submitAll(){
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     // Also record the result in the progress tracker (percent + mistakes; the teacher sees the mistakes, parents do not)
-    try{ const mm=/\((\d+)%\)/.exec(String(fd.get('score')||'')); if(mm){ const ms=String(fd.get('mistakes')||''); await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'as5', student:String(fd.get('student')||''), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:+mm[1], note:/^No mistakes/.test(ms)?'':ms.split('\n').slice(0,12).join('\n') }) }); } }catch(_){}
+    try{ const mm=/\((\d+)%\)/.exec(String(fd.get('score')||'')); if(mm){ const ms=String(fd.get('mistakes')||''); await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'Flyers', student:String(fd.get('student')||''), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:+mm[1], note:/^No mistakes/.test(ms)?'':ms.split('\n').slice(0,12).join('\n') }) }); } }catch(_){}
     document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
   } catch(e){
     document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';

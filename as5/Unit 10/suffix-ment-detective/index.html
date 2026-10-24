@@ -1108,7 +1108,7 @@ async function sendCompletion(){
     );
     fd.append('mistakes', allMistakes.length ? allMistakes.join('\n') : 'No mistakes — all items correct.');
     // Also record the result in the progress tracker (percent + mistakes; the teacher sees the mistakes, parents do not)
-    try{ const _ms=String(fd.get('mistakes')||''); fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'as5', student:String(getStudentName()), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:Math.round(lastPct), note:/^No mistakes/.test(_ms)?'':_ms.split('\n').slice(0,12).join('\n') }) }); }catch(_){}
+    try{ const _ms=String(fd.get('mistakes')||''); fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'Flyers', student:String(getStudentName()), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:Math.round(lastPct), note:/^No mistakes/.test(_ms)?'':_ms.split('\n').slice(0,12).join('\n') }) }); }catch(_){}
     const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
     status.textContent = res.ok ? 'Sent to your teacher!' : "Couldn't send — check your connection.";
   }catch(e){
