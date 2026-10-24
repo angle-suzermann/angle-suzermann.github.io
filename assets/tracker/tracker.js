@@ -6,6 +6,13 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}},del(k){try{localStorage.removeItem(k)}catch{}}};
 
 /* ---------- storage ---------- */
+/* connect another device: open a link with ?s=<code>, or paste the link/code in the settings (gear) */
+const setupCode=c=>btoa(unescape(encodeURIComponent(JSON.stringify({u:c.url,t:c.token})))).replace(/\+/g,'-').replace(/\//g,'_');
+function readSetup(x){try{x=String(x||'').trim();const m=x.match(/[?&]s=([^&#\s]+)/);if(m)x=m[1];x=x.replace(/-/g,'+').replace(/_/g,'/');const o=JSON.parse(decodeURIComponent(escape(atob(x))));return o.u&&o.t?{url:o.u,token:o.t}:null}catch{return null}}
+(function(){const s=new URLSearchParams(location.search).get('s');if(s){const c=readSetup(s);if(c)LS.set('angleTracker.cfg',c);try{history.replaceState(null,'',location.pathname)}catch{}}})();
+function addSetupUI(){if($('#cfgLink'))return;const sh=document.querySelector('#setDlg .sheet');if(!sh)return;const d=document.createElement('div');
+  d.innerHTML='<hr style="border:0;border-top:1px solid #e4e0e8;margin:14px 0"><p class="sub">Connect another device (phone, Telegram, home-screen app):</p><p><button class="btn ghost" id="cfgLink">Copy setup link</button></p><label>Paste a setup link or code here</label><input type="text" id="cfgCode" placeholder="https://…?s=…" autocomplete="off"><p><button class="btn" id="cfgCodeGo">Connect with this code</button></p><p class="sub">The link contains your access token. Send it only to yourself and delete the message afterwards.</p>';
+  sh.appendChild(d)}
 const cfg=LS.get('angleTracker.cfg',{url:'',token:''});
 const live=!!(cfg.url&&cfg.token);
 let D={courses:{},progress:{},mee:[],act:[]};
@@ -291,7 +298,9 @@ document.addEventListener('click',e=>{
   if(e.target.id==='addExtra'){
     const x={id:'x'+Date.now().toString(36),date:new Date().toISOString().slice(0,10),topic:'',purpose:'',link:'',points:5,note:''};
     C().extras.push(x);send({a:'addExtra',course:ui.course,extra:x});render();return}
-  if(e.target.id==='gear'){$('#cfgUrl').value=cfg.url||'';$('#cfgTok').value=cfg.token||'';$('#setDlg').showModal();return}
+  if(e.target.id==='cfgLink'){const c=LS.get('angleTracker.cfg',{url:'',token:''});if(!c.url||!c.token){toast('Connect the sheet first');return}const link=location.origin+location.pathname+'?s='+setupCode(c);(navigator.clipboard?navigator.clipboard.writeText(link):Promise.reject()).then(()=>toast('Setup link copied. Send it to yourself.'),()=>{prompt('Copy this link',link)});return}
+  if(e.target.id==='cfgCodeGo'){const c=readSetup($('#cfgCode').value);if(!c){toast('This is not a valid setup link or code');return}LS.set('angleTracker.cfg',c);location.reload();return}
+  if(e.target.id==='gear'){addSetupUI();$('#cfgUrl').value=cfg.url||'';$('#cfgTok').value=cfg.token||'';$('#setDlg').showModal();return}
   if(e.target.id==='cfgSave'){LS.set('angleTracker.cfg',{url:$('#cfgUrl').value.trim(),token:$('#cfgTok').value.trim()});location.reload();return}
   if(e.target.id==='cfgDemo'){LS.del('angleTracker.demo');LS.del('angleTracker.ui');location.reload();return}
 });
