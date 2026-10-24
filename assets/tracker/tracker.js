@@ -247,9 +247,10 @@ function ringsTop(c,s,o){
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> Handed in: <b>${pcT(sub)}</b> (${subTxt})</div><div><b style="color:#eab308">●</b> Quality of work: <b>${pcT(qual)}</b> (${qTxt})</div><div><b style="color:#0f766e">●</b> Activity in class: <b>${pcT(actAvg(act))}</b> (${lvl(act,ACT_LABELS)})</div></div></div>`}
 function meeBlock(rows,s,teacher){
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
-    return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}</small></div><span class="tag">${lab}</span></div>`}).join('');
+    const src=r.source==='photo'?' · photo':r.source==='worksheet'?' · worksheet':'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
   const rate=teacher&&s?`<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
-   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>`:'';
+   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
+   <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div>`:'';
   return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+rate}
 
 function renderParent(){
@@ -264,6 +265,11 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  const pb=e.target.closest('[data-photo]');
+  if(pb){const box=pb.closest('[data-photofor]'),st4=C().students.find(x=>x.id===box.dataset.photofor),hw=box.querySelector('[data-phw]').value.trim(),pc=box.querySelector('[data-ppct]').value;
+    if(!hw||pc===''||+pc<0||+pc>100){toast('Enter the task name and a score from 0 to 100');return}
+    const row={course:ui.course,student:st4.name,hw,due:new Date().toISOString().slice(0,10),status:'done',pct:+pc,source:'photo'};
+    D.mee=(D.mee||[]).filter(r=>!(String(r.course)===row.course&&r.student===row.student&&r.hw===hw)).concat([row]);send({a:'addResult',...row});toast('Saved: '+st4.name+' · '+hw+' '+pc+'%');openCard(st4.id);return}
   const qb=e.target.closest('[data-qual]');
   if(qb){const box=qb.closest('[data-actfor]'),st3=C().students.find(x=>x.id===box.dataset.actfor);
     const row={course:ui.course,student:st3.name,date:new Date().toISOString().slice(0,10),lessons:'',score:+qb.dataset.qual,note:'',kind:'quality'};
