@@ -8,7 +8,7 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 /* ---------- storage ---------- */
 const cfg=LS.get('angleTracker.cfg',{url:'',token:''});
 const live=!!(cfg.url&&cfg.token);
-let D={courses:{},progress:{},mee:[]};
+let D={courses:{},progress:{},mee:[],act:[]};
 let ui=LS.get('angleTracker.ui',{course:null,tab:'u1',student:null});
 const setSync=(s,t)=>{const el=$('#sync');el.className='sync '+s;$('#syncTxt').textContent=t};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)};
@@ -146,7 +146,7 @@ function studentCardBody(s,n,readonly){
   return `<div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(s.name)}</h3><div>${esc(c)} · overall progress</div><div>${o.e} of ${o.p} points</div></div></div>
    <div class="mini">${minis}${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':' <span class="sub">(not started)</span>'}</h2>${rows}
-   ${meeBlock(meeFor(c,s))}
+   ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
 }
 function openCard(sid,n){
@@ -217,13 +217,15 @@ function meeSum(rows){const due=rows.filter(r=>r.status==='done'||r.status==='mi
   return{due:due.length,done:done.length,sub:due.length?done.length/due.length:null,q}}
 function ring2(r,R,col,w){const C2=2*Math.PI*R,v=Math.max(0,Math.min(1,r||0));
   return `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-opacity=".18" stroke-width="${w}"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${(C2*v).toFixed(1)} ${C2.toFixed(1)}" transform="rotate(-90 60 60)"/>`}
-function meeBlock(rows){if(!rows.length)return'';const m=meeSum(rows);
-  const svg=`<svg viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Homework rings">${ring2(m.sub,50,'#6b21a8',11)}${ring2(m.q,34,'#eab308',11)}</svg>`;
+function actFor(c,s){const n=String(s.name).toLowerCase();return (D.act||[]).filter(r=>String(r.course)===c&&String(r.student).toLowerCase()===n)}
+function actAvg(a){return a.length?a.reduce((x,r)=>x+Number(r.score),0)/a.length/3:null}
+function meeBlock(rows,s,teacher){const a=s?actFor(ui.course,s):[];if(!rows.length&&!a.length&&!teacher)return'';const m=meeSum(rows),aa=actAvg(a);
+  const svg=`<svg viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Homework rings">${ring2(m.sub,50,'#6b21a8',11)}${ring2(m.q,36,'#eab308',10)}${ring2(aa,22,'#0f766e',10)}</svg>`;
   const pc=v=>v==null?'–':Math.round(v*100)+'%';
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
     return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}</small></div><span class="tag">${lab}</span></div>`}).join('');
   return `<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>
-   <div class="scard-top">${svg}<div class="who"><div><b style="color:#6b21a8">●</b> Handed in: ${pc(m.sub)} (${m.done} of ${m.due} due)</div><div><b style="color:#eab308">●</b> Average score of handed-in work: ${pc(m.q)}</div></div></div>${list}`}
+   <div class="scard-top">${svg}<div class="who"><div><b style="color:#6b21a8">●</b> Handed in: ${pc(m.sub)} (${m.done} of ${m.due} due)</div><div><b style="color:#eab308">●</b> Average score of handed-in work: ${pc(m.q)}</div><div><b style="color:#0f766e">●</b> Activity in class: ${a.length?pc(aa)+' ('+a.length+' check'+(a.length>1?'s':'')+')':'–'}</div></div></div>${list}${teacher&&s?`<div class="sub" style="margin:10px 0 4px">Rate class activity (once per 2–4 lessons): 1 low · 2 steady · 3 very active</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>`:''}`}
 
 function renderParent(){
   const c=Object.keys(D.courses)[0];ui.course=c;const cc=C(),st=cc.students[0];
@@ -237,6 +239,10 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  const ab=e.target.closest('[data-act]');
+  if(ab){const box=ab.closest('[data-actfor]'),st2=C().students.find(x=>x.id===box.dataset.actfor);const les=+box.querySelector('[data-actles]').value;
+    const row={course:ui.course,student:st2.name,date:new Date().toISOString().slice(0,10),lessons:les,score:+ab.dataset.act,note:''};
+    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});toast('Saved: '+st2.name+' activity '+row.score+'/3 over '+les+' lessons');openCard(st2.id);return}
   if(e.target.id==='meeGo'){let j;try{j=JSON.parse($('#meeJson').value)}catch{toast('That is not valid JSON');return}
     if(!j.course||!Array.isArray(j.rows)){toast('JSON needs course and rows');return}
     send({a:'importMee',course:j.course,rows:j.rows});toast('Importing '+j.rows.length+' rows…');setTimeout(async()=>{try{D=await Store.load();render()}catch{}},4000);return}
