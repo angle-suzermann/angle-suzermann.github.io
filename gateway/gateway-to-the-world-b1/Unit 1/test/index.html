@@ -8,12 +8,12 @@
 <meta name="ws:course"    content="Gateway to the World B1">
 <meta name="ws:course-id" content="gateway/gateway-to-the-world-b1">
 <meta name="ws:unit"      content="1">
-<meta name="ws:title"     content="07. Unit 1 — Listening — Test">
-<meta name="ws:emoji"     content="🎧">
+<meta name="ws:title"     content="07. Unit 1 — Test">
+<meta name="ws:emoji"     content="📝">
 <meta name="ws:date"      content="2026-10-24">
 <meta name="ws:status"    content="draft">
 <meta name="ws:formspree" content="xdvxrcsn">
-<meta name="ws:tags"      content="listening, unit 1, test">
+<meta name="ws:tags"      content="family, present simple, present continuous, test">
 <meta name="robots"       content="noindex, nofollow">
 <style>
 @font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
@@ -140,6 +140,43 @@ textarea.prod.is-wrong{ border-color:var(--wrong); background:#fdf3f2; }
 html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 @media (hover:none) and (pointer:coarse){ input, select, textarea, .namebar input{ font-size:16px !important; } }
 
+.btn-yellow:hover{ background:#ffe033; }
+.qn{ display:inline-block; min-width:1.4em; font-weight:900; color:var(--purple); }
+.audio-box{ background:var(--card-tint); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; margin:0 0 18px; }
+.audio-box audio{ width:100%; display:block; }
+.audio-btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.audio-btns .btn{ padding:6px 12px; font-size:.82rem; }
+.audio-note{ color:var(--muted); font-size:.82rem; margin:8px 0 0; }
+.item.tf{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.item.tf p.q{ margin:0; flex:1 1 auto; }
+.item.tf .mcq{ flex:0 0 auto; }
+.item.tf .mcq .opt{ min-width:44px; text-align:center; }
+.score-line{ color:var(--muted); font-size:.85rem; margin-top:10px; text-align:right; }
+
+.fib.wide{ width:100%; text-align:left; font-weight:400; color:var(--text); }
+.fib.wide:focus{ color:var(--purple-dark); }
+.fib.tiny{ width:92px; }
+.prompt{ color:var(--muted); font-size:.88rem; margin:0 0 2px; }
+.mcq.block{ display:flex; flex-direction:column; align-items:stretch; gap:6px; margin-top:6px; }
+.mcq.block .opt{ text-align:left; font-weight:400; padding:8px 12px; }
+.mcq.row{ display:flex; margin-top:6px; }
+.heads{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:.92rem; line-height:1.7; }
+.heads b{ color:var(--purple); }
+.article{ background:var(--card-tint); border-radius:12px; padding:14px 16px; font-size:.97rem; line-height:1.75; margin-bottom:16px; }
+.article .gap{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 4px; }
+.article .gap .gn{ font-weight:900; color:var(--purple); }
+.article .gap .mcq .opt{ padding:3px 10px; font-size:.82rem; min-width:34px; }
+.article p{ margin:0 0 6px; }
+.comments{ background:var(--card-tint); border-radius:10px; padding:10px 14px; margin-bottom:14px; line-height:1.7; font-size:.95rem; }
+.comments b{ color:var(--purple); }
+.sub-card{ border-top:2px dashed var(--border); margin-top:22px; padding-top:18px; }
+.wc{ text-align:right; font-size:.8rem; color:var(--muted); margin-top:4px; }
+textarea.essay{ font-family:inherit; width:100%; min-height:200px; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; font-size:1rem; line-height:1.55; resize:vertical; }
+.email-box{ background:var(--card-tint); border-left:4px solid var(--purple); border-radius:8px; padding:12px 16px; margin-bottom:14px; line-height:1.6; }
+.note-box{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:10px; padding:10px 14px; font-size:.9rem; margin:12px 0; }
+.passage.uoe{ line-height:2.2; }
+.passage.uoe .gn{ font-weight:900; color:var(--purple); font-size:.8rem; margin-right:2px; }
+
 /* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
 html,body{background-color:#42304f;}
 .app-shell{background:#fff;}
@@ -177,7 +214,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-row">
-      <span class="lesson-title">Unit 1 · Listening Test</span>
+      <span class="lesson-title">Unit 1 · Test</span>
       <div class="namebar">
         <label for="studentName">Name:</label>
         <input type="text" id="studentName" placeholder="Your full name">
@@ -187,7 +224,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">Page 1 / 4</span>
+      <span class="progress-label" id="progressLabel">Page 1 / 9</span>
     </div>
     <div class="page-dots" id="pageDots"></div>
   </div>
@@ -203,51 +240,85 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
         <button onclick="clearProgress()">Start over (clear saved answers)</button>
       </div>
       <h1>Gateway to the World B1 — Unit 1 Test</h1>
-      <p class="instr">Listening: two exercises, 12 points. Type your name at the top, then go through the pages. The recording is one talk played twice: use the first playing for Exercise 1 and the second playing for Exercise 2. Your score is sent to your teacher at the end.</p>
+      <p class="instr">Standard level, Unit 1: Grammar, Vocabulary, Use of English, Reading and Listening are checked automatically (60 points). Writing and Speaking (10 points each) are marked by your teacher. Type your name at the top, then work through the pages. You will need headphones or speakers for the Listening page.</p>
       <div class="nav-btns"><span></span><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
     </div>
   </section>
 
-  <!-- PAGE 1: LISTENING EX1 -->
   <section class="page" data-page="1">
-    <div class="card">
-      <h2><span class="badge-num">1</span>Listen and choose</h2>
-      <p class="instr">Listen to a girl giving a talk to her class. Choose the best alternative.</p>
-      <div class="audio-box">
-        <audio controls preload="metadata" src="audio/unit1-test.mp3" data-audio></audio>
-        <div class="audio-btns"><button type="button" class="btn" onclick="playFrom(0)">▶ 1st listening</button><button type="button" class="btn" onclick="playFrom(77.2)">▶ 2nd listening</button></div>
-      </div>
-      <div class="item"><p class="q"><span class="qn">1</span> The island of Anuta is closest to <span class="mcq" data-correct="tikopia"><button type="button" class="opt" data-val="australia">Australia</button><button type="button" class="opt" data-val="tikopia">Tikopia</button></span>.</p></div>
-      <div class="item"><p class="q"><span class="qn">2</span> The population of Anuta is about <span class="mcq" data-correct="300"><button type="button" class="opt" data-val="100">100</button><button type="button" class="opt" data-val="300">300</button></span> people.</p></div>
-      <div class="item"><p class="q"><span class="qn">3</span> Some of their <span class="mcq" data-correct="boats"><button type="button" class="opt" data-val="boats">boats</button><button type="button" class="opt" data-val="trees">trees</button></span> are more than 100 years old.</p></div>
-      <div class="item"><p class="q"><span class="qn">4</span> All the adults look after the <span class="mcq" data-correct="children"><button type="button" class="opt" data-val="old">old people</button><button type="button" class="opt" data-val="children">children</button></span>.</p></div>
-      <div class="item"><p class="q"><span class="qn">5</span> They go to school in Anuta until they are <span class="mcq" data-correct="12"><button type="button" class="opt" data-val="adults">adults</button><button type="button" class="opt" data-val="12">12</button></span>.</p></div>
-      <div class="item"><p class="q"><span class="qn">6</span> Some younger Anutans leave the island <span class="mcq" data-correct="study"><button type="button" class="opt" data-val="study">to study</button><button type="button" class="opt" data-val="travel">to travel round the world</button></span>.</p></div>
-      <div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
-    </div>
+<div class="card"><h2><span class="badge-num">1</span>Articles</h2><p class="instr">Complete the sentences with <b>a, an, the</b> or <b>0</b> (no article).</p><div class="item"><p class="q">1. Can you turn <input type="text" class="fib tiny" data-answer="the" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> television on? X-Factor is on in five minutes.</p></div>
+<div class="item"><p class="q">2. Jan’s got <input type="text" class="fib tiny" data-answer="a" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> new baby. She’s beautiful!</p></div>
+<div class="item"><p class="q">3. Do you enjoy studying <input type="text" class="fib tiny" data-answer="0" data-answer-list="0|-|no article|zero|x|ø|nothing" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> English?</p></div>
+<div class="item"><p class="q">4. I’d like to be <input type="text" class="fib tiny" data-answer="an" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> engineer when I’m older.</p></div>
+<div class="item"><p class="q">5. Come in! My dad’s in <input type="text" class="fib tiny" data-answer="the" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> kitchen. He’s cooking.</p></div></div>
+<div class="card"><h2><span class="badge-num">2</span>Write the sentences</h2><p class="instr">Write complete sentences. Use the present simple or the present continuous.</p><div class="item"><p class="q prompt">1. you/know/my friend Susie?</p><input type="text" class="fib wide" data-answer="do you know my friend susie" data-answer-list="do you know my friend susie" placeholder="Write the sentence..." autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+<div class="item"><p class="q prompt">2. Jack/not work/on his computer/right now</p><input type="text" class="fib wide" data-answer="jack isnt working on his computer right now" data-answer-list="jack isnt working on his computer right now|jack is not working on his computer right now" placeholder="Write the sentence..." autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+<div class="item"><p class="q prompt">3. we/study/present tenses/this week</p><input type="text" class="fib wide" data-answer="were studying present tenses this week" data-answer-list="were studying present tenses this week|we are studying present tenses this week" placeholder="Write the sentence..." autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+<div class="item"><p class="q prompt">4. I’m afraid /I/not understand/this homework</p><input type="text" class="fib wide" data-answer="im afraid i dont understand this homework" data-answer-list="im afraid i dont understand this homework|im afraid i do not understand this homework|i am afraid i dont understand this homework|i am afraid i do not understand this homework" placeholder="Write the sentence..." autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+<div class="item"><p class="q prompt">5. your grandmother/stay/with you/at the moment?</p><input type="text" class="fib wide" data-answer="is your grandmother staying with you at the moment" data-answer-list="is your grandmother staying with you at the moment" placeholder="Write the sentence..." autocomplete="off" autocapitalize="off" spellcheck="false"></div></div>
+<div class="card"><h2><span class="badge-num">3</span>Present simple or continuous?</h2><p class="instr">Complete the sentences with the correct present simple or present continuous form of these verbs.</p><div class="wordbank"><span>go</span><span>have</span><span>stay</span><span>study</span><span>work</span></div><div class="item"><p class="q">1. Our family <input type="text" class="fib small" data-answer="has" data-answer-list="has" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> dinner together every evening. I think it’s important.</p></div>
+<div class="item"><p class="q">2. I <input type="text" class="fib small" data-answer="am staying" data-answer-list="am staying|m staying|im staying|i am staying" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> at my best friend’s house in the countryside this weekend.</p></div>
+<div class="item"><p class="q">3. At the moment, my cousin <input type="text" class="fib small" data-answer="is studying" data-answer-list="is studying|s studying" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> at a college in England. He’s having a great time.</p></div>
+<div class="item"><p class="q">4. We <input type="text" class="fib small" data-answer="go" data-answer-list="go" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> on holiday to Spain twice a year. We love hot countries!</p></div>
+<div class="item"><p class="q">5. My dad <input type="text" class="fib small" data-answer="works" data-answer-list="works" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> in a bank in the city centre. He drives in every day.</p></div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
   </section>
-
-  <!-- PAGE 2: LISTENING EX2 -->
   <section class="page" data-page="2">
-    <div class="card">
-      <h2><span class="badge-num">2</span>True or false?</h2>
-      <p class="instr">Listen to the talk again. Decide if the sentences are True (T) or False (F).</p>
-      <div class="audio-box">
-        <audio controls preload="metadata" src="audio/unit1-test.mp3" data-audio></audio>
-        <div class="audio-btns"><button type="button" class="btn" onclick="playFrom(77.2)">▶ 2nd listening</button><button type="button" class="btn" onclick="playFrom(0)">▶ From the start</button></div>
-      </div>
-      <div class="item tf"><p class="q"><span class="qn">1</span> Anuta is in the Pacific Ocean.</p><span class="mcq" data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="item tf"><p class="q"><span class="qn">2</span> Anutans have no kind of money.</p><span class="mcq" data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="item tf"><p class="q"><span class="qn">3</span> When Anutans receive something, they must give something back.</p><span class="mcq" data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="item tf"><p class="q"><span class="qn">4</span> Anutan children do not always live with their mother.</p><span class="mcq" data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="item tf"><p class="q"><span class="qn">5</span> There is a school in Anuta.</p><span class="mcq" data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="item tf"><p class="q"><span class="qn">6</span> Most young people in Anuta want to get jobs abroad.</p><span class="mcq" data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
-      <div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
-    </div>
+<div class="card"><h2><span class="badge-num">4</span>Family words</h2><p class="instr">Choose the correct alternatives to complete the sentences.</p><div class="item"><p class="q">1. I really like my <span class="mcq " data-correct="a"><button type="button" class="opt" data-val="a">brother-in-law</button><button type="button" class="opt" data-val="b">stepbrother</button></span>. I’m happy that my sister married him.</p></div>
+<div class="item"><p class="q">2. My mum married again and my new <span class="mcq " data-correct="b"><button type="button" class="opt" data-val="a">husband</button><button type="button" class="opt" data-val="b">stepfather</button></span> is very nice.</p></div>
+<div class="item"><p class="q">3. Helen is <span class="mcq " data-correct="b"><button type="button" class="opt" data-val="a">a single</button><button type="button" class="opt" data-val="b">an only</button></span> child and she doesn’t like it.</p></div>
+<div class="item"><p class="q">4. Brett and Beth aren’t very happy together. I think they’re going to get <span class="mcq " data-correct="b"><button type="button" class="opt" data-val="a">single</button><button type="button" class="opt" data-val="b">divorced</button></span> soon.</p></div>
+<div class="item"><p class="q">5. My uncle has two children who are the same age as me – they’re my <span class="mcq " data-correct="b"><button type="button" class="opt" data-val="a">sons</button><button type="button" class="opt" data-val="b">cousins</button></span>.</p></div></div>
+<div class="card"><h2><span class="badge-num">5</span>Noun forms</h2><p class="instr">Complete the sentences with the correct noun form of the verbs given.</p><div class="item"><p class="q">1. We asked the teacher for <input type="text" class="fib small" data-answer="information" placeholder="(inform)" autocomplete="off" autocapitalize="off" spellcheck="false"> (inform) about the new drama club.</p></div>
+<div class="item"><p class="q">2. We guarantee an <input type="text" class="fib small" data-answer="improvement" placeholder="(improve)" autocomplete="off" autocapitalize="off" spellcheck="false"> (improve) in your English.</p></div>
+<div class="item"><p class="q">3. My grandmother isn’t enjoying her <input type="text" class="fib small" data-answer="retirement" placeholder="(retire)" autocomplete="off" autocapitalize="off" spellcheck="false"> (retire) . She says she’s bored.</p></div>
+<div class="item"><p class="q">4. Can you give me a <input type="text" class="fib small" data-answer="description" placeholder="(describe)" autocomplete="off" autocapitalize="off" spellcheck="false"> (describe) of your bag? What does it look like?</p></div>
+<div class="item"><p class="q">5. You need a lot of <input type="text" class="fib small" data-answer="confidence" placeholder="(confident)" autocomplete="off" autocapitalize="off" spellcheck="false"> (confident) to be an actor and perform in front of crowds of people.</p></div></div>
+<div class="card"><h2><span class="badge-num">6</span>Stages of life</h2><p class="instr">Complete the sentences with words related to the stages of a person’s life.</p><div class="wordbank"><span>baby</span><span>middle-aged</span><span>senior citizen</span><span>teenager</span><span>young adult</span></div><div class="item"><p class="q">1. My grandfather’s 70. He’s a <input type="text" class="fib small" data-answer="senior citizen" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false">. He’s retired and lives with his wife in Spain.</p></div>
+<div class="item"><p class="q">2. My aunt is 48. She’s a <input type="text" class="fib small" data-answer="middle-aged" data-answer-list="middle-aged|middle aged" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"> woman. She’s a teacher in a secondary school.</p></div>
+<div class="item"><p class="q">3. My cousin Mary is 25. She’s a <input type="text" class="fib small" data-answer="young adult" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false">. She wants to get married next year.</p></div>
+<div class="item"><p class="q">4. My sister’s 17. She’s a <input type="text" class="fib small" data-answer="teenager" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false">. She lives with my mum and stepfather.</p></div>
+<div class="item"><p class="q">5. My little brother’s one. He’s a <input type="text" class="fib small" data-answer="baby" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false">. He doesn’t sleep much at night!</p></div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
+  </section>
+  <section class="page" data-page="3">
+<div class="card"><h2><span class="badge-num">7</span>Family life</h2><p class="instr">Complete the text with <b>one word</b> in each gap.</p><div class="passage uoe">Family life <span class="gn">(1)</span><input type="text" class="fib tiny" data-answer="is" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> changing a lot these days. In some countries, all the members of a family <span class="gn">(2)</span><input type="text" class="fib tiny" data-answer="live" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> in the same place, sometimes in the same home. However, in other countries, people often have to move away from their home town to find a job when they are ready to start work. They get married and start <span class="gn">(3)</span><input type="text" class="fib tiny" data-answer="a" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> family away from their parents, and then their children do exactly the same thing. Grandparents sometimes live hundreds of miles away from their grandchildren. Sometimes they are even in <span class="gn">(4)</span><input type="text" class="fib tiny" data-answer="a" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> different country! This can cause a lot of problems when people <span class="gn">(5)</span><input type="text" class="fib tiny" data-answer="get" data-answer-list="get|are" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> older. Sons and daughters can’t help their parents when they are ill and they have to go into hospital or special homes. The grandparents are <span class="gn">(6)</span><input type="text" class="fib tiny" data-answer="not" data-answer-list="not|never" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> there to help with the grandchildren when they are young. Some parents have to send <span class="gn">(7)</span><input type="text" class="fib tiny" data-answer="their" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> children to special schools at a young age if they need to go to work. In many countries, this problem is getting worse <span class="gn">(8)</span><input type="text" class="fib tiny" data-answer="and" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"> people are worried that family life is never going to be the same again.</div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
+  </section>
+  <section class="page" data-page="4">
+<div class="card"><h2><span class="badge-num">8</span>Match the headings</h2><p class="instr">Read the article about a new kind of mobile phone. The headings are missing. Choose from the headings <b>A–E</b> the one which fits each gap.</p><div class="heads"><b>A</b> Tell us what you think<br><b>B</b> A new mobile phone<br><b>C</b> Designed for children<br><b>D</b> Do children need mobile phones?<br><b>E</b> Good for parents and their children</div><div class="article"><div class="item"><div class="gap"><span class="gn">1</span><span class="mcq " data-correct="b"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button><button type="button" class="opt" data-val="e">E</button></span></div><p>Mobile phones are an important part of our lives and most of us can’t imagine life without one. They keep us in contact with friends and family at all times and when we have a problem we can call immediately for help. Now parents can buy a special mobile phone for their four-year-old children. Is this a way to help protect our young children or is it a silly idea?</p></div><div class="item"><div class="gap"><span class="gn">2</span><span class="mcq " data-correct="c"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button><button type="button" class="opt" data-val="e">E</button></span></div><p>The phone is called ‘My Moby’ and it looks like a toy, but it isn’t. It comes in many colours and young children love it. It has five buttons and two of them call ‘Mum’ and ‘Dad’. Of course, the parents control all the numbers in the phone and the idea is that the child can call their parents when they want to. And of course the parents can call the child too.</p></div><div class="item"><div class="gap"><span class="gn">3</span><span class="mcq " data-correct="e"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button><button type="button" class="opt" data-val="e">E</button></span></div><p>Many parents like the idea and they think it’s good for their children’s safety. For example, if they’re worried, the parents can phone their child, and if the child gets lost, they can call home! They also think it’s a good idea if children learn how to use modern technology like mobile phones.</p></div><div class="item"><div class="gap"><span class="gn">4</span><span class="mcq " data-correct="d"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button><button type="button" class="opt" data-val="e">E</button></span></div><p>However, not everyone agrees that it’s a good idea and some people are angry about the idea. They think children today are growing up too fast. They want to be like adults when they are very young and this isn’t good for them. They believe that children need to enjoy their childhood and they think it’s a very bad idea to give a four-year-old a mobile phone. They say it’s unnecessary and it can be dangerous for their health. They also say that young children don’t need a phone because they are always with an adult.</p></div><div class="item"><div class="gap"><span class="gn">5</span><span class="mcq " data-correct="a"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button><button type="button" class="opt" data-val="e">E</button></span></div><p>So, is it a good idea or not? Can phones be good for protecting our children or are they just good for the phone company? What do you think? Send us your comments.</p></div></div></div>
+<div class="card"><h2><span class="badge-num">9</span>Choose the best answer</h2><p class="instr">Read the article again and choose the best answers, A, B or C.</p><div class="item"><p class="q">1. The writer says mobile phones</p><span class="mcq block" data-correct="a"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; are important for many people.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; protect young children.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; cause problems for many people.</button></span></div>
+<div class="item"><p class="q">2. The writer says</p><span class="mcq block" data-correct="c"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; My Moby is a silly idea.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; My Moby is a toy.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; children like My Moby.</button></span></div>
+<div class="item"><p class="q">3. The writer says children</p><span class="mcq block" data-correct="a"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; can call their parents with My Moby.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; can’t make calls with My Moby.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; can call anyone with My Moby.</button></span></div>
+<div class="item"><p class="q">4. Many parents think My Moby</p><span class="mcq block" data-correct="c"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; will make them worry.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; will get lost.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; helps keep children safe.</button></span></div>
+<div class="item"><p class="q">5. Some people believe</p><span class="mcq block" data-correct="b"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; many children are angry.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; it’s important to enjoy childhood.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; children don’t like adults.</button></span></div>
+<div class="item"><p class="q">6. These people also believe that</p><span class="mcq block" data-correct="a"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; mobile phones can be bad for children’s health.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; young children need a mobile phone.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; young children don’t need adults.</button></span></div>
+<div class="item"><p class="q">7. The writer asks readers to</p><span class="mcq block" data-correct="b"><button type="button" class="opt" data-val="a"><b>A</b>&nbsp; protect their children.</button><button type="button" class="opt" data-val="b"><b>B</b>&nbsp; give their opinions.</button><button type="button" class="opt" data-val="c"><b>C</b>&nbsp; talk to their phone company.</button></span></div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
+  </section>
+  <section class="page" data-page="5">
+<div class="card"><h2><span class="badge-num">10</span>Match the speakers</h2><div class="audio-box"><audio controls preload="metadata" src="audio/unit1-test.mp3" data-audio></audio><p class="audio-note">One recording for both exercises. Listen once for Exercise 10, then play it again for Exercise 11.</p></div><p class="instr">Listen to four teenagers talking about family life. Match the speakers (1–4) with the comments (A–D).</p><div class="comments"><b>A</b> Many teenagers disagree with their parents.<br><b>B</b> I understand why my parents worry.<br><b>C</b> We have too many rules at home.<br><b>D</b> We don’t agree on many things.</div><div class="item"><p class="q">Speaker 1</p><span class="mcq row" data-correct="b"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button></span></div>
+<div class="item"><p class="q">Speaker 2</p><span class="mcq row" data-correct="c"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button></span></div>
+<div class="item"><p class="q">Speaker 3</p><span class="mcq row" data-correct="d"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button></span></div>
+<div class="item"><p class="q">Speaker 4</p><span class="mcq row" data-correct="a"><button type="button" class="opt" data-val="a">A</button><button type="button" class="opt" data-val="b">B</button><button type="button" class="opt" data-val="c">C</button><button type="button" class="opt" data-val="d">D</button></span></div></div>
+<div class="card"><h2><span class="badge-num">11</span>True or false?</h2><p class="instr">Listen again. Are these statements True (T) or False (F)?</p><div class="item tf"><p class="q">1. Speaker 1 doesn’t go home late.</p><span class="mcq " data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
+<div class="item tf"><p class="q">2. Speaker 1 goes out a lot in the week.</p><span class="mcq " data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
+<div class="item tf"><p class="q">3. Speaker 2 always looks after her little brother.</p><span class="mcq " data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
+<div class="item tf"><p class="q">4. Speaker 2 cleans her bedroom on Saturday mornings.</p><span class="mcq " data-correct="t"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
+<div class="item tf"><p class="q">5. Speaker 3 doesn’t like eating with his family.</p><span class="mcq " data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div>
+<div class="item tf"><p class="q">6. Speaker 4 watches TV with her mum and dad.</p><span class="mcq " data-correct="f"><button type="button" class="opt" data-val="t">T</button><button type="button" class="opt" data-val="f">F</button></span></div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
+  </section>
+  <section class="page" data-page="6">
+<div class="card"><h2><span class="badge-num">12</span>Reply to Patsy</h2><p class="instr">Read this email from Patsy, an English friend, and write a reply. Remember to answer all her questions.</p><div class="email-box">Hi,<br>How are you? I know you’re on holiday at the moment. Who are you with? What’s the weather like? Are you doing anything interesting? And do you like the food?<br>Write soon!<br>Patsy</div><p class="instr">In your email you should talk about: the people you’re with, the weather, what activities you are doing, the food. <b>Write 100–125 words.</b></p><textarea class="essay" id="essay" placeholder="Hi Patsy, ..."></textarea><div class="wc" id="wc">0 words</div><div class="note-box">This task is marked by your teacher (10 points). Your text is sent to your teacher when you submit.</div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
+  </section>
+  <section class="page" data-page="7">
+<div class="card"><h2><span class="badge-num">13</span>Role-play (with your teacher)</h2><p class="instr">You meet an old friend after a long time. Tell him/her about yourself and find out about him/her. Use the ideas to help you.</p><div class="comments">• friends and family<br>• what you’re studying at school<br>• what you do in your free time</div><div class="note-box">There is nothing to type here. Do this part with your teacher or a partner (10 points, marked by your teacher).</div></div>
+    <div class="card" style="padding:14px 22px"><div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div></div>
   </section>
 
-  <!-- PAGE 3: FINISH -->
-  <section class="page" data-page="3">
+  <section class="page" data-page="8">
     <div class="card">
       <h2>Finished!</h2>
       <p class="instr">Check that your name is filled in, then press Check &amp; Submit. You can go back to change an answer before you submit.</p>
@@ -291,6 +362,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
           <img class="completion-sticker completion-sticker--medium" data-tier="not_hehe" hidden alt="">
         </div>
         <p id="resultCaption" class="result-caption"></p>
+        <p class="result-caption" id="manualNote"></p>
       </div>
       <div id="submitStatus"></div>
       <div class="nav-btns" style="margin-top:18px;"><a href="#" id="resetLink" onclick="clearProgress();return false;" style="font-size:.8rem;color:var(--muted);">Start over (clear saved answers)</a></div>
@@ -317,7 +389,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <script>
 const COURSE_NAME = "Gateway to the World B1";
 const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
-const PAGE_LABELS = ["Start","Listening 1","Listening 2","Finish"];
+const PAGE_LABELS = ["Start","Grammar","Vocabulary","Use of English","Reading","Listening","Writing","Speaking","Finish"];
 let current = 0;
 
 function buildDots(){
@@ -327,15 +399,9 @@ function buildDots(){
     d.onclick = ()=>showPage(i); wrap.appendChild(d);
   });
 }
-function pauseAudio(){ document.querySelectorAll('audio[data-audio]').forEach(a=>a.pause()); }
-function playFrom(t){
-  const a = document.querySelector('.page.active audio[data-audio]'); if(!a) return;
-  const go = ()=>{ try{ a.currentTime = t; }catch(e){} a.play(); };
-  if(a.readyState >= 1) go(); else { a.addEventListener('loadedmetadata', go, {once:true}); a.load(); }
-}
 function showPage(n){
   const pages = document.querySelectorAll('.page');
-  pauseAudio();
+  document.querySelectorAll('audio[data-audio]').forEach(a=>a.pause());
   current = Math.max(0, Math.min(pages.length-1, n));
   pages.forEach((p,i)=>p.classList.toggle('active', i===current));
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
@@ -358,30 +424,48 @@ document.addEventListener('click', function(e){
 });
 
 // ---------- scoring / submit ----------
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/[’‘'"`]/g,'').replace(/[.,?!;:]/g,'').replace(/\s+/g,' ').trim(); }
 function exTitle(el){
   const card = el.closest('.card');
   const h2 = card ? card.querySelector('h2') : null;
-  return h2 ? h2.textContent.replace(/^\d+/,'').trim() : '';
+  if(!h2) return '';
+  const n = h2.querySelector('.badge-num');
+  return (n ? 'Ex ' + n.textContent.trim() + ' ' : '') + h2.textContent.replace(/^\d+/,'').trim();
 }
 function itemContext(el){
   const item = el.closest('.item');
   if(item){
-    const qOrig = item.querySelector('p.q');
-    if(qOrig){
-      const clone = qOrig.cloneNode(true);
+    const q = item.querySelector('p.q');
+    if(q){
+      const clone = q.cloneNode(true);
       clone.querySelectorAll('.mcq').forEach(x=>x.replaceWith('___'));
+      clone.querySelectorAll('input').forEach(x=>x.replaceWith('___'));
       const txt = clone.textContent.replace(/\s+/g,' ').trim();
-      if(txt) return txt.slice(0,90);
+      if(txt) return txt.slice(0,110);
     }
+    const gn = item.querySelector('.gn');
+    if(gn) return 'gap ' + gn.textContent.trim();
   }
+  const p = el.closest('p, .passage');
+  if(p){ const gs=[...p.querySelectorAll('input.fib')]; const i=gs.indexOf(el)+1; if(gs.length>1) return 'gap '+i+' of '+gs.length; }
   return '';
 }
+function wordCount(s){ const m = (s||'').trim().match(/\S+/g); return m ? m.length : 0; }
 
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); showPage(0); alert('Please type your name at the top before submitting.'); return; }
   let correct=0, total=0;
   const wrongList = [];
+
+  document.querySelectorAll('.fib[data-answer]').forEach(inp=>{
+    total++;
+    const list = (inp.dataset.answerList || inp.dataset.answer).split('|').map(normalize);
+    const ok = list.includes(normalize(inp.value));
+    inp.classList.toggle('is-correct', ok); inp.classList.toggle('is-wrong', !ok);
+    if(ok) correct++;
+    else wrongList.push(`${exTitle(inp)} — ${itemContext(inp)} → answered "${inp.value.trim()||'(blank)'}", correct "${inp.dataset.answer}"`);
+  });
 
   document.querySelectorAll('.mcq[data-correct]').forEach(g=>{
     total++;
@@ -397,9 +481,12 @@ async function submitAll(){
     }
   });
 
+  const essay = (document.getElementById('essay')||{}).value || '';
+  const words = wordCount(essay);
   const pct = total ? Math.round(correct/total*100) : 0;
   document.getElementById('resultsPercent').textContent = pct + '%';
   document.getElementById('resultsFraction').textContent = `${nameInput.value.trim()} — score: ${correct} / ${total}`;
+  document.getElementById('manualNote').textContent = 'Writing and Speaking (10 + 10 points) are marked by your teacher.';
   // Mistake breakdown is not shown to the student — it goes to the teacher by email only.
   document.getElementById('resultsPanel').classList.add('show');
   renderResultSticker(pct);
@@ -411,8 +498,10 @@ async function submitAll(){
     fd.append('subject', (document.title) + ' — ' + (nameInput.value.trim()));
     fd.append('lesson', document.title);
     fd.append('student', nameInput.value.trim());
-    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('score', `${correct} / ${total} (${pct}%) auto-checked; Writing and Speaking marked by teacher (10 + 10)`);
     fd.append('result_tier', getResultTier(pct).label);
+    fd.append('writing_status', words ? `Ex 12 email written, ${words} words (task asks for 100-125) - to be marked out of 10` : 'Ex 12 email NOT written');
+    fd.append('writing', essay.trim() || '(empty)');
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
@@ -428,16 +517,19 @@ const PROGRESS_KEY = 'angle_progress::gwb1-unit1-test';
 let isRestoring = false;
 let saveTimer = null;
 function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function updateWc(){ const e=document.getElementById('essay'), w=document.getElementById('wc'); if(e&&w) w.textContent = wordCount(e.value)+' words'; }
 
 function saveProgress(){
   if(isRestoring) return;
   try{
     const state = { savedAt: new Date().toISOString(), page: current };
     state.name = document.getElementById('studentName')?.value || '';
+    state.fib = [...document.querySelectorAll('.fib')].map(el=>el.value);
     state.mcq = [...document.querySelectorAll('.mcq')].map(g=>{
       const chosen = g.querySelector('.opt.chosen');
       return chosen ? chosen.dataset.val : null;
     });
+    state.essay = document.getElementById('essay')?.value || '';
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
     showSavedIndicator();
   } catch(e){ /* localStorage unavailable */ }
@@ -457,6 +549,8 @@ function restoreProgress(){
   isRestoring = true;
 
   if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+  const fibs = document.querySelectorAll('.fib');
+  (state.fib||[]).forEach((v,i)=>{ if(fibs[i] && v) fibs[i].value = v; });
   const mcqGroups = document.querySelectorAll('.mcq');
   (state.mcq||[]).forEach((val,i)=>{
     if(val==null) return;
@@ -464,8 +558,9 @@ function restoreProgress(){
     const btn = g.querySelector(`.opt[data-val="${val}"]`);
     if(btn){ g.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen')); btn.classList.add('chosen'); }
   });
+  if(state.essay){ const e=document.getElementById('essay'); if(e) e.value = state.essay; updateWc(); }
 
-  const hasContent = state.mcq?.some(v=>v!=null);
+  const hasContent = state.fib?.some(v=>v) || state.mcq?.some(v=>v!=null) || state.essay;
   if(hasContent){
     const note = document.getElementById('restoreNote');
     if(note){
@@ -482,11 +577,12 @@ function clearProgress(){
   try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
   location.reload();
 }
-document.addEventListener('input', e=>{ if(e.target.matches('#studentName')) scheduleSave(); });
+document.addEventListener('input', e=>{ if(e.target.matches('input.fib, #studentName, #essay')){ if(e.target.id==='essay') updateWc(); scheduleSave(); } });
 
 buildDots();
 showPage(0);
 restoreProgress();
+
 </script>
 </body>
 </html>
