@@ -30,13 +30,20 @@ const Demo={
   },
   async write(){LS.set('angleTracker.idemo2',Object.fromEntries(D.plans.map(p=>[p.id,p.blocks])))}
 };
+/* data requests: 20 s limit, one automatic retry, then a clear error with a Try again button */
+async function fetchT(url,opts,ms){ms=ms||20000;let err;
+  for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
+    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});clearTimeout(t);return r}
+    catch(e){clearTimeout(t);err=e.name==='AbortError'?new Error('The server did not answer in time.'):new Error('No connection to the server.')}}
+  throw err}
+const retryBtn='<p style="margin-top:12px"><button class="btn" onclick="location.reload()">Try again</button></p>';
 const post=async body=>{const r=await fetch(cfg.url||QP.get('a'),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});const j=await r.json();if(!j.ok)throw new Error(j.error||'save failed')};
 const Sheets={
-  async load(){const r=await fetch(cfg.url+'?token='+encodeURIComponent(cfg.token)+'&view=plans');const j=await r.json();if(!j.ok)throw new Error(j.error||'load failed');return j.data},
+  async load(){const r=await fetchT(cfg.url+'?token='+encodeURIComponent(cfg.token)+'&view=plans');const j=await r.json();if(!j.ok)throw new Error(j.error||'load failed');return j.data},
   async write(op){await post({...op,token:cfg.token})}
 };
 const StudentStore={
-  async load(){const r=await fetch(QP.get('a')+'?view=plans&p='+encodeURIComponent(QP.get('p')));const j=await r.json();if(!j.ok)throw new Error('This link is not valid. Ask your teacher for a new one.');return j.data},
+  async load(){const r=await fetchT(QP.get('a')+'?view=plans&p='+encodeURIComponent(QP.get('p')));const j=await r.json();if(!j.ok)throw new Error('This link is not valid. Ask your teacher for a new one.');return j.data},
   async write(op){await post({...op,key:QP.get('p')})}
 };
 const Store=STUDENT?StudentStore:(live?Sheets:Demo);
@@ -190,10 +197,10 @@ document.addEventListener('change',e=>{
   if(STUDENT){document.body.classList.add('parent')}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');const d=await Store.load();
+    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{d=await Store.load()}finally{clearTimeout(slow)}
     D={plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
     if((live||STUDENT)&&pending.length)flush();
-  }catch(e){$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}</div>`;setSync('err','Offline');return}
+  }catch(e){$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
   render();
 })();

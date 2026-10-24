@@ -29,7 +29,7 @@ const Demo={
 };
 const Sheets={
   async load(){
-    const r=await fetch(cfg.url+'?token='+encodeURIComponent(cfg.token));
+    const r=await fetchT(cfg.url+'?token='+encodeURIComponent(cfg.token));
     const j=await r.json(); if(!j.ok) throw new Error(j.error||'load failed'); return j.data;
   },
   async write(op){
@@ -39,9 +39,17 @@ const Sheets={
 };
 const QP=new URLSearchParams(location.search);
 const PARENT=!!(QP.get('a')&&QP.get('p'));
+/* data requests: 20 s limit, one automatic retry, then a clear error with a Try again button */
+async function fetchT(url,opts,ms){ms=ms||20000;let err;
+  for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
+    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});clearTimeout(t);return r}
+    catch(e){clearTimeout(t);err=e.name==='AbortError'?new Error('The server did not answer in time.'):new Error('No connection to the server.')}}
+  throw err}
+const retryBtn='<p style="margin-top:12px"><button class="btn" onclick="location.reload()">Try again</button></p>';
+
 const ParentStore={
   async load(){
-    const r=await fetch(QP.get('a')+'?p='+encodeURIComponent(QP.get('p')));
+    const r=await fetchT(QP.get('a')+'?p='+encodeURIComponent(QP.get('p')));
     const j=await r.json(); if(!j.ok) throw new Error('This link is not valid. Ask your teacher for a new one.'); return j.data;
   },
   async write(){}
@@ -303,10 +311,10 @@ document.addEventListener('change',e=>{
   if(PARENT){document.body.classList.add('parent')}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');D=await Store.load();
+    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);try{D=await Store.load()}finally{clearTimeout(slow)}
     setSync(live?'ok':'','' );$('#syncTxt').textContent=live?'Synced':'Demo';
     if(live&&!PARENT&&pending.length)flush();
   }catch(e){
-    $('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${PARENT?"":"<br><br>Check the URL and token in ⚙."}</div>`;setSync('err','Offline');return}
+    $('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${PARENT?"":"<br><br>Check the URL and token in ⚙."}${retryBtn}</div>`;setSync('err','Offline');return}
   if(PARENT)renderParent();else render();
 })();
