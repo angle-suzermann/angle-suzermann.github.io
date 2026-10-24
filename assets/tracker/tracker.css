@@ -189,3 +189,6 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .gadd{display:flex;gap:6px;margin:8px 0 2px}.gadd input{flex:1;min-width:0}
 .gedbtn{margin-left:auto}
 .wk{flex-wrap:wrap}
+.gadd input{flex:1 1 auto;width:auto;min-width:0}
+.gadd select{flex:0 0 auto;width:auto;max-width:150px}
+.gadd .btn{flex:0 0 auto}
