@@ -176,3 +176,16 @@ td.tc{background:var(--gl);border-left:2px solid #fff;border-right:2px solid #ff
 tfoot td.tc{font-style:italic;color:#6b6475}
 thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;border-bottom:3px solid var(--gd)}
 .secrow[class*="g-"]{background:var(--gl);border-left:5px solid var(--gd);border-radius:10px 12px 12px 10px}
+.ttools{margin-top:14px;padding:12px;border:1px dashed #b9a9cf;border-radius:14px;background:#faf7fd}
+.ttools>b{color:var(--purple)}
+/* individual trackers: top add bar, editors */
+.addbar{margin:0 0 10px}
+.addbox{margin:0 0 12px}
+.addbox textarea{width:100%;padding:9px 10px;border:1.5px solid #cfc6dc;border-radius:10px;font:inherit}
+.dgrid{display:flex;gap:8px;flex-wrap:wrap}.dgrid input{flex:1 1 130px;min-width:0}
+.erow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.btn.danger{background:#fff;color:#b3263e;border:1.5px solid #e3a3ae}
+.tedit,.gedit{background:#faf7fd;border:1px dashed #b9a9cf;border-radius:12px;padding:12px;margin:6px 0 10px}
+.gadd{display:flex;gap:6px;margin:8px 0 2px}.gadd input{flex:1;min-width:0}
+.gedbtn{margin-left:auto}
+.wk{flex-wrap:wrap}

@@ -25,6 +25,12 @@ const today=()=>new Date().toISOString().slice(0,10);
 const setSync=(s,t)=>{const el=$('#sync');el.className='sync '+s;$('#syncTxt').textContent=t};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)};
 const KINDS={before:'Before the lesson',classwork:'Classwork',homework:'Homework'};
+const NDATES=Math.max(1,window.TRACKER_DATES||1);            // lessons per week: how many dates a week header can carry
+const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
+const gKey=t=>(t.week||'')+'|'+(t.date||'');
+const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
+const dateInputs=(vals,cls)=>Array.from({length:Math.max(NDATES,vals.length)},(_,i)=>`<input type="text" class="${cls}" value="${esc(vals[i]||'')}" placeholder="${i<NDATES?'Date '+(i+1)+(i?' (optional)':''):'Date'} · e.g. Oct, 29">`).join('');
+const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.value.trim()).filter(Boolean).join(' · ');
 
 /* ---------- stores ---------- */
 const Demo={
@@ -103,32 +109,45 @@ function taskCard(pl,bi,t){
   const tag=s==='sug'?`<span class="tag sug">Suggested${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?'<span class="tag ok">Confirmed</span>':'';
   let note='';
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
-  else if(t.note||ui.noteOpen===bi+'|'+t.n)note=`<input type="text" value="${esc(t.note)}" data-tn="${bi}|${t.n}" placeholder="note for the student" class="tnote-in">`;
-  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-en="${bi}|${t.n}">✎</button></span>`;
-  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt">${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>`;
+  else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
+  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
+  const ed=!STUDENT&&ui.tedit===bi+'|'+t.n?`<div class="tedit" data-te="${bi}|${t.n}"><div class="xgrid"><div style="grid-column:1/-1"><label>Task</label><input type="text" data-f="task" value="${esc(t.task)}"></div>
+    <div><label>Kind</label><select data-f="kind">${kindOpts(k)}</select></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
+    <div><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div><div><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
+    <div style="grid-column:1/-1"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
+    <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`:'';
+  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt">${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
-  const g=[];for(const t of tasks){const key=(t.week||'')+'|'+(t.date||'');const last=g[g.length-1];if(last&&last.key===key)last.items.push(t);else g.push({key,week:t.week||'',date:t.date||'',items:[t]})}
-  return g.reverse();                       // newest week first
+  const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
+  return g.reverse();                       // newest week first (a task added later joins its date's group)
 }
 function viewBlock(pl,bi,only){
   const b=pl.blocks[bi];if(!b)return '';
   const tasks=only?b.tasks.filter(t=>t.suggested&&t.status!=='✓'):b.tasks;
   if(!tasks.length)return '';
   const sc=score(b.tasks);
-  const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items);return `<section class="wgrp w${gi%2}"><div class="wk">${g.date?`<span class="dchip">${esc(g.date)}</span>`:''}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}<span class="wcnt">${gs.done} of ${gs.n} confirmed</span></div>${g.items.map(t=>taskCard(pl,bi,t)).join('')}</section>`}).join('');
+  const canEdit=!STUDENT&&!only;
+  const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
+    const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
+    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
+    const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
+    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}<span class="wcnt">${gs.done} of ${gs.n} confirmed</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(b.name)}</h2><div class="sub">${sc.done} of ${sc.n} confirmed${sc.wait?` · <b class="waitc">${sc.wait} waiting for review</b>`:''} · ${sc.e} of ${sc.p} points</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
 }
-function addForm(pl,bi){
+function addBar(pl,bi){
   if(STUDENT)return '';
-  const b=pl.blocks[bi];
-  return `<details class="card addbox"><summary class="btn ghost">+ Add task</summary>
-    <div class="xgrid" style="margin-top:10px"><div style="grid-column:1/-1"><label>Task</label><input type="text" id="ntTask"></div>
-    <div><label>Block (new name = new tab)</label><input type="text" id="ntBlock" list="blocks" value="${esc(b?b.name:'Block 1')}"><datalist id="blocks">${pl.blocks.map(x=>`<option value="${esc(x.name)}">`).join('')}</datalist></div>
-    <div><label>Kind</label><select id="ntKind"><option value="homework">Homework</option><option value="classwork">Classwork</option><option value="before">Before the lesson</option></select></div>
-    <div><label>Week</label><input type="text" id="ntWeek" placeholder="Week 5"></div><div><label>Date</label><input type="text" id="ntDate" placeholder="Oct, 29"></div>
-    <div><label>Points</label><input type="number" id="ntPts" value="5" min="0"></div><div><label>Link</label><input type="text" id="ntLink" placeholder="https://"></div></div>
-    <p style="margin:10px 0 0"><button class="btn" data-addtask="1">Add</button></p></details>`;
+  const b=pl.blocks[bi],open=ui.addOpen||!pl.blocks.length;
+  const groups=b?groupWeeks(b.tasks):[];
+  const opts=groups.map((g,i)=>`<option value="${esc(g.key)}"${i===0?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+`<option value="__new"${groups.length?'':' selected'}>New date…</option>`;
+  const form=open?`<div class="card addbox"><div class="xgrid">
+    <div style="grid-column:1/-1"><label>Tasks (one per line)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
+    <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
+    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week label</label><input type="text" id="ntWeek" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
+    <div><label>Points each</label><input type="number" id="ntPts" value="5" min="0"></div>
+    <div><label>New block (optional)</label><input type="text" id="ntBlockNew" placeholder="${b?'leave empty: '+esc(b.name):'Block 1'}"></div></div>
+    <p class="erow"><button class="btn" data-addtask="1">Add</button>${pl.blocks.length?'<button class="btn ghost" data-addclose="1">Close</button>':''}</p></div>`:'';
+  return `<div class="addbar"><button class="btn" data-addopen="1">+ Add task</button></div>${form}`;
 }
 function viewSummary(pl){
   const o=planScore(pl);
@@ -145,6 +164,7 @@ function render(){
   const order=pl.blocks.map((_,i)=>i).reverse();            // newest block first
   const tabs=[...order.map(i=>({k:'b'+i,l:pl.blocks[i].name})),{k:'sum',l:'Summary',w:1}];
   if(!tabs.find(t=>t.k===ui.tab))ui.tab=tabs[0].k;
+  if(!pl.blocks.length)ui.tab='sum';
   const wait=planScore(pl).wait;
   const rv=STUDENT?'':`<button class="tab wide rv ${ui.review?'on':''} ${wait?'has':''}" data-review="1">To review${wait?` (${wait})`:''}</button>`;
   $('#tabs').innerHTML=tabs.map(t=>`<button class="tab ${t.w?'wide':''} ${!ui.review&&t.k===ui.tab?'on':''}" data-tab="${t.k}">${esc(t.l)}</button>`).join('')+rv;
@@ -153,14 +173,16 @@ function render(){
   let html='';
   if(ui.review&&!STUDENT){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
-  }else if(ui.tab==='sum'){html=viewSummary(pl)}
-  else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Tap the circle when you have done a task. Your teacher will check it and confirm it.</div>`:'')+legend()+viewBlock(pl,bi,false)+addForm(pl,bi)}
+  }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
+  else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Tap the circle when you have done a task. Your teacher will check it and confirm it.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
   $('#view').innerHTML=html;
 }
 
 /* ---------- events ---------- */
 const find=s=>{const [bi,n]=s.split('|');const b=P().blocks[+bi];return{b,t:b.tasks.find(x=>x.n===+n)}};
 const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value})};
+function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:o.task,mode:'',link:'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
+  b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
   const pn=e.target.closest('[data-plan]');if(pn){ui.plan=pn.dataset.plan;ui.tab=null;ui.review=false;render();return}
   if(e.target.closest('[data-review]')){ui.review=!ui.review;render();return}
@@ -176,14 +198,48 @@ document.addEventListener('click',e=>{
     const nx=({'':'✓','✓':'N/A','N/A':''})[t.status||''];setF(b,t,'status',nx);if(nx==='✓'&&t.suggested)setF(b,t,'suggested','');render();return}
   const rt=e.target.closest('[data-ret]');
   if(rt&&!STUDENT){const {b,t}=find(rt.dataset.ret);setF(b,t,'suggested','');toast('Returned to the student');render();return}
+  if(STUDENT){} else {
   const en=e.target.closest('[data-en]');
-  if(en&&!STUDENT){ui.noteOpen=en.dataset.en;render();const i=$('.tnote-in');if(i)i.focus();return}
+  if(en){ui.tedit=ui.tedit===en.dataset.en?null:en.dataset.en;render();return}
+  if(e.target.closest('[data-tcancel]')){ui.tedit=null;render();return}
+  const ts=e.target.closest('[data-tsave]');
+  if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
+    box.querySelectorAll('[data-f]').forEach(inp=>{const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
+    ui.tedit=null;toast('Saved');render();return}
+  const td=e.target.closest('[data-tdel]');
+  if(td){const {b,t}=find(td.closest('[data-te]').dataset.te);if(!confirm('Delete this task? This cannot be undone.'))return;
+    b.tasks=b.tasks.filter(x=>x!==t);send({a:'deleteTask',plan:P().id,block:b.name,n:t.n});
+    if(!b.tasks.length){P().blocks=P().blocks.filter(x=>x!==b);ui.tab=null}
+    ui.tedit=null;toast('Task deleted');render();return}
+  const ge=e.target.closest('[data-gedit]');
+  if(ge){ui.gedit=ui.gedit===ge.dataset.gedit?null:ge.dataset.gedit;render();return}
+  if(e.target.closest('[data-gcancel]')){ui.gedit=null;render();return}
+  const gs=e.target.closest('[data-gsave]');
+  if(gs){const box=gs.closest('[data-ge]'),[bi,k]=box.dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k);
+    const week=box.querySelector('.gw').value.trim(),date=readDates(box,'gd');
+    b.tasks.filter(t=>gKey(t)===key).forEach(t=>{if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)});
+    ui.gedit=null;toast('Saved');render();return}
+  const gd=e.target.closest('[data-gdel]');
+  if(gd){const [bi,k]=gd.closest('[data-ge]').dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k),del=b.tasks.filter(t=>gKey(t)===key);
+    if(!confirm('Delete all '+del.length+' tasks of this block? This cannot be undone.'))return;
+    del.forEach(t=>send({a:'deleteTask',plan:P().id,block:b.name,n:t.n}));b.tasks=b.tasks.filter(t=>gKey(t)!==key);
+    if(!b.tasks.length){P().blocks=P().blocks.filter(x=>x!==b);ui.tab=null}
+    ui.gedit=null;toast('Deleted');render();return}
+  if(e.target.closest('[data-addopen]')){ui.addOpen=!ui.addOpen;render();const i=$('#ntTask');if(i)i.focus();return}
+  if(e.target.closest('[data-addclose]')){ui.addOpen=false;render();return}
+  const gg=e.target.closest('[data-gaddgo]');
+  if(gg){const box=gg.closest('[data-gadd]'),[bi,k]=box.dataset.gadd.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k),src=b.tasks.find(t=>gKey(t)===key),inp=box.querySelector('[data-gaddt]');
+    const txt=inp.value.trim();if(!txt){toast('Write the task first');return}
+    mkTask(b,{task:txt,kind:box.querySelector('[data-gaddk]').value,points:5,week:src?src.week:'',date:src?src.date:''});render();return}
   const ad=e.target.closest('[data-addtask]');
-  if(ad&&!STUDENT){const task=$('#ntTask').value.trim();if(!task){toast('Write the task first');return}
-    const bn=$('#ntBlock').value.trim()||'Block 1';let b=P().blocks.find(x=>x.name===bn);
-    if(!b){b={name:bn,tasks:[]};P().blocks.push(b)}
-    const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:$('#ntWeek').value.trim(),date:$('#ntDate').value.trim(),when:'',unit:'',task,mode:'',link:$('#ntLink').value.trim(),points:+$('#ntPts').value||0,status:'',note:'',kind:$('#ntKind').value,suggested:''};
-    b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});ui.tab='b'+P().blocks.indexOf(b);ui.review=false;render();return}
+  if(ad){const lines=$('#ntTask').value.split('\n').map(x=>x.trim()).filter(Boolean);if(!lines.length){toast('Write the task first');return}
+    const bnew=$('#ntBlockNew').value.trim();let b=bnew?P().blocks.find(x=>x.name===bnew):(ui.tab&&ui.tab[0]==='b'?P().blocks[parseInt(ui.tab.slice(1))]:null);
+    if(!b){b={name:bnew||'Block 1',tasks:[]};P().blocks.push(b)}
+    const gv=$('#ntGroup').value;let week='',date='';
+    if(gv==='__new'||bnew){week=$('#ntWeek').value.trim();date=readDates(document,'nd')}else{const [w,d]=gv.split('|');week=w;date=d}
+    lines.forEach(task=>mkTask(b,{task,kind:$('#ntKind').value,points:+$('#ntPts').value||0,week,date}));
+    ui.tab='b'+P().blocks.indexOf(b);ui.review=false;ui.addOpen=false;toast(lines.length+' task'+(lines.length>1?'s':'')+' added');render();return}
+  }
   if(e.target.closest('[data-plink]')){const pl=P();
     if(!live||!pl.key){toast('Connect the Google Sheet and run makeParentKeys first');return}
     const url=location.origin+location.pathname+'?a='+encodeURIComponent(cfg.url)+'&p='+encodeURIComponent(pl.key);
@@ -196,9 +252,9 @@ document.addEventListener('click',e=>{
   if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.iui2');location.reload();return}
 });
 document.addEventListener('change',e=>{
-  const n=e.target.closest('[data-tn]');
-  if(n&&!STUDENT){const {b,t}=find(n.dataset.tn);setF(b,t,'note',n.value)}
+  if(e.target.id==='ntGroup'){const nb=$('#ntNewBox');if(nb)nb.style.display=e.target.value==='__new'?'':'none'}
 });
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-gaddt]')){e.preventDefault();e.target.closest('[data-gadd]').querySelector('[data-gaddgo]').click()}});
 
 /* ---------- boot ---------- */
 (async function(){
@@ -207,6 +263,8 @@ document.addEventListener('change',e=>{
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
     setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{d=await Store.load()}finally{clearTimeout(slow)}
+    d.plans=d.plans||[];
+    if(live&&!STUDENT)for(const np of (window.TRACKER_NEW_PLANS||[]))if(!d.plans.some(p=>p.id===np.id)){d.plans.push({id:np.id,student:np.student,title:np.title,key:'',blocks:[]});send({a:'addPlan',id:np.id,student:np.student,title:np.title,folder:np.folder||''})}
     D={plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
     if((live||STUDENT)&&pending.length)flush();

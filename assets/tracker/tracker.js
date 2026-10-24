@@ -169,7 +169,7 @@ function openCard(sid,n){
   const started=C().units.filter(u=>u.active);
   if(n==null){const t=parseInt(ui.tab.replace('u',''))||1;n=started.find(u=>u.n===t)?t:(started.length?started[started.length-1].n:t)}
   const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
-  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}${PARENT?'':`<div class="ttools" id="ttools"><b>Teacher tools</b> <button class="chip" data-hidett="1">Hide for screenshot</button>${rateBlock(s)}</div>`}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
 
@@ -245,12 +245,13 @@ function ringsTop(c,s,o){
   const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> Handed in: <b>${pcT(sub)}</b> (${subTxt})</div><div><b style="color:#eab308">●</b> Quality of work: <b>${pcT(qual)}</b> (${qTxt})</div><div><b style="color:#0f766e">●</b> Activity in class: <b>${pcT(actAvg(act))}</b> (${lvl(act,ACT_LABELS)})</div></div></div>`}
+function rateBlock(s){return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
+   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
+   <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div>`}
 function meeBlock(rows,s,teacher){
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
     const src=r.source==='photo'?' · photo':r.source==='worksheet'?' · worksheet':'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
-  const rate=teacher&&s?`<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
-   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
-   <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div>`:'';
+  const rate=teacher&&s?rateBlock(s):'';
   return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+rate}
 
 function renderParent(){
@@ -265,6 +266,7 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-hidett]')){const t=$('#ttools');if(t)t.style.display='none';toast('Tools hidden. Close and reopen the card to show them again');return}
   const pb=e.target.closest('[data-photo]');
   if(pb){const box=pb.closest('[data-photofor]'),st4=C().students.find(x=>x.id===box.dataset.photofor),hw=box.querySelector('[data-phw]').value.trim(),pc=box.querySelector('[data-ppct]').value;
     if(!hw||pc===''||+pc<0||+pc>100){toast('Enter the task name and a score from 0 to 100');return}
