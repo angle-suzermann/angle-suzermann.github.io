@@ -291,11 +291,14 @@
     /* нижний колонтитул на каждой странице: жёлтая линия, логотип с подписью под ним, номер страницы */
     pages.forEach(function (p, idx) {
       cx = p.getContext('2d'); cx.setTransform(SC, 0, 0, SC, 0, 0);
-      cx.fillStyle = YEL; cx.fillRect(MG, PH - 50, CW, 2.5);
-      if (logos.purple) cx.drawImage(logos.purple, MG, PH - 44, 12 * 2190 / 640, 12);
-      else { font(10, true); cx.fillStyle = PURPLE; cx.fillText('ANGLE', MG, PH - 32); }
-      font(7.5, false); cx.fillStyle = '#7a7288'; cx.fillText('by Viktoria Syuzyova', MG, PH - 20);
-      cx.textAlign = 'right'; font(8.5, false); cx.fillText('Page ' + (idx + 1) + ' / ' + pages.length, PW - MG, PH - 30); cx.textAlign = 'left';
+      /* как в «Отчёте для родителей»: жёлтая линия на всю ширину листа, фиолетовый логотип, под ним мелкая подпись; справа — строка студии */
+      cx.fillStyle = YEL; cx.fillRect(0, PH - 44, PW, 3);
+      if (logos.purple) cx.drawImage(logos.purple, MG, PH - 34, 51, 51 * 640 / 2190);
+      else { font(11, true); cx.fillStyle = PURPLE; cx.fillText('ANGLE', MG, PH - 22); }
+      font(8, false); cx.fillStyle = '#7a7288'; cx.fillText('by Viktoria Syuzyova', MG, PH - 11);
+      cx.textAlign = 'right'; font(8, false);
+      cx.fillText('ANGLE \u00b7 \u0441\u0442\u0443\u0434\u0438\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u043d\u043e\u0433\u043e \u0430\u043d\u0433\u043b\u0438\u0439\u0441\u043a\u043e\u0433\u043e' + (pages.length > 1 ? '  \u00b7  ' + (idx + 1) + ' / ' + pages.length : ''), PW - MG, PH - 19);
+      cx.textAlign = 'left';
     });
     return pages;
   }
