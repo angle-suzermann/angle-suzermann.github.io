@@ -126,3 +126,41 @@ dialog::backdrop{background:rgba(20,14,25,.7)}
 
 body.parent .tools,body.parent .pills,body.parent .tabs{display:none}
 body.parent.ind .tabs{display:flex}
+
+/* --- fix: circles must never be squeezed into ovals --- */
+.dot{flex:0 0 auto;min-width:34px;min-height:34px;aspect-ratio:1/1;box-sizing:border-box}
+.secrow .dot{flex:none}
+
+/* --- individual trackers (teacher + student) --- */
+body.ind .card.hint{background:#fff7d6;color:#5b4a00;font-size:14px;margin-bottom:10px;box-shadow:none}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12px;color:#fff;margin:0 2px 10px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.legend2 span{display:inline-flex;align-items:center;gap:5px}.legend2 .sep{width:1px;height:14px;background:rgba(255,255,255,.4)}
+.legend2 .st{width:18px;height:18px;min-width:18px;border-width:2px;font-size:11px;pointer-events:none;text-shadow:none}
+.kd{width:5px;height:16px;border-radius:3px;display:inline-block}
+.k-before{--kc:#1f9d8a}.k-classwork{--kc:#3a78c9}.k-homework{--kc:#7a5f99}
+.kd.k-before{background:#1f9d8a}.kd.k-classwork{background:#3a78c9}.kd.k-homework{background:#7a5f99}
+.wk{display:flex;align-items:center;gap:8px;margin:16px 0 8px}
+.wk:first-of-type{margin-top:4px}
+.dchip{background:var(--yellow,#FED500);color:#2D2926;font-weight:800;font-size:13px;border-radius:999px;padding:3px 11px}
+.wlab{color:#6b6475;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.task{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ece8f1;border-left:5px solid var(--kc,#7a5f99);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.task.s-ok{background:#f3faf3}.task.s-sug{background:#fff8ec;border-color:#f1d9a8;border-left-color:var(--kc,#7a5f99)}.task.s-na{opacity:.6}
+.task .tb{flex:1 1 auto;min-width:0}
+.task .tt{font-weight:700;font-size:14.5px;line-height:1.28;overflow-wrap:anywhere}
+.task .tt a{color:#2D2926;text-decoration:underline;text-decoration-color:#b9a9cf;text-underline-offset:3px}
+.tm{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-top:4px;font-size:11.5px;color:#6b6475}
+.kind{font-weight:800;color:var(--kc);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.tag{border-radius:999px;padding:1px 8px;font-weight:700;font-size:11px}.tag.sug{background:#ffe3b0;color:#7a4b00}.tag.ok{background:#d8f0d8;color:#2d6b30}
+.tools-sm{margin-left:auto;display:inline-flex;gap:8px}.lnk{border:0;background:none;color:#7a5f99;font:inherit;font-weight:700;font-size:12px;cursor:pointer;padding:0}
+.tnote{margin-top:5px;font-size:12.5px;color:#4a4455;font-style:italic}
+.tnote-in{margin-top:6px;width:100%;box-sizing:border-box;padding:5px 8px;font-size:13px;border:1px solid #d9d2e3;border-radius:8px;font:inherit}
+.st{flex:0 0 auto;width:38px;height:38px;min-width:38px;aspect-ratio:1/1;box-sizing:border-box;border-radius:50%;border:2.5px solid #b9b2c4;background:#fff;color:transparent;font:inherit;font-weight:800;font-size:18px;display:inline-flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:.12s}
+.st:active{transform:scale(.9)}.st[disabled]{cursor:default}
+.st.sug{border-color:#e09a1a;background:#fff1d4;color:#b36b00}
+.st.ok{border-color:#4f9d52;background:#dff3df;color:#2d7a31}
+.st.na{border-color:#9a96a3;background:#ececf0;color:#77727f}
+.srow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:#f4f0f9;margin-bottom:8px}.srow .t{flex:1;font-weight:700}.srow small{display:block;font-weight:400;color:#6b6475;font-size:12px}
+.bigpc{font-weight:800;font-size:15px;padding:2px 8px;border-radius:8px}
+.waitc{color:#b36b00}
+.tab.rv.on{background:#e09a1a;border-color:#e09a1a}
+.addbox{margin-top:12px}.addbox summary{display:inline-block;list-style:none}
