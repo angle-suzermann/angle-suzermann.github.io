@@ -9,12 +9,12 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:#42304f;color:var(--black);font-family:'Apercu Pro','Inter',Arial,sans-serif;-webkit-text-size-adjust:100%}
 body{min-height:100vh;position:relative}
-.bg-photo{position:fixed;inset:0;z-index:0;background:url('/assets/photos/catalog-bg.jpg') center 40%/cover;opacity:.5;pointer-events:none}
-.bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,25,.55),rgba(45,25,60,.9));pointer-events:none}
+.bg-photo{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(20,14,25,.55),rgba(45,25,60,.9)),linear-gradient(rgba(66,48,79,.5),rgba(66,48,79,.5)),url('/assets/photos/catalog-bg.jpg') center 40%/cover;pointer-events:none;transform:translateZ(0)}
+.bg-wash{display:none}
 .app{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding-bottom:40px}
 
 /* header (compact: <=150px phone, <=110px desktop) */
-.topbar{background:rgba(255,255,255,.86);padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;border-radius:0 0 18px 18px}
+.topbar{background:#fff;padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;border-radius:0 0 18px 18px}
 .brand-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .title{font-weight:800;color:var(--purple);font-size:15px;line-height:1.25;background:var(--yellow);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px}
 .title small{display:block;font-weight:400;font-size:11px;color:var(--purple-dark);line-height:1.15}

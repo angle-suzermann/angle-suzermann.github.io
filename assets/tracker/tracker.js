@@ -258,6 +258,7 @@ document.addEventListener('click',e=>{
     const row={course:ui.course,student:st2.name,date:new Date().toISOString().slice(0,10),lessons:les,score:+ab.dataset.act,note:''};
     (D.act=D.act||[]).push(row);send({a:'addActivity',...row});toast('Saved: '+st2.name+' activity '+row.score+'/3 over '+les+' lessons');openCard(st2.id);return}
   if(e.target.id==='meeGo'){let j;try{j=JSON.parse($('#meeJson').value)}catch{toast('That is not valid JSON');return}
+    if(Array.isArray(j.act)){j.act.forEach(r=>{const row={course:r.course,student:r.student,date:r.date||new Date().toISOString().slice(0,10),lessons:r.lessons||'',score:+r.score,note:r.note||'',kind:r.kind==='quality'?'quality':'activity'};(D.act=D.act||[]).push(row);send({a:'addActivity',...row})});toast('Saving '+j.act.length+' ratings…');setTimeout(async()=>{try{D=await Store.load();render()}catch{}},4000);return}
     if(!j.course||!Array.isArray(j.rows)){toast('JSON needs course and rows');return}
     send({a:'importMee',course:j.course,rows:j.rows});toast('Importing '+j.rows.length+' rows…');setTimeout(async()=>{try{D=await Store.load();render()}catch{}},4000);return}
   const pl=e.target.closest('[data-plink]');
