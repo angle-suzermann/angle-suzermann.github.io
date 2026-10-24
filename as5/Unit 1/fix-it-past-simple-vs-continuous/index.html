@@ -280,7 +280,7 @@ document.addEventListener('click', e=>{
 });
 
 // ---------- scoring ----------
-function normalize(s){ return (s||'').trim().toLowerCase().replace(/['"’‘`]/g,'').replace(/[.,!?]+$/,'').replace(/\s+/g,' '); }
+function normalize(s){ return (s||'').trim().toLowerCase().replace(/['’‘`]re\b/g,' are').replace(/['"’‘`]/g,'').replace(/[.,!?]+$/,'').replace(/\s+/g,' '); }
 function exTitle(el){
   const card = el.closest('.card'); const h2 = card ? card.querySelector('h2') : null;
   if(!h2) return '';
