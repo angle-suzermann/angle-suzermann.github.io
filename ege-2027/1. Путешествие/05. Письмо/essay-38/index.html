@@ -196,6 +196,15 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .page-dots::-webkit-scrollbar{display:none;}
 .page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
 .page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+/* стикер за результат */
+.completion-stickers{text-align:center}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1)}
+.completion-sticker[hidden]{display:none}
+.completion-sticker--medium{max-width:170px}
+.completion-sticker--icon{max-width:110px}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.result-caption{text-align:center;font-size:.92rem;color:#2b2b2b;margin:8px auto 0;max-width:420px;background:rgba(255,255,255,.92);border-radius:10px;padding:6px 12px}
+.result-caption:empty{display:none}
 </style>
 <meta name="theme-color" content="#453458">
 <link rel="stylesheet" href="/assets/ege/dl-btn.css">
@@ -489,6 +498,9 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <p>Результат автопроверяемых упражнений (лексика + сопоставление) — вверху страницы. Перефраз и оба эссе
     проверяй по чек-листу и (для Кейса 1) по образцу — это части, где нужен собственный или учительский взгляд.</p>
     <div id="finalScore" class="card" style="background:var(--card-tint); margin-top:10px;"></div>
+<div id="completionStickers" class="completion-stickers"></div>
+<p id="resultCaption" class="result-caption"></p>
+
     <div class="send-box"><button class="btn" onclick="sendEssay(this,'all','Итог: оба эссе + результат упражнений')">📤 Отправить всё учителю</button><span class="st"></span></div>
   </div>
   <div class="nav-btns"><button class="btn secondary" onclick="prevPage()">← Назад</button><span class="spacer"></span></div>
@@ -508,6 +520,8 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 /* ---------- data (дословно из файлов кейса) ---------- */
 const CHECKLIST = [
@@ -726,6 +740,8 @@ function updateScorePill(){
       <p class="lead">Учитывает задания на лексику (Кейс 1 и 2) и сопоставление заголовков (Кейс 1).</p>` :
       `<p class="lead">Пройди упражнения на лексику и сопоставление — здесь появится результат.</p>`;
   }
+  /* стикер — когда проверены все три блока; процент общий по всем блокам */
+  if(t && Object.keys(blockScores).length >= 3 && typeof renderResultSticker === 'function') renderResultSticker(Math.round(c/t*100));
 }
 
 /* ---------- essay tools ---------- */

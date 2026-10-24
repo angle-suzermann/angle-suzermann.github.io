@@ -165,6 +165,15 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   .save-indicator{ flex-basis:100%; }
 }
 
+/* стикер за результат */
+.completion-stickers{text-align:center}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1)}
+.completion-sticker[hidden]{display:none}
+.completion-sticker--medium{max-width:170px}
+.completion-sticker--icon{max-width:110px}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.result-caption{text-align:center;font-size:.92rem;color:#2b2b2b;margin:8px auto 0;max-width:420px;background:rgba(255,255,255,.92);border-radius:10px;padding:6px 12px}
+.result-caption:empty{display:none}
 </style>
 <style id="angle-v2">
 /* ANGLE header v2: compact topbar (as in sample) + unified badge */
@@ -1223,6 +1232,8 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <div class="results-panel show" style="margin-top:14px;">
       <div class="big-score" id="finalBigScore">0 / 0</div>
       <p class="muted" id="finalBigScoreNote">Правильных ответов в разборе вопросов по всем 6 сценариям</p>
+      <div id="completionStickers" class="completion-stickers"></div>
+      <p id="resultCaption" class="result-caption"></p>
     </div>
     <div class="task-submit">
       <button type="button" class="btn cta" onclick="submitFinalSummary()">📤 Отправить итоговую сводку учителю</button>
@@ -1246,6 +1257,8 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 /* ================================================================
    CONFIG
@@ -1523,6 +1536,11 @@ function renderFinalSummary(){
     return `<div class="scenario-summary-row"><span>${sc.title}</span><span>${correct}/${total} &nbsp; <span class="${sent?'pill-sent':'pill-notsent'}">${sent?'✓ отправлено':'не отправлено'}</span></span></div>`;
   }).join('');
   document.getElementById('finalBigScore').textContent = `${totalCorrect} / ${totalAll}`;
+  /* стикер по общему проценту всех сценариев; пока ни на один вопрос не ответили — без стикера */
+  var anyAnswered = FINAL_SUMMARY_DATA.some(function(sc){ return scoreScenarioQuiz(sc.id).answered > 0; });
+  var stk = document.getElementById('completionStickers');
+  if(anyAnswered && totalAll && typeof renderResultSticker === 'function') renderResultSticker(Math.round(totalCorrect/totalAll*100));
+  else if(stk){ stk.querySelectorAll('.completion-sticker').forEach(function(im){ im.hidden = true; }); var cp = document.getElementById('resultCaption'); if(cp) cp.textContent = ''; }
 }
 
 async function submitFinalSummary(){

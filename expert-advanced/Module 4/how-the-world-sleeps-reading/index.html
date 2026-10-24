@@ -302,6 +302,15 @@ input, textarea{
   border-radius:8px;
   padding:10px;
 }
+/* стикер за результат */
+.completion-stickers{text-align:center}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1)}
+.completion-sticker[hidden]{display:none}
+.completion-sticker--medium{max-width:170px}
+.completion-sticker--icon{max-width:110px}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.result-caption{text-align:center;font-size:.92rem;color:#2b2b2b;margin:8px auto 0;max-width:420px;background:rgba(255,255,255,.92);border-radius:10px;padding:6px 12px}
+.result-caption:empty{display:none}
 </style>
 
 </head>
@@ -338,6 +347,8 @@ input, textarea{
   <footer class="credit">Expert Advanced, Unit 4A · adapted for interactive use · ANGLE</footer>
 </div>
 
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
 <script>
 /* ===================== DATA ===================== */
 
@@ -669,7 +680,14 @@ function pageReinforce(){
   </div>`;
 }
 
+function showFinishSticker(){
+  /* общий процент по обоим упражнениям (matching + buckets); если ни одно не проверяли — без стикера */
+  var parts = [window.lastReadingScore, window.lastPracticeScore].filter(Boolean), c = 0, t = 0;
+  parts.forEach(function(x){ var m = String(x).split('/'); c += +m[0] || 0; t += +m[1] || 0; });
+  if(t && typeof renderResultSticker === 'function') renderResultSticker(Math.round(c/t*100));
+}
 function pageFinish(){
+  setTimeout(showFinishSticker, 0);   // страница вставляется через innerHTML сразу после return
   return `
   <div class="card" data-badge-contrast="light">
     <div class="kicker">Wrap-up</div>
@@ -691,6 +709,8 @@ function pageFinish(){
       <button class="btn accent" onclick="sendCompletion()">Send to my teacher</button>
     </div>
     <div id="sendStatus"></div>
+    <div id="completionStickers" class="completion-stickers"></div>
+    <p id="resultCaption" class="result-caption"></p>
     <div class="nav-row">
       <button class="btn ghost" onclick="goTo(6)">← Back</button>
       <span></span>
