@@ -63,6 +63,11 @@ const fmt=r=>r==null?'–':Math.round(r*100)+'%';
 const pcClass=r=>r==null?'pc-none':r>=.8?'pc-hi':r>=.5?'pc-mid':'pc-lo';
 function ring(r,size=88){const R=size/2-8,C=2*Math.PI*R,v=r==null?0:r;
   return `<div class="ring" style="width:${size}px;height:${size}px"><svg width="${size}" height="${size}"><circle cx="${size/2}" cy="${size/2}" r="${R}" fill="none" stroke="#e8e3ee" stroke-width="9"/><circle cx="${size/2}" cy="${size/2}" r="${R}" fill="none" stroke="${v>=.8?'#4f9d52':v>=.5?'#d9a900':'#c7586a'}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-v)}" transform="rotate(-90 ${size/2} ${size/2})"/></svg><b>${fmt(r)}</b></div>`}
+/* students keep their order; one student's plans go newest first (the Sheet lists them oldest first) */
+function newestFirst(plans){
+  const names=[];plans.forEach(p=>{if(!names.includes(p.student))names.push(p.student)});
+  return names.flatMap(n=>plans.filter(p=>p.student===n).reverse());
+}
 const P=()=>D.plans.find(p=>p.id===ui.plan);
 const safeLink=u=>/^https?:\/\//i.test(u||'')?u:'';
 const stateOf=t=>t.status==='✓'?'ok':t.status==='N/A'?'na':t.suggested?'sug':'';
@@ -127,8 +132,8 @@ function render(){
   const tabs=[...order.map(i=>({k:'b'+i,l:pl.blocks[i].name})),{k:'sum',l:'Summary',w:1}];
   if(!tabs.find(t=>t.k===ui.tab))ui.tab=tabs[0].k;
   const wait=planScore(pl).wait;
-  const rv=STUDENT?'':`<button class="tab wide rv ${ui.review?'on':''}" data-review="1">To review${wait?` (${wait})`:''}</button>`;
-  $('#tabs').innerHTML=rv+tabs.map(t=>`<button class="tab ${t.w?'wide':''} ${!ui.review&&t.k===ui.tab?'on':''}" data-tab="${t.k}">${esc(t.l)}</button>`).join('');
+  const rv=STUDENT?'':`<button class="tab wide rv ${ui.review?'on':''} ${wait?'has':''}" data-review="1">To review${wait?` (${wait})`:''}</button>`;
+  $('#tabs').innerHTML=tabs.map(t=>`<button class="tab ${t.w?'wide':''} ${!ui.review&&t.k===ui.tab?'on':''}" data-tab="${t.k}">${esc(t.l)}</button>`).join('')+rv;
   $('#sub').textContent=STUDENT?'Homework progress':pl.student+' · teacher panel';
   if(!STUDENT)LS.set('angleTracker.iui2',{plan:ui.plan,tab:ui.tab,review:ui.review});
   let html='';
@@ -186,7 +191,7 @@ document.addEventListener('change',e=>{
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
     setSync('busy','Loading…');const d=await Store.load();
-    D={plans:(d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id))};
+    D={plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
     if((live||STUDENT)&&pending.length)flush();
   }catch(e){$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}</div>`;setSync('err','Offline');return}
