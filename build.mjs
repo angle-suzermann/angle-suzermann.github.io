@@ -674,6 +674,8 @@ const sortScript = (containerSel, itemSel) => `<script>
   var state = { key: null, dir: 1 };
 
   function compare(a, b){
+    var pa = a.dataset.pin === '1' ? 0 : 1, pb = b.dataset.pin === '1' ? 0 : 1;
+    if(pa !== pb) return pa - pb;
     var av = a.dataset[state.key] || '';
     var bv = b.dataset[state.key] || '';
     var res = state.key === 'date'
@@ -1136,7 +1138,7 @@ const familyIconFor = (famName, emoji) => FAMILY_ICON_MAP[famName]
 const tileFor = (course, label, overrideCount) => {
   const count = overrideCount != null
     ? overrideCount
-    : materials.filter((m) => m['course-id'] === course.id && m.status === 'published').length;
+    : materials.filter((m) => m['course-id'] === course.id && m.status === 'published' && m.audience !== 'teacher').length;
   return `      <a class="tile" href="${esc(`${BASE}/${course.id}/`)}">
         ${tileIconFor(course)}
         <span class="tile-name">${esc(label)}</span>
@@ -1155,7 +1157,7 @@ const familyPrefix = (fam) => {
 const landingFamilyBlocks = familyOrder.map(([fid, famName]) => {
   const fam = familyCourses.get(fid);
   const emoji = fam.find((c) => c.emoji)?.emoji || '';
-  const countPublished = (c) => materials.filter((m) => m['course-id'] === c.id && m.status === 'published').length;
+  const countPublished = (c) => materials.filter((m) => m['course-id'] === c.id && m.status === 'published' && m.audience !== 'teacher').length;
   let tiles;
   if (COLLAPSED_FAMILIES.includes(famName)) {
     const prefix = familyPrefix(fam);
@@ -1259,7 +1261,7 @@ const COURSE_TITLE_LOGO = {};
 
 /* --- страница курса: только опубликованное --- */
 for (const course of courses) {
-  const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published');
+  const list = materials.filter((m) => m['course-id'] === course.id && m.status === 'published' && m.audience !== 'teacher');
   const dir = path.join(OUT, course.id);
   fs.mkdirSync(dir, { recursive: true });
   const personalFolders = personalLeaves(findPersonalFoldersForStudent(path.join(ROOT, course.id)));
@@ -1285,6 +1287,7 @@ for (const course of courses) {
 }
 
 /* --- учительский индекс: всё, с фильтрами и копированием ссылок --- */
+const isTrackerM = (m) => m.audience === 'teacher';
 const staffCard = (m) => {
   const repo = config.repoUrl
     ? `<a href="${esc(config.repoUrl)}/blob/main/${esc(m.dir)}/index.html" target="_blank" rel="noopener">исходник</a>`
@@ -1292,14 +1295,14 @@ const staffCard = (m) => {
   return `  <div class="staff-card${m.status === 'draft' ? ' is-draft' : ''}"
        data-search="${esc((m.title + ' ' + m.course + ' ' + (m.tags || '') + ' unit ' + m.unit).toLowerCase())}"
        data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}"
-       data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}">
+       data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}" data-pin="${isTrackerM(m) ? 1 : 0}">
     <div class="row">
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
-      <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
+      <span class="pill ${isTrackerM(m) ? 'tracker' : esc(m.type)}">${isTrackerM(m) ? 'tracker' : esc(m.type)}</span>
       ${m.status === 'draft' ? '<span class="pill draft">черновик</span>' : ''}
     </div>
     <div class="meta">
-      <span>${esc(m.course)}</span><span>Unit ${esc(m.unit)}</span><span>${esc(m.date)}</span>
+      <span>${esc(m.course)}</span>${isTrackerM(m) ? '' : `<span>Unit ${esc(m.unit)}</span>`}<span>${esc(m.date)}</span>
       <span>${m.backend ? 'сабмиты → ' + esc(m.backend) : 'без отправки'}</span>
       <span>${(m.bytes / 1024).toFixed(0)} КБ</span>
     </div>
@@ -1950,7 +1953,7 @@ ${courseGroupRows}
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
 ${sortToolbar(true)}
   <div class="staff-list" id="staffList">
-${materials.map(staffCard).join('\n')}
+${[...materials.filter(isTrackerM), ...materials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
 ${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
   extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
@@ -1961,7 +1964,7 @@ fs.writeFileSync(path.join(OUT, 'catalog.json'), JSON.stringify({
   generated: 'при сборке; поле намеренно без даты, чтобы сборки были воспроизводимыми',
   staffPath: `${BASE}/${staffPath}/`,
   courses,
-  materials: materials.map(({ courseCfg, bytes, ...m }) => m),
+  materials: materials.filter((m) => m.audience !== 'teacher').map(({ courseCfg, bytes, ...m }) => m),
 }, null, 2));
 
 /* ---------- иконки и превью ссылок во все страницы ---------- */
