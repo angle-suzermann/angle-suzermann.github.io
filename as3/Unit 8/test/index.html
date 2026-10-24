@@ -159,6 +159,17 @@ input.fib.is-wrong{ border-bottom-color:var(--wrong); color:var(--wrong); }
 .audio-box{ background:var(--card-tint); border-radius:12px; padding:10px 12px; margin-bottom:16px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .audio-box .audio-label{ font-weight:700; color:var(--purple-dark); font-size:.9rem; white-space:nowrap; }
 .audio-box audio{ flex:1 1 220px; min-width:0; width:100%; height:38px; }
+.word-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+.word-card{ text-align:center; }
+.word-card img{ width:100%; height:110px; object-fit:contain; background:#fff; border-radius:10px; border:1.5px solid var(--border); display:block; margin-bottom:6px; }
+.word-card p.q{ margin:0; }
+.word-card input.fib{ width:100%; max-width:120px; }
+.word-card.example{ opacity:.75; }
+.cave-grid{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:14px; }
+.cave-grid figure{ margin:0; text-align:center; flex:0 0 30%; }
+.cave-grid img{ width:100%; aspect-ratio:4/3; object-fit:contain; background:#8c8c8c; border-radius:8px; display:block; border:1.5px solid var(--border); }
+.cave-grid figcaption{ font-weight:900; color:var(--purple); margin-top:4px; }
+@media (max-width:600px){ .word-grid{ grid-template-columns:repeat(2,1fr); } .cave-grid figure{ flex:0 0 46%; } }
 .gap-row{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
 .gap-row input.fib{ width:120px; }
 .gap-row .gap-n{ font-weight:900; color:var(--purple); min-width:1.2em; }
@@ -240,7 +251,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">Page 1 / 4</span>
+      <span class="progress-label" id="progressLabel">Page 1 / 6</span>
     </div>
     <div class="page-dots" id="pageDots"></div>
   </div>
@@ -257,7 +268,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
       </div>
       <img class="course-sticker" src="img/as3-sticker.png" alt="Academy Stars 3">
       <h1>Academy Stars 3 — Unit 8 Test</h1>
-      <p class="instr">Listening: a visit to the museum. Type your name at the top, then work through each page. You can play the recording as many times as you need. Your score is sent to your teacher at the end.</p>
+      <p class="instr">Listening and reading &amp; writing: museums and the past. Type your name at the top, then work through each page. You can play the recording as many times as you need. Your score is sent to your teacher at the end.</p>
       <div class="nav-btns"><span></span><button class="btn btn-primary" onclick="nextPage()">Start →</button></div>
     </div>
   </section>
@@ -295,8 +306,50 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     </div>
   </section>
 
-  <!-- PAGE 3: FINISH -->
+  <!-- PAGE 3: EX3 LOOK AND WRITE -->
   <section class="page" data-page="3">
+    <div class="card">
+      <h2><span class="badge-num">3</span>Look and write</h2>
+      <p class="instr">Reading and writing. Look at the pictures and write the word from the box.</p>
+      <div class="wordbank"><span>museum</span><span>knife</span><span class="used-example">tool</span><span>bowl</span><span>sculpture</span><span>fire</span><span>coin</span></div>
+      <div class="word-grid">
+        <div class="word-card example"><img src="img/ex1-1.jpg" alt=""><p class="q"><span class="gap-n">1</span> <i>tool</i> <small>(example)</small></p></div>
+        <div class="word-card"><img src="img/ex1-2.jpg" alt=""><p class="q"><span class="gap-n">2</span> <input type="text" class="fib" data-answer="coin" placeholder="..."></p></div>
+        <div class="word-card"><img src="img/ex1-3.jpg" alt=""><p class="q"><span class="gap-n">3</span> <input type="text" class="fib" data-answer="museum" placeholder="..."></p></div>
+        <div class="word-card"><img src="img/ex1-4.jpg" alt=""><p class="q"><span class="gap-n">4</span> <input type="text" class="fib" data-answer="bowl" placeholder="..."></p></div>
+        <div class="word-card"><img src="img/ex1-5.jpg" alt=""><p class="q"><span class="gap-n">5</span> <input type="text" class="fib" data-answer="fire" placeholder="..."></p></div>
+        <div class="word-card"><img src="img/ex1-6.jpg" alt=""><p class="q"><span class="gap-n">6</span> <input type="text" class="fib" data-answer="knife" placeholder="..."></p></div>
+        <div class="word-card"><img src="img/ex1-7.jpg" alt=""><p class="q"><span class="gap-n">7</span> <input type="text" class="fib" data-answer="sculpture" placeholder="..."></p></div>
+      </div>
+      <div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+  </section>
+
+  <!-- PAGE 4: EX4 LOOK, READ AND WRITE -->
+  <section class="page" data-page="4">
+    <div class="card">
+      <h2><span class="badge-num">4</span>Look, read and write</h2>
+      <p class="instr">Look at <span class="tick">✓</span> and <span class="cross">✗</span> under each picture. Choose the right words from the box and complete the sentences.</p>
+      <div class="wordbank"><span>was a</span><span>were some</span><span>wasn’t a</span><span class="used-example">weren’t any</span><span>weren’t any</span></div>
+      <div class="cave-grid">
+        <figure><img src="img/ex2-1.jpg" alt=""><figcaption>1 <span class="cross">✗</span></figcaption></figure>
+        <figure><img src="img/ex2-2.jpg" alt=""><figcaption>2 <span class="tick">✓</span></figcaption></figure>
+        <figure><img src="img/ex2-3.jpg" alt=""><figcaption>3 <span class="cross">✗</span></figcaption></figure>
+        <figure><img src="img/ex2-4.jpg" alt=""><figcaption>4 <span class="cross">✗</span></figcaption></figure>
+        <figure><img src="img/ex2-5.jpg" alt=""><figcaption>5 <span class="tick">✓</span></figcaption></figure>
+      </div>
+      <div class="scene-box"><b>I like history! Yesterday I visited a cave.</b></div>
+      <div class="example-line">Example (1): There <b>weren’t any</b> windows.</div>
+      <div class="item"><p class="q">2. There <input type="text" class="fib" data-answer="were some" placeholder="..."> pictures on the wall.</p></div>
+      <div class="item"><p class="q">3. There <input type="text" class="fib" data-answer="wasn't a" data-answer-list="wasn't a|was not a" placeholder="..."> fireplace.</p></div>
+      <div class="item"><p class="q">4. There <input type="text" class="fib" data-answer="weren't any" data-answer-list="weren't any|were not any" placeholder="..."> musical instruments.</p></div>
+      <div class="item"><p class="q">5. There <input type="text" class="fib" data-answer="was a" placeholder="..."> necklace.</p></div>
+      <div class="nav-btns"><button class="btn" onclick="prevPage()">← Back</button><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
+    </div>
+  </section>
+
+  <!-- PAGE 5: FINISH -->
+  <section class="page" data-page="5">
     <div class="card">
       <h2>Finished!</h2>
       <p class="instr">Check your name is filled in, then press Check &amp; Submit.</p>
@@ -366,7 +419,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <script>
 const COURSE_NAME = "Academy Stars 3";
 const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
-const PAGE_LABELS = ["Start","Listen & complete","Listen & choose","Finish"];
+const PAGE_LABELS = ["Start","Listen & complete","Listen & choose","Look & write","Read & write","Finish"];
 let current = 0;
 
 function buildDots(){
