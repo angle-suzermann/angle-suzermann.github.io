@@ -33,8 +33,26 @@ const GENTLE_TIERS = [
   { min: 0,  stickers: ['strawberry-a','strawberry-b','strawberry-sparkle','loading','keep_going'], label: 'Fresh start', caption: "Great — now we know where to start. Every level begins somewhere!" }
 ];
 function getResultTier(pct){ return (window.STICKER_GENTLE ? GENTLE_TIERS : RESULT_TIERS).find(t => pct >= t.min); }
+/* Если на странице нет блока #completionStickers (страница вызывает renderResultSticker, но разметку не завела), создаём его сами:
+   сразу после строки с баллами. Раньше в таких материалах (например, GTW B1 Unit 1) стикер молча не появлялся. */
+function ensureStickerWrap(){
+  var w = document.getElementById('completionStickers'); if(w) return w;
+  if(!document.getElementById('awardStickerCss')){
+    var st = document.createElement('style'); st.id = 'awardStickerCss';
+    st.textContent = '.completion-stickers{text-align:center}.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1)}.completion-sticker[hidden]{display:none}.completion-sticker--medium{max-width:170px}.completion-sticker--icon{max-width:110px}@keyframes stickerPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}.result-caption{text-align:center;font-size:.92rem;color:#2b2b2b;margin:8px auto 0;max-width:420px}.result-caption:empty{display:none}';
+    document.head.appendChild(st);
+  }
+  var a = null, ids = ['scoreSummary','resultsFraction','resultsPanel','resultsBreakdown','finishBig','scorePill','score','results','result'];
+  for(var i = 0; i < ids.length && !a; i++) a = document.getElementById(ids[i]);
+  var cap = document.getElementById('resultCaption');
+  w = document.createElement('div'); w.className = 'completion-stickers'; w.id = 'completionStickers';
+  if(a && a.parentNode) a.parentNode.insertBefore(w, a.nextSibling);
+  else if(cap && cap.parentNode) cap.parentNode.insertBefore(w, cap);
+  else return null;
+  return w;
+}
 function renderResultSticker(pct, wrap, capEl){
-  wrap = wrap || document.getElementById('completionStickers');
+  wrap = wrap || ensureStickerWrap();
   if(!wrap || typeof STICKER_DATA === 'undefined') return;
   if(capEl === undefined) capEl = document.getElementById('resultCaption');
   else if(typeof capEl === 'string') capEl = document.getElementById(capEl);
