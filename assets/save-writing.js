@@ -292,9 +292,9 @@
     pages.forEach(function (p, idx) {
       cx = p.getContext('2d'); cx.setTransform(SC, 0, 0, SC, 0, 0);
       cx.fillStyle = YEL; cx.fillRect(MG, PH - 50, CW, 2.5);
-      if (logos.purple) cx.drawImage(logos.purple, MG, PH - 42, 12 * 2190 / 640, 12);
+      if (logos.purple) cx.drawImage(logos.purple, MG, PH - 44, 12 * 2190 / 640, 12);
       else { font(10, true); cx.fillStyle = PURPLE; cx.fillText('ANGLE', MG, PH - 32); }
-      font(7.5, false); cx.fillStyle = '#7a7288'; cx.fillText('by Viktoria Syuzyova', MG, PH - 22);
+      font(7.5, false); cx.fillStyle = '#7a7288'; cx.fillText('by Viktoria Syuzyova', MG, PH - 20);
       cx.textAlign = 'right'; font(8.5, false); cx.fillText('Page ' + (idx + 1) + ' / ' + pages.length, PW - MG, PH - 30); cx.textAlign = 'left';
     });
     return pages;
