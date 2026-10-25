@@ -99,7 +99,11 @@ function stBtn(bi,t){
   const s=stateOf(t),icon={ok:'✓',na:'–',sug:'?','':''}[s];
   const label={ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',"":'Not done yet'}[s];
   const dis=STUDENT&&(s==='ok'||s==='na');
-  return `<button class="st ${s}" data-tk="${bi}|${t.n}" aria-label="${label}" title="${label}"${dis?' disabled':''}>${icon}</button>`;
+  /* score ring: the note starts with "Worksheet 87%" or "MEE 87%" (written by the worksheet / the MEE import) */
+  const m=String(t.note||'').match(/^(Worksheet|MEE)\s+(\d{1,3})%/i),pc=m?Math.min(100,+m[2]):null;
+  const ringAttr=pc==null?'':` style="--p:${pc};--rc:${pc>=80?'#4f9d52':pc>=50?'#d9a900':'#c7586a'}"`;
+  const lab2=pc==null?label:label+' · '+m[1]+' '+pc+'%';
+  return `<button class="st ${s}${pc==null?'':' pr'}"${ringAttr} data-tk="${bi}|${t.n}" aria-label="${lab2}" title="${lab2}"${dis?' disabled':''}>${icon}</button>`;
 }
 function taskCard(pl,bi,t){
   const k=KINDS[t.kind]?t.kind:'homework';
