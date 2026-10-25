@@ -143,8 +143,8 @@ textarea.written{width:100%;min-height:150px;border:1.5px solid var(--border);bo
 .result-caption{text-align:center;font-size:.92rem;color:var(--muted);margin-top:6px;}
 .angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
 .angle-badge .wordmark{width:96px;height:auto;display:block;}
-.angle-badge .wordmark path{stroke:#5E4877;stroke-width:90;paint-order:stroke;}
-.angle-badge .credit{margin-top:3px;margin-left:3px;font-weight:400;font-size:10px;text-shadow:0 0 2px #5E4877,0 0 2px #5E4877;}
+.angle-badge .wordmark path{stroke:none;}
+.angle-badge .credit{margin-top:3px;margin-left:3px;font-weight:400;font-size:10px;text-shadow:none;}
 @media (max-width:600px){.match-set{gap:8px;}.match{font-size:.85rem;padding:7px 9px;}.card{padding:16px 14px;}.flip-card{height:240px;}}
 @media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
 
@@ -640,8 +640,6 @@ async function submitAll(){
     fd.append('mistakes', wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
-    // Also record the result in Lena's tracker (the task is marked as suggested; the teacher confirms)
-    try{ await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', {method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({a:'result', course:'GW B2', student:studentName, hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), url:location.pathname, pct:pct, pts:correct, max:total})}); }catch(_){}
     status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
   }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
 }
