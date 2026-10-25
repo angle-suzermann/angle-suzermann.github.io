@@ -226,6 +226,7 @@ function render(){
 }
 
 /* MEE homework rings: outer = handed in (done / due), inner = average score of handed-in work */
+const isTest=r=>/\btest\b/i.test(String(r.hw||''));
 function meeFor(c,s){const n=String(s.name).toLowerCase();return (D.mee||[]).filter(r=>String(r.course)===c&&String(r.student).toLowerCase()===n)}
 function meeSum(rows){const due=rows.filter(r=>r.status==='done'||r.status==='missing'),done=due.filter(r=>r.status==='done');
   const sc=done.filter(r=>r.pct!==''&&r.pct!=null);const q=sc.length?sc.reduce((a,r)=>a+Number(r.pct),0)/sc.length/100:null;
@@ -240,7 +241,7 @@ const pcT=v=>v==null?'–':Math.round(v*100)+'%';
 function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
 function ringsTop(c,s,o){
-  const rows=meeFor(c,s),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
+  const rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
   const sub=m.sub!=null?m.sub:o.r,subTxt=m.sub!=null?`${m.done} of ${m.due} online tasks`:`${o.e} of ${o.p} points`;
   const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
@@ -248,11 +249,13 @@ function ringsTop(c,s,o){
 function rateBlock(s){return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
    <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
    <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div>`}
-function meeBlock(rows,s,teacher){
+function meeBlock(allRows,s,teacher){
+  const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
     const src=r.source==='photo'?' · photo':r.source==='worksheet'?' · worksheet':'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
   const rate=teacher&&s?rateBlock(s):'';
-  return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+rate}
+  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Unit tests</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
+  return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+tlist+rate}
 
 function renderParent(){
   const c=Object.keys(D.courses)[0];ui.course=c;const cc=C(),st=cc.students[0];
