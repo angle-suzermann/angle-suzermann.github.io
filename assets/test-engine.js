@@ -287,6 +287,18 @@
       submitted_at:   new Date().toLocaleString('ru-RU')
     };
 
+    /* opt-in: pages with <meta name="ws:tracker-course" content="Flyers"> also post the result to the homework tracker */
+    var TRACKER_COURSE = meta('ws:tracker-course');
+    if(TRACKER_COURSE){
+      try{
+        fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', {
+          method: 'POST', headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ a: 'result', course: TRACKER_COURSE, student: name, hw: TEST_TITLE, pct: lastResults.percent,
+            note: lastResults.mistakes.length ? lastResults.mistakes.slice(0, 12).join('\n') : '' })
+        }).catch(function(){});
+      }catch(_){}
+    }
+
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
