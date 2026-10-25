@@ -561,6 +561,8 @@ async function submitAll(){
     fd.append('mistakes', wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
     const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+    // Also record the result in Lena's tracker (the task is marked as suggested; the teacher confirms)
+    try{ await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', {method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({a:'result', course:'GW B2', student:studentName, hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), url:location.pathname, pct:pct, pts:correct, max:total})}); }catch(_){}
     status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
   }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
 }
