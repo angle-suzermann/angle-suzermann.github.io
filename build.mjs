@@ -1294,8 +1294,17 @@ for (const course of courses) {
 }
 
 /* --- учительский индекс: всё, с фильтрами и копированием ссылок --- */
+// Teacher controls belong only in the staff panel; copied links stay student links.
+const collabConfigPath = path.join(ROOT, 'assets/collab-config.js');
+const collabConfigText = fs.existsSync(collabConfigPath) ? fs.readFileSync(collabConfigPath, 'utf8') : '';
+const collabTeacherKey = collabConfigText.match(/teacherKey\s*:\s*['"]([^'"]+)['"]/)?.[1] || 'angle';
 const isTrackerM = (m) => m.audience === 'teacher';
 const staffCard = (m) => {
+  const materialHtml = fs.readFileSync(path.join(ROOT, m.dir, 'index.html'), 'utf8');
+  const hasCollab = /<script\b[^>]*\bsrc=["'][^"']*\/collab\.js(?:[?#][^"']*)?["']/i.test(materialHtml);
+  const teacherLink = hasCollab
+    ? `<a class="open" href="${esc(m.url + '?teacher=' + encodeURIComponent(collabTeacherKey))}" target="_blank" rel="noopener">Учительский режим</a>`
+    : '';
   const repo = config.repoUrl
     ? `<a href="${esc(config.repoUrl)}/blob/main/${esc(m.dir)}/index.html" target="_blank" rel="noopener">исходник</a>`
     : '';
@@ -1315,6 +1324,7 @@ const staffCard = (m) => {
     </div>
     <div class="actions">
       <a class="open" href="${esc(m.url)}" target="_blank" rel="noopener">Открыть</a>
+      ${teacherLink}
       <button type="button" data-copy="${esc(m.url)}">Копировать ссылку</button>
       ${repo}
     </div>
