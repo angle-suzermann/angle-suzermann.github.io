@@ -1,5 +1,7 @@
 'use strict';
 const SRC=document.currentScript.src;
+const STRUCTURE_URL=new URL('structure.json',SRC);
+STRUCTURE_URL.search=new URL(SRC).search;
 const LOCK=window.TRACKER_COURSE||null;
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -22,7 +24,7 @@ const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clea
 
 const Demo={
   async load(){
-    const st=await (await fetch(new URL('structure.json',SRC))).json();
+    const st=await (await fetch(STRUCTURE_URL)).json();
     const demoNames={Starters:['Demo A.','Demo B.'],Movers:['Demo C.','Demo D.'],Flyers:['Demo E.','Demo F.','Demo G.'],B1:['Demo H. 🐬','Demo I. 🐬','Demo J. 🐼','Demo K. 🐙']};
     const courses={};
     for(const [c,v] of Object.entries(st)){
@@ -62,7 +64,38 @@ const ParentStore={
   },
   async write(){}
 };
-const Store=PARENT?ParentStore:(live?Sheets:Demo);
+// Textbook section labels apply to live, demo and parent data alike.
+// Keep backend IDs (and therefore existing ticks); the former 10-point
+// Revision Test remains Unit test. Revision is a new independent item.
+const baseStore=PARENT?ParentStore:(live?Sheets:Demo);
+const Store={
+  async load(){
+    const data=await baseStore.load();
+    if(baseStore===Demo)return data;
+    const structure=await (await fetch(STRUCTURE_URL)).json();
+    for(const course of ['Starters','Movers','Flyers']){
+      const cc=data.courses[course],template=structure[course];
+      if(!cc||!template)continue;
+      const old=new Map(cc.sections.map(s=>[s.id,s]));
+      const protectedSection=s=>/more|extra/i.test(s.name);
+      cc.sections=template.sections.map(s=>{
+        const previous=old.get(s.id);
+        return previous?{...previous,name:protectedSection(previous)?previous.name:s.name}:{...s};
+      });
+      // Retain custom sections supplied by the sheet. sec9 in levels 2/3
+      // was the separate speaking half of Listening and speaking.
+      for(const s of old.values()){
+        if(template.sections.some(x=>x.id===s.id))continue;
+        if(course!=='Flyers'&&s.id==='sec9'){
+          const hasHistory=Object.keys(data.progress||{}).some(k=>k.startsWith(course+'|')&&k.endsWith('|sec9'));
+          if(hasHistory)cc.sections.splice(cc.sections.findIndex(x=>x.id==='sec8')+1,0,s);
+        }else cc.sections.push(s);
+      }
+    }
+    return data;
+  },
+  write(op){return baseStore.write(op)}
+};
 let pending=LS.get('angleTracker.queue',[]);
 async function send(op){
   if(!live){await Demo.write(op);return}

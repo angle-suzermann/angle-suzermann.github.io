@@ -7,23 +7,28 @@
     "points": 5
    },
    {
+    "id": "grammar-time",
+    "name": "Grammar time",
+    "points": 5
+   },
+   {
+    "id": "sec4",
+    "name": "Grammar focus",
+    "points": 5
+   },
+   {
+    "id": "sec5",
+    "name": "Extra Grammar Practice",
+    "points": 5
+   },
+   {
     "id": "sec2",
     "name": "Reading",
     "points": 5
    },
    {
     "id": "sec3",
-    "name": "Reading and Pronunciation",
-    "points": 5
-   },
-   {
-    "id": "sec4",
-    "name": "Grammar",
-    "points": 5
-   },
-   {
-    "id": "sec5",
-    "name": "Extra Grammar Practice",
+    "name": "Sounds and letters",
     "points": 5
    },
    {
@@ -38,12 +43,7 @@
    },
    {
     "id": "sec8",
-    "name": "Listening",
-    "points": 5
-   },
-   {
-    "id": "sec9",
-    "name": "Speaking",
+    "name": "Listening and speaking",
     "points": 5
    },
    {
@@ -57,8 +57,13 @@
     "points": 5
    },
    {
+    "id": "revision",
+    "name": "Revision",
+    "points": 5
+   },
+   {
     "id": "sec12",
-    "name": "Revision Test",
+    "name": "Unit test",
     "points": 10
    }
   ],
@@ -383,7 +388,7 @@
    },
    {
     "id": "sec3",
-    "name": "Reading and Pronunciation",
+    "name": "Reading comprehension",
     "points": 5
    },
    {
@@ -408,12 +413,7 @@
    },
    {
     "id": "sec8",
-    "name": "Listening",
-    "points": 5
-   },
-   {
-    "id": "sec9",
-    "name": "Speaking",
+    "name": "Listening and speaking",
     "points": 5
    },
    {
@@ -422,13 +422,23 @@
     "points": 5
    },
    {
+    "id": "think-about-it",
+    "name": "Think about it!",
+    "points": 5
+   },
+   {
     "id": "sec11",
     "name": "Extra",
     "points": 5
    },
    {
+    "id": "revision",
+    "name": "Revision",
+    "points": 5
+   },
+   {
     "id": "sec12",
-    "name": "Revision Test",
+    "name": "Unit test",
     "points": 10
    }
   ],
@@ -743,12 +753,12 @@
   "sections": [
    {
     "id": "sec2",
-    "name": "Vocabulary and Reading",
+    "name": "Reading",
     "points": 5
    },
    {
     "id": "sec3",
-    "name": "Reading",
+    "name": "Reading comprehension",
     "points": 5
    },
    {
@@ -772,11 +782,6 @@
     "points": 5
    },
    {
-    "id": "sec8",
-    "name": "Speaking",
-    "points": 5
-   },
-   {
     "id": "sec9",
     "name": "Listening",
     "points": 5
@@ -787,13 +792,28 @@
     "points": 5
    },
    {
+    "id": "sec8",
+    "name": "Speaking",
+    "points": 5
+   },
+   {
+    "id": "think-about-it",
+    "name": "Think about it!",
+    "points": 5
+   },
+   {
     "id": "sec11",
     "name": "Extra",
     "points": 5
    },
    {
+    "id": "revision",
+    "name": "Revision",
+    "points": 5
+   },
+   {
     "id": "sec12",
-    "name": "Revision Test",
+    "name": "Unit test",
     "points": 10
    }
   ],
