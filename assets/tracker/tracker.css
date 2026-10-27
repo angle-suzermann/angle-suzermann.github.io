@@ -216,3 +216,30 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .activity-rating{flex-wrap:wrap;overflow:visible}
 .activity-lessons{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;color:var(--purple-dark);font-size:13px;white-space:nowrap}
 .activity-lessons select{width:64px;flex:0 0 64px;min-width:64px;padding:4px 8px}
+
+/* Shared responsive workspace; the matrix keeps its own horizontal scroll. */
+html,body{background:#f3f0f7;}
+.bg-photo,.bg-wash{display:none;}
+.app{max-width:1600px;margin:0 auto;}
+.tab{background:#fff;color:#453458;border-color:#d8cfe3;min-height:44px;height:auto;padding:10px 12px;}
+.tab.on{background:#5e4877;color:#fff;border-color:#5e4877;box-shadow:none;}
+.legend2{color:#453458;text-shadow:none;}
+.legend2 .sep{background:#d8cfe3;}
+.tab.rv.has{color:#453458;}
+.card{box-shadow:0 3px 16px #45345812;}
+.iconbtn,.btn,.chip,.pill{min-height:44px;height:auto;}
+main{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));}
+dialog{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto;}
+:is(button,input,select,textarea,a):focus-visible{outline:3px solid #725297;outline-offset:3px;}
+@media(hover:none) and (pointer:coarse){
+ input,select,textarea{font-size:16px!important;}
+ .dot:not(.legend .dot),.st:not(.legend2 .st){min-width:44px;min-height:44px;}
+}
+@media(max-width:600px){
+ .brand-row{flex-wrap:wrap;gap:10px;}
+ .tools{margin-left:auto;}
+ .card{padding:12px;}
+ .t,.who,.task-title{min-width:0;overflow-wrap:anywhere;}
+ .gadd :is(input,select){max-width:100%;}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}

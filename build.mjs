@@ -88,6 +88,7 @@ const WT_VERSION = 2;
 const WX_VERSION = 2;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
+const TRACKER_CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/tracker/tracker.css', import.meta.url))).digest('hex').slice(0, 8);
 
 /* Адрес сайта целиком — нужен для превью ссылок в Telegram/WhatsApp/VK:
    картинка превью должна быть с полным адресом. Берётся из repoUrl,
@@ -139,6 +140,11 @@ if (!courses.length) {
    на обычной ФС (в т.ч. на раннерах GitHub Actions) отработает с первого
    раза и без задержек. */
 for (let attempt = 1; fs.existsSync(OUT); attempt++) {
+  if (process.platform === 'win32') {
+    if (path.resolve(OUT) !== path.resolve(ROOT, '_site')) throw new Error('Unsafe output directory');
+    fs.rmSync(OUT, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    break;
+  }
   const result = spawnSync('rm', ['-rf', OUT], { stdio: ['ignore', 'pipe', 'pipe'] });
   if (!fs.existsSync(OUT)) break;
   if (attempt >= 8) {
@@ -162,6 +168,10 @@ fs.mkdirSync(OUT, { recursive: true });
    (не сетевой) файловой системе, включая раннеры GitHub Actions, всё это
    отрабатывает с первой попытки и без задержек. */
 function copyRecursive(src, dest, attempt = 1) {
+  if (process.platform === 'win32') {
+    fs.cpSync(src, dest, { recursive: true, force: true });
+    return;
+  }
   const MAX_ATTEMPTS = 6;
   const result = spawnSync('cp', ['-r', src, dest], { stdio: ['ignore', 'pipe', 'pipe'] });
   if (result.status === 0) return;
@@ -259,6 +269,8 @@ function injectHead(dir) {
     const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
     if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
     const cleaned = src
+      .replace(/(\/assets\/tracker\/tracker\.css)(?:\?v=[^"']*)?/g, `$1?v=${TRACKER_CSS_VERSION}`)
+      .replaceAll('This will erase all your saved answers on this device. Continue?', 'Удалить все сохранённые ответы этого задания в этом браузере? Это действие нельзя отменить.')
       .replace(/<link\b[^>]*\brel=["'](?:shortcut\s+)?icon["'][^>]*>\s*/gi, '')
       .replace(/<link\b[^>]*\brel=["']apple-touch-icon(?:-precomposed)?["'][^>]*>\s*/gi, '')
       .replace(/<meta\b[^>]*\bname=["']apple-mobile-web-app-title["'][^>]*>\s*/gi, '')
@@ -281,7 +293,9 @@ function injectHead(dir) {
     /* трекеры: непрозрачная строка состояния (iOS 26 размывает верх страницы под прозрачной) */
     const isTracker = /name=["']ws:audience["'][^>]*content=["']teacher["']|content=["']teacher["'][^>]*name=["']ws:audience["']/i.test(src);
     const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"') : ICON_TAGS;
-    const tags = `${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}`;
+    const worksheetUi = isMaterial && !isTracker
+      ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=1">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
+    const tags = `${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
@@ -501,7 +515,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
@@ -1567,6 +1581,8 @@ const staffScript = `<script>
   function apply(){
     var q = search.value.trim().toLowerCase();
     var shown = 0;
+    var scoped = 0;
+    var shownFolders = 0;
     var topNoPick = active === 'none' && !q;
     /* выбрана целая семья (например Oxford Phonics), но конкретный
        уровень ещё не выбран — показываем только плитки уровней, без
@@ -1588,13 +1604,16 @@ const staffScript = `<script>
       var okGroup = activeGroup === 'all' ||
         (activeGroupPrefix ? (c.dataset.group === activeGroup || c.dataset.group.indexOf(activeGroup + '/') === 0) : c.dataset.group === activeGroup);
       var okSearch = !q || c.dataset.search.indexOf(q) !== -1;
+      var personalFolder = c.classList.contains('personal-card');
+      if(okFilter && okGroup && !personalFolder) scoped++;
       var show = okFilter && okGroup && okSearch;
       c.style.display = show ? '' : 'none';
-      if(show) shown++;
+      if(show){ if(personalFolder) shownFolders++; else shown++; }
     });
     if(hint) hint.hidden = !topNoPick;
     count.hidden = noPickYet;
-    count.textContent = 'Показано: ' + shown + ' из ' + cards.length;
+    count.textContent = q ? 'Найдено: ' + shown + ' из ' + scoped + ' в выбранном разделе' : 'В этом разделе: ' + shown;
+    if(shownFolders) count.textContent += ' · Папок с файлами: ' + shownFolders;
     if(sortToolbarEl) sortToolbarEl.hidden = noPickYet || activeGroupPersonal;
   }
 
@@ -1942,8 +1961,8 @@ ${standaloneCourses.map((c) => staffTileFor(c, c.name)).join('\n')}
    убран вместе со всей функцией статуса сдачи, см. коммит с откатом.) */
 const staffDraftCount = materials.filter((m) => m.status === 'draft').length;
 const staffSummary = [
-  `${materials.length} ${pluralRu(materials.length, 'материал', 'материала', 'материалов')}`,
-  staffDraftCount ? `${staffDraftCount} ${pluralRu(staffDraftCount, 'черновик', 'черновика', 'черновиков')}` : null,
+  `Всего: ${materials.length} ${pluralRu(materials.length, 'материал', 'материала', 'материалов')}`,
+  staffDraftCount ? `из них ${staffDraftCount} ${pluralRu(staffDraftCount, 'черновик', 'черновика', 'черновиков')}` : null,
 ].filter(Boolean).join(' · ');
 
 const staffDir = path.join(OUT, staffPath);
@@ -1958,6 +1977,11 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
+  <section id="recentMaterials" class="recent-materials" hidden aria-labelledby="recentHeading">
+    <h2 id="recentHeading">Недавно открытые материалы</h2>
+    <p class="recent-note">История только в этом браузере.</p>
+    <div id="recentList"></div>
+  </section>
   <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
@@ -1979,7 +2003,7 @@ ${sortToolbar(true)}
 ${[...materials.filter(isTrackerM), ...materials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
 ${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
-  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
+  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card') + '<script src="' + BASE + '/assets/catalog-recent.js?v=1" defer></script>',
 }));
 
 /* --- машиночитаемый каталог для агентов --- */

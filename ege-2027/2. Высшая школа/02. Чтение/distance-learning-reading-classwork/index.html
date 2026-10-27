@@ -452,8 +452,8 @@ input.reveal-filled{background:#e8f7ee!important;border-color:var(--correct,#3fa
 <section class="page" data-page="4">
   <div class="card">
     <div class="eyebrow">Page 5 of 5</div>
-    <h2>Results</h2>
-    <p class="muted">Press "Check &amp; Submit" on the previous page to see your score here.</p>
+    <h2>Итоги</h2>
+    <p class="muted">Нажмите «Проверить и отправить» на предыдущей странице, чтобы увидеть результат.</p>
     <div id="scoreSummary" hidden></div>
     <div class="results-panel" id="resultsPanel">
       <div class="big-score" id="resultsPercent"></div>
@@ -631,7 +631,7 @@ function describeWrong(el, studentVal, correctVal){
 
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before submitting.'); showPage(0); return; }
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Введите имя вверху перед отправкой.'); showPage(0); return; }
   let correct=0, total=0;
   const wrongList = [];
 
@@ -682,7 +682,7 @@ async function submitAll(){
 
   const pct = total ? Math.round(correct/total*100) : 0;
   setTimeout(function(){ awardSticker(pct); }, 0);
-  document.getElementById('scoreSummary').innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — score: ${correct} / ${total} (${pct}%)`;
+  document.getElementById('scoreSummary').innerHTML = `<strong>${esc(nameInput.value.trim())}</strong> — результат: ${correct} / ${total} (${pct}%)`;
   document.getElementById('scoreSummary').hidden = false;
 
   const panel = document.getElementById('resultsPanel');
@@ -705,17 +705,19 @@ async function submitAll(){
     if(typeof getResultTier==='function') fd.append('result_tier', getResultTier(pct).label);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
-    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+    const response = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    const result = await response.json();
+    if(!response.ok || !result.success) throw new Error('Submission failed');
+    document.getElementById('submitStatus').textContent = '✓ Отправлено учителю';
   } catch(e){
-    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+    document.getElementById('submitStatus').textContent = 'Не удалось отправить учителю. Ответы сохранены в этом браузере; попробуйте ещё раз.';
   }
   scheduleSave();
 }
 
 async function submitPartial(btn, taskLabel){
   const nameInput = document.getElementById('studentName');
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); showPage(0); return; }
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('Введите имя вверху перед отправкой.'); showPage(0); return; }
   const scope = btn.closest('.card');
   const statusEl = btn.parentElement.querySelector('.task-submit-status');
   let correct=0, total=0;
@@ -771,7 +773,9 @@ async function submitPartial(btn, taskLabel){
     fd.append('score', `${correct} / ${total} (${pct}%)`);
     fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    const response = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
+    const result = await response.json();
+    if(!response.ok || !result.success) throw new Error('Submission failed');
     if(statusEl) statusEl.textContent = `✓ Отправлено учителю — ${correct}/${total} (${pct}%)`;
   } catch(e){
     if(statusEl) statusEl.textContent = 'Не удалось отправить — проверьте интернет и попробуйте снова.';
