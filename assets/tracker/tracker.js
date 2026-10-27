@@ -162,7 +162,10 @@ function tabList(){
 }
 function renderTabs(){
   $('#tabs').innerHTML=tabList().map(t=>`<button class="tab ${t.w?'wide':''} ${t.k===ui.tab?'on':''}" data-tab="${t.k}" title="${esc(t.t||'')}">${esc(t.l)}</button>`).join('');
-  const a=$('#tabs .on');if(a)a.scrollIntoView({inline:'center',block:'nearest'});
+  const tabs=$('#tabs'),a=$('#tabs .on');
+  // Reveal the selected unit horizontally without scrolling the page vertically.
+  if(a){const box=tabs.getBoundingClientRect(),item=a.getBoundingClientRect();
+    if(item.left<box.left||item.right>box.right)tabs.scrollLeft+=item.left-box.left-(tabs.clientWidth-item.width)/2;}
 }
 function curStudent(){const cc=C();if(!cc.students.find(s=>s.id===ui.student))ui.student=cc.students[0]?.id||null;return cc.students.find(s=>s.id===ui.student)}
 function selector(){return `<div class="sel">${C().students.map(s=>`<button class="chip ${s.id===ui.student?'on':''}" data-stud="${esc(s.id)}">${esc(s.name)}</button>`).join('')}</div>`}
@@ -372,7 +375,12 @@ document.addEventListener('click',e=>{
     return}
   const co=e.target.closest('[data-course]');if(co){ui.course=co.dataset.course;ui.tab='u1';ui.student=null;render();return}
   const tb=e.target.closest('[data-tab]');if(tb){ui.tab=tb.dataset.tab;render();window.scrollTo(0,0);return}
-  const sd=e.target.closest('[data-stud]');if(sd){ui.student=sd.dataset.stud;render();return}
+  const sd=e.target.closest('[data-stud]');if(sd){
+    const x=window.scrollX,y=window.scrollY;
+    const scrollers=[...document.querySelectorAll('#view .matrix,#view .sel')].map(el=>({left:el.scrollLeft,top:el.scrollTop}));
+    ui.student=sd.dataset.stud;render();
+    document.querySelectorAll('#view .matrix,#view .sel').forEach((el,i)=>{if(scrollers[i]){el.scrollLeft=scrollers[i].left;el.scrollTop=scrollers[i].top;}});
+    window.scrollTo(x,y);return}
   const cd=e.target.closest('[data-card]');if(cd){openCard(cd.dataset.card);return}
   if(e.target.id==='addExtra'){
     const x={id:'x'+Date.now().toString(36),date:new Date().toISOString().slice(0,10),topic:'',purpose:'',link:'',points:5,note:''};

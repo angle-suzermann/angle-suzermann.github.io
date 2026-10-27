@@ -31,6 +31,18 @@ async function main(){
    await page.locator('#view .card').first().waitFor();return {ctx,page};
   }
   let {ctx,page}=await setup();
+  await page.evaluate(()=>{
+    D.courses.Movers.students.push({id:'s2',name:'Second Test Student'});
+    for(let i=3;i<=12;i++)D.courses.Movers.students.push({id:'s'+i,name:'Test Student '+i});
+    render();
+  });
+  await page.locator('.desktop [data-stud="s2"]').scrollIntoViewIfNeeded();
+  const beforeStudentSwitch=await page.evaluate(()=>window.scrollY);
+  assert(beforeStudentSwitch>100,'regression must exercise a scrolled page');
+  await page.locator('.desktop [data-stud="s2"]').click();
+  assert(Math.abs(await page.evaluate(()=>window.scrollY)-beforeStudentSwitch)<2,'switching student preserves vertical scroll');
+  assert.equal(await page.locator('.desktop [data-stud="s2"]').getAttribute('class'),'chip on');
+  await page.locator('.desktop [data-stud="s1"]').click();
   await page.locator('.desktop [data-act="1"]').click();
   assert.equal(await page.locator('#cardDlg').evaluate(el=>el.open),false,'desktop main-page click stays on main page');
   assert.equal(await page.locator('.desktop [data-act="1"]').getAttribute('aria-pressed'),'true');
