@@ -190,7 +190,7 @@ function render(){
   const wait=planScore(pl).wait;
   const rv=STUDENT?'':`<button class="tab wide rv ${ui.review?'on':''} ${wait?'has':''}" data-review="1">To review${wait?` (${wait})`:''}</button>`;
   $('#tabs').innerHTML=tabs.map(t=>`<button class="tab ${t.w?'wide':''} ${!ui.review&&t.k===ui.tab?'on':''}" data-tab="${t.k}">${esc(t.l)}</button>`).join('')+rv;
-  $('#sub').textContent=STUDENT?'Отчёт о занятиях':pl.student+' · teacher panel';
+  $('#sub').textContent=STUDENT?'Homework progress':pl.student+' · teacher panel';
   if(!STUDENT)LS.set('angleTracker.iui2',{plan:ui.plan,tab:ui.tab,review:ui.review});
   let html='';
   if(ui.review&&!STUDENT){
@@ -286,7 +286,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
 /* ---------- boot ---------- */
 (async function(){
   document.body.classList.add('ind');
-  if(STUDENT){document.body.classList.add('parent');document.documentElement.lang='ru';document.title='ANGLE · Прогресс занятий';if($('.title')?.firstChild)$('.title').firstChild.textContent='Прогресс занятий';}
+  if(STUDENT){document.body.classList.add('parent');document.documentElement.lang='ru';document.title='ANGLE · Homework progress';if($('.title')?.firstChild)$('.title').firstChild.textContent='Homework tracker';}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
     setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{

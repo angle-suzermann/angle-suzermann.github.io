@@ -202,15 +202,15 @@ function refreshRatings(s,message){
 }
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
-  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Юнит ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
+  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Unit ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
   const extra=[];
-  if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>${readonly?'Фонетика':'Phonics'}</em>${fmt(p.r)}</span>`)}
-  const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>${readonly?'Дополнительно':'Extras'}</em>${fmt(x.r)}</span>`);
+  if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>Phonics</em>${fmt(p.r)}</span>`)}
+  const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
     return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${minis}${extra.join('')}</div>
-   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">${readonly?'Юнит':'Unit'} ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
+   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
@@ -227,7 +227,7 @@ function openCard(sid,n){
   n=cardUnit(sid,n==null?(/^u\d+$/.test(ui.tab)?Number(ui.tab.slice(1)):null):n);
   const started=C().units.filter(u=>u.n===n||cardUnits(sid).some(k=>k.n===u.n));
   $('#cardBody').dataset.unit=String(n);
-  const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Юнит ${u.n}</button>`).join('')}</div>`:'';
+  const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}${PARENT?'':`<div class="ttools" id="ttools"><b>Teacher tools</b> <button class="chip" data-hidett="1">Hide for screenshot</button>${rateBlock(s)}</div>`}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
@@ -328,10 +328,10 @@ function renderParent(){
   const n=cardUnit(st.id,parentTab?Number(parentTab.slice(1)):null);
   ui.tab='u'+n;
   const started=cc.units.filter(u=>u.n===n||cardUnits(st.id).some(k=>k.n===u.n));
-  const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Юнит ${u.n}</button>`).join('')}</div>`:'';
-  $('#sub').textContent='Отчёт о занятиях';
-  document.documentElement.lang='ru';document.title='ANGLE · Отчёт о занятиях';
-  if($('.title')?.firstChild)$('.title').firstChild.textContent='Прогресс занятий';
+  const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
+  $('#sub').textContent='Homework progress';
+  document.documentElement.lang='ru';document.title='ANGLE · Homework progress';
+  if($('.title')?.firstChild)$('.title').firstChild.textContent='Homework tracker';
   $('#view').innerHTML=`<div class="card">${nav}${studentCardBody(st,n,true)}<div class="foot" style="margin-top:12px;font-size:12px;opacity:.7">Данные обновляет преподаватель · ANGLE English studio</div></div>`;
 }
 
