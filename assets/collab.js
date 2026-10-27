@@ -258,6 +258,7 @@
       if (!adapter) return;
       ensureShell();
       var seen = {};
+      var ordered = [];
       if (data.mode === 'blocks') {
         var blocks = data.blocks || {};
         var ids = Object.keys(blocks).sort(function (a, b) { return (blocks[a].ts || 0) - (blocks[b].ts || 0); });
@@ -270,7 +271,7 @@
         ids.forEach(function (id) {
           var it = blocks[id]; seen[id] = 1;
           var c = cardFor(id, it, base + '/blocks/' + id, id === uid && !isTeacher && !!name, {});
-          shell.node.appendChild(c.wrap);
+          ordered.push(c.wrap);
         });
       } else {
         var paras = data.paras || {};
@@ -278,13 +279,23 @@
           var it = paras[id]; seen[id] = 1;
           var mine = it.uid === uid && !isTeacher;
           var c = cardFor(id, it, base + '/paras/' + id, mine, {});
-          shell.node.appendChild(c.wrap);
+          ordered.push(c.wrap);
           if (pendingFocus === id && mine) { c.field.focus(); pendingFocus = null; }
         });
       }
       Object.keys(cards).forEach(function (k) {
         if (!seen[k]) { cards[k].wrap.remove(); delete cards[k]; }
       });
+      // Moving a focused textarea's ancestor blurs it and closes mobile keyboards.
+      // Keep that card attached; reorder only the surrounding cards when needed.
+      var anchor = null;
+      for (var i = ordered.length - 1; i >= 0; i--) {
+        var wrap = ordered[i];
+        if (!wrap.contains(document.activeElement) && wrap.nextSibling !== anchor) {
+          shell.node.insertBefore(wrap, anchor);
+        }
+        anchor = wrap;
+      }
       if (addBtn) addBtn.style.display = name ? '' : 'none';
       foot.textContent = isTeacher
         ? 'Teacher view: you see everything live. Switch the mode at the top.'
