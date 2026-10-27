@@ -294,7 +294,7 @@ function injectHead(dir) {
     const isTracker = /name=["']ws:audience["'][^>]*content=["']teacher["']|content=["']teacher["'][^>]*name=["']ws:audience["']/i.test(src);
     const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"') : ICON_TAGS;
     const worksheetUi = isMaterial && !isTracker
-      ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=1">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
+      ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=2">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
     const tags = `${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`

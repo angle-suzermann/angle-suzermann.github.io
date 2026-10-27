@@ -577,38 +577,10 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 .up-row{ margin: 0 0 14px; }
 .up-row[hidden]{ display: none; }
 
-/* Quiet workspace with ANGLE accents, from phones to wide laptop screens. */
-html,body{background:#f3f0f7;touch-action: auto;}
-.bg-photo,.bg-wash{display:none;}
-.tile-family > h2{color:#5e4877;}
-.page{max-width:1120px;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));}
-.cat-header{background:#5e4877;background-image:none;}
-.count,.note,.empty,.family-title,.folder-crumbs{color:#453458;text-shadow:none;}
-.folder-crumbs :is(button,a,.crumb-current){color:#453458;}
-.crumb-sep{color:#786b85;}
-.link-copy,.filter-btn,.sort-btn{background:#fff;color:#453458;border:1px solid #d8cfe3;backdrop-filter:none;-webkit-backdrop-filter:none;min-height:44px;white-space:normal;line-height:1.35;}
-.toolbar input[type=search]{background:#fff;color:#2d2926;font-size:16px;max-width:100%;min-width:0;}
-.tile,.staff-card{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;}
-.tile-name,.staff-card{overflow-wrap:anywhere;}
-.actions :is(button,a){min-height:44px;font-size:14px;}
-.angle-badge{display:none;}
-.angle-badge .credit{color:#453458;}
-.recent-materials{background:#fff;border:1px solid #ded5e7;border-radius:16px;padding:18px;margin:0 0 24px;}
-.recent-materials h2{font-size:20px;color:#453458;margin:0 0 6px;}
-.recent-note{color:#65596f;font-size:13px;margin:0 0 12px;}
+/* Recent materials use the original ANGLE card styling. */
+.recent-materials{background:rgba(255,255,255,.88);border:1px solid var(--neutral-border);border-left:6px solid var(--purple);border-radius:14px;padding:14px 16px;margin:0 0 20px;color:var(--black);}
+.recent-materials h2{font-size:18px;color:var(--purple);margin:0 0 6px;}
+.recent-note{color:#6b6475;font-size:12px;margin:0 0 10px;}
 #recentList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
-.recent-item a{display:flex;align-items:center;min-height:48px;padding:10px 12px;border-radius:8px;background:#f3f0f7;color:#453458;font-weight:700;overflow-wrap:anywhere;}
-:is(button,a,input):focus-visible{outline:3px solid #725297;outline-offset:3px;}
-@media(max-width:600px){
- .page{padding-left:12px;padding-right:12px;}
- .tile-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
- .tile{min-width:0;}
- .tile-name{word-break:normal;}
- .staff-card{padding:14px 12px;}
- .actions{gap:8px;}
- .actions :is(a,button){flex:1 1 auto;justify-content:center;}
- .folder-crumbs{flex-wrap:wrap;line-height:1.6;}
- #recentList{grid-template-columns:minmax(0,1fr);}
-}
-@media(hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+.recent-item a{display:flex;align-items:center;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.9);color:var(--purple);font-weight:700;overflow-wrap:anywhere;}
+@media(max-width:600px){#recentList{grid-template-columns:minmax(0,1fr);}}
