@@ -289,12 +289,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
   if(STUDENT){document.body.classList.add('parent');document.documentElement.lang='ru';document.title='ANGLE · Прогресс занятий';if($('.title')?.firstChild)$('.title').firstChild.textContent='Прогресс занятий';}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{d=await Store.load()}finally{clearTimeout(slow)}
+    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{
+      const initialRequest=Store.load();initialRequest.catch(()=>{});
+      if(!live&&!STUDENT)d=await initialRequest;
+      else{
+        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=1');
+        d=await loadWithPreview({identity:['individual',STUDENT?'student':'teacher',STUDENT?QP.get('a'):cfg.url,STUDENT?QP.get('p'):cfg.token,WANT],load:()=>initialRequest,preview:data=>{D={reports:data.reports||[],plans:newestFirst((data.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};render();}});
+      }
+    }finally{clearTimeout(slow)}
     d.plans=d.plans||[];
     if(live&&!STUDENT)for(const np of (window.TRACKER_NEW_PLANS||[]))if(!d.plans.some(p=>p.id===np.id)){d.plans.push({id:np.id,student:np.student,title:np.title,key:'',blocks:[]});send({a:'addPlan',id:np.id,student:np.student,title:np.title,folder:np.folder||''})}
     D={reports:d.reports||[],plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
     if((live||STUDENT)&&pending.length)flush();
-  }catch(e){$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
+  }catch(e){if(e.previewShown){setSync('err','Offline · saved copy');return}$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
   render();
 })();

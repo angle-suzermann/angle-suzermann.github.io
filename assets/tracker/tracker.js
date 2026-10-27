@@ -70,9 +70,8 @@ const ParentStore={
 const baseStore=PARENT?ParentStore:(live?Sheets:Demo);
 const Store={
   async load(){
-    const data=await baseStore.load();
-    if(baseStore===Demo)return data;
-    const structure=await (await fetch(STRUCTURE_URL)).json();
+    if(baseStore===Demo)return baseStore.load();
+    const [data,structure]=await Promise.all([baseStore.load(),fetch(STRUCTURE_URL).then(r=>{if(!r.ok)throw new Error('Could not load course structure');return r.json()})]);
     for(const course of ['Starters','Movers','Flyers']){
       const cc=data.courses[course],template=structure[course];
       if(!cc||!template)continue;
@@ -413,10 +412,18 @@ document.addEventListener('change',e=>{
   if(PARENT){document.body.classList.add('parent')}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);try{D=await Store.load()}finally{clearTimeout(slow)}
+    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);try{
+      const initialRequest=Store.load();initialRequest.catch(()=>{});
+      if(!live&&!PARENT)D=await initialRequest;
+      else{
+        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=1');
+        D=await loadWithPreview({identity:['group',PARENT?'parent':'teacher',PARENT?QP.get('a'):cfg.url,PARENT?QP.get('p'):cfg.token,LOCK],load:()=>initialRequest,preview:d=>{D=d;if(PARENT)renderParent();else render();}});
+      }
+    }finally{clearTimeout(slow)}
     setSync(live?'ok':'','' );$('#syncTxt').textContent=live?'Synced':'Demo';
     if(live&&!PARENT&&pending.length)flush();
   }catch(e){
+    if(e.previewShown){setSync('err','Offline · saved copy');return}
     $('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${PARENT?"":"<br><br>Check the URL and token in ⚙."}${retryBtn}</div>`;setSync('err','Offline');return}
   if(PARENT)renderParent();else render();
 })();
