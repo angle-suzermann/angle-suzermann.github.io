@@ -55,7 +55,7 @@ function fixture(){
    await page.goto(`https://tracker.test/${slug}/0-homework-tracker/index.html?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent`);
    await page.locator('#view .card').first().waitFor();
    const parentText=await page.locator('#view').innerText();
-   assert.match(parentText,/Revision/);assert.match(parentText,/Unit test/);
+   assert.match(parentText,/Повторение/);assert.match(parentText,/Тест по юниту/);
    await ctx.close();
   }
   assert.deepEqual(errors,[]);

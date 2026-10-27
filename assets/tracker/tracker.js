@@ -201,37 +201,39 @@ function refreshRatings(s,message){
   area.querySelectorAll('[data-rating-feedback]').forEach(el=>{if(el.dataset.ratingFeedback===s.id)el.textContent=message});
   toast(message);
 }
+const parentSectionName=name=>({
+  'vocabulary':'Словарь','reading':'Чтение','reading comprehension':'Понимание прочитанного',
+  'reading and pronunciation':'Чтение и произношение','vocabulary and reading':'Словарь и чтение',
+  'grammar':'Грамматика','grammar 1':'Грамматика 1','grammar 2':'Грамматика 2',
+  'developing vocabulary':'Развитие словарного запаса','developing listening':'Развитие навыков аудирования',
+  'great learners, great thinkers':'Учимся размышлять','test':'Тест по юниту','grammar time':'Грамматика: знакомство с правилом','grammar focus':'Грамматика: закрепление',
+  'sounds and letters':'Звуки и буквы','language in use':'Английский в общении',
+  'listening':'Аудирование','speaking':'Говорение','listening and speaking':'Аудирование и говорение','writing':'Письмо',
+  'think about it!':'Подумай и обсуди','extra':'Дополнительно','revision':'Повторение','unit test':'Тест по юниту',
+  'more grammar':'Дополнительная грамматика','more grammar practice':'Дополнительная практика грамматики',
+  'extra grammar practice':'Дополнительная практика грамматики','more language in use':'Дополнительная практика общения',
+  'extra language in use practice':'Дополнительная практика общения'
+}[String(name).toLowerCase()]||name);
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
-  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>U${x.n}</em>${fmt(sc.r)}</span>`}).join('');
+  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Юнит ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
   const extra=[];
-  if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>Phonics</em>${fmt(p.r)}</span>`)}
-  const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
+  if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>${readonly?'Фонетика':'Phonics'}</em>${fmt(p.r)}</span>`)}
+  const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>${readonly?'Дополнительно':'Extras'}</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
-    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} pts</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
+    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(readonly?parentSectionName(sec.name):sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
   return `${ringsTop(c,s,o,readonly)}
-   ${readonly?parentReport(s,u.n):''}
    <div class="mini">${minis}${extra.join('')}</div>
-   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
+   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">${readonly?'Юнит':'Unit'} ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
+   ${readonly?parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
 }
-function parentReport(s,n){
+function parentReport(s){
   if(!window.AngleParentReports)return '';
-  const course=ui.course,cc=C(),box=document.createElement('div');
-  box.innerHTML=ringsTop(course,s,overall(course,s.id),true);
-  const reports=(D.reports||[]).filter(r=>r.course===course&&r.studentId===s.id&&!r.plan);
+  const course=ui.course;
   return AngleParentReports.panel({id:course+'|'+s.id,name:s.name,course,
-    summary:[...box.querySelectorAll('.who > div')].map(el=>el.textContent),reports,
-    detailTitle:'Unit '+n+' — выполнение разделов',
-    rows:cc.sections.map(sec=>sec.name+': '+(st(course,s.id,'u'+n,sec.id)==='✓'?'сдано':st(course,s.id,'u'+n,sec.id)==='N/A'?'не задано':'сдача не отмечена')),
-    onSave:PARENT?null:async report=>{
-      const row={...report,course,studentId:s.id,plan:''};
-      if(live)await Sheets.write({a:'saveReport',report:row});
-      D.reports=(D.reports||[]).filter(r=>!(r.course===course&&r.studentId===s.id&&!r.plan&&r.date===row.date));D.reports.push(row);
-      if(!live)await Demo.write();
-      if($('#cardDlg').open)openCard(s.id,n);
-    }
+    reports:(D.reports||[]).filter(r=>r.course===course&&r.studentId===s.id&&!r.plan)
   });
 }
 function openCard(sid,n){
@@ -239,7 +241,7 @@ function openCard(sid,n){
   n=cardUnit(sid,n==null?(/^u\d+$/.test(ui.tab)?Number(ui.tab.slice(1)):null):n);
   const started=C().units.filter(u=>u.n===n||cardUnits(sid).some(k=>k.n===u.n));
   $('#cardBody').dataset.unit=String(n);
-  const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
+  const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Юнит ${u.n}</button>`).join('')}</div>`:'';
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}${PARENT?'':`<div class="ttools" id="ttools"><b>Teacher tools</b> <button class="chip" data-hidett="1">Hide for screenshot</button>${rateBlock(s)}</div>`}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
@@ -320,7 +322,7 @@ function ringsTop(c,s,o,ru=false){
   const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
   const ruSub=m.sub!=null?`${m.done} из ${m.due} онлайн-заданий с наступившим сроком сдачи`:`${o.e} из ${o.p} баллов`;
   const ruQuality=m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu);
-  const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
+  const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${ru?'Показатели прогресса':'Progress rings'}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}
 function rateBlock(s){
   const activity=actFor(ui.course,s).slice(-1)[0],quality=actFor(ui.course,s,'quality').slice(-1)[0];
@@ -330,7 +332,7 @@ function rateBlock(s){
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):'–';
-    const src=r.source==='photo'?' · photo':r.source==='worksheet'?' · worksheet':'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
+    const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
   const rate=teacher&&s?rateBlock(s):'';
   const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
   return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Online homework (MEE)':'Онлайн-задания и проверенные работы'}</h2>${list}`:'')+tlist+rate}
@@ -340,8 +342,10 @@ function renderParent(){
   const n=cardUnit(st.id,parentTab?Number(parentTab.slice(1)):null);
   ui.tab='u'+n;
   const started=cc.units.filter(u=>u.n===n||cardUnits(st.id).some(k=>k.n===u.n));
-  const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
+  const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Юнит ${u.n}</button>`).join('')}</div>`:'';
   $('#sub').textContent='Отчёт о занятиях';
+  document.documentElement.lang='ru';document.title='ANGLE · Отчёт о занятиях';
+  if($('.title')?.firstChild)$('.title').firstChild.textContent='Прогресс занятий';
   $('#view').innerHTML=`<div class="card">${nav}${studentCardBody(st,n,true)}<div class="foot" style="margin-top:12px;font-size:12px;opacity:.7">Данные обновляет преподаватель · ANGLE English studio</div></div>`;
 }
 

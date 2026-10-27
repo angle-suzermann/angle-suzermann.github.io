@@ -24,7 +24,8 @@ let ui=LS.get('angleTracker.iui2',{plan:null,tab:null,review:false});
 const today=()=>new Date().toISOString().slice(0,10);
 const setSync=(s,t)=>{const el=$('#sync');el.className='sync '+s;$('#syncTxt').textContent=t};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)};
-const KINDS={before:'Before the lesson',classwork:'Classwork',homework:'Homework'};
+const KINDS=STUDENT?{before:'До урока',classwork:'Работа на уроке',homework:'Домашняя работа'}:{before:'Before the lesson',classwork:'Classwork',homework:'Homework'};
+const blockLabel=s=>STUDENT?String(s).replace(/^Block\s+(\d+)/i,'Блок $1').replace(/^Week\s+/i,'Неделя '):s;
 /* lessons per week: how many dates a week header can carry. TRACKER_DATES is a number, or {planId: number} */
 const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[ui.plan]:t;return Math.max(1,+v||1)};
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
@@ -92,12 +93,12 @@ function newestFirst(plans){
 const P=()=>D.plans.find(p=>p.id===ui.plan);
 const safeLink=u=>/^https?:\/\//i.test(u||'')?u:'';
 const stateOf=t=>t.status==='✓'?'ok':t.status==='N/A'?'na':t.suggested?'sug':'';
-const fmtDay=d=>{try{return new Date(d+'T00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}catch{return d}};
+const fmtDay=d=>{try{return new Date(d+'T00:00').toLocaleDateString(STUDENT?'ru-RU':'en-GB',{day:'numeric',month:'short'})}catch{return d}};
 
 /* ---------- views ---------- */
 function stBtn(bi,t){
   const s=stateOf(t),icon={ok:'✓',na:'–',sug:'?','':''}[s];
-  const label={ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',"":'Not done yet'}[s];
+  const label=(STUDENT?{ok:'Подтверждено преподавателем',na:'Не задано',sug:'Выполнено учеником, ожидает проверки',"":'Пока не сдано'}:{ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',"":'Not done yet'})[s];
   const dis=STUDENT&&(s==='ok'||s==='na');
   /* score ring: the note starts with "Worksheet 87%" or "MEE 87%" (written by the worksheet / the MEE import) */
   const m=String(t.note||'').match(/^(Worksheet|MEE)\s+(\d{1,3})%/i),pc=m?Math.min(100,+m[2]):null;
@@ -110,9 +111,9 @@ function taskCard(pl,bi,t){
   // Students can open assigned tasks; teachers retain access to every task.
   const l=STUDENT&&t.status==='N/A'?'':safeLink(t.link);
   const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t.task)}</a>`:esc(t.task);
-  const sub=[t.mode,t.unit,t.points+' pts'].filter(Boolean).map(esc).join(' · ');
+  const sub=[t.mode,t.unit,t.points+(STUDENT?' баллов':' pts')].filter(Boolean).map(esc).join(' · ');
   const s=stateOf(t);
-  const tag=s==='sug'?`<span class="tag sug">Suggested${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?'<span class="tag ok">Confirmed</span>':'';
+  const tag=s==='sug'?`<span class="tag sug">${STUDENT?'Ожидает проверки':'Suggested'}${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?`<span class="tag ok">${STUDENT?'Подтверждено':'Confirmed'}</span>`:'';
   let note='';
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
   else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
@@ -146,8 +147,8 @@ function viewBlock(pl,bi,only){
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
     const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
-    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(g.week)}</span>`:''}<span class="wcnt">${gs.done} of ${gs.n} confirmed</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
-  return `<div class="card blk"><div class="unit-head"><div><h2>${esc(b.name)}</h2><div class="sub">${sc.done} of ${sc.n} confirmed${sc.wait?` · <b class="waitc">${sc.wait} waiting for review</b>`:''} · ${sc.e} of ${sc.p} points</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
+    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
+  return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
 }
 function addBar(pl,bi){
   if(STUDENT)return '';
@@ -166,34 +167,24 @@ function addBar(pl,bi){
 }
 function individualReport(pl){
   if(!window.AngleParentReports)return '';
-  const o=planScore(pl);
   return AngleParentReports.panel({id:'plan|'+pl.id,name:pl.student,course:pl.title,
-    summary:[`Подтверждено преподавателем: ${o.done} из ${o.n} заданий; ${o.e} из ${o.p} баллов.`,o.wait?`Ожидает проверки: ${o.wait}.`:'Все отметки о сдаче подтверждает преподаватель.'],
-    reports:(D.reports||[]).filter(r=>r.plan===pl.id),
-    rows:pl.blocks.flatMap(b=>b.tasks.map(t=>b.name+' · '+t.task+': '+(t.status==='✓'?'подтверждено преподавателем':t.status==='N/A'?'не задано':t.suggested?'ученик отметил выполнение; ожидает проверки':'сдача не отмечена'))),
-    onSave:STUDENT?null:async report=>{
-      const row={...report,plan:pl.id,course:'',studentId:''};
-      if(live)await Sheets.write({a:'saveReport',report:row});
-      D.reports=(D.reports||[]).filter(r=>!(r.plan===pl.id&&r.date===row.date));D.reports.push(row);
-      if(!live)LS.set('angleTracker.ireports',D.reports);
-      render();
-    }
+    reports:(D.reports||[]).filter(r=>r.plan===pl.id)
   });
 }
 function viewSummary(pl){
   const o=planScore(pl);
-  const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(b.name)}<small>${s.done} of ${s.n} confirmed${s.wait?` · ${s.wait} waiting`:''} · ${s.e} of ${s.p} points</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
+  const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(blockLabel(b.name))}<small>${STUDENT?`Подтверждено: ${s.done} из ${s.n}`:`${s.done} of ${s.n} confirmed`}${s.wait?` · ${s.wait} ${STUDENT?'ожидает проверки':'waiting'}`:''} · ${STUDENT?`${s.e} из ${s.p} баллов`:`${s.e} of ${s.p} points`}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
   const link=STUDENT?'':`<p style="margin:14px 0 0"><button class="btn ghost" data-plink="1">Copy student link</button></p>`;
   return `<div class="card"><div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>${STUDENT?`${o.e} из ${o.p} баллов подтверждено преподавателем`:`${o.e} of ${o.p} points confirmed`}</div></div></div>${rows}${individualReport(pl)}${link}</div>`;
 }
-const legend=()=>`<div class="legend2"><span><i class="st"></i>not done</span><span><i class="st sug">?</i>${STUDENT?'I did it (tap to suggest)':'student suggests'}</span><span><i class="st ok">✓</i>confirmed by teacher</span><span class="sep"></span><span><i class="kd k-before"></i>before the lesson</span><span><i class="kd k-classwork"></i>classwork</span><span><i class="kd k-homework"></i>homework</span></div>`;
+const legend=()=>`<div class="legend2"><span><i class="st"></i>${STUDENT?'не сдано':'not done'}</span><span><i class="st sug">?</i>${STUDENT?'Выполнено учеником, ожидает проверки':'student suggests'}</span><span><i class="st ok">✓</i>${STUDENT?'подтверждено преподавателем':'confirmed by teacher'}</span><span class="sep"></span><span><i class="kd k-before"></i>${STUDENT?'до урока':'before the lesson'}</span><span><i class="kd k-classwork"></i>${STUDENT?'работа на уроке':'classwork'}</span><span><i class="kd k-homework"></i>${STUDENT?'домашняя работа':'homework'}</span></div>`;
 function render(){
   if(!D.plans.length){$('#view').innerHTML='<div class="card empty">No plans found for this page. Add them in the Google Sheet (Plans tab).</div>';return}
   if(!P())ui.plan=D.plans[0].id;
   const pl=P();
   $('#courses').innerHTML=STUDENT||D.plans.length<2?'':D.plans.map(p=>`<button class="pill ${p.id===ui.plan?'on':''}" data-plan="${esc(p.id)}">${esc(p.student)} · ${esc(p.title)}</button>`).join('');
   const order=pl.blocks.map((_,i)=>i).reverse();            // newest block first
-  const tabs=[...order.map(i=>({k:'b'+i,l:pl.blocks[i].name})),{k:'sum',l:STUDENT?'Отчёт':'Summary',w:1}];
+  const tabs=[...order.map(i=>({k:'b'+i,l:blockLabel(pl.blocks[i].name)})),{k:'sum',l:STUDENT?'Отчёт':'Summary',w:1}];
   if(!tabs.find(t=>t.k===ui.tab))ui.tab=tabs[0].k;
   if(!pl.blocks.length)ui.tab='sum';
   const wait=planScore(pl).wait;
@@ -205,7 +196,7 @@ function render(){
   if(ui.review&&!STUDENT){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
-  else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Tap the circle when you have done a task. Your teacher will check it and confirm it.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
+  else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
@@ -295,7 +286,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
 /* ---------- boot ---------- */
 (async function(){
   document.body.classList.add('ind');
-  if(STUDENT){document.body.classList.add('parent')}
+  if(STUDENT){document.body.classList.add('parent');document.documentElement.lang='ru';document.title='ANGLE · Прогресс занятий';if($('.title')?.firstChild)$('.title').firstChild.textContent='Прогресс занятий';}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
     setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{d=await Store.load()}finally{clearTimeout(slow)}

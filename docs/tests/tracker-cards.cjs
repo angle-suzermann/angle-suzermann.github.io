@@ -36,12 +36,12 @@ async function main(){
   assert.equal(await page.locator('.desktop [data-act="1"]').getAttribute('aria-pressed'),'true');
   assert.match(await page.locator('.desktop [data-rating-feedback]').innerText(),/activity 1\/3/);
   await page.locator('.desktop [data-card="s1"]').click();
-  assert.match(await page.locator('#cardBody').innerText(),/Unit 8 · Back in time/);
+  assert.match(await page.locator('#cardBody').innerText(),/Юнит 8 · Back in time/);
   await page.locator('#cardBody [data-act="3"]').click();
   assert.equal(await page.locator('#cardBody [data-act="3"]').getAttribute('aria-pressed'),'true');
   assert.match(await page.locator('#cardBody [data-rating-feedback]').innerText(),/activity 3\/3/);
   assert.match(await page.locator('#cardBody').innerText(),/Работает стабильно; оценок: 2/);
-  assert.match(await page.locator('#cardBody').innerText(),/Unit 8 · Back in time/);
+  assert.match(await page.locator('#cardBody').innerText(),/Юнит 8 · Back in time/);
   if(process.env.TRACKER_SCREENSHOTS)await page.screenshot({path:path.join(process.env.TRACKER_SCREENSHOTS,'tracker-desktop-rating.png')});
   await page.locator('#cardBody [data-ctab="s1|1"]').click();
   await page.locator('#cardBody [data-qual="2"]').click();
@@ -57,10 +57,10 @@ async function main(){
   assert.match(await page.locator('.mobile [data-rating-feedback]').innerText(),/activity 2\/3/);
   await ctx.close();
   ({ctx,page}=await setup(1280,true));
-  assert.match(await page.locator('#view').innerText(),/Unit 8 · Back in time/);
+  assert.match(await page.locator('#view').innerText(),/Юнит 8 · Back in time/);
   assert.equal(await page.locator('[data-ptab="u9"]').count(),0,'future N/A does not select future unit');
   await page.locator('[data-ptab="u1"]').click();
-  assert.match(await page.locator('#view').innerText(),/Unit 1 · First unit/);
+  assert.match(await page.locator('#view').innerText(),/Юнит 1 · First unit/);
   assert.equal(await page.locator('[data-act]').count(),0,'parent view stays read-only');
   await ctx.close();
   ({ctx,page}=await setup(390,false,true));
