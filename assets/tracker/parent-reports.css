@@ -1,0 +1,10 @@
+.parent-report{margin:18px 0;padding:16px;border:1px solid #DAD3EE;border-left:4px solid #5E4877;border-radius:12px;background:#fff}
+.parent-report h2{font-size:18px;color:#5E4877;margin:0 0 10px}
+.report-date,.report-feedback{font-size:13px;color:#6b6475;line-height:1.5}
+.report-comment{white-space:pre-line;overflow-wrap:anywhere;line-height:1.65;font-size:14px}
+.parent-report .btn{white-space:normal;max-width:100%}
+.report-editor{margin-top:18px;border-top:1px solid #E4E0E8;padding-top:12px}
+.report-editor summary{cursor:pointer;color:#5E4877;font-size:13px;font-weight:700}
+.report-editor label{display:block;margin:12px 0;font-size:13px;color:#453458}
+.report-editor textarea{display:block;width:100%;margin-top:6px;line-height:1.55;resize:vertical}
+.report-editor input[type=date]{display:block;width:180px;max-width:100%;margin-top:6px}

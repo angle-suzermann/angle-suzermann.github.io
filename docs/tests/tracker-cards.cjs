@@ -40,7 +40,7 @@ async function main(){
   await page.locator('#cardBody [data-act="3"]').click();
   assert.equal(await page.locator('#cardBody [data-act="3"]').getAttribute('aria-pressed'),'true');
   assert.match(await page.locator('#cardBody [data-rating-feedback]').innerText(),/activity 3\/3/);
-  assert.match(await page.locator('#cardBody').innerText(),/Steady \(2 checks\)/);
+  assert.match(await page.locator('#cardBody').innerText(),/Работает стабильно; оценок: 2/);
   assert.match(await page.locator('#cardBody').innerText(),/Unit 8 · Back in time/);
   if(process.env.TRACKER_SCREENSHOTS)await page.screenshot({path:path.join(process.env.TRACKER_SCREENSHOTS,'tracker-desktop-rating.png')});
   await page.locator('#cardBody [data-ctab="s1|1"]').click();

@@ -32,9 +32,9 @@ const Demo={
     }
     const saved=LS.get('angleTracker.demo',null);
     if(saved){for(const c in courses){if(saved.courses?.[c]){courses[c].phonics=saved.courses[c].phonics||courses[c].phonics;courses[c].extras=saved.courses[c].extras||[];courses[c].units=saved.courses[c].units||courses[c].units}}}
-    return {courses,progress:saved?.progress||{},act:saved?.act||[],mee:saved?.mee||[]};
+    return {courses,progress:saved?.progress||{},act:saved?.act||[],mee:saved?.mee||[],reports:saved?.reports||[]};
   },
-  async write(op){LS.set('angleTracker.demo',{courses:Object.fromEntries(Object.entries(D.courses).map(([c,v])=>[c,{phonics:v.phonics,extras:v.extras,units:v.units}])),progress:D.progress,act:D.act||[],mee:D.mee||[]})}
+  async write(op){LS.set('angleTracker.demo',{courses:Object.fromEntries(Object.entries(D.courses).map(([c,v])=>[c,{phonics:v.phonics,extras:v.extras,units:v.units}])),progress:D.progress,act:D.act||[],mee:D.mee||[],reports:D.reports||[]})}
 };
 const Sheets={
   async load(){
@@ -209,11 +209,30 @@ function studentCardBody(s,n,readonly){
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
     return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} pts</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
-  return `${ringsTop(c,s,o)}
+  return `${ringsTop(c,s,o,readonly)}
+   ${readonly?parentReport(s,u.n):''}
    <div class="mini">${minis}${extra.join('')}</div>
-   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':' <span class="sub">(not started)</span>'}</h2>${rows}
+   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
+}
+function parentReport(s,n){
+  if(!window.AngleParentReports)return '';
+  const course=ui.course,cc=C(),box=document.createElement('div');
+  box.innerHTML=ringsTop(course,s,overall(course,s.id),true);
+  const reports=(D.reports||[]).filter(r=>r.course===course&&r.studentId===s.id&&!r.plan);
+  return AngleParentReports.panel({id:course+'|'+s.id,name:s.name,course,
+    summary:[...box.querySelectorAll('.who > div')].map(el=>el.textContent),reports,
+    detailTitle:'Unit '+n+' — выполнение разделов',
+    rows:cc.sections.map(sec=>sec.name+': '+(st(course,s.id,'u'+n,sec.id)==='✓'?'сдано':st(course,s.id,'u'+n,sec.id)==='N/A'?'не задано':'сдача не отмечена')),
+    onSave:PARENT?null:async report=>{
+      const row={...report,course,studentId:s.id,plan:''};
+      if(live)await Sheets.write({a:'saveReport',report:row});
+      D.reports=(D.reports||[]).filter(r=>!(r.course===course&&r.studentId===s.id&&!r.plan&&r.date===row.date));D.reports.push(row);
+      if(!live)await Demo.write();
+      if($('#cardDlg').open)openCard(s.id,n);
+    }
+  });
 }
 function openCard(sid,n){
   const s=C().students.find(x=>x.id===sid);if(!s)return;
@@ -292,12 +311,17 @@ const Q_LABELS={1:'Needs more care',2:'Good',3:'Excellent'};
 const pcT=v=>v==null?'–':Math.round(v*100)+'%';
 function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
-function ringsTop(c,s,o){
+function ringsTop(c,s,o,ru=false){
   const rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
   const sub=m.sub!=null?m.sub:o.r,subTxt=m.sub!=null?`${m.done} of ${m.due} online tasks`:`${o.e} of ${o.p} points`;
   const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
+  const actRu={1:'Нужна поддержка и помощь во включении в работу',2:'Работает стабильно',3:'Активно участвует в работе'};
+  const qualRu={1:'Нужно внимательнее проверять работу',2:'Хороший результат',3:'Отличный результат'};
+  const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
+  const ruSub=m.sub!=null?`${m.done} из ${m.due} онлайн-заданий с наступившим сроком сдачи`:`${o.e} из ${o.p} баллов`;
+  const ruQuality=m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu);
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
-  return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> Handed in: <b>${pcT(sub)}</b> (${subTxt})</div><div><b style="color:#eab308">●</b> Quality of work: <b>${pcT(qual)}</b> (${qTxt})</div><div><b style="color:#0f766e">●</b> Activity in class: <b>${pcT(actAvg(act))}</b> (${lvl(act,ACT_LABELS)})</div></div></div>`}
+  return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}
 function rateBlock(s){
   const activity=actFor(ui.course,s).slice(-1)[0],quality=actFor(ui.course,s,'quality').slice(-1)[0];
   return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel activity-rating" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button type="button" class="chip ${+activity?.score===v?'on':''}" aria-pressed="${+activity?.score===v}" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<label class="activity-lessons">Lessons covered <select class="chip" data-actles>${[2,3,4].map(v=>`<option ${+activity?.lessons===v?'selected':''}>${v}</option>`).join('')}</select></label></div>
@@ -305,11 +329,11 @@ function rateBlock(s){
    <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div><p class="sub" role="status" aria-live="polite" data-rating-feedback="${esc(s.id)}"></p>`}
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
-  const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
+  const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):'–';
     const src=r.source==='photo'?' · photo':r.source==='worksheet'?' · worksheet':'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
   const rate=teacher&&s?rateBlock(s):'';
-  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Unit tests</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
-  return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">Online homework (MEE)</h2>${list}`:'')+tlist+rate}
+  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
+  return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Online homework (MEE)':'Онлайн-задания и проверенные работы'}</h2>${list}`:'')+tlist+rate}
 
 function renderParent(){
   const c=Object.keys(D.courses)[0];ui.course=c;const cc=C(),st=cc.students[0];
@@ -317,8 +341,8 @@ function renderParent(){
   ui.tab='u'+n;
   const started=cc.units.filter(u=>u.n===n||cardUnits(st.id).some(k=>k.n===u.n));
   const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
-  $('#sub').textContent='Homework progress';
-  $('#view').innerHTML=`<div class="card">${nav}${studentCardBody(st,n,true)}<div class="foot" style="margin-top:12px;font-size:12px;opacity:.7">Updated by your teacher · ANGLE English studio</div></div>`;
+  $('#sub').textContent='Отчёт о занятиях';
+  $('#view').innerHTML=`<div class="card">${nav}${studentCardBody(st,n,true)}<div class="foot" style="margin-top:12px;font-size:12px;opacity:.7">Данные обновляет преподаватель · ANGLE English studio</div></div>`;
 }
 
 /* ---------- events ---------- */

@@ -40,7 +40,7 @@ const Demo={
     const plans=WANT.map((id,i)=>({id,student:'Demo student '+(i+1),title:'Demo plan ('+id+')',key:'',blocks:[mk(1,9),mk(2,6)]}));
     const saved=LS.get('angleTracker.idemo2',null);
     if(saved)for(const p of plans){const s=saved[p.id];if(s)p.blocks=s}
-    return {plans};
+    return {plans,reports:LS.get('angleTracker.ireports',[])};
   },
   async write(){LS.set('angleTracker.idemo2',Object.fromEntries(D.plans.map(p=>[p.id,p.blocks])))}
 };
@@ -164,11 +164,27 @@ function addBar(pl,bi){
     <p class="erow"><button class="btn" data-addtask="1">Add</button>${pl.blocks.length?'<button class="btn ghost" data-addclose="1">Close</button>':''}</p></div>`:'';
   return `<div class="addbar"><button class="btn" data-addopen="1">+ Add task</button></div>${form}`;
 }
+function individualReport(pl){
+  if(!window.AngleParentReports)return '';
+  const o=planScore(pl);
+  return AngleParentReports.panel({id:'plan|'+pl.id,name:pl.student,course:pl.title,
+    summary:[`Подтверждено преподавателем: ${o.done} из ${o.n} заданий; ${o.e} из ${o.p} баллов.`,o.wait?`Ожидает проверки: ${o.wait}.`:'Все отметки о сдаче подтверждает преподаватель.'],
+    reports:(D.reports||[]).filter(r=>r.plan===pl.id),
+    rows:pl.blocks.flatMap(b=>b.tasks.map(t=>b.name+' · '+t.task+': '+(t.status==='✓'?'подтверждено преподавателем':t.status==='N/A'?'не задано':t.suggested?'ученик отметил выполнение; ожидает проверки':'сдача не отмечена'))),
+    onSave:STUDENT?null:async report=>{
+      const row={...report,plan:pl.id,course:'',studentId:''};
+      if(live)await Sheets.write({a:'saveReport',report:row});
+      D.reports=(D.reports||[]).filter(r=>!(r.plan===pl.id&&r.date===row.date));D.reports.push(row);
+      if(!live)LS.set('angleTracker.ireports',D.reports);
+      render();
+    }
+  });
+}
 function viewSummary(pl){
   const o=planScore(pl);
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(b.name)}<small>${s.done} of ${s.n} confirmed${s.wait?` · ${s.wait} waiting`:''} · ${s.e} of ${s.p} points</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
   const link=STUDENT?'':`<p style="margin:14px 0 0"><button class="btn ghost" data-plink="1">Copy student link</button></p>`;
-  return `<div class="card"><div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>${o.e} of ${o.p} points confirmed</div></div></div>${rows}${link}</div>`;
+  return `<div class="card"><div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>${STUDENT?`${o.e} из ${o.p} баллов подтверждено преподавателем`:`${o.e} of ${o.p} points confirmed`}</div></div></div>${rows}${individualReport(pl)}${link}</div>`;
 }
 const legend=()=>`<div class="legend2"><span><i class="st"></i>not done</span><span><i class="st sug">?</i>${STUDENT?'I did it (tap to suggest)':'student suggests'}</span><span><i class="st ok">✓</i>confirmed by teacher</span><span class="sep"></span><span><i class="kd k-before"></i>before the lesson</span><span><i class="kd k-classwork"></i>classwork</span><span><i class="kd k-homework"></i>homework</span></div>`;
 function render(){
@@ -177,20 +193,20 @@ function render(){
   const pl=P();
   $('#courses').innerHTML=STUDENT||D.plans.length<2?'':D.plans.map(p=>`<button class="pill ${p.id===ui.plan?'on':''}" data-plan="${esc(p.id)}">${esc(p.student)} · ${esc(p.title)}</button>`).join('');
   const order=pl.blocks.map((_,i)=>i).reverse();            // newest block first
-  const tabs=[...order.map(i=>({k:'b'+i,l:pl.blocks[i].name})),{k:'sum',l:'Summary',w:1}];
+  const tabs=[...order.map(i=>({k:'b'+i,l:pl.blocks[i].name})),{k:'sum',l:STUDENT?'Отчёт':'Summary',w:1}];
   if(!tabs.find(t=>t.k===ui.tab))ui.tab=tabs[0].k;
   if(!pl.blocks.length)ui.tab='sum';
   const wait=planScore(pl).wait;
   const rv=STUDENT?'':`<button class="tab wide rv ${ui.review?'on':''} ${wait?'has':''}" data-review="1">To review${wait?` (${wait})`:''}</button>`;
   $('#tabs').innerHTML=tabs.map(t=>`<button class="tab ${t.w?'wide':''} ${!ui.review&&t.k===ui.tab?'on':''}" data-tab="${t.k}">${esc(t.l)}</button>`).join('')+rv;
-  $('#sub').textContent=STUDENT?'Homework progress':pl.student+' · teacher panel';
+  $('#sub').textContent=STUDENT?'Отчёт о занятиях':pl.student+' · teacher panel';
   if(!STUDENT)LS.set('angleTracker.iui2',{plan:ui.plan,tab:ui.tab,review:ui.review});
   let html='';
   if(ui.review&&!STUDENT){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Tap the circle when you have done a task. Your teacher will check it and confirm it.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  $('#view').innerHTML=html;
+  $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
 /* ---------- events ---------- */
@@ -268,7 +284,7 @@ document.addEventListener('click',e=>{
   if(e.target.id==='cfgCodeGo'){const c=readSetup($('#cfgCode').value);if(!c){toast('This is not a valid setup link or code');return}LS.set('angleTracker.cfg',c);location.reload();return}
   if(e.target.id==='gear'){addSetupUI();$('#cfgUrl').value=cfg.url||'';$('#cfgTok').value=cfg.token||'';$('#setDlg').showModal();return}
   if(e.target.id==='cfgSave'){LS.set('angleTracker.cfg',{url:$('#cfgUrl').value.trim(),token:$('#cfgTok').value.trim()});location.reload();return}
-  if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.iui2');location.reload();return}
+  if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.ireports');LS.del('angleTracker.iui2');location.reload();return}
 });
 document.addEventListener('change',e=>{
   if(e.target.matches('[data-tgroup]')){const nb=e.target.closest('.tedit').querySelector('.tnew');nb.style.display=e.target.value==='__new'?'':'none'}
@@ -285,7 +301,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
     setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{d=await Store.load()}finally{clearTimeout(slow)}
     d.plans=d.plans||[];
     if(live&&!STUDENT)for(const np of (window.TRACKER_NEW_PLANS||[]))if(!d.plans.some(p=>p.id===np.id)){d.plans.push({id:np.id,student:np.student,title:np.title,key:'',blocks:[]});send({a:'addPlan',id:np.id,student:np.student,title:np.title,folder:np.folder||''})}
-    D={plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
+    D={reports:d.reports||[],plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
     if((live||STUDENT)&&pending.length)flush();
   }catch(e){$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
