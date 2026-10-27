@@ -107,7 +107,8 @@ function stBtn(bi,t){
 }
 function taskCard(pl,bi,t){
   const k=KINDS[t.kind]?t.kind:'homework';
-  const l=safeLink(t.link);
+  // Students can open assigned tasks; teachers retain access to every task.
+  const l=STUDENT&&t.status==='N/A'?'':safeLink(t.link);
   const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t.task)}</a>`:esc(t.task);
   const sub=[t.mode,t.unit,t.points+' pts'].filter(Boolean).map(esc).join(' · ');
   const s=stateOf(t);
