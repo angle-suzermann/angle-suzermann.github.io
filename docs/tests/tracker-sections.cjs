@@ -25,7 +25,9 @@ function fixture(){
     const u=new URL(route.request().url());
     if(u.hostname==='sheet.test'){
      if(route.request().method()==='POST'){writes.push(JSON.parse(route.request().postData()));return route.fulfill({json:{ok:true}})}
-     return route.fulfill({json:{ok:true,data:fixture()}});
+     const data=fixture();
+     if(u.searchParams.has('p'))data.courses={[course]:data.courses[course]};
+     return route.fulfill({json:{ok:true,data}});
     }
     if(u.hostname==='tracker.test'){
      const f=path.join(root,decodeURIComponent(u.pathname.slice(1)));
@@ -55,7 +57,8 @@ function fixture(){
    await page.goto(`https://tracker.test/${slug}/0-homework-tracker/index.html?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent`);
    await page.locator('#view .card').first().waitFor();
    const parentText=await page.locator('#view').innerText();
-   assert.match(parentText,/Повторение/);assert.match(parentText,/Тест по юниту/);
+   assert.match(parentText,/Revision/);assert.match(parentText,/Unit test/);
+   assert.match(parentText,course==='Starters'?/Sounds and letters/:/Reading comprehension/);
    await ctx.close();
   }
   assert.deepEqual(errors,[]);

@@ -200,19 +200,6 @@ function refreshRatings(s,message){
   area.querySelectorAll('[data-rating-feedback]').forEach(el=>{if(el.dataset.ratingFeedback===s.id)el.textContent=message});
   toast(message);
 }
-const parentSectionName=name=>({
-  'vocabulary':'Словарь','reading':'Чтение','reading comprehension':'Понимание прочитанного',
-  'reading and pronunciation':'Чтение и произношение','vocabulary and reading':'Словарь и чтение',
-  'grammar':'Грамматика','grammar 1':'Грамматика 1','grammar 2':'Грамматика 2',
-  'developing vocabulary':'Развитие словарного запаса','developing listening':'Развитие навыков аудирования',
-  'great learners, great thinkers':'Учимся размышлять','test':'Тест по юниту','grammar time':'Грамматика: знакомство с правилом','grammar focus':'Грамматика: закрепление',
-  'sounds and letters':'Звуки и буквы','language in use':'Английский в общении',
-  'listening':'Аудирование','speaking':'Говорение','listening and speaking':'Аудирование и говорение','writing':'Письмо',
-  'think about it!':'Подумай и обсуди','extra':'Дополнительно','revision':'Повторение','unit test':'Тест по юниту',
-  'more grammar':'Дополнительная грамматика','more grammar practice':'Дополнительная практика грамматики',
-  'extra grammar practice':'Дополнительная практика грамматики','more language in use':'Дополнительная практика общения',
-  'extra language in use practice':'Дополнительная практика общения'
-}[String(name).toLowerCase()]||name);
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
   const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Юнит ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
@@ -220,7 +207,7 @@ function studentCardBody(s,n,readonly){
   if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>${readonly?'Фонетика':'Phonics'}</em>${fmt(p.r)}</span>`)}
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>${readonly?'Дополнительно':'Extras'}</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
-    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(readonly?parentSectionName(sec.name):sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
+    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${minis}${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">${readonly?'Юнит':'Unit'} ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
