@@ -141,10 +141,23 @@
     if (isTeacher) {
       btnClear = mkBtn('Очистить комнату', '', function () {
         if (confirm('Удалить все тексты в этой комнате?')) {
-          adapter.remove(base + '/blocks'); adapter.remove(base + '/paras');
+          Promise.all([removeText(base + '/blocks'), removeText(base + '/paras')]).catch(showDeleteError);
         }
       });
       bar.appendChild(btnClear);
+    }
+
+    function showDeleteError() {
+      status.textContent = 'Could not delete. Check your connection and try again.';
+    }
+    function removeText(path) {
+      if (!adapter) return Promise.reject(new Error('Not connected'));
+      Object.keys(timers).forEach(function (p) {
+        if (p === path || p.indexOf(path + '/') === 0) {
+          clearTimeout(timers[p]); delete timers[p];
+        }
+      });
+      return Promise.resolve(adapter.remove(path));
     }
 
     function setMode(m) { if (adapter) adapter.set(base + '/mode', m); }
@@ -175,6 +188,7 @@
     function queueSend(path, obj) {
       clearTimeout(timers[path]);
       timers[path] = setTimeout(function () {
+        delete timers[path];
         if (adapter) adapter.set(path, obj);
       }, SEND_DELAY);
     }
@@ -225,7 +239,7 @@
         head.appendChild(who); head.appendChild(meta);
         if (isTeacher || canEdit && data.mode === 'shared') {
           var x = el('button', 'cb-x', '✕'); x.type = 'button'; x.title = 'Delete';
-          x.addEventListener('click', function () { adapter.remove(path); });
+          x.addEventListener('click', function () { removeText(path).catch(showDeleteError); });
           head.appendChild(x);
         }
         wrap.appendChild(head);
@@ -239,7 +253,7 @@
           field = el('div', 'cb-ro');
         }
         wrap.appendChild(field);
-        c = cards[key] = { wrap: wrap, who: who, meta: meta, field: field, canEdit: canEdit };
+        c = cards[key] = { wrap: wrap, who: who, meta: meta, field: field, canEdit: canEdit, path: path };
         shell.node.appendChild(wrap);
       }
       c.who.textContent = item.name || '—';
@@ -260,7 +274,7 @@
       var seen = {};
       var ordered = [];
       if (data.mode === 'blocks') {
-        var blocks = data.blocks || {};
+        var blocks = Object.assign({}, data.blocks || {});
         var ids = Object.keys(blocks).sort(function (a, b) { return (blocks[a].ts || 0) - (blocks[b].ts || 0); });
         if (name && !isTeacher && !blocks[uid]) blocks[uid] = { uid: uid, name: name, text: '', ts: 0 };
         ids = Object.keys(blocks);
@@ -377,10 +391,22 @@
         status.textContent = ok ? 'Live · ' + room : 'Offline — reconnecting…';
       });
       else { dot.className = 'cb-dot on'; status.textContent = 'Live · ' + room; }
+      var firstSnapshot = true;
       a.on(base, function (v) {
         v = v || {};
+        // A remote deletion must discard the old editor and its unsent draft.
+        // Otherwise its DOM value or debounce timer can resurrect the deleted text.
+        ['blocks', 'paras'].forEach(function (kind) {
+          Object.keys(data[kind] || {}).forEach(function (id) {
+            if (v[kind] && v[kind][id]) return;
+            var p = base + '/' + kind + '/' + id;
+            clearTimeout(timers[p]); delete timers[p];
+            var c = cards[id];
+            if (c && c.path === p) { c.wrap.remove(); delete cards[id]; }
+          });
+        });
         data = { mode: v.mode || defMode, blocks: v.blocks || {}, paras: v.paras || {} };
-        announce();
+        if (firstSnapshot) { firstSnapshot = false; announce(); }
         render();
       });
       render();
