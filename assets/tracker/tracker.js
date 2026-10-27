@@ -30,9 +30,9 @@ const Demo={
     }
     const saved=LS.get('angleTracker.demo',null);
     if(saved){for(const c in courses){if(saved.courses?.[c]){courses[c].phonics=saved.courses[c].phonics||courses[c].phonics;courses[c].extras=saved.courses[c].extras||[];courses[c].units=saved.courses[c].units||courses[c].units}}}
-    return {courses,progress:saved?.progress||{}};
+    return {courses,progress:saved?.progress||{},act:saved?.act||[],mee:saved?.mee||[]};
   },
-  async write(op){LS.set('angleTracker.demo',{courses:Object.fromEntries(Object.entries(D.courses).map(([c,v])=>[c,{phonics:v.phonics,extras:v.extras,units:v.units}])),progress:D.progress})}
+  async write(op){LS.set('angleTracker.demo',{courses:Object.fromEntries(Object.entries(D.courses).map(([c,v])=>[c,{phonics:v.phonics,extras:v.extras,units:v.units}])),progress:D.progress,act:D.act||[],mee:D.mee||[]})}
 };
 const Sheets={
   async load(){
@@ -46,6 +46,7 @@ const Sheets={
 };
 const QP=new URLSearchParams(location.search);
 const PARENT=!!(QP.get('a')&&QP.get('p'));
+let parentTab=QP.get('u')?'u'+Number(QP.get('u')):null;
 /* data requests: 45 s limit, one automatic retry, then a clear error with a Try again button */
 async function fetchT(url,opts,ms){ms=ms||45000;let err;
   for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
@@ -144,15 +145,32 @@ function viewUnit(n){
   const rows=cc.students.map(s=>{const sc=unitScore(c,s.id,n);
     return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',u.active)}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
   const foot=`<tr><td class="name" style="background:#faf8fc">Class % done</td>${cc.sections.map(x=>{let d=0,t=0;for(const s of cc.students){const v=st(c,s.id,'u'+n,x.id);if(v==='N/A')continue;t++;if(v==='✓')d++}return `<td class="tc g-${grp(x.name)}">${t?Math.round(d/t*100)+'%':'–'}</td>`}).join('')}<td></td></tr>`;
-  const desktop=`<div class="desktop"><div class="matrix"><table class="fx" style="min-width:${160+84+cc.sections.length*74}px"><colgroup><col style="width:160px">${cc.sections.map(()=>'<col>').join('')}<col style="width:84px"></colgroup><thead><tr><th class="name">Student</th>${cc.sections.map(x=>`<th class="g-${grp(x.name)}">${esc(x.name)}<small>${x.points} pts</small></th>`).join('')}<th>Unit %</th></tr></thead><tbody>${rows}</tbody><tfoot>${foot}</tfoot></table></div></div>`;
   const s=curStudent();
+  const desktop=`<div class="desktop"><div class="matrix"><table class="fx" style="min-width:${160+84+cc.sections.length*74}px"><colgroup><col style="width:160px">${cc.sections.map(()=>'<col>').join('')}<col style="width:84px"></colgroup><thead><tr><th class="name">Student</th>${cc.sections.map(x=>`<th class="g-${grp(x.name)}">${esc(x.name)}<small>${x.points} pts</small></th>`).join('')}<th>Unit %</th></tr></thead><tbody>${rows}</tbody><tfoot>${foot}</tfoot></table></div><div class="desktop-ratings" style="margin-top:18px"><h2 style="font-size:16px">Class activity and quality of work</h2>${selector()}${s?ringsTop(c,s,overall(c,s.id))+rateBlock(s):''}</div></div>`;
   const mobile=`<div class="mobile">${selector()}${s?studentCardBody(s,n,false):''}</div>`;
   return `<div class="card">${head}${dim}${legend}${desktop}${mobile}</div>`;
 }
 
+// Current-unit selection is independent of the scoring switch "Unit started".
+function cardUnits(sid){
+  return C().units.filter(u=>u.active||C().sections.some(sec=>st(ui.course,sid,'u'+u.n,sec.id)==='✓'));
+}
+function cardUnit(sid,preferred){
+  if(C().units.some(u=>u.n===preferred))return preferred;
+  const known=cardUnits(sid);
+  return known.length?Math.max(...known.map(u=>u.n)):(C().units[0]?.n||1);
+}
+function refreshRatings(s,message){
+  const modal=$('#cardDlg').open,n=modal?Number($('#cardBody').dataset.unit):null;
+  render();
+  if(modal)openCard(s.id,n);
+  const area=modal?$('#cardBody'):$('#view');
+  area.querySelectorAll('[data-rating-feedback]').forEach(el=>{if(el.dataset.ratingFeedback===s.id)el.textContent=message});
+  toast(message);
+}
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
-  const minis=cc.units.filter(x=>!readonly||x.active).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>U${x.n}</em>${fmt(sc.r)}</span>`}).join('');
+  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>U${x.n}</em>${fmt(sc.r)}</span>`}).join('');
   const extra=[];
   if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>Phonics</em>${fmt(p.r)}</span>`)}
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
@@ -166,8 +184,9 @@ function studentCardBody(s,n,readonly){
 }
 function openCard(sid,n){
   const s=C().students.find(x=>x.id===sid);if(!s)return;
-  const started=C().units.filter(u=>u.active);
-  if(n==null){const t=parseInt(ui.tab.replace('u',''))||1;n=started.find(u=>u.n===t)?t:(started.length?started[started.length-1].n:t)}
+  n=cardUnit(sid,n==null?(/^u\d+$/.test(ui.tab)?Number(ui.tab.slice(1)):null):n);
+  const started=C().units.filter(u=>u.n===n||cardUnits(sid).some(k=>k.n===u.n));
+  $('#cardBody').dataset.unit=String(n);
   const nav=started.length>1?`<div class="sel">${started.map(u=>`<button class="chip ${u.n===n?'on':''}" data-ctab="${esc(sid)}|${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()">\u2715</button><div class="brandline"><b>ANGLE \u00b7 HOMEWORK PROGRESS</b></div>${nav}${studentCardBody(s,n,true)}${PARENT?'':`<div class="ttools" id="ttools"><b>Teacher tools</b> <button class="chip" data-hidett="1">Hide for screenshot</button>${rateBlock(s)}</div>`}<div class="foot">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} \u00b7 ANGLE English studio</div><p style="margin:10px 0 0;text-align:center"><button class="btn ghost" data-plink="${esc(sid)}">Copy parent link</button></p>`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
@@ -246,9 +265,11 @@ function ringsTop(c,s,o){
   const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="Progress rings">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> Handed in: <b>${pcT(sub)}</b> (${subTxt})</div><div><b style="color:#eab308">●</b> Quality of work: <b>${pcT(qual)}</b> (${qTxt})</div><div><b style="color:#0f766e">●</b> Activity in class: <b>${pcT(actAvg(act))}</b> (${lvl(act,ACT_LABELS)})</div></div></div>`}
-function rateBlock(s){return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles><option>2</option><option>3</option><option>4</option></select><span class="sub"> lessons</span></div>
-   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button class="chip" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
-   <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div>`}
+function rateBlock(s){
+  const activity=actFor(ui.course,s).slice(-1)[0],quality=actFor(ui.course,s,'quality').slice(-1)[0];
+  return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button type="button" class="chip ${+activity?.score===v?'on':''}" aria-pressed="${+activity?.score===v}" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<select class="chip" data-actles>${[2,3,4].map(v=>`<option ${+activity?.lessons===v?'selected':''}>${v}</option>`).join('')}</select><span class="sub"> lessons</span></div>
+   <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button type="button" class="chip ${+quality?.score===v?'on':''}" aria-pressed="${+quality?.score===v}" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
+   <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div><p class="sub" role="status" aria-live="polite" data-rating-feedback="${esc(s.id)}"></p>`}
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
   const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?'done':Math.round(r.pct)+'%'):r.status==='missing'?'not handed in':r.status==='pending'?'not due yet':'–';
@@ -259,9 +280,9 @@ function meeBlock(allRows,s,teacher){
 
 function renderParent(){
   const c=Object.keys(D.courses)[0];ui.course=c;const cc=C(),st=cc.students[0];
-  const started=cc.units.filter(u=>u.active);
-  if(!started.find(u=>'u'+u.n===ui.tab))ui.tab=started.length?'u'+started[started.length-1].n:'u1';
-  const n=parseInt(ui.tab.slice(1))||1;
+  const n=cardUnit(st.id,parentTab?Number(parentTab.slice(1)):null);
+  ui.tab='u'+n;
+  const started=cc.units.filter(u=>u.n===n||cardUnits(st.id).some(k=>k.n===u.n));
   const nav=started.length?`<div class="sel">${started.map(u=>`<button class="chip ${'u'+u.n===ui.tab?'on':''}" data-ptab="u${u.n}">Unit ${u.n}</button>`).join('')}</div>`:'';
   $('#sub').textContent='Homework progress';
   $('#view').innerHTML=`<div class="card">${nav}${studentCardBody(st,n,true)}<div class="foot" style="margin-top:12px;font-size:12px;opacity:.7">Updated by your teacher · ANGLE English studio</div></div>`;
@@ -278,11 +299,11 @@ document.addEventListener('click',e=>{
   const qb=e.target.closest('[data-qual]');
   if(qb){const box=qb.closest('[data-actfor]'),st3=C().students.find(x=>x.id===box.dataset.actfor);
     const row={course:ui.course,student:st3.name,date:new Date().toISOString().slice(0,10),lessons:'',score:+qb.dataset.qual,note:'',kind:'quality'};
-    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});toast('Saved: '+st3.name+' quality '+row.score+'/3');openCard(st3.id);return}
+    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});refreshRatings(st3,'Saved: '+st3.name+' quality '+row.score+'/3');return}
   const ab=e.target.closest('[data-act]');
   if(ab){const box=ab.closest('[data-actfor]'),st2=C().students.find(x=>x.id===box.dataset.actfor);const les=+box.querySelector('[data-actles]').value;
     const row={course:ui.course,student:st2.name,date:new Date().toISOString().slice(0,10),lessons:les,score:+ab.dataset.act,note:''};
-    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});toast('Saved: '+st2.name+' activity '+row.score+'/3 over '+les+' lessons');openCard(st2.id);return}
+    (D.act=D.act||[]).push(row);send({a:'addActivity',...row});refreshRatings(st2,'Saved: '+st2.name+' activity '+row.score+'/3 over '+les+' lessons');return}
   if(e.target.id==='meeGo'){let j;try{j=JSON.parse($('#meeJson').value)}catch{toast('That is not valid JSON');return}
     if(Array.isArray(j.act)){j.act.forEach(r=>{const row={course:r.course,student:r.student,date:r.date||new Date().toISOString().slice(0,10),lessons:r.lessons||'',score:+r.score,note:r.note||'',kind:r.kind==='quality'?'quality':'activity'};(D.act=D.act||[]).push(row);send({a:'addActivity',...row})});toast('Saving '+j.act.length+' ratings…');setTimeout(async()=>{try{D=await Store.load();render()}catch{}},4000);return}
     if(!j.course||!Array.isArray(j.rows)){toast('JSON needs course and rows');return}
@@ -295,7 +316,7 @@ document.addEventListener('click',e=>{
   const ct=e.target.closest('[data-ctab]');
   if(ct){const [i,n]=ct.dataset.ctab.split('|');openCard(i,+n);return}
   const pt=e.target.closest('[data-ptab]');
-  if(pt){ui.tab=pt.dataset.ptab;renderParent();return}
+  if(pt){parentTab=pt.dataset.ptab;renderParent();return}
   const d=e.target.closest('.dot[data-t]');
   if(d){const [c,sid,scope,item,kind]=d.dataset.t.split('\u0001');const k=pk(c,sid,scope,item);const nv=next(D.progress[k]||'',kind);
     if(nv)D.progress[k]=nv;else delete D.progress[k];
