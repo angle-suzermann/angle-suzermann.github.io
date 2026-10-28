@@ -296,10 +296,16 @@
     AX = a && a.offsetWidth ? a.getBoundingClientRect().left - ir.left : SZ.w / 2;
   }
   function resize() {
-    SZ = measure(); dpr = Math.max(1, window.devicePixelRatio || 1);
+    SZ = measure();
+    // Live writing can make a page tens of thousands of CSS pixels tall.
+    // Two full-height retina bitmaps otherwise exhaust the renderer's memory.
+    // Keep CSS coordinates/annotation data intact; bound only backing buffers.
+    var w = Math.max(1, SZ.w), h = Math.max(1, SZ.h);
+    dpr = Math.min(Math.max(1, window.devicePixelRatio || 1), 2,
+      Math.sqrt(4000000 / (w * h)), 8192 / w, 8192 / h);
     [ink, laserCv].forEach(function (cv) {
       cv.style.width = SZ.w + 'px'; cv.style.height = SZ.h + 'px';
-      cv.width = Math.round(SZ.w * dpr); cv.height = Math.round(SZ.h * dpr);
+      cv.width = Math.max(1, Math.floor(w * dpr)); cv.height = Math.max(1, Math.floor(h * dpr));
     });
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     calcAX(); draw(); refreshActs();
