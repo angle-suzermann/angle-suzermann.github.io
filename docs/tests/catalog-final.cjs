@@ -18,11 +18,10 @@ const root=path.join(process.cwd(),'_site');
    assert.equal(await classifiers.count(),2);assert.equal(await classifiers.filter({hasText:'Classwork'}).count(),1);assert.equal(await classifiers.filter({hasText:'Homework'}).count(),1);for(const c of await classifiers.all())assert.equal(await c.getAttribute('data-status'),'published');
    const links=await page.locator('#staffList .staff-card:not(.personal-card) a.open').evaluateAll(as=>as.slice(0,5).map(a=>a.href));
    await page.evaluate(links=>localStorage.setItem('angle.staff.recent.v1',JSON.stringify(links)),links);await page.reload();
-   assert.equal(await page.locator('#recentList a.tile').count(),5);
-   const tile=await page.locator('#recentList a').first().boundingBox();assert(tile.width<250,'recent items are compact tiles');
+   assert.equal(await page.locator('#recentMaterials,#recentList').count(),0,'recent section removed even with saved history');
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    await ctx.close();
   }
-  console.log('PASS: technical metadata hidden; two classifiers published; compact recent folder-style tiles; mobile and desktop fit.');
+  console.log('PASS: technical metadata hidden; two classifiers published; recent section removed; mobile and desktop fit.');
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

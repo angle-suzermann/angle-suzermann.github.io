@@ -1974,11 +1974,6 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
-  <section id="recentMaterials" class="recent-materials" hidden aria-labelledby="recentHeading">
-    <h2 id="recentHeading">Недавно открытые материалы</h2>
-    <p class="recent-note">История только в этом браузере.</p>
-    <div id="recentList"></div>
-  </section>
   <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
@@ -2000,7 +1995,7 @@ ${sortToolbar(true)}
 ${[...materials.filter(isTrackerM), ...materials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
 ${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
-  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card') + '<script src="' + BASE + '/assets/catalog-recent.js?v=2" defer></script>',
+  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),
 }));
 
 /* --- машиночитаемый каталог для агентов --- */
