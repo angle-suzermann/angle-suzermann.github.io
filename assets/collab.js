@@ -286,6 +286,12 @@
       var parts = c.path.slice(base.length + 1).split('/');
       return ((data[parts[0]] || {})[parts[1]] || {}).feedback || {};
     }
+    function rememberFeedback(c, value) {
+      var parts = c.path.slice(base.length + 1).split('/');
+      var answer = (data[parts[0]] || {})[parts[1]];
+      if (!answer) return;
+      if (value) answer.feedback = value; else delete answer.feedback;
+    }
     function makeFeedback(c) {
       var section = el('div', 'cb-feedback');
       section.appendChild(el('div', 'cb-feedback-title', 'Комментарий учителя'));
@@ -304,20 +310,24 @@
           var value = editor.value.trim().slice(0, MAX_TEXT);
           if (!value) { result.textContent = 'Напишите комментарий или нажмите «Удалить».';return; }
           save.disabled = true;result.textContent = 'Сохранение…';
-          adapter.set(f.path, { text: value, updatedAt: Date.now() }).then(function () {
+          var saved = { text: value, updatedAt: Date.now() };
+          adapter.set(f.path, saved).then(function () {
+            rememberFeedback(c, saved);
             f.editing = false;save.disabled = false;updateFeedback(c);result.textContent = 'Сохранено — ученик видит комментарий.';
           }).catch(function () { save.disabled = false;result.textContent = 'Не удалось сохранить. Попробуйте ещё раз.'; });
         });
         var cancel = mkBtn('Отмена', '', function () { f.editing = false;result.textContent = '';updateFeedback(c); });
         var remove = mkBtn('Удалить', '', function () {
           if (!confirm('Удалить комментарий учителя?'))return;
-          remove.disabled = true;
-          adapter.remove(f.path).then(function () { remove.disabled = false;f.editing = false;updateFeedback(c);result.textContent = 'Комментарий удалён.'; })
-            .catch(function () { remove.disabled = false;result.textContent = 'Не удалось удалить. Попробуйте ещё раз.'; });
+          remove.disabled = true;removeDirect.disabled = true;
+          adapter.remove(f.path).then(function () { rememberFeedback(c, null);remove.disabled = false;removeDirect.disabled = false;f.editing = false;updateFeedback(c);result.textContent = 'Комментарий удалён.'; })
+            .catch(function () { remove.disabled = false;removeDirect.disabled = false;result.textContent = 'Не удалось удалить. Попробуйте ещё раз.'; });
         });
+        var removeDirect = mkBtn('Удалить комментарий', '', function () { remove.click(); });
+        var viewActions = el('div', 'cb-feedback-actions');viewActions.appendChild(edit);viewActions.appendChild(removeDirect);
         actions.appendChild(save);actions.appendChild(cancel);actions.appendChild(remove);
-        section.appendChild(edit);section.appendChild(editor);section.appendChild(actions);section.appendChild(result);
-        f.edit = edit;f.editor = editor;f.actions = actions;f.remove = remove;
+        section.appendChild(viewActions);section.appendChild(editor);section.appendChild(actions);section.appendChild(result);
+        f.edit = edit;f.editor = editor;f.actions = actions;f.remove = remove;f.removeDirect = removeDirect;f.viewActions = viewActions;
       }
       c.wrap.appendChild(section);
     }
@@ -329,6 +339,7 @@
         f.edit.textContent = value ? 'Изменить комментарий' : 'Добавить комментарий';
         f.edit.hidden = f.editing;f.editor.hidden = !f.editing;f.actions.hidden = !f.editing;
         f.remove.hidden = !value;
+        f.removeDirect.hidden = !value || f.editing;f.viewActions.hidden = f.editing;
       }
     }
 

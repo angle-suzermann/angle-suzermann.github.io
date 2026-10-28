@@ -4,7 +4,7 @@ const {chromium}=require('playwright');
  const browser=await chromium.launch({headless:true,channel:'msedge'});
  try{for(const mode of ['blocks','shared']){
   const kind=mode==='blocks'?'blocks':'paras',id='s1',pages=[],contexts=[];
-  let db={mode,[kind]:{[id]:{uid:'s1',name:'Student A',text:'Original student answer',ts:1}}},failNext=false;
+  let db={mode,[kind]:{[id]:{uid:'s1',name:'Student A',text:'Original student answer',ts:1}}},failNext=false,delayFeedbackSnapshot=false;
   const copy=()=>JSON.parse(JSON.stringify(db));
   async function broadcast(){for(const p of pages)if(!p.isClosed())await p.evaluate(v=>window.__roomListener?.(v),copy())}
   async function setup(teacher){
@@ -15,6 +15,7 @@ const {chromium}=require('playwright');
     const parts=p.split('/').slice(2);let node=db;
     for(const key of parts.slice(0,-1))node=node[key]||(node[key]={});
     if(action==='set')node[parts.at(-1)]=value;else if(action==='update')Object.assign(node[parts.at(-1)],value);else delete node[parts.at(-1)];
+    if(p.endsWith('/feedback')&&delayFeedbackSnapshot){delayFeedbackSnapshot=false;return null}
     await broadcast();return null;
    });
    await ctx.addInitScript(({teacher})=>{
@@ -61,10 +62,14 @@ const {chromium}=require('playwright');
   await teacher.getByRole('status').filter({hasText:'Не удалось сохранить'}).waitFor();
   assert.equal(await teacher.locator('.cb-feedback-editor').inputValue(),'Добавь заключение.');
   assert.equal(db[kind][id].feedback.text,comment);
+  delayFeedbackSnapshot=true;
   await teacher.getByRole('button',{name:'Сохранить комментарий'}).click();
+  await teacher.locator('.cb-feedback-text:visible').filter({hasText:'Добавь заключение.'}).waitFor();
+  assert(await teacher.getByRole('button',{name:'Изменить комментарий'}).isVisible());
+  assert(await teacher.getByRole('button',{name:'Удалить комментарий',exact:true}).isVisible());
+  await broadcast();
   await student.locator('.cb-feedback-text').filter({hasText:'Добавь заключение.'}).waitFor();
-  await teacher.getByRole('button',{name:'Изменить комментарий'}).click();
-  teacher.once('dialog',d=>d.accept());await teacher.getByRole('button',{name:'Удалить',exact:true}).click();
+  teacher.once('dialog',d=>d.accept());await teacher.getByRole('button',{name:'Удалить комментарий',exact:true}).click();
   await student.waitForFunction(()=>document.querySelector('.cb-feedback').hidden);
   assert(db[kind][id].text.includes('Student continues writing'));
   assert(await student.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
