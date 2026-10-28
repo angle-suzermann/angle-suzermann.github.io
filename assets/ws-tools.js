@@ -27,6 +27,7 @@
     '#wtInkBtn{background:' + PURPLE + ';color:#fff}#wtInkBtn.on{background:' + YELLOW + ';color:' + BLACK + '}',
     '.wt-panel{position:fixed;z-index:9998;background:#fff;border:1.5px solid ' + PURPLE + ';border-radius:12px;padding:8px;box-shadow:0 8px 24px rgba(45,25,60,.3);display:flex;flex-direction:column;gap:7px;overflow-y:auto;max-width:calc(100vw - 16px);font-family:inherit}',
     '.wt-panel[hidden]{display:none}',
+    '.wt-collapse{border:0;border-radius:7px;background:#f3eef8;color:' + PURPLE + ';padding:6px 8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}',
     '.wt-grid{display:grid;gap:5px}',
     '.wt-tools{grid-template-columns:repeat(5,32px)}',
     '.wt-colors{grid-template-columns:repeat(5,32px);justify-items:center}',
@@ -101,6 +102,12 @@
   document.body.appendChild(dock);
 
   var panel = el('div', 'wt-panel'); panel.hidden = true;
+  panel.id = 'wtInkPanel'; panel.setAttribute('role', 'region'); panel.setAttribute('aria-label', 'Инструменты рисования');
+  inkBtn.setAttribute('aria-controls', panel.id); inkBtn.setAttribute('aria-expanded', 'false');
+  inkBtn.setAttribute('aria-pressed', 'false');
+  var collapseB = el('button', 'wt-collapse', 'Свернуть панель'); collapseB.type = 'button';
+  collapseB.title = 'Продолжить рисование без панели';
+  collapseB.addEventListener('click', hideInkPanel);
   var gTools = el('div', 'wt-grid wt-tools');
   TOOLS.forEach(function (t, i) {
     var b = el('button', 'wt-t' + (t[0] === 'pen' ? ' on' : ''), t[1]); b.type = 'button'; b.dataset.tool = t[0]; b.title = t[2]; gTools.appendChild(b);
@@ -123,7 +130,7 @@
   var gActs = el('div', 'wt-grid wt-acts');
   var undoB = el('button', 'wt-a', '↶'), redoB = el('button', 'wt-a', '↷'), clearB = el('button', 'wt-a', '🗑️'), doneB = el('button', 'wt-a', '✓');
   [undoB, redoB, clearB, doneB].forEach(function (b, i) { b.type = 'button'; b.title = ['Отменить', 'Повторить', 'Стереть всё на странице', 'Готово'][i]; gActs.appendChild(b); });
-  panel.appendChild(gTools); panel.appendChild(gWidths); panel.appendChild(gColors); panel.appendChild(gStk); panel.appendChild(gActs);
+  panel.appendChild(collapseB); panel.appendChild(gTools); panel.appendChild(gWidths); panel.appendChild(gColors); panel.appendChild(gStk); panel.appendChild(gActs);
   document.body.appendChild(panel);
 
   var notePanel = el('div', 'wt-panel wt-note'); notePanel.hidden = true;
@@ -412,6 +419,7 @@
   var mv = null;
   function mvStart(cx, cy, ev) {
     if (tool !== 'select' || ink.style.pointerEvents === 'auto') return false;
+    if (ev.target && ev.target.closest('.wt-dock,.wt-panel')) return false;
     var p = pt({ clientX: cx, clientY: cy });
     if (sel && list().indexOf(sel) >= 0) {
       var b = bbox(sel);
@@ -420,6 +428,7 @@
     var s2 = pick(p);
     sel = s2; draw();
     if (!s2) return false;
+    hideInkPanel();
     mv = { s: s2, x: cx, y: cy, dx: 0, dy: 0 };
     if (ev.cancelable) ev.preventDefault();
     return true;
@@ -466,7 +475,9 @@
   }
 
   ink.addEventListener('pointerdown', function (e) {
-    if (ink.style.pointerEvents !== 'auto' || tool === 'laser' || tool === 'select') return;
+    if (ink.style.pointerEvents !== 'auto' || tool === 'select') return;
+    hideInkPanel();
+    if (tool === 'laser') return;
     var p = pt(e);
     if (tool === 'sticker') {
       if (!stamp) return;
@@ -513,6 +524,7 @@
     if (t !== 'select') sel = null;
     // пока выбран «двигать», холст не перехватывает касания: страница прокручивается, а нарисованное цепляется само
     ink.style.pointerEvents = (inkOn && t !== 'select') ? 'auto' : 'none';
+    hideInkPanel();
     draw();
   }
   gTools.addEventListener('click', function (e) { var b = e.target.closest('.wt-t[data-tool]'); if (b) setTool(b.dataset.tool); });
@@ -526,6 +538,7 @@
     gTools.querySelectorAll('.wt-t[data-tool]').forEach(function (b) { b.classList.remove('on'); });
     gStk.querySelectorAll('.wt-s').forEach(function (b) { b.classList.remove('on'); }); btn.classList.add('on');
     ink.style.pointerEvents = inkOn ? 'auto' : 'none'; draw();
+    hideInkPanel();
   }
   crossBtn.addEventListener('click', function () { pickStamp({ cross: true }, crossBtn); });
   gStk.querySelectorAll('.wt-s[data-emoji]').forEach(function (b) { b.addEventListener('click', function () { pickStamp({ emoji: b.dataset.emoji }, b); }); });
@@ -550,13 +563,25 @@
   } else { var sd = document.createElement('script'); sd.src = base + '/assets/sticker-data.js'; sd.onload = addEgg; document.head.appendChild(sd); }
 
   var inkOn = false;
+  function hideInkPanel() {
+    panel.hidden = true; inkBtn.setAttribute('aria-expanded', 'false');
+    if (inkOn) inkBtn.title = 'Открыть инструменты рисования';
+  }
+  function showInkPanel() {
+    attach(panel, inkBtn); inkBtn.setAttribute('aria-expanded', 'true');
+    inkBtn.title = 'Выключить рисование';
+  }
   function setInk(on) {
     if (!on) commitText(true);
     inkOn = on; inkBtn.classList.toggle('on', on);
-    if (on) { setNote(false); setTimerPanel(false); attach(panel, inkBtn); } else panel.hidden = true;
+    inkBtn.setAttribute('aria-pressed', String(on));
+    if (on) { setNote(false); setTimerPanel(false); showInkPanel(); }
+    else { hideInkPanel(); inkBtn.title = 'Рисование (перетащи, чтобы передвинуть)'; }
     ink.style.pointerEvents = (on && tool !== 'select') ? 'auto' : 'none';
   }
-  inkBtn.addEventListener('click', function () { setInk(!inkOn); });
+  inkBtn.addEventListener('click', function () {
+    if (inkOn && panel.hidden) showInkPanel(); else setInk(!inkOn);
+  });
   document.addEventListener('keydown', function (e) {
     if ((e.key === 'Delete' || e.key === 'Backspace') && sel && !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '')) {
       var i = list().indexOf(sel); if (i >= 0) { var s = sel; list().splice(i, 1); sel = null; push({ k: 'del', s: s, i: i }); draw(); e.preventDefault(); }
