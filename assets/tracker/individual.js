@@ -46,7 +46,7 @@ function trackerDateISO(raw){
   const check=new Date(Date.UTC(+y,+m-1,+d));
   return check.getUTCFullYear()===+y&&check.getUTCMonth()===+m-1&&check.getUTCDate()===+d?`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';
 }
-const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}">`).join('');
+const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<span class="tracker-date-field"><input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}"><button type="button" class="btn ghost" data-calendar-open aria-label="Открыть календарь">📅</button></span>`).join('');
 const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.dataset.dateTouched==='1'?i.value.trim():(i.dataset.dateOriginal||i.value.trim())).filter(Boolean).join(' · ');
 
 
@@ -139,7 +139,7 @@ function taskCard(pl,bi,t,number){
     const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
     const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(t.task)}"></div>
-    <div><label>Kind</label><select data-f="kind">${kindOpts(k)}</select></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
+    <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
     <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
     <div class="c-full tnew" style="display:none"><label>Week label</label><input type="text" class="tw" placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
@@ -250,6 +250,8 @@ document.addEventListener('click',e=>{
     (navigator.clipboard?navigator.clipboard.writeText(url.href):Promise.reject()).then(()=>{toast('Ссылка для родителей скопирована');parentLink.textContent='Скопировано ✓'},()=>prompt('Ссылка для родителей',url.href));return;
   }
   if(PARENT)return; // Parent presentation has no task mutations or suggestions.
+  const calendarButton=e.target.closest('[data-calendar-open]');
+  if(calendarButton){openTrackerCalendar(calendarButton.parentElement.querySelector('[data-date-picker]'));return}
   const picker=e.target.closest('input[data-date-picker]');
   if(picker){try{picker.showPicker?.()}catch{}return}
   const blockEdit=e.target.closest('[data-block-edit]');
@@ -289,7 +291,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-tcancel]')){ui.tedit=null;render();return}
   const ts=e.target.closest('[data-tsave]');
   if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
-    box.querySelectorAll('[data-f]').forEach(inp=>{const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
+    box.querySelectorAll('[data-f]').forEach(inp=>{if(inp.type==='radio'&&!inp.checked)return;const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
     const sel=box.querySelector('[data-tgroup]');
     if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){w=box.querySelector('.tw').value.trim();d=readDates(box,'td');if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
       if((t.week||'')!==w)setF(b,t,'week',w);if((t.date||'')!==d)setF(b,t,'date',d)}
@@ -371,3 +373,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
   }catch(e){if(e.previewShown){setSync('err','Offline · saved copy');return}$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
   render();
 })();
+// Independent of Safari showPicker support: an explicit, touch-friendly month grid.
+function openTrackerCalendar(input){
+  let cursor=new Date((input.value||today())+'T12:00:00');
+  const dialog=document.createElement('dialog');dialog.className='tracker-calendar';dialog.setAttribute('aria-label','Выбор даты');
+  const close=()=>{dialog.close();dialog.remove();input.focus()};
+  function draw(){
+    const year=cursor.getFullYear(),month=cursor.getMonth(),count=new Date(year,month+1,0).getDate(),offset=(new Date(year,month,1).getDay()+6)%7;
+    const iso=day=>`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    dialog.innerHTML=`<div class="calendar-head"><button type="button" data-month="-1" aria-label="Предыдущий месяц">‹</button><strong>${cursor.toLocaleDateString('ru-RU',{month:'long',year:'numeric'})}</strong><button type="button" data-month="1" aria-label="Следующий месяц">›</button></div><div class="calendar-days">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(d=>`<span>${d}</span>`).join('')}${'<span></span>'.repeat(offset)}${Array.from({length:count},(_,i)=>`<button type="button" data-day="${iso(i+1)}" aria-pressed="${iso(i+1)===input.value}">${i+1}</button>`).join('')}</div><button type="button" class="btn ghost" data-calendar-close>Закрыть</button>`;
+  }
+  dialog.addEventListener('click',e=>{
+    const day=e.target.closest('[data-day]');if(day){input.value=day.dataset.day;input.dataset.dateTouched='1';input.dispatchEvent(new Event('change',{bubbles:true}));close();return}
+    const month=e.target.closest('[data-month]');if(month){cursor=new Date(cursor.getFullYear(),cursor.getMonth()+Number(month.dataset.month),1);draw();return}
+    if(e.target.closest('[data-calendar-close]'))close();
+  });
+  dialog.addEventListener('cancel',e=>{e.preventDefault();close()});draw();document.body.appendChild(dialog);dialog.showModal();
+}
