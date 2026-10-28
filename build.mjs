@@ -635,7 +635,7 @@ const card = (m) => `  <a class="card" href="${esc(m.url)}" target="_blank" rel=
       <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
     </div>
-    <div class="meta"><span>Unit ${esc(m.unit)}</span>${m.tags ? `<span>${esc(m.tags)}</span>` : ''}</div>
+    ${m.tags ? `<div class="meta"><span>${esc(m.tags)}</span></div>` : ''}
     ${m.progressKey ? '<p class="resume-note" hidden></p>' : ''}
   </a>`;
 
@@ -1333,11 +1333,6 @@ const staffCard = (m) => {
       <span class="pill ${isTrackerM(m) ? 'tracker' : esc(m.type)}">${isTrackerM(m) ? 'tracker' : esc(m.type)}</span>
       ${m.status === 'draft' ? '<span class="pill draft">черновик</span>' : ''}
     </div>
-    <div class="meta">
-      <span>${esc(m.course)}</span>${isTrackerM(m) ? '' : `<span>Unit ${esc(m.unit)}</span>`}<span>${esc(m.date)}</span>
-      <span>${m.backend ? 'сабмиты → ' + esc(m.backend) : 'без отправки'}</span>
-      <span>${(m.bytes / 1024).toFixed(0)} КБ</span>
-    </div>
     <div class="actions">
       <a class="open" href="${esc(m.url)}" target="_blank" rel="noopener">Открыть</a>
       ${teacherLink}
@@ -2005,7 +2000,7 @@ ${sortToolbar(true)}
 ${[...materials.filter(isTrackerM), ...materials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
 ${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
-  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card') + '<script src="' + BASE + '/assets/catalog-recent.js?v=1" defer></script>',
+  extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card') + '<script src="' + BASE + '/assets/catalog-recent.js?v=2" defer></script>',
 }));
 
 /* --- машиночитаемый каталог для агентов --- */

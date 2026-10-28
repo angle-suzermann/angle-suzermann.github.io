@@ -18,7 +18,7 @@ async function main(){
    const title=await card.getAttribute('data-title');
    await card.locator('a.open').first().click();
    await page.waitForFunction(()=>document.querySelector('#recentList').children.length===1);
-   assert.equal(await page.locator('#recentList a').innerText(),title);
+   assert.equal(await page.locator('#recentList .tile-name').innerText(),title);
    await page.reload();assert.equal(await page.locator('#recentList a').count(),1);
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),name+' catalog overflow');
    assert(!/из 294/.test(await page.locator('#count').innerText()));

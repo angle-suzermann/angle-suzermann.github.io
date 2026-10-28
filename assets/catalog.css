@@ -578,9 +578,13 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 .up-row[hidden]{ display: none; }
 
 /* Recent materials use the original ANGLE card styling. */
-.recent-materials{background:rgba(255,255,255,.88);border:1px solid var(--neutral-border);border-left:6px solid var(--purple);border-radius:14px;padding:14px 16px;margin:0 0 20px;color:var(--black);}
-.recent-materials h2{font-size:18px;color:var(--purple);margin:0 0 6px;}
-.recent-note{color:#6b6475;font-size:12px;margin:0 0 10px;}
-#recentList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
-.recent-item a{display:flex;align-items:center;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.9);color:var(--purple);font-weight:700;overflow-wrap:anywhere;}
-@media(max-width:600px){#recentList{grid-template-columns:minmax(0,1fr);}}
+/* Compact recent items use the existing folder tile design. */
+.recent-materials{margin:0 0 16px;color:var(--black);}
+.recent-materials h2{font-size:15px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4);margin:0 0 4px;}
+.recent-note{color:rgba(255,255,255,.8);font-size:11px;margin:0 0 8px;}
+#recentList{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;}
+.recent-item{min-width:0;}
+.recent-item .recent-tile{min-height:88px;padding:10px 8px;gap:5px;margin:0;text-decoration:none;}
+.recent-tile .tile-emoji{font-size:19px;}
+.recent-tile .tile-name{font-size:12px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;}
+@media(max-width:480px){#recentList{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}}

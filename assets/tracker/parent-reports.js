@@ -11,14 +11,15 @@
  function panel(o){
   entries.set(o.id,o);
   // Keep the original compact progress card: the full report is download-only.
-  return `<div class="parent-report" data-report="${esc(o.id)}"><button type="button" class="btn" data-report-pdf="${esc(o.id)}">Скачать отчёт PDF</button><p class="report-feedback" role="status" aria-live="polite"></p></div>`;
+  return `<div class="parent-report" data-report="${esc(o.id)}"><button type="button" class="btn" data-report-pdf="${esc(o.id)}">Скачать отчёт PDF</button><p class="report-feedback" role="status" aria-live="polite">${latest(o)?'':'Отчёт пока не добавлен. Здесь появится готовый PDF.'}</p></div>`;
  }
  async function originalPdf(r){
   const material=JSON.stringify(['ANGLE original parent PDF v1',String(r.date).slice(0,10),String(r.source).normalize('NFC').trim(),String(r.text).replace(/\r\n?/g,'\n').normalize('NFC').trim()]);
   const rawKey=await crypto.subtle.digest('SHA-256',bytes(material));
   // The asset name is a separate hash, never the AES key itself.
   const location=hex(await crypto.subtle.digest('SHA-256',bytes('ANGLE original PDF location v1\0'+hex(rawKey))));
-  const response=await fetch(new URL(location+'.bin',assetBase));
+  const assetUrl=new URL(location+'.bin',assetBase);assetUrl.searchParams.set('v','20261028-rings');
+  const response=await fetch(assetUrl);
   if(!response.ok)throw new Error('Исходный PDF пока не подключён.');
   const encrypted=new Uint8Array(await response.arrayBuffer());
   if(encrypted.length<29)throw new Error('Файл отчёта повреждён.');

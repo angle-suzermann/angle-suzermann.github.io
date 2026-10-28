@@ -9,7 +9,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}},del(k){try{localStorage.removeItem(k)}catch{}}};
 const WANT=window.TRACKER_PLANS||[];
 const QP=new URLSearchParams(location.search);
-const STUDENT=!!(QP.get('a')&&QP.get('p'));          // opened with a student link
+const STUDENT=!!(QP.get('a')&&QP.get('p'));
+const PARENT=STUDENT&&QP.get('parent')==='1';          // opened with a student link
 /* connect another device: open a link with ?s=<code>, or paste the link/code in the settings (gear) */
 const setupCode=c=>btoa(unescape(encodeURIComponent(JSON.stringify({u:c.url,t:c.token})))).replace(/\+/g,'-').replace(/\//g,'_');
 function readSetup(x){try{x=String(x||'').trim();const m=x.match(/[?&]s=([^&#\s]+)/);if(m)x=m[1];x=x.replace(/-/g,'+').replace(/_/g,'/');const o=JSON.parse(decodeURIComponent(escape(atob(x))));return o.u&&o.t?{url:o.u,token:o.t}:null}catch{return null}}
@@ -31,8 +32,23 @@ const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
 const gKey=t=>(t.week||'')+'|'+(t.date||'');
 const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
-const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<input type="text" class="${cls}" value="${esc(vals[i]||'')}" placeholder="${i<ndates()?'Date '+(i+1)+(i?' (optional)':''):'Date'} · e.g. Oct, 29">`).join('');
-const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.value.trim()).filter(Boolean).join(' · ');
+function trackerDateISO(raw){
+  const s=String(raw||'').trim();if(!s)return '';
+  let y,m,d,hit=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(hit)[,y,m,d]=hit;
+  else if((hit=s.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/)))[,d,m,y]=hit;
+  else{
+    const months=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    if((hit=s.match(/^([a-z]+)[,\s]+(\d{1,2})(?:[,\s]+(\d{4}))?$/i))){m=months.indexOf(hit[1].slice(0,3).toLowerCase())+1;d=hit[2];y=hit[3]||new Date().getFullYear()}
+    else if((hit=s.match(/^(\d{1,2})\s+([a-z]+)(?:\s+(\d{4}))?$/i))){m=months.indexOf(hit[2].slice(0,3).toLowerCase())+1;d=hit[1];y=hit[3]||new Date().getFullYear()}
+    else return '';
+  }
+  const check=new Date(Date.UTC(+y,+m-1,+d));
+  return check.getUTCFullYear()===+y&&check.getUTCMonth()===+m-1&&check.getUTCDate()===+d?`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';
+}
+const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}">`).join('');
+const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.dataset.dateTouched==='1'?i.value.trim():(i.dataset.dateOriginal||i.value.trim())).filter(Boolean).join(' · ');
+
 
 /* ---------- stores ---------- */
 const Demo={
@@ -131,7 +147,7 @@ function taskCard(pl,bi,t){
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
     <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
   }
-  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt">${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
+  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt"><span class="task-number">${esc(t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
   const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
@@ -143,12 +159,15 @@ function viewBlock(pl,bi,only){
   if(!tasks.length)return '';
   const sc=score(b.tasks);
   const canEdit=!STUDENT&&!only;
+  const dates=[...new Set(b.tasks.map(t=>t.date||''))];
+  const blockTools=canEdit?`<div class="erow" style="margin:8px 0 12px;flex-wrap:wrap"><button type="button" class="btn ghost" data-block-edit="${bi}">Изменить даты блока</button><button type="button" class="btn ghost" data-block-delete="${bi}">Удалить блок</button></div>`:'';
+  const blockEdit=canEdit&&ui.blockEdit===bi?`<div class="gedit" data-block-form="${bi}"><p class="sub">Новые даты будут применены ко всем ${b.tasks.length} заданиям блока. Содержание, баллы и отметки сохранятся.</p><label>Даты всего блока</label><div class="dgrid">${dateInputs(dates.length===1?dateParts(dates[0]):[],'block-new-date')}</div><p class="erow"><button type="button" class="btn" data-block-save="${bi}">Применить ко всему блоку</button><button type="button" class="btn ghost" data-block-cancel>Отмена</button></p></div>`:'';
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
     const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
     return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
-  return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${body}</div>`;
+  return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${blockTools}${blockEdit}${body}</div>`;
 }
 function addBar(pl,bi){
   if(STUDENT)return '';
@@ -156,7 +175,7 @@ function addBar(pl,bi){
   const groups=b?groupWeeks(b.tasks):[];
   const opts=groups.map((g,i)=>`<option value="${esc(g.key)}"${i===0?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+`<option value="__new"${groups.length?'':' selected'}>New date…</option>`;
   const form=open?`<div class="card addbox"><div class="xgrid">
-    <div style="grid-column:1/-1"><label>Tasks (one per line)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
+    <div style="grid-column:1/-1"><label>Tasks (one per line; numbered automatically)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
     <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week label</label><input type="text" id="ntWeek" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
     <div style="grid-column:1/-1"><label>Link (optional; used for every task above that has no link of its own. Or write a link after a | on a line)</label><input type="text" id="ntLink" placeholder="https://"></div>
@@ -171,6 +190,17 @@ function individualReport(pl){
     reports:(D.reports||[]).filter(r=>r.plan===pl.id)
   });
 }
+function parentProgressCard(pl){
+  const o=planScore(pl),pc=fmt(o.r),radius=38,circumference=2*Math.PI*radius;
+  const svg=`<svg width="100" height="100" viewBox="0 0 100 100" role="img" aria-label="Сдано заданий: ${esc(pc)}"><circle cx="50" cy="50" r="${radius}" fill="none" stroke="#6b21a8" stroke-opacity=".18" stroke-width="10"/><circle cx="50" cy="50" r="${radius}" fill="none" stroke="#6b21a8" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circumference*(o.r||0)} ${circumference}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#5E4877" font-size="18" font-weight="700">${pc}</text></svg>`;
+  const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
+  return `<div class="scard-top">${svg}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>Сдано заданий: <b>${pc}</b></div><div>Подтверждено преподавателем: ${o.done} из ${o.n}</div></div></div><p class="sub">Прогресс учитывает подтверждённые задания. Работы, ожидающие проверки, пока не засчитываются.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}`;
+}
+function openParentProgress(pl){
+  const dialog=$('#cardDlg');
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${parentProgressCard(pl)}<p><button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`;
+  if(!dialog.open)dialog.showModal();
+}
 function viewSummary(pl){
   const o=planScore(pl);
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(blockLabel(b.name))}<small>${STUDENT?`Подтверждено: ${s.done} из ${s.n}`:`${s.done} of ${s.n} confirmed`}${s.wait?` · ${s.wait} ${STUDENT?'ожидает проверки':'waiting'}`:''} · ${STUDENT?`${s.e} из ${s.p} баллов`:`${s.e} of ${s.p} points`}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
@@ -182,6 +212,10 @@ function render(){
   if(!D.plans.length){$('#view').innerHTML='<div class="card empty">No plans found for this page. Add them in the Google Sheet (Plans tab).</div>';return}
   if(!P())ui.plan=D.plans[0].id;
   const pl=P();
+  if(PARENT){
+    $('#courses').innerHTML='';$('#tabs').innerHTML='';$('#sub').textContent='Homework progress';
+    $('#view').innerHTML=`<div class="card">${parentProgressCard(pl)}</div>`;return;
+  }
   $('#courses').innerHTML=STUDENT||D.plans.length<2?'':D.plans.map(p=>`<button class="pill ${p.id===ui.plan?'on':''}" data-plan="${esc(p.id)}">${esc(p.student)} · ${esc(p.title)}</button>`).join('');
   const order=pl.blocks.map((_,i)=>i).reverse();            // newest block first
   const tabs=[...order.map(i=>({k:'b'+i,l:blockLabel(pl.blocks[i].name)})),{k:'sum',l:STUDENT?'Отчёт':'Summary',w:1}];
@@ -197,6 +231,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
+  if(!STUDENT&&pl.id.startsWith('ege-'))html=`<p><button class="btn ghost" data-parent-card>Карточка для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
@@ -206,6 +241,34 @@ const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,bloc
 function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:o.task,mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-parent-card]')){if(!STUDENT)openParentProgress(P());return}
+  const parentLink=e.target.closest('[data-parent-link]');
+  if(parentLink&&!STUDENT){
+    const pl=D.plans.find(p=>p.id===parentLink.dataset.parentLink);
+    if(!live||!pl?.key){toast('Подключите таблицу и создайте родительский ключ.');return}
+    const url=new URL(location.pathname,location.origin);url.searchParams.set('a',cfg.url);url.searchParams.set('p',pl.key);url.searchParams.set('parent','1');
+    (navigator.clipboard?navigator.clipboard.writeText(url.href):Promise.reject()).then(()=>{toast('Ссылка для родителей скопирована');parentLink.textContent='Скопировано ✓'},()=>prompt('Ссылка для родителей',url.href));return;
+  }
+  if(PARENT)return; // Parent presentation has no task mutations or suggestions.
+  const picker=e.target.closest('input[data-date-picker]');
+  if(picker){try{picker.showPicker?.()}catch{}return}
+  const blockEdit=e.target.closest('[data-block-edit]');
+  if(blockEdit&&!STUDENT){ui.blockEdit=Number(blockEdit.dataset.blockEdit);render();return}
+  if(e.target.closest('[data-block-cancel]')&&!STUDENT){ui.blockEdit=null;render();return}
+  const blockSave=e.target.closest('[data-block-save]');
+  if(blockSave&&!STUDENT){
+    const box=blockSave.closest('[data-block-form]'),b=P().blocks[Number(blockSave.dataset.blockSave)];if(!b)return;
+    const date=readDates(box,'block-new-date');if(!date){toast('Укажите новую дату блока.');return}
+    b.tasks.forEach(task=>{if((task.date||'')!==date)setF(b,task,'date',date)});
+    ui.blockEdit=null;ui.gedit=null;render();toast('Даты изменены у всех заданий блока.');return;
+  }
+  const blockDelete=e.target.closest('[data-block-delete]');
+  if(blockDelete&&!STUDENT){
+    const pl=P(),b=pl.blocks[Number(blockDelete.dataset.blockDelete)];if(!b)return;
+    if(!confirm('Удалить весь блок «'+b.name+'» и все '+b.tasks.length+' заданий? Отменить удаление в трекере нельзя.'))return;
+    pl.blocks=pl.blocks.filter(x=>x!==b);ui.blockEdit=null;ui.gedit=null;ui.tab=null;
+    b.tasks.forEach(task=>send({a:'deleteTask',plan:pl.id,block:b.name,n:task.n}));render();toast('Блок заданий удалён.');return;
+  }
   const pn=e.target.closest('[data-plan]');if(pn){ui.plan=pn.dataset.plan;ui.tab=null;ui.review=false;render();return}
   if(e.target.closest('[data-review]')){ui.review=!ui.review;render();return}
   const tb=e.target.closest('[data-tab]');if(tb){ui.tab=tb.dataset.tab;ui.review=false;render();return}
@@ -278,9 +341,12 @@ document.addEventListener('click',e=>{
   if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.ireports');LS.del('angleTracker.iui2');location.reload();return}
 });
 document.addEventListener('change',e=>{
+  if(e.target.matches('[data-date-picker]'))e.target.dataset.dateTouched='1';
   if(e.target.matches('[data-tgroup]')){const nb=e.target.closest('.tedit').querySelector('.tnew');nb.style.display=e.target.value==='__new'?'':'none'}
   if(e.target.id==='ntGroup'){const nb=$('#ntNewBox');if(nb)nb.style.display=e.target.value==='__new'?'':'none'}
 });
+document.addEventListener('input',e=>{if(e.target.matches('[data-date-picker]'))e.target.dataset.dateTouched='1'});
+
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-gaddt],[data-gaddl]')){e.preventDefault();e.target.closest('[data-gadd]').querySelector('[data-gaddgo]').click()}});
 
 /* ---------- boot ---------- */
@@ -301,7 +367,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
     if(live&&!STUDENT)for(const np of (window.TRACKER_NEW_PLANS||[]))if(!d.plans.some(p=>p.id===np.id)){d.plans.push({id:np.id,student:np.student,title:np.title,key:'',blocks:[]});send({a:'addPlan',id:np.id,student:np.student,title:np.title,folder:np.folder||''})}
     D={reports:d.reports||[],plans:newestFirst((d.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};
     setSync(live||STUDENT?'ok':'','');$('#syncTxt').textContent=live||STUDENT?'Synced':'Demo';
-    if((live||STUDENT)&&pending.length)flush();
+    if(!PARENT&&(live||STUDENT)&&pending.length)flush();
   }catch(e){if(e.previewShown){setSync('err','Offline · saved copy');return}$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
   render();
 })();
