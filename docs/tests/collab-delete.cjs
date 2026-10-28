@@ -7,6 +7,7 @@ class Element {
  remove(){if(this.parent){const a=this.parent.children;a.splice(a.indexOf(this),1);this.parent=null;}}
  contains(n){return this===n||this.children.some(c=>c.contains(n));}
  get nextSibling(){return this.parent?.children[this.parent.children.indexOf(this)+1]||null;}
+ setAttribute(k,v){this[k]=v;}
  addEventListener(e,f){this.listeners[e]=f;} focus(){} getAttribute(k){return k==='data-room'?'test':k==='data-mode'?'blocks':null;}
 }
 function find(root,p){if(p(root))return root;for(const c of root.children){const r=find(c,p);if(r)return r;}}

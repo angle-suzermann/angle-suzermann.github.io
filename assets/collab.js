@@ -46,6 +46,11 @@
     '.cb-list .cb-ta,.cb-list .cb-ro{min-height:70px}',
     '.cb-note{font-size:13px;opacity:.7;margin:10px 0 0}',
     '.cb-msg{padding:12px;border:2px dashed var(--c-b);border-radius:12px;font-size:14px}',
+    '.cb-feedback{border-top:1px solid var(--c-b);margin-top:6px;padding-top:10px;font-size:14px}',
+    '.cb-feedback[hidden]{display:none}.cb-feedback-title{font-weight:700;color:var(--c-p);margin-bottom:6px}',
+    '.cb-feedback-text{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff9df;border-left:3px solid var(--c-y);border-radius:8px;padding:10px;line-height:1.45}',
+    '.cb-feedback-editor{font:inherit;font-size:16px;width:100%;min-height:85px;resize:vertical;border:1px solid var(--c-b);border-radius:10px;padding:8px;line-height:1.45}',
+    '.cb-feedback-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.cb-feedback-actions[hidden]{display:none}.cb-feedback-status{font-size:12px;margin-top:6px}',
     '@media (hover:none) and (pointer:coarse){.cb-ta,.cb-join input{font-size:16px}}'
   ].join('\n');
   var st = document.createElement('style');
@@ -75,6 +80,7 @@
           on: function (p, cb) { db.ref(p).on('value', function (s) { cb(s.val()); }); },
           status: function (cb) { db.ref('.info/connected').on('value', function (s) { cb(!!s.val()); }); },
           set: function (p, v) { return db.ref(p).set(v); },
+          update: function (p, v) { return db.ref(p).update(v); },
           remove: function (p) { return db.ref(p).remove(); }
         };
       });
@@ -189,7 +195,11 @@
       clearTimeout(timers[path]);
       timers[path] = setTimeout(function () {
         delete timers[path];
-        if (adapter) adapter.set(path, obj);
+        if (adapter) {
+          // Patch answer fields, preserving the teacher's feedback on this record.
+          var write = adapter.update ? adapter.update(path, obj) : Promise.all(Object.keys(obj).map(function (k) { return adapter.set(path + '/' + k, obj[k]); }));
+          Promise.resolve(write).catch(function () { status.textContent = 'Could not save your answer. Check your connection.'; });
+        }
       }, SEND_DELAY);
     }
     function own(path, textarea, extra, metaEl) {
@@ -254,6 +264,7 @@
         }
         wrap.appendChild(field);
         c = cards[key] = { wrap: wrap, who: who, meta: meta, field: field, canEdit: canEdit, path: path };
+        makeFeedback(c, path);
         shell.node.appendChild(wrap);
       }
       c.who.textContent = item.name || '—';
@@ -265,7 +276,60 @@
         else { c.field.classList.add('cb-empty'); c.field.textContent = '…'; }
       }
       c.meta.textContent = wc(words(c.canEdit ? c.field.value : item.text));
+      updateFeedback(c);
       return c;
+    }
+
+    // Answer writes patch fields and leave feedback intact. Using the existing
+    // blocks/paras paths also works with the deployed room database rules.
+    function feedbackValue(c) {
+      var parts = c.path.slice(base.length + 1).split('/');
+      return ((data[parts[0]] || {})[parts[1]] || {}).feedback || {};
+    }
+    function makeFeedback(c) {
+      var section = el('div', 'cb-feedback');
+      section.appendChild(el('div', 'cb-feedback-title', 'Комментарий учителя'));
+      var text = el('div', 'cb-feedback-text');section.appendChild(text);
+      c.feedback = { section: section, text: text, editing: false, path: c.path + '/feedback' };
+      if (isTeacher) {
+        var f = c.feedback;
+        var edit = mkBtn('Добавить комментарий', '', function () {
+          f.editing = true;f.editor.value = feedbackValue(c).text || '';updateFeedback(c);f.editor.focus();
+        });
+        var editor = el('textarea', 'cb-feedback-editor');editor.maxLength = MAX_TEXT;
+        editor.placeholder = 'Ваши замечания к ответу ученика…';editor.setAttribute('aria-label', 'Комментарий к ответу ' + c.who.textContent);
+        var actions = el('div', 'cb-feedback-actions');
+        var result = el('div', 'cb-feedback-status');result.setAttribute('role', 'status');
+        var save = mkBtn('Сохранить комментарий', 'main', function () {
+          var value = editor.value.trim().slice(0, MAX_TEXT);
+          if (!value) { result.textContent = 'Напишите комментарий или нажмите «Удалить».';return; }
+          save.disabled = true;result.textContent = 'Сохранение…';
+          adapter.set(f.path, { text: value, updatedAt: Date.now() }).then(function () {
+            f.editing = false;save.disabled = false;updateFeedback(c);result.textContent = 'Сохранено — ученик видит комментарий.';
+          }).catch(function () { save.disabled = false;result.textContent = 'Не удалось сохранить. Попробуйте ещё раз.'; });
+        });
+        var cancel = mkBtn('Отмена', '', function () { f.editing = false;result.textContent = '';updateFeedback(c); });
+        var remove = mkBtn('Удалить', '', function () {
+          if (!confirm('Удалить комментарий учителя?'))return;
+          remove.disabled = true;
+          adapter.remove(f.path).then(function () { remove.disabled = false;f.editing = false;updateFeedback(c);result.textContent = 'Комментарий удалён.'; })
+            .catch(function () { remove.disabled = false;result.textContent = 'Не удалось удалить. Попробуйте ещё раз.'; });
+        });
+        actions.appendChild(save);actions.appendChild(cancel);actions.appendChild(remove);
+        section.appendChild(edit);section.appendChild(editor);section.appendChild(actions);section.appendChild(result);
+        f.edit = edit;f.editor = editor;f.actions = actions;f.remove = remove;
+      }
+      c.wrap.appendChild(section);
+    }
+    function updateFeedback(c) {
+      var f = c.feedback, value = feedbackValue(c).text || '';
+      f.section.hidden = !isTeacher && !value;
+      f.text.textContent = value;f.text.hidden = !value || f.editing;
+      if (isTeacher) {
+        f.edit.textContent = value ? 'Изменить комментарий' : 'Добавить комментарий';
+        f.edit.hidden = f.editing;f.editor.hidden = !f.editing;f.actions.hidden = !f.editing;
+        f.remove.hidden = !value;
+      }
     }
 
     function render(force) {
