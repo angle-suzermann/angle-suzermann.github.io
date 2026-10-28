@@ -249,19 +249,22 @@ function viewPhonics(){
   return `<div class="card">${head}${legend}${desk}${mob}</div>`;
 }
 
+const extraLink=value=>{if(!/^(https?:\/\/|\/)/i.test(String(value||'')))return '';try{const u=new URL(value,location.href);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}};
+const extraDrafts=new Map();
+const extraDraftKey=id=>ui.course+'|'+id;
 const PURPOSES=['Reinforcement','Checking understanding','Error correction','Clarification'];
 function viewExtras(){
   const cc=C(),c=ui.course;
   const head=`<div class="unit-head"><div><h2>Extra worksheets</h2><div class="sub">Occasional worksheets. They count in the completion %. Tap a circle: sent? → done and submitted ✓ → not given → empty. Only ✓ earns points.</div></div><button class="btn" id="addExtra">+ Add worksheet</button></div>`;
   if(!cc.extras.length)return `<div class="card">${head}<div class="empty">No extra worksheets yet.</div></div>`;
-  const list=[...cc.extras].reverse().map(x=>`<div class="xcard" data-x="${esc(x.id)}"><div class="xgrid">
+  const list=[...cc.extras].reverse().map(saved=>{const draft=extraDrafts.get(extraDraftKey(saved.id)),x=draft||saved;return `<div class="xcard" data-x="${esc(x.id)}">${draft?`<div class="xgrid">
     <div><label>Date given</label><input type="date" value="${esc(x.date)}" data-xf="date"></div>
     <div class="wide2"><label>Topic</label><input type="text" value="${esc(x.topic)}" data-xf="topic" placeholder="e.g. Present perfect vs past simple"></div>
     <div><label>Purpose</label><select data-xf="purpose"><option value=""></option>${PURPOSES.map(p=>`<option ${p===x.purpose?'selected':''}>${p}</option>`).join('')}</select></div>
     <div><label>Points</label><input type="number" min="0" value="${x.points}" data-xf="points"></div>
     <div class="wide2" style="grid-column:1/3"><label>Worksheet (name or link)</label><input type="text" value="${esc(x.link)}" data-xf="link"></div>
-    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div>
-    <div class="xstud">${cc.students.map(s=>`<span class="xs">${dot(c,s.id,'ex',x.id,'ex',!!x.date)}${esc(s.name)}</span>`).join('')}</div></div>`).join('');
+    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div><p><button type="button" class="btn" data-extra-save="${esc(x.id)}">Save</button></p>`:`<div class="extra-compact"><div><div class="tt">${extraLink(x.link)?`<a href="${esc(extraLink(x.link))}" target="_blank" rel="noopener">${esc(x.topic||x.link||'Worksheet')}</a>`:esc(x.topic||x.link||'Worksheet')}</div><div class="sub">${[x.date,x.purpose,x.points+' pts'].filter(Boolean).map(esc).join(' · ')}</div>${x.note?`<div class="tnote">${esc(x.note)}</div>`:''}</div><button type="button" class="btn ghost" data-extra-edit="${esc(x.id)}">Edit</button></div>`}
+    <div class="xstud">${cc.students.map(s=>`<span class="xs">${dot(c,s.id,'ex',x.id,'ex',!!x.date)}${esc(s.name)}</span>`).join('')}</div></div>`}).join('');
   return `<div class="card">${head}${list}</div>`;
 }
 
@@ -382,9 +385,16 @@ document.addEventListener('click',e=>{
     document.querySelectorAll('#view .matrix,#view .sel').forEach((el,i)=>{if(scrollers[i]){el.scrollLeft=scrollers[i].left;el.scrollTop=scrollers[i].top;}});
     window.scrollTo(x,y);return}
   const cd=e.target.closest('[data-card]');if(cd){openCard(cd.dataset.card);return}
+  const extraEdit=e.target.closest('[data-extra-edit]');
+  if(extraEdit){const x=C().extras.find(x=>x.id===extraEdit.dataset.extraEdit);if(x){extraDrafts.set(extraDraftKey(x.id),{...x});render()}return}
+  const extraSave=e.target.closest('[data-extra-save]');
+  if(extraSave){const box=extraSave.closest('[data-x]'),x=C().extras.find(x=>x.id===box.dataset.x);if(!x)return;
+    box.querySelectorAll('[data-xf]').forEach(inp=>{const field=inp.dataset.xf,value=field==='points'?Math.max(0,+inp.value||0):inp.value;if(String(x[field]??'')!==String(value)){x[field]=value;send({a:'updateExtra',course:ui.course,id:x.id,field,value})}});
+    extraDrafts.delete(extraDraftKey(x.id));render();return;
+  }
   if(e.target.id==='addExtra'){
     const x={id:'x'+Date.now().toString(36),date:new Date().toISOString().slice(0,10),topic:'',purpose:'',link:'',points:5,note:''};
-    C().extras.push(x);send({a:'addExtra',course:ui.course,extra:x});render();return}
+    C().extras.push(x);extraDrafts.set(extraDraftKey(x.id),{...x});send({a:'addExtra',course:ui.course,extra:x});render();return}
   if(e.target.id==='cfgLink'){const c=LS.get('angleTracker.cfg',{url:'',token:''});if(!c.url||!c.token){toast('Connect the sheet first');return}const link=location.origin+location.pathname+'?s='+setupCode(c);(navigator.clipboard?navigator.clipboard.writeText(link):Promise.reject()).then(()=>toast('Setup link copied. Send it to yourself.'),()=>{prompt('Copy this link',link)});return}
   if(e.target.id==='cfgCodeGo'){const c=readSetup($('#cfgCode').value);if(!c){toast('This is not a valid setup link or code');return}LS.set('angleTracker.cfg',c);location.reload();return}
   if(e.target.id==='gear'){addSetupUI();$('#cfgUrl').value=cfg.url||'';$('#cfgTok').value=cfg.token||'';$('#setDlg').showModal();return}
@@ -398,8 +408,7 @@ document.addEventListener('change',e=>{
   if(p){const l=C().phonics.find(x=>x.id===p.dataset.pdate);l.date=p.value;send({a:'setPhonicsDate',course:ui.course,id:l.id,date:l.date});render();return}
   const f=e.target.closest('[data-xf]');
   if(f){const id=f.closest('[data-x]').dataset.x,x=C().extras.find(z=>z.id===id),fld=f.dataset.xf;
-    x[fld]=fld==='points'?(+f.value||0):f.value;send({a:'updateExtra',course:ui.course,id,field:fld,value:x[fld]});
-    if(fld==='date'||fld==='points')render();}
+    const draft=extraDrafts.get(extraDraftKey(id));if(draft)draft[fld]=fld==='points'?(+f.value||0):f.value;}
 });
 
 /* ---------- boot ---------- */
@@ -422,3 +431,5 @@ document.addEventListener('change',e=>{
     $('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${PARENT?"":"<br><br>Check the URL and token in ⚙."}${retryBtn}</div>`;setSync('err','Offline');return}
   if(PARENT)renderParent();else render();
 })();
+
+document.addEventListener('input',e=>{const f=e.target.closest('[data-xf]');if(!f)return;const draft=extraDrafts.get(extraDraftKey(f.closest('[data-x]').dataset.x));if(draft)draft[f.dataset.xf]=f.dataset.xf==='points'?(+f.value||0):f.value});

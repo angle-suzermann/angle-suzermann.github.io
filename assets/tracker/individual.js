@@ -147,7 +147,8 @@ function taskCard(pl,bi,t,number){
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
     <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
   }
-  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
+  const handle=STUDENT?'':`<button type="button" class="task-drag" data-task-drag="${bi}|${t.n}" aria-label="Изменить порядок: ${esc(t.task)}" title="Перетащите; с клавиатуры — стрелки вверх/вниз">⋮⋮</button>`;
+  return `<div class="task k-${k} s-${s}" data-task-row="${bi}|${t.n}">${handle}<div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
   const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
@@ -390,3 +391,68 @@ function openTrackerCalendar(input){
   });
   dialog.addEventListener('cancel',e=>{e.preventDefault();close()});draw();document.body.appendChild(dialog);dialog.showModal();
 }
+
+// Tasks.n is the existing persisted sort key. Move one row with a unique numeric
+// rank, addressing the write by its OLD key; all other fields stay on that row.
+function moveTrackerTask(sourceKey,targetKey,after){
+  if(STUDENT||sourceKey===targetKey)return;
+  const {b,t}=find(sourceKey),target=find(targetKey);
+  if(!b||!t||b!==target.b||!target.t||gKey(t)!==gKey(target.t))return;
+  const items=b.tasks.filter(x=>gKey(x)===gKey(t)&&x!==t).sort((a,c)=>a.n-c.n);
+  const at=items.indexOf(target.t)+(after?1:0);items.splice(at,0,t);
+  const original=b.tasks.filter(x=>gKey(x)===gKey(t)).sort((a,c)=>a.n-c.n);
+  if(items.every((x,i)=>x===original[i]))return;
+  const otherRanks=b.tasks.filter(x=>x!==t).map(x=>x.n);
+  const low=at?items[at-1].n:Math.max(items[1].n-2,...otherRanks.filter(n=>n<items[1].n));
+  const high=at<items.length-1?items[at+1].n:Math.min(items[at-1].n+2,...otherRanks.filter(n=>n>items[at-1].n));
+  let rank=low+(high-low)/2;
+  while(b.tasks.some(x=>x.n===rank)&&rank>low&&rank<high)rank=low+(rank-low)/2;
+  if(!(rank>low&&rank<high)){toast('Не удалось изменить порядок: обновите страницу.');return}
+  const old=t.n;t.n=rank;b.tasks.sort((a,c)=>a.n-c.n);ui.tedit=null;
+  send({a:'setTask',plan:P().id,block:b.name,n:old,field:'n',value:rank});
+  render();toast('Порядок заданий сохранён');
+  document.querySelector(`[data-task-drag="${sourceKey.split('|')[0]}|${rank}"]`)?.focus({preventScroll:true});
+}
+let taskDrag=null;
+function clearTaskDrag(){
+  if(!taskDrag)return;
+  taskDrag.row.classList.remove('task-dragging');
+  document.querySelectorAll('.task-drop-before,.task-drop-after').forEach(x=>x.classList.remove('task-drop-before','task-drop-after'));
+  cancelAnimationFrame(taskDrag.frame);taskDrag=null;
+}
+document.addEventListener('pointerdown',e=>{
+  const handle=e.target.closest('[data-task-drag]');
+  if(!handle||STUDENT||e.button!==0)return;
+  e.preventDefault();handle.setPointerCapture(e.pointerId);
+  taskDrag={handle,row:handle.closest('[data-task-row]'),group:handle.closest('.wgrp'),key:handle.dataset.taskDrag,pointer:e.pointerId,x:e.clientX,y:e.clientY,startY:e.clientY,target:null,after:false,active:false};
+  function scroll(){
+    if(!taskDrag)return;
+    if(taskDrag.active){const y=taskDrag.y,edge=80;window.scrollBy(0,y<edge?-12:y>innerHeight-edge?12:0)}
+    taskDrag.frame=requestAnimationFrame(scroll);
+  }
+  taskDrag.frame=requestAnimationFrame(scroll);
+});
+document.addEventListener('pointermove',e=>{
+  const d=taskDrag;if(!d||e.pointerId!==d.pointer)return;
+  d.x=e.clientX;d.y=e.clientY;
+  if(!d.active&&Math.abs(e.clientY-d.startY)<5)return;
+  d.active=true;d.row.classList.add('task-dragging');e.preventDefault();
+  document.querySelectorAll('.task-drop-before,.task-drop-after').forEach(x=>x.classList.remove('task-drop-before','task-drop-after'));
+  const rows=[...d.group.querySelectorAll('[data-task-row]')].filter(x=>x!==d.row);
+  d.target=rows.reduce((best,row)=>{const r=row.getBoundingClientRect(),distance=Math.abs(e.clientY-(r.top+r.height/2));return !best||distance<best.distance?{row,distance}:best},null)?.row;
+  if(d.target){const r=d.target.getBoundingClientRect();d.after=e.clientY>r.top+r.height/2;d.target.classList.add(d.after?'task-drop-after':'task-drop-before')}
+},{passive:false});
+document.addEventListener('pointerup',e=>{
+  const d=taskDrag;if(!d||e.pointerId!==d.pointer)return;
+  const target=d.active&&d.target?.dataset.taskRow,after=d.after;clearTaskDrag();
+  if(target)moveTrackerTask(d.key,target,after);
+});
+document.addEventListener('pointercancel',clearTaskDrag);
+document.addEventListener('lostpointercapture',e=>{if(taskDrag&&e.pointerId===taskDrag.pointer)clearTaskDrag()});
+document.addEventListener('keydown',e=>{
+  const handle=e.target.closest('[data-task-drag]');if(!handle||STUDENT)return;
+  if(e.key==='Escape'){clearTaskDrag();return}
+  if(!['ArrowUp','ArrowDown'].includes(e.key))return;
+  e.preventDefault();const rows=[...handle.closest('.wgrp').querySelectorAll('[data-task-row]')],at=rows.indexOf(handle.closest('[data-task-row]')),next=rows[at+(e.key==='ArrowUp'?-1:1)];
+  if(next)moveTrackerTask(handle.dataset.taskDrag,next.dataset.taskRow,e.key==='ArrowDown');
+});
