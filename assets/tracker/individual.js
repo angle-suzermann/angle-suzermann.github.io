@@ -122,7 +122,7 @@ function stBtn(bi,t){
   const lab2=pc==null?label:label+' · '+m[1]+' '+pc+'%';
   return `<button class="st ${s}${pc==null?'':' pr'}"${ringAttr} data-tk="${bi}|${t.n}" aria-label="${lab2}" title="${lab2}"${dis?' disabled':''}>${icon}</button>`;
 }
-function taskCard(pl,bi,t){
+function taskCard(pl,bi,t,number){
   const k=KINDS[t.kind]?t.kind:'homework';
   // Students can open assigned tasks; teachers retain access to every task.
   const l=STUDENT&&t.status==='N/A'?'':safeLink(t.link);
@@ -147,7 +147,7 @@ function taskCard(pl,bi,t){
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
     <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
   }
-  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt"><span class="task-number">${esc(t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
+  return `<div class="task k-${k} s-${s}"><div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
   const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
@@ -166,7 +166,7 @@ function viewBlock(pl,bi,only){
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
     const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
-    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map(t=>taskCard(pl,bi,t)).join('')}${gadd}</section>`}).join('');
+    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${blockTools}${blockEdit}${body}</div>`;
 }
 function addBar(pl,bi){
