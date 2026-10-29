@@ -632,7 +632,8 @@ ${extraScript}
 `;
 
 const shareButton = (url,title) => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(title)}">Поделиться</button>`;
-const materialIcon = (m) => `<img class="material-brand-icon" src="${BASE}/assets/brand/material-icons/${m.type==='test'?'test':m.audience==='teacher'?'tracker':/homework/i.test(m.title)?'homework':m.type==='presentation'?'presentation':m.type==='warmup'?'warmup':'worksheet'}.png" width="32" height="32" alt="" loading="lazy">`;
+// Keep the material's topic-specific icon; do not replace it with an unrelated mascot.
+const materialIcon = (m) => m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
     <a class="material-open" href="${esc(m.url)}" target="_blank" rel="noopener"><div class="row">
@@ -1055,7 +1056,7 @@ function groupFilesByLabel(files) {
 function renderPersonalNode(course, node, depth) {
   /* документы — плитки (как папки), а не список: плитка открывает основной
      формат (HTML, если есть, иначе первый), остальные форматы — ссылками ниже */
-  const fileIcon = (variants) => `<img class="tile-logo" src="${BASE}/assets/brand/material-icons/${variants.some((v) => v.ext === 'HTML') ? 'worksheet' : 'document'}.png" alt="" loading="lazy">`;
+  const fileIcon = (variants) => `<span class="tile-emoji">${variants.some((v) => v.ext === 'HTML') ? '🧩' : variants.some((v) => v.ext === 'PDF') ? '📄' : '📎'}</span>`;
   const filesHtml = node.files.length
     ? `<div class="tile-grid personal-file-grid">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
         const main = variants.find((v) => v.ext === 'HTML') || variants[0];
