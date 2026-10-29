@@ -191,7 +191,10 @@ function addBar(pl,bi){
 }
 function individualReport(pl){
   if(!window.AngleParentReports)return '';
+  const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
+  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);url.searchParams.set('parent','1')}
   return AngleParentReports.panel({id:'plan|'+pl.id,name:pl.student,course:pl.title,
+    shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.plan===pl.id)
   });
 }
