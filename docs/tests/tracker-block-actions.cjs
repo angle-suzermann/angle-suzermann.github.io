@@ -4,7 +4,7 @@ const root=process.cwd();
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:process.env.TRACKER_TEST_BROWSER||'msedge'}),writes=[];
  const plan={id:'ege-test',student:'Demo Student',title:'Demo plan',key:'fixture-parent-key',blocks:[
-  {name:'Block 1',tasks:[{n:1,task:'Task A',date:'Oct, 11',kind:'homework',points:5,status:'✓'},{n:2,task:'Task B',date:'Oct, 12',kind:'classwork',points:10,status:'',suggested:'2026-10-27'}]},
+  {name:'Block 1',tasks:[{n:1,task:'1. Task A',date:'Oct, 11',kind:'homework',points:5,status:'✓'},{n:2,task:'2. Task B',date:'Oct, 12',kind:'classwork',points:10,status:'',suggested:'2026-10-27'}]},
   {name:'Block 2',tasks:[{n:1,task:'Keep this task',date:'Oct, 22',kind:'homework',points:5,status:'✓'}]}
  ]};
  try{
@@ -39,6 +39,7 @@ const root=process.cwd();
   const page=await ctx.newPage();await page.goto('https://tracker.test/ege-2027/0-homework-tracker/');
   await page.locator('.task-number').first().waitFor();
   assert.deepEqual(await page.locator('.task-number').allTextContents(),['1.','1.'],'each date block starts from one');
+  assert.deepEqual((await page.locator('.tt').allTextContents()).map(s=>s.trim()),['1. Task B','1. Task A'],'manual prefixes hidden, automatic numbers retained');
   assert.equal(await page.locator('[data-tk]').first().getAttribute('data-tk'),'0|2','display numbering does not change task IDs');
   await page.locator('[data-en]').first().click();
   await page.locator('[data-f="kind"][value="homework"]').check();
@@ -65,7 +66,8 @@ const root=process.cwd();
   assert.equal(writes.length,2);assert(writes.every(w=>w.block==='Block 1'&&w.field==='date'&&w.value==='2026-10-29 · 2026-10-30'));
   assert.equal(plan.blocks[0].tasks[0].status,'✓');assert.equal(plan.blocks[0].tasks[1].points,10);assert.equal(plan.blocks[1].tasks[0].date,'Oct, 22');
   await page.reload();await page.locator('[data-block-delete="0"]').waitFor();
-  assert.match(await page.locator('.blk').innerText(),/2026-10-29/);
+  assert.match(await page.locator('.blk').innerText(),/October, 29/);
+  assert.deepEqual(await page.locator('.dchip').allTextContents(),['October, 29','October, 30']);
   // Date picker can display old labels without silently rewriting their stored values.
   await page.locator('[data-tab="b1"]').click();await page.locator('[data-gedit]').first().click();
   assert.equal(await page.locator('.gd').first().getAttribute('type'),'date');

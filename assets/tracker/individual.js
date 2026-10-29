@@ -29,9 +29,12 @@ const KINDS=STUDENT?{before:'До урока',classwork:'Работа на ур�
 const blockLabel=s=>STUDENT?String(s).replace(/^Block\s+(\d+)/i,'Блок $1').replace(/^Week\s+/i,'Неделя '):s;
 /* lessons per week: how many dates a week header can carry. TRACKER_DATES is a number, or {planId: number} */
 const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[ui.plan]:t;return Math.max(1,+v||1)};
+function cleanTaskTitle(value){return String(value??'').replace(/^\s*\d{1,3}[.)]\s+(?=\S)/,'').trim()}
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
 const gKey=t=>(t.week||'')+'|'+(t.date||'');
 const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
+function trackerDateLabel(raw){const s=String(raw||'').trim(),m=s.match(/^\d{4}-(\d{2})-(\d{2})$/),months=['January','February','March','April','May','June','July','August','September','October','November','December'];return m&&months[+m[1]-1]?months[+m[1]-1]+', '+Number(m[2]):s}
+const trackerDatesLabel=raw=>dateParts(raw).map(trackerDateLabel).join(' · ');
 function trackerDateISO(raw){
   const s=String(raw||'').trim();if(!s)return '';
   let y,m,d,hit=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -126,7 +129,8 @@ function taskCard(pl,bi,t,number){
   const k=KINDS[t.kind]?t.kind:'homework';
   // Students can open assigned tasks; teachers retain access to every task.
   const l=STUDENT&&t.status==='N/A'?'':safeLink(t.link);
-  const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t.task)}</a>`:esc(t.task);
+  const name=cleanTaskTitle(t.task);
+  const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(name)}</a>`:esc(name);
   const sub=[t.mode,t.unit,t.points+(STUDENT?' баллов':' pts')].filter(Boolean).map(esc).join(' · ');
   const s=stateOf(t);
   const tag=s==='sug'?`<span class="tag sug">${STUDENT?'Ожидает проверки':'Suggested'}${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?`<span class="tag ok">${STUDENT?'Подтверждено':'Confirmed'}</span>`:'';
@@ -137,8 +141,8 @@ function taskCard(pl,bi,t,number){
   let ed='';
   if(!STUDENT&&ui.tedit===bi+'|'+t.n){
     const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
-    const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
-    ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(t.task)}"></div>
+    const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,trackerDatesLabel(g.date)].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
+    ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
     <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
     <div class="c-full tnew" style="display:none"><label>Week label</label><input type="text" class="tw" placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
@@ -147,7 +151,7 @@ function taskCard(pl,bi,t,number){
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
     <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
   }
-  const handle=STUDENT?'':`<button type="button" class="task-drag" data-task-drag="${bi}|${t.n}" aria-label="Изменить порядок: ${esc(t.task)}" title="Перетащите; с клавиатуры — стрелки вверх/вниз">⋮⋮</button>`;
+  const handle=STUDENT?'':`<button type="button" class="task-drag" data-task-drag="${bi}|${t.n}" aria-label="Изменить порядок: ${esc(name)}" title="Перетащите; с клавиатуры — стрелки вверх/вниз">⋮⋮</button>`;
   return `<div class="task k-${k} s-${s}" data-task-row="${bi}|${t.n}">${handle}<div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
@@ -164,7 +168,7 @@ function viewBlock(pl,bi,only){
   const blockTools=canEdit?`<div class="erow" style="margin:8px 0 12px;flex-wrap:wrap"><button type="button" class="btn ghost" data-block-edit="${bi}">Изменить даты блока</button><button type="button" class="btn ghost" data-block-delete="${bi}">Удалить блок</button></div>`:'';
   const blockEdit=canEdit&&ui.blockEdit===bi?`<div class="gedit" data-block-form="${bi}"><p class="sub">Новые даты будут применены ко всем ${b.tasks.length} заданиям блока. Содержание, баллы и отметки сохранятся.</p><label>Даты всего блока</label><div class="dgrid">${dateInputs(dates.length===1?dateParts(dates[0]):[],'block-new-date')}</div><p class="erow"><button type="button" class="btn" data-block-save="${bi}">Применить ко всему блоку</button><button type="button" class="btn ghost" data-block-cancel>Отмена</button></p></div>`:'';
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
-    const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(d)}</span>`).join('')||(g.date?`<span class="dchip">${esc(g.date)}</span>`:'');
+    const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(trackerDateLabel(d))}</span>`).join('')||(g.date?`<span class="dchip">${esc(trackerDatesLabel(g.date))}</span>`:'');
     const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
     return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
@@ -174,7 +178,7 @@ function addBar(pl,bi){
   if(STUDENT)return '';
   const b=pl.blocks[bi],open=ui.addOpen||!pl.blocks.length;
   const groups=b?groupWeeks(b.tasks):[];
-  const opts=groups.map((g,i)=>`<option value="${esc(g.key)}"${i===0?' selected':''}>${esc([g.week,g.date].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+`<option value="__new"${groups.length?'':' selected'}>New date…</option>`;
+  const opts=groups.map((g,i)=>`<option value="${esc(g.key)}"${i===0?' selected':''}>${esc([g.week,trackerDatesLabel(g.date)].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+`<option value="__new"${groups.length?'':' selected'}>New date…</option>`;
   const form=open?`<div class="card addbox"><div class="xgrid">
     <div style="grid-column:1/-1"><label>Tasks (one per line; numbered automatically)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
@@ -239,7 +243,7 @@ function render(){
 /* ---------- events ---------- */
 const find=s=>{const [bi,n]=s.split('|');const b=P().blocks[+bi];return{b,t:b.tasks.find(x=>x.n===+n)}};
 const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value})};
-function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:o.task,mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
+function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
   if(e.target.closest('[data-parent-card]')){if(!STUDENT)openParentProgress(P());return}
@@ -292,7 +296,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-tcancel]')){ui.tedit=null;render();return}
   const ts=e.target.closest('[data-tsave]');
   if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
-    box.querySelectorAll('[data-f]').forEach(inp=>{if(inp.type==='radio'&&!inp.checked)return;const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
+    box.querySelectorAll('[data-f]').forEach(inp=>{if(inp.type==='radio'&&!inp.checked)return;const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task')v=cleanTaskTitle(v);if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
     const sel=box.querySelector('[data-tgroup]');
     if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){w=box.querySelector('.tw').value.trim();d=readDates(box,'td');if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
       if((t.week||'')!==w)setF(b,t,'week',w);if((t.date||'')!==d)setF(b,t,'date',d)}
