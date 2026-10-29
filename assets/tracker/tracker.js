@@ -221,7 +221,10 @@ function studentCardBody(s,n,readonly){
 function parentReport(s){
   if(!window.AngleParentReports)return '';
   const course=ui.course;
+  const url=new URL(location.pathname,location.origin),api=PARENT?QP.get('a'):cfg.url,key=PARENT?QP.get('p'):s.key;
+  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key)}
   return AngleParentReports.panel({id:course+'|'+s.id,name:s.name,course,
+    shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.course===course&&r.studentId===s.id&&!r.plan)
   });
 }
