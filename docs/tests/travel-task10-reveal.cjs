@@ -1,0 +1,10 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({headless:true,channel:'msedge'});try{for(const width of [390,1280]){
+ const ctx=await b.newContext({viewport:{width,height:900}});await ctx.route('**/*',route=>{const u=new URL(route.request().url());if(u.hostname!=='page.test')return route.abort();let f=path.join(process.cwd(),u.pathname.startsWith('/assets/')?'':'_site',decodeURIComponent(u.pathname));if(u.pathname.endsWith('/'))f=path.join(f,'index.html');if(!fs.existsSync(f))return route.fulfill({status:404});return route.fulfill({body:fs.readFileSync(f),contentType:f.endsWith('.js')?'application/javascript':f.endsWith('.css')?'text/css':f.endsWith('.html')?'text/html':'application/octet-stream'})});
+ const p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('https://page.test/ege-2027/1.%20Путешествие/03.%20Чтение/travel-reading-task10-classwork/');await p.locator('.page-dot').nth(4).click();
+ const fields=p.locator('.page.active input.gap');assert.equal(await fields.count(),28);assert.equal(await p.locator('.page.active input.gap + .reveal-btn-sm').count(),28);
+ for(const f of await fields.all()){const answer=await f.getAttribute('data-answer');await f.locator('xpath=following-sibling::button[1]').click();assert.equal(await f.inputValue(),answer);assert((JSON.parse(await f.getAttribute('data-acc'))).includes(answer))}
+ await p.waitForTimeout(750);await p.reload();await p.locator('.page-dot').nth(4).click();
+ for(const f of await p.locator('.page.active input.gap').all())assert.equal(await f.inputValue(),await f.getAttribute('data-answer'));
+ assert.deepEqual(errors,[]);await ctx.close();
+}console.log('PASS: Travel Task10 page 5 has 28 reveal eyes; each fills an accepted answer; revealed answers persist after reload, mobile and desktop.');}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});

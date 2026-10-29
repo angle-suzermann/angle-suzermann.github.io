@@ -5,7 +5,8 @@ const fs=require('node:fs'),assert=require('node:assert/strict');const {chromium
  const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto('https://drawing.test/');
  const stored=()=>p.evaluate(()=>JSON.parse(localStorage.getItem('angle_ink::/')||'{}').single||[]);
  const panel=p.locator('#wtInkPanel'),button=p.locator('#wtInkBtn');
- await p.locator('#target').scrollIntoViewIfNeeded();await button.click();await panel.locator('[data-color="#3fa66b"]').click();await panel.locator('[data-w="5"]').click();await panel.locator('[data-tool="pen"]').click();
+ const openPanel=async()=>{if(await button.getAttribute('aria-pressed')!=='true')await button.click();else if(!await panel.isVisible())await p.locator('#wtInkSettings').click()};
+ await p.locator('#target').scrollIntoViewIfNeeded();await openPanel();await panel.locator('[data-color="#3fa66b"]').click();await panel.locator('[data-w="5"]').click();await panel.locator('[data-tool="pen"]').click();
  let box=await p.locator('#target').boundingBox();await p.mouse.move(box.x+4,box.y+8);await p.mouse.down();await p.mouse.move(box.x+16,box.y+8,{steps:4});await p.mouse.up();
  assert.equal((await stored()).length,1);assert.equal((await stored())[0].anchor.selector,'#target');
  async function greenMark(){return p.evaluate(()=>{const c=document.querySelector('#wtInk'),r=c.getBoundingClientRect(),data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let x1=Infinity,y1=Infinity,x2=0,y2=0;for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++){const i=(y*c.width+x)*4;if(data[i+3]>80&&data[i+1]>110&&data[i]<100&&data[i+2]<150){x1=Math.min(x1,x);y1=Math.min(y1,y);x2=Math.max(x2,x);y2=Math.max(y2,y)}}return {x:r.left+(x1+x2)/2*r.width/c.width,y:r.top+(y1+y2)/2*r.height/c.height}})}
@@ -13,23 +14,23 @@ const fs=require('node:fs'),assert=require('node:assert/strict');const {chromium
  const fontStyle=await p.addStyleTag({content:'main{font-size:24px}'});await p.locator('#target').scrollIntoViewIfNeeded();await p.waitForTimeout(350);box=await p.locator('#target').boundingBox();let scaled=await greenMark();assert(Math.abs(scaled.x-(box.x+12))<8);assert(Math.abs(scaled.y-(box.y+9.6))<8);await fontStyle.evaluate(el=>el.remove());await p.waitForTimeout(350);
  // New text and edits use the same persisted object, including its anchor.
  await p.locator('#text-target').scrollIntoViewIfNeeded();box=await p.locator('#text-target').boundingBox();const x=box.x+50,y=box.y+9;
- await button.click();await panel.locator('[data-tool="text"]').click();await p.mouse.click(x,y);await p.locator('.wt-text-editor').fill('is');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();
+ await openPanel();await panel.locator('[data-tool="text"]').click();await p.mouse.click(x,y);await p.locator('.wt-text-editor').fill('is');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();
  assert.equal((await stored()).length,2);assert.equal((await stored())[1].text,'is');
- await button.click();await panel.getByRole('button',{name:'✎ Изменить текст'}).click();await p.mouse.click(x+3,y+3);assert.equal(await p.locator('.wt-text-editor').inputValue(),'is');await p.locator('.wt-text-editor').fill('are');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();
+ await openPanel();await panel.getByRole('button',{name:'✎ Изменить текст'}).click();await p.mouse.click(x+3,y+3);assert.equal(await p.locator('.wt-text-editor').inputValue(),'is');await p.locator('.wt-text-editor').fill('are');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();
  assert.equal((await stored()).length,2);assert.equal((await stored())[1].text,'are');
- await button.click();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[1].text,'is');await panel.getByTitle('Повторить',{exact:true}).click();assert.equal((await stored())[1].text,'are');
+ await openPanel();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[1].text,'is');await panel.getByTitle('Повторить',{exact:true}).click();assert.equal((await stored())[1].text,'are');
  await panel.locator('[data-tool="text"]').click();await p.mouse.click(x+3,y+3);await p.locator('.wt-text-editor').fill('cancel this');await p.locator('.wt-text-actions').getByRole('button',{name:'Отмена'}).click();assert.equal((await stored())[1].text,'are');
- await button.click();await panel.locator('[data-tool="select"]').click();await p.mouse.click(x+3,y+3);await button.click();await panel.getByRole('button',{name:'✎ Изменить текст'}).click();assert.equal(await p.locator('.wt-text-editor').inputValue(),'are');await p.locator('.wt-text-editor').fill('were');await p.keyboard.press('Enter');assert.equal((await stored())[1].text,'were');
- await button.click();await panel.locator('[data-tool="text"]').click();await p.touchscreen.tap(x+3,y+3);await p.locator('.wt-text-editor').fill('');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();assert.equal((await stored()).length,1);
- await button.click();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[1].text,'were');
+ await openPanel();await panel.locator('[data-tool="select"]').click();await p.mouse.click(x+3,y+3);await openPanel();await panel.getByRole('button',{name:'✎ Изменить текст'}).click();assert.equal(await p.locator('.wt-text-editor').inputValue(),'are');await p.locator('.wt-text-editor').fill('were');await p.keyboard.press('Enter');assert.equal((await stored())[1].text,'were');
+ await openPanel();await panel.locator('[data-tool="text"]').click();await p.touchscreen.tap(x+3,y+3);await p.locator('.wt-text-editor').fill('');await p.locator('.wt-text-actions').getByRole('button',{name:'Сохранить'}).click();assert.equal((await stored()).length,1);
+ await openPanel();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[1].text,'were');
  // Existing saved strokes without anchor metadata migrate without changing geometry.
  const previousPoints=(await stored())[0].points;
  await p.evaluate(()=>{const key='angle_ink::/',data=JSON.parse(localStorage.getItem(key));delete data.single[0].anchor;localStorage.setItem(key,JSON.stringify(data))});
  await p.reload();await p.locator('#wtInk').waitFor();assert.equal((await stored())[1].text,'were');assert.equal((await stored())[0].anchor.selector,'#target');assert.deepEqual((await stored())[0].points,previousPoints);
  await p.locator('#target').scrollIntoViewIfNeeded();const from=await p.locator('#target').boundingBox(),to=await p.locator('#text-target').boundingBox();
- await button.click();await panel.locator('[data-tool="select"]').click();await p.mouse.move(from.x+10,from.y+8);await p.mouse.down();await p.mouse.move(to.x+5,to.y+10,{steps:6});await p.mouse.up();
+ await openPanel();await panel.locator('[data-tool="select"]').click();await p.mouse.move(from.x+10,from.y+8);await p.mouse.down();await p.mouse.move(to.x+5,to.y+10,{steps:6});await p.mouse.up();
  assert.equal((await stored())[0].anchor.selector,'#text-target','moving an old mark attaches it to the new text');
- await button.click();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[0].anchor.selector,'#target');assert.deepEqual((await stored())[0].points,previousPoints);
+ await openPanel();await panel.getByTitle('Отменить',{exact:true}).click();assert.equal((await stored())[0].anchor.selector,'#target');assert.deepEqual((await stored())[0].points,previousPoints);
  await panel.getByTitle('Повторить',{exact:true}).click();assert.equal((await stored())[0].anchor.selector,'#text-target');
  assert.deepEqual(errors,[]);await ctx.close();console.log('PASS: freehand follows the same word across repeated narrow/wide reflow; text create/edit/cancel/undo/redo; panel editing selected text; reload retains anchor and edits.');
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

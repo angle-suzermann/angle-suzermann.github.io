@@ -20,13 +20,14 @@
     '.scroll-area{overflow-x:hidden}',
     '#wtInk,#wtLaser{position:absolute;top:0;left:0;touch-action:none;pointer-events:none}',
     '#wtInk{z-index:500}#wtLaser{z-index:501}',
-    '.wt-dock{position:fixed;z-index:9999;display:flex;flex-direction:column;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none}',
+    '.wt-dock{position:fixed;z-index:9999;display:flex;flex-direction:column;gap:6px;touch-action:none;user-select:none;-webkit-user-select:none;transform:scale(var(--wt-ui-scale,1));transform-origin:top left}',
     '.wt-btn{width:40px;height:40px;border-radius:50%;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(45,25,60,.35);touch-action:none;-webkit-tap-highlight-color:transparent}',
     '.wt-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}',
     '#wtNoteBtn{background:' + YELLOW + ';color:' + BLACK + '}#wtNoteBtn.on{background:' + PURPLE + ';color:#fff}',
     '#wtInkBtn{background:' + PURPLE + ';color:#fff}#wtInkBtn.on{background:' + YELLOW + ';color:' + BLACK + '}',
     '.wt-panel{position:fixed;z-index:9998;background:#fff;border:1.5px solid ' + PURPLE + ';border-radius:12px;padding:8px;box-shadow:0 8px 24px rgba(45,25,60,.3);display:flex;flex-direction:column;gap:7px;overflow-y:auto;max-width:calc(100vw - 16px);font-family:inherit}',
     '.wt-panel[hidden]{display:none}',
+    '#wtInkPanel{padding:6px;gap:5px;transform:scale(var(--wt-ui-scale,1));transform-origin:top left}#wtInkPanel .wt-tools{grid-template-columns:repeat(6,26px)}#wtInkPanel .wt-grid{gap:4px}#wtInkPanel .wt-t,#wtInkPanel .wt-s,#wtInkPanel .wt-a{width:26px;height:26px;font-size:14px}#wtInkPanel .wt-widths,#wtInkPanel .wt-acts,#wtInkPanel .wt-stk{grid-template-columns:repeat(5,30px)}#wtInkPanel .wt-w{width:30px;height:22px}#wtInkPanel .wt-colors{grid-template-columns:repeat(5,30px)}#wtInkPanel .wt-c{width:18px;height:18px}#wtInkPanel summary{font-family:inherit;font-weight:700;font-size:12px;line-height:1.4;color:' + PURPLE + ';cursor:pointer}#wtInkPanel .wt-stk{margin-top:5px}.wt-dock .wt-btn{width:32px;height:32px}#wtInkSettings{font-size:22px;background:#fff;color:' + PURPLE + ';border:1px solid ' + PURPLE + '}#wtInkSettings[hidden]{display:none}',
     '.wt-collapse{border:0;border-radius:7px;background:#f3eef8;color:' + PURPLE + ';padding:6px 8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}',
     '.wt-text-actions{position:fixed;z-index:10010;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:8px;border:1px solid ' + PURPLE + ';border-radius:12px;background:#fff;box-shadow:0 4px 18px #0003}.wt-text-actions button{font:inherit;font-weight:700;border:1px solid ' + PURPLE + ';border-radius:8px;background:#f3eef8;color:' + PURPLE + ';padding:9px 14px}',
     '.wt-grid{display:grid;gap:5px}',
@@ -100,6 +101,9 @@
   var timerBtn = el('button', 'wt-btn', '<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg>');
   timerBtn.id = 'wtTimerBtn'; timerBtn.type = 'button'; timerBtn.title = 'Таймер (перетащи, чтобы передвинуть)';
   dock.appendChild(noteBtn); dock.appendChild(inkBtn); dock.appendChild(timerBtn);
+  var inkSettings = el('button', 'wt-btn', '⋯'); inkSettings.id = 'wtInkSettings';inkSettings.type = 'button';inkSettings.hidden = true;
+  inkSettings.title = 'Инструменты рисования';inkSettings.setAttribute('aria-label', 'Инструменты рисования');dock.insertBefore(inkSettings, timerBtn);
+  inkSettings.addEventListener('click', function () { if (panel.hidden) showInkPanel(); else hideInkPanel(); });
   document.body.appendChild(dock);
 
   var panel = el('div', 'wt-panel'); panel.hidden = true;
@@ -131,7 +135,9 @@
   var gActs = el('div', 'wt-grid wt-acts');
   var undoB = el('button', 'wt-a', '↶'), redoB = el('button', 'wt-a', '↷'), clearB = el('button', 'wt-a', '🗑️'), doneB = el('button', 'wt-a', '✓');
   [undoB, redoB, clearB, doneB].forEach(function (b, i) { b.type = 'button'; b.title = ['Отменить', 'Повторить', 'Стереть всё на странице', 'Готово'][i]; gActs.appendChild(b); });
-  panel.appendChild(collapseB); panel.appendChild(gTools); panel.appendChild(gWidths); panel.appendChild(gColors); panel.appendChild(gStk); panel.appendChild(gActs);
+  var stickerDetails = el('details');stickerDetails.appendChild(el('summary', '', 'Стикеры'));stickerDetails.appendChild(gStk);
+  stickerDetails.addEventListener('toggle', function () { if (!panel.hidden) attach(panel, inkBtn); });
+  panel.appendChild(collapseB); panel.appendChild(gTools); panel.appendChild(gWidths); panel.appendChild(gColors); panel.appendChild(stickerDetails); panel.appendChild(gActs);
   var editTextB = el('button', 'wt-collapse', '✎ Изменить текст'); editTextB.type = 'button';
   editTextB.title = 'Выберите введённую надпись на странице';
   editTextB.addEventListener('click', function () {
@@ -158,12 +164,26 @@
 
   /* ---------- положение дока: над бейджем ANGLE, можно перетащить ---------- */
   var DOCK_KEY = 'angle_dock_v2';
+  var baseDPR = window.devicePixelRatio || 1, baseVisualScale = 1, uiScale = 1;
+  try {
+    var scaleKey = 'angle_tools_ui_dpr::' + screen.width + 'x' + screen.height;
+    var savedDPR = Number(localStorage.getItem(scaleKey));
+    if (savedDPR > 0) baseDPR = savedDPR;else localStorage.setItem(scaleKey, String(baseDPR));
+  } catch (e) { }
+  function syncUIScale() {
+    uiScale = baseDPR / (window.devicePixelRatio || 1) * baseVisualScale / (window.visualViewport ? window.visualViewport.scale || 1 : 1);
+    uiScale = Math.max(.1, Math.min(4, uiScale));
+    document.documentElement.style.setProperty('--wt-ui-scale', uiScale);
+  }
+  function visibleViewport() { var v = window.visualViewport;return { x: v ? v.offsetLeft : 0, y: v ? v.offsetTop : 0, w: v ? v.width : innerWidth, h: v ? v.height : innerHeight }; }
+  syncUIScale();
   function headerBottom() { var h = document.querySelector('.topbar,header'); return h ? Math.max(0, h.getBoundingClientRect().bottom) : 0; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function placeDock(left, top) {
-    var w = dock.offsetWidth || 40, h = dock.offsetHeight || 136;
-    left = clamp(left, 6, window.innerWidth - w - 6);
-    top = clamp(top, headerBottom() + 6, window.innerHeight - h - 6);
+    var w = (dock.offsetWidth || 32) * uiScale, h = (dock.offsetHeight || 146) * uiScale, v = visibleViewport();
+    left = clamp(left, v.x + 6, Math.max(v.x + 6, v.x + v.w - w - 6));
+    var bottom = Math.max(v.y + 6, v.y + v.h - h - 6);
+    top = clamp(top, Math.min(bottom, Math.max(v.y + 6, headerBottom() + 6)), bottom);
     dock.style.left = left + 'px'; dock.style.top = top + 'px';
     if (pill) placePill();
     return [left, top];
@@ -171,7 +191,7 @@
   function defaultDock() {
     var badge = document.querySelector('.angle-badge');
     var bTop = badge ? badge.getBoundingClientRect().top : window.innerHeight - 14;
-    var h = dock.offsetHeight || 136;
+    var h = (dock.offsetHeight || 146) * uiScale;
     var left = badge ? Math.max(8, badge.getBoundingClientRect().left) : 14;
     placeDock(left, bTop - h - 10);
   }
@@ -179,9 +199,14 @@
   try { var sp = JSON.parse(localStorage.getItem(DOCK_KEY) || 'null'); if (sp) { userMoved = true; placeDock(sp[0], sp[1]); } } catch (e) { }
   if (!userMoved) defaultDock();
   window.addEventListener('resize', function () {
+    syncUIScale();
     if (userMoved) placeDock(parseFloat(dock.style.left), parseFloat(dock.style.top)); else defaultDock();
     reposition();
   });
+  if (window.visualViewport) {
+    var updateViewport = function () { syncUIScale();if (userMoved) placeDock(parseFloat(dock.style.left), parseFloat(dock.style.top));else defaultDock();reposition(); };
+    window.visualViewport.addEventListener('resize', updateViewport);window.visualViewport.addEventListener('scroll', updateViewport);
+  }
   window.addEventListener('load', function () { if (!userMoved) defaultDock(); });
 
   var drag = null, dragMoved = false;
@@ -209,13 +234,14 @@
   function attach(p, anchorBtn) {
     p.style.maxHeight = ''; p.style.visibility = 'hidden'; p.hidden = false;
     var d = anchorBtn.getBoundingClientRect(), dk = dock.getBoundingClientRect();
-    var pw = p.offsetWidth, ph = p.offsetHeight, top0 = headerBottom() + 6;
-    var left = clamp(dk.left, 8, window.innerWidth - pw - 8);
-    var above = dk.top - top0 > window.innerHeight - dk.bottom;
+    var scale = p === panel ? uiScale : 1, v = visibleViewport();
+    var pw = p.offsetWidth * scale, ph = p.offsetHeight * scale, top0 = Math.max(v.y + 6, Math.min(headerBottom() + 6, v.y + v.h - 100 * scale));
+    var left = clamp(dk.left, v.x + 8, Math.max(v.x + 8, v.x + v.w - pw - 8));
+    var above = dk.top - top0 > v.y + v.h - dk.bottom;
     var maxH, top;
     if (above) { maxH = dk.top - top0 - 8; top = Math.max(top0, dk.top - 8 - Math.min(ph, maxH)); }
-    else { maxH = window.innerHeight - dk.bottom - 14; top = dk.bottom + 8; }
-    p.style.maxHeight = Math.max(120, maxH) + 'px';
+    else { maxH = v.y + v.h - dk.bottom - 14; top = dk.bottom + 8; }
+    p.style.maxHeight = Math.max(60, maxH / scale) + 'px';
     p.style.left = left + 'px'; p.style.top = top + 'px'; p.style.visibility = '';
   }
   function reposition() {
@@ -522,7 +548,7 @@
   /* двигать нарисованное: мышь и касания обрабатываем на самой странице, чтобы пустое место прокручивалось как обычно */
   var mv = null;
   function mvStart(cx, cy, ev) {
-    if (tool !== 'select' || ink.style.pointerEvents === 'auto') return false;
+    if (!inkOn || tool !== 'select' || ink.style.pointerEvents === 'auto') return false;
     if (ev.target && ev.target.closest('.wt-dock,.wt-panel,.wt-text-editor,.wt-text-actions')) return false;
     var p = pt({ clientX: cx, clientY: cy });
     if (sel && list().indexOf(sel) >= 0) {
@@ -688,22 +714,27 @@
   var inkOn = false;
   function hideInkPanel() {
     panel.hidden = true; inkBtn.setAttribute('aria-expanded', 'false');
-    if (inkOn) inkBtn.title = 'Открыть инструменты рисования';
+    inkSettings.setAttribute('aria-expanded', 'false');
+    if (inkOn) inkBtn.title = 'Выключить рисование';
   }
   function showInkPanel() {
     attach(panel, inkBtn); inkBtn.setAttribute('aria-expanded', 'true');
+    inkSettings.setAttribute('aria-expanded', 'true');
     inkBtn.title = 'Выключить рисование';
   }
   function setInk(on) {
     if (!on) commitText(true);
     inkOn = on; inkBtn.classList.toggle('on', on);
+    inkSettings.hidden = !on;
+    if (userMoved) placeDock(parseFloat(dock.style.left), parseFloat(dock.style.top));else defaultDock();
+    if (!on) { sel = null; draw(); }
     inkBtn.setAttribute('aria-pressed', String(on));
     if (on) { setNote(false); setTimerPanel(false); showInkPanel(); }
     else { hideInkPanel(); inkBtn.title = 'Рисование (перетащи, чтобы передвинуть)'; }
     ink.style.pointerEvents = (on && tool !== 'select') ? 'auto' : 'none';
   }
   inkBtn.addEventListener('click', function () {
-    if (inkOn && panel.hidden) showInkPanel(); else setInk(!inkOn);
+    setInk(!inkOn);
   });
   document.addEventListener('keydown', function (e) {
     if ((e.key === 'F2' || e.key === 'Enter') && sel && sel.type === 'text' && !/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test((document.activeElement || {}).tagName || '')) {
