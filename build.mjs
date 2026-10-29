@@ -521,6 +521,8 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
+<link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
+<script src="${BASE}/assets/catalog-share.js?v=1" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
@@ -629,15 +631,18 @@ ${extraScript}
 </html>
 `;
 
-const card = (m) => `  <a class="card" href="${esc(m.url)}" target="_blank" rel="noopener" data-group="${esc(m.group || '')}"
+const shareButton = (url,title) => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(title)}">Поделиться</button>`;
+const materialIcon = (m) => `<img class="material-brand-icon" src="${BASE}/assets/brand/material-icons/${m.type==='test'?'test':m.audience==='teacher'?'tracker':/homework/i.test(m.title)?'homework':m.type==='presentation'?'presentation':m.type==='warmup'?'warmup':'worksheet'}.png" width="32" height="32" alt="" loading="lazy">`;
+const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
-    <div class="row">
-      <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
+    <a class="material-open" href="${esc(m.url)}" target="_blank" rel="noopener"><div class="row">
+      <span class="name">${materialIcon(m)}${esc(m.title)}</span>
       <span class="pill ${esc(m.type)}">${esc(m.type)}</span>
     </div>
     ${m.tags ? `<div class="meta"><span>${esc(m.tags)}</span></div>` : ''}
-    ${m.progressKey ? '<p class="resume-note" hidden></p>' : ''}
-  </a>`;
+    ${m.progressKey ? '<p class="resume-note" hidden></p>' : ''}</a>
+    <div class="actions">${shareButton(m.url,m.title)}</div>
+  </article>`;
 
 /* «Продолжить · сохранено …» — читает localStorage по ключу, который
    сама страница теста использует для сохранения прогресса (см.
@@ -1050,7 +1055,7 @@ function groupFilesByLabel(files) {
 function renderPersonalNode(course, node, depth) {
   /* документы — плитки (как папки), а не список: плитка открывает основной
      формат (HTML, если есть, иначе первый), остальные форматы — ссылками ниже */
-  const fileIcon = (variants) => (variants.some((v) => v.ext === 'HTML') ? '🧩' : variants.some((v) => v.ext === 'PDF') ? '📄' : '📎');
+  const fileIcon = (variants) => `<img class="tile-logo" src="${BASE}/assets/brand/material-icons/${variants.some((v) => v.ext === 'HTML') ? 'worksheet' : 'document'}.png" alt="" loading="lazy">`;
   const filesHtml = node.files.length
     ? `<div class="tile-grid personal-file-grid">\n${groupFilesByLabel(node.files).map(({ label, variants }) => {
         const main = variants.find((v) => v.ext === 'HTML') || variants[0];
@@ -1059,10 +1064,11 @@ function renderPersonalNode(course, node, depth) {
           : esc(main.ext);
         return `      <div class="tile file-tile">
         <a class="file-open" href="${esc(personalFileHref(course, main.rel))}" target="_blank" rel="noopener">
-          <span class="tile-icon"><span class="tile-emoji">${fileIcon(variants)}</span></span>
+          <span class="tile-icon">${fileIcon(variants)}</span>
           <span class="tile-name">${esc(label)}</span>
         </a>
         <span class="tile-count personal-formats">${formats}</span>
+        <div class="actions">${shareButton(personalFileHref(course, main.rel),label)}</div>
       </div>`;
       }).join('\n')}\n    </div>`
     : '';
@@ -1329,7 +1335,7 @@ const staffCard = (m) => {
        data-course="${esc(m['course-id'])}" data-type="${esc(m.type)}" data-status="${esc(m.status)}" data-group="${esc(m.group || '')}"
        data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}" data-pin="${isTrackerM(m) ? 1 : 0}">
     <div class="row">
-      <span class="name">${m.emoji ? esc(m.emoji) + ' ' : ''}${esc(m.title)}</span>
+      <span class="name">${materialIcon(m)}${esc(m.title)}</span>
       <span class="pill ${isTrackerM(m) ? 'tracker' : esc(m.type)}">${isTrackerM(m) ? 'tracker' : esc(m.type)}</span>
       ${m.status === 'draft' ? '<span class="pill draft">черновик</span>' : ''}
     </div>
@@ -1337,6 +1343,7 @@ const staffCard = (m) => {
       <a class="open" href="${esc(m.url)}" target="_blank" rel="noopener">Открыть</a>
       ${teacherLink}
       <button type="button" data-copy="${esc(m.url)}">Копировать ссылку</button>
+      ${shareButton(m.url,m.title)}
       ${repo}
     </div>
     ${m['legacy-url'] ? `<div class="legacy">Старая ссылка на Netlify всё ещё живёт:
