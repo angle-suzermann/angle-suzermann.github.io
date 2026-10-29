@@ -631,7 +631,8 @@ ${extraScript}
 </html>
 `;
 
-const shareButton = (url,title) => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(title)}">Поделиться</button>`;
+const shareTitle = (title,emoji='') => [emoji,String(title).replace(/^\s*\d+[.)]\s*/, '').trim()].filter(Boolean).join(' ');
+const shareButton = (url,title,emoji='') => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(shareTitle(title,emoji))}">Поделиться</button>`;
 // Keep the material's topic-specific icon; do not replace it with an unrelated mascot.
 const materialIcon = (m) => m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
@@ -642,7 +643,7 @@ const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
     </div>
     ${m.tags ? `<div class="meta"><span>${esc(m.tags)}</span></div>` : ''}
     ${m.progressKey ? '<p class="resume-note" hidden></p>' : ''}</a>
-    <div class="actions">${shareButton(m.url,m.title)}</div>
+    <div class="actions">${shareButton(m.url,m.title,m.emoji)}</div>
   </article>`;
 
 /* «Продолжить · сохранено …» — читает localStorage по ключу, который
@@ -1069,7 +1070,7 @@ function renderPersonalNode(course, node, depth) {
           <span class="tile-name">${esc(label)}</span>
         </a>
         <span class="tile-count personal-formats">${formats}</span>
-        <div class="actions">${shareButton(personalFileHref(course, main.rel),label)}</div>
+        <div class="actions">${shareButton(personalFileHref(course, main.rel),label,variants.some(v=>v.ext==='HTML')?'🧩':variants.some(v=>v.ext==='PDF')?'📄':'📎')}</div>
       </div>`;
       }).join('\n')}\n    </div>`
     : '';
@@ -1344,7 +1345,7 @@ const staffCard = (m) => {
       <a class="open" href="${esc(m.url)}" target="_blank" rel="noopener">Открыть</a>
       ${teacherLink}
       <button type="button" data-copy="${esc(m.url)}">Копировать ссылку</button>
-      ${shareButton(m.url,m.title)}
+      ${shareButton(m.url,m.title,m.emoji)}
       ${repo}
     </div>
     ${m['legacy-url'] ? `<div class="legacy">Старая ссылка на Netlify всё ещё живёт:
