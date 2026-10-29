@@ -48,9 +48,16 @@ Baseline: `Claude Library\00 Хэндоффы по проектам\B1+ Empower\
 | (2.10) Revision 1–2 content vs the learner's original writing | **Can't tell** — no record of a check. | — |
 | (2.10) proof-transcript retrofit for 4C / 4D p.1 | **Can't tell fully**: 4D classwork page uses the proof mechanic; 4C page has neither proof buttons nor `script-drop`. | grep |
 
+## Update 29.10 evening (same session)
+- **Pilot classwork published on the site** at Viktoria's request: `empower-b1/Unit 5/5b-plan-a-plan-b-classwork-pilot/`, title "04. Unit 5B — Plan A, plan B — Speak first, upgrade, recall — Classwork · pilot", `status: published` (`b736691`). Built by `Courses\Empower B1+\Unit 5\5B Conditionals\_build\to_site_pilot.py`: shell = the published 5B lexical site page; the pilot's own CSS (checked: lexical CSS + suffix) and JS (lexical JS + additions) carried over; engine sticker table removed in favour of `/assets/sticker-logic.js`; background extracted to `img/bg-photo.jpg` (same photo as the lexical page).
+- QA on the site page, served with the repo's `/assets/`: 9 pages, header 124 px (380) / 94 px (1100), no horizontal scroll, photo opacity 0.5 + wash, Apercu loads, 23 per-line audio buttons (browser voices), 0% empty / 100% full (78 items), restore after reload, no JS errors, POSTs to Web3Forms + tracker hook.
+- Both 5B classworks are now live (03 lexical, 04 pilot). Which one runs in the lesson is Viktoria's choice in class; the homework still waits for lesson evidence.
+- **Archived** in `Courses\Empower B1+\Unit 5\5B Conditionals\_archive\`: the 28.10 12:30 draft classwork and the byte-identical duplicate pilot TN PDF (renamed with "draft" / "duplicate").
+- **Push state at 18:50 UTC:** local `main` ahead 1 (`b736691`), behind 5 (other sessions' EGE commits already on GitHub). Push from the cloud is blocked (403). In GitHub Desktop: Pull, then Push. The working tree also has other sessions' uncommitted changes (`handoffs/2026-10-29-ege-parent-report.md`, a tracker report file) — not touched.
+
 ## Keep in mind / next
-1. **Which 5B classwork is used in the next lesson** — the published lexical one or the pilot? If the pilot, it needs the same site conversion (`to_site5b.py` approach) before the learner can open it. Two pilot TN PDFs in the folder are byte-identical (`… (pilot).pdf` and `… pilot.pdf`); one can go.
+1. ~~Which 5B classwork is used in the next lesson~~ — both are published now (see the evening update). Original note: — the published lexical one or the pilot? If the pilot, it needs the same site conversion (`to_site5b.py` approach) before the learner can open it. Two pilot TN PDFs in the folder are byte-identical (`… (pilot).pdf` and `… pilot.pdf`); one can go.
 2. **5B homework** is pending lesson evidence (results, transcript, the learner's exact wording). Plan in `Homework - awaiting lesson evidence.md` and in the pilot plan.
-3. Old draft `Unit 5B - Conditionals - CLASSWORK.html` — keep or move to `_archive`.
+3. ~~Old draft 5B classwork~~ — moved to `_archive` 29.10 evening.
 4. `empower-b1/collab-test` (draft) is still on the site (also noted in `2026-10-28-migration-reconciliation.md`).
 5. Push from cloud sessions is blocked by the proxy (403 on `github.com`); Viktoria pushes from GitHub Desktop. Git leaves `.git/HEAD.lock` and `tmp_obj_*` on the mounted disk unless delete permission is granted.
