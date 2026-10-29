@@ -20,7 +20,7 @@ const RESULT_TIERS = [
 ];
 const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','strawberry-sparkle','plain','strawberry-full']);
 // Added 2026-10-10: stickers whose <img> is missing from a page's hard-coded list are created on demand.
-const MEDIUM_STICKERS = new Set(['no_luck','still_lost','youre_a_star','loading','hehe','not_hehe','strawberry-sparkle']);
+const MEDIUM_STICKERS = new Set(['no_luck','still_lost','youre_a_star','loading','hehe','not_hehe','strawberry-sparkle','i-need-proofs','think-again','english-please']);
 const ICON_STICKERS = new Set(['plain']);
 function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
 /* Мягкая шкала для диагностических страниц (placement tests): страница ставит

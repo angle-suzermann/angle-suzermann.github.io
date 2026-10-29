@@ -8,6 +8,7 @@
 Скиллы по дизайну прототипа (29.10): новые angle-worksheet-design и angle-branded-pdf, обновлённые angle-worksheet-template и angle-sticky-badge (бейдж ANGLE теперь стандарт на каждом воркшите), 8 воркшитов без бейджа и реакции 63–65 вне sticker-data.js: [заметка](handoffs/2026-10-29-skills-design-reference.md). Отдельная тема, другие заметки не заменяет.
 
 Empower B1+ Unit 5B, пилот цикла коллег (speak first → upgrade → recall), частотность YouGlish и учительские заметки: [заметка от 29 октября](handoffs/2026-10-29-empower-5b-pilot.md). Отдельная тема, другие заметки не заменяет.
+
 AS5 Flyers 29.10: проверка домашки, отчёты по датам, PDF по прототипу с живыми кольцами, зашифрованные PDF 29.10 для кнопки родителей (осталось запустить одну функцию Apps Script): [заметка](handoffs/2026-10-29-as5-flyers-reports.md).
 
 Изменения 29 октября: [Gateway B1 Unit 6 — opinion essay, classwork с совместным письмом (режим shared) и homework по Workbook p.54–55](handoffs/2026-10-29-gateway-b1-unit6-opinion-essay.md). Дополняет заметку о совместном письме от 27–28.10.
