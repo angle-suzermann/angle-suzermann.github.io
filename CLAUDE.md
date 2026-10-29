@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Скиллы по дизайну прототипа (29.10): новые angle-worksheet-design и angle-branded-pdf, обновлённые angle-worksheet-template и angle-sticky-badge (бейдж ANGLE теперь стандарт на каждом воркшите), 8 воркшитов без бейджа и реакции 63–65 вне sticker-data.js: [заметка](handoffs/2026-10-29-skills-design-reference.md). Отдельная тема, другие заметки не заменяет.
+
 Empower B1+ Unit 5B, пилот цикла коллег (speak first → upgrade → recall), частотность YouGlish и учительские заметки: [заметка от 29 октября](handoffs/2026-10-29-empower-5b-pilot.md). Отдельная тема, другие заметки не заменяет.
 
 Изменения 28 октября: [кольца PDF, родителям ЕГЭ, компактный каталог, календарь и действия над блоками заданий](handoffs/2026-10-28-parent-cards-and-catalog.md). Эта заметка дополняет итог 27 октября.
