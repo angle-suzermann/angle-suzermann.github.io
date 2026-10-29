@@ -292,8 +292,8 @@ function render(){
 
 /* MEE homework rings: outer = handed in (done / due), inner = average score of handed-in work */
 const isTest=r=>/\btest\b/i.test(String(r.hw||''));
-function meeFor(c,s){const n=String(s.name).toLowerCase();return (D.mee||[]).filter(r=>String(r.course)===c&&String(r.student).toLowerCase()===n)}
-function meeSum(rows){const due=rows.filter(r=>r.status==='done'||r.status==='missing'),done=due.filter(r=>r.status==='done');
+function meeFor(c,s){const n=String(s.name).toLowerCase(),byTask=new Map();for(const r of D.mee||[]){if(String(r.course)===c&&String(r.student).toLowerCase()===n)byTask.set(String(r.hw||'').trim().toLowerCase(),r)}return [...byTask.values()]}
+function meeSum(rows){const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Moscow'}),due=rows.filter(r=>r.status==='done'||(r.status==='missing'&&(!r.due||String(r.due).slice(0,10)<=today))),done=due.filter(r=>r.status==='done');
   const sc=done.filter(r=>r.pct!==''&&r.pct!=null);const q=sc.length?sc.reduce((a,r)=>a+Number(r.pct),0)/sc.length/100:null;
   return{due:due.length,done:done.length,sub:due.length?done.length/due.length:null,q}}
 function ring2(r,R,col,w){const C2=2*Math.PI*R,v=Math.max(0,Math.min(1,r||0));
@@ -307,13 +307,13 @@ function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
 function ringsTop(c,s,o,ru=false){
   const rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
-  const sub=m.sub!=null?m.sub:o.r,subTxt=m.sub!=null?`${m.done} of ${m.due} online tasks`:`${o.e} of ${o.p} points`;
-  const qual=m.q!=null?m.q:actAvg(qa),qTxt=m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS);
+  const registered=c==='Flyers',sub=m.sub!=null?m.sub:(registered?null:o.r),subTxt=m.sub!=null?`${m.done} of ${m.due} assigned tasks`:(registered?'assigned task list not recorded':`${o.e} of ${o.p} points`);
+  const teacherQuality=registered&&qa.length>0,qual=teacherQuality?actAvg(qa):(m.q!=null?m.q:actAvg(qa)),qTxt=teacherQuality?lvl(qa,Q_LABELS):(m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS));
   const actRu={1:'Нужна поддержка и помощь во включении в работу',2:'Работает стабильно',3:'Активно участвует в работе'};
   const qualRu={1:'Нужно внимательнее проверять работу',2:'Хороший результат',3:'Отличный результат'};
   const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
-  const ruSub=m.sub!=null?`${m.done} из ${m.due} онлайн-заданий с наступившим сроком сдачи`:`${o.e} из ${o.p} баллов`;
-  const ruQuality=m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu);
+  const ruSub=m.sub!=null?`${m.done} из ${m.due} заданных работ к отчётной дате`:(registered?'список заданных работ пока не внесён':`${o.e} из ${o.p} баллов`);
+  const ruQuality=teacherQuality?levelRu(qa,qualRu):(m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu));
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${ru?'Показатели прогресса':'Progress rings'}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}
 function rateBlock(s){
@@ -323,7 +323,7 @@ function rateBlock(s){
    <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div><p class="sub" role="status" aria-live="polite" data-rating-feedback="${esc(s.id)}"></p>`}
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
-  const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):'–';
+  const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):r.status==='na'?(teacher?'not required':'не требуется'):'–';
     const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
   const rate=teacher&&s?rateBlock(s):'';
   const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
