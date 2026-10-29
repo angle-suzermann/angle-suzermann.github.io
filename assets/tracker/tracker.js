@@ -324,12 +324,26 @@ function rateBlock(s){
   return `<div class="sub" style="margin:14px 0 4px">Class activity (once per 2–4 lessons): 1 = ${ACT_LABELS[1]} · 2 = ${ACT_LABELS[2]} · 3 = ${ACT_LABELS[3]}</div><div class="sel activity-rating" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button type="button" class="chip ${+activity?.score===v?'on':''}" aria-pressed="${+activity?.score===v}" data-act="${v}">${v} · ${ACT_LABELS[v]}</button>`).join('')}<label class="activity-lessons">Lessons covered <select class="chip" data-actles>${[2,3,4].map(v=>`<option ${+activity?.lessons===v?'selected':''}>${v}</option>`).join('')}</select></label></div>
    <div class="sub" style="margin:12px 0 4px">Quality of work (teacher's rating of checked homework; online scores are used automatically when they exist): 1 = ${Q_LABELS[1]} · 2 = ${Q_LABELS[2]} · 3 = ${Q_LABELS[3]}</div><div class="sel" data-actfor="${esc(s.id)}">${[1,2,3].map(v=>`<button type="button" class="chip ${+quality?.score===v?'on':''}" aria-pressed="${+quality?.score===v}" data-qual="${v}">${v} · ${Q_LABELS[v]}</button>`).join('')}</div>
    <div class="sub" style="margin:12px 0 4px">Photo homework (handwritten work you checked): task name and score in percent</div><div class="sel" data-photofor="${esc(s.id)}"><input type="text" class="chip" data-phw placeholder="Task, e.g. Unit 2 Grammar 1" style="min-width:200px"><input type="number" class="chip" data-ppct min="0" max="100" placeholder="%" style="width:70px"><button class="chip" data-photo>Save photo homework</button></div><p class="sub" role="status" aria-live="polite" data-rating-feedback="${esc(s.id)}"></p>`}
+// Group by the unit named in the assignment, never by its due date.
+function meeUnitGroups(rows,renderRow){
+  const groups=new Map();
+  for(const r of rows){
+    const match=String(r.hw||'').match(/\bunit\s*[-:#]?\s*(\d+)\b/i);
+    const unit=match?Number(match[1]):null;
+    if(!groups.has(unit))groups.set(unit,[]);
+    groups.get(unit).push(r);
+  }
+  return [...groups.keys()].sort((a,b)=>a===null?1:b===null?-1:b-a).map(unit=>{
+    const items=groups.get(unit).slice().sort((a,b)=>String(b.due||'').localeCompare(String(a.due||'')));
+    return `<section class="mee-unit" data-mee-unit="${unit===null?'other':unit}"><h3>${unit===null?'Другие работы / Other work':'Unit '+unit}</h3>${items.map(renderRow).join('')}</section>`;
+  }).join('');
+}
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
-  const list=rows.slice().sort((a,b)=>String(b.due).localeCompare(String(a.due))).map(r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):r.status==='na'?(teacher?'not required':'не требуется'):'–';
-    const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`}).join('');
+  const list=meeUnitGroups(rows,r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):r.status==='na'?(teacher?'not required':'не требуется'):'–';
+    const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`});
   const rate=teacher&&s?rateBlock(s):'';
-  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${tests.map(r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`).join('')}`:'';
+  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${meeUnitGroups(tests,r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`)}`:'';
   return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Online homework (MEE)':'Онлайн-задания и проверенные работы'}</h2>${list}`:'')+tlist+rate}
 
 function renderParent(){
