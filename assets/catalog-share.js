@@ -2,6 +2,9 @@
  'use strict';
  let dialog,active,originButton;
  function safeUrl(raw){const url=new URL(raw,location.href);if(!/^https?:$/.test(url.protocol))throw new Error('Invalid URL');return url.href;}
+ // Keep copied messages plain, with the standalone URL first.
+ function cleanTitle(value){return value.normalize('NFC').replace(/[\u0000-\u001f\u007f-\u009f\u00ad\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/g,'').replace(/\s+/g,' ').trim();}
+ function plainMessage(){return active.url+'\n\n'+cleanTitle(active.title);}
  function close(){dialog.close();originButton?.focus();}
  function init(){
   if(dialog)return;
@@ -15,21 +18,21 @@
    catch(e){if(e.name!=='AbortError')status('Меню недоступно. Выберите Telegram, SMS или копирование.');}
   };
   dialog.querySelector('[data-text-copy]').onclick=async()=>{
-   try{await navigator.clipboard.writeText(active.title+'\n'+active.url);status('Название и адрес скопированы.');}
+   try{await navigator.clipboard.writeText(plainMessage());status('Название и адрес скопированы.');}
    catch{manualCopy();}
   };
-  dialog.querySelector('[data-max-copy]').onclick=async()=>{try{await navigator.clipboard.writeText(active.title+'\n'+active.url);status('Сообщение скопировано. Откройте MAX и вставьте его в нужный чат.');}catch{manualCopy();}};
+  dialog.querySelector('[data-max-copy]').onclick=async()=>{try{await navigator.clipboard.writeText(plainMessage());status('Сообщение скопировано. Откройте MAX и вставьте его в нужный чат.');}catch{manualCopy();}};
   dialog.querySelector('[data-rich-copy]').onclick=async()=>{
    const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
    try{
     if(!globalThis.ClipboardItem||!navigator.clipboard?.write)throw new Error('Unsupported');
-    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob(['<a href="'+esc(active.url)+'">'+esc(active.title)+'</a>'],{type:'text/html'}),'text/plain':new Blob([active.title+'\n'+active.url],{type:'text/plain'})})]);
+    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob(['<a href="'+esc(active.url)+'">'+esc(active.title)+'</a>'],{type:'text/html'}),'text/plain':new Blob([plainMessage()],{type:'text/plain'})})]);
     status('Название со ссылкой скопировано. Вид вставки зависит от приложения.');
-   }catch{try{await navigator.clipboard.writeText(active.title+'\n'+active.url);status('Форматированная ссылка недоступна: скопированы название и адрес.');}catch{manualCopy();}}
+   }catch{try{await navigator.clipboard.writeText(plainMessage());status('Форматированная ссылка недоступна: скопированы название и адрес.');}catch{manualCopy();}}
   };
  }
  function status(text){dialog.querySelector('.share-status').textContent=text;}
- function manualCopy(){let field=dialog.querySelector('textarea');if(!field){field=document.createElement('textarea');field.readOnly=true;field.setAttribute('aria-label','Название и ссылка для копирования');dialog.appendChild(field);}field.value=active.title+'\n'+active.url;field.focus();field.select();status('Выделенный текст можно скопировать вручную.');}
+ function manualCopy(){let field=dialog.querySelector('textarea');if(!field){field=document.createElement('textarea');field.readOnly=true;field.setAttribute('aria-label','Название и ссылка для копирования');dialog.appendChild(field);}field.value=plainMessage();field.focus();field.select();status('Выделенный текст можно скопировать вручную.');}
  document.addEventListener('click',e=>{
   const button=e.target.closest('[data-share-url]');if(!button)return;e.preventDefault();e.stopPropagation();
   init();originButton=button;
@@ -37,7 +40,7 @@
   dialog.querySelector('.share-material').textContent=active.title;status('');dialog.querySelector('textarea')?.remove();
   dialog.querySelector('[data-telegram-share]').href='https://t.me/share/url?url='+encodeURIComponent(active.url)+'&text='+encodeURIComponent(active.title);
   const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-  dialog.querySelector('[data-sms-share]').href='sms:'+(isiOS?'&':'?')+'body='+encodeURIComponent(active.title+'\n'+active.url);
+  dialog.querySelector('[data-sms-share]').href='sms:'+(isiOS?'&':'?')+'body='+encodeURIComponent(plainMessage());
   dialog.querySelector('[data-native-share]').hidden=typeof navigator.share!=='function';
   dialog.showModal();
  });
