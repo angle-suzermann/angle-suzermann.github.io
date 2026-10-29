@@ -40,23 +40,46 @@
 ## Текущее состояние (проверено 29.10)
 
 - Материалы по `ws:type`: worksheet 207, warmup 5, test 56, presentation 24.
-- Бейдж есть на 204 из 212 воркшитов/разминок. Без бейджа 8 страниц:
-  `as4/Unit 9/sounds-and-letters`, `as4/Unit 9/vocab2-water-weight`,
-  `as4/Unit 9/warmup-water-weather`, `empower-b1/collab-test`,
+- Бейдж ANGLE теперь есть на всех 212 воркшитах/разминках. Восьми страницам, где его
+  не было, он добавлен вечером 29.10 (см. ниже); проверено скриптом по файлам.
+- `build.mjs` вставляет бейдж только в страницы каталогов, не в материалы.
+- В `assets/sticker-data.js` 36 ключей (было 33): добавлены реакции 63–65.
+
+## Продолжение 29.10: бейдж на 8 страницах и реакции в sticker-data.js
+
+По решению Виктории («both yes»):
+
+- **Бейдж** добавлен на `as4/Unit 9/sounds-and-letters`, `as4/Unit 9/vocab2-water-weight`,
+  `as4/Unit 9/warmup-water-weather`, `empower-b1/collab-test` (draft),
   `expert-advanced/Module 3/modals-case-file`, `expert-advanced/Module 3/modals-homework`,
   `gateway/gateway-to-the-world-b2/Unit 3/future-tenses-worksheet`,
-  `gateway/gateway-to-the-world-b2/Unit 3/prefixes-worksheet`.
-- `build.mjs` вставляет бейдж только в страницы каталогов, не в материалы.
-- Реакции `i-need-proofs`, `think-again`, `english-please` есть в
-  `ANGLE\brand\stickers` (63–65), но их нет в `assets/sticker-data.js`.
+  `gateway/gateway-to-the-world-b2/Unit 3/prefixes-worksheet`. Разметка и CSS скопированы
+  с `future-transport-listening-classwork` (тот же вордмарк, 121 px, на телефоне 88 px).
+  Это старые страницы светлого дизайна без `.app-shell`: на шести светлых бейдж
+  фиолетовый `#5E4877`, на двух тёмных Expert Advanced — жёлтый, как везде.
+  На телефоне добавлен отступ в конце страницы (`body::after`, 64 px), чтобы последний
+  блок не прятался под бейджем. Остальной код страниц не тронут (+13 строк на файл).
+- **Реакции** `i-need-proofs`, `think-again`, `english-please` добавлены в
+  `assets/sticker-data.js` из `ANGLE\brand\stickers\63–65`: обрезка по прозрачности,
+  ширина 170 px, PNG с палитрой (как остальные medium), 13–14 КБ каждая. Ключи
+  добавлены в `MEDIUM_STICKERS` в `assets/sticker-logic.js`. В `RESULT_TIERS` и
+  `SILENT_STICKERS` их нет намеренно: это контекстные реакции, не награды за процент.
+- **Проверка:** headless Chromium через локальный сервер, 1100 и 390 px: бейдж виден,
+  цвет верный, родитель — `body`, горизонтальной прокрутки нет, ошибок JS нет.
+  Реакции проверены визуально на фиолетовом фоне. `STICKER_DATA` загружается (36 ключей),
+  `node --check assets/sticker-logic.js` проходит. `node build.mjs` не запускался:
+  на смонтированном диске он идёт дольше лимита.
 
 ## Что осталось
 
-- Добавить бейдж на 8 страниц выше (по решению Виктории — стандарт). Не сделано
-  в этой сессии: нужно её подтверждение на правку опубликованных страниц.
-- Добавить три реакции в `assets/sticker-data.js` перед первым использованием
-  на сайте (размер medium, PNG, без `SILENT_STICKERS`).
+- **Опубликовать.** Push с компьютера не проходит (прокси отвечает 403 на github.com).
+  Локальная `main` и `origin/main` разошлись (по последнему fetch: 11 коммитов только
+  на GitHub, локально неотправленные коммиты других сессий и этой). Нужно pull/merge
+  и push из места с доступом к GitHub (например, GitHub Desktop), затем проверить
+  GitHub Actions. Коммиты этой сессии: заметка, ссылка в CLAUDE.md, бейдж и реакции.
+- Реакции пока не используются ни на одной странице: подключать при создании
+  материала с проверкой, по правилам в скилле `angle-worksheet-template`.
 - Возможный вариант: подключать бейдж в материалы через `build.mjs`, как
   `ws-tools.js`, чтобы не дописывать его в каждую страницу. Не обсуждалось.
-- Скиллы аккаунта и локальная копия в `Claude Library` теперь расходятся:
+- Скиллы аккаунта и локальная копия в `Claude Library` расходятся:
   в аккаунте — более новая версия (включает локальные изменения 29.10).
