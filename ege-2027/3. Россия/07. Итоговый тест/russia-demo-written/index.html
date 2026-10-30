@@ -336,8 +336,8 @@ Subject: Exams</span>
 <!-- ================= PAGE 3: ГОТОВО ================= -->
 <section class="page" data-page="3">
   <div class="finish-card">
-    <h2>Готово</h2><a class="dl-btn" data-ege-dl="37" href="/assets/ege/task37-templates.pdf" download="Задание 37 — шаблоны письма (памятка) ANGLE.pdf"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></span><span><span class="k">PDF · 3 стр.</span><span class="t">Скачать шаблоны письма</span></span><span class="stk"></span></a><a class="dl-btn" data-ege-dl="38" href="/assets/ege/task38-templates.pdf" download="Задание 38 — шаблоны эссе (памятка) ANGLE.pdf"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></span><span><span class="k">PDF · 3 стр.</span><span class="t">Скачать шаблоны эссе</span></span><span class="stk"></span></a>
-    <p>Эта часть не оценивается автоматически. Проверь объём обеих работ ниже, скачай текст и пришли мне — посчитаем первичный балл по официальным критериям вместе, как договаривались.</p>
+    <h2>Готово</h2>
+    <p>Эта часть не оценивается автоматически. Проверь объём обеих работ ниже, скачай PDF и пришли мне — посчитаем первичный балл по официальным критериям вместе, как договаривались.</p>
     <table class="finish-summary">
       <tr><th>Задание</th><th>Слов</th><th>Нужно</th></tr>
       <tr><td>37 — письмо</td><td id="final-wc37">0</td><td>100–140</td></tr>
@@ -345,10 +345,10 @@ Subject: Exams</span>
     </table>
   </div>
   <div class="card">
-    <button class="btn" onclick="downloadAnswers()">Скачать ответы (.txt)</button>
+    <button class="btn" onclick="downloadAnswers()">Скачать ответы (PDF)</button>
     <button class="btn" id="sendBtn" onclick="sendToTeacher()" style="margin-left:10px;">Отправить учителю</button>
     <div id="sendStatus" style="font-size:.85em;color:var(--muted);margin-top:10px;font-weight:600;"></div>
-    <div class="note-box">Скачивание сохраняет файл на твой компьютер и никуда не отправляется само по себе. Кнопка «Отправить учителю» уходит на почту через Formspree — жми её, когда работа готова.</div>
+    <div class="note-box">Скачивание сохраняет файл на твой компьютер и никуда не отправляется само по себе. Кнопка «Отправить учителю» отправляет работы учителю — жми её, когда работа готова.</div>
   </div>
   <div class="nav-btns">
     <button class="btn dark" onclick="goToPage(2)">← Назад к заданию 38</button>
@@ -448,30 +448,6 @@ function selectSubtask(n){
 }
 
 // ---------- Download ----------
-function downloadAnswers(){
-  const nameInput = document.getElementById('studentName');
-  const name = nameInput.value.trim();
-  if(!name){
-    nameInput.classList.add('missing');
-    alert('Впиши своё имя вверху страницы перед скачиванием.');
-    return;
-  }
-  nameInput.classList.remove('missing');
-  const t37 = document.getElementById('essay37').value;
-  const t38 = document.getElementById('essay38').value;
-  const choice = document.querySelector('input[name="task38choice"]:checked').value;
-  const content = 'Россия — итоговый вариант, письмо 37–38\nИмя: '+name+'\n\n=== Задание 37 (email, '+countWords(t37)+' слов) ===\n'+t37+'\n\n=== Задание '+choice+' (эссе, '+countWords(t38)+' слов) ===\n'+t38+'\n';
-  const blob = new Blob([content], {type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'ЕГЭ_письмо_'+name.replace(/\s+/g,'_')+'.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
 // ---------- Send to teacher (Formspree) ----------
 async function sendToTeacher(){
   const nameInput = document.getElementById('studentName');
@@ -588,5 +564,6 @@ document.addEventListener('input', e=>{ if(e.target.matches('.essay, #studentNam
 restoreProgress();
 </script>
 
+<script src="js/save-writing.js"></script>
 </body>
 </html>
