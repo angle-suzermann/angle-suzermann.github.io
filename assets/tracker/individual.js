@@ -198,11 +198,26 @@ function individualReport(pl){
     reports:(D.reports||[]).filter(r=>r.plan===pl.id)
   });
 }
+function individualMetrics(pl){
+  const tasks=pl.blocks.flatMap(b=>b.tasks),assigned=tasks.filter(t=>t.status!=='N/A'),done=assigned.filter(t=>t.status==='✓');
+  const ratings=(pl.ratings||[]).filter(r=>Number(r.score)>=1&&Number(r.score)<=3);
+  const quality=ratings.filter(r=>r.kind==='quality'),activity=ratings.filter(r=>(r.kind||'activity')==='activity');
+  const avg=rows=>rows.length?rows.reduce((sum,r)=>sum+Number(r.score),0)/rows.length/3:null;
+  const scores=done.map(t=>String(t.note||'').match(/^(?:Worksheet|MEE)\s+(\d{1,3})%/i)).filter(Boolean).map(m=>Number(m[1])).filter(n=>n<=100);
+  return {sub:assigned.length?done.length/assigned.length:null,done:done.length,total:assigned.length,quality:quality.length?avg(quality):scores.length?scores.reduce((a,b)=>a+b,0)/scores.length/100:null,qualityLabel:quality.length?'оценка преподавателя':'средний результат проверенных онлайн-работ',activity:avg(activity)};
+}
+function individualRings(pl){
+  const m=individualMetrics(pl),circle=(value,radius,color)=>{const length=2*Math.PI*radius,v=Math.max(0,Math.min(1,value||0));return `<circle cx="60" cy="60" r="${radius}" fill="none" stroke="${color}" stroke-opacity=".18" stroke-width="10"/><circle cx="60" cy="60" r="${radius}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${length*v} ${length}" transform="rotate(-90 60 60)"/>`};
+  return `<div class="scard-top"><svg viewBox="0 0 120 120" width="132" height="132" style="flex:none" role="img" aria-label="Сдано заданий: ${fmt(m.sub)}; качество: ${fmt(m.quality)}; работа на уроке: ${fmt(m.activity)}">${circle(m.sub,50,'#6b21a8')}${circle(m.quality,36,'#eab308')}${circle(m.activity,22,'#0f766e')}</svg><div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div><b style="color:#6b21a8">●</b> Сдано заданий: <b>${fmt(m.sub)}</b> (${m.done} из ${m.total})</div><div><b style="color:#eab308">●</b> Качество работы: <b>${fmt(m.quality)}</b> (${m.quality===null?'оценка пока не добавлена':m.qualityLabel})</div><div><b style="color:#0f766e">●</b> Работа на уроке: <b>${fmt(m.activity)}</b>${m.activity===null?' (оценка пока не добавлена)':''}</div></div></div>`;
+}
+function individualRatings(pl){
+  if(STUDENT)return '';
+  const labels={quality:['Нужно внимательнее','Хорошо','Отлично'],activity:['Нужна поддержка','Работает стабильно','Активно участвует']};
+  return `<div class="individual-ratings" data-plan-ratings="${esc(pl.id)}"><p class="sub">Оценки преподавателя · <label>За уроки: <select data-plan-lessons>${[2,3,4].map(n=>`<option value="${n}"${n===3?' selected':''}>${n}</option>`).join('')}</select></label></p>${['quality','activity'].map(kind=>{const last=(pl.ratings||[]).filter(r=>(r.kind||'activity')===kind).slice(-1)[0];return `<div class="sel"><b>${kind==='quality'?'Качество работы':'Работа на уроке'}</b>${[1,2,3].map(value=>`<button class="chip ${Number(last?.score)===value?'on':''}" aria-pressed="${Number(last?.score)===value}" data-plan-rating="${kind}|${value}" aria-label="${kind==='quality'?'Качество':'Активность'}: ${value}">${value} · ${labels[kind][value-1]}</button>`).join('')}</div>`}).join('')}<p class="sub" role="status" data-plan-rating-status></p></div>`;
+}
 function parentProgressCard(pl){
-  const o=planScore(pl),pc=fmt(o.r),radius=38,circumference=2*Math.PI*radius;
-  const svg=`<svg width="100" height="100" viewBox="0 0 100 100" role="img" aria-label="Сдано заданий: ${esc(pc)}"><circle cx="50" cy="50" r="${radius}" fill="none" stroke="#6b21a8" stroke-opacity=".18" stroke-width="10"/><circle cx="50" cy="50" r="${radius}" fill="none" stroke="#6b21a8" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circumference*(o.r||0)} ${circumference}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#5E4877" font-size="18" font-weight="700">${pc}</text></svg>`;
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
-  return `<div class="scard-top">${svg}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>Сдано заданий: <b>${pc}</b></div><div>Подтверждено преподавателем: ${o.done} из ${o.n}</div></div></div><p class="sub">Прогресс учитывает подтверждённые задания. Работы, ожидающие проверки, пока не засчитываются.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}`;
+  return `${individualRings(pl)}<p class="sub">Прогресс учитывает подтверждённые задания. Работы, ожидающие проверки, пока не засчитываются.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}${individualRatings(pl)}`;
 }
 function openParentProgress(pl){
   const dialog=$('#cardDlg');
@@ -213,7 +228,7 @@ function viewSummary(pl){
   const o=planScore(pl);
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(blockLabel(b.name))}<small>${STUDENT?`Подтверждено: ${s.done} из ${s.n}`:`${s.done} of ${s.n} confirmed`}${s.wait?` · ${s.wait} ${STUDENT?'ожидает проверки':'waiting'}`:''} · ${STUDENT?`${s.e} из ${s.p} баллов`:`${s.e} of ${s.p} points`}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
   const link=STUDENT?'':`<p style="margin:14px 0 0"><button class="btn ghost" data-plink="1">Copy student link</button></p>`;
-  return `<div class="card"><div class="scard-top">${ring(o.r)}<div class="who"><h3>${esc(pl.student)}</h3><div>${esc(pl.title)}</div><div>${STUDENT?`${o.e} из ${o.p} баллов подтверждено преподавателем`:`${o.e} of ${o.p} points confirmed`}</div></div></div>${rows}${individualReport(pl)}${link}</div>`;
+  return `<div class="card">${individualRings(pl)}${rows}${individualReport(pl)}${individualRatings(pl)}${link}</div>`;
 }
 const legend=()=>`<div class="legend2"><span><i class="st"></i>${STUDENT?'не сдано':'not done'}</span><span><i class="st sug">?</i>${STUDENT?'Выполнено учеником, ожидает проверки':'student suggests'}</span><span><i class="st ok">✓</i>${STUDENT?'подтверждено преподавателем':'confirmed by teacher'}</span><span class="sep"></span><span><i class="kd k-before"></i>${STUDENT?'до урока':'before the lesson'}</span><span><i class="kd k-classwork"></i>${STUDENT?'работа на уроке':'classwork'}</span><span><i class="kd k-homework"></i>${STUDENT?'домашняя работа':'homework'}</span></div>`;
 function render(){
@@ -239,7 +254,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  if(!STUDENT&&pl.id.startsWith('ege-'))html=`<p><button class="btn ghost" data-parent-card>Карточка для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`+html;
+  if(!STUDENT)html=`<p><button class="btn ghost" data-parent-card>Карточка для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
@@ -462,4 +477,19 @@ document.addEventListener('keydown',e=>{
   if(!['ArrowUp','ArrowDown'].includes(e.key))return;
   e.preventDefault();const rows=[...handle.closest('.wgrp').querySelectorAll('[data-task-row]')],at=rows.indexOf(handle.closest('[data-task-row]')),next=rows[at+(e.key==='ArrowUp'?-1:1)];
   if(next)moveTrackerTask(handle.dataset.taskDrag,next.dataset.taskRow,e.key==='ArrowDown');
+});
+
+document.addEventListener('click',async e=>{
+  const button=e.target.closest('[data-plan-rating]');if(!button||STUDENT)return;
+  const root=button.closest('[data-plan-ratings]'),pl=D.plans.find(p=>p.id===root.dataset.planRatings);if(!pl)return;
+  const [kind,value]=button.dataset.planRating.split('|'),status=root.querySelector('[data-plan-rating-status]');
+  const rating={course:pl.id,student:pl.student,date:today(),lessons:Number(root.querySelector('[data-plan-lessons]').value),score:Number(value),kind,note:''};
+  root.querySelectorAll('button').forEach(b=>b.disabled=true);status.textContent='Сохраняем…';
+  try{
+    if(live)await Store.write({a:'addActivity',...rating});
+    (pl.ratings||(pl.ratings=[])).push(rating);
+    if(!live)await Demo.write();
+    const modal=$('#cardDlg').open;if(modal)openParentProgress(pl);else render();
+    const feedback=document.querySelector(modal?'#cardBody [data-plan-rating-status]':'#view [data-plan-rating-status]');if(feedback)feedback.textContent='Оценка сохранена.';
+  }catch(err){status.textContent='Не удалось сохранить оценку. Попробуйте ещё раз.';root.querySelectorAll('button').forEach(b=>b.disabled=false)}
 });

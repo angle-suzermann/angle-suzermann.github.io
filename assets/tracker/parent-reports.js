@@ -10,8 +10,8 @@
  function latest(o){return [...(o.reports||[])].filter(r=>r.source&&r.text).sort((a,b)=>String(b.date).localeCompare(String(a.date)))[0]}
  function panel(o){
   entries.set(o.id,o);
-  const report=latest(o),title=report?String(report.source).split(/[\\/]/).pop().replace(/\.pdf$/i,''):'Отчёт для родителей — '+o.name;
-  const share=o.shareUrl&&report?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a><button type="button" class="btn ghost" data-share-url="${esc(o.shareUrl)}" data-share-title="${esc(title)}">Поделиться</button>`:'';
+  const report=latest(o),title=report?String(report.source).split(/[\\/]/).pop().replace(/\.pdf$/i,''):'Карточка для родителей — '+o.name;
+  const share=o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a><button type="button" class="btn ghost" data-share-url="${esc(o.shareUrl)}" data-share-title="${esc(title)}">Поделиться</button>`:'';
   // Keep the original compact progress card: the full report is download-only.
   return `<div class="parent-report" data-report="${esc(o.id)}">${share}<button type="button" class="btn" data-report-pdf="${esc(o.id)}">Скачать отчёт PDF</button><p class="report-feedback" role="status" aria-live="polite">${report?'':'Отчёт пока не добавлен. Здесь появится готовый PDF.'}</p></div>`;
  }

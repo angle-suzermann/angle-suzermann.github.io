@@ -17,7 +17,7 @@ for(const teacher of [false,true]){
  const html=ctx.meeBlock(rows,null,teacher);
  const groups=[...html.matchAll(/data-mee-unit="([^"]+)"/g)].map(m=>m[1]);
  assert.deepEqual(groups,['12','6','5','4','other','6']);
- const unit6=html.match(/data-mee-unit="6">([\s\S]*?)<\/section>/)[1];
+ const unit6=html.match(/data-mee-unit="6"[^>]*>([\s\S]*?)<\/section>/)[1];
  assert(unit6.indexOf('speaking')<unit6.indexOf('grammar'));
  assert(!unit6.includes('unit 4')&&!unit6.includes('unit 5'));
  assert(html.includes('79%')&&html.includes('100%')&&html.includes('80%'));

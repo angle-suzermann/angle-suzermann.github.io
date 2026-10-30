@@ -212,7 +212,7 @@ function studentCardBody(s,n,readonly){
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
     return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
   return `${ringsTop(c,s,o,readonly)}
-   <div class="mini">${minis}${extra.join('')}</div>
+   <div class="mini">${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
@@ -333,10 +333,13 @@ function meeUnitGroups(rows,renderRow){
     if(!groups.has(unit))groups.set(unit,[]);
     groups.get(unit).push(r);
   }
-  return [...groups.keys()].sort((a,b)=>a===null?1:b===null?-1:b-a).map(unit=>{
+  const keys=[...groups.keys()].sort((a,b)=>a===null?1:b===null?-1:b-a);
+  const tabs=keys.map((unit,i)=>`<button type="button" class="chip ${i===0?'on':''}" data-mee-tab="${unit===null?'other':unit}" aria-pressed="${i===0}">${unit===null?'Другие работы':'Unit '+unit}</button>`).join('');
+  const panels=keys.map((unit,i)=>{
     const items=groups.get(unit).slice().sort((a,b)=>String(b.due||'').localeCompare(String(a.due||'')));
-    return `<section class="mee-unit" data-mee-unit="${unit===null?'other':unit}"><h3>${unit===null?'Другие работы / Other work':'Unit '+unit}</h3>${items.map(renderRow).join('')}</section>`;
+    return `<section class="mee-unit" data-mee-unit="${unit===null?'other':unit}"${i===0?'':' hidden'}><h3>${unit===null?'Другие работы / Other work':'Unit '+unit}</h3>${items.map(renderRow).join('')}</section>`;
   }).join('');
+  return keys.length?`<div class="mee-tabs-block"><div class="sel mee-tabs" aria-label="Выбрать юнит">${tabs}</div>${panels}</div>`:'';
 }
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
@@ -450,3 +453,10 @@ document.addEventListener('change',e=>{
 })();
 
 document.addEventListener('input',e=>{const f=e.target.closest('[data-xf]');if(!f)return;const draft=extraDrafts.get(extraDraftKey(f.closest('[data-x]').dataset.x));if(draft)draft[f.dataset.xf]=f.dataset.xf==='points'?(+f.value||0):f.value});
+
+document.addEventListener('click',e=>{
+  const tab=e.target.closest('[data-mee-tab]');if(!tab)return;
+  const root=tab.closest('.mee-tabs-block');
+  root.querySelectorAll('[data-mee-tab]').forEach(b=>{const active=b===tab;b.classList.toggle('on',active);b.setAttribute('aria-pressed',String(active))});
+  root.querySelectorAll('[data-mee-unit]').forEach(panel=>panel.hidden=panel.dataset.meeUnit!==tab.dataset.meeTab);
+});

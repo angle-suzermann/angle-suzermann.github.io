@@ -9,7 +9,7 @@ const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:
   await ctx.route('**/*',async route=>{
    const u=new URL(route.request().url());
    if(u.hostname==='sheet.test'){
-    if(route.request().method()==='POST'){writes.push(JSON.parse(route.request().postData()));return route.fulfill({json:{ok:true}})}
+    if(route.request().method()==='POST'){const op=JSON.parse(route.request().postData());writes.push(op);if(op.a==='addActivity'){const pl=plans.find(p=>p.id===op.course);(pl.ratings||(pl.ratings=[])).push(op)}return route.fulfill({json:{ok:true}})}
     return route.fulfill({json:{ok:true,data:{plans:u.searchParams.has('p')?plans.filter(p=>p.key===u.searchParams.get('p')):plans,reports:[{plan:"ege-test-one",date:"2026-10-29",source:"Отчёт для родителей — Demo one — 07–29.10.2026.pdf",text:"Private fixture"}]}}});
    }
    if(u.hostname==='tracker.test'){
@@ -34,6 +34,14 @@ const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:
   assert.equal(shared.searchParams.get('p'),plans[0].key);
   assert.equal(shared.searchParams.get('parent'),'1');
   assert.deepEqual([...shared.searchParams.keys()].sort(),['a','p','parent']);
+  await page.locator('#cardBody [data-plan-rating="quality|2"]').click();
+  await page.waitForFunction(()=>document.querySelector('#cardBody [data-plan-rating-status]').textContent==='Оценка сохранена.');
+  await page.locator('#cardBody [data-plan-rating="activity|3"]').click();
+  await page.waitForFunction(()=>document.querySelector('#cardBody [data-plan-rating-status]').textContent==='Оценка сохранена.');
+  assert.equal(writes.length,2);assert(writes.every(op=>op.a==='addActivity'&&op.course===plans[0].id));
+  assert.match(await page.locator('#cardBody').innerText(),/Качество работы: 67%/);
+  assert.match(await page.locator('#cardBody').innerText(),/Работа на уроке: 100%/);
+  writes.length=0;
   await page.locator('#cardBody [data-parent-link]').click();
   await page.waitForFunction(()=>document.querySelector('#cardBody [data-parent-link]').textContent.includes('Скопировано'));
   const link=await page.evaluate(()=>navigator.clipboard.readText());
@@ -53,11 +61,16 @@ const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:
   await page.locator('[data-share-close]').click();
   assert.equal(await page.locator('[data-tk],[data-addtask],[data-parent-card]').count(),0);
   assert.equal(await page.locator('#tabs button').count(),0);
+  assert.equal(await page.locator('#view .scard-top svg circle').count(),6);
+  assert.equal(await page.locator('[data-plan-rating]').count(),0);
+  assert.match(await page.locator('#view').innerText(),/Качество работы: 67%/);
+  assert.match(await page.locator('#view').innerText(),/Работа на уроке: 100%/);
   assert.equal(writes.length,0,'parent view never flushes the student mutation queue');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   await page.goto(link.replace(plans[0].key,plans[1].key));await page.locator('[data-report-pdf]').waitFor();
   assert.match(await page.locator('#view').innerText(),/Demo two/);assert.doesNotMatch(await page.locator('#view').innerText(),/Demo one/);
-  assert.equal(await page.getByRole('button',{name:'Поделиться',exact:true}).count(),0);
+  assert.equal(await page.getByRole('button',{name:'Поделиться',exact:true}).count(),1);
+  assert.match(await page.locator('.report-title').innerText(),/Карточка для родителей — Demo two/);
   assert.deepEqual(errors,[]);await ctx.close();
   console.log('PASS: EGE teacher parent-card preview and copied parent link; one child only; real progress; report title and rich clipboard link; read-only UI and no queued writes; mobile layout; no JS errors.');
  }finally{await browser.close()}

@@ -13,7 +13,7 @@ const root=process.cwd(),output=process.env.TRACKER_REPORT_OUTPUT||fs.mkdtempSyn
 fs.mkdirSync(output,{recursive:true});
 function fixture(){return {
  courses:{Movers:{students:[{id:'s1',name:'Демо Ученик А'},{id:'s2',name:'Демо Ученик Б'}],units:[{n:1,title:'At school',active:true}],sections:[{id:'sec1',name:'Vocabulary',points:5}],phonics:[],extras:[]}},
- progress:{'Movers|s1|u1|sec1':'✓'},act:[],mee:[],
+ progress:{'Movers|s1|u1|sec1':'✓'},act:[],mee:[{course:'Movers',student:'Демо Ученик А',hw:'WB unit 4 reading',due:'2026-10-29',status:'done',pct:80},{course:'Movers',student:'Демо Ученик А',hw:'WB unit 6 reading',due:'2026-10-01',status:'missing'}],
  reports:[{course:'Movers',studentId:'s1',plan:'',date:'2026-10-24',source:'Отчёт — Демо Ученик А.pdf',text:'Что получается\nУченик уверенно выполняет знакомые задания.'},
   {course:'Movers',studentId:'s2',plan:'',date:'2026-10-25',text:'OTHER_CHILD_PRIVATE_SENTINEL'},
   {course:'B1',studentId:'s1',plan:'',date:'2026-10-25',text:'OTHER_COURSE_PRIVATE_SENTINEL'},
@@ -52,6 +52,14 @@ function fixture(){return {
   }
   let {ctx,page}=await setup(true);
   assert.match(await page.locator('#view').innerText(),/Сдано заданий/);
+  assert.equal(await page.getByRole('button',{name:'Поделиться',exact:true}).count(),1);
+  assert.equal(await page.locator('.mini em').filter({hasText:/Unit|^U\d/}).count(),0);
+  assert.equal(await page.locator('.mee-unit:visible').count(),1);
+  assert.match(await page.locator('.mee-unit:visible').innerText(),/unit 6/);
+  await page.locator('[data-mee-tab="4"]').click();
+  assert.equal(await page.locator('.mee-unit:visible').count(),1);
+  assert.match(await page.locator('.mee-unit:visible').innerText(),/unit 4/);
+  assert.equal(await page.locator('[data-mee-tab="4"]').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('.report-comment,.report-date,[data-report-editor]').count(),0,'full report does not appear on the page');
   assert.doesNotMatch(await page.locator('#view').innerText(),/Ученик уверенно/);
   assert.doesNotMatch(await page.locator('#view').innerText(),/OTHER_CHILD|OTHER_COURSE/);
