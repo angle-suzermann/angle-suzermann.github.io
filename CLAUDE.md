@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Gateway placement 30.10: [персональная домашка после пробного урока, файл вне репо в Courses/Gateway/placement](handoffs/2026-10-30-gateway-placement-homework.md).
+
 Classwork 30.10: [частичное выполнение ◐ — продолжить на следующем уроке](handoffs/2026-10-30-classwork-partial.md). Новый статус не начисляет баллы до галочки.
 
 ЕГЭ 2027, блок «Россия» (30.10): [аудит по кодификатору, «Праздники России» (5 пар), «Outstanding Russians» (3 пары), Teacher’s notes и ключи EGE Clinic к заданию 38](handoffs/2026-10-30-ege-russia-holidays.md).
