@@ -11,7 +11,7 @@
 
 ## Что сделано
 
-- **8 воркшитов** в `ege-2027/3. Россия/01. Лексика/` (ws:title 02–09, после урока 01 Holidays and Traditions). Порядок по просьбе Виктории (второй коммит 30.10): Memory and Unity первой.
+- **8 воркшитов** в `ege-2027/3. Россия/01. Лексика/` (ws:title 03–10 (01–02 — урок Holidays and Traditions), после урока 01 Holidays and Traditions). Порядок по просьбе Виктории (второй коммит 30.10): Memory and Unity первой.
   - `russia-holidays-victory-unity-*` — 9 мая и 4 ноября + страница «Days of military glory» (Бородино, блокада Ленинграда, Сталинград: текст и 7 утверждений A/B/C) в classwork и грамматика 19–24 «The Road of Life» в homework;
   - `russia-holidays-winter-*` — Новый год и Масленица;
   - `russia-holidays-feb23-march8-*` — 23 февраля и 8 марта;
