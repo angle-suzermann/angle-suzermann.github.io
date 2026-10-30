@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Алиса B1 Dolphins 30.10: [домашка в Starter, папка Alice убрана, индивидуальный расчёт без Unit 1](handoffs/2026-10-30-alice-starter-progress.md). Этот запрос заменяет прежнее размещение в личной папке.
+
 Gateway placement 30.10: [персональная домашка после пробного урока, файл вне репо в Courses/Gateway/placement](handoffs/2026-10-30-gateway-placement-homework.md).
 
 Classwork 30.10: [частичное выполнение ◐ — продолжить на следующем уроке](handoffs/2026-10-30-classwork-partial.md). Новый статус не начисляет баллы до галочки.
