@@ -115,8 +115,16 @@ const pk=(c,s,scope,item)=>[c,s,scope,item].join('|');
 const st=(c,s,scope,item)=>D.progress[pk(c,s,scope,item)]||'';
 const C=()=>D.courses[ui.course];
 function ratio(e,p){return p>0?e/p:null}
+// A unit counts for one pupil when it is switched on for the course, or when that pupil
+// already has an MEE task of this unit that is handed in or overdue (a class ahead of the course switch).
+const unitNo=hw=>{const m=String(hw||'').match(/\bunit\s*[-:#]?\s*(\d+)\b/i);return m?Number(m[1]):null};
+function unitOn(c,sid,n){
+  const cc=D.courses[c],u=cc&&cc.units.find(x=>x.n===n);if(!u)return false;if(u.active)return true;
+  const s=cc.students.find(x=>x.id===sid);if(!s)return false;const nm=String(s.name).toLowerCase();
+  return (D.mee||[]).some(r=>String(r.course)===c&&String(r.student).toLowerCase()===nm&&(r.status==='done'||r.status==='missing')&&unitNo(r.hw)===n);
+}
 function unitScore(c,sid,n){
-  const cc=D.courses[c],u=cc.units.find(x=>x.n===n);if(!u||!u.active)return{e:0,p:0,r:null};
+  const cc=D.courses[c],u=cc.units.find(x=>x.n===n);if(!u||!unitOn(c,sid,n))return{e:0,p:0,r:null};
   let e=0,p=0;for(const s of cc.sections){const v=st(c,sid,'u'+n,s.id);if(v==='N/A')continue;p+=s.points;if(v==='✓')e+=s.points}
   return{e,p,r:ratio(e,p)};
 }
@@ -178,7 +186,7 @@ function viewUnit(n){
   if(!cc.students.length)return `<div class="card">${head}<div class="empty">No students yet. Add them in the Google Sheet (Students tab).</div></div>`;
   const dim=u.active?'':'<div class="sub" style="margin:0 0 8px;color:#8d6a00">This unit is not started: it does not count toward the completion %.</div>';
   const rows=cc.students.map(s=>{const sc=unitScore(c,s.id,n);
-    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',u.active)}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
+    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
   const foot=`<tr><td class="name" style="background:#faf8fc">Class % done</td>${cc.sections.map(x=>{let d=0,t=0;for(const s of cc.students){const v=st(c,s.id,'u'+n,x.id);if(v==='N/A')continue;t++;if(v==='✓')d++}return `<td class="tc g-${grp(x.name)}">${t?Math.round(d/t*100)+'%':'–'}</td>`}).join('')}<td></td></tr>`;
   const s=curStudent();
   const desktop=`<div class="desktop"><div class="matrix"><table class="fx" style="min-width:${160+84+cc.sections.length*74}px"><colgroup><col style="width:160px">${cc.sections.map(()=>'<col>').join('')}<col style="width:84px"></colgroup><thead><tr><th class="name">Student</th>${cc.sections.map(x=>`<th class="g-${grp(x.name)}">${esc(x.name)}<small>${x.points} pts</small></th>`).join('')}<th>Unit %</th></tr></thead><tbody>${rows}</tbody><tfoot>${foot}</tfoot></table></div><div class="desktop-ratings" style="margin-top:18px"><h2 style="font-size:16px">Class activity and quality of work</h2>${selector()}${s?ringsTop(c,s,overall(c,s.id))+rateBlock(s):''}</div></div>`;
@@ -188,7 +196,7 @@ function viewUnit(n){
 
 // Current-unit selection is independent of the scoring switch "Unit started".
 function cardUnits(sid){
-  return C().units.filter(u=>u.active||C().sections.some(sec=>st(ui.course,sid,'u'+u.n,sec.id)==='✓'));
+  return C().units.filter(u=>unitOn(ui.course,sid,u.n)||C().sections.some(sec=>st(ui.course,sid,'u'+u.n,sec.id)==='✓'));
 }
 function cardUnit(sid,preferred){
   if(C().units.some(u=>u.n===preferred))return preferred;
@@ -205,15 +213,15 @@ function refreshRatings(s,message){
 }
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
-  const minis=cc.units.filter(x=>!readonly||x.active||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Unit ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
+  const minis=cc.units.filter(x=>!readonly||unitOn(c,s.id,x.n)||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Unit ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
   const extra=[];
   if(cc.phonics.length){const p=phScore(c,s.id);extra.push(`<span class="${pcClass(p.r)}"><em>Phonics</em>${fmt(p.r)}</span>`)}
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
-    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',u.active)}</div>`}).join('');
+    return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',unitOn(c,s.id,u.n))}</div>`}).join('');
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${extra.join('')}</div>
-   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${u.active?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
+   <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
