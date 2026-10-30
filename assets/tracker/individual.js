@@ -111,19 +111,19 @@ function newestFirst(plans){
 }
 const P=()=>D.plans.find(p=>p.id===ui.plan);
 const safeLink=u=>/^https?:\/\//i.test(u||'')?u:'';
-const stateOf=t=>t.status==='✓'?'ok':t.status==='N/A'?'na':t.suggested?'sug':'';
+const stateOf=t=>t.status==='✓'?'ok':t.status==='N/A'?'na':t.suggested?'sug':t.status==='In progress'?'partial':'';
 const fmtDay=d=>{try{return new Date(d+'T00:00').toLocaleDateString(STUDENT?'ru-RU':'en-GB',{day:'numeric',month:'short'})}catch{return d}};
 
 /* ---------- views ---------- */
 function stBtn(bi,t){
-  const s=stateOf(t),icon={ok:'✓',na:'–',sug:'?','':''}[s];
-  const label=(STUDENT?{ok:'Подтверждено преподавателем',na:'Не задано',sug:'Выполнено учеником, ожидает проверки',"":'Пока не сдано'}:{ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',"":'Not done yet'})[s];
+  const s=stateOf(t),icon={ok:'✓',na:'–',sug:'?',partial:'◐','':''}[s];
+  const label=(STUDENT?{ok:'Подтверждено преподавателем',na:'Не задано',sug:'Выполнено учеником, ожидает проверки',partial:'Начато — продолжить на следующем уроке',"":'Пока не сдано'}:{ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',partial:'Начато — продолжить на следующем уроке',"":'Not done yet'})[s];
   const dis=STUDENT&&(s==='ok'||s==='na');
   /* score ring: the note starts with "Worksheet 87%" or "MEE 87%" (written by the worksheet / the MEE import) */
   const m=String(t.note||'').match(/^(Worksheet|MEE)\s+(\d{1,3})%/i),pc=m?Math.min(100,+m[2]):null;
-  const ringAttr=pc==null?'':` style="--p:${pc};--rc:${pc>=80?'#4f9d52':pc>=50?'#d9a900':'#c7586a'}"`;
+  const ringAttr=pc==null||s==='partial'?'':` style="--p:${pc};--rc:${pc>=80?'#4f9d52':pc>=50?'#d9a900':'#c7586a'}"`;
   const lab2=pc==null?label:label+' · '+m[1]+' '+pc+'%';
-  return `<button class="st ${s}${pc==null?'':' pr'}"${ringAttr} data-tk="${bi}|${t.n}" aria-label="${lab2}" title="${lab2}"${dis?' disabled':''}>${icon}</button>`;
+  return `<button class="st ${s}${pc==null||s==='partial'?'':' pr'}"${ringAttr} data-tk="${bi}|${t.n}" aria-label="${lab2}" title="${lab2}"${dis?' disabled':''}>${icon}</button>`;
 }
 function taskCard(pl,bi,t,number){
   const k=KINDS[t.kind]?t.kind:'homework';
@@ -133,7 +133,7 @@ function taskCard(pl,bi,t,number){
   const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(name)}</a>`:esc(name);
   const sub=[t.mode,t.unit,t.points+(STUDENT?' баллов':' pts')].filter(Boolean).map(esc).join(' · ');
   const s=stateOf(t);
-  const tag=s==='sug'?`<span class="tag sug">${STUDENT?'Ожидает проверки':'Suggested'}${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?`<span class="tag ok">${STUDENT?'Подтверждено':'Confirmed'}</span>`:'';
+  const tag=s==='partial'?'<span class="tag partial">Начато — продолжить</span>':s==='sug'?`<span class="tag sug">${STUDENT?'Ожидает проверки':'Suggested'}${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?`<span class="tag ok">${STUDENT?'Подтверждено':'Confirmed'}</span>`:'';
   let note='';
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
   else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
@@ -230,7 +230,7 @@ function viewSummary(pl){
   const link=STUDENT?'':`<p style="margin:14px 0 0"><button class="btn ghost" data-plink="1">Copy student link</button></p>`;
   return `<div class="card">${individualRings(pl)}${rows}${individualReport(pl)}${individualRatings(pl)}${link}</div>`;
 }
-const legend=()=>`<div class="legend2"><span><i class="st"></i>${STUDENT?'не сдано':'not done'}</span><span><i class="st sug">?</i>${STUDENT?'Выполнено учеником, ожидает проверки':'student suggests'}</span><span><i class="st ok">✓</i>${STUDENT?'подтверждено преподавателем':'confirmed by teacher'}</span><span class="sep"></span><span><i class="kd k-before"></i>${STUDENT?'до урока':'before the lesson'}</span><span><i class="kd k-classwork"></i>${STUDENT?'работа на уроке':'classwork'}</span><span><i class="kd k-homework"></i>${STUDENT?'домашняя работа':'homework'}</span></div>`;
+const legend=()=>`<div class="legend2"><span><i class="st"></i>${STUDENT?'не сдано':'not done'}</span><span><i class="st sug">?</i>${STUDENT?'Выполнено учеником, ожидает проверки':'student suggests'}</span><span><i class="st ok">✓</i>${STUDENT?'подтверждено преподавателем':'confirmed by teacher'}</span><span><i class="st partial">◐</i>начато — продолжить</span><span class="sep"></span><span><i class="kd k-before"></i>${STUDENT?'до урока':'before the lesson'}</span><span><i class="kd k-classwork"></i>${STUDENT?'работа на уроке':'classwork'}</span><span><i class="kd k-homework"></i>${STUDENT?'домашняя работа':'homework'}</span></div>`;
 function render(){
   if(!D.plans.length){$('#view').innerHTML='<div class="card empty">No plans found for this page. Add them in the Google Sheet (Plans tab).</div>';return}
   if(!P())ui.plan=D.plans[0].id;
@@ -305,7 +305,7 @@ document.addEventListener('click',e=>{
       send({a:'suggest',plan:P().id,block:b.name,n:t.n,value:v});
       toast(v?'Sent to your teacher for checking':'Suggestion removed');render();return}
     if(t.suggested&&t.status!=='✓'){setF(b,t,'status','✓');setF(b,t,'suggested','');render();return}   // confirm
-    const nx=({'':'✓','✓':'N/A','N/A':''})[t.status||''];setF(b,t,'status',nx);if(nx==='✓'&&t.suggested)setF(b,t,'suggested','');render();return}
+    const cycle=t.kind==='classwork'?['','In progress','✓','N/A']:['','✓','N/A'];const nx=cycle[(cycle.indexOf(t.status||'')+1)%cycle.length];setF(b,t,'status',nx);if(nx==='✓'&&t.suggested)setF(b,t,'suggested','');render();return}
   const rt=e.target.closest('[data-ret]');
   if(rt&&!STUDENT){const {b,t}=find(rt.dataset.ret);setF(b,t,'suggested','');toast('Returned to the student');render();return}
   if(STUDENT){} else {
