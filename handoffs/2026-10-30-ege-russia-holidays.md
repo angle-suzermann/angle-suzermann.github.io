@@ -28,7 +28,7 @@
 
 ## Открытое
 
-- Фоны всех 8 листов — временно фото Зимнего дворца из урока Holidays and Traditions. Фотосайты из облака и с компьютера недоступны (прокси); Виктория пришлёт фото по списку (конец Teacher's notes), затем заменить `img/bg-photo.jpg` в 8 папках и фон в копиях папки курса.
+- [x] **Фоны исходных восьми листов закрыты 30.10:** согласованные фотографии установлены на сайте и в самодостаточных копиях курса. Коммит `1f6a981`; подробности и авторы — в дополнении ниже.
 - Локальная копия репозитория на компьютере содержит два коммита 30.10 (`7400385`, `e0c4437`), уже опубликованных из облака в другом виде; перед следующим коммитом с компьютера — синхронизация (Pull или reset к `origin/main` с согласия Виктории).
 - Тексты и задания авторские — на проверку Виктории.
 - Блок «Россия» не перестраивался: урок Holidays and Traditions оставлен вводным, серия идёт следом.
@@ -43,4 +43,42 @@
 ### Следующее (одобрено, не сделано)
 - Тесты по разделам «России» на неиспользованных вариантах подборки «Россия в ЕГЭ 2025-26» (чтение 10/11/12–18, 19–24, 25–29, аудио задания 2) с ключами подборки; письмо и говорение — авторские.
 - Пары «My Hometown» (3.5) и «Russian Etiquette» (3.2, 3.4).
-- Фото-фоны для 16 листов (список в Teacher's notes обеих серий).
+- Фото-фоны: исходные 8 листов закрыты (см. ниже). Остаются 8 листов, добавленных третьей итерацией: State — 2, Outstanding Russians — 6; в этой задаче они не менялись.
+
+
+## Дополнение 30.10: согласованные фото-фоны исходных восьми листов
+
+### Фоны — закрыто
+
+- Виктория просмотрела все восемь фото и подтвердила **03 B** (московские новогодние шары и гирлянды без видимого снега) и **07 A** (настоящий старт «Союза ТМА-16», Байконур, 2009; ракета уже в воздухе). Остальные шесть — из согласованного общего набора.
+- Все фотографии найдены через встроенный браузер на Unsplash; бесплатная **Unsplash License** проверена на странице каждого снимка. Оригиналы скачаны в максимальном доступном размере; авторы и ссылки сохранены в `photos/credits.txt` папки курса.
+- По отдельному разрешению Виктории, поскольку облачной среды Claude в этой сессии нет, обработка выполнена **локально Pillow 12.3.0**, а публикация — из **отдельного свежего клона** `ANGLE Memory/tmp/holidays-publish-20261030`, ветка `codex/russia-holiday-backgrounds`. Основная отстающая копия `ANGLE/angle-site/angle-site` не изменялась и не сбрасывалась.
+- JPEG: длинная сторона **1600 px**, quality **70**, optimize/progressive; вес **96 142–356 299 байт**, все менее 500 КБ. Полные исходники сохранены в `photos/originals` и `photos/candidates`.
+- На сайте заменены **только восемь `img/bg-photo.jpg`**, HTML не менялся. Коммит **`1f6a981348a6ac984a14a77cea1124eea8236001`**, отправлен в `origin/main`.
+- В локальных самодостаточных HTML заменён **только JPEG base64 внутри `.bg-photo`**. Скрипт подтвердил побайтовое сохранение префикса и суффикса вокруг payload и совпадение SHA256 встроенной картинки с JPEG. UTF-8 и исходные переводы строк сохранены. Резервные копии актуальных HTML — `_archive/before-backgrounds-latest-2026-10-30/`; более ранний снимок — `_archive/before-backgrounds-2026-10-30/`.
+- Во время работы другая сессия добавила State и перенумеровала серию. Локальные файлы выбраны **по теме и CLASSWORK/HOMEWORK**, а не по старому номеру: Memory 01/02, Winter 05/06, Honour 07/08, Space 09/10. State 03/04 и новая серия Outstanding Russians не менялись.
+
+| Фото | Автор / аккаунт | Источник | Байт | Текущий файл курса |
+|---|---|---|---:|---|
+| `01-cw.jpg` | Viacheslav Poturaev | [Unsplash](https://unsplash.com/photos/vkskIj5yZ6k) | 115,700 | `01. Memory and Unity - Victory Day and National Unity Day - CLASSWORK.html` |
+| `02-hw.jpg` | Dmitry Grachyov | [Unsplash](https://unsplash.com/photos/qrI4mg4pU58) | 142,907 | `02. Memory and Unity - Victory Day and National Unity Day - HOMEWORK.html` |
+| `03-cw.jpg` | Anton Shcherbakov | [Unsplash](https://unsplash.com/photos/CqbMG_EVVoU) | 125,056 | `05. Winter Festivities - New Year and Maslenitsa - CLASSWORK.html` |
+| `04-hw.jpg` | Urfa Sahi | [Unsplash](https://unsplash.com/photos/UyODJtvADoc) | 257,141 | `06. Winter Festivities - New Year and Maslenitsa - HOMEWORK.html` |
+| `05-cw.jpg` | Anastasiya Romanova | [Unsplash](https://unsplash.com/photos/e9gS-wyY0AY) | 356,299 | `07. Days of Honour - 23 February and 8 March - CLASSWORK.html` |
+| `06-hw.jpg` | Catia Climovich | [Unsplash](https://unsplash.com/photos/Z-6bfsa6rD8) | 198,755 | `08. Days of Honour - 23 February and 8 March - HOMEWORK.html` |
+| `07-cw.jpg` | NASA | [Unsplash](https://unsplash.com/photos/JkaKy_77wF8) | 96,142 | `09. Russia in Space - Cosmonautics Day - CLASSWORK.html` |
+| `08-hw.jpg` | NASA | [Unsplash](https://unsplash.com/photos/Q1p7bh3SHj8) | 116,181 | `10. Russia in Space - Cosmonautics Day - HOMEWORK.html` |
+
+### Проверки этой задачи
+
+- `node build.mjs` завершился успешно после переноса фонов поверх новых материалов `c8ff5fc`: **309 материалов**, из них **160 ЕГЭ**. Следующий входящий `a3648d1` изменил только `CLAUDE.md` и этот хэндофф; коммит фонов перенесён поверх него без конфликтов. Чужие коммиты и изменения сохранены.
+- Playwright / отдельный headless Chrome: **32 скриншота** — 8 страниц собранного сайта и 8 файлов курса, каждая на **390×900** и **1100×900**. Все JPEG загрузились; SHA256 совпали; горизонтальной прокрутки нет; ошибок JavaScript **0**. Максимальная шапка: **136.28 px** на 390 и **106.78 px** на 1100. Просмотрены все четыре сводных листа скриншотов: фон виден вокруг карточек, текст читается.
+- `.bg-photo` opacity **0.5**, `.bg-wash` и все остальные CSS/HTML сохранены. Локальные карточки сохраняют исходную полупрозрачность; фон просвечивает сильнее, чем в собранном сайте, — оформление не менялось.
+- Скриншоты и метрики: `C:/Users/vikto/.codex/visualizations/2026/10/30/01a18b66-be69-7b82-8b8f-70a220fe7a97/qa/`; `results.json`, `overview-{site,course}-{390,1100}.jpg` и 32 отдельных PNG.
+- Протокол точечной замены и параметры JPEG: `photos/local-replacement-verification.json`, `photos/prepared-manifest.json`. Повторяемые скрипты подготовки и QA — `ANGLE Memory/tmp/holidays-backgrounds.py`, `holidays-qa.cjs`.
+
+### Что остаётся
+
+- Для **этой задачи**: публикация подтверждена — [GitHub Actions run 41013981690](https://github.com/angle-suzermann/angle-suzermann.github.io/actions/runs/41013981690) для `1f6a981` завершился **success**. Фоны исходных восьми листов закрыты.
+- Для **расширенного блока**: фоны State (2) и Outstanding Russians (6), тесты по разделам, My Hometown, Russian Etiquette остаются открытыми. Их содержание и широкие проверки scoring из прошлых итераций в этой задаче не перепроверялись.
+- Тексты и задания остаются на содержательную проверку Виктории. Вводный Holidays and Traditions и структура блока не менялись.
