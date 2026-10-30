@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ЕГЭ 2027 · Россия — итоговый вариант (тестовая часть)</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="ЕГЭ 2027">
+<meta name="ws:course-id" content="ege-2027">
+<meta name="ws:unit"      content="Россия">
+<meta name="ws:title"     content="02. Russia — Demo-format test · Part 1 (tasks 1–36)">
+<meta name="ws:emoji"     content="🎧">
+<meta name="ws:date"      content="2026-10-30">
+<meta name="ws:status"    content="draft">
+<meta name="ws:formspree" content="mnjekjvq">
+<meta name="ws:tags"      content="итоговый тест, формат демо, ЕГЭ, россия, аудирование, чтение, грамматика и лексика">
+<meta name="robots"       content="noindex, nofollow">
+<style>
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; padding:0;
+  font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif;
+  color:var(--text);
+  background:var(--purple-dark);
+  line-height:1.5;
+}
+/* App-shell (Telegram in-app-browser fix, 2026-09-12) */
+html,body{ height:100%; overflow:hidden; background:var(--card); color-scheme:light; }
+.app-shell{ position:fixed; inset:0; display:flex; flex-direction:column; overflow:hidden; }
+.scroll-area{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:2;  background-color:#ffffff;
+  background-image:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)), linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45)), url('img/bg-photo.jpg');
+  background-position:0 0, 0 0, center 40%;
+  background-size:auto, auto, cover;
+  background-repeat:no-repeat, no-repeat, no-repeat;}
+.bg-photo{ position:absolute; inset:0; z-index:0; background-image:url('img/bg-photo.jpg'); background-size:cover; background-position:center 40%; opacity:0.5; }
+.bg-wash{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9)); }
+.angle-badge{ position:fixed; left:22px; bottom:18px; z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; color:var(--yellow); filter:drop-shadow(0 1px 4px rgba(0,0,0,.55)); }
+.angle-badge .wordmark{ width:120px; height:auto; display:block; }
+.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro','Circe','Proxima Nova','Inter',Arial,sans-serif; font-weight:400; font-size:11px; letter-spacing:.3px; }
+.topbar{ position:relative; flex:0 0 auto; z-index:60; background:#fff; border-bottom:none; box-shadow:0 1px 0 rgba(94,72,119,.35), 0 10px 24px -12px rgba(45,41,38,.45); }
+.topbar-inner{ max-width:900px; margin:0 auto; padding:10px 18px; }
+.brand-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.brand-row .lesson-title{ font-weight:800; color:var(--purple); font-size:1.05em; letter-spacing:.01em; }
+.brand-row .lesson-sub{ font-weight:400; color:var(--muted); font-size:.78em; margin-top:2px; max-width:560px; }
+.namebar{ display:flex; align-items:center; gap:6px; font-size:.85em; color:var(--muted); }
+.namebar .req{ color:var(--wrong); }
+.namebar input{ border:1px solid var(--border); border-radius:5px; padding:5px 9px; font-family:inherit; font-size:.92em; width:160px; }
+.namebar input:invalid{ border-color:var(--border); }
+.namebar input.missing{ border-color:var(--wrong); background:#fdecea; }
+.page-dots{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.page-dot{ width:24px; height:24px; border-radius:50%; background:var(--card-tint); border:1px solid var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.75em; font-weight:800; cursor:pointer; }
+.page-dot:hover{ border-color:var(--purple); }
+.page-dot.active{ background:var(--purple); color:#fff; border-color:var(--purple); }
+.progress-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.progress-track{ flex:1; height:9px; border-radius:6px; background:var(--card-tint); overflow:hidden; border:1px solid var(--border); }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--purple),var(--purple-dark)); width:0%; transition:width .3s ease; }
+.progress-label{ font-size:.78em; color:var(--muted); white-space:nowrap; font-weight:700;}
+
+.page-wrap{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:20px 18px 60px; }
+.page{ display:none; }
+.page.active{ display:block; animation:fadein .25s ease; }
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:16px; }
+.card h2{ color:var(--purple); font-size:1.15em; margin:0 0 10px; border-bottom:3px solid var(--yellow); padding-bottom:8px; }
+.card h3{ color:var(--black); font-size:1.02em; margin:14px 0 6px; }
+.instruction{ background:var(--card-tint); border-left:5px solid var(--purple); padding:10px 14px; font-style:italic; font-size:.94em; margin:10px 0 16px; border-radius:0 6px 6px 0; }
+.reminder{ background:#fff8e0; border:1px dashed #cbb500; color:#6b5c00; font-size:.85em; padding:7px 12px; border-radius:6px; margin:8px 0 12px; font-weight:600; }
+
+.task{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:16px; position:relative; }
+.task-num{ position:absolute; top:-12px; left:14px; background:var(--black); color:var(--yellow); font-weight:800; font-size:.85em; padding:2px 10px; border-radius:5px; }
+.task-body{ margin-top:8px; }
+.passage{ font-size:.95em; text-align:justify; }
+.passage p{ margin:0 0 10px; }
+.passage b{ color:var(--purple); }
+
+.timer-box{ display:flex; align-items:center; gap:14px; background:var(--black); color:#fff; border-radius:8px; padding:12px 18px; margin-bottom:18px; flex-wrap:wrap; }
+.timer-box .t-label{ font-size:.85em; color:#cfc6da; }
+.timer-box .t-clock{ font-size:1.6em; font-weight:800; color:var(--yellow); font-variant-numeric:tabular-nums; min-width:80px; }
+.btn{ background:var(--yellow); color:var(--black); border:none; border-radius:6px; padding:10px 18px; font-weight:800; cursor:pointer; font-size:.92em; font-family:inherit; }
+.btn:hover{ background:#e6c000; }
+.btn.secondary{ background:transparent; color:#fff; border:2px solid var(--yellow); }
+.btn.secondary:hover{ background:rgba(254,213,0,.12); }
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+.timer-status{ font-size:.85em; color:var(--yellow); font-weight:700; }
+
+audio{ width:100%; margin:10px 0 4px; }
+
+.mtable{ border-collapse:collapse; margin:12px 0; }
+.mtable th, .mtable td{ border:1px solid var(--purple); padding:6px 4px; text-align:center; min-width:42px; font-size:.85em; }
+.mtable th{ background:var(--card-tint); color:var(--purple); font-weight:800; }
+.mtable select{ width:44px; padding:3px; border:1px solid var(--purple); border-radius:4px; font-family:inherit; font-weight:700; text-align:center; }
+.mtable-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; }
+.mtable-wrap .mtable{ margin:0; }
+
+.options{ display:flex; flex-direction:column; gap:6px; margin-top:8px; }
+.options label{ display:flex; align-items:flex-start; gap:8px; padding:7px 10px; border:1px solid var(--border); border-radius:6px; cursor:pointer; font-size:.92em; }
+.options label:hover{ background:var(--card-tint); border-color:var(--purple); }
+.options input{ margin-top:3px; accent-color:var(--purple); }
+
+.gapline{ font-size:.95em; margin:10px 0; }
+.gapline .capword{ font-weight:800; color:var(--purple); font-size:.85em; letter-spacing:.03em; margin-left:6px; }
+.fib{ border:1px solid var(--purple); border-radius:5px; padding:5px 8px; font-family:inherit; font-size:.95em; width:170px; }
+.fib.is-correct{ border-color:var(--correct); background:#eafaf1; }
+.fib.is-wrong{ border-color:var(--wrong); background:#fdecea; }
+
+.nav-btns{ display:flex; justify-content:space-between; margin-top:20px; gap:10px; }
+.nav-btns .btn.dark{ background:var(--black); color:var(--yellow); }
+.nav-btns .btn.dark:hover{ background:#1c1917; }
+
+.section-progress{ font-size:.82em; color:var(--muted); margin-bottom:6px; }
+
+#result-page .score-card{ background:var(--purple); color:#fff; border-radius:10px; padding:22px 24px; text-align:center; margin-bottom:18px; }
+#result-page .score-big{ font-size:2.6em; font-weight:800; color:var(--yellow); }
+#result-page .score-sub{ font-size:.95em; opacity:.9; margin-top:4px; }
+.breakdown{ width:100%; border-collapse:collapse; margin-top:6px;}
+.breakdown td, .breakdown th{ padding:9px 10px; border-bottom:1px solid var(--border); font-size:.92em; text-align:left; }
+.breakdown th{ color:var(--purple); }
+.breakdown td:last-child, .breakdown th:last-child{ text-align:right; font-weight:800; }
+
+.note-box{ background:var(--card-tint); border:1px solid var(--border); border-radius:8px; padding:12px 16px; font-size:.88em; color:var(--muted); margin-top:14px; }
+
+.save-indicator{ font-size:.72rem; color:var(--correct); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-indicator.show{ opacity:1; }
+.restore-note{ background:#fffbe6; border:1px solid #f0dd8a; border-radius:8px; padding:10px 14px; font-size:.88rem; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.restore-note button{ background:#fff; border:1.5px solid var(--purple); color:var(--purple); font-weight:700; font-size:.78rem; padding:6px 12px; border-radius:16px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+
+@media(max-width:600px){
+  .mtable th, .mtable td{ min-width:30px; padding:4px 2px; }
+}
+
+body{overflow-wrap:break-word;}
+
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+/* DEMO-READABILITY-FIX - no gap under header; light text on purple/dark areas */
+.page-wrap{padding-top:6px;}
+.finish-card,.finish-card h2,.finish-card p,.finish-card td,.finish-card th{color:#fff;}
+.finish-card .finish-summary th{color:var(--yellow,#FED500);}
+.note-box,.email-preview .hdr,.wordbox .wcount:not(.ok):not(.bad){color:#5a5268;}
+.rec-btn{background:#b83a2b;}
+@media (max-width:600px){.mtable{table-layout:auto;}.mtable td:last-child,.mtable th:last-child{width:auto;}.mtable td,.mtable th{overflow-wrap:anywhere;}.mtable select{min-width:0;width:100%;max-width:100%;padding:4px 0;font-size:13px;}.mtable td:first-child,.mtable th:first-child{width:auto;}}
+</style>
+<meta name="theme-color" content="#453458">
+<script src="/assets/tracker/plan-hook.js"></script>
+</head>
+<body>
+
+<div class="app-shell">
+<div class="bg-photo"></div>
+<div class="bg-wash"></div>
+<div class="angle-badge">
+  <svg class="wordmark" viewBox="0 0 2190 640" width="120" height="35" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#FED500">
+      <path d="M4253 6000 c-18-4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+    </g>
+  </svg>
+  <div class="credit">by Viktoria Syuzyova</div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div>
+        <div class="lesson-title">ЕГЭ 2027 · Блок «Россия» · итоговый вариант</div>
+        <div class="lesson-sub">Тестовая часть · задания 1–36</div>
+      </div>
+      <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required><span class="save-indicator" id="saveIndicator"></span>
+        <a href="#" class="topbar-reset" onclick="clearProgress();return false;" style="font-size:.78rem;color:var(--muted);margin-left:4px;white-space:nowrap;" title="Delete all saved answers on this page and start over">↺ Start over</a></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Страница 1 / 5</span>
+    </div>
+    <div class="page-dots" id="pageDots"></div>
+  </div>
+</header>
+
+<div class="scroll-area" id="scrollArea">
+<div class="page-wrap">
+<section class="page active" data-page="0">
+  <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button type="button" onclick="clearProgress()">Начать заново (стереть сохранённые ответы)</button></div>
+  <div class="card">
+    <h2>Итоговый вариант блока «Россия» в формате ЕГЭ</h2>
+    <p>Это первая из трёх частей варианта, оформленного как демоверсия ЕГЭ 2027: тестовая часть (задания 1–36), письменная часть (37–38) и устная часть (1–4). Все тексты написаны для блока «Россия».</p>
+    <p>Ответы к заданиям 3–9, 12–18 и 30–36 — одна цифра, соответствующая номеру правильного ответа. В заданиях 1, 2, 10, 11 выберите цифры в таблице. Ответы к заданиям 19–29 впишите словом (несколькими словами) без пробелов.</p>
+    <div class="instruction">Раздел 1 («Аудирование») — 9 заданий, 30 минут. Раздел 2 («Чтение») — 9 заданий, 30 минут. Раздел 3 («Грамматика и лексика») — 18 заданий, 40 минут. Проверки по ходу работы нет: всё проверяется одной кнопкой в конце, как на экзамене.</div>
+    <div class="reminder">Аудирование озвучено британскими голосами браузера (мужским и женским). Каждую запись можно включить только 2 раза. Перед началом проверьте звук; лучше всего работает Chrome или Safari.</div>
+  </div>
+  <div class="nav-btns"><span></span><button class="btn" onclick="goToPage(1)">Начать тест →</button></div>
+</section>
+<section class="page" data-page="1">
+  <div class="section-progress">Раздел 1 из 3</div>
+  <div class="card"><h2>Раздел 1. Аудирование</h2><div class="timer-box"><div><div class="t-label">Рекомендуемое время на раздел</div><div class="t-clock" id="clock-1">30:00</div></div><button class="btn" id="start-1" onclick="startTimer(1,1800)">Начать</button><span class="timer-status" id="status-1"></span></div></div>
+  <div class="task"><span class="task-num">Задание 1</span><div class="task-body"><div class="instruction">Вы услышите 6 высказываний. Установите соответствие между высказываниями каждого говорящего A–F и утверждениями, данными в списке 1–7. Используйте каждое утверждение, обозначенное соответствующей цифрой, только один раз. В задании есть одно лишнее утверждение.</div><div class="timer-box tts-box"><button class="btn tts-btn" id="play-L1" onclick="playTask('L1')">▶ Прослушать: задание 1</button><span class="timer-status" id="playst-L1">Можно прослушать 2 раза</span></div><ol><li>The local food is the best thing about the place.</li><li>The speaker moved there because of a job offer.</li><li>The winters are hard, but they make people kinder.</li><li>Public transport has improved a lot recently.</li><li>The place is ideal for people who love the outdoors.</li><li>The speaker is planning to move to a bigger city.</li><li>Visitors come mainly to see the old buildings.</li></ol><div class="mtable-wrap"><table class="mtable"><tr><th>Говорящий</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><td>Утверждение</td><td><select id="t1_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t1_B"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t1_C"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t1_D"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t1_E"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t1_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td></tr></table></div></div></div><div class="task"><span class="task-num">Задание 2</span><div class="task-body"><div class="instruction">You will hear a conversation between Tom, a British exchange student, and his Russian friend Masha. Определите, какие из приведённых утверждений А–G соответствуют содержанию текста (1 – True), какие не соответствуют (2 – False) и о чём в тексте не сказано, то есть на основании текста нельзя дать ни положительного, ни отрицательного ответа (3 – Not stated).</div><div class="timer-box tts-box"><button class="btn tts-btn" id="play-L2" onclick="playTask('L2')">▶ Прослушать: задание 2</button><span class="timer-status" id="playst-L2">Можно прослушать 2 раза</span></div><ol type="A"><li>Tom has been ill for three days.</li><li>Tom has bought some medicine at a chemist’s.</li><li>Masha advises Tom to see a doctor.</li><li>Tom’s parents know that he is ill.</li><li>Tom will have to pay for the visit to the doctor.</li><li>The polyclinic is next to the university.</li><li>Masha is going to the polyclinic with Tom.</li></ol><div class="mtable-wrap"><table class="mtable"><tr><th>Утверждение</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr><tr><td>Ответ</td><td><select id="t2_A"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_B"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_C"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_D"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_E"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_F"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="t2_G"><option value="">–</option><option>1</option><option>2</option><option>3</option></select></td></tr></table></div></div></div>
+  <div class="instruction" style="margin-bottom:16px">You will hear an interview with Ivan Petrov, who teaches English at a village school in the Altai Mountains. В заданиях 3–9 запишите цифру 1, 2 или 3, соответствующую выбранному вами варианту ответа.</div>
+  <div class="task"><div class="task-body"><div class="timer-box tts-box"><button class="btn tts-btn" id="play-L3" onclick="playTask('L3')">▶ Прослушать: задания 3–9</button><span class="timer-status" id="playst-L3">Можно прослушать 2 раза</span></div></div></div>
+  <div class="task"><span class="task-num">Задание 3</span><div class="task-body"><p>Why did Ivan first go to Altai?</p><div class="options"><label><input type="radio" name="t3" value="1"> to volunteer at a summer camp</label><label><input type="radio" name="t3" value="2"> to work as a translator</label><label><input type="radio" name="t3" value="3"> to visit his relatives</label></div></div></div><div class="task"><span class="task-num">Задание 4</span><div class="task-body"><p>What does Ivan think about the small classes at his school?</p><div class="options"><label><input type="radio" name="t4" value="1"> They are an advantage.</label><label><input type="radio" name="t4" value="2"> They are boring for pupils.</label><label><input type="radio" name="t4" value="3"> They are a problem for teachers.</label></div></div></div><div class="task"><span class="task-num">Задание 5</span><div class="task-body"><p>What is the biggest challenge for Ivan?</p><div class="options"><label><input type="radio" name="t5" value="1"> the cold weather</label><label><input type="radio" name="t5" value="2"> the long road</label><label><input type="radio" name="t5" value="3"> the slow internet</label></div></div></div><div class="task"><span class="task-num">Задание 6</span><div class="task-body"><p>Why are Ivan’s students motivated to learn English?</p><div class="options"><label><input type="radio" name="t6" value="1"> English is required at university.</label><label><input type="radio" name="t6" value="2"> They want to move abroad.</label><label><input type="radio" name="t6" value="3"> They help their families with tourists.</label></div></div></div><div class="task"><span class="task-num">Задание 7</span><div class="task-body"><p>What happened last year?</p><div class="options"><label><input type="radio" name="t7" value="1"> A student started working in tourism.</label><label><input type="radio" name="t7" value="2"> Two students got high exam results.</label><label><input type="radio" name="t7" value="3"> Ivan passed an important exam.</label></div></div></div><div class="task"><span class="task-num">Задание 8</span><div class="task-body"><p>What does Ivan say about moving back to a big city?</p><div class="options"><label><input type="radio" name="t8" value="1"> His parents are against it.</label><label><input type="radio" name="t8" value="2"> He is planning to move next year.</label><label><input type="radio" name="t8" value="3"> He does not plan to do it soon.</label></div></div></div><div class="task"><span class="task-num">Задание 9</span><div class="task-body"><p>What does Ivan advise young teachers to do?</p><div class="options"><label><input type="radio" name="t9" value="1"> not to be afraid of working in small places</label><label><input type="radio" name="t9" value="2"> to start their career in a big city</label><label><input type="radio" name="t9" value="3"> to avoid trying new ideas</label></div></div></div>
+  <div class="nav-btns"><button class="btn dark" onclick="goToPage(0)">← Назад</button><button class="btn" onclick="goToPage(2)">Далее →</button></div>
+</section>
+<section class="page" data-page="2">
+  <div class="section-progress">Раздел 2 из 3</div>
+  <div class="card"><h2>Раздел 2. Чтение</h2><div class="timer-box"><div><div class="t-label">Рекомендуемое время на раздел</div><div class="t-clock" id="clock-2">30:00</div></div><button class="btn" id="start-2" onclick="startTimer(2,1800)">Начать</button><span class="timer-status" id="status-2"></span></div></div>
+  <div class="task"><span class="task-num">Задание 10</span><div class="task-body"><div class="instruction">Установите соответствие между текстами A–G и заголовками 1–8. Используйте каждую цифру только один раз. В задании есть один лишний заголовок.</div><ol><li>One exam, many doors</li><li>Shoes off, please</li><li>Marks from one to five</li><li>Count your flowers</li><li>A school year that starts with flowers</li><li>Tea without sugar</li><li>A name with a father inside</li><li>A house in the country</li></ol><div class="passage"><p><b>A.</b> In Russia the school year begins on 1 September, known as the Day of Knowledge. On this morning schools hold a ceremony called the First Bell. Younger children arrive with huge bouquets for their teachers, and one of the oldest students often carries a first-grader on his shoulders while she rings a little bell.</p><p><b>B.</b> Russian schools usually mark students’ work on a scale from one to five. A “five” means excellent, a “four” is good and a “three” is satisfactory. A “two” means that the work has failed, and a “one” is so rare that many students have never seen one. Teachers sometimes add a plus or a minus to make the marks more precise.</p><p><b>C.</b> At the end of school most students take the Unified State Exam. Its results are used both as school-leaving marks and as entrance exams, so a student can apply to several universities at once with the same scores. That is why so many teenagers spend their last school year preparing for it.</p><p><b>D.</b> When you visit a Russian family, you will almost certainly be asked to take your shoes off in the hall. Many hosts keep a pair of slippers for guests. Walking into a flat in street shoes, especially in winter, is considered impolite, because it brings in dirt and snow.</p><p><b>E.</b> If you buy flowers for a Russian friend, make sure there is an odd number of them — three, five or seven. Even numbers of flowers are taken to funerals and memorials. Many florists will politely remind foreigners of this rule before they wrap a bouquet.</p><p><b>F.</b> Russians have three names: a first name, a surname and a patronymic, which is formed from the father’s first name. Ivan, the son of Pyotr, is Ivan Petrovich. In formal situations, for example when talking to teachers, people use the first name and the patronymic together, without “Mr” or “Mrs”.</p><p><b>G.</b> Millions of Russian city families have a dacha, a small country house with a garden. From May to September they spend their weekends there, growing vegetables, making jam and relaxing in a steam bath. For many people the dacha is not just a hobby but a way of life.</p></div><div class="mtable-wrap"><table class="mtable"><tr><th>Текст</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr><tr><td>Заголовок</td><td><select id="t10_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_B"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_C"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_D"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_E"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td><td><select id="t10_G"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></td></tr></table></div></div></div><div class="task"><span class="task-num">Задание 11</span><div class="task-body"><div class="instruction">Прочитайте текст и заполните пропуски A–F частями предложений, обозначенными цифрами 1–7. Одна из частей в списке 1–7 лишняя.</div><div class="passage"><h3>The Golden Ring</h3><p>The Golden Ring is a famous tourist route that connects several ancient towns  <b>A</b> ________________ . The name was invented in 1967 by the journalist Yuri Bychkov,  <b>B</b> ________________ . Today the route usually includes eight main towns, among them Sergiev Posad, Suzdal, Vladimir and Yaroslavl,  <b>C</b> ________________ . Each town has its own character. Sergiev Posad is famous for its monastery,  <b>D</b> ________________ . Suzdal, on the other hand, is a quiet little town  <b>E</b> ________________ . Travellers can see the route by car, by bus or on a special tourist train,  <b>F</b> ________________ .</p></div><ol><li>which makes the journey comfortable even in winter</li><li>and many of them are more than eight hundred years old</li><li>who wrote a series of newspaper articles about these places</li><li>where more than two hundred historical buildings have survived</li><li>which Peter the Great built to train his future navy</li><li>situated to the north-east of Moscow</li><li>which was founded in the 14th century by Saint Sergius of Radonezh</li></ol><div class="mtable-wrap"><table class="mtable"><tr><th>Пропуск</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><td>Часть предложения</td><td><select id="t11_A"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t11_B"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t11_C"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t11_D"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t11_E"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td><td><select id="t11_F"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td></tr></table></div></div></div>
+  <div class="task"><span class="task-num">Задания 12–18</span><div class="task-body">
+    <div class="instruction">Прочитайте текст и выполните задания 12–18. В каждом задании запишите в поле ответа цифру 1, 2, 3 или 4, соответствующую выбранному вами варианту ответа.</div>
+    <div class="passage"><h3>My year in Tomsk</h3><p>When I told my friends in Manchester that I was going to spend a year studying Russian in Tomsk, most of them had to look it up on a map. Tomsk is a Siberian city of about half a million people, and it is one of Russia’s oldest university towns: Tomsk State University, founded in 1878, was the first university in Siberia. I chose it for a simple reason. My grammar was good, but I could hardly hold a conversation, and I wanted to live somewhere where nobody would switch to English to make my life easier.</p><p>My first weeks were harder than I expected. The language was not the main problem; the rules of everyday life were. I smiled at people on the bus, as I would at home, and they looked at me as if something was wrong. My Russian roommate, Dasha, later explained that in Russia a smile is usually kept for people you know, and that smiling at strangers can look insincere or even silly. “It doesn’t mean we’re unfriendly,” she said. “We just save our smiles for real reasons.”</p><p>Dasha turned out to be my best teacher. She corrected my mistakes without ever making me feel stupid, and she taught me things that no textbook mentions: never to whistle indoors, never to shake hands across a doorway and always to bring something to the table when you are invited for dinner. When I visited her family in a village outside the city, her grandmother kept filling my plate, and I learnt that saying “I’m full” once is not enough. You have to say it at least three times.</p><p>The academic side was different too. Most exams at the university were oral: you pick a card with two questions from a pile, get some time to prepare and then talk to the examiner face to face. At first this terrified me. Later I realised that it taught me to think in Russian rather than translate in my head, which was exactly what I had come for.</p><p>And then there was the winter. In January the temperature fell to minus thirty-five, and for a week classes for younger schoolchildren were cancelled. University students, however, were expected to come as usual. I bought felt boots called valenki, which looked ridiculous on me but kept my feet warm, and I discovered that Siberians do not hide at home in the cold. They go skating, skiing and even swimming in ice holes.</p><p>Looking back, the most valuable thing I brought home was not my Russian, although my teachers say it is now fluent. It was the habit of looking at familiar things from another side. I still don’t smile at strangers on the bus in Manchester, and my friends think it’s a joke. It isn’t. It’s a small piece of Siberia that I decided to keep.</p></div>
+  </div></div>
+  <div class="task"><span class="task-num">Задание 12</span><div class="task-body"><p>Why did the author choose Tomsk?</p><div class="options"><label><input type="radio" name="t12" value="1"> Her friends recommended the city to her.</label><label><input type="radio" name="t12" value="2"> She wanted to practise speaking where people would not switch to English.</label><label><input type="radio" name="t12" value="3"> It has the oldest university in Russia.</label><label><input type="radio" name="t12" value="4"> She needed to improve her grammar.</label></div></div></div><div class="task"><span class="task-num">Задание 13</span><div class="task-body"><p>What surprised the author in her first weeks?</p><div class="options"><label><input type="radio" name="t13" value="1"> how crowded the buses were</label><label><input type="radio" name="t13" value="2"> how difficult the language was</label><label><input type="radio" name="t13" value="3"> how people reacted to her smiles</label><label><input type="radio" name="t13" value="4"> how unfriendly her roommate was</label></div></div></div><div class="task"><span class="task-num">Задание 14</span><div class="task-body"><p>According to Dasha, Russians…</p><div class="options"><label><input type="radio" name="t14" value="1"> think that foreigners do not smile enough</label><label><input type="radio" name="t14" value="2"> hardly ever smile</label><label><input type="radio" name="t14" value="3"> smile only at home</label><label><input type="radio" name="t14" value="4"> may find smiles at strangers insincere</label></div></div></div><div class="task"><span class="task-num">Задание 15</span><div class="task-body"><p>What did the author learn at the family dinner?</p><div class="options"><label><input type="radio" name="t15" value="1"> Guests should bring their own food.</label><label><input type="radio" name="t15" value="2"> It is rude to leave food on the plate.</label><label><input type="radio" name="t15" value="3"> A polite refusal has to be repeated several times.</label><label><input type="radio" name="t15" value="4"> Hosts expect guests to help in the kitchen.</label></div></div></div><div class="task"><span class="task-num">Задание 16</span><div class="task-body"><p>What did the author finally think about oral exams?</p><div class="options"><label><input type="radio" name="t16" value="1"> She still found them terrifying.</label><label><input type="radio" name="t16" value="2"> She thought they were unfair.</label><label><input type="radio" name="t16" value="3"> She preferred written exams.</label><label><input type="radio" name="t16" value="4"> She saw that they helped her to think in Russian.</label></div></div></div><div class="task"><span class="task-num">Задание 17</span><div class="task-body"><p>What happened during the cold week in January?</p><div class="options"><label><input type="radio" name="t17" value="1"> Nobody went outside.</label><label><input type="radio" name="t17" value="2"> The university was closed.</label><label><input type="radio" name="t17" value="3"> The author stayed at home.</label><label><input type="radio" name="t17" value="4"> Younger children stayed at home, but students had classes.</label></div></div></div><div class="task"><span class="task-num">Задание 18</span><div class="task-body"><p>What does the author mean by “a small piece of Siberia that I decided to keep”?</p><div class="options"><label><input type="radio" name="t18" value="1"> a habit she picked up in Russia</label><label><input type="radio" name="t18" value="2"> her fluent Russian</label><label><input type="radio" name="t18" value="3"> her felt boots</label><label><input type="radio" name="t18" value="4"> a souvenir she bought in Tomsk</label></div></div></div>
+  <div class="nav-btns"><button class="btn dark" onclick="goToPage(1)">← Назад</button><button class="btn" onclick="goToPage(3)">Далее →</button></div>
+</section>
+<section class="page" data-page="3">
+  <div class="section-progress">Раздел 3 из 3</div>
+  <div class="card"><h2>Раздел 3. Грамматика и лексика</h2><div class="timer-box"><div><div class="t-label">Рекомендуемое время на раздел</div><div class="t-clock" id="clock-3">40:00</div></div><button class="btn" id="start-3" onclick="startTimer(3,2400)">Начать</button><span class="timer-status" id="status-3"></span></div></div>
+  <div class="task"><span class="task-num">Задания 19–24</span><div class="task-body">
+    <div class="instruction">Прочитайте приведённый ниже текст. Преобразуйте, если необходимо, слова, напечатанные заглавными буквами в конце строк, обозначенных номерами 19–24, так, чтобы они грамматически соответствовали содержанию текста. Заполните пропуски полученными словами. Каждый пропуск соответствует отдельному заданию 19–24.</div>
+    <div class="reminder">⚠ Ответ пишите слитно, без пробелов и знаков препинания (как требуют правила записи ответов ЕГЭ): например, «isseparated».</div>
+    <div class="passage"><h3>Kaliningrad</h3><p>Kaliningrad is the westernmost city of Russia. The region  <b>(19)</b> <input type="text" class="fib" id="t19" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">SEPARATE (19)</span>  from the rest of the country by Lithuania and Poland. Until 1946 the city  <b>(20)</b> <input type="text" class="fib" id="t20" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">CALL (20)</span>  Königsberg, and the famous philosopher Immanuel Kant  <b>(21)</b> <input type="text" class="fib" id="t21" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">SPEND (21)</span>  almost all his life there. Most of the world’s amber  <b>(22)</b> <input type="text" class="fib" id="t22" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">FIND (22)</span>  in this region, so do not miss the Amber Museum. If you  <b>(23)</b> <input type="text" class="fib" id="t23" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">GO (23)</span>  to the Curonian Spit, you will see the famous Dancing Forest, whose pine trees  <b>(24)</b> <input type="text" class="fib" id="t24" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">GROW (24)</span>  in strange twisted shapes for decades.</p></div>
+  </div></div>
+  <div class="task"><span class="task-num">Задания 25–29</span><div class="task-body">
+    <div class="instruction">Прочитайте приведённый ниже текст. Образуйте от слов, напечатанных заглавными буквами в конце строк, обозначенных номерами 25–29, однокоренные слова, которые грамматически и лексически соответствуют содержанию текста. Заполните пропуски полученными словами. Каждый пропуск соответствует отдельному заданию 25–29.</div>
+    <div class="reminder">⚠ Ответ пишите слитно, без пробелов и знаков препинания.</div>
+    <div class="passage"><h3>Tula</h3><p>Tula is known all over Russia for its  <b>(25)</b> <input type="text" class="fib" id="t25" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">TRADITION (25)</span>  gingerbread and for samovars, which were once an  <b>(26)</b> <input type="text" class="fib" id="t26" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">ESSENCE (26)</span>  part of every Russian home. The city also has a long history of weapon  <b>(27)</b> <input type="text" class="fib" id="t27" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">PRODUCE (27)</span> . Its  <b>(28)</b> <input type="text" class="fib" id="t28" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">LOCATE (28)</span>  less than two hundred kilometres from Moscow makes it a popular weekend destination, and Tolstoy’s estate, Yasnaya Polyana, is  <b>(29)</b> <input type="text" class="fib" id="t29" placeholder="без пробелов" autocomplete="off" autocapitalize="none" spellcheck="false"> <span class="capword">CONVENIENT (29)</span>  located nearby.</p></div>
+  </div></div>
+  <div class="task"><span class="task-num">Задания 30–36</span><div class="task-body">
+    <div class="instruction">Прочитайте текст с пропусками, обозначенными номерами 30–36. Эти номера соответствуют заданиям 30–36, в которых представлены возможные варианты ответов. Запишите в поле ответа цифру 1, 2, 3 или 4, соответствующую выбранному вами варианту ответа.</div>
+    <div class="passage"><h3>Dinner with a Russian family</h3><p>When my Russian friend invited me to dinner, I wasn’t sure what to  <b>(30)___</b> . She told me it was a good idea to  <b>(31)___</b>  a cake or a box of chocolates. At the door, her mother asked me to  <b>(32)___</b>  off my shoes. There was so much food that the table could  <b>(33)___</b>  hold it all. Her father  <b>(34)___</b>  a toast to friendship, and every time I finished my plate, her grandmother  <b>(35)___</b>  on giving me more. By the end of the evening I felt like a  <b>(36)___</b>  of the family.</p></div>
+    <div class="task"><span class="task-num">30</span><div class="task-body"><div class="options"><label><input type="radio" name="t30" value="1"> expect</label><label><input type="radio" name="t30" value="2"> wait</label><label><input type="radio" name="t30" value="3"> look forward</label><label><input type="radio" name="t30" value="4"> hope</label></div></div></div><div class="task"><span class="task-num">31</span><div class="task-body"><div class="options"><label><input type="radio" name="t31" value="1"> bring</label><label><input type="radio" name="t31" value="2"> lead</label><label><input type="radio" name="t31" value="3"> fetch</label><label><input type="radio" name="t31" value="4"> hold</label></div></div></div><div class="task"><span class="task-num">32</span><div class="task-body"><div class="options"><label><input type="radio" name="t32" value="1"> take</label><label><input type="radio" name="t32" value="2"> put</label><label><input type="radio" name="t32" value="3"> get</label><label><input type="radio" name="t32" value="4"> make</label></div></div></div><div class="task"><span class="task-num">33</span><div class="task-body"><div class="options"><label><input type="radio" name="t33" value="1"> nearly</label><label><input type="radio" name="t33" value="2"> hardly</label><label><input type="radio" name="t33" value="3"> almost</label><label><input type="radio" name="t33" value="4"> hard</label></div></div></div><div class="task"><span class="task-num">34</span><div class="task-body"><div class="options"><label><input type="radio" name="t34" value="1"> invited</label><label><input type="radio" name="t34" value="2"> offered</label><label><input type="radio" name="t34" value="3"> proposed</label><label><input type="radio" name="t34" value="4"> suggested</label></div></div></div><div class="task"><span class="task-num">35</span><div class="task-body"><div class="options"><label><input type="radio" name="t35" value="1"> persisted</label><label><input type="radio" name="t35" value="2"> demanded</label><label><input type="radio" name="t35" value="3"> required</label><label><input type="radio" name="t35" value="4"> insisted</label></div></div></div><div class="task"><span class="task-num">36</span><div class="task-body"><div class="options"><label><input type="radio" name="t36" value="1"> unit</label><label><input type="radio" name="t36" value="2"> piece</label><label><input type="radio" name="t36" value="3"> element</label><label><input type="radio" name="t36" value="4"> member</label></div></div></div>
+  </div></div>
+  <div class="nav-btns"><button class="btn dark" onclick="goToPage(2)">← Назад</button><button class="btn" onclick="goToPage(4)">К результатам →</button></div>
+</section>
+<section class="page" data-page="4" id="result-page">
+  <div class="card">
+    <h2>Проверка и результаты</h2>
+    <p>Когда закончите все три раздела, нажмите кнопку ниже. Ответы проверятся сразу по всем заданиям 1–36, как в официальной системе оценивания.</p>
+    <div style="text-align:center;margin:18px 0;"><button class="btn" style="font-size:1.05em;padding:13px 26px;" onclick="checkAll()">Проверить и посчитать баллы</button></div>
+  </div>
+  <div id="resultsOutput" style="display:none;">
+    <div class="score-card"><div class="score-big" id="totalScore">0 / 42</div><div class="score-sub">первичный балл за тестовую часть</div></div>
+    <div class="card">
+      <h2>Баллы по разделам</h2>
+      <table class="breakdown">
+        <tr><th>Раздел</th><th>Первичный балл</th></tr>
+        <tr><td>Раздел 1. Аудирование (задания 1–9)</td><td id="scoreListening">0 / 12</td></tr>
+        <tr><td>Раздел 2. Чтение (задания 10–18)</td><td id="scoreReading">0 / 12</td></tr>
+        <tr><td>Раздел 3. Грамматика и лексика (задания 19–36)</td><td id="scoreGrammar">0 / 18</td></tr>
+      </table>
+      <div class="note-box">Задания 1, 2, 10, 11 оцениваются с частичным зачётом, как в официальной системе: задание 1 — 6 верных = 2 балла, 5 = 1; задания 2 и 10 — 7 = 3, 6 = 2, 5 = 1; задание 11 — 6 = 2, 5 = 1.</div>
+    </div>
+    <div class="card">
+      <button class="btn" id="sendBtn" onclick="sendToTeacher()">Отправить результаты учителю</button>
+      <div id="sendStatus" style="font-size:.85em;color:var(--muted);margin-top:10px;font-weight:600;"></div>
+    </div>
+    <div class="card">
+      <details><summary style="cursor:pointer;font-weight:700;color:var(--purple);">Тексты аудиозаписей — для самопроверки после теста</summary>
+      <div class="passage" style="margin-top:10px"><h3>Задание 1</h3><p><b>Speaker A:</b> I live in Krasnoyarsk, and honestly, I can’t imagine a better place if you like hiking and climbing. The Stolby nature reserve is just twenty minutes from the city centre by bus. Every weekend my friends and I go there to climb the rocks, and in winter we ski in the hills nearby. The city itself is a bit noisy, but nature is always close.</p><p><b>Speaker B:</b> In Yakutsk the temperature in January can drop below minus forty, so you learn to plan every trip outside. It’s tough, I won’t pretend it isn’t. But I’ve noticed that the cold makes people look after each other. Neighbours check on elderly people, and strangers help you start your car. I think we’re kinder because of the winter.</p><p><b>Speaker C:</b> My home town is Suzdal, which is part of the Golden Ring. It’s tiny, with only about ten thousand people, but every weekend coach after coach arrives. Visitors come for the white-stone churches and the wooden houses, some of them hundreds of years old. Locals sell them pickled cucumbers and mead, which is nice, but most people come for the architecture.</p><p><b>Speaker D:</b> I grew up in a small town near Samara, but three years ago a big IT company in Kazan offered me a position, and I couldn’t say no. At first I missed my family a lot. Now I love the city: it’s modern, there are some great restaurants, and it’s easy to meet new people.</p><p><b>Speaker E:</b> When I was a student in Yekaterinburg, getting anywhere took ages, and the old buses were always packed. In the last few years the city has bought lots of new trams and electric buses, and there are apps that show exactly when your bus will come. Now I leave home ten minutes later than I used to.</p><p><b>Speaker F:</b> My village in the Vologda region is beautiful, especially in summer, and the air is so clean. But there isn’t much for young people to do, and the nearest university is two hours away by bus. After school I’m going to move to St Petersburg — I want more opportunities.</p><h3>Задание 2</h3><p><b>Masha:</b> Tom, you look terrible. Are you all right?</p><p><b>Tom:</b> Not really. I’ve had a sore throat and a temperature since Thursday — that’s three days now.</p><p><b>Masha:</b> Three days? Have you taken anything for it?</p><p><b>Tom:</b> Only hot tea with lemon. I wanted to go to the chemist’s, but I don’t know what to ask for in Russian, so I haven’t bought anything yet.</p><p><b>Masha:</b> Honestly, I think you should see a doctor rather than guess. Here you usually go to a polyclinic first. It’s like your GP surgery.</p><p><b>Tom:</b> Do I need to pay? I’m not sure how it works for foreign students.</p><p><b>Masha:</b> Didn’t the university give you a medical insurance policy when you arrived?</p><p><b>Tom:</b> Oh yes, there’s a document in my folder. The international office said it covers visits to the doctor.</p><p><b>Masha:</b> Then you won’t have to pay anything. You can book an appointment online, or just call the registration desk.</p><p><b>Tom:</b> Online sounds easier. But what if the doctor doesn’t speak English?</p><p><b>Masha:</b> That’s why I’m coming with you. I’ve got no lectures tomorrow morning, so I can translate.</p><p><b>Tom:</b> Masha, you’re a lifesaver. Thank you!</p><h3>Задания 3–9</h3><p><b>Host:</b> Today my guest is Ivan Petrov, who teaches English at a small village school in the Altai Mountains. Ivan, how did you end up there?</p><p><b>Ivan:</b> Well, after university in Novosibirsk I planned to work as a translator. But in my final year I volunteered at a summer camp in Altai, and I fell in love with the place, and with teaching. So when the village school advertised a job, I applied, partly out of curiosity.</p><p><b>Host:</b> How big is the school?</p><p><b>Ivan:</b> We have just forty-two pupils from the first to the eleventh grade, so some classes have only three or four students. It sounds strange, but it’s actually an advantage: I know every child’s strengths and problems, and nobody can hide at the back of the room.</p><p><b>Host:</b> What’s the biggest challenge?</p><p><b>Ivan:</b> Honestly, it’s not the weather or the distance, although the road to the district centre is sometimes closed after heavy snow. It’s the internet. When it’s slow, we can’t use online lessons or videos, so I’ve learnt to plan everything twice: with and without technology.</p><p><b>Host:</b> Do your students really need English in a village?</p><p><b>Ivan:</b> More than you’d think. Tourists come here from all over the world in summer, and several families run guest houses. My older students help their parents talk to the guests, and that gives them a real reason to learn.</p><p><b>Host:</b> Have any of your students taken the state exam in English?</p><p><b>Ivan:</b> Last year two girls took it, and both scored over eighty points. One of them is now studying tourism management in Barnaul. I was prouder than when I passed my own exams!</p><p><b>Host:</b> Would you ever move back to a big city?</p><p><b>Ivan:</b> People ask me that all the time, and my parents would like me to. But I think I’m more useful here than I would be in Novosibirsk, where there are hundreds of English teachers. Maybe one day, but not in the next few years.</p><p><b>Host:</b> And finally, what advice would you give young teachers?</p><p><b>Ivan:</b> Don’t be afraid of small places. You get more freedom to try new ideas, and you see the results of your work every single day.</p></div></details>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn dark" onclick="goToPage(3)">← Назад</button><span></span></div>
+</section>
+</div></div>
+</div>
+<!-- /page-wrap -->
+
+<script>
+// ---------- Navigation ----------
+const TOTAL_PAGES = 5;
+const PAGE_LABELS = ['Инструкция','Аудирование','Чтение','Грамматика и лексика','Результаты'];
+let current = 0;
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  wrap.innerHTML = '';
+  PAGE_LABELS.forEach((label,i)=>{
+    const d = document.createElement('div');
+    d.className = 'page-dot';
+    d.textContent = i+1;
+    d.title = label;
+    d.onclick = ()=>goToPage(i);
+    wrap.appendChild(d);
+  });
+  updateDots();
+}
+function updateDots(){
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+}
+function goToPage(n){
+  current = Math.max(0, Math.min(TOTAL_PAGES-1, n));
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = ((current+1)/TOTAL_PAGES*100)+'%';
+  document.getElementById('progressLabel').textContent = 'Страница '+(current+1)+' / '+TOTAL_PAGES;
+  updateDots();
+  window.scrollTo(0,0);
+}
+buildDots();
+
+// ---------- Timers ----------
+const timers = {};
+function startTimer(sectionNum, seconds){
+  const btn = document.getElementById('start-'+sectionNum);
+  const clock = document.getElementById('clock-'+sectionNum);
+  const status = document.getElementById('status-'+sectionNum);
+  if(timers[sectionNum]){ return; }
+  btn.disabled = true;
+  status.textContent = 'Идёт отсчёт…';
+  let remaining = seconds;
+  function render(){
+    const m = Math.floor(remaining/60).toString().padStart(2,'0');
+    const s = (remaining%60).toString().padStart(2,'0');
+    clock.textContent = m+':'+s;
+  }
+  render();
+  timers[sectionNum] = setInterval(()=>{
+    remaining--;
+    render();
+    if(remaining<=0){
+      clearInterval(timers[sectionNum]);
+      status.textContent = 'Время раздела истекло';
+      clock.style.color = 'var(--wrong)';
+    }
+  },1000);
+}
+
+
+// ---------- British TTS voices (male + female) ----------
+let VOICES = [];
+function loadVoices(){ try{ VOICES = speechSynthesis.getVoices(); }catch(e){} }
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+function pickVoice(g){
+  const gb = VOICES.filter(v=>/en[-_]GB/i.test(v.lang));
+  const pool = gb.length ? gb : VOICES.filter(v=>/^en/i.test(v.lang));
+  const fem = /female|hazel|libby|sonia|susan|kate|serena|stephanie|martha|amy|emma|fiona|maisie|mia/i;
+  const mal = /\bmale\b|george|ryan|daniel|arthur|oliver|thomas|brian|harry|alfie|noah/i;
+  const hit = pool.find(v => g==='F' ? fem.test(v.name) : (mal.test(v.name) && !/female/i.test(v.name)));
+  return hit || pool[0] || null;
+}
+let playToken = 0;
+function stopSpeak(){ playToken++; try{ speechSynthesis.cancel(); }catch(e){} }
+function speakParts(parts, onDone, gapMs){
+  stopSpeak(); loadVoices();
+  const my = playToken; let i = 0;
+  const next = ()=>{
+    if(my !== playToken) return;
+    if(i >= parts.length){ if(onDone) onDone(); return; }
+    const [g, text] = parts[i++];
+    if(g === 'PAUSE'){ setTimeout(next, text); return; }
+    const u = new SpeechSynthesisUtterance(text); u.lang = 'en-GB'; u.rate = 0.95;
+    const v = pickVoice(g); if(v) u.voice = v;
+    const same = v && pickVoice(g==='F'?'M':'F') === v;
+    u.pitch = same ? (g==='F' ? 1.25 : 0.8) : 1;
+    u.onend = ()=> setTimeout(next, gapMs || 700);
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+
+const MAX_PLAYS = 2;
+function playTask(id){
+  if(!('speechSynthesis' in window)){ alert('Браузер не умеет воспроизводить запись. Откройте страницу в Chrome или Safari.'); return; }
+  const btn = document.getElementById('play-'+id), st = document.getElementById('playst-'+id);
+  const used = parseInt(btn.dataset.used||'0');
+  if(used >= MAX_PLAYS) return;
+  btn.dataset.used = used+1;
+  document.querySelectorAll('.tts-btn').forEach(b=>b.disabled = true);
+  st.textContent = 'Идёт воспроизведение ('+(used+1)+'-й раз)…';
+  speakParts(SCRIPTS[id], ()=>{
+    document.querySelectorAll('.tts-btn').forEach(b=>{ b.disabled = parseInt(b.dataset.used||'0') >= MAX_PLAYS; });
+    const left = MAX_PLAYS - parseInt(btn.dataset.used);
+    st.textContent = left ? 'Осталось прослушиваний: '+left : 'Запись прослушана 2 раза — как на экзамене, больше она не включается.';
+    btn.textContent = left ? '▶ Прослушать ещё раз' : '✓ Прослушано';
+    try{scheduleSave();}catch(e){}
+  });
+}
+
+const SCRIPTS = {"L1": [["F", "Speaker A."], ["F", "I live in Krasnoyarsk, and honestly, I can’t imagine a better place if you like hiking and climbing. The Stolby nature reserve is just twenty minutes from the city centre by bus. Every weekend my friends and I go there to climb the rocks, and in winter we ski in the hills nearby. The city itself is a bit noisy, but nature is always close."], ["M", "Speaker B."], ["M", "In Yakutsk the temperature in January can drop below minus forty, so you learn to plan every trip outside. It’s tough, I won’t pretend it isn’t. But I’ve noticed that the cold makes people look after each other. Neighbours check on elderly people, and strangers help you start your car. I think we’re kinder because of the winter."], ["F", "Speaker C."], ["F", "My home town is Suzdal, which is part of the Golden Ring. It’s tiny, with only about ten thousand people, but every weekend coach after coach arrives. Visitors come for the white-stone churches and the wooden houses, some of them hundreds of years old. Locals sell them pickled cucumbers and mead, which is nice, but most people come for the architecture."], ["M", "Speaker D."], ["M", "I grew up in a small town near Samara, but three years ago a big IT company in Kazan offered me a position, and I couldn’t say no. At first I missed my family a lot. Now I love the city: it’s modern, there are some great restaurants, and it’s easy to meet new people."], ["F", "Speaker E."], ["F", "When I was a student in Yekaterinburg, getting anywhere took ages, and the old buses were always packed. In the last few years the city has bought lots of new trams and electric buses, and there are apps that show exactly when your bus will come. Now I leave home ten minutes later than I used to."], ["M", "Speaker F."], ["M", "My village in the Vologda region is beautiful, especially in summer, and the air is so clean. But there isn’t much for young people to do, and the nearest university is two hours away by bus. After school I’m going to move to St Petersburg — I want more opportunities."]], "L2": [["F", "Tom, you look terrible. Are you all right?"], ["M", "Not really. I’ve had a sore throat and a temperature since Thursday — that’s three days now."], ["F", "Three days? Have you taken anything for it?"], ["M", "Only hot tea with lemon. I wanted to go to the chemist’s, but I don’t know what to ask for in Russian, so I haven’t bought anything yet."], ["F", "Honestly, I think you should see a doctor rather than guess. Here you usually go to a polyclinic first. It’s like your GP surgery."], ["M", "Do I need to pay? I’m not sure how it works for foreign students."], ["F", "Didn’t the university give you a medical insurance policy when you arrived?"], ["M", "Oh yes, there’s a document in my folder. The international office said it covers visits to the doctor."], ["F", "Then you won’t have to pay anything. You can book an appointment online, or just call the registration desk."], ["M", "Online sounds easier. But what if the doctor doesn’t speak English?"], ["F", "That’s why I’m coming with you. I’ve got no lectures tomorrow morning, so I can translate."], ["M", "Masha, you’re a lifesaver. Thank you!"]], "L3": [["F", "Today my guest is Ivan Petrov, who teaches English at a small village school in the Altai Mountains. Ivan, how did you end up there?"], ["M", "Well, after university in Novosibirsk I planned to work as a translator. But in my final year I volunteered at a summer camp in Altai, and I fell in love with the place, and with teaching. So when the village school advertised a job, I applied, partly out of curiosity."], ["F", "How big is the school?"], ["M", "We have just forty-two pupils from the first to the eleventh grade, so some classes have only three or four students. It sounds strange, but it’s actually an advantage: I know every child’s strengths and problems, and nobody can hide at the back of the room."], ["F", "What’s the biggest challenge?"], ["M", "Honestly, it’s not the weather or the distance, although the road to the district centre is sometimes closed after heavy snow. It’s the internet. When it’s slow, we can’t use online lessons or videos, so I’ve learnt to plan everything twice: with and without technology."], ["F", "Do your students really need English in a village?"], ["M", "More than you’d think. Tourists come here from all over the world in summer, and several families run guest houses. My older students help their parents talk to the guests, and that gives them a real reason to learn."], ["F", "Have any of your students taken the state exam in English?"], ["M", "Last year two girls took it, and both scored over eighty points. One of them is now studying tourism management in Barnaul. I was prouder than when I passed my own exams!"], ["F", "Would you ever move back to a big city?"], ["M", "People ask me that all the time, and my parents would like me to. But I think I’m more useful here than I would be in Novosibirsk, where there are hundreds of English teachers. Maybe one day, but not in the next few years."], ["F", "And finally, what advice would you give young teachers?"], ["M", "Don’t be afraid of small places. You get more freedom to try new ideas, and you see the results of your work every single day."]]};
+// ---------- Answer key ----------
+const KEY = {
+ "t1": {
+  "A": "5",
+  "B": "3",
+  "C": "7",
+  "D": "2",
+  "E": "4",
+  "F": "6"
+ },
+ "t2": {
+  "A": "1",
+  "B": "2",
+  "C": "1",
+  "D": "3",
+  "E": "2",
+  "F": "3",
+  "G": "1"
+ },
+ "t3": "1",
+ "t4": "1",
+ "t5": "3",
+ "t6": "3",
+ "t7": "2",
+ "t8": "3",
+ "t9": "1",
+ "t10": {
+  "A": "5",
+  "B": "3",
+  "C": "1",
+  "D": "2",
+  "E": "4",
+  "F": "7",
+  "G": "8"
+ },
+ "t11": {
+  "F": "1",
+  "C": "2",
+  "B": "3",
+  "E": "4",
+  "A": "6",
+  "D": "7"
+ },
+ "t12": "2",
+ "t13": "3",
+ "t14": "4",
+ "t15": "3",
+ "t16": "4",
+ "t17": "4",
+ "t18": "1",
+ "t19": [
+  "isseparated"
+ ],
+ "t20": [
+  "wascalled"
+ ],
+ "t21": [
+  "spent"
+ ],
+ "t22": [
+  "isfound"
+ ],
+ "t23": [
+  "go"
+ ],
+ "t24": [
+  "havegrown",
+  "havebeengrowing"
+ ],
+ "t25": [
+  "traditional"
+ ],
+ "t26": [
+  "essential"
+ ],
+ "t27": [
+  "production"
+ ],
+ "t28": [
+  "location"
+ ],
+ "t29": [
+  "conveniently"
+ ],
+ "t30": "1",
+ "t31": "1",
+ "t32": "1",
+ "t33": "2",
+ "t34": "3",
+ "t35": "4",
+ "t36": "4"
+};
+const POINTS = {
+  t1:2, t2:3, t3:1,t4:1,t5:1,t6:1,t7:1,t8:1,t9:1,
+  t10:3, t11:2, t12:1,t13:1,t14:1,t15:1,t16:1,t17:1,t18:1,
+  t19:1,t20:1,t21:1,t22:1,t23:1,t24:1,t25:1,t26:1,t27:1,t28:1,t29:1,
+  t30:1,t31:1,t32:1,t33:1,t34:1,t35:1,t36:1
+};
+let wrongList = [];
+
+const PARTIAL = { t1:{6:2,5:1}, t2:{7:3,6:2,5:1}, t10:{7:3,6:2,5:1}, t11:{6:2,5:1} };
+function scorePositional(prefix, positions){
+  let right = 0;
+  positions.forEach(p=>{
+    const el = document.getElementById(prefix+'_'+p);
+    const val = el ? el.value : '';
+    if(val === KEY[prefix][p]) right++;
+    else wrongList.push(`Задание ${prefix.slice(1)} (соответствие), позиция ${p} — answered "${val || '(пусто)'}", correct "${KEY[prefix][p]}"`);
+  });
+  return PARTIAL[prefix][right] || 0;
+}
+function scoreSingle(id){
+  const el = document.querySelector('input[name="'+id+'"]:checked');
+  const val = el ? el.value : '';
+  const ok = el && el.value === KEY[id];
+  if(!ok){
+    wrongList.push(`Задание ${id.slice(1)} — answered "${val || '(не отвечено)'}", correct "${KEY[id]}"`);
+  }
+  return ok ? POINTS[id] : 0;
+}
+function normalizeText(s){
+  return (s||'').trim().toLowerCase().replace(/\s+/g,'').replace(/[’‘`]/g,"'");
+}
+function scoreFib(id){
+  const el = document.getElementById(id);
+  const v = normalizeText(el.value);
+  const ok = KEY[id].some(a=>normalizeText(a)===v);
+  el.classList.toggle('is-correct', ok);
+  el.classList.toggle('is-wrong', !ok && v.length>0);
+  if(!ok){
+    wrongList.push(`Задание ${id.slice(1)} — answered "${el.value.trim() || '(пусто)'}", correct "${KEY[id].join(' / ')}"`);
+  }
+  return ok ? POINTS[id] : 0;
+}
+
+function checkAll(){
+  const nameInput = document.getElementById('studentName');
+  if(!nameInput.value.trim()){
+    nameInput.classList.add('missing');
+    nameInput.focus();
+    alert('Пожалуйста, впишите своё имя в поле «Имя» вверху страницы перед проверкой.');
+    return;
+  }
+  nameInput.classList.remove('missing');
+  wrongList = [];
+
+  // Раздел 1. Аудирование
+  let listening = 0;
+  listening += scorePositional('t1', ['A','B','C','D','E','F']);
+  listening += scorePositional('t2', ['A','B','C','D','E','F','G']);
+  ['t3','t4','t5','t6','t7','t8','t9'].forEach(id=> listening += scoreSingle(id));
+
+  // Раздел 2. Чтение
+  let reading = 0;
+  reading += scorePositional('t10', ['A','B','C','D','E','F','G']);
+  reading += scorePositional('t11', ['A','B','C','D','E','F']);
+  ['t12','t13','t14','t15','t16','t17','t18'].forEach(id=> reading += scoreSingle(id));
+
+  // Раздел 3. Грамматика и лексика
+  let grammar = 0;
+  ['t19','t20','t21','t22','t23','t24','t25','t26','t27','t28','t29'].forEach(id=> grammar += scoreFib(id));
+  ['t30','t31','t32','t33','t34','t35','t36'].forEach(id=> grammar += scoreSingle(id));
+
+  const total = listening + reading + grammar;
+
+  document.getElementById('scoreListening').textContent = listening + ' / 12';
+  document.getElementById('scoreReading').textContent = reading + ' / 12';
+  document.getElementById('scoreGrammar').textContent = grammar + ' / 18';
+  document.getElementById('totalScore').textContent = total + ' / 42';
+  awardSticker(Math.round(total/42*100), document.getElementById('totalScore'));
+  document.getElementById('resultsOutput').style.display = 'block';
+}
+
+// ---------- Send to teacher (Formspree) ----------
+async function sendToTeacher(){
+  const name = document.getElementById('studentName').value.trim();
+  const status = document.getElementById('sendStatus');
+  const btn = document.getElementById('sendBtn');
+  if(!name){
+    document.getElementById('studentName').classList.add('missing');
+    alert('Впиши своё имя вверху страницы перед отправкой.');
+    return;
+  }
+  btn.disabled = true;
+  status.textContent = 'Отправляю…';
+  status.style.color = 'var(--muted)';
+  try{
+    const fd = new FormData();
+  fd.append('access_key', '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234');
+  fd.append('course', 'ЕГЭ 2027');
+  fd.append('subject', ('Россия — итоговый вариант, тестовая часть 1–36') + ' — ' + (name));
+    fd.append('exercise', 'Россия — итоговый вариант, тестовая часть 1–36');
+    fd.append('student', name);
+    fd.append('date', new Date().toLocaleString('ru-RU'));
+    fd.append('listening', document.getElementById('scoreListening').textContent);
+    fd.append('reading', document.getElementById('scoreReading').textContent);
+    fd.append('grammar_vocab', document.getElementById('scoreGrammar').textContent);
+    fd.append('total', document.getElementById('totalScore').textContent);
+    try{ fd.append('result_tier', getResultTier(Math.round(parseInt(document.getElementById('totalScore').textContent)/42*100)).label); }catch(e){}
+    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'Ошибок нет — все задания выполнены верно.');
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+    if(res.ok){
+      status.textContent = 'Отправлено! Учитель получит результаты по почте.';
+      status.style.color = 'var(--correct)';
+    } else {
+      status.textContent = 'Не получилось отправить (ошибка сервера). Попробуй ещё раз чуть позже.';
+      status.style.color = 'var(--wrong)';
+      btn.disabled = false;
+    }
+  }catch(err){
+    status.textContent = 'Не получилось отправить: нет сети или доступ заблокирован. Попробуй ещё раз.';
+    status.style.color = 'var(--wrong)';
+    btn.disabled = false;
+  }
+}
+
+/* ---------- PROGRESS PERSISTENCE (save & resume) ---------- */
+const PROGRESS_KEY = 'angle_progress::ege2027-russia-demo-test';
+let isRestoring = false;
+
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const state = { savedAt: new Date().toISOString(), page: current };
+    state.name = document.getElementById('studentName')?.value || '';
+
+    state.selects = {};
+    document.querySelectorAll('table.mtable select[id]').forEach(sel=>{
+      state.selects[sel.id] = sel.value;
+    });
+
+    state.radios = {};
+    const radioNames = new Set();
+    document.querySelectorAll('input[type="radio"][name]').forEach(r=>radioNames.add(r.name));
+    radioNames.forEach(name=>{
+      const checked = document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"]:checked`);
+      state.radios[name] = checked ? checked.value : null;
+    });
+
+    state.fib = {};
+    document.querySelectorAll('input.fib[id]').forEach(inp=>{
+      state.fib[inp.id] = inp.value;
+    });
+
+    state.plays = {}; document.querySelectorAll('.tts-btn').forEach(b=>state.plays[b.id]=b.dataset.used||'0');
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    showSavedIndicator();
+  } catch(e){ /* localStorage unavailable — fail silently */ }
+}
+let saveTimer = null;
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 400); }
+function showSavedIndicator(){
+  const el = document.getElementById('saveIndicator');
+  if(!el) return;
+  el.textContent = '✓ Сохранено ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  el.classList.add('show');
+  clearTimeout(showSavedIndicator._t);
+  showSavedIndicator._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+function restoreProgress(){
+  let raw; try{ raw = localStorage.getItem(PROGRESS_KEY); } catch(e){ return; }
+  if(!raw) return;
+  let state; try{ state = JSON.parse(raw); } catch(e){ return; }
+  isRestoring = true;
+
+  if(state.name){ const ni = document.getElementById('studentName'); if(ni) ni.value = state.name; }
+
+  let hasContent = false;
+
+  Object.keys(state.selects||{}).forEach(id=>{
+    const val = state.selects[id];
+    const sel = document.getElementById(id);
+    if(sel && val){ sel.value = val; hasContent = true; }
+  });
+
+  Object.keys(state.radios||{}).forEach(name=>{
+    const val = state.radios[name];
+    if(val==null) return;
+    const radio = document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"][value="${CSS.escape(val)}"]`);
+    if(radio){ radio.checked = true; hasContent = true; }
+  });
+
+  Object.keys(state.fib||{}).forEach(id=>{
+    const val = state.fib[id];
+    const inp = document.getElementById(id);
+    if(inp && val){ inp.value = val; hasContent = true; }
+  });
+
+  if(hasContent){
+    const note = document.getElementById('restoreNote');
+    if(note){
+      const when = state.savedAt ? new Date(state.savedAt).toLocaleString() : '';
+      document.getElementById('restoreNoteText').textContent = `Найдены сохранённые ответы от ${when || 'предыдущей сессии'} — они восстановлены.`;
+      note.hidden = false;
+    }
+  }
+  Object.keys(state.plays||{}).forEach(id=>{ const b=document.getElementById(id); const n=+state.plays[id]; if(b&&n){ b.dataset.used=n; const st=document.getElementById(id.replace('play-','playst-')); if(n>=2){ b.disabled=true; b.textContent='✓ Прослушано'; if(st) st.textContent='Запись уже прослушана 2 раза.'; } else if(st){ st.textContent='Осталось прослушиваний: '+(2-n); } } });
+  if(typeof state.page === 'number') goToPage(state.page);
+  isRestoring = false;
+}
+
+function clearProgress(){
+  if(!confirm('Все сохранённые на этом устройстве ответы будут удалены. Продолжить?')) return;
+  try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){}
+  location.reload();
+}
+
+document.addEventListener('input', e=>{ if(e.target.matches('input.fib, #studentName')) scheduleSave(); });
+document.addEventListener('change', e=>{ if(e.target.matches('select, input[type="radio"]')) scheduleSave(); });
+
+restoreProgress();
+</script>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script src="/assets/sticker-auto.js"></script>
+</body>
+</html>
