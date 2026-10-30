@@ -57,18 +57,18 @@
     '.wt-w.on{border-color:' + PURPLE + ';background:#f3eef8}',
     /* таймер */
     '#wtTimerBtn{background:#fff;color:' + PURPLE + ';border:2px solid ' + PURPLE + '}#wtTimerBtn.on{background:' + PURPLE + ';color:#fff}',
-    '.wt-timer{width:232px;align-items:stretch}',
+    '.wt-timer{box-sizing:border-box;width:190px;align-items:stretch;padding:6px;gap:5px;transform:scale(var(--wt-ui-scale,1));transform-origin:top left}',
     '.wt-tm-modes{display:grid;grid-template-columns:1fr 1fr;gap:5px}',
-    '.wt-tm-modes button,.wt-tm-pre button,.wt-tm-go button{border:1.5px solid #e4e0e8;background:#fff;border-radius:8px;cursor:pointer;font:inherit;font-size:.82rem;padding:6px 4px;color:' + BLACK + '}',
+    '.wt-tm-modes button,.wt-tm-pre button,.wt-tm-go button{border:1.5px solid #e4e0e8;background:#fff;border-radius:8px;cursor:pointer;font:inherit;font-size:12px;padding:5px 3px;color:' + BLACK + '}',
     '.wt-tm-modes button.on{border-color:' + PURPLE + ';background:#f3eef8;font-weight:700}',
     '.wt-tm-pre{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}',
-    '.wt-tm-pre button{padding:6px 0;font-size:.76rem}.wt-tm-pre button.on{border-color:' + PURPLE + ';background:#f3eef8;font-weight:700}',
-    '.wt-tm-cust{display:flex;align-items:center;gap:6px;font-size:.8rem;color:#6b6475}',
-    '.wt-tm-cust input{width:64px;border:1.5px solid #e4e0e8;border-radius:8px;padding:5px 6px;font:inherit;font-size:16px}',
-    '.wt-tm-big{font-size:2.1rem;font-weight:800;text-align:center;color:' + PURPLE + ';font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1.1}',
+    '.wt-tm-pre button{padding:5px 0;font-size:11px}.wt-tm-pre button.on{border-color:' + PURPLE + ';background:#f3eef8;font-weight:700}',
+    '.wt-tm-cust{display:flex;align-items:center;gap:5px;font-size:12px;color:#6b6475}',
+    '.wt-tm-cust input{width:56px;border:1.5px solid #e4e0e8;border-radius:8px;padding:5px 6px;font:inherit;font-size:16px}',
+    '.wt-tm-big{font-size:26px;font-weight:800;text-align:center;color:' + PURPLE + ';font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1.1}',
     '.wt-tm-go{display:grid;grid-template-columns:2fr 1fr;gap:5px}',
     '.wt-tm-go button.main{background:' + PURPLE + ';border-color:' + PURPLE + ';color:#fff;font-weight:700}',
-    '.wt-pill{position:fixed;z-index:9997;background:' + PURPLE + ';color:#fff;border-radius:99px;padding:5px 13px;font-size:.95rem;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 3px 10px rgba(45,25,60,.35);cursor:pointer;user-select:none;-webkit-user-select:none;font-family:inherit;display:none}',
+    '.wt-pill{transform:scale(var(--wt-ui-scale,1));transform-origin:top left;position:fixed;z-index:9997;background:' + PURPLE + ';color:#fff;border-radius:99px;padding:5px 13px;font-size:.95rem;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 3px 10px rgba(45,25,60,.35);cursor:pointer;user-select:none;-webkit-user-select:none;font-family:inherit;display:none}',
     '.wt-pill.show{display:block}.wt-pill.paused{background:#7b6a8e}',
     '.wt-pill.done{background:#d6342c;animation:wtBlink .8s steps(2,start) infinite}',
     '@keyframes wtBlink{50%{opacity:.45}}'
@@ -234,7 +234,7 @@
   function attach(p, anchorBtn) {
     p.style.maxHeight = ''; p.style.visibility = 'hidden'; p.hidden = false;
     var d = anchorBtn.getBoundingClientRect(), dk = dock.getBoundingClientRect();
-    var scale = p === panel ? uiScale : 1, v = visibleViewport();
+    var scale = p === panel || p === tmPanel ? uiScale : 1, v = visibleViewport();
     var pw = p.offsetWidth * scale, ph = p.offsetHeight * scale, top0 = Math.max(v.y + 6, Math.min(headerBottom() + 6, v.y + v.h - 100 * scale));
     var left = clamp(dk.left, v.x + 8, Math.max(v.x + 8, v.x + v.w - pw - 8));
     var above = dk.top - top0 > v.y + v.h - dk.bottom;
@@ -769,9 +769,9 @@
   }
   function placePill() {
     if (!pill.classList.contains('show')) return;
-    var d = dock.getBoundingClientRect(), pw = pill.offsetWidth, ph = pill.offsetHeight;
-    var left = d.right + 8; if (left + pw > window.innerWidth - 6) left = d.left - pw - 8;
-    pill.style.left = Math.max(6, left) + 'px'; pill.style.top = (d.bottom - 40 + (40 - ph) / 2) + 'px';
+    var d = timerBtn.getBoundingClientRect(), v = visibleViewport(), pw = pill.offsetWidth * uiScale, ph = pill.offsetHeight * uiScale;
+    var left = d.right + 8; if (left + pw > v.x + v.w - 6) left = d.left - pw - 8;
+    pill.style.left = clamp(left, v.x + 6, Math.max(v.x + 6, v.x + v.w - pw - 6)) + 'px'; pill.style.top = clamp(d.top + (d.height - ph) / 2, v.y + 6, Math.max(v.y + 6, v.y + v.h - ph - 6)) + 'px';
   }
   function tmRender() {
     var up = tm.mode === 'up', el_ = tmElapsed(), shown = up ? el_ : Math.max(0, tm.total - el_);
