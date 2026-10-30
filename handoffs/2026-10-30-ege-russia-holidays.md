@@ -121,3 +121,9 @@
 - 18: Покрова на Нерли — [Nikita Nikitenko](https://unsplash.com/photos/nmsvP3wVoF8), Unsplash License; oral `img/task2-ad.jpg` и самодостаточная копия 04 (1200×800).
 - 19: семейный праздник дома — [cottonbro studio](https://www.pexels.com/photo/people-holding-their-wine-glasses-6185385/), Pexels License; oral `img/task4-photo1.jpg` и копия 04 (1200×800).
 - 20: салют на Красной площади — [Viktor SOLOMONIK](https://unsplash.com/photos/A1-Y5H4chZs), Unsplash License; oral `img/task4-photo2.jpg` и копия 04 (1200×800). Рабочие JPEG 90–340 КБ, quality 80–82; максимальные оригиналы в photos/originals/.
+
+
+## Демо, письменная часть — ответы в PDF (30.10)
+- Коммит `1b0f80d`: убраны кнопки шаблонов 37/38 в russia-demo-written и копии курса 03. «Скачать ответы (PDF)» сохраняет имя, письмо 37, выбранный номер эссе 38 и оба ответа со счётчиками слов в фирменном PDF ANGLE; отправка учителю отдельно.
+- Использован существующий браузерный PDF-движок в отдельном js/save-writing.js без автоматических дополнительных кнопок. Копия курса содержит движок и логотипы внутри HTML. Статус, фото, задания и оценивание не менялись.
+- Сборка прошла; скачивание PDF проверено Playwright на сайте и в копии курса при 390/1100 px (4 файла, по 2 страницы на длинном ответе), ошибок JS нет. PDF визуально проверен; резервная копия HTML — _archive/before-writing-pdf-2026-10-30.
