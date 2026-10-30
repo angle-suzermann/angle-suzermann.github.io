@@ -167,6 +167,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .rec-btn{background:#b83a2b;}
 @media (max-width:600px){.mtable{table-layout:auto;}.mtable td:last-child,.mtable th:last-child{width:auto;}.mtable td,.mtable th{overflow-wrap:anywhere;}.mtable select{min-width:0;width:100%;max-width:100%;padding:4px 0;font-size:13px;}.mtable td:first-child,.mtable th:first-child{width:auto;}}
 .ad-card .ad-line{ font-weight:700; color:var(--black); margin:4px 0; }
+.ad-card .ad-img{ display:block; margin:0 auto 10px; }
 .ph-placeholder{ min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--purple); font-size:.92em; line-height:1.5; border:2px dashed var(--purple); border-radius:10px; }
 </style>
 <meta name="theme-color" content="#453458">
@@ -190,7 +191,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="topbar-inner">
     <div class="brand-row">
       <div>
-        <div class="lesson-title">ЕГЭ 2027 · Блок «Россия» · итоговый вариант</div>
+        <div class="lesson-title">ЕГЭ 2027 · Россия · итоговый вариант</div>
         <div class="lesson-sub">Устная часть · задания 1–4</div>
       </div>
       <div class="namebar"><label for="studentName">Имя: <span class="req">*</span></label><input type="text" id="studentName" placeholder="обязательно" required></div>
@@ -267,7 +268,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <span class="task-num">Задание 2</span>
     <div class="task-body">
       <p><i>Study the advertisement.</i></p>
-      <div class="ad-card"><div class="ad-title">Discover the Golden Ring!</div><div class="ad-line">Weekend tours from Moscow</div><div class="ad-line">Suzdal · Vladimir · Rostov the Great</div><div class="ad-line">Comfortable buses · Experienced guides</div></div>
+      <div class="ad-card"><div class="ad-title">Discover the Golden Ring!</div><img class="ad-img" src="img/task2-ad.jpg" alt="White-stone Church of the Intercession on the Nerl, Golden Ring"><div class="ad-line">Weekend tours from Moscow</div><div class="ad-line">Suzdal · Vladimir · Rostov the Great</div><div class="ad-line">Comfortable buses · Experienced guides</div></div>
       <p><i>You are considering going on one of these tours and now you’d like to get more information. In 1.5 minutes you are to ask four direct questions to find out about the following:</i></p>
       <ol class="plan-list"><li>duration of the tour;</li><li>price for students;</li><li>tours in English;</li><li>departure time.</li></ol>
       <p><i>You have 20 seconds to ask each question.</i></p>
@@ -355,7 +356,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
       </ul>
       <p><i>You will speak for not more than 3 minutes (12–15 sentences). You have to talk continuously.</i></p>
 
-      <div class="photo-cards"><div class="photo-card"><div class="ph-placeholder">📷<br><b>Photo 1</b><br>a family celebrating a holiday at home around a festive table</div></div><div class="photo-card"><div class="ph-placeholder">📷<br><b>Photo 2</b><br>people at a public holiday celebration outdoors in a city square</div></div></div>
+      <div class="photo-cards"><div class="photo-card"><img class="ph-img" src="img/task4-photo1.jpg" alt="a family celebrating a holiday at home around a festive table"></div><div class="photo-card"><img class="ph-img" src="img/task4-photo2.jpg" alt="people at a public holiday celebration outdoors in a city square"></div></div>
 
       <div class="timer-box">
         <div><div class="t-label">Подготовка</div><div class="t-clock" id="clock-p4">2:30</div></div>
