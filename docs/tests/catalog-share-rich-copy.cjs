@@ -11,7 +11,7 @@ async function run(rich){
  listener({preventDefault(){},stopPropagation(){},target:{closest(){return{dataset:{shareUrl:url,shareTitle:title,shareKind:'report'}}}}});
  await node('[data-max-copy]').onclick();
  assert.equal(node('#angleShareTitle').textContent,'Поделиться отчётом');
- if(rich){assert.equal(await written[0].parts['text/html'].text(),'<a href="https://angle.test/report?p=fixture-recipient&amp;report=fixture-document">Отчёт — ученица &amp; группа</a>');assert.equal(await written[0].parts['text/plain'].text(),url+'\n\n'+title);assert.match(node('.share-status').textContent,/Вставьте его в MAX/)}
+ if(rich){assert.equal(await written[0].parts['text/html'].text(),'<a href="https://angle.test/report?p=fixture-recipient&amp;report=fixture-document">Отчёт — ученица &amp; группа</a>');assert.equal(await written[0].parts['text/plain'].text(),url+'\n\n'+title);assert.match(node('.share-status').textContent,/Если MAX показывает адрес/)}
  else{assert.equal(plain,url+'\n\n'+title);assert.match(node('.share-status').textContent,/Форматированная ссылка недоступна/)}
 }
 (async()=>{await run(true);await run(false);console.log('PASS: MAX copies a title hyperlink with an intact plain-text fallback; unsupported browsers report the fallback accurately')})().catch(e=>{console.error(e);process.exitCode=1});

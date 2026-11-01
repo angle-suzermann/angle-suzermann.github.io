@@ -9,7 +9,7 @@
  function init(){
   if(dialog)return;
   dialog=document.createElement('dialog');dialog.className='angle-share';dialog.setAttribute('aria-labelledby','angleShareTitle');
-  dialog.innerHTML='<div class="share-heading"><h2 id="angleShareTitle">Поделиться материалом</h2><button type="button" data-share-close aria-label="Закрыть">×</button></div><p class="share-material"></p><div class="share-options"><button type="button" data-native-share>Выбрать приложение…</button><a data-telegram-share target="_blank" rel="noopener">Telegram</a><a data-sms-share>SMS / iMessage</a><button type="button" data-max-copy>MAX — название со ссылкой</button><button type="button" data-rich-copy>Скопировать название со ссылкой</button><button type="button" data-text-copy>Скопировать название и адрес</button></div><p class="share-help">MAX и другие установленные приложения доступны через «Выбрать приложение», если они поддерживают меню вашего устройства. Ссылку внутри названия поддерживают не все мессенджеры; SMS передаёт обычный текст.</p><p class="share-status" role="status" aria-live="polite"></p>';
+  dialog.innerHTML='<div class="share-heading"><h2 id="angleShareTitle">Поделиться материалом</h2><button type="button" data-share-close aria-label="Закрыть">×</button></div><p class="share-material"></p><div class="share-options"><button type="button" data-native-share>Выбрать приложение…</button><a data-telegram-share target="_blank" rel="noopener">Telegram</a><a data-sms-share>SMS / iMessage</a><button type="button" data-max-copy>MAX — скопировать для вставки</button><button type="button" data-rich-copy>Скопировать название со ссылкой</button><button type="button" data-text-copy>Скопировать название и адрес</button></div><p class="share-help">MAX и другие установленные приложения доступны через «Выбрать приложение», если они поддерживают меню вашего устройства. MAX может вставить обычный адрес. Чтобы скрыть его в названии: в MAX выделите название → меню форматирования → «Ссылка», затем вставьте адрес. Копирование с сайта не гарантирует сохранение форматирования. SMS передаёт обычный текст.</p><p class="share-status" role="status" aria-live="polite"></p>';
   document.body.appendChild(dialog);
   dialog.querySelector('[data-share-close]').onclick=close;
   dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();}});
@@ -26,7 +26,7 @@
    try{
     if(!globalThis.ClipboardItem||!navigator.clipboard?.write)throw new Error('Unsupported');
     await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob(['<a href="'+esc(active.url)+'">'+esc(active.title)+'</a>'],{type:'text/html'}),'text/plain':new Blob([plainMessage()],{type:'text/plain'})})]);
-    status(forMax?'Название со ссылкой скопировано. Вставьте его в MAX.':'Название со ссылкой скопировано. Вид вставки зависит от приложения.');
+    status(forMax?'Скопировано. Если MAX показывает адрес, выделите название в сообщении и добавьте ссылку через меню форматирования.':'Название со ссылкой скопировано. Вид вставки зависит от приложения.');
    }catch{try{await navigator.clipboard.writeText(plainMessage());status('Форматированная ссылка недоступна: скопированы название и адрес.');}catch{manualCopy();}}
   }
   dialog.querySelector('[data-max-copy]').onclick=()=>copyRich(true);
