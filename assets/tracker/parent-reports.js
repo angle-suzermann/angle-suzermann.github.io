@@ -10,7 +10,7 @@
  function latest(o){return reports(o)[0]}
  function reports(o){return [...(o.reports||[])].filter(r=>r.source&&r.text&&(r.plan||String(o.id).startsWith('plan|')||String(r.date).slice(0,10)>='2026-11-01')).sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
  function reportBody(text,audience){
-  text=String(text).replace(/Текущий трекер перечитан/g,'Текущий трекер пересчитан');
+  text=String(text).replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
   const groups=[],known=/^(?:Что (?:уже )?получается.*|Что получилось.*|Над чем работаем|Работа на уроке|Как можно помочь дома|Домашние задания.*|Что дальше|Главное.*|Что изменилось.*|Ближайшие шаги.*|С чего начали.*|Первый учебный блок.*|Урок(?: и домашние работы)?.*|Сильные стороны|Рекомендации|Итоги.*|Подтвержд[её]нные работы|Источники и границы отч[её]та|Показатели на.*|Ещё по ходу|Часть \d.*|Говорение.*|Correction code key|Overall|.*corrections.*|Next steps)$/i;
   let current={title:'',lines:[]};groups.push(current);
   for(const raw of String(text).replace(/\r\n?/g,'\n').split('\n')){
@@ -25,7 +25,7 @@
    if(lines.every(l=>/^\s*[-•]\s+/.test(l)))return '<ul>'+lines.map(l=>'<li>'+esc(l.replace(/^\s*[-•]\s+/,''))+'</li>').join('')+'</ul>';
    return '<p>'+esc(p)+'</p>';
   }).join('');
-  return groups.map(g=>{if(audience!=='student'&&/^(?:Подтвержд[её]нные работы|Домашние задания|Показатели на)/i.test(g.title))return '';let lines=g.lines;if(audience!=='student'&&/^Источники и границы/i.test(g.title)){const mee=lines.join('\n').match(/Последняя проверка (?:Macmillan Education Everywhere|MEE)\s*[—–-]\s*([\d.]+)/i);lines=[...(mee?['Последняя проверка MEE — '+mee[1]+'.']:[]),'Кольца показывают текущее состояние. Текст и PDF относятся к дате отчёта.'];g={...g,title:'О данных отчёта'}}const body=paragraph(lines);if(!body)return '';return g.title?`<details class="report-section ${/^(?:Что изменилось|Что (?:уже )?получается|Главное)/i.test(g.title)?'report-overview':/^(?:Ближайшие|Что дальше)/i.test(g.title)?'report-next':''}"${/^(?:Что изменилось|Что (?:уже )?получается|Главное|Ближайшие|Что дальше|Overall)/i.test(g.title)?' open':''}><summary>${esc(g.title)}<span aria-hidden="true">+</span></summary><div class="report-section-body">${body}</div></details>`:`<div class="report-intro">${body}</div>`}).join('');
+  return groups.map(g=>{if(audience!=='student'&&/^(?:Домашние задания|Показатели на)/i.test(g.title))return '';let lines=g.lines;if(audience!=='student'&&/^Источники и границы/i.test(g.title)){const mee=lines.join('\n').match(/Последняя проверка (?:Macmillan Education Everywhere|MEE)\s*[—–-]\s*([\d.]+)/i);lines=[...(mee?['Последняя проверка MEE — '+mee[1]+'.']:[]),'Кольца показывают текущее состояние. Текст и PDF относятся к дате отчёта.'];g={...g,title:'О данных отчёта'}}const body=paragraph(lines);if(!body)return '';return g.title?`<details class="report-section ${/^(?:Что изменилось|Что (?:уже )?получается|Главное)/i.test(g.title)?'report-overview':/^(?:Ближайшие|Что дальше)/i.test(g.title)?'report-next':''}"${/^(?:Что изменилось|Что (?:уже )?получается|Главное|Ближайшие|Что дальше|Overall)/i.test(g.title)?' open':''}><summary>${esc(g.title)}<span aria-hidden="true">+</span></summary><div class="report-section-body">${body}</div></details>`:`<div class="report-intro">${body}</div>`}).join('');
  }
  function webReport(o,r,index){
   const heading=String(r.text).match(/^#\s+(.+)$/m),title=heading?heading[1]:String(r.source).split(/[\\/]/).pop().replace(/\.pdf$/i,'');
