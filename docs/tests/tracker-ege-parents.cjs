@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require('playwright');
 const root=process.cwd();
-const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:'ЕГЭ 2027',key:'parent-fixture-key-'+s,blocks:[{name:'Block 1',tasks:[{n:1,task:'Reading',kind:'homework',points:5,status:'✓'},{n:2,task:'Writing',kind:'homework',points:5,status:'',suggested:'2026-10-27'}]}]}));
+const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:'ЕГЭ 2027',key:'parent-fixture-key-'+s,blocks:[{name:'Block 1',tasks:[{n:1,task:'Reading',kind:'homework',points:5,status:'✓'},{n:2,task:'Writing',kind:'homework',points:5,status:'',suggested:'2026-10-27',when:'2099-01-01'},{n:3,task:'Future lesson plan',kind:'classwork',points:5,status:'',date:'2099-01-01'}]}]}));
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:process.env.TRACKER_TEST_BROWSER||'msedge'}),writes=[],errors=[];
  try{
@@ -30,6 +30,7 @@ const plans=['one','two'].map((s,i)=>({id:'ege-test-'+s,student:'Demo '+s,title:
   await page.getByRole('button',{name:'Карточка для родителей',exact:true}).click();
   assert.match(await page.locator('#cardBody').innerText(),/Demo one/);
   assert.match(await page.locator('#cardBody').innerText(),/50%/);
+  assert.match(await page.locator('#cardBody').innerText(),/Подтверждено: 1 из 2 заданий/);
   const shared=new URL(await page.locator('#cardBody [data-share-url]').getAttribute('data-share-url'));
   assert.equal(shared.searchParams.get('p'),plans[0].key);
   assert.equal(shared.searchParams.get('parent'),'1');

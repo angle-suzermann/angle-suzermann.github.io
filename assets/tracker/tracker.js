@@ -301,12 +301,14 @@ function render(){
   $('#view').innerHTML=t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1)));
 }
 
-/* MEE homework rings: outer = handed in (done / due), inner = average score of handed-in work */
+/* MEE homework rings: outer = handed in / all assigned (including future deadlines), inner = average score of handed-in work */
 const isTest=r=>/\btest\b/i.test(String(r.hw||''));
 function meeFor(c,s){const n=String(s.name).toLowerCase(),byTask=new Map();for(const r of D.mee||[]){if(String(r.course)===c&&String(r.student).toLowerCase()===n)byTask.set(String(r.hw||'').trim().toLowerCase(),r)}return [...byTask.values()]}
-function meeSum(rows){const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Moscow'}),due=rows.filter(r=>r.status==='done'||(r.status==='missing'&&(!r.due||String(r.due).slice(0,10)<=today))),done=due.filter(r=>r.status==='done');
-  const sc=done.filter(r=>r.pct!==''&&r.pct!=null);const q=sc.length?sc.reduce((a,r)=>a+Number(r.pct),0)/sc.length/100:null;
-  return{due:due.length,done:done.length,sub:due.length?done.length/due.length:null,q}}
+function meeSum(rows){
+  const assigned=rows.filter(r=>['done','missing','pending'].includes(r.status)),done=assigned.filter(r=>r.status==='done');
+  const sc=done.filter(r=>r.pct!==''&&r.pct!=null),q=sc.length?sc.reduce((a,r)=>a+Number(r.pct),0)/sc.length/100:null;
+  return {assigned:assigned.length,due:assigned.length,done:done.length,sub:assigned.length?done.length/assigned.length:null,q};
+}
 function ring2(r,R,col,w){const C2=2*Math.PI*R,v=Math.max(0,Math.min(1,r||0));
   return `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-opacity=".18" stroke-width="${w}"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${(C2*v).toFixed(1)} ${C2.toFixed(1)}" transform="rotate(-90 60 60)"/>`}
 const ACT_LABELS={1:'Needs encouragement',2:'Steady',3:'Very active'};
@@ -317,13 +319,13 @@ const pcT=v=>v==null?'–':Math.round(v*100)+'%';
 function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
 function ringsTop(c,s,o,ru=false){
-  const rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
-  const registered=c==='Flyers',sub=m.sub!=null?m.sub:(registered?null:o.r),subTxt=m.sub!=null?`${m.done} of ${m.due} assigned tasks`:(registered?'assigned task list not recorded':`${o.e} of ${o.p} points`);
+  const allAssigned=meeSum(meeFor(c,s)),rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
+  const registered=c==='Flyers',sub=allAssigned.sub,subTxt=sub!=null?`${allAssigned.done} of ${allAssigned.assigned} assigned tasks, including future deadlines`:'assigned task list not recorded';
   const teacherQuality=registered&&qa.length>0,qual=teacherQuality?actAvg(qa):(m.q!=null?m.q:actAvg(qa)),qTxt=teacherQuality?lvl(qa,Q_LABELS):(m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS));
   const actRu={1:'Нужна поддержка и помощь во включении в работу',2:'Работает стабильно',3:'Активно участвует в работе'};
   const qualRu={1:'Нужно внимательнее проверять работу',2:'Хороший результат',3:'Отличный результат'};
   const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
-  const ruSub=m.sub!=null?`${m.done} из ${m.due} заданных работ к отчётной дате`:(registered?'список заданных работ пока не внесён':`${o.e} из ${o.p} баллов`);
+  const ruSub=sub!=null?`${allAssigned.done} из ${allAssigned.assigned} заданных работ, включая будущие сроки`:'список заданных работ пока не внесён';
   const ruQuality=teacherQuality?levelRu(qa,qualRu):(m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu));
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${ru?'Показатели прогресса':'Progress rings'}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}

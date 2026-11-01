@@ -24,3 +24,5 @@
 .parent-report .report-title-tag .report-title{display:inline;margin:0;color:inherit;text-decoration:none}
 
 .parent-report .report-overview{background:#f2edf6;border:0;border-left:4px solid #6b21a8;padding:0 16px;margin:18px 0;border-radius:0 12px 12px 0}.parent-report .report-next{background:#fff6cd;border:0;padding:0 16px;margin:18px 0;border-radius:12px}
+
+.parent-report .report-progress-note{padding:12px 14px;margin:0 0 22px;background:#f6f2fa;border-left:3px solid #6b21a8;border-radius:0 8px 8px 0;color:#665474;font-size:12px;line-height:1.55}
