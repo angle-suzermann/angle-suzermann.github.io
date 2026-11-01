@@ -10,7 +10,7 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 const WANT=window.TRACKER_PLANS||[];
 const QP=new URLSearchParams(location.search);
 const STUDENT=!!(QP.get('a')&&QP.get('p'));
-const PARENT=STUDENT&&QP.get('parent')==='1';          // opened with a student link
+const PARENT=STUDENT&&QP.get('parent')==='1'&&!WANT.every(id=>/^emp-/.test(id));          // opened with a student link
 /* connect another device: open a link with ?s=<code>, or paste the link/code in the settings (gear) */
 const setupCode=c=>btoa(unescape(encodeURIComponent(JSON.stringify({u:c.url,t:c.token})))).replace(/\+/g,'-').replace(/\//g,'_');
 function readSetup(x){try{x=String(x||'').trim();const m=x.match(/[?&]s=([^&#\s]+)/);if(m)x=m[1];x=x.replace(/-/g,'+').replace(/_/g,'/');const o=JSON.parse(decodeURIComponent(escape(atob(x))));return o.u&&o.t?{url:o.u,token:o.t}:null}catch{return null}}
@@ -194,6 +194,7 @@ function individualReport(pl,audience=PARENT?'parent':'student'){
   const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
   if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1')}
   return AngleParentReports.panel({id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
+    webEdition:/^emp-/.test(pl.id)&&audience==='student',
     shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.plan===pl.id&&((audience==='student')===String(r.id||'').startsWith('feedback|')))
   });
@@ -229,6 +230,12 @@ function openParentProgress(pl){
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${parentProgressCard(pl)}<p><button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`;
   if(!dialog.open)dialog.showModal();
 }
+const personalOnly=pl=>/^emp-/.test(pl.id)||/^(?:Лена|Елена)(?:\s|$)/i.test(pl.student);
+function openStudentReports(pl){
+  if(STUDENT)return;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Личный фидбек · ${esc(pl.student)}</h2>${individualReport(pl,'student')}`;
+  if(!$('#cardDlg').open)$('#cardDlg').showModal();
+}
 function viewSummary(pl){
   const o=planScore(pl);
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(blockLabel(b.name))}<small>${STUDENT?`Подтверждено: ${s.done} из ${s.n}`:`${s.done} of ${s.n} confirmed`}${s.wait?` · ${s.wait} ${STUDENT?'ожидает проверки':'waiting'}`:''} · ${STUDENT?`${s.e} из ${s.p} баллов`:`${s.e} of ${s.p} points`}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
@@ -259,7 +266,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  if(!STUDENT)html=`<p><button class="btn ghost" data-parent-card>Карточка для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`+html;
+  if(!STUDENT)html=`<p class="report-teacher-actions"><button class="btn" data-student-reports>Посмотреть личный фидбек</button> <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</p>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
@@ -269,6 +276,7 @@ const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,bloc
 function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-student-reports]')){openStudentReports(P());return}
   if(e.target.closest('[data-parent-card]')){if(!STUDENT)openParentProgress(P());return}
   const parentLink=e.target.closest('[data-parent-link]');
   if(parentLink&&!STUDENT){
