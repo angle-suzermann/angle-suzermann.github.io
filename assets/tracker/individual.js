@@ -77,7 +77,7 @@ const Sheets={
   async write(op){await post({...op,token:cfg.token})}
 };
 const StudentStore={
-  async load(){const r=await fetchT(QP.get('a')+'?view=plans&p='+encodeURIComponent(QP.get('p')));const j=await r.json();if(!j.ok)throw new Error('This link is not valid. Ask your teacher for a new one.');return j.data},
+  async load(){const r=await fetchT(QP.get('a')+'?view=plans&p='+encodeURIComponent(QP.get('p'))+'&audience='+(PARENT?'parent':'student'));const j=await r.json();if(!j.ok)throw new Error('This link is not valid. Ask your teacher for a new one.');return j.data},
   async write(op){await post({...op,key:QP.get('p')})}
 };
 const Store=STUDENT?StudentStore:(live?Sheets:Demo);
@@ -189,13 +189,13 @@ function addBar(pl,bi){
     <p class="erow"><button class="btn" data-addtask="1">Add</button>${pl.blocks.length?'<button class="btn ghost" data-addclose="1">Close</button>':''}</p></div>`:'';
   return `<div class="addbar"><button class="btn" data-addopen="1">+ Add task</button></div>${form}`;
 }
-function individualReport(pl){
+function individualReport(pl,audience=PARENT?'parent':'student'){
   if(!window.AngleParentReports)return '';
   const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
-  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);url.searchParams.set('parent','1')}
-  return AngleParentReports.panel({id:'plan|'+pl.id,name:pl.student,course:pl.title,
+  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1')}
+  return AngleParentReports.panel({id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
     shareUrl:api&&key?url.href:'',
-    reports:(D.reports||[]).filter(r=>r.plan===pl.id)
+    reports:(D.reports||[]).filter(r=>r.plan===pl.id&&((audience==='student')===String(r.id||'').startsWith('feedback|')))
   });
 }
 // date is the lesson date; when is a task deadline and must not exclude assigned homework.
@@ -222,7 +222,7 @@ function individualRatings(pl){
 }
 function parentProgressCard(pl){
   const rows=[...pl.blocks].reverse().map(b=>{const tasks=b.tasks.filter(t=>lessonHasStarted(t));if(!tasks.length)return '';const s=score(tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
-  return `${individualRings(pl)}<p class="sub">Процент сдачи рассчитан только от заданных работ, а не от всей программы. Назначенные работы с будущим сроком сдачи входят в расчёт; предварительный план будущих уроков и N/A — нет. Работы, ожидающие проверки, пока не засчитываются как сданные.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}${individualRatings(pl)}`;
+  return `${individualRings(pl)}<p class="sub">Процент сдачи рассчитан только от заданных работ, а не от всей программы. Назначенные работы с будущим сроком сдачи входят в расчёт; предварительный план будущих уроков и N/A — нет. Работы, ожидающие проверки, пока не засчитываются как сданные.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl,'parent')}${individualRatings(pl)}`;
 }
 function openParentProgress(pl){
   const dialog=$('#cardDlg');
