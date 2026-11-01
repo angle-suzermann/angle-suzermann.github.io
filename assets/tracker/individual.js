@@ -193,7 +193,7 @@ function individualReportOptions(pl,audience=PARENT?'parent':'student'){
   const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
   if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1')}
   return {id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
-    webEdition:/^emp-/.test(pl.id)&&audience==='student',
+    webEdition:(/^emp-/.test(pl.id)||pl.id==='ege-maria')&&audience==='student',
     shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.plan===pl.id&&((audience==='student')===String(r.id||'').startsWith('feedback|')))
   };

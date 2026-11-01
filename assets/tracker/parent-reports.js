@@ -40,11 +40,13 @@
    const line=raw.trim(),heading=line.match(/^#{2,4}\s+(.+)$/);
    if(/^#\s+/.test(line))continue;
    if((/^Если есть вопросы/.test(line)||line==='Виктория')&&current.title){current={title:'',lines:[raw]};groups.push(current)}
+   else if(heading&&/^#{3,4}\s/.test(line))current.lines.push(raw);
    else if(heading||(line&&line.length<110&&known.test(line))){current={title:heading?heading[1]:line,lines:[]};groups.push(current)}
    else current.lines.push(raw);
   }
   const paragraph=lines=>lines.join('\n').trim().split(/\n\s*\n/).filter(Boolean).filter(p=>audience==='student'||! /^(?:Сдано заданий:|Качество работы:|Работа на уроке:|Текущий трекер перечитан|Показатели пересчитаны)/i.test(p.trim())).map(p=>{
    const lines=p.split('\n');
+   if(/^#{3,4}\s+[^\n]+$/.test(p))return '<h3>'+esc(p.replace(/^#{3,4}\s+/,''))+'</h3>';
    if(lines.length>1&&lines.every(l=>/^\s*\|.*\|\s*$/.test(l))){const rows=lines.filter(l=>!/^\s*\|[\s:|\-]+\|\s*$/.test(l)).map(l=>l.trim().slice(1,-1).split('|').map(c=>c.trim()));return '<div class="report-table-wrap"><table class="report-table">'+rows.map((row,i)=>'<tr>'+row.map(c=>`<${i?'td':'th'}>${esc(c)}</${i?'td':'th'}>`).join('')+'</tr>').join('')+'</table></div>'}
    if(lines.every(l=>/^\s*[-•]\s+/.test(l)))return '<ul>'+lines.map(l=>'<li>'+esc(l.replace(/^\s*[-•]\s+/,''))+'</li>').join('')+'</ul>';
    return '<p>'+esc(p)+'</p>';
@@ -55,7 +57,7 @@
   const heading=String(r.text).match(/^#\s+(.+)$/m),title=heading?heading[1]:String(r.source).split(/[\\/]/).pop().replace(/\.pdf$/i,'');
   const period=String(r.text).match(/(?:^|\n)Период:\s*(.+?)(?:\.\s+(?:Курс|Данные)|$)/im);
   const date=String(r.date).slice(0,10),logo=new URL('../../brand/angle-wordmark.svg',assetBase).href;
-  return `<article class="report-paper" data-report-id="${esc(r.id||[r.date,r.source].join('|'))}"><header class="report-band"><img src="${esc(logo)}" alt="ANGLE" width="156" height="46"><div class="report-by">by Viktoria Syuzyova</div><div class="report-band-meta"><b>${o.audience==='student'?'Личный фидбек':'Отчёт для родителей'}</b><span>${esc(o.course)}</span><span>${esc(date||'Архив без даты')}</span></div><div class="report-title-tag">${o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a>`:esc(title)}<small>Итоги занятий</small></div></header><div class="report-paper-body"><div class="report-actions-top">${shareButton(o,r,title)}</div><div class="report-info"><div><b>Ученик</b>${esc(o.name)}</div><div><b>Курс</b>${esc(o.course)}</div><div><b>${period?'Период':'Дата отчёта'}</b>${esc(period?period[1]:(date||'Не указана'))}</div></div>${o.audience==='student'?'':'<aside class="report-progress-note">Кольца показывают текущие результаты. Выводы и PDF относятся к дате отчёта.</aside>'}<div class="report-text" data-report-web="${index}">${reportBody(r.text,o.audience)}</div><footer class="report-paper-actions">${shareButton(o,r,title)}<button type="button" class="btn" data-report-pdf="${esc(o.id)}" data-report-index="${index}">Скачать отчёт PDF</button></footer></div></article>`;
+  return `<article class="report-paper" data-report-id="${esc(r.id||[r.date,r.source].join('|'))}"><header class="report-band"><img src="${esc(logo)}" alt="ANGLE" width="156" height="46"><div class="report-by">by Viktoria Syuzyova</div><div class="report-band-meta"><b>${o.audience==='student'?'Личный фидбек':'Отчёт для родителей'}</b><span>${esc(o.course)}</span><span>${esc(date||'Архив без даты')}</span></div><div class="report-title-tag">${o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a>`:esc(title)}<small>Итоги занятий</small></div></header><div class="report-paper-body"><div class="report-actions-top">${shareButton(o,r,title)}</div><div class="report-info"><div><b>Ученик</b>${esc(o.name)}</div><div><b>Курс</b>${esc(o.course)}</div><div><b>${period?'Период':'Дата отчёта'}</b>${esc(period?period[1]:(date||'Не указана'))}</div></div>${o.audience==='student'?'':'<aside class="report-progress-note">Кольца показывают текущие результаты. Выводы и PDF относятся к дате отчёта.</aside>'}<div class="report-text" data-report-web="${index}">${o.webEdition?'<p>Открываем отчёт…</p>':reportBody(r.text,o.audience)}</div><footer class="report-paper-actions">${shareButton(o,r,title)}<button type="button" class="btn" data-report-pdf="${esc(o.id)}" data-report-index="${index}">Скачать отчёт PDF</button></footer></div></article>`;
  }
  function panel(o){
   entries.set(o.id,o);
@@ -102,7 +104,7 @@
     const blob=await originalPdf(report,true),edition=JSON.parse(await blob.text());
     if(edition.version!==1||typeof edition.text!=='string'||edition.text.length>100000)throw new Error('Invalid web edition');
     for(const root of document.querySelectorAll('[data-report]'))if(root.dataset.report===o.id){const target=root.querySelector(`[data-report-web="${index}"]`);if(target){target.innerHTML=reportBody(edition.text,o.audience);target.dataset.webLoaded='true'}}
-   }catch{}
+   }catch{for(const root of document.querySelectorAll('[data-report]'))if(root.dataset.report===o.id){const target=root.querySelector(`[data-report-web="${index}"]`);if(target)target.textContent='Не удалось открыть текст отчёта. Попробуйте обновить страницу или скачайте PDF.'}}
   }
  }
  window.AngleParentReports={panel,shareButton:toolbarShare};
