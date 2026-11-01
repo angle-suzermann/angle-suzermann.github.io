@@ -189,16 +189,17 @@ function addBar(pl,bi){
     <p class="erow"><button class="btn" data-addtask="1">Add</button>${pl.blocks.length?'<button class="btn ghost" data-addclose="1">Close</button>':''}</p></div>`:'';
   return `<div class="addbar"><button class="btn" data-addopen="1">+ Add task</button></div>${form}`;
 }
-function individualReport(pl,audience=PARENT?'parent':'student'){
-  if(!window.AngleParentReports)return '';
+function individualReportOptions(pl,audience=PARENT?'parent':'student'){
   const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
   if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1')}
-  return AngleParentReports.panel({id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
+  return {id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
     webEdition:/^emp-/.test(pl.id)&&audience==='student',
     shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.plan===pl.id&&((audience==='student')===String(r.id||'').startsWith('feedback|')))
-  });
+  };
 }
+function individualReport(pl,audience=PARENT?'parent':'student'){return window.AngleParentReports?AngleParentReports.panel(individualReportOptions(pl,audience)):''}
+function individualShare(pl){return window.AngleParentReports?.shareButton?AngleParentReports.shareButton(individualReportOptions(pl,'student')):''}
 // date is the lesson date; when is a task deadline and must not exclude assigned homework.
 function lessonHasStarted(task,asOf=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Moscow'})){
   const dates=dateParts(task.date).map(trackerDateISO).filter(Boolean);
@@ -266,7 +267,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  if(!STUDENT)html=`<p class="report-teacher-actions"><button class="btn" data-student-reports>Посмотреть личный фидбек</button> <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</p>`+html;
+  if(!STUDENT)html=`<p class="report-teacher-actions"><button class="btn" data-student-reports>Посмотреть личный фидбек</button> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</p>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 

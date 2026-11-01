@@ -522,7 +522,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
 <link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
-<script src="${BASE}/assets/catalog-share.js?v=2" defer></script>
+<script src="${BASE}/assets/catalog-share.js?v=3" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">

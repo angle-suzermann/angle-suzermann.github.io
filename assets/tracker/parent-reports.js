@@ -16,6 +16,10 @@
   const url=reportUrl(o,r);
   return `<button type="button" class="btn ghost" data-share-kind="report"${url?` data-share-url="${esc(url)}" data-share-title="${esc(title+' · '+String(r.date).slice(0,10))}"`:' disabled title="Ссылка получателя ещё не настроена"'}>Поделиться</button>`;
  }
+ function toolbarShare(o){
+  const report=latest(o);if(!report)return '';
+  const title=String(report.source).split(/[\\/]/).pop().replace(/\.pdf$/i,'');return shareButton(o,report,title);
+ }
  function openRequested(o){
   const wanted=new URLSearchParams(location.search).get('report');if(!wanted)return;
   const report=reports(o).find(r=>String(r.id||[r.date,r.source].join('|'))===wanted);if(!report)return;
@@ -99,5 +103,5 @@
    }catch{}
   }
  }
- window.AngleParentReports={panel};
+ window.AngleParentReports={panel,shareButton:toolbarShare};
 })();
