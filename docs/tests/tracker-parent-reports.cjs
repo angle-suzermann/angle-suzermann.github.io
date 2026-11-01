@@ -14,7 +14,7 @@ fs.mkdirSync(output,{recursive:true});
 function fixture(){return {
  courses:{Movers:{students:[{id:'s1',name:'Демо Ученик А'},{id:'s2',name:'Демо Ученик Б'}],units:[{n:1,title:'At school',active:true}],sections:[{id:'sec1',name:'Vocabulary',points:5}],phonics:[],extras:[]}},
  progress:{'Movers|s1|u1|sec1':'✓'},act:[],mee:[{course:'Movers',student:'Демо Ученик А',hw:'WB unit 4 reading',due:'2026-10-29',status:'done',pct:80},{course:'Movers',student:'Демо Ученик А',hw:'WB unit 6 reading',due:'2026-10-01',status:'missing'}],
- reports:[{course:'Movers',studentId:'s1',plan:'',date:'2026-10-24',source:'Отчёт — Демо Ученик А.pdf',text:'Что получается\nУченик уверенно выполняет знакомые задания.'},
+ reports:[{course:'Movers',studentId:'s1',plan:'',date:'2026-10-20',source:'Предыдущий отчёт.pdf',text:'Earlier private report.'},{course:'Movers',studentId:'s1',plan:'',date:'2026-10-24',source:'Отчёт — Демо Ученик А.pdf',text:'Что получается\nУченик уверенно выполняет знакомые задания.'},
   {course:'Movers',studentId:'s2',plan:'',date:'2026-10-25',text:'OTHER_CHILD_PRIVATE_SENTINEL'},
   {course:'B1',studentId:'s1',plan:'',date:'2026-10-25',text:'OTHER_COURSE_PRIVATE_SENTINEL'},
   {plan:'plan-a',course:'',studentId:'',date:'2026-10-16',source:'Индивидуальный отчёт.pdf',text:'Комментарий к индивидуальному плану.'}],
@@ -35,7 +35,7 @@ function fixture(){return {
     if(u.hostname==='tracker.test'){
      if(u.pathname.includes('/report-files/'))return encrypted.has(path.basename(u.pathname))?route.fulfill({body:encrypted.get(path.basename(u.pathname)),contentType:'application/octet-stream'}):route.fulfill({status:404});
      const f=path.join(root,decodeURIComponent(u.pathname.slice(1)));
-     if(fs.existsSync(f)&&fs.statSync(f).isFile())return route.fulfill({body:fs.readFileSync(f),contentType:f.endsWith('.js')?'application/javascript':f.endsWith('.css')?'text/css':f.endsWith('.json')?'application/json':f.endsWith('.woff2')?'font/woff2':f.endsWith('.html')?'text/html':'application/octet-stream'});
+     if(fs.existsSync(f)&&fs.statSync(f).isFile())return route.fulfill({body:fs.readFileSync(f),contentType:f.endsWith('.js')?'application/javascript':f.endsWith('.css')?'text/css':f.endsWith('.json')?'application/json':f.endsWith('.woff2')?'font/woff2':f.endsWith('.svg')?'image/svg+xml':f.endsWith('.html')?'text/html':'application/octet-stream'});
     }
     return route.abort();
    });
@@ -60,8 +60,13 @@ function fixture(){return {
   assert.equal(await page.locator('.mee-unit:visible').count(),1);
   assert.match(await page.locator('.mee-unit:visible').innerText(),/unit 4/);
   assert.equal(await page.locator('[data-mee-tab="4"]').getAttribute('aria-pressed'),'true');
-  assert.equal(await page.locator('.report-comment,.report-date,[data-report-editor]').count(),0,'full report does not appear on the page');
-  assert.doesNotMatch(await page.locator('#view').innerText(),/Ученик уверенно/);
+  assert.equal(await page.locator('.report-comment,.report-date,[data-report-editor]').count(),0,'report has no editor or obsolete report widgets');
+  if(!await page.locator('.report-section').first().evaluate(el=>el.open))await page.locator('.report-section > summary').first().click();
+  await page.locator('.report-band img:visible').evaluate(img=>img.decode());
+  assert(await page.locator('.report-band img:visible').evaluate(img=>img.naturalWidth>0));
+  assert.match(await page.locator('#view').innerText(),/Ученик уверенно/);
+  assert.equal(await page.locator('.report-band img:visible').getAttribute('alt'),'ANGLE');
+  assert.equal(await page.locator('.report-paper:visible > .report-paper-body > .report-info > div').count(),3);
   assert.doesNotMatch(await page.locator('#view').innerText(),/OTHER_CHILD|OTHER_COURSE/);
   assert.equal(await page.locator('[data-report-save]').count(),0);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'report fits mobile viewport');
@@ -70,12 +75,20 @@ function fixture(){return {
   const download=await pending;assert.match(download.suggestedFilename(),/Демо Ученик А/);
   await download.saveAs(path.join(output,'parent-report.pdf'));
   assert.deepEqual(fs.readFileSync(path.join(output,'parent-report.pdf')),original,'download is the exact original bytes, not a regenerated report');
+  assert.equal(await page.locator('.report-history').count(),1);
+  assert.equal(await page.locator('.report-history').evaluate(el=>el.open),false);
+  await page.locator('.report-history > summary').click();
+  assert.match(await page.locator('.report-history').innerText(),/Earlier private report/);
+  const oldPending=page.waitForEvent('download');await page.locator('.report-history [data-report-pdf]').click();
+  const oldDownload=await oldPending;assert.equal(oldDownload.suggestedFilename(),'Предыдущий отчёт.pdf');
+  await oldDownload.saveAs(path.join(output,'previous-report.pdf'));assert.deepEqual(fs.readFileSync(path.join(output,'previous-report.pdf')),original);
+  await page.locator('.report-history > summary').click();
   await page.screenshot({path:path.join(output,'parent-card-mobile.png'),fullPage:true});
   await ctx.close();
   ({ctx,page}=await setup(false));
   await page.locator('.mobile [data-card="s1"]').click();
   assert.equal(await page.locator('#cardBody [data-report-editor]').count(),0);
-  assert.equal(await page.locator('#cardBody [data-report-pdf]').count(),1);
+  assert.equal(await page.locator('#cardBody [data-report-pdf]:visible').count(),1);
   assert.deepEqual(writes,[],'opening a card never rewrites the source report');
   await ctx.close();
   ({ctx,page}=await setup(true,true));
@@ -89,6 +102,6 @@ function fixture(){return {
   assert.deepEqual(fs.readFileSync(path.join(output,'individual-report.pdf')),original);
   await ctx.close();
   assert.deepEqual(errors,[]);
-  console.log('PASS: compact Russian parent card; no full report/editor; exact original PDF bytes for group and individual; course/child/plan isolation; mobile layout; no writes or browser errors. Output: '+output);
+  console.log('PASS: branded private web report; collapsible sections; no editor; exact original PDF bytes for group and individual; course/child/plan isolation; mobile layout; no writes or browser errors. Output: '+output);
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

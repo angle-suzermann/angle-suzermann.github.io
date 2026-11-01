@@ -198,8 +198,13 @@ function individualReport(pl){
     reports:(D.reports||[]).filter(r=>r.plan===pl.id)
   });
 }
+// date is the lesson date; when is a task deadline and must not exclude assigned homework.
+function lessonHasStarted(task,asOf=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Moscow'})){
+  const dates=dateParts(task.date).map(trackerDateISO).filter(Boolean);
+  return !dates.length||dates.some(date=>date<=asOf);
+}
 function individualMetrics(pl){
-  const tasks=pl.blocks.flatMap(b=>b.tasks),assigned=tasks.filter(t=>t.status!=='N/A'),done=assigned.filter(t=>t.status==='✓');
+  const tasks=pl.blocks.flatMap(b=>b.tasks),assigned=tasks.filter(t=>!['n/a','na'].includes(String(t.status||'').toLowerCase())&&lessonHasStarted(t)),done=assigned.filter(t=>t.status==='✓');
   const ratings=(pl.ratings||[]).filter(r=>Number(r.score)>=1&&Number(r.score)<=3);
   const quality=ratings.filter(r=>r.kind==='quality'),activity=ratings.filter(r=>(r.kind||'activity')==='activity');
   const avg=rows=>rows.length?rows.reduce((sum,r)=>sum+Number(r.score),0)/rows.length/3:null;
@@ -216,8 +221,8 @@ function individualRatings(pl){
   return `<div class="individual-ratings" data-plan-ratings="${esc(pl.id)}"><p class="sub">Оценки преподавателя · <label>За уроки: <select data-plan-lessons>${[2,3,4].map(n=>`<option value="${n}"${n===3?' selected':''}>${n}</option>`).join('')}</select></label></p>${['quality','activity'].map(kind=>{const last=(pl.ratings||[]).filter(r=>(r.kind||'activity')===kind).slice(-1)[0];return `<div class="sel"><b>${kind==='quality'?'Качество работы':'Работа на уроке'}</b>${[1,2,3].map(value=>`<button class="chip ${Number(last?.score)===value?'on':''}" aria-pressed="${Number(last?.score)===value}" data-plan-rating="${kind}|${value}" aria-label="${kind==='quality'?'Качество':'Активность'}: ${value}">${value} · ${labels[kind][value-1]}</button>`).join('')}</div>`}).join('')}<p class="sub" role="status" data-plan-rating-status></p></div>`;
 }
 function parentProgressCard(pl){
-  const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
-  return `${individualRings(pl)}<p class="sub">Прогресс учитывает подтверждённые задания. Работы, ожидающие проверки, пока не засчитываются.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}${individualRatings(pl)}`;
+  const rows=[...pl.blocks].reverse().map(b=>{const tasks=b.tasks.filter(t=>lessonHasStarted(t));if(!tasks.length)return '';const s=score(tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
+  return `${individualRings(pl)}<p class="sub">Процент сдачи рассчитан только от заданных работ, а не от всей программы. Назначенные работы с будущим сроком сдачи входят в расчёт; предварительный план будущих уроков и N/A — нет. Работы, ожидающие проверки, пока не засчитываются как сданные.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl)}${individualRatings(pl)}`;
 }
 function openParentProgress(pl){
   const dialog=$('#cardDlg');
