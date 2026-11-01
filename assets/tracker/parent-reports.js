@@ -8,6 +8,23 @@
  const bytes=s=>new TextEncoder().encode(s);
  const hex=b=>Array.from(new Uint8Array(b),v=>v.toString(16).padStart(2,'0')).join('');
  function latest(o){return reports(o)[0]}
+ function reportUrl(o,r){
+  if(!o.shareUrl)return '';
+  const url=new URL(o.shareUrl,location.href);url.searchParams.set('report',String(r.id||[r.date,r.source].join('|')));return url.href;
+ }
+ function shareButton(o,r,title){
+  const url=reportUrl(o,r);
+  return `<button type="button" class="btn ghost" data-share-kind="report"${url?` data-share-url="${esc(url)}" data-share-title="${esc(title+' · '+String(r.date).slice(0,10))}"`:' disabled title="Ссылка получателя ещё не настроена"'}>Поделиться</button>`;
+ }
+ function openRequested(o){
+  const wanted=new URLSearchParams(location.search).get('report');if(!wanted)return;
+  const report=reports(o).find(r=>String(r.id||[r.date,r.source].join('|'))===wanted);if(!report)return;
+  for(const root of document.querySelectorAll('[data-report]'))if(root.dataset.report===o.id){
+   const article=Array.from(root.querySelectorAll('[data-report-id]')).find(el=>el.dataset.reportId===wanted);if(!article)continue;
+   const history=article.closest('.report-history');if(history)history.open=true;
+   article.scrollIntoView({block:'start'});break;
+  }
+ }
  function reports(o){return [...(o.reports||[])].filter(r=>r.source&&r.text&&(r.plan||String(o.id).startsWith('plan|')||String(r.date).slice(0,10)>='2026-11-01')).sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
  function reportBody(text,audience){
   text=String(text).replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
@@ -16,7 +33,8 @@
   for(const raw of String(text).replace(/\r\n?/g,'\n').split('\n')){
    const line=raw.trim(),heading=line.match(/^#{2,4}\s+(.+)$/);
    if(/^#\s+/.test(line))continue;
-   if(heading||(line&&line.length<110&&known.test(line))){current={title:heading?heading[1]:line,lines:[]};groups.push(current)}
+   if((/^Если есть вопросы/.test(line)||line==='Виктория')&&current.title){current={title:'',lines:[raw]};groups.push(current)}
+   else if(heading||(line&&line.length<110&&known.test(line))){current={title:heading?heading[1]:line,lines:[]};groups.push(current)}
    else current.lines.push(raw);
   }
   const paragraph=lines=>lines.join('\n').trim().split(/\n\s*\n/).filter(Boolean).filter(p=>audience==='student'||! /^(?:Сдано заданий:|Качество работы:|Работа на уроке:|Текущий трекер перечитан|Показатели пересчитаны)/i.test(p.trim())).map(p=>{
@@ -31,10 +49,11 @@
   const heading=String(r.text).match(/^#\s+(.+)$/m),title=heading?heading[1]:String(r.source).split(/[\\/]/).pop().replace(/\.pdf$/i,'');
   const period=String(r.text).match(/(?:^|\n)Период:\s*(.+?)(?:\.\s+(?:Курс|Данные)|$)/im);
   const date=String(r.date).slice(0,10),logo=new URL('../../brand/angle-wordmark.svg',assetBase).href;
-  return `<article class="report-paper"><header class="report-band"><img src="${esc(logo)}" alt="ANGLE" width="156" height="46"><div class="report-by">by Viktoria Syuzyova</div><div class="report-band-meta"><b>${o.audience==='student'?'Личный фидбек':'Отчёт для родителей'}</b><span>${esc(o.course)}</span><span>${esc(date||'Архив без даты')}</span></div><div class="report-title-tag">${o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a>`:esc(title)}<small>Итоги занятий</small></div></header><div class="report-paper-body"><div class="report-info"><div><b>Ученик</b>${esc(o.name)}</div><div><b>Курс</b>${esc(o.course)}</div><div><b>${period?'Период':'Дата отчёта'}</b>${esc(period?period[1]:(date||'Не указана'))}</div></div>${o.audience==='student'?'':'<aside class="report-progress-note">Кольца показывают текущие результаты. Выводы и PDF относятся к дате отчёта.</aside>'}<div class="report-text" data-report-web="${index}">${reportBody(r.text,o.audience)}</div><footer class="report-paper-actions">${o.shareUrl?`<button type="button" class="btn ghost" data-share-url="${esc(o.shareUrl)}" data-share-title="${esc(title)}">Поделиться</button>`:''}<button type="button" class="btn" data-report-pdf="${esc(o.id)}" data-report-index="${index}">Скачать отчёт PDF</button></footer></div></article>`;
+  return `<article class="report-paper" data-report-id="${esc(r.id||[r.date,r.source].join('|'))}"><header class="report-band"><img src="${esc(logo)}" alt="ANGLE" width="156" height="46"><div class="report-by">by Viktoria Syuzyova</div><div class="report-band-meta"><b>${o.audience==='student'?'Личный фидбек':'Отчёт для родителей'}</b><span>${esc(o.course)}</span><span>${esc(date||'Архив без даты')}</span></div><div class="report-title-tag">${o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a>`:esc(title)}<small>Итоги занятий</small></div></header><div class="report-paper-body"><div class="report-actions-top">${shareButton(o,r,title)}</div><div class="report-info"><div><b>Ученик</b>${esc(o.name)}</div><div><b>Курс</b>${esc(o.course)}</div><div><b>${period?'Период':'Дата отчёта'}</b>${esc(period?period[1]:(date||'Не указана'))}</div></div>${o.audience==='student'?'':'<aside class="report-progress-note">Кольца показывают текущие результаты. Выводы и PDF относятся к дате отчёта.</aside>'}<div class="report-text" data-report-web="${index}">${reportBody(r.text,o.audience)}</div><footer class="report-paper-actions">${shareButton(o,r,title)}<button type="button" class="btn" data-report-pdf="${esc(o.id)}" data-report-index="${index}">Скачать отчёт PDF</button></footer></div></article>`;
  }
  function panel(o){
   entries.set(o.id,o);
+  setTimeout(()=>openRequested(o),0);
   if(o.webEdition)setTimeout(()=>hydrate(o),0);
   const all=reports(o),title=(o.audience==='student'?'Личный фидбек — ':'Карточка для родителей — ')+o.name;
   const share=o.shareUrl?`<a class="report-title" href="${esc(o.shareUrl)}">${esc(title)}</a><button type="button" class="btn ghost" data-share-url="${esc(o.shareUrl)}" data-share-title="${esc(title)}">Поделиться</button>`:'';
