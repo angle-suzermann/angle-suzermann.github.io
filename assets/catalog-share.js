@@ -37,6 +37,7 @@
   const button=e.target.closest('[data-share-url]');if(!button)return;e.preventDefault();e.stopPropagation();
   init();originButton=button;
   try{active={title:button.dataset.shareTitle||'Материал ANGLE',url:safeUrl(button.dataset.shareUrl)};}catch{return;}
+  dialog.querySelector('#angleShareTitle').textContent=button.dataset.shareKind==='report'?'Поделиться отчётом':'Поделиться материалом';
   dialog.querySelector('.share-material').textContent=active.title;status('');dialog.querySelector('textarea')?.remove();
   dialog.querySelector('[data-telegram-share]').href='https://t.me/share/url?url='+encodeURIComponent(active.url)+'&text='+encodeURIComponent(active.title);
   const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);

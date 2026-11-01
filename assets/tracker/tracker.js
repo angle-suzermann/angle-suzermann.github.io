@@ -186,7 +186,7 @@ function viewUnit(n){
   if(!cc.students.length)return `<div class="card">${head}<div class="empty">No students yet. Add them in the Google Sheet (Students tab).</div></div>`;
   const dim=u.active?'':'<div class="sub" style="margin:0 0 8px;color:#8d6a00">This unit is not started: it does not count toward the completion %.</div>';
   const rows=cc.students.map(s=>{const sc=unitScore(c,s.id,n);
-    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
+    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button><button class="btn ghost" data-show-report="${esc(s.id)}" aria-label="Отчёт · ${esc(s.name)}">Отчёт</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
   const foot=`<tr><td class="name" style="background:#faf8fc">Class % done</td>${cc.sections.map(x=>{let d=0,t=0;for(const s of cc.students){const v=st(c,s.id,'u'+n,x.id);if(v==='N/A')continue;t++;if(v==='✓')d++}return `<td class="tc g-${grp(x.name)}">${t?Math.round(d/t*100)+'%':'–'}</td>`}).join('')}<td></td></tr>`;
   const s=curStudent();
   const desktop=`<div class="desktop"><div class="matrix"><table class="fx" style="min-width:${160+84+cc.sections.length*74}px"><colgroup><col style="width:160px">${cc.sections.map(()=>'<col>').join('')}<col style="width:84px"></colgroup><thead><tr><th class="name">Student</th>${cc.sections.map(x=>`<th class="g-${grp(x.name)}">${esc(x.name)}<small>${x.points} pts</small></th>`).join('')}<th>Unit %</th></tr></thead><tbody>${rows}</tbody><tfoot>${foot}</tfoot></table></div><div class="desktop-ratings" style="margin-top:18px"><h2 style="font-size:16px">Class activity and quality of work</h2>${selector()}${s?ringsTop(c,s,overall(c,s.id))+rateBlock(s):''}</div></div>`;
@@ -224,7 +224,13 @@ function studentCardBody(s,n,readonly){
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
-   ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
+   ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn" data-show-report="${esc(s.id)}">Посмотреть отчёт</button><button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
+}
+function openReport(sid){
+  if(PARENT)return;
+  const student=C().students.find(s=>s.id===sid);if(!student)return;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Отчёт · ${esc(student.name)}</h2>${parentReport(student)}`;
+  if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
 function parentReport(s){
   if(!window.AngleParentReports)return '';
@@ -232,6 +238,7 @@ function parentReport(s){
   const url=new URL(location.pathname,location.origin),api=PARENT?QP.get('a'):cfg.url,key=PARENT?QP.get('p'):s.key;
   if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key)}
   return AngleParentReports.panel({id:course+'|'+s.id,name:s.name,course,
+    webEdition:true,
     shareUrl:api&&key?url.href:'',
     reports:(D.reports||[]).filter(r=>r.course===course&&r.studentId===s.id&&!r.plan)
   });
@@ -285,7 +292,7 @@ function viewSummary(){
   const rows=cc.students.map(s=>{
     const cell=r=>`<td class="pct ${pcClass(r)}">${fmt(r)}</td>`;
     const o=overall(c,s.id);
-    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button></td>${cc.units.map(u=>cell(unitScore(c,s.id,u.n).r)).join('')}${cc.phonics.length?cell(phScore(c,s.id).r):''}${cell(exScore(c,s.id).r)}<td class="pct ${pcClass(o.r)}" style="font-size:15px">${fmt(o.r)}</td></tr>`}).join('');
+    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button><button class="btn ghost" data-show-report="${esc(s.id)}" aria-label="Отчёт · ${esc(s.name)}">Отчёт</button></td>${cc.units.map(u=>cell(unitScore(c,s.id,u.n).r)).join('')}${cc.phonics.length?cell(phScore(c,s.id).r):''}${cell(exScore(c,s.id).r)}<td class="pct ${pcClass(o.r)}" style="font-size:15px">${fmt(o.r)}</td></tr>`}).join('');
   const imp=live?`<div class="card" style="margin-top:12px"><h2 style="font-size:16px">Import MEE homework</h2><div class="sub">Paste the JSON that Claude produced from MEE. It replaces this course's MEE rows.</div><textarea id="meeJson" rows="4" style="width:100%;margin:8px 0"></textarea><button class="btn" id="meeGo">Import</button></div>`:'';
   return `<div class="card"><div class="unit-head"><div><h2>${esc(c)} · Summary</h2><div class="sub">Weighted: points earned ÷ points possible (started units, dated phonics lessons, dated extras).</div></div></div><div class="matrix"><table><thead><tr><th class="name">Student</th>${th}</tr></thead><tbody>${rows}</tbody></table></div></div>${imp}`;
 }
@@ -373,6 +380,8 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  const reportButton=e.target.closest('[data-show-report]');
+  if(reportButton){openReport(reportButton.dataset.showReport);return}
   if(e.target.closest('[data-hidett]')){const t=$('#ttools');if(t)t.style.display='none';toast('Tools hidden. Close and reopen the card to show them again');return}
   const pb=e.target.closest('[data-photo]');
   if(pb){const box=pb.closest('[data-photofor]'),st4=C().students.find(x=>x.id===box.dataset.photofor),hw=box.querySelector('[data-phw]').value.trim(),pc=box.querySelector('[data-ppct]').value;
