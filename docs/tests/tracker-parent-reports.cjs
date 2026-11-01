@@ -14,10 +14,10 @@ fs.mkdirSync(output,{recursive:true});
 function fixture(){return {
  courses:{Movers:{students:[{id:'s1',name:'Демо Ученик А'},{id:'s2',name:'Демо Ученик Б'}],units:[{n:1,title:'At school',active:true}],sections:[{id:'sec1',name:'Vocabulary',points:5}],phonics:[],extras:[]}},
  progress:{'Movers|s1|u1|sec1':'✓'},act:[],mee:[{course:'Movers',student:'Демо Ученик А',hw:'WB unit 4 reading',due:'2026-10-29',status:'done',pct:80},{course:'Movers',student:'Демо Ученик А',hw:'WB unit 6 reading',due:'2026-10-01',status:'missing'}],
- reports:[{course:'Movers',studentId:'s1',plan:'',date:'2026-10-20',source:'Предыдущий отчёт.pdf',text:'Earlier private report.'},{course:'Movers',studentId:'s1',plan:'',date:'2026-10-24',source:'Отчёт — Демо Ученик А.pdf',text:'Что получается\nУченик уверенно выполняет знакомые задания.'},
+ reports:[{course:'Movers',studentId:'s1',plan:'',date:'2026-10-20',source:'Предыдущий отчёт.pdf',text:'Earlier private report.'},{course:'Movers',studentId:'s1',plan:'',date:'2026-11-01',source:'Отчёт — Демо Ученик А.pdf',text:'Что получается\nУченик уверенно выполняет знакомые задания.'},
   {course:'Movers',studentId:'s2',plan:'',date:'2026-10-25',text:'OTHER_CHILD_PRIVATE_SENTINEL'},
   {course:'B1',studentId:'s1',plan:'',date:'2026-10-25',text:'OTHER_COURSE_PRIVATE_SENTINEL'},
-  {plan:'plan-a',course:'',studentId:'',date:'2026-10-16',source:'Индивидуальный отчёт.pdf',text:'Комментарий к индивидуальному плану.'}],
+  {plan:'plan-a',course:'',studentId:'',date:'2026-10-15',source:'Предыдущий отчёт.pdf',text:'Earlier private report.'},{plan:'plan-a',course:'',studentId:'',date:'2026-10-16',source:'Индивидуальный отчёт.pdf',text:'Комментарий к индивидуальному плану.'}],
  plans:[{id:'plan-a',student:'Демо Ученик А',title:'Demo course',key:'',blocks:[{name:'Block 1',tasks:[{n:1,task:'Demo task',kind:'homework',points:5,status:'✓'}]}]}]
 };}
 (async()=>{
@@ -45,7 +45,7 @@ function fixture(){return {
    },{parent});
    const page=await ctx.newPage();page.on('pageerror',e=>errors.push(e.message));
    const location=individual?'ege-2027':'as3';
-   await page.goto(`https://tracker.test/${location}/0-homework-tracker/index.html`+(parent?'?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent':''));
+   await page.goto(`https://tracker.test/${location}/0-homework-tracker/index.html`+(parent?'?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent'+(individual?'&parent=1':''):''));
    if(individual&&!parent)throw new Error('Use a parent individual fixture');
    await page.locator('#view .card').first().waitFor();
    return {ctx,page};
@@ -75,14 +75,8 @@ function fixture(){return {
   const download=await pending;assert.match(download.suggestedFilename(),/Демо Ученик А/);
   await download.saveAs(path.join(output,'parent-report.pdf'));
   assert.deepEqual(fs.readFileSync(path.join(output,'parent-report.pdf')),original,'download is the exact original bytes, not a regenerated report');
-  assert.equal(await page.locator('.report-history').count(),1);
-  assert.equal(await page.locator('.report-history').evaluate(el=>el.open),false);
-  await page.locator('.report-history > summary').click();
-  assert.match(await page.locator('.report-history').innerText(),/Earlier private report/);
-  const oldPending=page.waitForEvent('download');await page.locator('.report-history [data-report-pdf]').click();
-  const oldDownload=await oldPending;assert.equal(oldDownload.suggestedFilename(),'Предыдущий отчёт.pdf');
-  await oldDownload.saveAs(path.join(output,'previous-report.pdf'));assert.deepEqual(fs.readFileSync(path.join(output,'previous-report.pdf')),original);
-  await page.locator('.report-history > summary').click();
+  assert.equal(await page.locator('.report-history').count(),0,'old group reports are not published');
+  assert.doesNotMatch(await page.locator('#view').innerText(),/Earlier private report/);
   await page.screenshot({path:path.join(output,'parent-card-mobile.png'),fullPage:true});
   await ctx.close();
   ({ctx,page}=await setup(false));
@@ -100,6 +94,15 @@ function fixture(){return {
   assert.equal(individualDownload.suggestedFilename(),'Индивидуальный отчёт.pdf');
   await individualDownload.saveAs(path.join(output,'individual-report.pdf'));
   assert.deepEqual(fs.readFileSync(path.join(output,'individual-report.pdf')),original);
+  assert.equal(await page.locator('.report-history').count(),1);
+  assert.equal(await page.locator('.report-history').evaluate(el=>el.open),false);
+  await page.locator('.report-history > summary').click();
+  assert.match(await page.locator('.report-history').innerText(),/Earlier private report/);
+  const oldPending=page.waitForEvent('download');await page.locator('.report-history [data-report-pdf]').click();
+  const oldDownload=await oldPending;assert.equal(oldDownload.suggestedFilename(),'Предыдущий отчёт.pdf');
+  await oldDownload.saveAs(path.join(output,'previous-report.pdf'));assert.deepEqual(fs.readFileSync(path.join(output,'previous-report.pdf')),original);
+  await page.locator('.report-history > summary').click();
+
   await ctx.close();
   assert.deepEqual(errors,[]);
   console.log('PASS: branded private web report; collapsible sections; no editor; exact original PDF bytes for group and individual; course/child/plan isolation; mobile layout; no writes or browser errors. Output: '+output);
