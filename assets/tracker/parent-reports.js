@@ -46,8 +46,8 @@
   const rawKey=await crypto.subtle.digest('SHA-256',bytes(material));
   // The asset name is a separate hash, never the AES key itself.
   const location=hex(await crypto.subtle.digest('SHA-256',bytes('ANGLE original PDF location v1\0'+hex(rawKey))));
-  const assetUrl=new URL(location+(web?'-web':'')+'.bin',assetBase);assetUrl.searchParams.set('v','20261028-rings');
-  const response=await fetch(assetUrl);
+  const assetUrl=new URL(location+(web?'-web':'')+'.bin',assetBase);assetUrl.searchParams.set('v',web?'20261101-final-web':'20261028-rings');
+  const response=await fetch(assetUrl,web?{cache:'no-cache'}:{});
   if(!response.ok)throw new Error('Исходный PDF пока не подключён.');
   const encrypted=new Uint8Array(await response.arrayBuffer());
   if(encrypted.length<29)throw new Error('Файл отчёта повреждён.');
