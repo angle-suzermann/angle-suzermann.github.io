@@ -186,7 +186,7 @@ function viewUnit(n){
   if(!cc.students.length)return `<div class="card">${head}<div class="empty">No students yet. Add them in the Google Sheet (Students tab).</div></div>`;
   const dim=u.active?'':'<div class="sub" style="margin:0 0 8px;color:#8d6a00">This unit is not started: it does not count toward the completion %.</div>';
   const rows=cc.students.map(s=>{const sc=unitScore(c,s.id,n);
-    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button><button class="btn ghost" data-show-report="${esc(s.id)}" aria-label="Отчёт · ${esc(s.name)}">Отчёт</button>${parentShare(s)}</td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
+    return `<tr><td class="name"><button data-show-report="${esc(s.id)}" title="Открыть отчёт">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
   const foot=`<tr><td class="name" style="background:#faf8fc">Class % done</td>${cc.sections.map(x=>{let d=0,t=0;for(const s of cc.students){const v=st(c,s.id,'u'+n,x.id);if(v==='N/A')continue;t++;if(v==='✓')d++}return `<td class="tc g-${grp(x.name)}">${t?Math.round(d/t*100)+'%':'–'}</td>`}).join('')}<td></td></tr>`;
   const s=curStudent();
   const desktop=`<div class="desktop"><div class="matrix"><table class="fx" style="min-width:${160+84+cc.sections.length*74}px"><colgroup><col style="width:160px">${cc.sections.map(()=>'<col>').join('')}<col style="width:84px"></colgroup><thead><tr><th class="name">Student</th>${cc.sections.map(x=>`<th class="g-${grp(x.name)}">${esc(x.name)}<small>${x.points} pts</small></th>`).join('')}<th>Unit %</th></tr></thead><tbody>${rows}</tbody><tfoot>${foot}</tfoot></table></div><div class="desktop-ratings" style="margin-top:18px"><h2 style="font-size:16px">Class activity and quality of work</h2>${selector()}${s?ringsTop(c,s,overall(c,s.id))+rateBlock(s):''}</div></div>`;
@@ -229,7 +229,7 @@ function studentCardBody(s,n,readonly){
 function openReport(sid){
   if(PARENT)return;
   const student=C().students.find(s=>s.id===sid);if(!student)return;
-  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Отчёт · ${esc(student.name)}</h2>${parentReport(student)}`;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Отчёт · ${esc(student.name)}</h2>${parentReport(student)}<p><button class="btn ghost" data-card="${esc(student.id)}">Карточка ученика</button></p>`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
 function parentReportOptions(s){
@@ -293,7 +293,7 @@ function viewSummary(){
   const rows=cc.students.map(s=>{
     const cell=r=>`<td class="pct ${pcClass(r)}">${fmt(r)}</td>`;
     const o=overall(c,s.id);
-    return `<tr><td class="name"><button data-card="${esc(s.id)}">${esc(s.name)}</button><button class="btn ghost" data-show-report="${esc(s.id)}" aria-label="Отчёт · ${esc(s.name)}">Отчёт</button>${parentShare(s)}</td>${cc.units.map(u=>cell(unitScore(c,s.id,u.n).r)).join('')}${cc.phonics.length?cell(phScore(c,s.id).r):''}${cell(exScore(c,s.id).r)}<td class="pct ${pcClass(o.r)}" style="font-size:15px">${fmt(o.r)}</td></tr>`}).join('');
+    return `<tr><td class="name"><button data-show-report="${esc(s.id)}" title="Открыть отчёт">${esc(s.name)}</button></td>${cc.units.map(u=>cell(unitScore(c,s.id,u.n).r)).join('')}${cc.phonics.length?cell(phScore(c,s.id).r):''}${cell(exScore(c,s.id).r)}<td class="pct ${pcClass(o.r)}" style="font-size:15px">${fmt(o.r)}</td></tr>`}).join('');
   const imp=live?`<div class="card" style="margin-top:12px"><h2 style="font-size:16px">Import MEE homework</h2><div class="sub">Paste the JSON that Claude produced from MEE. It replaces this course's MEE rows.</div><textarea id="meeJson" rows="4" style="width:100%;margin:8px 0"></textarea><button class="btn" id="meeGo">Import</button></div>`:'';
   return `<div class="card"><div class="unit-head"><div><h2>${esc(c)} · Summary</h2><div class="sub">Weighted: points earned ÷ points possible (started units, dated phonics lessons, dated extras).</div></div></div><div class="matrix"><table><thead><tr><th class="name">Student</th>${th}</tr></thead><tbody>${rows}</tbody></table></div></div>${imp}`;
 }
