@@ -1,0 +1,324 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#453458"><title>The best guest! · Gateway B2 Unit 4</title><meta name="ws:unit" content="4"><meta name="ws:title" content="08. The best guest! — Collaborative Article — Classwork"><meta name="ws:date" content="2026-11-02"><meta name="ws:status" content="published"><meta name="ws:emoji" content="✍️"><meta name="ws:tags" content="article, collaborative writing, personality"><meta name="robots" content="noindex, nofollow"><meta name="ws:course" content="Gateway to the World B2"><meta name="ws:course-id" content="gateway/gateway-to-the-world-b2"><meta name="ws:formspree" content="xoeaqeyz"><meta name="ws:type" content="worksheet"><style>@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
+
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;overflow-x:hidden;max-width:100%;overscroll-behavior-x:none;touch-action:pan-y;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text);line-height:1.55;}
+.app-shell{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;}
+.bg-photo{position:absolute;inset:0;z-index:0;background-color:#3a2a4a;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23FED500' stroke-opacity='.35'%3E%3Cpath d='M0 0H240M0 40H240M0 80H240M0 120H240M0 160H240M0 200H240M0 0V240M40 0V240M80 0V240M120 0V240M160 0V240M200 0V240' stroke-width='.6'/%3E%3Cpath d='M40 200L200 200L40 80Z' stroke-width='2.4' stroke-opacity='.8'/%3E%3Ccircle cx='160' cy='80' r='38' stroke-width='2' stroke-opacity='.7'/%3E%3Cpath d='M40 185H55V200' stroke-width='1.6' stroke-opacity='.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:240px 240px;background-position:center 40%;opacity:0.5;pointer-events:none;}
+.bg-wash{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9));pointer-events:none;}
+.topbar{position:relative;flex:0 0 auto;z-index:60;background:#fff;border-bottom:3px solid var(--purple);box-shadow:0 2px 10px rgba(45,25,60,.08);}
+.topbar-inner{max-width:900px;margin:0 auto;}
+.namebar label{font-weight:700;color:var(--purple-dark);}
+.namebar input{border:1.5px solid var(--border);border-radius:8px;font-family:inherit;}
+.save-indicator{font-size:.72rem;color:var(--correct);opacity:0;transition:opacity .3s ease;white-space:nowrap;}
+.save-indicator.show{opacity:1;}
+.progress-track{background:#ece6f2;border-radius:999px;overflow:hidden;}
+.progress-fill{height:100%;width:0;border-radius:999px;transition:width .3s ease;}
+.progress-label{color:var(--purple-dark);font-weight:700;}
+.page-dot{border:1.5px solid var(--border);background:#fff;color:var(--purple-dark);cursor:pointer;font-weight:700;}
+.scroll-area{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:2;}
+.page-wrap{max-width:860px;margin:0 auto;padding:16px 16px 150px;}
+.page{display:none;}
+.page.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.card{background:var(--card);border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,10,30,.25);}
+.card h2{color:var(--purple);font-size:1.25rem;margin:0 0 6px;padding-left:10px;border-left:4px solid var(--yellow);}
+.card h3{color:var(--purple-dark);font-size:1rem;margin:16px 0 6px;}
+.instr{color:var(--muted);font-size:.92rem;margin:4px 0 14px;}
+.tip{background:#fffbe6;border:1px solid #f0dd8a;border-radius:10px;padding:10px 14px;font-size:.92rem;margin:12px 0;}
+.tip b{color:var(--purple-dark);}
+.outcome{background:var(--card-tint);border-left:4px solid var(--purple);border-radius:8px;padding:10px 14px;margin:10px 0;}
+.outcome li{margin:4px 0;}
+.math{font-family:'Cambria Math','STIX Two Math','Times New Roman',serif;font-size:1.05em;white-space:nowrap;}
+.item{padding:12px 0;border-top:1px dashed var(--border);}
+.item:first-of-type{border-top:none;}
+.q{margin:0 0 8px;font-weight:600;}
+.qnum{display:inline-block;min-width:22px;color:var(--purple);font-weight:800;}
+.mcq{display:flex;flex-wrap:wrap;gap:8px;}
+.opt{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--text);text-align:left;}
+.opt:hover{border-color:var(--purple);}
+.opt.chosen{border-color:var(--purple);}
+.opt.correct{background:#e8f7ee;border-color:var(--correct);color:#226b43;font-weight:700;}
+.opt.wrong{background:#fdecea;border-color:var(--wrong);color:#9b2f22;}
+.explain{display:none;font-size:.88rem;color:var(--purple-dark);background:var(--card-tint);border-radius:8px;padding:7px 11px;margin-top:8px;}
+.explain.show{display:block;}
+.fib,.sel{border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font:inherit;font-size:.92rem;min-width:120px;background:#fff;color:var(--text);}
+.fib.wide{min-width:220px;}
+.fib{max-width:100%;}
+.fib:focus,.sel:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(94,72,119,.15);}
+.is-correct{border-color:var(--correct)!important;background:#e8f7ee!important;}
+.is-wrong{border-color:var(--wrong)!important;background:#fdecea!important;}
+.key{display:none;font-size:.85rem;color:#226b43;margin-left:6px;}
+.key.show{display:inline;}
+.type-hint{font-size:.85rem;background:var(--card-tint);border-radius:8px;padding:8px 12px;margin:8px 0 12px;}
+.type-hint code{background:#fff;border:1px solid var(--border);border-radius:4px;padding:0 5px;}
+.match-set{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:.92rem;cursor:pointer;text-align:left;color:var(--text);}
+.match.selected{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(254,213,0,.45);}
+.match.matched-correct{border-color:var(--correct);background:#e8f7ee;color:#226b43;cursor:default;}
+.match.wrong-flash{border-color:var(--wrong);background:#fdecea;}
+.match-score{font-size:.85rem;color:var(--muted);margin-top:8px;}
+.order-list{display:flex;flex-direction:column;gap:8px;}
+.order-item{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;cursor:pointer;background:#fff;}
+.order-item.picked{border-color:var(--purple);background:var(--card-tint);}
+.order-item.pos-correct{border-color:var(--correct);background:#e8f7ee;}
+.order-item.pos-wrong{border-color:var(--wrong);background:#fdecea;}
+.order-num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--yellow);color:var(--black);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+.order-item:not(.picked) .order-num{background:#eee;color:#bbb;}
+.small-btn{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.82rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;margin-top:10px;}
+.phrase-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+.phrase-box span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.88rem;color:var(--purple-dark);font-weight:600;}
+.solution{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:12px 16px;line-height:2.1;}
+textarea.written{width:100%;min-height:150px;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;font-size:.95rem;resize:vertical;}
+.word-count{font-size:.8rem;color:var(--muted);text-align:right;}
+.needs-review{color:var(--wrong);}
+.nav-btns{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.nav-btns button,.btn{background:var(--purple);color:#fff;border:none;border-radius:22px;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer;}
+.nav-btns .ghost{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.check-page{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.btn-main{background:var(--yellow);color:var(--black);font-size:1.05rem;padding:12px 26px;}
+.timer{display:inline-flex;align-items:center;gap:10px;background:var(--card-tint);border-radius:22px;padding:6px 8px 6px 14px;font-weight:800;color:var(--purple-dark);}
+.timer.done{background:#fdecea;color:var(--wrong);}
+.deck{text-align:center;}
+.flip-card{perspective:1000px;width:100%;max-width:520px;height:220px;margin:8px auto;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;}
+.flip-front{background:var(--purple);color:#fff;}
+.flip-front .ru{font-size:1.5rem;font-weight:800;}
+.flip-front .hintline{font-size:.8rem;opacity:.75;margin-top:10px;}
+.flip-back{background:#fff;border:2px solid var(--purple);transform:rotateY(180deg);}
+.flip-back .en{font-size:1.4rem;font-weight:800;color:var(--purple);}
+.flip-back .def{font-size:.92rem;margin-top:6px;}
+.flip-back .ex{font-size:.88rem;color:var(--muted);font-style:italic;margin-top:6px;}
+.card-speak{margin-top:8px;background:var(--yellow);border:none;border-radius:16px;padding:4px 12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.deck-controls{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.deck-controls button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);border-radius:18px;padding:6px 14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.gloss{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;}
+.gloss td,.gloss th{border-bottom:1px solid var(--border);padding:6px 8px;text-align:left;vertical-align:top;}
+.gloss th{color:var(--purple);}
+.gloss-wrap{overflow-x:auto;max-width:100%;}
+.restore-note{background:#fffbe6;border:1px solid #f0dd8a;border-radius:8px;padding:10px 14px;font-size:.88rem;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.restore-note[hidden]{display:none!important;}
+.restore-note button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.results{text-align:center;}
+.results[hidden]{display:none!important;}
+.big-score{font-size:2.6rem;font-weight:800;color:var(--purple);}
+.breakdown{text-align:left;font-size:.9rem;max-width:520px;margin:10px auto;}
+.breakdown div{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:4px 0;}
+#submitStatus{font-weight:700;margin-top:10px;}
+.completion-stickers{text-align:center;}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1);}
+.completion-sticker[hidden]{display:none;}
+.completion-sticker--medium{max-width:170px;}
+.completion-sticker--icon{max-width:110px;}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+.result-caption{text-align:center;font-size:.92rem;color:var(--muted);margin-top:6px;}
+.angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
+.angle-badge .wordmark{width:96px;height:auto;display:block;}
+.angle-badge .wordmark path{stroke:none;}
+.angle-badge .credit{margin-top:3px;margin-left:3px;font-weight:400;font-size:10px;text-shadow:none;}
+@media (max-width:600px){.match-set{gap:8px;}.match{font-size:.85rem;padding:7px 9px;}.card{padding:16px 14px;}.flip-card{height:240px;}}
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+
+.bg-photo{background-image:url('img/bg-photo.jpg');background-size:cover;background-position:center 40%;}
+
+/* ---- lexical layer (port of lexical.py) ---- */
+.op{font-size:.72rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:0 0 2px;}
+.outcome-lex{background:#fff;border:1.5px dashed var(--purple);border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:.92rem;line-height:1.5;color:var(--purple-dark);}
+.lex-intro{background:rgba(255,255,255,.96);}
+.text-box{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:12px 14px;line-height:1.75;}
+.spot-keys{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;}
+.spot-key{border:1.5px solid var(--border);background:#fff;border-radius:16px;padding:5px 11px;font-weight:800;font-size:.85rem;color:var(--purple-dark);}
+.spot-key.found{background:#eaf7f0;border-color:var(--correct);color:var(--correct);}
+.spot-count{font-size:.85rem;color:var(--muted);font-weight:700;margin:4px 0;}
+.spot-text p{margin:0 0 10px;}
+.spot-text .w{cursor:pointer;border-radius:3px;}
+.spot-text .w:hover{background:var(--card-tint);}
+.spot-text .w.miss{background:#fbebe8;color:var(--wrong);transition:background .2s;}
+.spot-text .chunk.found{background:var(--yellow);border-radius:4px;padding:1px 3px;font-weight:700;}
+.spot-text .chunk.found .w{cursor:default;background:transparent;}
+.spot-msg{font-size:.86rem;font-weight:700;min-height:1.2em;color:var(--muted);margin:4px 0 0;}
+.spot-msg.ok{color:var(--correct);} .spot-msg.no{color:var(--wrong);}
+.byline{color:var(--muted);font-size:.82rem;margin:4px 0 0;}
+.chunk-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;}
+@media (max-width:640px){.chunk-cards{grid-template-columns:1fr;}}
+.chunk-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;}
+.chunk-card summary{cursor:pointer;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-height:44px;list-style:none;}
+.chunk-card summary::-webkit-details-marker{display:none;}
+.chunk-card[open]{border-color:var(--purple);}
+.cc-chunk{font-weight:800;color:var(--purple);}
+.cc-pattern{font-size:.8rem;color:var(--muted);font-weight:700;}
+.cc-body{padding:0 12px 10px;font-size:.9rem;line-height:1.5;}
+.cc-body p{margin:4px 0;}
+.cc-ex{font-style:italic;}
+.cc-watch{color:#8a5a00;}
+.src-tag{font-style:normal;font-size:.68rem;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:4px;white-space:nowrap;}
+.src-text,.src-dialogue{background:var(--yellow);color:var(--black);} .src-made{background:var(--card-tint);color:var(--muted);}
+.plain{color:var(--muted);font-style:italic;}
+.upg-new{margin:2px 0 0;line-height:2.2;}
+.upg-new::before{content:'✔ ';color:var(--correct);font-weight:800;}
+.fib.narrow{min-width:70px;width:80px;}
+.word-bank{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px;}
+.word-bank span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-weight:700;color:var(--purple-dark);font-size:.85rem;cursor:pointer;user-select:none;}
+.word-bank span.used{opacity:.4;text-decoration:line-through;}
+.word-bank span.used:hover{opacity:.7;}
+.bank-text{line-height:2.3;}
+.bank-gap{cursor:pointer;min-width:110px;width:auto;}
+.bank-gap.active-gap{border-color:var(--yellow)!important;box-shadow:0 0 0 3px rgba(254,213,0,.45);}
+.live-chips{background:var(--card-tint);border-radius:10px;padding:10px 12px;margin:8px 0;}
+.live-group{margin:2px 0 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.live-group-title{width:100%;margin:2px 0 0;font-size:.74rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.live-chip{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:4px 10px;font-size:.82rem;font-weight:700;color:var(--purple-dark);transition:all .2s;}
+.live-chip.on{background:#eaf7f0;border-color:var(--correct);color:var(--correct);}
+.live-chip.on::before{content:'✓ ';}
+.wc-row{display:flex;justify-content:flex-end;}
+.live-count{font-size:.8rem;font-weight:800;color:var(--muted);}
+.live-count.ok{color:var(--correct);}
+.live-warn{margin:6px 0 0;padding-left:20px;font-size:.86rem;color:#8a5a00;line-height:1.5;}
+.live-warn:empty{display:none;}
+.live-warn li{margin:3px 0;}
+
+.gl-search{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font:inherit;font-size:.95rem;margin:4px 0 6px;}
+.gl-search:focus{outline:none;border-color:var(--purple);}
+.gl-coll{font-size:.84rem;color:var(--purple-dark);}
+.gl-coll b{color:var(--purple);background:#fff7cc;border-radius:3px;padding:0 2px;}
+.gl-ex{font-size:.84rem;color:var(--muted);}
+.gl-watch{font-size:.84rem;color:#8a5a00;}
+.gl-table tr[hidden]{display:none;}
+.gl-play{width:40px;}
+.gl-btn{background:var(--yellow);border:none;border-radius:50%;width:34px;height:34px;font-size:15px;cursor:pointer;line-height:34px;padding:0;}
+.gl-table tr.gl-on td{background:#fff7cc;}
+.gl-table tr.gl-on .gl-btn{box-shadow:0 0 0 3px var(--purple);}
+.gl-audio-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 8px;}
+.gl-all{background:var(--purple);color:#fff;border:none;border-radius:20px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;}
+.gl-stop{background:#fff;color:var(--purple);border:1.5px solid var(--purple);border-radius:20px;padding:7px 14px;font:inherit;font-weight:700;cursor:pointer;}
+.gl-speed{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.gl-speed select{border:1.5px solid var(--border);border-radius:8px;padding:4px 6px;font:inherit;font-size:.85rem;}
+@media (max-width:600px){.gl-table thead{display:none;}.gl-table tr{display:block;border-bottom:1px solid var(--border);padding:6px 0;}.gl-table td{display:block;border:none;padding:2px 4px;}.gl-play{width:auto;}}
+
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+
+
+.reveal-btn-sm{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--purple,#5E4877);background:#fff;color:var(--purple,#5E4877);border-radius:50%;cursor:pointer;font-size:.78rem;line-height:1;margin-left:6px;padding:4px 6px;vertical-align:middle;font-family:inherit;}
+.reveal-btn-sm:hover{background:var(--card-tint,#f6f2fa);}
+input.reveal-filled{background:#e8f7ee!important;border-color:var(--correct,#3fa66b)!important;color:var(--correct,#3fa66b)!important;}
+.opt.reveal-correct{background:#e8f7ee!important;border-color:var(--correct,#3fa66b)!important;color:var(--correct,#3fa66b)!important;}
+
+.bg-photo{background-image:url('img/bg-photo.jpg');background-size:cover;}
+.card p,.card li{overflow-wrap:anywhere}.nav-btns{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+button{font:inherit;cursor:pointer} .nav-btns button,.action{border:0;border-radius:10px;padding:10px 16px;background:var(--purple);color:white;font-weight:700}
+textarea{display:block;width:100%;min-height:100px;padding:12px;border:1.5px solid var(--border);border-radius:10px;font:inherit;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bank{background:var(--card-tint);padding:12px;border-radius:10px}.check{display:block;margin:12px 0}.check input{margin-right:10px}.cb-grid{grid-template-columns:1fr!important}.cb-join input{min-width:0!important}.angle-badge{left:18px;bottom:14px}.roomrow{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.roomrow input{font:inherit;max-width:100%;padding:8px;border:1px solid var(--border);border-radius:8px}.count{font-size:13px;color:var(--purple)}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:18px 16px}.cb-bar{gap:6px!important}.cb-btn{padding:6px 8px!important}.page-wrap{padding-bottom:120px}}
+@media(hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important}}
+
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}</style></head><body><div class="app-shell"><div class="bg-photo"></div><div class="bg-wash"></div><header class="topbar"><div class="topbar-inner"><div class="brand-row"><span class="lesson-title">The best guest! · B2 Unit 4</span><span class="lesson-sub">Collaborative article · SB p.53</span></div><div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel"></span></div><div class="page-dots" id="pageDots"></div></div></header><main class="scroll-area" id="scrollArea"><div class="page-wrap"><section class="page" data-page="0"><section class="card" data-name="1. Choose the best guest"><h2>1. Choose the best guest</h2><p class="instr">Gateway to the World B2 · Unit 4 · Developing writing · SB p.53 · 45–55 minutes</p>
+<div class="outcome"><b>Our result:</b> a lively school-magazine article that persuades other students to invite our chosen guest. We will introduce the person, justify our choice with examples, plan their visit and finish with a convincing recommendation.</div>
+<p><b>The brief:</b> Your school magazine wants suggestions for a famous guest. Write an article explaining who you would invite, why they would be a great guest and what you would like them to do at school.</p>
+<p>In groups of 3–4, suggest two people. Give one reason for each, then agree on one guest. Choose somebody you already know enough about; check uncertain details before including them.</p>
+<div class="tip"><b>Class target:</b> about 180–220 words for the whole article. This is a classroom target; the SB task does not specify a word limit.</div>
+<p>Use the same room name on every device in your group. Use a new name for a new lesson.</p>
+<div class="roomrow"><label for="roomName">Group room <input id="roomName" placeholder="e.g. b2-u4-team-a-nov02"></label><button class="action" id="openRoom">Use this room</button></div><p id="roomStatus" class="instr"></p>
+<p><b>Roles:</b> lead writer (opening), evidence editor (reasons), visit planner (activities), closing editor (recommendation). With three students, the lead writer also writes the ending. Everyone reviews another paragraph.</p><div class="nav-btns"><span></span><button data-go="1">Next →</button></div></section></section><section class="page" data-page="1"><section class="card" data-name="2. Notice what works"><h2>2. Notice what works</h2><p>Look back at the model article on SB p.53. Find one example of each technique below. Say what it makes the reader think or imagine.</p>
+<div class="grid"><div class="bank"><b>Talk to the reader</b><p>you / your / we / our<br>Have you ever…?<br>Can you think of…?<br>Imagine… / Just think…</p></div><div class="bank"><b>Make your view clear</b><p>What I like most about… is…<br>Personally speaking, …<br>Let me explain why.<br>What’s more, …</p></div></div>
+<h3>Turn a claim into a reason</h3><p><i>She is inspiring.</i> → What has she done that could inspire students? Why would it matter to us?</p>
+<p>Discuss how to improve this flat opening: <i>“I want to invite a famous scientist. She is very good and interesting.”</i> Try one reader question, a specific description and a clear link to school life.</p>
+<details><summary>One possible upgrade (after discussing)</summary><p>Have you ever wondered how scientists keep going when an experiment fails? Imagine meeting someone who could show us how a setback becomes a new idea.</p><p>This opening still needs the guest’s name and a specific, accurate example in the next paragraph.</p></details>
+<div class="tip"><b>Adjective check:</b> very/really/extremely inspiring; absolutely/really amazing. Avoid <i>very amazing</i>. Choose precise descriptions rather than piling up adjectives.</div><div class="nav-btns"><button data-go="0">← Back</button><button data-go="2">Next →</button></div></section></section><section class="page" data-page="2"><section class="card" data-name="3. Agree on a four-paragraph plan"><h2>3. Agree on a four-paragraph plan</h2><p>Agree on the plan aloud before anyone starts writing. Keep these notes on one device or copy them into your group’s first planning paragraph in the shared space. These planning boxes are saved on this device.</p>
+<label for="plan1"><b>A · Hook + introduction</b> — Who is our guest? How will we catch students’ attention?</label><textarea id="plan1" data-save></textarea>
+<label for="plan2"><b>B · Reasons + evidence</b> — Which two qualities matter? What example supports each? Why does this matter to students?</label><textarea id="plan2" data-save></textarea>
+<label for="plan3"><b>C · The visit</b> — What two or three realistic activities would we organise? What would students gain?</label><textarea id="plan3" data-save></textarea>
+<label for="plan4"><b>D · Recommendation</b> — What final reason makes this person a good role model? How will we involve the reader at the end?</label><textarea id="plan4" data-save></textarea>
+<div class="tip"><b>Before writing:</b> assign the four paragraphs by name. Agree on the same guest, viewpoint and tone. Add an engaging title to the first paragraph.</div><div class="nav-btns"><button data-go="1">← Back</button><button data-go="3">Next →</button></div></section></section><section class="page" data-page="3"><section class="card" data-name="4. Write together"><h2>4. Write together</h2><p>Join with your name. Each writer adds their own paragraph; everyone can see the article develop live. Add paragraphs in order A → B → C → D. If somebody’s turn comes later, prepare your wording orally first. Keep the finished article to four paragraphs.</p>
+<div class="bank"><b>Useful language</b><p>What I like most about … is … · … is absolutely brilliant at … · This would give us the chance to … · First, … Then, … · In the afternoon, … · Personally speaking, … · Can you think of a better …?</p></div>
+<div class="collab" data-room="gwb2-u4-best-guest-20261102" data-mode="shared" data-prompt="The best guest! Write ONE group article: introduction, reasons with evidence, school visit, final recommendation. Add an engaging title. Class target: 180–220 words."></div>
+<p class="count" id="groupCount" aria-live="polite"></p>
+<div class="tip">Wait for the green connection indicator before writing. An internet connection is required. Only your own paragraphs are editable in student mode; ask the paragraph’s author to make agreed changes.</div><div class="nav-btns"><button data-go="2">← Back</button><button data-go="4">Next →</button></div></section></section><section class="page" data-page="4"><section class="card" data-name="5. Edit, read and vote"><h2>5. Edit, read and vote</h2><p><b>Swap reviewers:</b> A reviews B, B reviews C, C reviews D, D reviews A. Read the whole article first, then give your partner one precise suggestion. Each author revises their own paragraph.</p>
+<div class="bank"><b>Useful feedback:</b> “This reason would be more convincing if…” · “Could we show how this helps students?” · “We have already said…; perhaps add…”</div>
+<label class="check"><input type="checkbox" data-save id="c1">We cover all three parts of the brief and follow the four-paragraph plan.</label>
+<label class="check"><input type="checkbox" data-save id="c2">We support our reasons with specific, accurate examples.</label>
+<label class="check"><input type="checkbox" data-save id="c3">Our activities are realistic and useful for students.</label>
+<label class="check"><input type="checkbox" data-save id="c4">Our title, opening and ending involve the reader.</label>
+<label class="check"><input type="checkbox" data-save id="c5">Our article sounds like one text: no repeated introductions or contradictory plans.</label>
+<label class="check"><input type="checkbox" data-save id="c6">We have checked adjective combinations, grammar, spelling and length.</label>
+<p><a href="teacher-notes.pdf" target="_blank" rel="noopener">Teacher notes · PDF</a></p><p>Return to <b>Write together</b> to submit your contribution with the component’s <b>Send to teacher</b> button. It includes the whole room. If your teacher is collecting the final group text, agree who submits it.</p>
+<h3>Read and vote</h3><p>Read another group’s article using their room link. Choose the most convincing guest proposal and justify your vote with a specific reason from the article. You cannot vote for your own group.</p>
+<p><b>Exit check:</b> Which change made your article more convincing? Show the original and improved wording to the class.</p><div class="nav-btns"><button data-go="3">← Back</button><button data-go="3">Back to our article</button></div></section></section></div></main></div><div class="angle-badge"><svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg><div class="credit">by Viktoria Syuzyova</div>
+<script>
+const labels=['Brief','Notice','Plan','Write','Edit'];
+const key='angle-gwb2-u4-bestguest:'+new URLSearchParams(location.search).get('room');
+let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+function showPage(n){document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===n));document.querySelectorAll('.page-dot').forEach((p,i)=>p.classList.toggle('active',i===n));document.getElementById('progressFill').style.width=((n+1)/5*100)+'%';document.getElementById('progressLabel').textContent=(n+1)+' / 5';document.getElementById('scrollArea').scrollTop=0;}
+labels.forEach((name,i)=>{let b=document.createElement('button');b.className='page-dot';b.textContent=name;b.onclick=()=>showPage(i);document.getElementById('pageDots').append(b)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showPage(+b.dataset.go));
+document.querySelectorAll('[data-save]').forEach(el=>{if(saved[el.id]!==undefined){if(el.type==='checkbox')el.checked=saved[el.id];else el.value=saved[el.id]}el.addEventListener('input',()=>{saved[el.id]=el.type==='checkbox'?el.checked:el.value;try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}})});
+const params=new URLSearchParams(location.search);document.getElementById('roomName').value=params.get('room')||'gwb2-u4-best-guest-20261102';document.getElementById('roomStatus').textContent='Current room: '+document.getElementById('roomName').value;
+document.getElementById('openRoom').onclick=()=>{const room=document.getElementById('roomName').value.trim();if(!/^[a-zA-Z0-9_-]{3,80}$/.test(room)){document.getElementById('roomStatus').textContent='Use 3–80 letters, numbers, hyphens or underscores.';return}const url=new URL(location.href);url.searchParams.set('room',room);location.href=url.href};
+setInterval(()=>{const box=document.querySelector('.collab');const fields=[...box.querySelectorAll('.cb-ta,.cb-ro')];const words=fields.map(x=>x.value===undefined?x.textContent:x.value).join(' ').trim();document.getElementById('groupCount').textContent=fields.length?'Group draft: '+(words?words.split(/\s+/).length:0)+' words · classroom target 180–220':''},1500);
+showPage(0);
+</script><script src="/assets/collab-config.js"></script><script src="/assets/collab.js"></script></body></html>
