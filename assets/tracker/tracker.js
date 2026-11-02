@@ -132,8 +132,9 @@ function phScore(c,sid){
   const cc=D.courses[c];let e=0,p=0;for(const l of cc.phonics){if(!l.date)continue;const v=st(c,sid,'ph',l.id);if(v==='N/A')continue;p+=l.points;if(v==='✓')e+=l.points}
   return{e,p,r:ratio(e,p)};
 }
+function extraAssigned(x,sid){if(!x.students)return true;try{return JSON.parse(x.students).includes(sid)}catch{return false}}
 function exScore(c,sid){
-  const cc=D.courses[c];let e=0,p=0;for(const x of cc.extras){if(!x.date)continue;const v=st(c,sid,'ex',x.id);if(v==='N/A')continue;p+=x.points;if(v==='✓')e+=x.points}
+  const cc=D.courses[c];let e=0,p=0;for(const x of cc.extras){if(!x.date||!extraAssigned(x,sid))continue;const v=st(c,sid,'ex',x.id);if(v==='N/A')continue;p+=x.points;if(v==='✓')e+=x.points}
   return{e,p,r:ratio(e,p)};
 }
 function overall(c,sid){
@@ -222,6 +223,7 @@ function studentCardBody(s,n,readonly){
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
+   ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${readonly?`<span class="dot ${dotCls(st(c,s.id,'ex',x.id))}">${dotTxt(st(c,s.id,'ex',x.id))}</span>`:dot(c,s.id,'ex',x.id,'ex',true)}</div>`).join('')}`:''}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn" data-show-report="${esc(s.id)}">Посмотреть отчёт</button>${parentShare(s)}<button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
@@ -282,8 +284,8 @@ function viewExtras(){
     <div><label>Purpose</label><select data-xf="purpose"><option value=""></option>${PURPOSES.map(p=>`<option ${p===x.purpose?'selected':''}>${p}</option>`).join('')}</select></div>
     <div><label>Points</label><input type="number" min="0" value="${x.points}" data-xf="points"></div>
     <div class="wide2" style="grid-column:1/3"><label>Worksheet (name or link)</label><input type="text" value="${esc(x.link)}" data-xf="link"></div>
-    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div><p><button type="button" class="btn" data-extra-save="${esc(x.id)}">Save</button></p>`:`<div class="extra-compact"><div><div class="tt">${extraLink(x.link)?`<a href="${esc(extraLink(x.link))}" target="_blank" rel="noopener">${esc(x.topic||x.link||'Worksheet')}</a>`:esc(x.topic||x.link||'Worksheet')}</div><div class="sub">${[x.date,x.purpose,x.points+' pts'].filter(Boolean).map(esc).join(' · ')}</div>${x.note?`<div class="tnote">${esc(x.note)}</div>`:''}</div><button type="button" class="btn ghost" data-extra-edit="${esc(x.id)}">Edit</button></div>`}
-    <div class="xstud">${cc.students.map(s=>`<span class="xs">${dot(c,s.id,'ex',x.id,'ex',!!x.date)}${esc(s.name)}</span>`).join('')}</div></div>`}).join('');
+    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div><p><button type="button" class="btn" data-extra-save="${esc(x.id)}">Save</button></p>`:`<div class="extra-compact"><div><div class="tt">${extraLink(x.link)?`<a href="${esc(extraLink(x.link))}" target="_blank" rel="noopener">${esc(x.topic||x.link||'Worksheet')}</a>`:esc(x.topic||x.link||'Worksheet')}</div><div class="sub">${[x.date,({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind],x.purpose,x.points+' pts'].filter(Boolean).map(esc).join(' · ')}</div>${x.note?`<div class="tnote">${esc(x.note)}</div>`:''}</div><button type="button" class="btn ghost" data-extra-edit="${esc(x.id)}">Edit</button></div>`}
+    <div class="xstud">${cc.students.filter(s=>extraAssigned(x,s.id)).map(s=>`<span class="xs">${dot(c,s.id,'ex',x.id,'ex',!!x.date)}${esc(s.name)}</span>`).join('')}</div></div>`}).join('');
   return `<div class="card">${head}${list}</div>`;
 }
 
