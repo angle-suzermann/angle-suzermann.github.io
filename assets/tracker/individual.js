@@ -31,7 +31,7 @@ const blockLabel=s=>STUDENT?String(s).replace(/^Block\s+(\d+)/i,'Блок $1').r
 const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[ui.plan]:t;return Math.max(1,+v||1)};
 function cleanTaskTitle(value){return String(value??'').replace(/^\s*\d{1,3}[.)]\s+(?=\S)/,'').trim()}
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
-const gKey=t=>(t.week||'')+'|'+(t.date||'');
+const gKey=t=>(autoWeek(t.date)||t.week||'')+'|'+(t.date||'');
 const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
 function trackerDateLabel(raw){const s=String(raw||'').trim(),m=s.match(/^\d{4}-(\d{2})-(\d{2})$/),months=['January','February','March','April','May','June','July','August','September','October','November','December'];return m&&months[+m[1]-1]?months[+m[1]-1]+', '+Number(m[2]):s}
 const trackerDatesLabel=raw=>dateParts(raw).map(trackerDateLabel).join(' · ');
@@ -48,6 +48,12 @@ function trackerDateISO(raw){
   }
   const check=new Date(Date.UTC(+y,+m-1,+d));
   return check.getUTCFullYear()===+y&&check.getUTCMonth()===+m-1&&check.getUTCDate()===+d?`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';
+}
+function autoWeek(raw){
+  const weeks=[...new Set(dateParts(raw).map(trackerDateISO).filter(Boolean).sort().map(iso=>{
+    const d=new Date(iso+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));
+    return Math.ceil((((d-new Date(Date.UTC(d.getUTCFullYear(),0,1)))/86400000)+1)/7);
+  }))];return weeks.length?'Week '+weeks.join(' / '):'';
 }
 const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<span class="tracker-date-field"><input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}"><button type="button" class="btn ghost" data-calendar-open aria-label="Открыть календарь">📅</button></span>`).join('');
 const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.dataset.dateTouched==='1'?i.value.trim():(i.dataset.dateOriginal||i.value.trim())).filter(Boolean).join(' · ');
@@ -145,7 +151,7 @@ function taskCard(pl,bi,t,number){
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
     <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
-    <div class="c-full tnew" style="display:none"><label>Week label</label><input type="text" class="tw" placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
+    <div class="c-full tnew" style="display:none"><label>Week · автоматически по календарю ISO</label><input type="text" class="tw" readonly placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
     <div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
@@ -155,7 +161,7 @@ function taskCard(pl,bi,t,number){
   return `<div class="task k-${k} s-${s}" data-task-row="${bi}|${t.n}">${handle}<div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
-  const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
+  const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:autoWeek(t.date)||t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
   return g.reverse();                       // newest week first (a task added later joins its date's group)
 }
 function viewBlock(pl,bi,only){
@@ -169,7 +175,7 @@ function viewBlock(pl,bi,only){
   const blockEdit=canEdit&&ui.blockEdit===bi?`<div class="gedit" data-block-form="${bi}"><p class="sub">Новые даты будут применены ко всем ${b.tasks.length} заданиям блока. Содержание, баллы и отметки сохранятся.</p><label>Даты всего блока</label><div class="dgrid">${dateInputs(dates.length===1?dateParts(dates[0]):[],'block-new-date')}</div><p class="erow"><button type="button" class="btn" data-block-save="${bi}">Применить ко всему блоку</button><button type="button" class="btn ghost" data-block-cancel>Отмена</button></p></div>`:'';
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(trackerDateLabel(d))}</span>`).join('')||(g.date?`<span class="dchip">${esc(trackerDatesLabel(g.date))}</span>`:'');
-    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week label</label><input type="text" class="gw" value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
+    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week · автоматически по календарю ISO</label><input type="text" class="gw" readonly value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
     return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${blockTools}${blockEdit}${body}</div>`;
@@ -182,7 +188,7 @@ function addBar(pl,bi){
   const form=open?`<div class="card addbox"><div class="xgrid">
     <div style="grid-column:1/-1"><label>Tasks (one per line; numbered automatically)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
-    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week label</label><input type="text" id="ntWeek" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
+    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week · автоматически по календарю ISO</label><input type="text" id="ntWeek" readonly placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
     <div style="grid-column:1/-1"><label>Link (optional; used for every task above that has no link of its own. Or write a link after a | on a line)</label><input type="text" id="ntLink" placeholder="https://"></div>
     <div><label>Points each</label><input type="number" id="ntPts" value="5" min="0"></div>
     <div style="grid-column:1/-1"><label>New block (optional)</label><input type="text" id="ntBlockNew" placeholder="${b?'leave empty: '+esc(b.name):'Block 1'}"></div></div>
@@ -274,7 +280,7 @@ function render(){
 /* ---------- events ---------- */
 const find=s=>{const [bi,n]=s.split('|');const b=P().blocks[+bi];return{b,t:b.tasks.find(x=>x.n===+n)}};
 const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value})};
-function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
+function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:autoWeek(o.date)||o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
   if(e.target.closest('[data-student-reports]')){openStudentReports(P());return}
@@ -330,7 +336,7 @@ document.addEventListener('click',e=>{
   if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
     box.querySelectorAll('[data-f]').forEach(inp=>{if(inp.type==='radio'&&!inp.checked)return;const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task')v=cleanTaskTitle(v);if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
     const sel=box.querySelector('[data-tgroup]');
-    if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){w=box.querySelector('.tw').value.trim();d=readDates(box,'td');if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
+    if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){d=readDates(box,'td');w=autoWeek(d);if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
       if((t.week||'')!==w)setF(b,t,'week',w);if((t.date||'')!==d)setF(b,t,'date',d)}
     ui.tedit=null;toast('Saved');render();return}
   const td=e.target.closest('[data-tdel]');
@@ -343,7 +349,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-gcancel]')){ui.gedit=null;render();return}
   const gs=e.target.closest('[data-gsave]');
   if(gs){const box=gs.closest('[data-ge]'),[bi,k]=box.dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k);
-    const week=box.querySelector('.gw').value.trim(),date=readDates(box,'gd');
+    const date=readDates(box,'gd'),week=autoWeek(date);
     b.tasks.filter(t=>gKey(t)===key).forEach(t=>{if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)});
     ui.gedit=null;toast('Saved');render();return}
   const gd=e.target.closest('[data-gdel]');
@@ -363,7 +369,7 @@ document.addEventListener('click',e=>{
     const bnew=$('#ntBlockNew').value.trim();let b=bnew?P().blocks.find(x=>x.name===bnew):(ui.tab&&ui.tab[0]==='b'?P().blocks[parseInt(ui.tab.slice(1))]:null);
     if(!b){b={name:bnew||'Block 1',tasks:[]};P().blocks.push(b)}
     const gv=$('#ntGroup').value;let week='',date='';
-    if(gv==='__new'||bnew){week=$('#ntWeek').value.trim();date=readDates(document,'nd')}else{const [w,d]=gv.split('|');week=w;date=d}
+    if(gv==='__new'||bnew){date=readDates(document,'nd');week=autoWeek(date)}else{const [w,d]=gv.split('|');week=w;date=d}
     const link0=$('#ntLink').value.trim();
     lines.forEach(line=>{const m=line.split('|'),task=m[0].trim(),lk=(m[1]||'').trim()||link0;if(task)mkTask(b,{task,kind:$('#ntKind').value,points:+$('#ntPts').value||0,week,date,link:lk})});
     ui.tab='b'+P().blocks.indexOf(b);ui.review=false;ui.addOpen=false;toast(lines.length+' task'+(lines.length>1?'s':'')+' added');render();return}
@@ -380,6 +386,11 @@ document.addEventListener('click',e=>{
   if(e.target.id==='cfgDemo'){LS.del('angleTracker.idemo2');LS.del('angleTracker.ireports');LS.del('angleTracker.iui2');location.reload();return}
 });
 document.addEventListener('change',e=>{
+  if(e.target.matches('[data-date-picker]')){
+    const form=e.target.closest('.gedit,.tnew,#ntNewBox');
+    if(form){const label=form.querySelector('.gw,.tw,#ntWeek');if(label)label.value=autoWeek(Array.from(form.querySelectorAll('[data-date-picker]')).map(i=>i.value).filter(Boolean).join(' · '));}
+  }
+
   if(e.target.matches('[data-date-picker]'))e.target.dataset.dateTouched='1';
   if(e.target.matches('[data-tgroup]')){const nb=e.target.closest('.tedit').querySelector('.tnew');nb.style.display=e.target.value==='__new'?'':'none'}
   if(e.target.id==='ntGroup'){const nb=$('#ntNewBox');if(nb)nb.style.display=e.target.value==='__new'?'':'none'}
