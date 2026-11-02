@@ -7,3 +7,4 @@ Individual tasks use the existing plan and latest block with server-assigned num
 The complete private server source was backed up and patched, preserving doGet/doPost. The existing deployment was updated without changing its URL or audience. Retry identifiers prevent duplicate rows after an uncertain response.
 
 Validation: local backend fixtures covered recipient isolation, numbering, duplicate retries and existing marks; local UI covered all/subset selection and work type. Build passed. Live API read and empty-selection validation passed without assigning real homework. Local files were updated before publishing.
+Уточнение Виктории: кнопка нужна на карточке каждого материала в списке, рядом с Открыть. Плавающая кнопка внутри воркшита удалена; карточки обычного каталога и учительской панели имеют Назначить задание. Это уточнение заменяет первоначальное размещение на самой странице воркшита.

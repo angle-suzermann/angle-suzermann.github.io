@@ -5,13 +5,7 @@
  if(window.angleAssignmentReady)return;window.angleAssignmentReady=true;
  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const kinds={homework:'Homework',classwork:'Classwork',before:'Before the lesson'};let dialog,material,groups,plans,requestId,busy=false;
- const meta=n=>document.querySelector(`meta[name="${n}"]`)?.content||'';
- function button(url,title,course){const b=document.createElement('button');b.type='button';b.textContent='Назначить';b.className='angle-assign-button';b.dataset.assignUrl=url;b.dataset.assignTitle=title;b.dataset.assignCourse=course;return b}
  const css=document.createElement('style');css.textContent='.angle-assign-button{border:1px solid #6b5289;border-radius:12px;padding:9px 14px;background:#fff;color:#5d467b;font:inherit;font-weight:700;cursor:pointer}.angle-assign{width:min(540px,calc(100vw - 40px));max-height:85vh;overflow:auto;border:2px solid #70568c;border-radius:20px;padding:22px;background:#fffdf9;color:#29242d;font:16px Arial,sans-serif}.angle-assign::backdrop{background:#20142b99}.angle-assign label{display:block;margin:15px 0 6px;font-weight:700}.angle-assign input[type=date],.angle-assign select{box-sizing:border-box;width:100%;padding:12px;border:1px solid #cfc5da;border-radius:10px;background:white;font:inherit}.angle-assign .assign-pupils{max-height:240px;overflow:auto;border:1px solid #e1d8eb;border-radius:12px;padding:8px}.angle-assign .assign-pupils label{margin:0;padding:10px;display:flex;gap:12px;align-items:center;font-weight:400}.angle-assign input[type=checkbox]{width:20px;height:20px}.angle-assign .assign-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.angle-assign .assign-status{white-space:pre-line;line-height:1.5}.angle-assign button:disabled{opacity:.55;cursor:wait}.angle-assign h2{margin:0 0 10px;font-size:22px}';document.head.append(css);
- if(meta('ws:course-id')&&meta('ws:audience')!=='teacher'){
-  const host=document.body;
-  const b=button(location.href,meta('ws:title')||document.title,meta('ws:course-id'));b.style.cssText='position:fixed;left:16px;bottom:72px;z-index:9999;box-shadow:0 3px 14px #28183722';host.append(b);
- }
  document.addEventListener('click',async e=>{const b=e.target.closest('[data-assign-url]');if(!b)return;e.preventDefault();if(busy)return;
   const url=new URL(b.dataset.assignUrl,location.href);url.search='';url.hash='';if(url.origin!==location.origin)return;
   material={url:url.href,title:(b.dataset.assignTitle||document.title).replace(/^\s*\d{1,3}[.)]\s+/, ''),course:b.dataset.assignCourse||''};requestId=crypto.randomUUID();
