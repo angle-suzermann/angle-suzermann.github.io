@@ -4,14 +4,28 @@
  document.querySelectorAll('[data-assign-url]').forEach(b=>b.hidden=false);
  if(window.angleAssignmentReady)return;window.angleAssignmentReady=true;
  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const kinds={homework:'Homework',classwork:'Classwork',before:'Before the lesson'};let dialog,material,groups,plans,requestId,busy=false,parts=null;
+ const kinds={homework:'Homework',classwork:'Classwork',before:'Before the lesson'};let dialog,material,groups,plans,requestId,busy=false,parts=null,openId=0;
  const css=document.createElement('style');css.textContent='.angle-assign-button{border:1px solid #6b5289;border-radius:12px;padding:9px 14px;background:#fff;color:#5d467b;font:inherit;font-weight:700;cursor:pointer}.angle-assign{width:min(540px,calc(100vw - 40px));max-height:85vh;overflow:auto;border:2px solid #70568c;border-radius:20px;padding:22px;background:#fffdf9;color:#29242d;font:16px Arial,sans-serif}.angle-assign::backdrop{background:#20142b99}.angle-assign label{display:block;margin:15px 0 6px;font-weight:700}.angle-assign input[type=date],.angle-assign select{box-sizing:border-box;width:100%;padding:12px;border:1px solid #cfc5da;border-radius:10px;background:white;font:inherit}.angle-assign .assign-pupils{max-height:240px;overflow:auto;border:1px solid #e1d8eb;border-radius:12px;padding:8px}.angle-assign .assign-pupils label{margin:0;padding:10px;display:flex;gap:12px;align-items:center;font-weight:400}.angle-assign input[type=checkbox]{width:20px;height:20px}.angle-assign .assign-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.angle-assign .assign-status{white-space:pre-line;line-height:1.5}.angle-assign button:disabled{opacity:.55;cursor:wait}.angle-assign h2{margin:0 0 10px;font-size:22px}';document.head.append(css);
+ const ttl=5*60*1000;let roster=null,rosterTime=0,rosterPending=null;
+ const cacheKey=crypto.subtle.digest('SHA-256',new TextEncoder().encode(cfg.url+'\n'+cfg.token)).then(b=>'angleAssignment.roster.v1:'+Array.from(new Uint8Array(b),v=>v.toString(16).padStart(2,'0')).join(''));
+ function compact(g,p){return {groups:{courses:Object.fromEntries(Object.entries(g.courses||{}).map(([id,c])=>[id,{students:(c.students||[]).map(s=>({id:s.id,name:s.name,group:s.group}))}]))},plans:{plans:(p.plans||[]).map(p=>({id:p.id,student:p.student,title:p.title}))}}}
+ async function loadRoster(){
+  if(roster&&Date.now()-rosterTime<ttl)return roster;
+  if(rosterPending)return rosterPending;
+  rosterPending=(async()=>{
+   const key=await cacheKey;try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved&&Date.now()-saved.at<ttl){rosterTime=saved.at;return roster=saved.data}}catch{}
+   const read=async view=>{const u=new URL(cfg.url);u.searchParams.set('token',cfg.token);if(view)u.searchParams.set('view',view);const r=await fetch(u,{signal:AbortSignal.timeout(30000)});const j=await r.json();if(!j.ok)throw Error(j.error||'Нет доступа к трекеру');return j.data};
+   const [g,p]=await Promise.all([read(''),read('plans')]);roster=compact(g,p);rosterTime=Date.now();try{sessionStorage.setItem(key,JSON.stringify({at:rosterTime,data:roster}))}catch{}return roster;
+  })();try{return await rosterPending}finally{rosterPending=null}
+ }
+ // Warm the same deduplicated request when the teacher approaches a button.
+ for(const event of ['pointerover','focusin'])document.addEventListener(event,e=>{if(e.target.closest('[data-assign-url]'))loadRoster().catch(()=>{})});
  document.addEventListener('click',async e=>{const b=e.target.closest('[data-assign-url]');if(!b)return;e.preventDefault();if(busy)return;
   const url=new URL(b.dataset.assignUrl,location.href);url.search='';url.hash='';if(url.origin!==location.origin)return;
-  material={url:url.href,title:(b.dataset.assignTitle||document.title).replace(/^\s*\d{1,3}[.)]\s+/, ''),course:b.dataset.assignCourse||''};requestId=crypto.randomUUID();
-  if(!dialog){dialog=document.createElement('dialog');dialog.className='angle-assign';dialog.setAttribute('aria-label','Назначить задание');document.body.append(dialog);dialog.addEventListener('cancel',e=>{if(busy)e.preventDefault()})}
-  dialog.innerHTML='<h2>Назначить задание</h2><p class="assign-title"></p><p role="status" class="assign-status">Загружаем учеников…</p><div class="assign-form" hidden></div><div class="assign-actions"><button type="button" class="angle-assign-button" data-close>Закрыть</button></div>';dialog.querySelector('.assign-title').textContent=material.title;dialog.querySelector('[data-close]').onclick=()=>{if(!busy)dialog.close()};dialog.showModal();
-  try{const read=async view=>{const u=new URL(cfg.url);u.searchParams.set('token',cfg.token);if(view)u.searchParams.set('view',view);const r=await fetch(u,{signal:AbortSignal.timeout(30000)});const j=await r.json();if(!j.ok)throw Error(j.error||'Нет доступа к трекеру');return j.data};[groups,plans]=await Promise.all([read(''),read('plans')]);parts=null;try{const html=await(await fetch(material.url,{signal:AbortSignal.timeout(20000)})).text();parts=AngleAssignmentParts.describe(new DOMParser().parseFromString(html,'text/html'))}catch{}showForm()}catch(err){status('Не удалось загрузить учеников. Проверьте подключение трекера и откройте окно ещё раз.');}
+  material={url:url.href,title:(b.dataset.assignTitle||document.title).replace(/^\s*\d{1,3}[.)]\s+/, ''),course:b.dataset.assignCourse||''};requestId=crypto.randomUUID();const current=++openId;
+  if(!dialog){dialog=document.createElement('dialog');dialog.className='angle-assign';dialog.setAttribute('aria-label','Назначить задание');document.body.append(dialog);dialog.addEventListener('cancel',e=>{if(busy)e.preventDefault();else openId++})}
+  dialog.innerHTML='<h2>Назначить задание</h2><p class="assign-title"></p><p role="status" class="assign-status">Загружаем учеников…</p><div class="assign-form" hidden></div><div class="assign-actions"><button type="button" class="angle-assign-button" data-close>Закрыть</button></div>';dialog.querySelector('.assign-title').textContent=material.title;dialog.querySelector('[data-close]').onclick=()=>{if(!busy){openId++;dialog.close()}};dialog.showModal();
+  try{const data=await loadRoster();if(current!==openId||!dialog.open)return;groups=data.groups;plans=data.plans;parts=null;showForm()}catch(err){if(current===openId&&dialog.open)status('Не удалось загрузить учеников. Проверьте подключение трекера и откройте окно ещё раз.');}
  });
  function status(s){dialog.querySelector('.assign-status').textContent=s}
  function showForm(){
@@ -28,7 +42,12 @@
   const populate=()=>{const c=choices.find(c=>c.id===form.querySelector('#assign-course').value);form.querySelector('.assign-pupils').innerHTML=c.recipients.map(r=>`<label><input type="checkbox" value="${esc(r.value)}">${esc(r.label)}</label>`).join('');status('Выберите учеников, дату и тип работы.');requestId=crypto.randomUUID()};populate();
   form.querySelector('#assign-course').onchange=populate;form.querySelector('[data-all]').onclick=()=>form.querySelectorAll('.assign-pupils:not(.assign-parts) [type=checkbox]').forEach(i=>i.checked=true);form.querySelector('[data-none]').onclick=()=>form.querySelectorAll('.assign-pupils:not(.assign-parts) [type=checkbox]').forEach(i=>i.checked=false);
   const scope=form.querySelector('#assign-scope'),partBox=form.querySelector('.assign-parts');
-  scope.onchange=()=>{const list=parts?.[scope.value]||[];partBox.hidden=scope.value==='whole';partBox.innerHTML=list.length?list.map(x=>`<label><input type="checkbox" value="${x.token}">${esc(x.label)}</label>`).join(''):'<p>Не удалось найти страницы или упражнения в этом материале. Назначьте весь воркшит.</p>';requestId=crypto.randomUUID()};
+  const materialUrl=material.url,current=openId;let partsPending;
+  const drawParts=()=>{const list=parts?.[scope.value]||[];partBox.innerHTML=list.length?list.map(x=>`<label><input type="checkbox" value="${x.token}">${esc(x.label)}</label>`).join(''):'<p>Не удалось найти страницы или упражнения в этом материале. Назначьте весь воркшит.</p>'};
+  scope.onchange=async()=>{partBox.hidden=scope.value==='whole';requestId=crypto.randomUUID();if(scope.value==='whole')return;if(parts){drawParts();return}partBox.textContent='Загружаем страницы и упражнения…';
+   try{if(!partsPending)partsPending=(async()=>{const response=await fetch(materialUrl,{signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error('Worksheet unavailable');return AngleAssignmentParts.describe(new DOMParser().parseFromString(await response.text(),'text/html'))})();const loaded=await partsPending;if(current!==openId||!dialog.open)return;parts=loaded;if(scope.value!=='whole')drawParts()}
+   catch{partsPending=null;if(current===openId&&dialog.open&&scope.value!=='whole')partBox.textContent='Не удалось загрузить разделы. Попробуйте выбрать их ещё раз или назначьте весь воркшит.'}
+  };
   form.querySelector('[data-submit]').onclick=async()=>{
    const targets=Array.from(form.querySelectorAll('.assign-pupils:not(.assign-parts) [type=checkbox]:checked')).map(i=>{const [type,id,studentId]=i.value.split(':');return type==='plan'?{plan:id}:{course:id,studentId}}),date=form.querySelector('#assign-date').value,kind=form.querySelector('#assign-kind').value;
    if(!targets.length){status('Выберите хотя бы одного ученика.');return}if(!date){form.querySelector('#assign-date').reportValidity();return}
