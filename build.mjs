@@ -637,7 +637,7 @@ ${extraScript}
 const shareTitle = (title,emoji='') => [emoji,String(title).replace(/^\s*\d+[.)]\s*/, '').trim()].filter(Boolean).join(' ');
 const shareButton = (url,title,emoji='') => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(shareTitle(title,emoji))}">Поделиться</button>`;
 // Keep the material's topic-specific icon; do not replace it with an unrelated mascot.
-const materialIcon = (m) => m.emoji ? esc(m.emoji) + ' ' : '';
+const materialIcon = (m) => m.audience === 'teacher' ? `<img src="${BASE}/assets/brand/material-icons/tracker-rings-v1.png" alt="" width="24" height="24" style="vertical-align:middle;margin-right:6px">` : m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
     <a class="material-open" href="${esc(m.url)}" target="_blank" rel="noopener"><div class="row">
@@ -1419,7 +1419,7 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
      есть хотя бы одна папка — теперь для них есть своя плитка. */
   const ungroupedCount = list.filter((m) => !m.group && m.audience !== 'teacher').length;
   const trackerTiles = list.filter((m) => m.audience === 'teacher').map((m) => `      <a class="tile tile-tracker" href="${esc(m.url)}" target="_blank" rel="noopener">
-        <span class="tile-icon"><span class="tile-emoji">📊</span></span>
+        <span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/tracker-rings-v1.png" alt="" width="44" height="44"></span>
         <span class="tile-name">Homework tracker</span>
         <span class="tile-count">открыть трекер</span>
       </a>`);
