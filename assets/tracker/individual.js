@@ -107,10 +107,15 @@ async function send(op){
   pending.push(op);LS.set(QK,pending);flush();
 }
 let flushing=false;
+let saveError='';
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#sync')||!pending.length)return;
+  alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
+});
 async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
-  try{while(pending.length){await Store.write(pending[0]);pending.shift();LS.set(QK,pending)}setSync('ok','Saved')}
-  catch(e){setSync('err','Not saved ('+pending.length+')');toast('Could not save: '+e.message+'. Will retry.');setTimeout(flush,8000)}
+  try{while(pending.length){await Store.write(pending[0]);pending.shift();LS.set(QK,pending)}saveError='';setSync('ok','Saved');$('#sync').removeAttribute('title')}
+  catch(e){saveError=e.message||String(e);setSync('err','Не сохранено ('+pending.length+') ⓘ');$('#sync').title=saveError;$('#sync').style.cursor='pointer';toast('Не удалось сохранить: '+saveError);setTimeout(flush,8000)}
   flushing=false;
 }
 
