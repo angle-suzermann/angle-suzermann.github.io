@@ -525,7 +525,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
 <script src="${BASE}/assets/catalog-share.js?v=4" defer></script>
 <script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>
-<script src="${BASE}/assets/assign-task.js?v=4" defer></script>
+<script src="${BASE}/assets/assign-task.js?v=5" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
@@ -2033,3 +2033,4 @@ for (const c of courses) {
   console.log(`  /${c.id}/  ${c.name}: ${list.length}${drafts ? ` (черновиков: ${drafts})` : ''}`);
 }
 console.log(`  /${staffPath}/  панель преподавателя: ${materials.length}`);
+
