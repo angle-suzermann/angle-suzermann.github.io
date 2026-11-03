@@ -235,3 +235,12 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .report-teacher-actions > .btn,.report-teacher-actions > details{margin:0}
 .report-teacher-actions .tracker-menu > summary{cursor:pointer}
 .report-teacher-actions + .addbar{margin-top:0;margin-bottom:14px}
+
+/* Equal report controls on desktop and phone. */
+.report-teacher-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:420px;gap:10px;align-items:start}
+.report-teacher-actions > .btn,.report-teacher-actions > .tracker-menu > summary{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;height:48px;padding:8px 10px;line-height:1.2;text-align:center;border:1.5px solid transparent}
+.report-teacher-actions > .tracker-menu{min-width:0;width:100%}
+.report-teacher-actions > .tracker-menu > summary{border-color:var(--purple);list-style:none}
+.report-teacher-actions > .tracker-menu > summary::-webkit-details-marker{display:none}
+.report-teacher-actions > .tracker-menu > summary::before{content:'▸';margin-right:6px;flex:none}
+.report-teacher-actions > .tracker-menu[open] > summary::before{content:'▾'}
