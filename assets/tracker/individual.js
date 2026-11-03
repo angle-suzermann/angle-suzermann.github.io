@@ -112,6 +112,21 @@ document.addEventListener('click',e=>{
   if(!e.target.closest('#sync')||!pending.length)return;
   alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nИзменения: '+JSON.stringify(pending.map(op=>Object.fromEntries(Object.entries(op).filter(([k])=>['a','plan','block','n','field','value'].includes(k)))))+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
 });
+// Narrow repair for the verified Safari queue from 3 November; never infer arbitrary rows.
+async function writeQueuedTask(op){
+  try{return await Store.write(op)}catch(error){
+    const names={18:'Holidays and Traditions — Lexis input — Classwork',19:'Holidays and Traditions — Lexis input — Homework'};
+    if(STUDENT||!String(error.message).includes('Row not found in Tasks')||op.a!=='setTask'||op.plan!=='ege-ulyana'||op.block!=='Block 3'||op.field!=='date'||op.value!=='2026-11-04 · 2026-11-05 · 2026-11-06'||!names[op.n])throw error;
+    const data=await Store.load(),tasks=data.plans.find(p=>p.id===op.plan)?.blocks.find(b=>b.name===op.block)?.tasks||[];
+    const matches=tasks.filter(t=>t.n===Number(op.n)+0.5&&t.task===names[op.n]);
+    if(tasks.some(t=>t.n===Number(op.n))||matches.length!==1)throw error;
+    const key=QK+'.repairedDates',archive=LS.get(key,[]);
+    archive.push({at:new Date().toISOString(),original:{...op},resolvedN:matches[0].n});
+    localStorage.setItem(key,JSON.stringify(archive));
+    op.n=matches[0].n;localStorage.setItem(QK,JSON.stringify(pending));
+    return await Store.write(op);
+  }
+}
 async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
   try{while(pending.length){
@@ -121,7 +136,7 @@ async function flush(){
       const key=QK+'.obsoleteWeeks',archive=LS.get(key,[]);
       archive.push({at:new Date().toISOString(),op});
       localStorage.setItem(key,JSON.stringify(archive)); // fail closed if backup cannot be saved
-    }else await Store.write(op);
+    }else await writeQueuedTask(op);
     pending.shift();LS.set(QK,pending)
   }saveError='';setSync('ok','Saved');$('#sync').removeAttribute('title')}
   catch(e){saveError=e.message||String(e);setSync('err','Не сохранено ('+pending.length+') ⓘ');$('#sync').title=saveError;$('#sync').style.cursor='pointer';toast('Не удалось сохранить: '+saveError);setTimeout(flush,8000)}
