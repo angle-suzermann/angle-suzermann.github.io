@@ -68,11 +68,33 @@ const root=process.cwd();
   await page.reload();await page.locator('[data-block-delete="0"]').waitFor();
   assert.match(await page.locator('.blk').innerText(),/October, 29/);
   assert.deepEqual(await page.locator('.dchip').allTextContents(),['October, 29','October, 30']);
+  // Clearing one date is a draft until Save; other date and task data survive.
+  await page.locator('[data-gedit]').first().click();
+  await page.getByRole('button',{name:'Удалить дату 1',exact:true}).click();
+  assert.equal(await page.locator('.gd').first().inputValue(),'');
+  assert.equal(await page.locator('.gd').nth(1).inputValue(),'2026-10-30');
+  await page.locator('[data-gcancel]').click();
+  assert.equal(plan.blocks[0].tasks[0].date,'2026-10-29 · 2026-10-30');
+  await page.locator('[data-gedit]').first().click();
+  await page.getByRole('button',{name:'Удалить дату 1',exact:true}).click();
+  await page.locator('[data-gsave]').click();
+  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('angleTracker.iqueue')||'[]').length===0);
+  assert(plan.blocks[0].tasks.every(t=>t.date==='2026-10-30'));
+  assert.equal(plan.blocks[0].tasks.length,2);
+  assert.equal(plan.blocks[0].tasks[0].status,'✓');
+  await page.reload();await page.locator('[data-gedit]').first().waitFor();
+  assert.deepEqual(await page.locator('.dchip').allTextContents(),['October, 30']);
+  await page.locator('[data-gedit]').first().click();
+  await page.locator('.gd').first().fill('2026-10-29');
+  await page.locator('.gd').nth(1).fill('2026-10-30');
+  await page.locator('[data-gsave]').click();
+  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('angleTracker.iqueue')||'[]').length===0);
+  writes.length=2; // Remaining assertions concern unrelated block operations.
   // Date picker can display old labels without silently rewriting their stored values.
   await page.locator('[data-tab="b1"]').click();await page.locator('[data-gedit]').first().click();
   assert.equal(await page.locator('.gd').first().getAttribute('type'),'date');
   assert.match(await page.locator('.gd').first().inputValue(),/^\d{4}-10-22$/);
-  await page.locator('[data-gsave]').click();assert.equal(writes.length,2,'unchanged legacy date is preserved');
+  await page.locator('[data-gsave]').click();await page.waitForFunction(()=>JSON.parse(localStorage.getItem('angleTracker.iqueue')||'[]').length===0);assert(writes.slice(2).every(w=>w.field==='week'),'unchanged legacy date is preserved; automatic week may be updated');writes.length=2;
   await page.locator('[data-tab="b0"]').click();
   page.once('dialog',d=>{assert.match(d.message(),/все 2 заданий/);d.dismiss()});
   await page.locator('[data-block-delete="0"]').click();assert.equal(writes.length,2);
@@ -90,3 +112,4 @@ const root=process.cwd();
   await ctx.close();console.log('PASS: native calendars and two-date batch update; every task updated; marks/points and other blocks preserved; legacy date not rewritten; cancel/confirm whole-block delete persists; automatic task numbering persists; student has no block controls.');
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
+

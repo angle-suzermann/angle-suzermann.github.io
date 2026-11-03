@@ -31,9 +31,9 @@
  }
  function reports(o){return [...(o.reports||[])].filter(r=>r.source&&r.text&&(r.plan||String(o.id).startsWith('plan|')||String(r.date).slice(0,10)>='2026-11-01')).sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
  function reportBody(text,audience){
-  text=String(text).replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
+  text=String(text).replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
   // PDF metadata already appears in the web report's own information row.
-  text=text.replace(/^\s*УЧЕНИ(?:К|ЦА)\s*\n[^\n]+\n\s*КУРС\s*\n[^\n]+\n\s*(?:ПЕРИОД|ДАТА)\s*\n[^\n]+\n*/u,'');
+  text=text.replace(/^\s*УЧЕНИ(?:К|ЦА)\s*\n[^\n]+\n\s*КУРС\s*\n[^\n]+\n\s*(?:ПЕРИОД|ДАТА(?: ОТЧ[ЕЁ]ТА)?|ДАННЫ\s*Е\s+НА)\s*\n[^\n]+\n*/u,'');
   const groups=[],known=/^(?:Что (?:уже )?получается.*|Что получилось.*|Над чем работаем|Работа на уроке|Как можно помочь дома|Домашние задания.*|Что дальше|Главное.*|Что изменилось.*|Ближайшие шаги.*|С чего начали.*|Первый учебный блок.*|Урок(?: и домашние работы)?.*|Сильные стороны|Рекомендации|Итоги.*|Подтвержд[её]нные работы|Источники и границы отч[её]та|Показатели на.*|Ещё по ходу|Часть \d.*|Говорение.*|Correction code key|Overall|.*corrections.*|Next steps)$/i;
   let current={title:'',lines:[]};groups.push(current);
   for(const raw of String(text).replace(/\r\n?/g,'\n').split('\n')){
@@ -73,7 +73,7 @@
   const rawKey=await crypto.subtle.digest('SHA-256',bytes(material));
   // The asset name is a separate hash, never the AES key itself.
   const location=hex(await crypto.subtle.digest('SHA-256',bytes('ANGLE original PDF location v1\0'+hex(rawKey))));
-  const assetUrl=new URL(location+(web?'-web':'')+'.bin',assetBase);assetUrl.searchParams.set('v',web?'20261101-final-web':'20261028-rings');
+  const assetUrl=new URL(location+(web?'-web':'')+'.bin',assetBase);assetUrl.searchParams.set('v',web?'20261101-final-web':'20261103-clean-report');
   const response=await fetch(assetUrl,web?{cache:'no-cache'}:{});
   if(!response.ok)throw new Error('Исходный PDF пока не подключён.');
   const encrypted=new Uint8Array(await response.arrayBuffer());

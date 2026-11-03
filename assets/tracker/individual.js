@@ -55,7 +55,7 @@ function autoWeek(raw){
     return 39+Math.round((d-Date.UTC(2026,10,2))/604800000);
   }))];return weeks.length?'Week '+weeks.join(' / '):'';
 }
-const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<span class="tracker-date-field"><input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}"><button type="button" class="btn ghost" data-calendar-open aria-label="Открыть календарь">📅</button></span>`).join('');
+const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<span class="tracker-date-field"><input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}"><button type="button" class="btn ghost" data-calendar-open aria-label="Открыть календарь">📅</button><button type="button" class="btn ghost tracker-date-remove" data-date-clear aria-label="Удалить дату ${i+1}" title="Удалить дату">×</button></span>`).join('');
 const readDates=(root,cls)=>[...root.querySelectorAll('.'+cls)].map(i=>i.dataset.dateTouched==='1'?i.value.trim():(i.dataset.dateOriginal||i.value.trim())).filter(Boolean).join(' · ');
 
 
@@ -293,6 +293,8 @@ document.addEventListener('click',e=>{
     (navigator.clipboard?navigator.clipboard.writeText(url.href):Promise.reject()).then(()=>{toast('Ссылка для родителей скопирована');parentLink.textContent='Скопировано ✓'},()=>prompt('Ссылка для родителей',url.href));return;
   }
   if(PARENT)return; // Parent presentation has no task mutations or suggestions.
+  const clearDate=e.target.closest('[data-date-clear]');
+  if(clearDate){const input=clearDate.parentElement.querySelector('[data-date-picker]');input.value='';input.dataset.dateOriginal='';input.dataset.dateTouched='1';input.dispatchEvent(new Event('change',{bubbles:true}));input.focus();return}
   const calendarButton=e.target.closest('[data-calendar-open]');
   if(calendarButton){openTrackerCalendar(calendarButton.parentElement.querySelector('[data-date-picker]'));return}
   const picker=e.target.closest('input[data-date-picker]');
