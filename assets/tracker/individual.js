@@ -50,9 +50,13 @@ function trackerDateISO(raw){
   return check.getUTCFullYear()===+y&&check.getUTCMonth()===+m-1&&check.getUTCDate()===+d?`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';
 }
 function autoWeek(raw){
+  const plan=P(),first=plan?.blocks.find(b=>/^Block\s*1$/i.test(b.name))||plan?.blocks[0];
+  const dates=(first?.tasks||[]).flatMap(t=>dateParts(t.date)).map(trackerDateISO).filter(Boolean).sort();
+  const origin=dates[0]||dateParts(raw).map(trackerDateISO).filter(Boolean).sort()[0];if(!origin)return '';
+  const anchor=new Date(origin+'T00:00:00Z');anchor.setUTCDate(anchor.getUTCDate()-((anchor.getUTCDay()+6)%7));
   const weeks=[...new Set(dateParts(raw).map(trackerDateISO).filter(Boolean).sort().map(iso=>{
     const d=new Date(iso+'T00:00:00Z');d.setUTCDate(d.getUTCDate()-((d.getUTCDay()+6)%7));
-    return 39+Math.round((d-Date.UTC(2026,10,2))/604800000);
+    return Math.max(1,1+Math.round((d-anchor)/604800000));
   }))];return weeks.length?'Week '+weeks.join(' / '):'';
 }
 const dateInputs=(vals,cls)=>Array.from({length:Math.max(ndates(),vals.length)},(_,i)=>`<span class="tracker-date-field"><input type="date" class="${cls}" data-date-picker data-date-original="${esc(vals[i]||'')}" value="${esc(trackerDateISO(vals[i]))}" aria-label="Дата ${i+1}${i?' (необязательно)':''}"><button type="button" class="btn ghost" data-calendar-open aria-label="Открыть календарь">📅</button><button type="button" class="btn ghost tracker-date-remove" data-date-clear aria-label="Удалить дату ${i+1}" title="Удалить дату">×</button></span>`).join('');
@@ -151,7 +155,7 @@ function taskCard(pl,bi,t,number){
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
     <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
-    <div class="c-full tnew" style="display:none"><label>Week · автоматически по учебному календарю</label><input type="text" class="tw" readonly placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
+    <div class="c-full tnew" style="display:none"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
     <div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
@@ -171,13 +175,13 @@ function viewBlock(pl,bi,only){
   const sc=score(b.tasks);
   const canEdit=!STUDENT&&!only;
   const dates=[...new Set(b.tasks.map(t=>t.date||''))];
-  const blockTools=canEdit?`<div class="erow" style="margin:8px 0 12px;flex-wrap:wrap"><button type="button" class="btn ghost" data-block-edit="${bi}">Изменить даты блока</button><button type="button" class="btn ghost" data-block-delete="${bi}">Удалить блок</button></div>`:'';
+  const blockTools=canEdit?`<details style="margin:8px 0 12px"><summary class="lnk">Настройки блока</summary><div class="erow" style="margin-top:8px;flex-wrap:wrap"><button type="button" class="btn ghost" data-block-edit="${bi}">Изменить даты блока</button><button type="button" class="btn ghost" data-block-delete="${bi}">Удалить блок</button></div></details>`:'';
   const blockEdit=canEdit&&ui.blockEdit===bi?`<div class="gedit" data-block-form="${bi}"><p class="sub">Новые даты будут применены ко всем ${b.tasks.length} заданиям блока. Содержание, баллы и отметки сохранятся.</p><label>Даты всего блока</label><div class="dgrid">${dateInputs(dates.length===1?dateParts(dates[0]):[],'block-new-date')}</div><p class="erow"><button type="button" class="btn" data-block-save="${bi}">Применить ко всему блоку</button><button type="button" class="btn ghost" data-block-cancel>Отмена</button></p></div>`:'';
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(trackerDateLabel(d))}</span>`).join('')||(g.date?`<span class="dchip">${esc(trackerDatesLabel(g.date))}</span>`:'');
-    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Week · автоматически по учебному календарю</label><input type="text" class="gw" readonly value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
-    const gadd=canEdit?`<div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div>`:'';
-    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Edit dates</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
+    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" class="gw" readonly value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
+    const gadd=canEdit?`<details style="padding:10px"><summary class="lnk">+ Задание на эту дату</summary><div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div></details>`:'';
+    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Даты</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${blockTools}${blockEdit}${body}</div>`;
 }
 function addBar(pl,bi){
@@ -188,7 +192,7 @@ function addBar(pl,bi){
   const form=open?`<div class="card addbox"><div class="xgrid">
     <div style="grid-column:1/-1"><label>Tasks (one per line; numbered automatically)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
-    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Week · автоматически по учебному календарю</label><input type="text" id="ntWeek" readonly placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
+    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" id="ntWeek" readonly placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
     <div style="grid-column:1/-1"><label>Link (optional; used for every task above that has no link of its own. Or write a link after a | on a line)</label><input type="text" id="ntLink" placeholder="https://"></div>
     <div><label>Points each</label><input type="number" id="ntPts" value="5" min="0"></div>
     <div style="grid-column:1/-1"><label>New block (optional)</label><input type="text" id="ntBlockNew" placeholder="${b?'leave empty: '+esc(b.name):'Block 1'}"></div></div>
@@ -273,7 +277,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  if(!STUDENT)html=`<p class="report-teacher-actions"><button class="btn" data-student-reports>Посмотреть личный фидбек</button> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</p>`+html;
+  if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
