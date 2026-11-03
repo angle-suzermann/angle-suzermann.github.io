@@ -110,7 +110,7 @@ let flushing=false;
 let saveError='';
 document.addEventListener('click',e=>{
   if(!e.target.closest('#sync')||!pending.length)return;
-  alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
+  alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nПервое изменение: '+JSON.stringify(Object.fromEntries(Object.entries(pending[0]||{}).filter(([k])=>['a','plan','block','n','field','value'].includes(k))))+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
 });
 async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
