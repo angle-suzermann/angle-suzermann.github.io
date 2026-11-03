@@ -31,7 +31,16 @@ const blockLabel=s=>STUDENT?String(s).replace(/^Block\s+(\d+)/i,'Блок $1').r
 const ndates=()=>{const t=window.TRACKER_DATES;const v=t&&typeof t==='object'?t[ui.plan]:t;return Math.max(1,+v||1)};
 function cleanTaskTitle(value){return String(value??'').replace(/^\s*\d{1,3}[.)]\s+(?=\S)/,'').trim()}
 const kindOpts=(sel)=>Object.keys(KINDS).map(k=>`<option value="${k}"${k===sel?' selected':''}>${KINDS[k]}</option>`).join('');
-const gKey=t=>(autoWeek(t.date)||t.week||'')+'|'+(t.date||'');
+// Join overlapping lesson-date sets within this block without rewriting saved tasks.
+function groupDate(t){
+  const own=P()?.blocks.find(b=>b.tasks.includes(t));
+  const parts=value=>dateParts(value).map(d=>trackerDateISO(d)||d);
+  const dates=new Set(parts(t.date));if(!dates.size)return '';
+  let changed=true;
+  while(changed){changed=false;for(const other of own?.tasks||[]){const ds=parts(other.date);if(ds.some(d=>dates.has(d)))for(const d of ds)if(!dates.has(d)){dates.add(d);changed=true}}}
+  return [...dates].sort().join(' · ');
+}
+const gKey=t=>{const date=groupDate(t);return (autoWeek(date)||t.week||'')+'|'+date};
 const dateParts=d=>String(d||'').split(/\s*[·;]\s*/).map(x=>x.trim()).filter(Boolean);
 function trackerDateLabel(raw){const s=String(raw||'').trim(),m=s.match(/^\d{4}-(\d{2})-(\d{2})$/),months=['January','February','March','April','May','June','July','August','September','October','November','December'];return m&&months[+m[1]-1]?months[+m[1]-1]+', '+Number(m[2]):s}
 const trackerDatesLabel=raw=>dateParts(raw).map(trackerDateLabel).join(' · ');
@@ -165,7 +174,7 @@ function taskCard(pl,bi,t,number){
   return `<div class="task k-${k} s-${s}" data-task-row="${bi}|${t.n}">${handle}<div class="tb"><div class="tt"><span class="task-number">${esc(number??t.n)}.</span> ${title}</div><div class="tm"><span class="kind k-${k}">${KINDS[k]}</span>${sub?`<span class="sub">${sub}</span>`:''}${tag}${tools}</div>${note}</div>${stBtn(bi,t)}</div>${ed}`;
 }
 function groupWeeks(tasks){
-  const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:autoWeek(t.date)||t.week||'',date:t.date||'',items:[]})}g[ix[key]].items.push(t)}
+  const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:autoWeek(groupDate(t))||t.week||'',date:groupDate(t),items:[]})}g[ix[key]].items.push(t)}
   return g.reverse();                       // newest week first (a task added later joins its date's group)
 }
 function viewBlock(pl,bi,only){
