@@ -223,3 +223,9 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .st.partial{border-color:#cf8d16;background:linear-gradient(90deg,#ffe2a0 50%,#fff9ed 50%);color:#a36a00}.task.s-partial{background:#fffaf0;border-color:#efd29c}.tag.partial{background:#ffe6b8;color:#805100}
 
 .tracker-date-field .tracker-date-remove{min-width:36px;width:36px;padding:0;font-size:22px;line-height:1;color:#a33b52}
+
+/* Date controls must fit inside their own field, including on narrow phones. */
+.dgrid > .tracker-date-field{display:grid;grid-template-columns:minmax(0,1fr) 44px 36px;flex:1 1 280px;max-width:100%;align-items:center;gap:6px;box-sizing:border-box}
+.dgrid > .tracker-date-field > input{display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+.dgrid > .tracker-date-field > button{width:100%;min-width:0;padding-left:0;padding-right:0;box-sizing:border-box}
+@media(max-width:600px){.dgrid > .tracker-date-field{flex-basis:100%;width:100%}}
