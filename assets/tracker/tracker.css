@@ -229,3 +229,9 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .dgrid > .tracker-date-field > input{display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box}
 .dgrid > .tracker-date-field > button{width:100%;min-width:0;padding-left:0;padding-right:0;box-sizing:border-box}
 @media(max-width:600px){.dgrid > .tracker-date-field{flex-basis:100%;width:100%}}
+
+/* Keep report actions and task creation visually separate. */
+.report-teacher-actions{display:flex;align-items:flex-start;flex-wrap:wrap;gap:10px;margin:12px 0 14px}
+.report-teacher-actions > .btn,.report-teacher-actions > details{margin:0}
+.report-teacher-actions .tracker-menu > summary{cursor:pointer}
+.report-teacher-actions + .addbar{margin-top:0;margin-bottom:14px}
