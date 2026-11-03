@@ -297,7 +297,8 @@ function injectHead(dir) {
     const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"') : ICON_TAGS;
     const worksheetUi = isMaterial && !isTracker
       ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=2">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
-    const tags = `${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const scopeTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>\n`:'';
+    const tags = `${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
@@ -523,7 +524,8 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
 <link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
 <script src="${BASE}/assets/catalog-share.js?v=4" defer></script>
-<script src="${BASE}/assets/assign-task.js?v=2" defer></script>
+<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>
+<script src="${BASE}/assets/assign-task.js?v=3" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
