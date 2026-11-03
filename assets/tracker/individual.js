@@ -110,11 +110,20 @@ let flushing=false;
 let saveError='';
 document.addEventListener('click',e=>{
   if(!e.target.closest('#sync')||!pending.length)return;
-  alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nПервое изменение: '+JSON.stringify(Object.fromEntries(Object.entries(pending[0]||{}).filter(([k])=>['a','plan','block','n','field','value'].includes(k))))+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
+  alert('Ожидают сохранения: '+pending.length+' изменений.\n\n'+(saveError||'Отправка ещё выполняется.')+'\n\nИзменения: '+JSON.stringify(pending.map(op=>Object.fromEntries(Object.entries(op).filter(([k])=>['a','plan','block','n','field','value'].includes(k)))))+'\n\nИзменения остаются в очереди на этом устройстве. Не очищайте данные браузера.');
 });
 async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
-  try{while(pending.length){await Store.write(pending[0]);pending.shift();LS.set(QK,pending)}saveError='';setSync('ok','Saved');$('#sync').removeAttribute('title')}
+  try{while(pending.length){
+    const op=pending[0];
+    // Week labels are calculated from dates; legacy queued labels must not block saves.
+    if(op.a==='setTask'&&op.field==='week'){
+      const key=QK+'.obsoleteWeeks',archive=LS.get(key,[]);
+      archive.push({at:new Date().toISOString(),op});
+      localStorage.setItem(key,JSON.stringify(archive)); // fail closed if backup cannot be saved
+    }else await Store.write(op);
+    pending.shift();LS.set(QK,pending)
+  }saveError='';setSync('ok','Saved');$('#sync').removeAttribute('title')}
   catch(e){saveError=e.message||String(e);setSync('err','Не сохранено ('+pending.length+') ⓘ');$('#sync').title=saveError;$('#sync').style.cursor='pointer';toast('Не удалось сохранить: '+saveError);setTimeout(flush,8000)}
   flushing=false;
 }
