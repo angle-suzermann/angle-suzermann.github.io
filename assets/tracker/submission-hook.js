@@ -149,8 +149,13 @@
   }
 
   window.fetch = function (url, options) {
-    const sent = original.apply(this, arguments);
     const target = String(url && url.url || url);
+    // Older pages send result before/after mail, without reliable delivery or partial scope.
+    // The successful-mail path below is now the only automatic writer on these pages.
+    if (target === endpoint && toData(options && options.body)?.a === 'result') {
+      return Promise.resolve(new Response(JSON.stringify({ok:true,deferred:true}),{status:200,headers:{'Content-Type':'application/json'}}));
+    }
+    const sent = original.apply(this, arguments);
     if (!MAIL.test(target)) return sent;
     const body = options && options.body;
     sent.then(async response => { if (response && response.ok && await accepted(target, response)) delivered(body); }).catch(() => {});

@@ -1,5 +1,15 @@
 # Automatic group worksheet submissions — 04.11.2026
 
+## Deployed v23 review follow-up
+
+The existing Apps Script deployment was updated to version 23 on 04.11.2026, 18:32 Moscow time. Candidate source was compared with the live editor (only prior comments/whitespace differed from its v22 baseline); an exact pre-deployment source backup is retained privately. Maintained `Course checklists/Web tracker/Code.gs` now matches the reviewed v23 candidate.
+
+Review corrected one additional scope defect: legacy `result` requests must not force a partial plan submission into a full completion. Legacy plan handling now resolves identity without confirming Tasks; the common hook v4 suppresses old automatic result calls and is the single writer after accepted mail. This also prevents a legacy result posted before a failed email from appearing as a delivered worksheet. Regression fixtures passed.
+
+The deployed v23 API returned `{ok:true,matched:true,credited:0,planCredited:0}` for a null-score, partial, non-assignment validation: no marks, scores, comments or submission-issue rows were written. Real individual-task submission has not been replayed in this review; individual matching/scope behavior was tested on fixtures. Do not describe this as a live end-to-end individual delivery test.
+
+The installed Codex skill was synced from the maintained library, including references and package, with matching hashes and a private backup of its previous version. Installing the package in Claude's account remains a separate step; changing the library does not update Claude's account cache.
+
 Viktoria requires automatic scores and submission ticks for every worksheet in every group, without agent/manual confirmation. Email delivery alone previously did not update Extras. The optional individual-plan hook was not a group solution.
 
 The site build now injects `assets/tracker/submission-hook.js` into material pages before their own scripts. It observes successful Web3Forms/Formspree fetch delivery, extracts FormData/JSON names and first-attempt scores, queues failed tracker writes locally, and retries while open/on reconnect/on reopening. Open answers remain for teacher assessment. No teacher credentials or pupil names in public assets.
