@@ -162,9 +162,29 @@ function grp(name){const n=name.toLowerCase();
 function next(cur,kind){const cyc=kind==='ex'?['','Done','✓','N/A']:['','✓','N/A'];return cyc[(cyc.indexOf(cur)+1)%cyc.length]}
 const dotCls=v=>v==='✓'?'d':v==='N/A'?'n':v==='Done'?'p':'';
 const dotTxt=v=>v==='✓'?'✓':v==='N/A'?'–':v==='Done'?'sent?':'';
-function dot(c,sid,scope,item,kind,missing){
-  const v=st(c,sid,scope,item);
-  return `<button class="dot ${dotCls(v)} ${(!v&&missing)?'miss':''}" data-t="${esc([c,sid,scope,item,kind||''].join('\u0001'))}" aria-label="${v||'not done'}">${dotTxt(v)}</button>`;
+function worksheetPercent(r){
+  if(!r||r.source!=='worksheet'||r.status!=='done'||r.pct==null||String(r.pct).trim()==='')return null;
+  const n=Number(r.pct);return Number.isFinite(n)&&n>=0&&n<=100?Math.round(n):null;
+}
+function worksheetScore(c,sid,item){
+  const cc=D.courses[c],student=cc?.students.find(s=>s.id===sid),extra=cc?.extras.find(x=>x.id===item);
+  if(!student||!extra||!extraAssigned(extra,sid))return null;
+  const norm=x=>String(x||'').trim().replace(/^\d+[.)]\s*/,'').replace(/\s+/g,' ').toLowerCase();
+  // Do not guess across worksheets sharing a title, or across pupils/courses.
+  if(cc.extras.filter(x=>!extraDeleted(x)&&norm(x.topic)===norm(extra.topic)).length!==1)return null;
+  const rows=(D.mee||[]).filter(r=>String(r.course)===c&&norm(r.student)===norm(student.name)&&norm(r.hw)===norm(extra.topic)&&worksheetPercent(r)!==null);
+  if(rows.length!==1)return null;
+  return worksheetPercent(rows[0]);
+}
+function worksheetScoreAttrs(pct){return `class="worksheet-score" style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%" aria-label="Результат воркшита: ${pct}%"`}
+function dot(c,sid,scope,item,kind,missing,readonly=false){
+  const v=st(c,sid,scope,item),pct=scope==='ex'&&v!=='N/A'?worksheetScore(c,sid,item):null;
+  const classes=`dot ${dotCls(v)} ${(!v&&missing)?'miss':''}`;
+  const score=pct===null?'':` worksheet-score`;
+  const attrs=pct===null?'':` style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%; ${v||'не подтверждено'}"`;
+  const label=pct===null?(v||'not done'):`Результат воркшита: ${pct}%; ${v||'не подтверждено'}`;
+  const content=pct===null?dotTxt(v):pct+'%';
+  return readonly?`<span class="${classes}${score}"${attrs} aria-label="${esc(label)}">${content}</span>`:`<button class="${classes}${score}"${attrs} data-t="${esc([c,sid,scope,item,kind||''].join('\u0001'))}" aria-label="${esc(label)}">${content}</button>`;
 }
 function ring(r,size=96){const R=size/2-9,C=2*Math.PI*R,v=r==null?0:r;
   return `<div class="ring" style="width:${size}px;height:${size}px"><svg width="${size}" height="${size}"><circle cx="${size/2}" cy="${size/2}" r="${R}" fill="none" stroke="#e8e3ee" stroke-width="10"/><circle cx="${size/2}" cy="${size/2}" r="${R}" fill="none" stroke="${v>=.8?'#4f9d52':v>=.5?'#d9a900':'#c7586a'}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-v)}"/></svg><b>${fmt(r)}</b></div>`}
@@ -232,7 +252,7 @@ function studentCardBody(s,n,readonly){
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
-   ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${readonly?`<span class="dot ${dotCls(st(c,s.id,'ex',x.id))}">${dotTxt(st(c,s.id,'ex',x.id))}</span>`:dot(c,s.id,'ex',x.id,'ex',true)}</div>`).join('')}`:''}
+   ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${dot(c,s.id,'ex',x.id,'ex',true,readonly)}</div>`).join('')}`:''}
    ${meeBlock(meeFor(c,s),s,!readonly)}
    ${readonly?parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn" data-show-report="${esc(s.id)}">Посмотреть отчёт</button>${parentShare(s)}<button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
@@ -373,9 +393,9 @@ function meeUnitGroups(rows,renderRow){
 function meeBlock(allRows,s,teacher){
   const rows=allRows.filter(r=>!isTest(r)),tests=allRows.filter(isTest);
   const list=meeUnitGroups(rows,r=>{const lab=r.status==='done'?(r.pct===''||r.pct==null?(teacher?'done':'сдано'):Math.round(r.pct)+'%'):r.status==='missing'?(teacher?'not handed in':'не сдано'):r.status==='pending'?(teacher?'not due yet':'срок ещё не наступил'):r.status==='na'?(teacher?'not required':'не требуется'):'–';
-    const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div><span class="tag">${lab}</span></div>`});
+    const src=r.source==='photo'?(teacher?' · photo':' · письменная работа'):r.source==='worksheet'?(teacher?' · worksheet':' · интерактивное задание'):'';return `<div class="secrow"><div class="t">${esc(r.hw)}<small>${esc(String(r.due||''))}${src}</small>${teacher&&r.note?`<small style="display:block;white-space:pre-line;opacity:.75">${esc(String(r.note).slice(0,400))}</small>`:''}</div>${worksheetPercent(r)!==null?`<span ${worksheetScoreAttrs(worksheetPercent(r))}>${worksheetPercent(r)}%</span>`:`<span class="tag">${lab}</span>`}</div>`});
   const rate=teacher&&s?rateBlock(s):'';
-  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${meeUnitGroups(tests,r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div><span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span></div>`)}`:'';
+  const tlist=tests.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Unit tests':'Тесты по юнитам'}</h2>${meeUnitGroups(tests,r=>`<div class="secrow"><div class="t">${esc(String(r.hw).replace(/^\d+\.\s*/,''))}<small>${esc(String(r.due||''))}</small></div>${worksheetPercent(r)!==null?`<span ${worksheetScoreAttrs(worksheetPercent(r))}>${worksheetPercent(r)}%</span>`:`<span class="tag">${r.pct===''||r.pct==null?'–':Math.round(r.pct)+'%'}</span>`}</div>`)}`:'';
   return (rows.length?`<h2 style="font-size:16px;margin:14px 0 8px;color:var(--purple)">${teacher?'Online homework (MEE)':'Онлайн-задания и проверенные работы'}</h2>${list}`:'')+tlist+rate}
 
 function renderParent(){

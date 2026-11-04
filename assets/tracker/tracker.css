@@ -248,3 +248,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 /* Extra worksheet actions remain reachable on narrow screens. */
 .extra-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0}
 @media(max-width:600px){.extra-compact{flex-wrap:wrap}.extra-actions{justify-content:flex-start;width:100%}}
+
+/* Worksheet result, independent of the submitted/confirmed status. */
+.worksheet-score,.dot.worksheet-score{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;box-sizing:border-box;border:0;border-radius:50%;background:radial-gradient(closest-side,#fff calc(100% - 4px),transparent calc(100% - 3px)),conic-gradient(var(--rc) calc(var(--p)*1%),#e3deea 0);color:#49365c;font:800 11px/1 sans-serif;white-space:nowrap}
+.dot.worksheet-score.d{background:radial-gradient(closest-side,#e5f3e5 calc(100% - 4px),transparent calc(100% - 3px)),conic-gradient(var(--rc) calc(var(--p)*1%),#e3deea 0)}
