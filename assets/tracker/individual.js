@@ -114,6 +114,7 @@ document.addEventListener('click',e=>{
 });
 // Narrow repair for the verified Safari queue from 3 November; never infer arbitrary rows.
 async function writeQueuedTask(op){
+  if(!STUDENT&&op.a==='setTask'&&op.field==='n')return writeQueuedOrder(op);
   try{return await Store.write(op)}catch(error){
     const names={18:'Holidays and Traditions — Lexis input — Classwork',19:'Holidays and Traditions — Lexis input — Homework'};
     if(STUDENT||!String(error.message).includes('Row not found in Tasks')||op.a!=='setTask'||op.plan!=='ege-ulyana'||op.block!=='Block 3'||op.field!=='date'||op.value!=='2026-11-04 · 2026-11-05 · 2026-11-06'||!names[op.n])throw error;
@@ -126,6 +127,26 @@ async function writeQueuedTask(op){
     op.n=matches[0].n;localStorage.setItem(QK,JSON.stringify(pending));
     return await Store.write(op);
   }
+}
+// Order is mutable: verify the task identity against fresh rows before writing a rank.
+async function writeQueuedOrder(op){
+  const legacy=op.plan==='ege-ulyana'&&op.block==='Block 3'&&Number(op.n)===17.5&&Number(op.value)===20.5;
+  const identity=op.identity||(legacy?{task:'National Unity Day — Classwork'}:null);
+  if(!identity)return Store.write(op);
+  const data=await Store.load(),tasks=data.plans.find(p=>p.id===op.plan)?.blocks.find(b=>b.name===op.block)?.tasks||[];
+  const matches=tasks.filter(t=>t.task===identity.task&&(identity.link===undefined||t.link===identity.link));
+  if(matches.length!==1)throw Error('Не удалось однозначно найти задание для перестановки. Изменение сохранено в очереди.');
+  const target=matches[0];
+  if(tasks.some(t=>t!==target&&Number(t.n)===Number(op.value)))throw Error('Место задания уже занято. Изменение сохранено в очереди.');
+  if(Number(target.n)===Number(op.value))return; // previous request succeeded; its reply was lost
+  if(Number(target.n)!==Number(op.n)){
+    const key=QK+'.repairedOrder',archive=LS.get(key,[]);
+    archive.push({at:new Date().toISOString(),original:{...op},resolvedN:target.n});
+    localStorage.setItem(key,JSON.stringify(archive));
+    op.n=target.n;op.identity={task:target.task,link:target.link};
+    localStorage.setItem(QK,JSON.stringify(pending));
+  }
+  return Store.write(op);
 }
 async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
@@ -500,7 +521,7 @@ function moveTrackerTask(sourceKey,targetKey,after){
   while(b.tasks.some(x=>x.n===rank)&&rank>low&&rank<high)rank=low+(rank-low)/2;
   if(!(rank>low&&rank<high)){toast('Не удалось изменить порядок: обновите страницу.');return}
   const old=t.n;t.n=rank;b.tasks.sort((a,c)=>a.n-c.n);ui.tedit=null;
-  send({a:'setTask',plan:P().id,block:b.name,n:old,field:'n',value:rank});
+  send({a:'setTask',plan:P().id,block:b.name,n:old,field:'n',value:rank,identity:{task:t.task,link:t.link}});
   render();toast('Порядок заданий сохранён');
   document.querySelector(`[data-task-drag="${sourceKey.split('|')[0]}|${rank}"]`)?.focus({preventScroll:true});
 }
