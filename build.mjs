@@ -298,7 +298,9 @@ function injectHead(dir) {
     const worksheetUi = isMaterial && !isTracker
       ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=2">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
     const scopeTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>\n`:'';
-    const tags = `${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const submissionTag = isMaterial && !isTracker && !/<script\b[^>]*submission-hook\.js/i.test(cleaned)
+      ? `<script src="${BASE}/assets/tracker/submission-hook.js?v=1"></script>\n` : '';
+    const tags = `${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
