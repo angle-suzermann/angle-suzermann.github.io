@@ -244,3 +244,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .report-teacher-actions > .tracker-menu > summary::-webkit-details-marker{display:none}
 .report-teacher-actions > .tracker-menu > summary::before{content:'▸';margin-right:6px;flex:none}
 .report-teacher-actions > .tracker-menu[open] > summary::before{content:'▾'}
+
+/* Extra worksheet actions remain reachable on narrow screens. */
+.extra-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0}
+@media(max-width:600px){.extra-compact{flex-wrap:wrap}.extra-actions{justify-content:flex-start;width:100%}}

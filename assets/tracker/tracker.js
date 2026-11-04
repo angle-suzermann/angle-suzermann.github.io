@@ -72,6 +72,11 @@ const Store={
   async load(){
     if(baseStore===Demo)return baseStore.load();
     const [data,structure]=await Promise.all([baseStore.load(),fetch(STRUCTURE_URL).then(r=>{if(!r.ok)throw new Error('Could not load course structure');return r.json()})]);
+    // Keep an offline/failed deletion hidden on reload until its queued write succeeds.
+    for(const op of PARENT?[]:pending){
+      if(op.a!=='updateExtra'||op.field!=='purpose'||!String(op.value||'').startsWith(EXTRA_DELETED_PREFIX))continue;
+      const x=data.courses[op.course]?.extras.find(x=>x.id===op.id);if(x)x.purpose=op.value;
+    }
     for(const course of ['Starters','Movers','Flyers']){
       const cc=data.courses[course],template=structure[course];
       if(!cc||!template)continue;
@@ -132,7 +137,11 @@ function phScore(c,sid){
   const cc=D.courses[c];let e=0,p=0;for(const l of cc.phonics){if(!l.date)continue;const v=st(c,sid,'ph',l.id);if(v==='N/A')continue;p+=l.points;if(v==='✓')e+=l.points}
   return{e,p,r:ratio(e,p)};
 }
-function extraAssigned(x,sid){if(!x.students)return true;try{return JSON.parse(x.students).includes(sid)}catch{return false}}
+// Soft deletion uses the existing Purpose column, preserving the original
+// purpose after the prefix and all student marks for recovery. No server migration.
+const EXTRA_DELETED_PREFIX='[ANGLE:deleted] ';
+const extraDeleted=x=>String(x.purpose||'').startsWith(EXTRA_DELETED_PREFIX);
+function extraAssigned(x,sid){if(extraDeleted(x))return false;if(!x.students)return true;try{return JSON.parse(x.students).includes(sid)}catch{return false}}
 function exScore(c,sid){
   const cc=D.courses[c];let e=0,p=0;for(const x of cc.extras){if(!x.date||!extraAssigned(x,sid))continue;const v=st(c,sid,'ex',x.id);if(v==='N/A')continue;p+=x.points;if(v==='✓')e+=x.points}
   return{e,p,r:ratio(e,p)};
@@ -275,16 +284,16 @@ const extraDrafts=new Map();
 const extraDraftKey=id=>ui.course+'|'+id;
 const PURPOSES=['Reinforcement','Checking understanding','Error correction','Clarification'];
 function viewExtras(){
-  const cc=C(),c=ui.course;
+  const cc=C(),c=ui.course,extras=cc.extras.filter(x=>!extraDeleted(x));
   const head=`<div class="unit-head"><div><h2>Extra worksheets</h2><div class="sub">Occasional worksheets. They count in the completion %. Tap a circle: sent? → done and submitted ✓ → not given → empty. Only ✓ earns points.</div></div><button class="btn" id="addExtra">+ Add worksheet</button></div>`;
-  if(!cc.extras.length)return `<div class="card">${head}<div class="empty">No extra worksheets yet.</div></div>`;
-  const list=[...cc.extras].reverse().map(saved=>{const draft=extraDrafts.get(extraDraftKey(saved.id)),x=draft||saved;return `<div class="xcard" data-x="${esc(x.id)}">${draft?`<div class="xgrid">
+  if(!extras.length)return `<div class="card">${head}<div class="empty">No extra worksheets yet.</div></div>`;
+  const list=[...extras].reverse().map(saved=>{const draft=extraDrafts.get(extraDraftKey(saved.id)),x=draft||saved;return `<div class="xcard" data-x="${esc(x.id)}">${draft?`<div class="xgrid">
     <div><label>Date given</label><input type="date" value="${esc(x.date)}" data-xf="date"></div>
     <div class="wide2"><label>Topic</label><input type="text" value="${esc(x.topic)}" data-xf="topic" placeholder="e.g. Present perfect vs past simple"></div>
     <div><label>Purpose</label><select data-xf="purpose"><option value=""></option>${PURPOSES.map(p=>`<option ${p===x.purpose?'selected':''}>${p}</option>`).join('')}</select></div>
     <div><label>Points</label><input type="number" min="0" value="${x.points}" data-xf="points"></div>
     <div class="wide2" style="grid-column:1/3"><label>Worksheet (name or link)</label><input type="text" value="${esc(x.link)}" data-xf="link"></div>
-    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div><p><button type="button" class="btn" data-extra-save="${esc(x.id)}">Save</button></p>`:`<div class="extra-compact"><div><div class="tt">${extraLink(x.link)?`<a href="${esc(extraLink(x.link))}" target="_blank" rel="noopener">${esc(x.topic||x.link||'Worksheet')}</a>`:esc(x.topic||x.link||'Worksheet')}</div><div class="sub">${[x.date,({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind],x.purpose,x.points+' pts'].filter(Boolean).map(esc).join(' · ')}</div>${x.note?`<div class="tnote">${esc(x.note)}</div>`:''}</div><button type="button" class="btn ghost" data-extra-edit="${esc(x.id)}">Edit</button></div>`}
+    <div class="wide2" style="grid-column:3/-1"><label>Notes / follow-up</label><textarea data-xf="note">${esc(x.note)}</textarea></div></div><p><button type="button" class="btn" data-extra-save="${esc(x.id)}">Save</button> <button type="button" class="btn danger" data-extra-delete="${esc(x.id)}">Удалить</button></p>`:`<div class="extra-compact"><div><div class="tt">${extraLink(x.link)?`<a href="${esc(extraLink(x.link))}" target="_blank" rel="noopener">${esc(x.topic||x.link||'Worksheet')}</a>`:esc(x.topic||x.link||'Worksheet')}</div><div class="sub">${[x.date,({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind],x.purpose,x.points+' pts'].filter(Boolean).map(esc).join(' · ')}</div>${x.note?`<div class="tnote">${esc(x.note)}</div>`:''}</div><div class="extra-actions"><button type="button" class="btn ghost" data-extra-edit="${esc(x.id)}">Edit</button><button type="button" class="btn danger" data-extra-delete="${esc(x.id)}">Удалить</button></div></div>`}
     <div class="xstud">${cc.students.filter(s=>extraAssigned(x,s.id)).map(s=>`<span class="xs">${dot(c,s.id,'ex',x.id,'ex',!!x.date)}${esc(s.name)}</span>`).join('')}</div></div>`}).join('');
   return `<div class="card">${head}${list}</div>`;
 }
@@ -427,6 +436,16 @@ document.addEventListener('click',e=>{
     document.querySelectorAll('#view .matrix,#view .sel').forEach((el,i)=>{if(scrollers[i]){el.scrollLeft=scrollers[i].left;el.scrollTop=scrollers[i].top;}});
     window.scrollTo(x,y);return}
   const cd=e.target.closest('[data-card]');if(cd){openCard(cd.dataset.card);return}
+  const extraDelete=e.target.closest('[data-extra-delete]');
+  if(extraDelete){
+    if(PARENT)return;
+    const x=C().extras.find(x=>x.id===extraDelete.dataset.extraDelete);if(!x||extraDeleted(x))return;
+    if(!confirm('Удалить задание «'+(x.topic||x.link||'Без названия')+'»? Оно исчезнет из списка и расчёта баллов.'))return;
+    x.purpose=EXTRA_DELETED_PREFIX+(x.purpose||'');
+    extraDrafts.delete(extraDraftKey(x.id));
+    send({a:'updateExtra',course:ui.course,id:x.id,field:'purpose',value:x.purpose});
+    render();toast('Задание удалено');return;
+  }
   const extraEdit=e.target.closest('[data-extra-edit]');
   if(extraEdit){const x=C().extras.find(x=>x.id===extraEdit.dataset.extraEdit);if(x){extraDrafts.set(extraDraftKey(x.id),{...x});render()}return}
   const extraSave=e.target.closest('[data-extra-save]');
