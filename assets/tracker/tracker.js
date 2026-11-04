@@ -495,6 +495,30 @@ document.addEventListener('change',e=>{
 
 document.addEventListener('input',e=>{const f=e.target.closest('[data-xf]');if(!f)return;const draft=extraDrafts.get(extraDraftKey(f.closest('[data-x]').dataset.x));if(draft)draft[f.dataset.xf]=f.dataset.xf==='points'?(+f.value||0):f.value});
 
+// New submissions arrive independently of this teacher/parent tab.
+// Never replace local edits or an open student/settings dialog.
+let submissionRefreshBusy=false;
+function canRefreshSubmissions(){
+  return (live||PARENT)&&!document.hidden&&!flushing&&!pending.length&&!extraDrafts.size
+    &&!document.querySelector('dialog[open]')&&!document.activeElement?.matches('input,textarea,select,[contenteditable="true"]');
+}
+async function refreshSubmissions(){
+  if(submissionRefreshBusy||!canRefreshSubmissions())return;
+  submissionRefreshBusy=true;
+  try{
+    const fresh=await Store.load();
+    if(!canRefreshSubmissions())return;
+    if(JSON.stringify(fresh)!==JSON.stringify(D)){
+      D=fresh;if(PARENT)renderParent();else render();
+    }
+    setSync('ok','Synced');
+  }catch(_){/* Keep the current view and local edits on a temporary read failure. */}
+  finally{submissionRefreshBusy=false;}
+}
+setInterval(refreshSubmissions,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSubmissions()});
+window.addEventListener('focus',refreshSubmissions);
+
 document.addEventListener('click',e=>{
   const tab=e.target.closest('[data-mee-tab]');if(!tab)return;
   const root=tab.closest('.mee-tabs-block');
