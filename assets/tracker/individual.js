@@ -115,6 +115,8 @@ document.addEventListener('click',e=>{
 // Narrow repair for the verified Safari queue from 3 November; never infer arbitrary rows.
 async function writeQueuedTask(op){
   if(!STUDENT&&op.a==='setTask'&&op.field==='n')return writeQueuedOrder(op);
+  const legacyStatus=op.a==='setTask'&&op.plan==='ege-ulyana'&&op.block==='Block 3'&&Number(op.n)===17.75&&op.field==='status'&&['','In progress'].includes(op.value);
+  if(!STUDENT&&op.a==='setTask'&&(op.identity||legacyStatus))return writeQueuedField(op,legacyStatus);
   try{return await Store.write(op)}catch(error){
     const names={18:'Holidays and Traditions — Lexis input — Classwork',19:'Holidays and Traditions — Lexis input — Homework'};
     if(STUDENT||!String(error.message).includes('Row not found in Tasks')||op.a!=='setTask'||op.plan!=='ege-ulyana'||op.block!=='Block 3'||op.field!=='date'||op.value!=='2026-11-04 · 2026-11-05 · 2026-11-06'||!names[op.n])throw error;
@@ -127,6 +129,28 @@ async function writeQueuedTask(op){
     op.n=matches[0].n;localStorage.setItem(QK,JSON.stringify(pending));
     return await Store.write(op);
   }
+}
+// Status/date/text edits must follow the task when another device changes its order.
+async function writeQueuedField(op,legacyStatus){
+  const identity=op.identity||(legacyStatus?{task:'National Unity Day — Classwork',link:'https://angle-suzermann.github.io/ege-2027/3.%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F/01.%20%D0%9B%D0%B5%D0%BA%D1%81%D0%B8%D0%BA%D0%B0/russia-unity-day-lesson/'}:null);
+  const data=await Store.load(),tasks=data.plans.find(p=>p.id===op.plan)?.blocks.find(b=>b.name===op.block)?.tasks||[];
+  const matches=tasks.filter(t=>t.task===identity.task&&t.link===identity.link);
+  if(!matches.length&&['task','link'].includes(op.field)){
+    const completed={...identity,[op.field]:op.value};
+    const done=tasks.filter(t=>t.task===completed.task&&t.link===completed.link);
+    if(done.length===1&&Number(done[0].n)===Number(op.n))return;
+  }
+  if(matches.length!==1)throw Error('Не удалось однозначно найти задание. Изменение сохранено в очереди.');
+  const target=matches[0];
+  if(Number(target.n)!==Number(op.n)){
+    const key=QK+'.repairedFields',archive=LS.get(key,[]);
+    archive.push({at:new Date().toISOString(),original:{...op},resolvedN:target.n});
+    localStorage.setItem(key,JSON.stringify(archive));
+    op.n=target.n;op.identity={...identity};localStorage.setItem(QK,JSON.stringify(pending));
+  }
+  // Also make retries of a completed text/link edit safe after a lost reply.
+  if(String(target[op.field]??'')===String(op.value??''))return;
+  return Store.write(op);
 }
 // Order is mutable: verify the task identity against fresh rows before writing a rank.
 async function writeQueuedOrder(op){
@@ -342,7 +366,7 @@ function render(){
 
 /* ---------- events ---------- */
 const find=s=>{const [bi,n]=s.split('|');const b=P().blocks[+bi];return{b,t:b.tasks.find(x=>x.n===+n)}};
-const setF=(b,t,field,value)=>{t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value})};
+const setF=(b,t,field,value)=>{const identity={task:t.task,link:t.link};t[field]=value;send({a:'setTask',plan:P().id,block:b.name,n:t.n,field,value,identity})};
 function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:autoWeek(o.date)||o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
