@@ -12,11 +12,11 @@
    so a multi-panel page still calls this exact same function, never a local copy. Added
    2026-09-27 while unifying the last few pages that had their own copy of this logic. */
 const RESULT_TIERS = [
-  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh','youre_a_star','imagination-a','imagination-b'], label: 'Eggcellent!' },
-  { min: 75,  stickers: ['fire','great_work','good_job'], label: 'On fire!' },
-  { min: 60,  stickers: ['good_vibes','nice','not_bad','hehe'],  label: 'Good vibes!' },
-  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried','loading','strawberry-sparkle'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
-  { min: 0,   stickers: ['plain','strawberry-full','no_luck','still_lost','not_hehe'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
+  { min: 90,  stickers: ['eggcellent-a','eggcellent-b','perfect','excellent','amazing_work','i_love_it','awesome','too_cool-a','too_cool-b','vzhukh','youre_a_star','imagination-a','imagination-b','eggcellent-rings'], label: 'Eggcellent!' },
+  { min: 75,  stickers: ['fire','great_work','good_job','ring-it-on'], label: 'On fire!' },
+  { min: 60,  stickers: ['good_vibes','nice','not_bad','hehe','tiny-dog-big-progress'],  label: 'Good vibes!' },
+  { min: 40,  stickers: ['strawberry-a','strawberry-b','keep_going','you_tried','loading','strawberry-sparkle','one-more-task'], label: 'Off to a good start', caption: "Not bad! A little more practice and you'll get there." },
+  { min: 0,   stickers: ['plain','strawberry-full','no_luck','still_lost','not_hehe','brain-loading'], label: 'Try again!', caption: "Try again! You're just getting started — it only gets better from here." }
 ];
 const SILENT_STICKERS = new Set(['strawberry-a','strawberry-b','strawberry-sparkle','plain','strawberry-full']);
 // Added 2026-10-10: stickers whose <img> is missing from a page's hard-coded list are created on demand.
@@ -29,8 +29,8 @@ function pickRandom(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
    Добавлено 2026-10-16. */
 const GENTLE_TIERS = [
   RESULT_TIERS[0], RESULT_TIERS[1], RESULT_TIERS[2],
-  { min: 40, stickers: ['strawberry-a','strawberry-b','keep_going','loading','strawberry-sparkle'], label: 'Solid start', caption: "A solid start! This shows us exactly where to begin." },
-  { min: 0,  stickers: ['strawberry-a','strawberry-b','strawberry-sparkle','loading','keep_going'], label: 'Fresh start', caption: "Great — now we know where to start. Every level begins somewhere!" }
+  { min: 40, stickers: ['strawberry-a','strawberry-b','keep_going','loading','strawberry-sparkle','one-more-task'], label: 'Solid start', caption: "A solid start! This shows us exactly where to begin." },
+  { min: 0,  stickers: ['strawberry-a','strawberry-b','strawberry-sparkle','loading','keep_going','brain-loading'], label: 'Fresh start', caption: "Great — now we know where to start. Every level begins somewhere!" }
 ];
 function getResultTier(pct){ return (window.STICKER_GENTLE ? GENTLE_TIERS : RESULT_TIERS).find(t => pct >= t.min); }
 /* Если на странице нет блока #completionStickers (страница вызывает renderResultSticker, но разметку не завела), создаём его сами:
