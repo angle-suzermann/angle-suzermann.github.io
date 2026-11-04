@@ -13,3 +13,10 @@ Validation: backend fixtures for group isolation, alias matching, recipient rest
 Updated the library and installed `angle-worksheet-template`, new `references/automatic-tracker.md`, and both .skill packages. The former skill specified email only, with no mandatory group tracker delivery. Skills for report-time manual reconciliation remain useful for historical/backfilled evidence; they are not the submission automation.
 
 Teacher/parent group trackers also refresh from the server every minute and on focus/visibility return. Refresh pauses for pending writes, draft edits, focused input or open dialog, and checks those guards again after fetching. Temporary read errors keep the current view. Separate fixtures cover these guards and prevent unchanged-data rerendering.
+
+## Дополнение (Claude, 04.11.2026): аудит и правки хука v2
+
+- Активная копия скилла у Claude была старой (синхронизированный кэш без правила автозаписи и без references/). Актуальны библиотечная копия и пакет .skill.
+- `submission-hook.js` v2 (`?v=2` в `build.mjs`): при повторной отправке остаётся результат первой попытки (хранится в `angle.firstSubmissionScores.v1`, исправленный балл идёт в note); частичная отправка пишется под названием задания, а не под всем воркшитом; отклонённая бэкендом запись не блокирует очередь (до 5 попыток).
+- Проверено перехватом сети в браузере на собранном сайте, без тестовых писем и без записей реальным ученикам: 12 из 12 сценариев пройдены, `docs/tests/submission-hook.cjs` проходит.
+- Открыто: страницы только с Basin (12) и test-engine+Basin (8) хук не видит; 14 файлов ЕГЭ с нераспознаваемой пометкой частичной отправки; два разных URL Apps Script (`test-engine.js` и хук); курсы без записи `hints` и индивидуальные планы (ЕГЭ/Empower/Expert). Бэкенд не менялся.
