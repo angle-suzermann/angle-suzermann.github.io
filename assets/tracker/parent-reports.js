@@ -33,7 +33,7 @@
  function reportBody(text,audience){
   text=String(text).replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
   // PDF metadata already appears in the web report's own information row.
-  text=text.replace(/^\s*УЧЕНИ(?:К|ЦА)\s*\n[^\n]+\n\s*КУРС\s*\n[^\n]+\n\s*(?:ПЕРИОД|ДАТА(?: ОТЧ[ЕЁ]ТА)?|ДАННЫ\s*Е\s+НА)\s*\n[^\n]+\n*/u,'');
+  text=text.replace(/^(\s*(?:# [^\n]+\n\s*)?)УЧЕНИ(?:К|ЦА)\s*\n[^\n]+\n\s*(?:КУРС|ЗАДАНИЕ)\s*\n[^\n]+\n\s*(?:ПЕРИОД|ДАТА(?: ОТЧ[ЕЁ]ТА)?|ДАННЫ\s*Е\s+НА)\s*\n[^\n]+\n*/u,'$1');
   const groups=[],known=/^(?:Что (?:уже )?получается.*|Что получилось.*|Над чем работаем|Работа на уроке|Как можно помочь дома|Домашние задания.*|Что дальше|Главное.*|Что изменилось.*|Ближайшие шаги.*|С чего начали.*|Первый учебный блок.*|Урок(?: и домашние работы)?.*|Сильные стороны|Рекомендации|Итоги.*|Подтвержд[её]нные работы|Источники и границы отч[её]та|Показатели на.*|Ещё по ходу|Часть \d.*|Говорение.*|Correction code key|Overall|.*corrections.*|Next steps)$/i;
   let current={title:'',lines:[]};groups.push(current);
   for(const raw of String(text).replace(/\r\n?/g,'\n').split('\n')){
