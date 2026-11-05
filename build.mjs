@@ -85,7 +85,7 @@ const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
 const SW_VERSION = 9;
 const WT_VERSION = 8;
-const WX_VERSION = 3;
+const WX_VERSION = 4;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 const TRACKER_CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/tracker/tracker.css', import.meta.url))).digest('hex').slice(0, 8);

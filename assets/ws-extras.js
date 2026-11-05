@@ -7,6 +7,52 @@
 (function () {
   'use strict';
 
+  /* Stop listening/speech when the worksheet changes its visible page or tab.
+     Covers legacy class/hidden/style navigation, dynamic #stage renderers and
+     detached new Audio() players. Merely answering or scrolling is not navigation. */
+  (function () {
+    if (window.__anglePageAudioGuard) return;
+    window.__anglePageAudioGuard = true;
+    var players = new Set(), ids = new WeakMap(), nextId = 1;
+    function id(node) { if (!ids.has(node)) ids.set(node, nextId++); return ids.get(node); }
+    function visible(node) { return !!node.getClientRects().length && getComputedStyle(node).visibility !== 'hidden'; }
+    function signature() {
+      var parts = [];
+      document.querySelectorAll('.page,.tab-panel').forEach(function (node) {
+        if (visible(node)) parts.push(id(node));
+      });
+      // These three older materials replace the entire stage on navigation.
+      var stage = document.getElementById('stage');
+      if (stage) {
+        var tab = document.querySelector('#navDots .active,#stagenav .active,#tabs .tab.active');
+        if (tab) parts.push('stage-tab:' + id(tab));
+        else if (stage.firstElementChild) parts.push('stage:' + id(stage.firstElementChild));
+      }
+      return parts.join('|');
+    }
+    function stop() {
+      document.querySelectorAll('audio,video').forEach(function (p) { players.add(p); });
+      players.forEach(function (p) { if (!p.paused) p.pause(); });
+      var ss = window.speechSynthesis;
+      if (ss && (ss.speaking || ss.pending)) ss.cancel();
+    }
+    var last = signature();
+    function check() { var now = signature(); if (now !== last) { last = now; stop(); } }
+    var proto = window.HTMLMediaElement && HTMLMediaElement.prototype;
+    if (proto) {
+      var play = proto.play;
+      proto.play = function () { check(); players.add(this); return play.apply(this, arguments); };
+    }
+    document.addEventListener('play', function (e) {
+      if (e.target instanceof HTMLMediaElement) { check(); players.add(e.target); }
+    }, true);
+    new MutationObserver(check).observe(document.documentElement, {
+      subtree: true, childList: true, attributes: true, attributeFilter: ['class','style','hidden']
+    });
+    window.addEventListener('pagehide', stop);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); });
+  })();
+
   /* ---------- стили ---------- */
   var EYE = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235E4877' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E\")";
   var PAL = [
