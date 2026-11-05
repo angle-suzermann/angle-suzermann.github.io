@@ -887,7 +887,7 @@ restoreProgress();
         inp.classList.remove('is-wrong');
         inp.classList.add('reveal-filled');
         if(typeof scheduleSave === 'function') scheduleSave();
-        b.remove();
+        b.style.visibility = 'hidden'; b.disabled = true; b.tabIndex = -1; b.setAttribute('aria-hidden', 'true');
       };
       inp.insertAdjacentElement('afterend', b);
     });

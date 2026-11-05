@@ -303,4 +303,4 @@ function resetLesson(){if(!confirm('Clear all answers for this lesson on this de
 function stopTimer(){clearInterval(timerId);timerId=null;const out=document.getElementById('timer');if(out)out.textContent='Ready';}
 function startTimer(seconds){stopTimer();let left=seconds;const out=document.getElementById('timer');function tick(){out.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0');if(left===0){clearInterval(timerId);out.textContent='Time is up';}left--;}tick();timerId=setInterval(tick,1000);}
 document.addEventListener('input',()=>{wordcounts();save()});restore();
-</script><script src="/assets/sticker-data.js"></script><script src="/assets/sticker-logic.js"></script><script src="/assets/ws-tools.js"></script><script src="/assets/save-writing.js"></script><script src="/assets/ws-extras.js"></script></body></html>
+</script><script src="/assets/sticker-data.js"></script><script src="/assets/sticker-logic.js"></script><script src="/assets/ws-tools.js?v=8"></script><script src="/assets/save-writing.js"></script><script src="/assets/ws-extras.js?v=3"></script></body></html>

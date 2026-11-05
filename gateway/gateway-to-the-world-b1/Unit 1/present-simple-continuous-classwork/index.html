@@ -294,7 +294,7 @@ buildDots(); showPage(0); restoreProgress();
       if(inp.__revealDone) return; inp.__revealDone = true;
       var b=document.createElement('button'); b.type='button'; b.className='reveal-btn-sm'; b.title='Show answer'; b.setAttribute('aria-label','Show answer'); b.textContent='\u{1F441}';
       b.onclick=function(){ inp.value=inp.dataset.answer.split('|')[0]; inp.closest('.build').querySelectorAll('.tile').forEach(function(t){t.classList.add('used');});
-        inp.classList.remove('is-wrong'); inp.classList.add('reveal-filled'); if(typeof scheduleSave==='function') scheduleSave(); b.remove(); };
+        inp.classList.remove('is-wrong'); inp.classList.add('reveal-filled'); if(typeof scheduleSave==='function') scheduleSave(); b.style.visibility = 'hidden'; b.disabled = true; b.tabIndex = -1; b.setAttribute('aria-hidden', 'true'); };
       inp.insertAdjacentElement('afterend', b);
     });
   }

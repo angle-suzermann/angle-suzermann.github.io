@@ -720,7 +720,7 @@ function revealOne(btn){
       o.classList.toggle("correct-ans", normalize(o.dataset.val)===normalize(mcq.dataset.correct));
     });
   }
-  btn.remove();
+  btn.style.visibility = 'hidden'; btn.disabled = true; btn.tabIndex = -1; btn.setAttribute('aria-hidden', 'true');
 }
 
 async function submitAll(){

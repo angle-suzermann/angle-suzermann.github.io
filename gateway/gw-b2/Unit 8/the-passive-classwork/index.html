@@ -201,7 +201,7 @@ input.reveal-filled{background:#e8f7ee!important;border-color:var(--correct,#3fa
     btn.className = "reveal-btn-sm";
     btn.title = "Показать ответ";
     btn.textContent = "\u{1F441}";
-    btn.onclick = function(){ onReveal(); btn.remove(); };
+    btn.onclick = function(){ onReveal(); btn.style.visibility = 'hidden'; btn.disabled = true; btn.tabIndex = -1; btn.setAttribute('aria-hidden', 'true'); };
     return btn;
   }
   function addFibBtn(inp){

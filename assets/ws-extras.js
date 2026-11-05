@@ -97,7 +97,12 @@
     b.title = 'Показать ответ';
     b.setAttribute('aria-label', 'Показать ответ');
     b.textContent = '\u{1F441}';
-    b.onclick = function () { fn(); b.remove(); };
+    b.onclick = function () {
+      fn();
+      // Keep the inline slot: removing it reflows words beneath handwritten ink.
+      b.style.visibility = 'hidden'; b.disabled = true; b.tabIndex = -1;
+      b.setAttribute('aria-hidden', 'true');
+    };
     return b;
   }
   function fire(el, name) { try { el.dispatchEvent(new Event(name, { bubbles: true })); } catch (e) { } }
@@ -154,7 +159,7 @@
       if (box.hasAttribute('data-total-pairs') || box.id === 'matchContainer') box.dataset.correctCount = String(Object.keys(ids).length);
       try { if (typeof window.updateMatchProgress === 'function') window.updateMatchProgress(); } catch (e) { }
       try { if (typeof window.scheduleSave === 'function') window.scheduleSave(); } catch (e) { }
-      row.remove();
+      row.style.visibility = 'hidden';
     });
     btn.title = btn.title + ' (все пары)';
     row.appendChild(btn);

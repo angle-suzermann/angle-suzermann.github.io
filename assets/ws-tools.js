@@ -502,7 +502,16 @@
     var r = (s.size || 40) / 2; return [s.x - r, s.y - r, s.x + r, s.y + r];
   }
   function bbox(s) { var b = localBBox(s), a = screenPoint(s, [b[0], b[1]]), z = screenPoint(s, [b[2], b[3]]); return [a[0], a[1], z[0], z[1]]; }
+  var strokeBase = null, strokeFrame = 0, strokePointer = null;
+  function drawStroke() {
+    strokeFrame = 0;
+    if (!drawing || !cur || !strokeBase) return;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, ink.width, ink.height); ctx.drawImage(strokeBase, 0, 0); ctx.restore();
+    ctx.save(); ctx.translate(AX, 0); drawOne(cur); ctx.restore();
+  }
   function draw() {
+    if (strokeFrame) { cancelAnimationFrame(strokeFrame); strokeFrame = 0; }
     ctx.clearRect(0, 0, SZ.w, SZ.h);
     ctx.save(); ctx.translate(AX, 0);
     var migrated = false;
@@ -511,6 +520,13 @@
       if (!textTa || textTa.__shape !== s) drawOne(s);
     });
     if (migrated) persist();
+    // Freeze completed annotations once per scene change, not once per mouse event.
+    // A resize/page update still rebuilds this snapshot through draw().
+    if (drawing && cur) {
+      if (!strokeBase) strokeBase = document.createElement('canvas');
+      strokeBase.width = ink.width; strokeBase.height = ink.height;
+      strokeBase.getContext('2d').drawImage(ink, 0, 0);
+    }
     if (cur) drawOne(cur);
     if (sel && list().indexOf(sel) >= 0) {
       var b = bbox(sel);
@@ -624,6 +640,7 @@
 
   ink.addEventListener('pointerdown', function (e) {
     if (ink.style.pointerEvents !== 'auto' || tool === 'select') return;
+    if (e.button !== 0 || drawing) return;
     hideInkPanel();
     if (tool === 'laser') return;
     var p = pt(e);
@@ -635,6 +652,8 @@
     }
     if (tool === 'text') { var existing = pick(p); startText(p, existing && existing.type === 'text' ? existing : null); return; }
     drawing = true;
+    strokePointer = e.pointerId;
+    try { ink.setPointerCapture(e.pointerId); } catch (err) { }
     cur = (tool === 'pen' || tool === 'highlighter' || tool === 'eraser') ? { type: 'path', tool: tool, color: color, w: lw, points: [p] }
       : { type: 'shape', tool: tool, color: color, w: lw, fill: fill && (tool === 'rect' || tool === 'ellipse' || tool === 'triangle'), x1: p[0], y1: p[1], x2: p[0], y2: p[1] };
     cur.anchor = makeAnchor(p);
@@ -644,16 +663,23 @@
   ink.addEventListener('pointermove', function (e) {
     if (tool === 'laser' && ink.style.pointerEvents === 'auto') { var lp = pt(e); trail.push({ x: lp[0] + AX, y: lp[1], t: Date.now() }); }
     if (!drawing || !cur) return;
+    if (e.pointerId !== strokePointer) return;
     var p = pt(e);
     if (cur.type === 'path') cur.points.push(p); else { cur.x2 = p[0]; cur.y2 = p[1]; }
-    draw();
+    if (!strokeFrame) strokeFrame = requestAnimationFrame(drawStroke);
   });
-  function up() {
+  function up(e) {
     if (!drawing || !cur) return;
+    if (e && e.pointerId != null && e.pointerId !== strokePointer) return;
     drawing = false; var s = cur; cur = null;
+    strokeBase = null;
+    if (strokeFrame) { cancelAnimationFrame(strokeFrame); strokeFrame = 0; }
+    var pointer = strokePointer; strokePointer = null;
+    try { if (ink.hasPointerCapture(pointer)) ink.releasePointerCapture(pointer); } catch (err) { }
     list().push(s); push({ k: 'add', s: s }); draw();
   }
   window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+  ink.addEventListener('lostpointercapture', up);
 
   (function laserLoop() {
     lctx.clearRect(0, 0, SZ.w, SZ.h);

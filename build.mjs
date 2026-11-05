@@ -84,8 +84,8 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
 const SW_VERSION = 9;
-const WT_VERSION = 7;
-const WX_VERSION = 2;
+const WT_VERSION = 8;
+const WX_VERSION = 3;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
 const TRACKER_CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/tracker/tracker.css', import.meta.url))).digest('hex').slice(0, 8);
@@ -270,6 +270,8 @@ function injectHead(dir) {
     const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
     if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
     const cleaned = src
+      .replace(/(\/assets\/ws-tools\.js)(?:\?v=[^"']*)?/g, `$1?v=${WT_VERSION}`)
+      .replace(/(\/assets\/ws-extras\.js)(?:\?v=[^"']*)?/g, `$1?v=${WX_VERSION}`)
       .replace(/(\/assets\/tracker\/)(tracker|individual)\.js(?:\?v=[^"']*)?/g, (_,prefix,name)=>`${prefix}${name}.js?v=${TRACKER_JS_VERSIONS[name]}`)
       .replace(/(\/assets\/tracker\/tracker\.css)(?:\?v=[^"']*)?/g, `$1?v=${TRACKER_CSS_VERSION}`)
       .replaceAll('This will erase all your saved answers on this device. Continue?', 'Удалить все сохранённые ответы этого задания в этом браузере? Это действие нельзя отменить.')
