@@ -208,14 +208,19 @@ const stateOf=t=>t.status==='✓'?'ok':t.status==='N/A'?'na':t.suggested?'sug':t
 const fmtDay=d=>{try{return new Date(d+'T00:00').toLocaleDateString(STUDENT?'ru-RU':'en-GB',{day:'numeric',month:'short'})}catch{return d}};
 
 /* ---------- views ---------- */
+function taskResultPercent(t){
+  const note=String(t.note||'');
+  // Recognize both imports and automatic submissions, including after teacher comments.
+  const m=note.match(/\b(?:Worksheet|MEE)\s+(\d{1,3})%/i)||note.match(/Автозапись\s+\d{4}-\d{2}-\d{2}:\s*сдано,\s*(\d{1,3})%/i);
+  return m&&Number(m[1])<=100?Number(m[1]):null;
+}
 function stBtn(bi,t){
   const s=stateOf(t),icon={ok:'✓',na:'–',sug:'?',partial:'◐','':''}[s];
   const label=(STUDENT?{ok:'Подтверждено преподавателем',na:'Не задано',sug:'Выполнено учеником, ожидает проверки',partial:'Начато — продолжить на следующем уроке',"":'Пока не сдано'}:{ok:'Confirmed by teacher',na:'Not assigned',sug:'You said you did it. Waiting for your teacher',partial:'Начато — продолжить на следующем уроке',"":'Not done yet'})[s];
   const dis=STUDENT&&(s==='ok'||s==='na');
-  /* score ring: the note starts with "Worksheet 87%" or "MEE 87%" (written by the worksheet / the MEE import) */
-  const m=String(t.note||'').match(/^(Worksheet|MEE)\s+(\d{1,3})%/i),pc=m?Math.min(100,+m[2]):null;
+  const pc=taskResultPercent(t);
   const ringAttr=pc==null||s==='partial'?'':` style="--p:${pc};--rc:${pc>=80?'#4f9d52':pc>=50?'#d9a900':'#c7586a'}"`;
-  const lab2=pc==null?label:label+' · '+m[1]+' '+pc+'%';
+  const lab2=pc==null?label:label+' · '+pc+'%';
   return `<button class="st ${s}${pc==null||s==='partial'?'':' pr'}"${ringAttr} data-tk="${bi}|${t.n}" aria-label="${lab2}" title="${lab2}"${dis?' disabled':''}>${icon}</button>`;
 }
 function taskCard(pl,bi,t,number){
@@ -237,8 +242,8 @@ function taskCard(pl,bi,t,number){
     const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,trackerDatesLabel(g.date)].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
-    <div class="c-grow"><label>Date (move to another block of dates)</label><select data-tgroup>${gopts}</select></div>
-    <div class="c-full tnew" style="display:none"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly placeholder="Week 5"><label style="margin-top:8px">Dates of the lessons</label><div class="dgrid">${dateInputs([],'td')}</div></div>
+    <div class="c-full"><label>Дата задания</label><select data-tgroup><option value="__new" selected>Изменить даты этого задания</option>${gopts.replace('<option value="__new">New date…</option>','').replace(/ selected/g,'')}</select></div>
+    <div class="c-full tnew"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly value="${esc(t.week||'')}" placeholder="Week 5"><label style="margin-top:8px">Даты этого задания</label><div class="dgrid">${dateInputs(dateParts(t.date),'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
     <div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
