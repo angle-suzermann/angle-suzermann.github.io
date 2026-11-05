@@ -30,10 +30,27 @@
   }
  }
  function reports(o){return [...(o.reports||[])].filter(r=>r.source&&r.text&&(r.plan||String(o.id).startsWith('plan|')||String(r.date).slice(0,10)>='2026-11-01')).sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
+ function stripPdfMetadata(text){
+  const lines=String(text).split('\n');
+  let start=0;
+  while(start<lines.length&&(!lines[start].trim()||/^#\s+/.test(lines[start].trim())))start++;
+  const labels=new Set(['УЧЕНИК','УЧЕНИЦА','ИМЯ','КУРС','ГРУППА','ЗАДАНИЕ','ДАТА','ДАТАОТЧЁТА','ДАТАОТЧЕТА','ДАННЫЕНА','ПЕРИОД','NAME','STUDENT','GROUP','COURSE','TASK','ASSIGNMENT','DATE','REPORTDATE','PERIOD','WORDS','CANDIDATE','PROGRAMME','PROGRAM','WRITTENBY']);
+  const label=s=>labels.has(s.toUpperCase().replace(/[\s:]+/g,''));
+  let end=start,pairs=0;
+  while(end<lines.length){
+   if(!lines[end].trim()){end++;continue}
+   if(!label(lines[end])||end+1>=lines.length||!lines[end+1].trim()||label(lines[end+1]))break;
+   end+=2;pairs++;
+  }
+  // Only a leading metadata block, never isolated words in the feedback itself.
+  if(pairs<2)return text;
+  lines.splice(start,end-start);
+  return lines.join('\n');
+ }
  function reportBody(text,audience){
   text=String(text).replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/перечитан/g,'пересчитан');
   // PDF metadata already appears in the web report's own information row.
-  text=text.replace(/^(\s*(?:# [^\n]+\n\s*)?)УЧЕНИ(?:К|ЦА)\s*\n[^\n]+\n\s*(?:КУРС|ЗАДАНИЕ)\s*\n[^\n]+\n\s*(?:ПЕРИОД|ДАТА(?: ОТЧ[ЕЁ]ТА)?|ДАННЫ\s*Е\s+НА)\s*\n[^\n]+\n*/u,'$1');
+  text=stripPdfMetadata(text);
   const groups=[],known=/^(?:Что (?:уже )?получается.*|Что получилось.*|Над чем работаем|Работа на уроке|Как можно помочь дома|Домашние задания.*|Что дальше|Главное.*|Что изменилось.*|Ближайшие шаги.*|С чего начали.*|Первый учебный блок.*|Урок(?: и домашние работы)?.*|Сильные стороны|Рекомендации|Итоги.*|Подтвержд[её]нные работы|Источники и границы отч[её]та|Показатели на.*|Ещё по ходу|Часть \d.*|Говорение.*|Correction code key|Overall|.*corrections.*|Next steps)$/i;
   let current={title:'',lines:[]};groups.push(current);
   for(const raw of String(text).replace(/\r\n?/g,'\n').split('\n')){
