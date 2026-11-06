@@ -162,9 +162,10 @@ const pcClass=r=>r==null?'pc-none':r>=.8?'pc-hi':r>=.5?'pc-mid':'pc-lo';
 function grp(name){const n=name.toLowerCase();
   const m=[[/phon/,'pink'],[/speak/,'pink'],[/vocab/,'lav'],[/writ/,'lav'],[/read/,'sage'],[/extra|more/,'sage'],[/gramm|must/,'peach'],[/test|revis/,'peach'],[/language|use|great/,'sky'],[/listen/,'butter']];
   for(const [r,g] of m) if(r.test(n)) return g; return 'lav'}
-function next(cur,kind){const cyc=kind==='ex'?['','Done','✓','N/A']:['','✓','N/A'];return cyc[(cyc.indexOf(cur)+1)%cyc.length]}
-const dotCls=v=>v==='✓'?'d':v==='N/A'?'n':v==='Done'?'p':'';
-const dotTxt=v=>v==='✓'?'✓':v==='N/A'?'–':v==='Done'?'sent?':'';
+function next(cur,kind){const cyc=kind==='ex'?['','Assigned','Done','✓','N/A']:['','Assigned','✓','N/A'];return cyc[(cyc.indexOf(cur)+1)%cyc.length]}
+const dotCls=v=>v==='✓'?'d':v==='N/A'?'n':v==='Done'||v==='Assigned'?'p':'';
+const dotTxt=v=>v==='✓'?'✓':v==='N/A'?'–':v==='Assigned'?'…':v==='Done'?'sent?':'';
+const statusLabel=v=>v==='✓'?'Выполнено':v==='Assigned'?'Задано, ещё не выполнено':v==='Done'?'Отправлено, ожидает проверки':v==='N/A'?'Не задано':'Пока не назначено';
 function worksheetPercent(r){
   if(!r||r.source!=='worksheet'||r.status!=='done'||r.pct==null||String(r.pct).trim()==='')return null;
   const n=Number(r.pct);return Number.isFinite(n)&&n>=0&&n<=100?Math.round(n):null;
@@ -182,10 +183,10 @@ function worksheetScore(c,sid,item){
 function worksheetScoreAttrs(pct){return `class="worksheet-score" style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%" aria-label="Результат воркшита: ${pct}%"`}
 function dot(c,sid,scope,item,kind,missing,readonly=false){
   const v=st(c,sid,scope,item),pct=scope==='ex'&&v!=='N/A'?worksheetScore(c,sid,item):null;
-  const classes=`dot ${dotCls(v)} ${(!v&&missing)?'miss':''}`;
+  const classes=`dot ${dotCls(v)}`;
   const score=pct===null?'':` worksheet-score`;
   const attrs=pct===null?'':` style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%; ${v||'не подтверждено'}"`;
-  const label=pct===null?(v||'not done'):`Результат воркшита: ${pct}%; ${v||'не подтверждено'}`;
+  const label=pct===null?statusLabel(v):`Результат воркшита: ${pct}%; ${statusLabel(v)}`;
   const content=pct===null?dotTxt(v):pct+'%';
   return readonly?`<span class="${classes}${score}"${attrs} aria-label="${esc(label)}">${content}</span>`:`<button class="${classes}${score}"${attrs} data-t="${esc([c,sid,scope,item,kind||''].join('\u0001'))}" aria-label="${esc(label)}">${content}</button>`;
 }
@@ -210,14 +211,14 @@ function renderTabs(){
 }
 function curStudent(){const cc=C();if(!cc.students.find(s=>s.id===ui.student))ui.student=cc.students[0]?.id||null;return cc.students.find(s=>s.id===ui.student)}
 function selector(){return `<div class="sel">${C().students.map(s=>`<button class="chip ${s.id===ui.student?'on':''}" data-stud="${esc(s.id)}">${esc(s.name)}</button>`).join('')}</div>`}
-const legend=`<div class="legend"><span><i class="dot d">✓</i>done</span><span><i class="dot n">–</i>not assigned</span><span><i class="dot"></i>not done</span></div>`;
+const legend=`<div class="legend"><span><i class="dot p">…</i>Задано</span><span><i class="dot d">✓</i>Выполнено</span><span><i class="dot n">–</i>Не задано</span><span><i class="dot"></i>Пока не назначено</span></div>`;
 
 function viewUnit(n){
   const cc=C(),c=ui.course,u=cc.units.find(x=>x.n===n);if(!u)return '<div class="card empty">No such unit.</div>';
-  const head=`<div class="unit-head"><div><h2>Unit ${n} · ${esc(u.title)}</h2><div class="sub">${esc(c)} · tap a circle to cycle: done → not assigned → empty</div></div>
+  const head=`<div class="unit-head"><div><h2>Unit ${n} · ${esc(u.title)}</h2><div class="sub">${esc(c)} · Нажмите на кружок: задано → выполнено → не задано → пусто. Во внешнее кольцо входят только заданные и выполненные работы.</div></div>
     <label class="switch"><input type="checkbox" data-active="${n}" ${u.active?'checked':''}>Unit started</label></div>`;
   if(!cc.students.length)return `<div class="card">${head}<div class="empty">No students yet. Add them in the Google Sheet (Students tab).</div></div>`;
-  const dim=u.active?'':'<div class="sub" style="margin:0 0 8px;color:#8d6a00">This unit is not started: it does not count toward the completion %.</div>';
+  const dim=u.active?'':'<div class="sub" style="margin:0 0 8px;color:#8d6a00">Юнит не отмечен как начатый. Внешнее кольцо учитывает явно заданные и выполненные работы независимо от этого переключателя.</div>';
   const rows=cc.students.map(s=>{const sc=unitScore(c,s.id,n);
     return `<tr><td class="name"><button data-show-report="${esc(s.id)}" title="Открыть отчёт">${esc(s.name)}</button></td>${cc.sections.map(x=>`<td class="tc g-${grp(x.name)}">${dot(c,s.id,'u'+n,x.id,'u',unitOn(c,s.id,n))}</td>`).join('')}<td class="pct ${pcClass(sc.r)}">${fmt(sc.r)}<div class="sub" style="font-weight:400;font-size:10.5px">${sc.e}/${sc.p}</div></td></tr>`}).join('');
   const foot=`<tr><td class="name" style="background:#faf8fc">Class % done</td>${cc.sections.map(x=>{let d=0,t=0;for(const s of cc.students){const v=st(c,s.id,'u'+n,x.id);if(v==='N/A')continue;t++;if(v==='✓')d++}return `<td class="tc g-${grp(x.name)}">${t?Math.round(d/t*100)+'%':'–'}</td>`}).join('')}<td></td></tr>`;
@@ -308,7 +309,7 @@ const extraDraftKey=id=>ui.course+'|'+id;
 const PURPOSES=['Reinforcement','Checking understanding','Error correction','Clarification'];
 function viewExtras(){
   const cc=C(),c=ui.course,extras=cc.extras.filter(x=>!extraDeleted(x));
-  const head=`<div class="unit-head"><div><h2>Extra worksheets</h2><div class="sub">Occasional worksheets. They count in the completion %. Tap a circle: sent? → done and submitted ✓ → not given → empty. Only ✓ earns points.</div></div><button class="btn" id="addExtra">+ Add worksheet</button></div>`;
+  const head=`<div class="unit-head"><div><h2>Extra worksheets</h2><div class="sub">Нажмите на кружок: задано → отправлено, ожидает проверки → выполнено ✓ → не задано → пусто. Внешнее кольцо учитывает заданные работы; сданной считается подтверждённая ✓.</div></div><button class="btn" id="addExtra">+ Add worksheet</button></div>`;
   if(!extras.length)return `<div class="card">${head}<div class="empty">No extra worksheets yet.</div></div>`;
   const list=[...extras].reverse().map(saved=>{const draft=extraDrafts.get(extraDraftKey(saved.id)),x=draft||saved;return `<div class="xcard" data-x="${esc(x.id)}">${draft?`<div class="xgrid">
     <div><label>Date given</label><input type="date" value="${esc(x.date)}" data-xf="date"></div>
@@ -352,6 +353,29 @@ function assignedWorkFor(c,s){
   const first=firstScoredUnit(c,s.id);
   return meeFor(c,s).filter(r=>{const n=unitNo(r.hw);return first===null||n===null||n>=first});
 }
+function groupSubmission(c,s){
+  const cc=D.courses[c],first=firstScoredUnit(c,s.id),tasks=new Map();
+  const eligible=n=>first===null||n===null||n>=first;
+  const norm=x=>String(x||'').toLowerCase().replace(/^\d+[.)]\s*/,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  const add=(key,v)=>{if(['✓','Assigned','Done'].includes(v))tasks.set(key,v==='✓')};
+  for(const u of cc.units)if(eligible(u.n))for(const sec of cc.sections)add('u'+u.n+'|'+sec.id,st(c,s.id,'u'+u.n,sec.id));
+  for(const ph of cc.phonics||[])if(eligible(unitNo(ph.unit)))add('ph|'+ph.id,st(c,s.id,'ph',ph.id));
+  for(const x of cc.extras||[])if(extraAssigned(x,s.id)&&eligible(unitNo(x.topic)))add('ex|'+x.id,st(c,s.id,'ex',x.id));
+  for(const r of assignedWorkFor(c,s)){
+    if(!['done','missing','pending'].includes(r.status))continue;
+    // Merge only an exact, unique task identity. Do not guess that Grammar 1 is
+    // the same assignment as a whole Grammar section.
+    const extras=(cc.extras||[]).filter(x=>norm(x.topic)===norm(r.hw));
+    let key=null,scope=null,item=null;
+    if(extras.length===1){const x=extras[0];if(!extraAssigned(x,s.id))continue;key='ex|'+x.id;scope='ex';item=x.id;}
+    else{const n=unitNo(r.hw),sections=cc.sections.filter(sec=>norm('Unit '+n+' '+sec.name)===norm(r.hw));if(n!==null&&sections.length===1){scope='u'+n;item=sections[0].id;key=scope+'|'+item;}}
+    if(key&&st(c,s.id,scope,item)==='N/A')continue;
+    if(key&&tasks.has(key))continue;
+    tasks.set(key||'online|'+norm(r.hw),r.status==='done');
+  }
+  const assigned=tasks.size,done=[...tasks.values()].filter(Boolean).length;
+  return{assigned,done,sub:assigned?done/assigned:null};
+}
 function meeSum(rows){
   const assigned=rows.filter(r=>['done','missing','pending'].includes(r.status)),done=assigned.filter(r=>r.status==='done');
   const sc=done.filter(r=>r.pct!==''&&r.pct!=null),q=sc.length?sc.reduce((a,r)=>a+Number(r.pct),0)/sc.length/100:null;
@@ -367,7 +391,7 @@ const pcT=v=>v==null?'–':Math.round(v*100)+'%';
 function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
 function ringsTop(c,s,o,ru=false){
-  const allAssigned=meeSum(assignedWorkFor(c,s)),rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
+  const allAssigned=groupSubmission(c,s),rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
   const registered=c==='Flyers',sub=allAssigned.sub,subTxt=sub!=null?`${allAssigned.done} of ${allAssigned.assigned} assigned tasks, including future deadlines`:'assigned task list not recorded';
   const teacherQuality=registered&&qa.length>0,qual=teacherQuality?actAvg(qa):(m.q!=null?m.q:actAvg(qa)),qTxt=teacherQuality?lvl(qa,Q_LABELS):(m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS));
   const actRu={1:'Нужна поддержка и помощь во включении в работу',2:'Работает стабильно',3:'Активно участвует в работе'};
