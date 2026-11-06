@@ -381,7 +381,7 @@ const setF=(b,t,field,value)=>{const identity={task:t.task,link:t.link};t[field]
 function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:autoWeek(o.date)||o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
-  if(e.target.closest('[data-plan-assessment]')){openPlanAssessment(P());return}
+  if(e.target.closest('button[data-plan-assessment]')){openPlanAssessment(P());return}
   if(e.target.closest('[data-student-reports]')){openStudentReports(P());return}
   if(e.target.closest('[data-parent-card]')){if(!STUDENT)openParentProgress(P());return}
   const parentLink=e.target.closest('[data-parent-link]');

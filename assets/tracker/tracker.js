@@ -123,8 +123,11 @@ function ratio(e,p){return p>0?e/p:null}
 // A unit counts for one pupil when it is switched on for the course, or when that pupil
 // already has an MEE task of this unit that is handed in or overdue (a class ahead of the course switch).
 const unitNo=hw=>{const m=String(hw||'').match(/\bunit\s*[-:#]?\s*(\d+)\b/i);return m?Number(m[1]):null};
+// Teacher instruction, 06.11.2026: Movers mo1/mo2 start their overall record at Unit 7.
+const firstScoredUnit=(c,sid)=>c==='Movers'&&['mo1','mo2'].includes(sid)?7:null;
 function unitOn(c,sid,n){
   const cc=D.courses[c],u=cc&&cc.units.find(x=>x.n===n);if(!u)return false;if(u.active)return true;
+  if(firstScoredUnit(c,sid)!==null&&n>=firstScoredUnit(c,sid)&&cc.sections.some(sec=>st(c,sid,'u'+n,sec.id)==='✓'))return true;
   const s=cc.students.find(x=>x.id===sid);if(!s)return false;const nm=String(s.name).toLowerCase();
   return (D.mee||[]).some(r=>String(r.course)===c&&String(r.student).toLowerCase()===nm&&(r.status==='done'||r.status==='missing')&&unitNo(r.hw)===n);
 }
@@ -151,6 +154,15 @@ function overall(c,sid){
   for(const u of cc.units){const s=unitScore(c,sid,u.n);e+=s.e;p+=s.p}
   const a=phScore(c,sid),b=exScore(c,sid);e+=a.e+b.e;p+=a.p+b.p;
   return{e,p,r:ratio(e,p)};
+}
+function checklistSubmission(c,s){
+  const first=firstScoredUnit(c,s.id);if(first===null)return null;
+  let assigned=0,done=0;
+  for(const u of D.courses[c].units){
+    if(u.n<first||!unitOn(c,s.id,u.n))continue;
+    for(const sec of D.courses[c].sections){const v=st(c,s.id,'u'+u.n,sec.id);if(v==='N/A')continue;assigned++;if(v==='✓')done++;}
+  }
+  return{assigned,done,sub:ratio(done,assigned)};
 }
 const fmt=r=>r==null?'–':Math.round(r*100)+'%';
 const pcClass=r=>r==null?'pc-none':r>=.8?'pc-hi':r>=.5?'pc-mid':'pc-lo';
@@ -358,13 +370,13 @@ const pcT=v=>v==null?'–':Math.round(v*100)+'%';
 function lvl(a,L){return a.length?L[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+' ('+a.length+' check'+(a.length>1?'s':'')+')':'not rated yet'}
 /* three rings for every course: outer = handed in, middle = quality of work, inner = activity in class */
 function ringsTop(c,s,o,ru=false){
-  const allAssigned=meeSum(meeFor(c,s)),rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
-  const registered=c==='Flyers',sub=allAssigned.sub,subTxt=sub!=null?`${allAssigned.done} of ${allAssigned.assigned} assigned tasks, including future deadlines`:'assigned task list not recorded';
+  const checklist=checklistSubmission(c,s),allAssigned=checklist||meeSum(meeFor(c,s)),rows=meeFor(c,s).filter(r=>!isTest(r)),m=meeSum(rows),act=actFor(c,s,'activity'),qa=actFor(c,s,'quality');
+  const registered=c==='Flyers',sub=allAssigned.sub,subTxt=checklist?`${allAssigned.done} of ${allAssigned.assigned} sections from Unit ${firstScoredUnit(c,s.id)}`:sub!=null?`${allAssigned.done} of ${allAssigned.assigned} assigned tasks, including future deadlines`:'assigned task list not recorded';
   const teacherQuality=registered&&qa.length>0,qual=teacherQuality?actAvg(qa):(m.q!=null?m.q:actAvg(qa)),qTxt=teacherQuality?lvl(qa,Q_LABELS):(m.q!=null?'average score of handed-in online work':lvl(qa,Q_LABELS));
   const actRu={1:'Нужна поддержка и помощь во включении в работу',2:'Работает стабильно',3:'Активно участвует в работе'};
   const qualRu={1:'Нужно внимательнее проверять работу',2:'Хороший результат',3:'Отличный результат'};
   const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
-  const ruSub=sub!=null?`${allAssigned.done} из ${allAssigned.assigned} заданных работ, включая будущие сроки`:'список заданных работ пока не внесён';
+  const ruSub=checklist?`${allAssigned.done} из ${allAssigned.assigned} разделов начиная с юнита ${firstScoredUnit(c,s.id)}`:sub!=null?`${allAssigned.done} из ${allAssigned.assigned} заданных работ, включая будущие сроки`:'список заданных работ пока не внесён';
   const ruQuality=teacherQuality?levelRu(qa,qualRu):(m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu));
   const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${ru?'Показатели прогресса':'Progress rings'}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}

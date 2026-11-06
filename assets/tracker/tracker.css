@@ -107,7 +107,7 @@ textarea{min-height:36px;resize:vertical}
 dialog{border:0;border-radius:20px;padding:0;max-width:min(520px,94vw);width:100%;background:transparent;overflow:visible}
 dialog::backdrop{background:rgba(20,14,25,.7)}
 .sheet{background:var(--cream);border-radius:20px;padding:16px;max-height:92vh;overflow:auto;border:3px solid var(--purple)}
-.sheet .close{float:right}
+.sheet .close{float:right;min-width:44px;min-height:44px;position:relative;z-index:1;touch-action:manipulation}
 .brandline{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .brandline b{color:var(--purple);letter-spacing:.06em;font-size:12px}
 .empty{padding:26px;text-align:center;color:#6b6475}
