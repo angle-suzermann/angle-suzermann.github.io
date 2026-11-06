@@ -120,14 +120,14 @@ const pk=(c,s,scope,item)=>[c,s,scope,item].join('|');
 const st=(c,s,scope,item)=>D.progress[pk(c,s,scope,item)]||'';
 const C=()=>D.courses[ui.course];
 function ratio(e,p){return p>0?e/p:null}
-// A unit counts for one pupil when it is switched on for the course, or when that pupil
-// already has an MEE task of this unit that is handed in or overdue (a class ahead of the course switch).
+// A unit counts when switched on, explicitly assigned/confirmed in the teacher table,
+// or supported by a handed-in/overdue online task (ahead of the course switch).
 const unitNo=hw=>{const m=String(hw||'').match(/\bunit\s*[-:#]?\s*(\d+)\b/i);return m?Number(m[1]):null};
 // Teacher instruction, 06.11.2026: Movers mo1/mo2 start their overall record at Unit 7.
 const firstScoredUnit=(c,sid)=>c==='Movers'&&['mo1','mo2'].includes(sid)?7:null;
 function unitOn(c,sid,n){
   const cc=D.courses[c],u=cc&&cc.units.find(x=>x.n===n);if(!u)return false;if(u.active)return true;
-  if(firstScoredUnit(c,sid)!==null&&n>=firstScoredUnit(c,sid)&&cc.sections.some(sec=>st(c,sid,'u'+n,sec.id)==='✓'))return true;
+  if(cc.sections.some(sec=>['Assigned','Done','✓'].includes(st(c,sid,'u'+n,sec.id))))return true;
   const s=cc.students.find(x=>x.id===sid);if(!s)return false;const nm=String(s.name).toLowerCase();
   return (D.mee||[]).some(r=>String(r.course)===c&&String(r.student).toLowerCase()===nm&&(r.status==='done'||r.status==='missing')&&unitNo(r.hw)===n);
 }

@@ -9,7 +9,7 @@ function fixture(course='Starters',id='s'){
 for(const course of ['Starters','Movers','Flyers','B1']){
  const f=fixture(course);assert.equal(f.sum().sub,null);
  f.mark('u8','v','✓');assert.equal(f.sum().sub,1);assert.equal(f.sum().assigned,1); // empty programme is not assigned
- f.mark('u8','w','Assigned');assert.equal(f.sum().sub,.5);
+ f.mark('u8','w','Assigned');assert.equal(f.sum().sub,.5);assert.equal(vm.runInContext('unitOn(course,student.id,8)',ctx),true);
  f.mark('u8','w','Done');assert.equal(f.sum().done,1); // waiting for teacher
  f.mark('u8','w','N/A');assert.equal(f.sum().assigned,1);
  f.online('Unit 8 Vocabulary','done');assert.equal(f.sum().assigned,1); // exact duplicate table/online identity
