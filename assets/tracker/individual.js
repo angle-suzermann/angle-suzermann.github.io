@@ -318,20 +318,26 @@ function individualRings(pl){
 function individualRatings(pl){
   if(STUDENT)return '';
   const labels={quality:['Нужно внимательнее','Хорошо','Отлично'],activity:['Нужна поддержка','Работает стабильно','Активно участвует']};
-  return `<div class="individual-ratings" data-plan-ratings="${esc(pl.id)}"><p class="sub">Оценки преподавателя · <label>За уроки: <select data-plan-lessons>${[2,3,4].map(n=>`<option value="${n}"${n===3?' selected':''}>${n}</option>`).join('')}</select></label></p>${['quality','activity'].map(kind=>{const last=(pl.ratings||[]).filter(r=>(r.kind||'activity')===kind).slice(-1)[0];return `<div class="sel"><b>${kind==='quality'?'Качество работы':'Работа на уроке'}</b>${[1,2,3].map(value=>`<button class="chip ${Number(last?.score)===value?'on':''}" aria-pressed="${Number(last?.score)===value}" data-plan-rating="${kind}|${value}" aria-label="${kind==='quality'?'Качество':'Активность'}: ${value}">${value} · ${labels[kind][value-1]}</button>`).join('')}</div>`}).join('')}<p class="sub" role="status" data-plan-rating-status></p></div>`;
+  return `<div class="individual-ratings" data-plan-ratings="${esc(pl.id)}"><p class="sub">Оценки преподавателя · <label>За уроки: <select data-plan-lessons>${[1,2,3,4].map(n=>`<option value="${n}"${n===3?' selected':''}>${n}</option>`).join('')}</select></label></p>${['quality','activity'].map(kind=>{const last=(pl.ratings||[]).filter(r=>(r.kind||'activity')===kind).slice(-1)[0];return `<div class="sel"><b>${kind==='quality'?'Качество работы':'Работа на уроке'}</b>${[1,2,3].map(value=>`<button class="chip ${Number(last?.score)===value?'on':''}" aria-pressed="${Number(last?.score)===value}" data-plan-rating="${kind}|${value}" aria-label="${kind==='quality'?'Качество':'Активность'}: ${value}">${value} · ${labels[kind][value-1]}</button>`).join('')}</div>`}).join('')}<p class="sub" role="status" data-plan-rating-status></p></div>`;
 }
 function parentProgressCard(pl){
   const rows=[...pl.blocks].reverse().map(b=>{const tasks=b.tasks.filter(t=>lessonHasStarted(t));if(!tasks.length)return '';const s=score(tasks);return `<div class="srow"><div class="t">${esc(b.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${s.done} из ${s.n} заданий · ${s.e} из ${s.p} баллов${s.wait?` · ожидает проверки: ${s.wait}`:''}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
   return `${individualRings(pl)}<p class="sub">Процент сдачи рассчитан только от заданных работ, а не от всей программы. Назначенные работы с будущим сроком сдачи входят в расчёт; предварительный план будущих уроков и N/A — нет. Работы, ожидающие проверки, пока не засчитываются как сданные.</p>${rows||'<p class="sub">Задания пока не добавлены.</p>'}${individualReport(pl,'parent')}${individualRatings(pl)}`;
 }
+function openPlanAssessment(pl){
+  if(STUDENT)return;
+  const dialog=$('#cardDlg');dialog.dataset.planAssessment=pl.id;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Оценки за уроки</h2>${individualRings(pl)}${individualRatings(pl)}`;
+  if(!dialog.open)dialog.showModal();
+}
 function openParentProgress(pl){
-  const dialog=$('#cardDlg');
+  const dialog=$('#cardDlg');delete dialog.dataset.planAssessment;
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><div class="brandline"><b>ANGLE · HOMEWORK PROGRESS</b></div>${parentProgressCard(pl)}<p><button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button></p>`;
   if(!dialog.open)dialog.showModal();
 }
 const personalOnly=pl=>/^emp-/.test(pl.id)||/^(?:Лена|Елена)(?:\s|$)/i.test(pl.student);
 function openStudentReports(pl){
-  if(STUDENT)return;
+  if(STUDENT)return;delete $('#cardDlg').dataset.planAssessment;
   $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Личный фидбек · ${esc(pl.student)}</h2>${individualReport(pl,'student')}`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
@@ -365,7 +371,7 @@ function render(){
     html=order.map(i=>viewBlock(pl,i,true)).join('')||'<div class="card empty">Nothing waiting for review.</div>';
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
-  if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
+  if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><button class="btn ghost" data-plan-assessment>Оценки</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
   $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
 }
 
@@ -375,6 +381,7 @@ const setF=(b,t,field,value)=>{const identity={task:t.task,link:t.link};t[field]
 function mkTask(b,o){const t={n:(b.tasks.reduce((m,x)=>Math.max(m,x.n),0)||0)+1,week:autoWeek(o.date)||o.week||'',date:o.date||'',when:'',unit:'',task:cleanTaskTitle(o.task),mode:'',link:o.link||'',points:o.points==null?5:o.points,status:'',note:'',kind:o.kind||'homework',suggested:''};
   b.tasks.push(t);send({a:'addTask',plan:P().id,block:b.name,task:t});return t}
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-plan-assessment]')){openPlanAssessment(P());return}
   if(e.target.closest('[data-student-reports]')){openStudentReports(P());return}
   if(e.target.closest('[data-parent-card]')){if(!STUDENT)openParentProgress(P());return}
   const parentLink=e.target.closest('[data-parent-link]');
@@ -608,7 +615,7 @@ document.addEventListener('click',async e=>{
     if(live)await Store.write({a:'addActivity',...rating});
     (pl.ratings||(pl.ratings=[])).push(rating);
     if(!live)await Demo.write();
-    const modal=$('#cardDlg').open;if(modal)openParentProgress(pl);else render();
+    const modal=$('#cardDlg').open;if(modal){if($('#cardDlg').dataset.planAssessment)openPlanAssessment(pl);else openParentProgress(pl)}else render();
     const feedback=document.querySelector(modal?'#cardBody [data-plan-rating-status]':'#view [data-plan-rating-status]');if(feedback)feedback.textContent='Оценка сохранена.';
   }catch(err){status.textContent='Не удалось сохранить оценку. Попробуйте ещё раз.';root.querySelectorAll('button').forEach(b=>b.disabled=false)}
 });

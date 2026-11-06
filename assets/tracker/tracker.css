@@ -252,3 +252,9 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 /* Worksheet result, independent of the submitted/confirmed status. */
 .worksheet-score,.dot.worksheet-score{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;box-sizing:border-box;border:0;border-radius:50%;background:radial-gradient(closest-side,#fff calc(100% - 4px),transparent calc(100% - 3px)),conic-gradient(var(--rc) calc(var(--p)*1%),#e3deea 0);color:#49365c;font:800 11px/1 sans-serif;white-space:nowrap}
 .dot.worksheet-score.d{background:radial-gradient(closest-side,#e5f3e5 calc(100% - 4px),transparent calc(100% - 3px)),conic-gradient(var(--rc) calc(var(--p)*1%),#e3deea 0)}
+
+/* Opening the links menu must not stretch the page on iPhone. */
+.report-teacher-actions.report-teacher-actions{position:relative;min-width:0}
+.report-teacher-actions > .tracker-menu{position:static}
+.report-teacher-actions > .tracker-menu > .erow{position:absolute;z-index:30;left:0;top:calc(100% + 6px);box-sizing:border-box;width:min(420px,100%);max-width:100%;margin:0;padding:12px!important;display:flex;flex-wrap:wrap!important;gap:8px;border:1px solid #d9cde2;border-radius:12px;background:#faf7f2;box-shadow:0 5px 18px #21172b33}
+.report-teacher-actions > .tracker-menu > .erow > *{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box}
