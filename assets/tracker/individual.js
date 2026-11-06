@@ -303,8 +303,13 @@ function lessonHasStarted(task,asOf=new Date().toLocaleDateString('en-CA',{timeZ
   const dates=dateParts(task.date).map(trackerDateISO).filter(Boolean);
   return !dates.length||dates.some(date=>date<=asOf);
 }
+// Universal submission rule: count assigned tasks, never syllabus size or task points.
+// A future deadline does not undo assignment; future lesson drafts are not assignments.
+function assignedPlanTasks(pl){
+  return pl.blocks.flatMap(b=>b.tasks).filter(t=>!['n/a','na'].includes(String(t.status||'').trim().toLowerCase())&&lessonHasStarted(t));
+}
 function individualMetrics(pl){
-  const tasks=pl.blocks.flatMap(b=>b.tasks),assigned=tasks.filter(t=>!['n/a','na'].includes(String(t.status||'').toLowerCase())&&lessonHasStarted(t)),done=assigned.filter(t=>t.status==='✓');
+  const assigned=assignedPlanTasks(pl),done=assigned.filter(t=>t.status==='✓');
   const ratings=(pl.ratings||[]).filter(r=>Number(r.score)>=1&&Number(r.score)<=3);
   const quality=ratings.filter(r=>r.kind==='quality'),activity=ratings.filter(r=>(r.kind||'activity')==='activity');
   const avg=rows=>rows.length?rows.reduce((sum,r)=>sum+Number(r.score),0)/rows.length/3:null;

@@ -343,7 +343,9 @@ function render(){
   $('#view').innerHTML=t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1)));
 }
 
-/* MEE homework rings: outer = handed in / all assigned (including future deadlines), inner = average score of handed-in work */
+/* Universal for ALL groups/pupils: outer = handed in / all assigned, including future
+   deadlines. Never substitute the unit checklist, syllabus size or weighted points.
+   No assigned list = unknown (–), not 0% or 100%. */
 const isTest=r=>/\btest\b/i.test(String(r.hw||''));
 function meeFor(c,s){const n=String(s.name).toLowerCase(),byTask=new Map();for(const r of D.mee||[]){if(String(r.course)===c&&String(r.student).toLowerCase()===n)byTask.set(String(r.hw||'').trim().toLowerCase(),r)}return [...byTask.values()]}
 function assignedWorkFor(c,s){
