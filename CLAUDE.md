@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Идеи коллег → скиллы (06.11): [expression-frequency-check, tubequizard-homework, emergent-language-notes, цикл speak first → upgrade → recall в angle-worksheet-template, синхронизация основной копии и .skill, YouGlish](handoffs/2026-11-06-colleague-ideas-skills.md). Продолжает заметку о пилоте 5B от 29.10.
+
 Аудио в воркшитах (05.11): [остановка при смене страницы, аудит 141 материала и настоящий MP3 AS3 Unit 8](handoffs/2026-11-05-worksheet-audio-navigation.md).
 
 Gateway B2 Unit 9 (05.11): [названия десяти домашек с темой для трекера, `ws:title` и `<title>`, опубликовано](handoffs/2026-11-05-gateway-b2-unit9-titles.md). Отдельная тема, другие заметки не заменяет.
