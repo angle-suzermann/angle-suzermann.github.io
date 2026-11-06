@@ -853,7 +853,7 @@ async function submitAll(){
     ? '<strong>Look again at these (they are now marked in red on their pages):</strong><br>'+wrong.map(w=>'• '+w.replace(/</g,'&lt;')).join('<br>')
     : '<span class="ok-line">Every auto-checked answer is correct. Brilliant!</span>';
   document.getElementById('resultsPanel').hidden=false;
-  const tier=renderResultSticker(pct, document);
+  const tier=renderResultSticker(pct, document.querySelector('.completion-stickers'));
   window.__submitted=true;
   const st=document.getElementById('submitStatus'); st.textContent='Sending to your teacher…';
   // speaking recordings not yet sent
