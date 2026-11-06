@@ -22,6 +22,7 @@ const cfg=LS.get('angleTracker.cfg',{url:'',token:''});
 const live=!STUDENT&&!!(cfg.url&&cfg.token);
 let D={plans:[]};
 let ui=LS.get('angleTracker.iui2',{plan:null,tab:null,review:false});
+if(STUDENT)ui={plan:null,tab:'sum',review:false};
 const today=()=>new Date().toISOString().slice(0,10);
 const setSync=(s,t)=>{const el=$('#sync');el.className='sync '+s;$('#syncTxt').textContent=t};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)};
@@ -289,7 +290,7 @@ function addBar(pl,bi){
 }
 function individualReportOptions(pl,audience=PARENT?'parent':'student'){
   const url=new URL(location.pathname,location.origin),api=STUDENT?QP.get('a'):cfg.url,key=STUDENT?QP.get('p'):pl.key;
-  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1')}
+  if(api&&key){url.searchParams.set('a',api);url.searchParams.set('p',key);if(audience==='parent')url.searchParams.set('parent','1');else url.searchParams.set('view','report')}
   return {id:'plan|'+pl.id+'|'+audience,name:pl.student,course:pl.title,audience,
     webEdition:(/^emp-/.test(pl.id)||pl.id==='ege-maria')&&audience==='student',
     shareUrl:api&&key?url.href:'',
@@ -341,12 +342,19 @@ function openParentProgress(pl){
   if(!dialog.open)dialog.showModal();
 }
 const personalOnly=pl=>/^emp-/.test(pl.id)||/^(?:Лена|Елена)(?:\s|$)/i.test(pl.student);
+function studentProgressCard(pl){
+  const current=pl.blocks[pl.blocks.length-1],tasks=(current?.tasks||[]).filter(t=>lessonHasStarted(t));
+  const sc=score(tasks);
+  const summary=current?`<div class="srow"><div class="t">${esc(current.name.replace(/^Block\s+/,'Блок '))}<small>Подтверждено: ${sc.done} из ${sc.n} заданий · ${sc.e} из ${sc.p} баллов${sc.wait?` · ожидает проверки: ${sc.wait}`:''}</small></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>`:'';
+  return `${individualRings(pl)}${summary}${individualReport(pl,'student')}`;
+}
 function openStudentReports(pl){
   if(STUDENT)return;delete $('#cardDlg').dataset.planAssessment;
-  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Личный фидбек · ${esc(pl.student)}</h2>${individualReport(pl,'student')}`;
+  $('#cardBody').innerHTML=`<button class="iconbtn close" onclick="cardDlg.close()" aria-label="Закрыть">✕</button><h2>Личный фидбек</h2>${studentProgressCard(pl)}`;
   if(!$('#cardDlg').open)$('#cardDlg').showModal();
 }
 function viewSummary(pl){
+  if(STUDENT)return `<div class="card">${studentProgressCard(pl)}</div>`;
   const o=planScore(pl);
   const rows=[...pl.blocks].reverse().map(b=>{const s=score(b.tasks);return `<div class="srow"><div class="t">${esc(blockLabel(b.name))}<small>${STUDENT?`Подтверждено: ${s.done} из ${s.n}`:`${s.done} of ${s.n} confirmed`}${s.wait?` · ${s.wait} ${STUDENT?'ожидает проверки':'waiting'}`:''} · ${STUDENT?`${s.e} из ${s.p} баллов`:`${s.e} of ${s.p} points`}</small></div><span class="${pcClass(s.r)} bigpc">${fmt(s.r)}</span></div>`}).join('');
   const link=STUDENT?'':`<p style="margin:14px 0 0"><button class="btn ghost" data-plink="1">Copy student link</button></p>`;
@@ -357,6 +365,10 @@ function render(){
   if(!D.plans.length){$('#view').innerHTML='<div class="card empty">No plans found for this page. Add them in the Google Sheet (Plans tab).</div>';return}
   if(!P())ui.plan=D.plans[0].id;
   const pl=P();
+  if(STUDENT&&!PARENT&&(QP.get('view')==='report'||QP.has('report'))){
+    $('#courses').innerHTML='';$('#tabs').innerHTML='';$('#sub').textContent='Личный фидбек';
+    $('#view').innerHTML=`<div class="card">${studentProgressCard(pl)}</div>`;return;
+  }
   if(PARENT){
     $('#courses').innerHTML='';$('#tabs').innerHTML='';$('#sub').textContent='Homework progress';
     $('#view').innerHTML=`<div class="card">${parentProgressCard(pl)}</div>`;return;
@@ -377,7 +389,7 @@ function render(){
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
   if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><button class="btn ghost" data-plan-assessment>Оценки</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
-  $('#view').innerHTML=html+(STUDENT&&ui.tab!=='sum'?`<div class="card" style="margin-top:14px">${individualReport(pl)}</div>`:'');
+  $('#view').innerHTML=html;
 }
 
 /* ---------- events ---------- */
