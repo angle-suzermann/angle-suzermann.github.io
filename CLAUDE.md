@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Kimi и MEE 07.11: [Kimi обучена проверке MEE и отметкам в трекере, скилл kimi-mee-tracker, у класса B2 трекера нет](handoffs/2026-11-07-kimi-mee-training.md). Дополняет заметку о Kimi от 31.10.
+
 Идеи коллег → скиллы (06.11): [expression-frequency-check, tubequizard-homework, emergent-language-notes, цикл speak first → upgrade → recall в angle-worksheet-template, синхронизация основной копии и .skill, YouGlish](handoffs/2026-11-06-colleague-ideas-skills.md). Продолжает заметку о пилоте 5B от 29.10.
 
 Аудио в воркшитах (05.11): [остановка при смене страницы, аудит 141 материала и настоящий MP3 AS3 Unit 8](handoffs/2026-11-05-worksheet-audio-navigation.md).
