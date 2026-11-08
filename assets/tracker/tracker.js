@@ -189,8 +189,10 @@ function worksheetScoreAttrs(pct){return `class="worksheet-score" style="--p:${p
    points earned / points possible, never by averaging percentages. */
 function meeSections(c,hw){
   const cc=D.courses[c];if(!cc)return[];const h=String(hw||'').toLowerCase();
-  if(/backlog|\btest\b/.test(h))return[];
+  if(/backlog/.test(h))return[];
   const by=re=>cc.sections.filter(sec=>re.test(String(sec.name).toLowerCase())).map(sec=>sec.id);
+  // 08.11.2026: a unit test maps only to the unit's test section ("Test", "Unit test").
+  if(/\btest\b/.test(h))return by(/^(unit )?test$/);
   const out=new Set(),add=a=>a.forEach(x=>out.add(x));
   const devVoc=/\bdev(elop\w*)?\.?\s+voc/.test(h);
   if(devVoc)add(by(/^developing vocab/));
@@ -205,7 +207,8 @@ function meeSections(c,hw){
 }
 function sectionMeeScore(c,sid,n,secId){
   const cc=D.courses[c],s=cc&&cc.students.find(x=>x.id===sid);if(!s||!Number.isFinite(n))return null;
-  const rows=meeFor(c,s).filter(r=>r.source!=='worksheet'&&r.status!=='na'&&unitNo(r.hw)===n&&meeSections(c,r.hw).includes(secId));
+  const nm=x=>String(x||'').toLowerCase().replace(/^\d+[.)]\s*/,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  const rows=meeFor(c,s).filter(r=>!(cc.extras||[]).some(x=>nm(x.topic)===nm(r.hw))&&r.status!=='na'&&unitNo(r.hw)===n&&meeSections(c,r.hw).includes(secId));
   if(!rows.length)return null;
   const num=v=>v!==''&&v!=null&&Number.isFinite(Number(v));
   if(!rows.every(r=>r.status==='done'&&num(r.pct)&&Number(r.pct)>=0&&Number(r.pct)<=100))return null;

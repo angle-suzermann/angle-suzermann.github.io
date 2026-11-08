@@ -223,7 +223,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
 /* DEMO-READABILITY-FIX - no gap under header; light text on purple/dark areas */
 .page-wrap{padding-top:6px;}
-.finish-card,.finish-card h2,.finish-card p,.finish-card td,.finish-card th{color:#fff;}
+.finish-card,.finish-card p,.finish-card td,.finish-card th,.finish-card label{color:var(--text,#2D2926);}.finish-card h2{color:var(--purple,#5E4877);} /* mock-test-6: white finish cards, dark text (08.11.2026) */
 .finish-card .finish-summary th{color:var(--yellow,#FED500);}
 .note-box,.email-preview .hdr,.wordbox .wcount:not(.ok):not(.bad){color:#5a5268;}
 .rec-btn{background:#b83a2b;}
@@ -795,6 +795,10 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  /* results pages fill themselves (08.11.2026): Reading score on its page, full check on the final page */
+  const pid = pages[current] && pages[current].id;
+  if(pid === 'page-rw-results') showReadingScore();
+  if(pid === 'page-final' && !lastScores) checkAll();
   (function(){ var sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'}); })();
   scheduleSave();
 }
@@ -883,6 +887,13 @@ function gradeGap(keyMap, labels, mistakes){
   return {correct, total};
 }
 
+function showReadingScore(){
+  const tmp = [];
+  const a = gradeMC(RW_MC_KEY, RW_LABELS, tmp), b = gradeSelect(RW_SEL_KEY, RW_LABELS, tmp), c = gradeGap(RW_GAP_KEY, RW_LABELS, tmp);
+  const ok = a.correct + b.correct + c.correct, tot = a.total + b.total + c.total;
+  const box = document.getElementById('rwScoreBox');
+  if(box) box.innerHTML = `<table><tr><td>Reading — correct answers</td><td>${ok} / ${tot}</td></tr><tr class="total"><td>Percentage</td><td>${Math.round(ok/tot*100)}%</td></tr></table>`;
+}
 let lastScores = null;
 function checkAll(){
   const mistakes = [];
