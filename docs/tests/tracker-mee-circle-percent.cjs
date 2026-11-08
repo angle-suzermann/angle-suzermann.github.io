@@ -37,3 +37,26 @@ add({hw:'WB unit 5 review',status:'na',pct:''});add({hw:'WB unit 5 review b',sta
 ctx.D.progress['B1|a|u2|sec1']='N/A';assert.doesNotMatch(html('u2','sec1'),/%/); // not assigned: no number
 ctx.D.progress['B1|a|u2|sec1']='✓';assert.match(html('u2','sec1'),/class="dot d worksheet-score"/);
 console.log('PASS: MEE percentage on unit circles — section mapping, single task, ungraded, pending, no averaging, points total, exempt, N/A, tick styling');
+// 08.11.2026: one piece of work = one task in the submission ring
+{
+ const c2=vm.createContext({D:{},EXTRA_DELETED_PREFIX:'__deleted__'});
+ vm.runInContext(escLine+'\n'+cut('const pk=','const fmt=')+cut('function next(','function ring(')+source.slice(source.indexOf('function meeFor('),source.indexOf('function ring2(')),c2);
+ const fresh=()=>{c2.D={courses:{B1:{units:[{n:2},{n:6}],sections,phonics:[],extras:[],students:[{id:'m',name:'Pupil M'}]}},progress:{},mee:[]};};
+ const sum=()=>JSON.parse(vm.runInContext("JSON.stringify(groupSubmission('B1',D.courses.B1.students[0]))",c2));
+ const row=(hw,status)=>c2.D.mee.push({course:'B1',student:'Pupil M',hw,status,due:'2026-11-15',pct:status==='done'?42:''});
+ fresh();row('WB unit 2 vocab 🐼🐬','done');c2.D.progress['B1|m|u2|sec1']='✓';
+ assert.deepEqual([sum().assigned,sum().done],[1,1]); // tick + MEE row = one task, not two
+ fresh();row('WB unit 2 vocab 🐼🐬','pending');c2.D.progress['B1|m|u2|sec1']='Assigned';
+ assert.deepEqual([sum().assigned,sum().done],[1,0]); // agent "Assigned" does not double the task
+ fresh();row('WB unit 2 vocab 🐼🐬','missing');c2.D.progress['B1|m|u2|sec1']='✓';
+ assert.deepEqual([sum().assigned,sum().done],[1,1]); // teacher tick confirms paper work
+ fresh();row('WB unit 2 vocab 🐼🐬','missing');c2.D.progress['B1|m|u2|sec1']='N/A';
+ assert.equal(sum().assigned,0); // released
+ fresh();row('wb unit 2 writing + review','done');c2.D.progress['B1|m|u2|sec9']='✓';c2.D.progress['B1|m|u2|sec10']='✓';
+ assert.deepEqual([sum().assigned,sum().done],[1,1]); // one combined task covers two circles
+ fresh();row('WB unit 1 grammar ex 1,2','done');row('WB unit 1 grammar ex3-6','pending');c2.D.courses.B1.units.push({n:1});c2.D.progress['B1|m|u1|sec3']='Assigned';
+ assert.deepEqual([sum().assigned,sum().done],[2,1]); // two MEE tasks in one section stay two tasks
+ fresh();c2.D.progress['B1|m|u2|sec2']='✓';row('WB unit 2 vocab 🐼🐬','done');
+ assert.deepEqual([sum().assigned,sum().done],[2,2]); // circle without MEE work still counts
+ console.log('PASS: submission ring — one piece of work counts once (tick, Assigned, paper credit, N/A, combined, separate tasks)');
+}

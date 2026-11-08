@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync(path.resolve(__dirname,'../../assets/tracker/tracker.js'),'utf8');
 const ctx=vm.createContext({D:{courses:{},progress:{},mee:[]}});
-vm.runInContext(source.slice(source.indexOf('const pk='),source.indexOf('const fmt='))+source.slice(source.indexOf('function next('),source.indexOf('function worksheetPercent('))+source.slice(source.indexOf('function meeFor('),source.indexOf('function ring2(')),ctx);
+vm.runInContext(source.slice(source.indexOf('const pk='),source.indexOf('const fmt='))+source.slice(source.indexOf('function next('),source.indexOf('function ring('))+source.slice(source.indexOf('function meeFor('),source.indexOf('function ring2(')),ctx);
 function fixture(course='Starters',id='s'){
  ctx.D={courses:{[course]:{units:[{n:1},{n:8}],sections:[{id:'v',name:'Vocabulary'},{id:'w',name:'Writing'}],phonics:[],extras:[]}},progress:{},mee:[]};ctx.course=course;ctx.student={id,name:'Test'};
  return {mark:(scope,item,status)=>ctx.D.progress[[course,id,scope,item].join('|')]=status,online:(hw,status)=>ctx.D.mee.push({course,student:'Test',hw,status,due:'2099-01-01'}),sum:()=>vm.runInContext('groupSubmission(course,student)',ctx)};

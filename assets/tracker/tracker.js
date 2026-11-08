@@ -393,11 +393,26 @@ function groupSubmission(c,s){
   const eligible=n=>first===null||n===null||n>=first;
   const norm=x=>String(x||'').toLowerCase().replace(/^\d+[.)]\s*/,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
   const add=(key,v)=>{if(['✓','Assigned','Done'].includes(v))tasks.set(key,v==='✓')};
-  for(const u of cc.units)if(eligible(u.n))for(const sec of cc.sections)add('u'+u.n+'|'+sec.id,st(c,s.id,'u'+u.n,sec.id));
+  // 08.11.2026 (Viktoria): one piece of work = one task. When MEE work of this pupil maps to a
+  // unit section (meeSections, same rules as the circle percentage), the MEE tasks are counted
+  // and the circle itself is not counted again. A ✓ on the circle confirms its mapped MEE work
+  // as done (paper or checked work); N/A on every mapped circle excludes the MEE task.
+  const mapped=new Map(),covered=new Set();
+  for(const r of assignedWorkFor(c,s)){
+    if(!['done','missing','pending'].includes(r.status))continue;
+    if((cc.extras||[]).some(x=>norm(x.topic)===norm(r.hw)))continue;
+    const n=unitNo(r.hw);if(n===null||!eligible(n))continue;
+    const keys=meeSections(c,r.hw).map(id=>'u'+n+'|'+id);if(!keys.length)continue;
+    mapped.set(r,{n,ids:meeSections(c,r.hw)});keys.forEach(k=>covered.add(k));
+  }
+  for(const u of cc.units)if(eligible(u.n))for(const sec of cc.sections){const k='u'+u.n+'|'+sec.id;if(!covered.has(k))add(k,st(c,s.id,'u'+u.n,sec.id))}
   for(const ph of cc.phonics||[])if(eligible(unitNo(ph.unit)))add('ph|'+ph.id,st(c,s.id,'ph',ph.id));
   for(const x of cc.extras||[])if(extraAssigned(x,s.id)&&eligible(unitNo(x.topic)))add('ex|'+x.id,st(c,s.id,'ex',x.id));
   for(const r of assignedWorkFor(c,s)){
     if(!['done','missing','pending'].includes(r.status))continue;
+    const mp=mapped.get(r);
+    if(mp){const states=mp.ids.map(id=>st(c,s.id,'u'+mp.n,id));if(states.every(v=>v==='N/A'))continue;
+      tasks.set('online|'+norm(r.hw),r.status==='done'||states.includes('✓'));continue;}
     // Merge only an exact, unique task identity. Do not guess that Grammar 1 is
     // the same assignment as a whole Grammar section.
     const extras=(cc.extras||[]).filter(x=>norm(x.topic)===norm(r.hw));
