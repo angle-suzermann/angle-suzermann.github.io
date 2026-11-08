@@ -20,6 +20,7 @@
 - Аудио: исходный файл 36:55 разрезан по паузам на задания (0:00–8:04, 8:04–14:00, 14:00–17:59, 17:59–21:44, 21:44–30:56); финальные 5 минут тишины отрезаны.
 - Исправлены две ошибки исходника: «amage» → «damage» (R&W Task 5), «Jack» → «Leon» (R&W Task 4).
 - Скрипт сборки: `Courses/Pause/A2 Key for schools/wiseman mock yp87/_build/build_wiseman_mock.py` (+ применённые `patch_speaking.applied.py`, `patch_instant.applied.py`). Править тексты и ключи там и пересобирать, не вручную в HTML.
+- **Сценарий Speaking (PDF, только локально):** `Courses/Pause/A2 Key for schools/wiseman mock yp87/Wiseman Teens A2 Mock Test - Speaking, сценарий учителя.pdf` — ход интервью 1 : 1 на ~10 минут по экранам S1–S4, реплики экзаменатора, правила подсказок, рабочая шкала ANGLE 5 × 0–5 (не официальная шкала Wiseman: её нет ни в пакете, ни в открытом доступе) и бланк на ученика.
 - **Учительские заметки (PDF, только локально):** `Courses/Pause/A2 Key for schools/wiseman mock yp87/Wiseman Teens A2 Mock Test - заметки учителя.pdf` — ключи, проверка письма, Speaking, аудио, изменения исходника. Генератор `feedback_pdf.py` из прототипа, кикер «Teacher notes» (в локальной копии генератора, оригинал не менялся).
 
 ## Что осталось
