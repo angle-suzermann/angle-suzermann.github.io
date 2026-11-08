@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Трекер и Kimi 08.11: [проценты MEE в кружках юнитов (только отображение), две ✓ в B1, «Задано» от агентов ждёт правки правила колец, Kimi — проверка письменной домашки](handoffs/2026-11-08-tracker-mee-circle-percent.md). Дополняет заметку о Kimi и MEE от 07.11.
+
 Kimi и MEE 07.11: [Kimi обучена проверке MEE и отметкам в трекере, скилл kimi-mee-tracker, у класса B2 трекера нет](handoffs/2026-11-07-kimi-mee-training.md). Дополняет заметку о Kimi от 31.10.
 
 Идеи коллег → скиллы (06.11): [expression-frequency-check, tubequizard-homework, emergent-language-notes, цикл speak first → upgrade → recall в angle-worksheet-template, синхронизация основной копии и .skill, YouGlish](handoffs/2026-11-06-colleague-ideas-skills.md). Продолжает заметку о пилоте 5B от 29.10.

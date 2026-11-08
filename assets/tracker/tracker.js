@@ -181,12 +181,47 @@ function worksheetScore(c,sid,item){
   return worksheetPercent(rows[0]);
 }
 function worksheetScoreAttrs(pct){return `class="worksheet-score" style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%" aria-label="Результат воркшита: ${pct}%"`}
+/* MEE result on a unit circle (08.11.2026, Viktoria): the MEE assignment name is matched
+   to unit sections by the same rules agents use for ticks (vocab -> Vocabulary, developing vocab ->
+   Developing Vocabulary, grammar 2 / past cont / conditionals -> Grammar 2 ...). Display only:
+   rings and counts are unchanged. A percentage is shown only when every mapped MEE task of this
+   pupil in this unit and section is handed in with a score; several tasks are combined only as
+   points earned / points possible, never by averaging percentages. */
+function meeSections(c,hw){
+  const cc=D.courses[c];if(!cc)return[];const h=String(hw||'').toLowerCase();
+  if(/backlog|\btest\b/.test(h))return[];
+  const by=re=>cc.sections.filter(sec=>re.test(String(sec.name).toLowerCase())).map(sec=>sec.id);
+  const out=new Set(),add=a=>a.forEach(x=>out.add(x));
+  const devVoc=/\bdev(elop\w*)?\.?\s+voc/.test(h);
+  if(devVoc)add(by(/^developing vocab/));
+  else if(/\bvoc(ab\w*)?\b/.test(h)&&!/\bvoc\w*\s+(and|\+|&)\s+listening/.test(h))add(by(/^vocab/));
+  if(/listening/.test(h))add(by(/listening/));
+  if(/reading/.test(h))add(by(/^reading/));
+  if(/grammar/.test(h))add(/grammar\s*2|past cont|relative|conditional|used to/.test(h)?by(/^grammar 2/):by(/^grammar( 1)?$/));
+  if(/speaking/.test(h))add(by(/^speaking/));
+  if(/writing/.test(h))add(by(/^writing/));
+  if(/review|revision/.test(h))add(by(/^revision/));
+  return[...out];
+}
+function sectionMeeScore(c,sid,n,secId){
+  const cc=D.courses[c],s=cc&&cc.students.find(x=>x.id===sid);if(!s||!Number.isFinite(n))return null;
+  const rows=meeFor(c,s).filter(r=>r.source!=='worksheet'&&r.status!=='na'&&unitNo(r.hw)===n&&meeSections(c,r.hw).includes(secId));
+  if(!rows.length)return null;
+  const num=v=>v!==''&&v!=null&&Number.isFinite(Number(v));
+  if(!rows.every(r=>r.status==='done'&&num(r.pct)&&Number(r.pct)>=0&&Number(r.pct)<=100))return null;
+  if(rows.length===1)return{pct:Math.round(Number(rows[0].pct)),src:[rows[0].hw]};
+  if(!rows.every(r=>num(r.pts)&&num(r.max)&&Number(r.max)>0))return null;
+  const pts=rows.reduce((a,r)=>a+Number(r.pts),0),max=rows.reduce((a,r)=>a+Number(r.max),0);
+  return{pct:Math.round(100*pts/max),src:rows.map(r=>r.hw)};
+}
 function dot(c,sid,scope,item,kind,missing,readonly=false){
-  const v=st(c,sid,scope,item),pct=scope==='ex'&&v!=='N/A'?worksheetScore(c,sid,item):null;
+  const v=st(c,sid,scope,item),ws=scope==='ex'&&v!=='N/A'?worksheetScore(c,sid,item):null;
+  const ms=ws===null&&/^u\d+$/.test(scope)&&v!=='N/A'?sectionMeeScore(c,sid,Number(scope.slice(1)),item):null;
+  const pct=ws!==null?ws:ms?ms.pct:null,what=ms?'Результат MEE ('+ms.src.join(', ')+')':'Результат воркшита';
   const classes=`dot ${dotCls(v)}`;
   const score=pct===null?'':` worksheet-score`;
-  const attrs=pct===null?'':` style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%; ${v||'не подтверждено'}"`;
-  const label=pct===null?statusLabel(v):`Результат воркшита: ${pct}%; ${statusLabel(v)}`;
+  const attrs=pct===null?'':` style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="${esc(what)}: ${pct}%; ${v||'не подтверждено'}"`;
+  const label=pct===null?statusLabel(v):`${what}: ${pct}%; ${statusLabel(v)}`;
   const content=pct===null?dotTxt(v):pct+'%';
   return readonly?`<span class="${classes}${score}"${attrs} aria-label="${esc(label)}">${content}</span>`:`<button class="${classes}${score}"${attrs} data-t="${esc([c,sid,scope,item,kind||''].join('\u0001'))}" aria-label="${esc(label)}">${content}</button>`;
 }
