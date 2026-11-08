@@ -12,7 +12,7 @@ async function run(fields,mail={success:true},failTracker=false,legacy=false){
   return {posts:calls.filter(c=>c.url.includes('script.google')).map(c=>JSON.parse(c.body)),queue:JSON.parse(store.get('angle.pendingSubmissions.v1')||'[]')};
 }
 (async()=>{
-  let r=await run({student:'Example',score:'First: 8/12; corrected: 12/12'});assert.equal(r.posts[0].pct,67);assert.equal(r.posts[0].pts,8);assert.equal(r.queue.length,0);
+  let r=await run({student:'Example',score:'First: 8/12; corrected: 12/12'});assert.equal(r.posts[0].pct,100);assert.equal(r.posts[0].pts,12);assert.match(r.posts[0].note,/First: 8\/12/);assert.equal(r.queue.length,0);
   r=await run({student_name:'Example',score_fraction:'9 / 10',score_percent:'90%'});assert.equal(r.posts[0].pct,90);
   r=await run({student:'Example',writing:'An open answer'});assert.equal(r.posts[0].pct,null);
   r=await run({student:'Example',score:'8/12'},{success:false});assert.equal(r.posts.length,0);
@@ -22,5 +22,5 @@ async function run(fields,mail={success:true},failTracker=false,legacy=false){
   r=await run({student:'Example',score:'8/12',lesson:'частичная отправка после задания'});assert.equal(r.posts[0].partial,true);
   r=await run({student:'Example',recognition_score:'3 / 6 (отвечено: 6/6)',exercise:'05. Lab — Scenario 2'});assert.equal(r.posts[0].pct,50);assert.equal(r.posts[0].partial,true);assert.match(r.posts[0].hw,/Scenario 2/);
   r=await run({student:'Example',score:'6 / 6',lesson:'05. Lab'});assert.equal(r.posts[0].partial,false);assert.equal(r.posts[0].hw,'05. Lab');
-  console.log('PASS: first/corrected score, JSON test, unscored writing, failed mail, offline queue, partial submission');
+  console.log('PASS: latest (corrected) score, JSON test, unscored writing, failed mail, offline queue, partial submission');
 })().catch(e=>{console.error(e);process.exit(1)});

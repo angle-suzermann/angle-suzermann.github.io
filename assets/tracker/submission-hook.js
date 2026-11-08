@@ -1,7 +1,7 @@
 /* Successful delivery -> existing group assignment or individual-plan task. Never includes teacher credentials.
  * v3 (04.11.2026): observes every transport the site uses (fetch, XHR, sendBeacon) to Web3Forms, Formspree and Basin;
  * partial sends are recognised from the clicked "send this task" button, the label or the exercise name;
- * a record the tracker rejects is parked with its reason and can be re-sent; the first scored attempt is kept
+ * a record the tracker rejects is parked with its reason and can be re-sent; the latest scored attempt is recorded (first one kept in the note)
  * here and, authoritatively, on the server (so it survives reloads and other devices). */
 (function () {
   'use strict';
@@ -96,7 +96,9 @@
     const student = String(data.student || data.student_name || data.name || document.querySelector('#studentName,#nameInput,input[name="student"]')?.value || '').trim();
     if (!student) return null;
     const score = String(data.score || data.score_fraction || data.recognition_score || data.result || '');
-    const fraction = score.match(/(?:First:\s*)?(\d+)\s*\/\s*(\d+)/i);
+    /* Latest attempt is the result (Viktoria, 08.11.2026): "First: 8/12; corrected: 12/12" records 12/12. */
+    const corrected = score.match(/(?:corrected|исправлен\w*)\s*:?\s*(\d+)\s*\/\s*(\d+)/i);
+    const fraction = corrected || score.match(/(?:First:\s*)?(\d+)\s*\/\s*(\d+)/i);
     const percent = String(data.score_percent || data.score || '').match(/(\d+(?:\.\d+)?)\s*%/);
     let pts = fraction ? +fraction[1] : null, max = fraction ? +fraction[2] : null;
     let pct = max > 0 ? Math.round(pts / max * 100) : percent ? +percent[1] : null;
@@ -116,11 +118,11 @@
     }
     const open = Array.from(document.querySelectorAll('textarea')).some(t => t.value.trim().length > 20) || Object.keys(data).some(k => /written|essay|story|answer_text|text$/i.test(k) && String(data[k]).trim().length > 20);
     let note = score ? 'Submitted score: ' + score + '. ' : '';
-    /* The first scored attempt is the result; the server keeps it too (survives reloads and other devices). */
+    /* The latest scored attempt is the result (Viktoria, 08.11.2026); the first one is kept in the note. */
     if (pct !== null && !partial) {
       const key = location.pathname + '|' + parts.join(',') + '|' + student.toLowerCase().replace(/\s+/g, ' ');
       const firsts = load(firstKey, {}), first = firsts[key];
-      if (first) { note = 'First submission: ' + first.score + '. Latest submission: ' + (score || pct + '%') + '. '; pct = first.pct; pts = first.pts; max = first.max; }
+      if (first) { note = 'First submission: ' + first.score + '. Latest submission: ' + (score || pct + '%') + '. '; }
       else {
         firsts[key] = { pct, pts, max, score: score || pct + '%', at: new Date().toISOString() };
         const keys = Object.keys(firsts);
