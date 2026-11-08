@@ -20,7 +20,8 @@ assert.deepEqual(map('WB unit 6 grammar 2 Conditionals 0-1'),['sec7']);
 assert.deepEqual(map('wb unit 2 writing + review'),['sec9','sec10']);
 assert.deepEqual(map('WB unit 5 review'),['sec10']);
 assert.deepEqual(map('Unit 1 backlog'),[]);
-assert.deepEqual(map('Unit 6 test'),[]);
+assert.deepEqual(map('Unit 6 test'),['sec11']); // test -> Test section only
+assert.deepEqual(map('06. Unit 1 — Emergencies & Past Tenses — Test'),['sec11']);
 const add=r=>ctx.D.mee.push({course:'B1',student:'Pupil A',due:'2026-11-15',pts:'',max:'',...r});
 const score=(n,sec,sid='a')=>vm.runInContext(`sectionMeeScore('B1','${sid}',${n},'${sec}')`,ctx);
 const html=(scope,sec)=>vm.runInContext(`dot('B1','a','${scope}','${sec}','u',true)`,ctx);
@@ -59,4 +60,15 @@ console.log('PASS: MEE percentage on unit circles — section mapping, single ta
  fresh();c2.D.progress['B1|m|u2|sec2']='✓';row('WB unit 2 vocab 🐼🐬','done');
  assert.deepEqual([sum().assigned,sum().done],[2,2]); // circle without MEE work still counts
  console.log('PASS: submission ring — one piece of work counts once (tick, Assigned, paper credit, N/A, combined, separate tasks)');
+}
+{ // 08.11.2026: online unit test (source worksheet) shows on the Unit test circle and counts once
+ const c3=vm.createContext({D:{},EXTRA_DELETED_PREFIX:'__deleted__'});
+ vm.runInContext(escLine+'\n'+cut('const pk=','const fmt=')+cut('function next(','function ring(')+source.slice(source.indexOf('function meeFor('),source.indexOf('function ring2(')),c3);
+ c3.D={courses:{Flyers:{units:[{n:1}],sections:[{id:'sec4',name:'Grammar'},{id:'sec12',name:'Unit test'}],phonics:[],extras:[{id:'e1',topic:'Emergency Lab · Words & feelings'}],students:[{id:'fl4',name:'Pupil N'}]}},progress:{'Flyers|fl4|u1|sec12':'✓'},mee:[
+  {course:'Flyers',student:'Pupil N',hw:'06. Unit 1 — Emergencies & Past Tenses — Test',status:'done',pct:72,source:'worksheet',due:'2026-11-08'},
+  {course:'Flyers',student:'Pupil N',hw:'05. Emergency Lab · Words & feelings',status:'done',pct:90,source:'worksheet',due:'2026-11-05'}]};
+ assert.equal(JSON.parse(vm.runInContext("JSON.stringify(sectionMeeScore('Flyers','fl4',1,'sec12'))",c3)).pct,72);
+ const g=JSON.parse(vm.runInContext("JSON.stringify(groupSubmission('Flyers',D.courses.Flyers.students[0]))",c3));
+ assert.deepEqual([g.assigned,g.done],[2,2]); // test once + extra once
+ console.log('PASS: online unit test on the Unit test circle, counted once; extra worksheets unaffected');
 }
