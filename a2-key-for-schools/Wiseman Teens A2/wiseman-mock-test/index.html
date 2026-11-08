@@ -227,6 +227,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 .rec-btn.on{background:var(--black);}
 .rec audio{max-width:100%;height:36px;}
 .rec-note{font-size:.78rem;color:var(--muted);}
+.rec-status{font-weight:700;margin-top:6px;}
 .src-tag{font-style:normal;font-size:.68rem;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:4px;white-space:nowrap;}
 .src-made{background:var(--card-tint);color:var(--muted);}
 
@@ -294,25 +295,25 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <p>Write a story with this beginning:</p><div class="tip"><i>I went shopping with my friends yesterday and spent a lot of money!</i></div>
 <textarea class="written" data-label="Task 7 — Story (45–60 words)" data-min="45" data-max="60" placeholder="I went shopping with my friends yesterday and spent a lot of money! …"></textarea><div class="word-count">0 words</div>
 <div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Go to Speaking →</button></div></div></section>
-<section class="page" data-label="S1"><div class="card"><h2>Speaking · Picture 1 — Today</h2><div class="tip"><b>How Speaking works in the exam:</b> it is a one-to-one interview with the examiner, about 10 minutes. The examiner shows you pictures and a chart and asks questions. Never stay silent: if you don’t understand, ask <i>“Could you repeat the question, please?”</i></div><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute.</p>
+<section class="page" data-label="S1"><div class="card"><h2>Speaking · Picture 1 — Today</h2><div class="tip"><b>How Speaking works in the exam:</b> it is a one-to-one interview with the examiner, about 10 minutes. The examiner shows you pictures and a chart and asks questions. Never stay silent: if you don’t understand, ask <i>“Could you repeat the question, please?”</i></div><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute. Record yourself: your last recording on each screen is sent to your teacher with Check &amp; Submit (don’t reload the page before that).</p>
 <img class="task-img speak-img" src="img/speaking-pic1.jpg" alt="Clearwater Resort: pool, beach, sports" loading="lazy">
 <div class="outcome"><b>Practice questions</b> <span class="src-tag src-made">ANGLE</span><ul><li>Where are these people? What is the place like?</li><li>What are the people doing <b>now</b>? Describe two of the photos.</li><li>Which activity would you like to do here today? Why?</li></ul></div>
-<p class="type-hint">Useful language — Present Continuous: <i>She is swimming… They are playing…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec1"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Stays on this device only — nothing is sent.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
-<section class="page" data-label="S2"><div class="card"><h2>Speaking · Picture 2 — Yesterday</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute.</p>
+<p class="type-hint">Useful language — Present Continuous: <i>She is swimming… They are playing…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec1" data-label="Speaking 1 — Picture 1 (Today)"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Your last recording goes to your teacher when you press Check &amp; Submit.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="S2"><div class="card"><h2>Speaking · Picture 2 — Yesterday</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute. Record yourself: your last recording on each screen is sent to your teacher with Check &amp; Submit (don’t reload the page before that).</p>
 <img class="task-img speak-img" src="img/speaking-pic2.jpg" alt="Clearwater Resort: boat trip, castle, market" loading="lazy">
 <div class="outcome"><b>Practice questions</b> <span class="src-tag src-made">ANGLE</span><ul><li>Imagine you were at Clearwater Resort <b>yesterday</b>. What did you do?</li><li>Which photo shows the best part of your day? Why?</li><li>Did you buy anything? What?</li></ul></div>
-<p class="type-hint">Useful language — Past Simple: <i>Yesterday I went… We visited… I bought…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec2"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Stays on this device only — nothing is sent.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
-<section class="page" data-label="S3"><div class="card"><h2>Speaking · Picture 3 — Tomorrow</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute.</p>
+<p class="type-hint">Useful language — Past Simple: <i>Yesterday I went… We visited… I bought…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec2" data-label="Speaking 2 — Picture 2 (Yesterday)"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Your last recording goes to your teacher when you press Check &amp; Submit.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="S3"><div class="card"><h2>Speaking · Picture 3 — Tomorrow</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute. Record yourself: your last recording on each screen is sent to your teacher with Check &amp; Submit (don’t reload the page before that).</p>
 <img class="task-img speak-img" src="img/speaking-pic3.jpg" alt="Clearwater Resort: dinner, cinema, board games" loading="lazy">
 <div class="outcome"><b>Practice questions</b> <span class="src-tag src-made">ANGLE</span><ul><li>What are you going to do at the resort <b>tomorrow</b>?</li><li>Would you prefer to go to the cinema or play board games in the evening? Why?</li><li>What food are you going to try?</li></ul></div>
-<p class="type-hint">Useful language — Future: <i>Tomorrow I’m going to… I’d like to… I think I will…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec3"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Stays on this device only — nothing is sent.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
-<section class="page" data-label="S4"><div class="card"><h2>Speaking · Bar chart</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute.</p>
+<p class="type-hint">Useful language — Future: <i>Tomorrow I’m going to… I’d like to… I think I will…</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec3" data-label="Speaking 3 — Picture 3 (Tomorrow)"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Your last recording goes to your teacher when you press Check &amp; Submit.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="S4"><div class="card"><h2>Speaking · Bar chart</h2><p class="instr">Look at the picture. Answer the questions aloud — try to speak for about 1 minute. Record yourself: your last recording on each screen is sent to your teacher with Check &amp; Submit (don’t reload the page before that).</p>
 <img class="task-img speak-img" src="img/speaking-bar-chart.jpg" alt="How do people from Australia spend their holidays?" loading="lazy">
 <div class="outcome"><b>Practice questions</b> <span class="src-tag src-made">ANGLE</span><ul><li>What is this chart about?</li><li>Which holiday activity is the most popular? Which is the least popular?</li><li>Compare two activities: <i>Surfing is more popular than…</i></li><li>How do you like to spend your holidays? Why?</li></ul></div>
-<p class="type-hint">Useful language — Comparatives and superlatives: <i>the most popular, more popular than, not as popular as</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec4"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Stays on this device only — nothing is sent.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<p class="type-hint">Useful language — Comparatives and superlatives: <i>the most popular, more popular than, not as popular as</i></p><div class="speak-tools"><div class="timer"><span class="t">1:00</span><button type="button" class="small-btn" onclick="startTimer(this,1)">Start 1 min</button></div><div class="rec" id="rec4" data-label="Speaking 4 — Bar chart"><button type="button" class="rec-btn" onclick="toggleRec(this)">● Record myself</button><audio controls hidden></audio><span class="rec-note">Your last recording goes to your teacher when you press Check &amp; Submit.</span></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
 <section class="page" data-label="Finish"><div class="card"><h2>Finish &amp; send</h2>
 <p>Check that you have answered every question and written both texts. Then press the button: your Listening and Reading answers are checked, and your score, both texts and a list of mistakes go to your teacher.</p>
-<p class="instr">The email and the story are marked by your teacher, so they are not part of the score you see here. Speaking is practised with your teacher; your recordings are not sent.</p>
+<p class="instr">The email and the story are marked by your teacher, so they are not part of the score you see here. Your Speaking recordings (the last one on each screen) are sent to your teacher too.</p>
 <div style="text-align:center;margin:16px 0"><button type="button" class="btn btn-main" id="submitBtn" onclick="submitAll()">Check &amp; Submit</button></div>
 <div class="results" id="results" hidden>
   <div class="big-score" id="bigScore"></div><p id="scoreLine"></p>
@@ -364,14 +365,39 @@ async function toggleRec(btn){
   if(recState) recState.mr.stop();
   if(!navigator.mediaDevices || !window.MediaRecorder){ alert('Recording is not supported in this browser.'); return; }
   let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ alert('Please allow the microphone to record yourself.'); return; }
-  const mr = new MediaRecorder(stream), chunks = [];
-  mr.ondataavailable = e=>chunks.push(e.data);
-  mr.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); const a = btn.parentElement.querySelector('audio');
-    a.src = URL.createObjectURL(new Blob(chunks, {type: mr.mimeType || 'audio/webm'})); a.hidden = false;
+  const mime = ['audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+  const mr = new MediaRecorder(stream, mime ? {mimeType:mime} : undefined), chunks = [];
+  mr.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
+  mr.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); const box = btn.parentElement, a = box.querySelector('audio');
+    const type = mr.mimeType || 'audio/webm', blob = new Blob(chunks, {type});
+    a.src = URL.createObjectURL(blob); a.hidden = false;
+    RECORDINGS[box.id] = { blob, ext: /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm', sent:false, label: box.dataset.label };
     btn.classList.remove('on'); btn.textContent = '● Record again'; recState = null; };
   mr.start(); recState = {mr, btn}; btn.classList.add('on'); btn.textContent = '■ Stop';
 }
 function stopSpeakingTools(){ clearInterval(timerIv); if(recState){ try{ recState.mr.stop(); }catch(e){} } }
+
+/* Speaking recordings: Basin (Web3Forms does not accept files) — same address as the ЕГЭ speaking pages */
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+const RECORDINGS = {};
+async function sendRecordings(student){
+  const items = Object.entries(RECORDINGS).filter(([id, r])=>r.blob && !r.sent);
+  if(!items.length) return 0;
+  const title = (document.querySelector('meta[name="ws:title"]')||{}).content || document.title;
+  const slug = student.toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40) || 'student';
+  const fd = new FormData();
+  fd.append('course', COURSE_NAME);
+  fd.append('exercise', title + ' — Speaking recordings (partial)');
+  fd.append('subject', `${COURSE_NAME} — ${document.title} — Speaking — ${student}`);
+  fd.append('student', student);
+  fd.append('recordings_list', items.map(([id, r])=>r.label).join('\n'));
+  fd.append('timestamp', new Date().toISOString());
+  items.forEach(([id, r])=>fd.append('recording_' + id, r.blob, `${slug}_${id}.${r.ext}`));
+  const res = await fetch(BASIN_URL, {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+  items.forEach(([id, r])=>{ r.sent = true; });
+  return items.length;
+}
 
 /* pages */
 function buildDots(){
@@ -522,6 +548,11 @@ async function submitAll(){
     const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
     status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
   }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
+  if(Object.values(RECORDINGS).some(x=>x.blob && !x.sent)){
+    const st2 = document.createElement('div'); st2.className = 'rec-status'; st2.textContent = 'Sending your Speaking recordings…'; status.after(st2);
+    try{ const n = await sendRecordings(studentName); st2.textContent = `Speaking recordings sent ✓ (${n})`; }
+    catch(e){ st2.textContent = 'Recordings could not be sent — press Check & Submit again (do not reload the page).'; }
+  }
 }
 
 function initAll(){ buildDots(); initMcq(); initWritten(); isRestoring=true; showPage(0); isRestoring=false; restoreProgress(); }
