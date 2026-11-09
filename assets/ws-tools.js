@@ -369,17 +369,22 @@
     var ir = ink.getBoundingClientRect();
     return { x: r.left - ir.left - AX, y: r.top - ir.top, font: parseFloat(getComputedStyle(node).fontSize) || 16 };
   }
-  function makeAnchor(p) {
+  function makeAnchor(p) { try { return makeAnchorRaw(p); } catch (e) { return null; } }
+  function makeAnchorRaw(p) {
     if (!p || !Number.isFinite(p[0]) || !Number.isFinite(p[1])) return null;
     var ir = ink.getBoundingClientRect(), x = p[0] + AX + ir.left, y = p[1] + ir.top;
     var visible = ink.style.visibility, laserVisible = laserCv.style.visibility;
     ink.style.visibility = laserCv.style.visibility = 'hidden';
     var range = null, node = null, offset = null;
     try {
-      if (document.caretPositionFromPoint) {
-        var caret = document.caretPositionFromPoint(x, y);
-        if (caret) { range = document.createRange(); range.setStart(caret.offsetNode, caret.offset); range.collapse(true); }
-      } else if (document.caretRangeFromPoint) range = document.caretRangeFromPoint(x, y);
+      /* Новый Chrome (128+) над заполненным полем ввода возвращает сам <input> со смещением внутри значения:
+         setStart на нём бросал IndexSizeError, штрих не рисовался, а в v8 ломал всё рисование. Берём только текстовые узлы. */
+      try {
+        if (document.caretPositionFromPoint) {
+          var caret = document.caretPositionFromPoint(x, y);
+          if (caret && caret.offsetNode && caret.offsetNode.nodeType === 3) { range = document.createRange(); range.setStart(caret.offsetNode, caret.offset); range.collapse(true); }
+        } else if (document.caretRangeFromPoint) range = document.caretRangeFromPoint(x, y);
+      } catch (e) { range = null; }
       if (range && range.startContainer.nodeType === 3) {
         var rr = range.getBoundingClientRect();
         if (rr.height && Math.abs(rr.left - x) < 90 && Math.abs(rr.top - y) < 70) {
