@@ -7,7 +7,9 @@
 
 Хранилище Obsidian 08.11: [67 исходников в `raw/`, 111 побайтовых дубликатов удалено, карта `00 Структура хранилища.md`, журнал действий](handoffs/2026-11-08-vault-systematization.md). Новая тема, вне сайта.
 
-Empower B1+ 09.11: [Speak again переделан в домашку, трекер n=6 → homework; ждёт коммита](handoffs/2026-11-09-empower-b1-speak-again-homework.md). Заменяет строку от 08.11; открытые пункты 08.11 перенесены.
+Empower B1+ 09.11: [Speak again переделан в домашку (трекер n=6 → homework), фидбек 08.11 и 09.11 объединён и опубликован](handoffs/2026-11-09-empower-b1-speak-again-homework.md). Заменяет строку от 08.11.
+
+Частотность 09.11: [новые источники SKELL, fraze.it, BNC, YourDictionary в навыке expression-frequency-check](handoffs/2026-11-09-frequency-check-sources.md).
 
 Трекер и Kimi 08.11: [проценты MEE в кружках юнитов, одна работа — одно задание в кольце сдачи, «Задано» от агентов разрешено, Kimi — проверка письменной домашки](handoffs/2026-11-08-tracker-mee-circle-percent.md). Дополняет заметку о Kimi и MEE от 07.11.
 
