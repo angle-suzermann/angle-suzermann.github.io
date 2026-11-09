@@ -662,7 +662,8 @@
       if (!stamp) return;
       var s = { type: 'stamp', x: p[0], y: p[1], size: 40 };
       if (stamp.cross) s.cross = true; else if (stamp.emoji) s.emoji = stamp.emoji; else s.img = stamp.img;
-      s.anchor = makeAnchor(p); list().push(s); push({ k: 'add', s: s }); draw(); return;
+      s.anchor = makeAnchor(p); list().push(s); push({ k: 'add', s: s });
+      setTool(lastDrawTool); draw(); return;   // один стикер на выбор: дальше карандаш снова рисует, а не ставит стикеры
     }
     if (tool === 'text') { var existing = pick(p); startText(p, existing && existing.type === 'text' ? existing : null); return; }
     drawing = true;
@@ -706,8 +707,10 @@
   })();
 
   /* ---------- панель: выбор инструментов ---------- */
+  var lastDrawTool = 'pen';
   function setTool(t) {
     commitText(true); tool = t; stamp = null;
+    if (t !== 'select' && t !== 'sticker') lastDrawTool = t;
     gTools.querySelectorAll('.wt-t[data-tool]').forEach(function (b) { b.classList.toggle('on', b.dataset.tool === t); });
     gStk.querySelectorAll('.wt-s').forEach(function (b) { b.classList.remove('on'); });
     if (t !== 'select') sel = null;
@@ -769,6 +772,7 @@
     if (userMoved) placeDock(parseFloat(dock.style.left), parseFloat(dock.style.top));else defaultDock();
     if (!on) { sel = null; draw(); }
     inkBtn.setAttribute('aria-pressed', String(on));
+    if (on && tool === 'sticker') setTool(lastDrawTool);   // включение карандаша не продолжает режим стикера
     if (on) { setNote(false); setTimerPanel(false); showInkPanel(); }
     else { hideInkPanel(); inkBtn.title = 'Рисование (перетащи, чтобы передвинуть)'; }
     ink.style.pointerEvents = (on && tool !== 'select') ? 'auto' : 'none';
