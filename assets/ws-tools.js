@@ -273,6 +273,13 @@
   var INK_KEY = 'angle_ink::' + location.pathname;
   var all = {}, hist = {}, redo = {};
   try { all = JSON.parse(localStorage.getItem(INK_KEY) || '{}') || {}; } catch (e) { }
+  /* Повреждённые сохранённые пометки (не объект, null внутри списка) раньше роняли draw(), и карандаш переставал рисовать совсем. */
+  function okShape(s) { return s && typeof s === 'object' && !Array.isArray(s) && typeof s.type === 'string'; }
+  function sanitizeAll() {
+    if (!all || typeof all !== 'object' || Array.isArray(all)) all = {};
+    Object.keys(all).forEach(function (k) { all[k] = Array.isArray(all[k]) ? all[k].filter(okShape) : []; });
+  }
+  sanitizeAll();
   function persist() { try { localStorage.setItem(INK_KEY, JSON.stringify(all)); } catch (e) { } }
   function pageKey() {
     var p = document.querySelector('.page.active[data-page]');
@@ -281,7 +288,7 @@
     if (pages.length > 1) for (var i = 0; i < pages.length; i++) if (pages[i].classList.contains('active')) return i === 0 ? 'single' : 'p' + i;
     return 'single';
   }
-  function list() { var k = pageKey(); return all[k] || (all[k] = []); }
+  function list() { var k = pageKey(); if (!Array.isArray(all[k])) all[k] = []; return all[k]; }
   function hs(k) { if (!hist[k]) { hist[k] = (all[k] || []).map(function (s) { return { k: 'add', s: s }; }); } return hist[k]; }
   function push(op) { var k = pageKey(); hs(k).push(op); redo[k] = []; persist(); refreshActs(); }
   function refreshActs() { var k = pageKey(); undoB.disabled = !hs(k).length; redoB.disabled = !(redo[k] && redo[k].length); }
@@ -516,8 +523,10 @@
     ctx.save(); ctx.translate(AX, 0);
     var migrated = false;
     list().forEach(function (s) {
-      if (s.anchor === undefined) { s.anchor = makeAnchor(shapeOrigin(s)); migrated = true; }
-      if (!textTa || textTa.__shape !== s) drawOne(s);
+      try {
+        if (s.anchor === undefined) { s.anchor = makeAnchor(shapeOrigin(s)); migrated = true; }
+        if (!textTa || textTa.__shape !== s) drawOne(s);
+      } catch (err) { ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.translate(AX, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; }   // одна сломанная пометка не должна останавливать рисование
     });
     if (migrated) persist();
     // Freeze completed annotations once per scene change, not once per mouse event.
