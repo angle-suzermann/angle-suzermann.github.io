@@ -412,7 +412,7 @@ function showPage(n){
   document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
   document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
   document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
-  const act = document.querySelector('.page-dot.active'); if(act && act.scrollIntoView) act.scrollIntoView({block:'nearest', inline:'center'});
+  const act = document.querySelector('.page-dot.active'), pd = document.getElementById('pageDots'); if(act && pd) pd.scrollLeft = act.offsetLeft - pd.offsetLeft - (pd.clientWidth - act.offsetWidth) / 2; /* scroll only the dots strip, never the page */
   const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
   scheduleSave();
 }

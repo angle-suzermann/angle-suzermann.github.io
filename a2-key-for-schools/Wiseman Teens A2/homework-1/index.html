@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#453458">
+<title>Wiseman Teens A2 — Homework 1</title>
+<meta name="ws:type"      content="test">
+<meta name="ws:course"    content="A2 Key for Schools">
+<meta name="ws:course-id" content="a2-key-for-schools">
+<meta name="ws:unit"      content="Wiseman Teens A2">
+<meta name="ws:title"     content="03. Wiseman Teens A2 — Homework 1">
+<meta name="ws:emoji"     content="🔑">
+<meta name="ws:date"      content="2026-11-09">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="efmiykcu">
+<meta name="ws:tags"      content="Wiseman Skills, Teens A2, homework, writing, listening, reading">
+<meta name="robots"       content="noindex, nofollow">
+<style>@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}</style>
+<style>
+:root{
+  --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
+  --card:#ffffff; --card-tint:#f6f2fa; --text:#2D2926; --text-invert:#ffffff;
+  --correct:#3fa66b; --wrong:#d6503f; --border:#e2dbea; --muted:#7a7288;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;overflow-x:hidden;max-width:100%;overscroll-behavior-x:none;touch-action:pan-y;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text);line-height:1.55;}
+.app-shell{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;}
+.bg-photo{position:absolute;inset:0;z-index:0;background-color:#3a2a4a;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23FED500' stroke-opacity='.35'%3E%3Cpath d='M0 0H240M0 40H240M0 80H240M0 120H240M0 160H240M0 200H240M0 0V240M40 0V240M80 0V240M120 0V240M160 0V240M200 0V240' stroke-width='.6'/%3E%3Cpath d='M40 200L200 200L40 80Z' stroke-width='2.4' stroke-opacity='.8'/%3E%3Ccircle cx='160' cy='80' r='38' stroke-width='2' stroke-opacity='.7'/%3E%3Cpath d='M40 185H55V200' stroke-width='1.6' stroke-opacity='.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:240px 240px;background-position:center 40%;opacity:0.5;pointer-events:none;}
+.bg-wash{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(20,14,25,.55), rgba(45,25,60,.9));pointer-events:none;}
+.topbar{position:relative;flex:0 0 auto;z-index:60;background:#fff;border-bottom:3px solid var(--purple);box-shadow:0 2px 10px rgba(45,25,60,.08);}
+.topbar-inner{max-width:900px;margin:0 auto;}
+.namebar label{font-weight:700;color:var(--purple-dark);}
+.namebar input{border:1.5px solid var(--border);border-radius:8px;font-family:inherit;}
+.save-indicator{font-size:.72rem;color:var(--correct);opacity:0;transition:opacity .3s ease;white-space:nowrap;}
+.save-indicator.show{opacity:1;}
+.progress-track{background:#ece6f2;border-radius:999px;overflow:hidden;}
+.progress-fill{height:100%;width:0;border-radius:999px;transition:width .3s ease;}
+.progress-label{color:var(--purple-dark);font-weight:700;}
+.page-dot{border:1.5px solid var(--border);background:#fff;color:var(--purple-dark);cursor:pointer;font-weight:700;}
+.scroll-area{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:2;}
+.page-wrap{max-width:860px;margin:0 auto;padding:16px 16px 150px;}
+.page{display:none;}
+.page.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.card{background:var(--card);border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,10,30,.25);}
+.card h2{color:var(--purple);font-size:1.25rem;margin:0 0 6px;padding-left:10px;border-left:4px solid var(--yellow);}
+.card h3{color:var(--purple-dark);font-size:1rem;margin:16px 0 6px;}
+.instr{color:var(--muted);font-size:.92rem;margin:4px 0 14px;}
+.tip{background:#fffbe6;border:1px solid #f0dd8a;border-radius:10px;padding:10px 14px;font-size:.92rem;margin:12px 0;}
+.tip b{color:var(--purple-dark);}
+.outcome{background:var(--card-tint);border-left:4px solid var(--purple);border-radius:8px;padding:10px 14px;margin:10px 0;}
+.outcome li{margin:4px 0;}
+.math{font-family:'Cambria Math','STIX Two Math','Times New Roman',serif;font-size:1.05em;white-space:nowrap;}
+.item{padding:12px 0;border-top:1px dashed var(--border);}
+.item:first-of-type{border-top:none;}
+.q{margin:0 0 8px;font-weight:600;}
+.qnum{display:inline-block;min-width:22px;color:var(--purple);font-weight:800;}
+.mcq{display:flex;flex-wrap:wrap;gap:8px;}
+.opt{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--text);text-align:left;}
+.opt:hover{border-color:var(--purple);}
+.opt.chosen{border-color:var(--purple);}
+.opt.correct{background:#e8f7ee;border-color:var(--correct);color:#226b43;font-weight:700;}
+.opt.wrong{background:#fdecea;border-color:var(--wrong);color:#9b2f22;}
+.explain{display:none;font-size:.88rem;color:var(--purple-dark);background:var(--card-tint);border-radius:8px;padding:7px 11px;margin-top:8px;}
+.explain.show{display:block;}
+.fib,.sel{border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font:inherit;font-size:.92rem;min-width:120px;background:#fff;color:var(--text);}
+.fib.wide{min-width:220px;}
+.fib{max-width:100%;}
+.fib:focus,.sel:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(94,72,119,.15);}
+.is-correct{border-color:var(--correct)!important;background:#e8f7ee!important;}
+.is-wrong{border-color:var(--wrong)!important;background:#fdecea!important;}
+.key{display:none;font-size:.85rem;color:#226b43;margin-left:6px;}
+.key.show{display:inline;}
+.type-hint{font-size:.85rem;background:var(--card-tint);border-radius:8px;padding:8px 12px;margin:8px 0 12px;}
+.type-hint code{background:#fff;border:1px solid var(--border);border-radius:4px;padding:0 5px;}
+.match-set{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:.92rem;cursor:pointer;text-align:left;color:var(--text);}
+.match.selected{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(254,213,0,.45);}
+.match.matched-correct{border-color:var(--correct);background:#e8f7ee;color:#226b43;cursor:default;}
+.match.wrong-flash{border-color:var(--wrong);background:#fdecea;}
+.match-score{font-size:.85rem;color:var(--muted);margin-top:8px;}
+.order-list{display:flex;flex-direction:column;gap:8px;}
+.order-item{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;cursor:pointer;background:#fff;}
+.order-item.picked{border-color:var(--purple);background:var(--card-tint);}
+.order-item.pos-correct{border-color:var(--correct);background:#e8f7ee;}
+.order-item.pos-wrong{border-color:var(--wrong);background:#fdecea;}
+.order-num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--yellow);color:var(--black);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+.order-item:not(.picked) .order-num{background:#eee;color:#bbb;}
+.small-btn{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.82rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;margin-top:10px;}
+.phrase-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+.phrase-box span{background:var(--card-tint);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.88rem;color:var(--purple-dark);font-weight:600;}
+.solution{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:12px 16px;line-height:2.1;}
+textarea.written{width:100%;min-height:150px;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;font-size:.95rem;resize:vertical;}
+.word-count{font-size:.8rem;color:var(--muted);text-align:right;}
+.needs-review{color:var(--wrong);}
+.nav-btns{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.nav-btns button,.btn{background:var(--purple);color:#fff;border:none;border-radius:22px;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer;}
+.nav-btns .ghost{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.check-page{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.btn-main{background:var(--yellow);color:var(--black);font-size:1.05rem;padding:12px 26px;}
+.timer{display:inline-flex;align-items:center;gap:10px;background:var(--card-tint);border-radius:22px;padding:6px 8px 6px 14px;font-weight:800;color:var(--purple-dark);}
+.timer.done{background:#fdecea;color:var(--wrong);}
+.deck{text-align:center;}
+.flip-card{perspective:1000px;width:100%;max-width:520px;height:220px;margin:8px auto;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;}
+.flip-front{background:var(--purple);color:#fff;}
+.flip-front .ru{font-size:1.5rem;font-weight:800;}
+.flip-front .hintline{font-size:.8rem;opacity:.75;margin-top:10px;}
+.flip-back{background:#fff;border:2px solid var(--purple);transform:rotateY(180deg);}
+.flip-back .en{font-size:1.4rem;font-weight:800;color:var(--purple);}
+.flip-back .def{font-size:.92rem;margin-top:6px;}
+.flip-back .ex{font-size:.88rem;color:var(--muted);font-style:italic;margin-top:6px;}
+.card-speak{margin-top:8px;background:var(--yellow);border:none;border-radius:16px;padding:4px 12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.deck-controls{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.deck-controls button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);border-radius:18px;padding:6px 14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.gloss{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;}
+.gloss td,.gloss th{border-bottom:1px solid var(--border);padding:6px 8px;text-align:left;vertical-align:top;}
+.gloss th{color:var(--purple);}
+.gloss-wrap{overflow-x:auto;max-width:100%;}
+.restore-note{background:#fffbe6;border:1px solid #f0dd8a;border-radius:8px;padding:10px 14px;font-size:.88rem;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.restore-note[hidden]{display:none!important;}
+.restore-note button{background:#fff;border:1.5px solid var(--purple);color:var(--purple);font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:16px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.results{text-align:center;}
+.results[hidden]{display:none!important;}
+.big-score{font-size:2.6rem;font-weight:800;color:var(--purple);}
+.breakdown{text-align:left;font-size:.9rem;max-width:520px;margin:10px auto;}
+.breakdown div{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:4px 0;}
+#submitStatus{font-weight:700;margin-top:10px;}
+.completion-stickers{text-align:center;}
+.completion-sticker{display:block;max-width:260px;margin:12px auto 0;animation:stickerPop .45s cubic-bezier(.2,1.4,.4,1);}
+.completion-sticker[hidden]{display:none;}
+.completion-sticker--medium{max-width:170px;}
+.completion-sticker--icon{max-width:110px;}
+@keyframes stickerPop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+.result-caption{text-align:center;font-size:.92rem;color:var(--muted);margin-top:6px;}
+.angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
+.angle-badge .wordmark{width:96px;height:auto;display:block;}
+.angle-badge .wordmark path{stroke:none;}
+.angle-badge .credit{margin-top:3px;margin-left:3px;font-weight:400;font-size:10px;text-shadow:none;}
+@media (max-width:600px){.match-set{gap:8px;}.match{font-size:.85rem;padding:7px 9px;}.card{padding:16px 14px;}.flip-card{height:240px;}}
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+
+/* ANGLE-UNIFIED-HEADER v4 - compact header (max 150px phone / 110px desktop), one fixed background, clean page dots. Same block in every worksheet. */
+html,body{background-color:#42304f;}
+.app-shell{background:#fff;}
+.scroll-area{background-color:transparent;}
+header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-inset-top,0px),rgba(255,255,255,.8) env(safe-area-inset-top,0px));}
+.topbar-inner{padding:calc(8px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) 8px calc(18px + env(safe-area-inset-left,0px));}
+.brand-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;}
+.lesson-title{font-weight:800;color:var(--purple,#5E4877);font-size:15px;line-height:1.25;background:var(--yellow,#FED500);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 16px 4px 10px;max-width:100%;}
+@media (max-width:600px){.lesson-title{font-size:13px;}}
+.lesson-sub{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);margin-top:0;}
+.lesson-title small,.lesson-title .eyebrow{display:block;font-weight:400;font-size:11px;line-height:1.15;color:var(--purple-dark,#453458);text-transform:none;letter-spacing:0;margin:0;}
+.namebar{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;font-size:13px;line-height:1.2;}
+.namebar input{padding:0 8px;height:26px;box-sizing:border-box;font-size:13px;line-height:1.2;}
+@media (max-width:600px){.namebar input{width:112px;min-width:0;}.topbar-submit{padding:5px 10px;font-size:12px;}}
+.brand-row .lesson-sub{font-size:11px;line-height:1.15;margin-top:2px;max-width:none;}
+.autosave-row{gap:8px;margin-top:0;font-size:10.5px;line-height:1.05;}
+@media (min-width:601px){.namebar input ~ label ~ input{width:90px;min-width:0;}.namebar input:has(~ label ~ input){width:130px;min-width:0;}}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.progress-track{height:8px;flex:1 1 auto;}
+.progress-fill{background:linear-gradient(90deg,var(--purple,#5E4877),var(--yellow,#FED500));}
+.progress-label{font-size:12px;line-height:1.2;white-space:nowrap;}
+.page-dots{display:flex;align-items:center;gap:4px;margin-top:1px;padding:2px 3px 3px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.page-dots::-webkit-scrollbar{display:none;}
+.page-dot{box-sizing:border-box;width:auto;min-width:22px;height:22px;padding:0 4px;border-radius:999px;font-size:11px;line-height:1;white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+.page-dot.active{background:linear-gradient(135deg,var(--purple,#5E4877),var(--yellow,#FED500));border-color:var(--purple,#5E4877);color:#fff;box-shadow:0 1px 4px rgba(94,72,119,.4);}
+
+.bg-photo{background-image:url('img/bg-photo.jpg');background-size:cover;background-position:center 40%;}
+
+/* ---- Wiseman mock test components ---- */
+.page-wrap{padding-top:10px;}
+.task-img{display:block;width:100%;max-width:640px;height:auto;border-radius:10px;border:1px solid var(--border);margin:4px 0 10px;background:#fff;}
+.mcq .opt b{color:var(--purple);margin-right:2px;}
+.opt.chosen{background:var(--card-tint);border-color:var(--purple);box-shadow:0 0 0 2px rgba(94,72,119,.18);}
+.opt.correct b,.opt.wrong b{color:inherit;}
+.audio-box{background:var(--card-tint);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:6px 0 14px;}
+.audio-label{display:block;font-weight:800;color:var(--purple-dark);font-size:.9rem;margin-bottom:6px;}
+.audio-box audio{width:100%;}
+.audio-note{font-size:.8rem;color:var(--muted);margin:6px 0 0;}
+.gapline{line-height:2.3;font-weight:400;}
+.gapline .fib{width:170px;min-width:0;}
+.example{opacity:.85;}
+.ex-tag{font-size:.7rem;font-weight:800;text-transform:uppercase;background:var(--yellow);color:var(--black);border-radius:4px;padding:1px 6px;margin-left:6px;}
+.letter-list{list-style:none;padding:0;margin:4px 0 10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 14px;font-size:.92rem;}
+.letter-list b{display:inline-block;min-width:22px;color:var(--purple);}
+.sel{max-width:100%;}
+.chat{border:2px solid #cfc3df;border-radius:14px;overflow:hidden;margin:6px 0 10px;max-width:520px;}
+.chat-head{display:flex;align-items:center;gap:10px;background:var(--card-tint);padding:8px 12px;font-weight:800;color:var(--purple-dark);}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
+.chat-body{background:#f3f1f6;padding:10px;display:flex;flex-direction:column;gap:7px;}
+.bubble{max-width:80%;padding:7px 11px;border-radius:12px;font-size:.92rem;line-height:1.4;}
+.bubble.me{align-self:flex-end;background:#d9f2df;border-bottom-right-radius:4px;}
+.bubble.them{align-self:flex-start;background:#fff;border-bottom-left-radius:4px;}
+.review{background:#faf8fc;border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:8px 0;}
+.review p{margin:6px 0 0;font-size:.93rem;}
+.ltr{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--yellow);color:var(--black);margin-right:4px;}
+.letter p{margin:0 0 10px;}
+.gapwrap{white-space:nowrap;}
+.gnum{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:var(--purple);color:#fff;font-size:.72rem;font-weight:800;margin:0 3px 0 2px;vertical-align:middle;}
+.fib.narrow{min-width:90px;width:110px;}
+.blank{color:var(--muted);letter-spacing:1px;}
+.cloze-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;margin-top:8px;}
+.cloze-grid .item{border-top:1px dashed var(--border);}
+@media (max-width:600px){.cloze-grid{grid-template-columns:1fr;}.letter-list{grid-template-columns:1fr;}}
+.checklist li{margin:3px 0;}
+.email-frame{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-top:10px;}
+.email-bar{background:var(--purple-dark);color:#fff;font-size:.82rem;font-weight:700;padding:7px 12px;}
+.email-frame textarea.written{border:none;border-radius:0;}
+.email-frame .word-count{padding:4px 10px 6px;}
+.word-count.ok{color:var(--correct);font-weight:700;}
+.word-count.bad{color:#b26a00;font-weight:700;}
+.key.show{font-weight:700;}
+.fixline{display:block;margin-top:4px;font-size:.9rem;color:var(--muted);}
+.fib.wide{min-width:200px;}
+.checklist-box{background:#fffbe6;border:1px solid #f0dd8a;border-radius:10px;padding:10px 14px;margin:14px 0 4px;font-size:.9rem;}
+.checklist-box ul{margin:6px 0 0;padding-left:20px;}
+.tts-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tts-btn{background:var(--purple);color:#fff;border:none;border-radius:20px;padding:8px 18px;font:inherit;font-weight:700;cursor:pointer;}
+.tts-btn.on{background:var(--black);}
+.tts-status{font-size:.85rem;color:var(--purple-dark);font-weight:700;}
+.script-fold{margin:14px 0 4px;font-size:.9rem;}
+.script-fold summary{cursor:pointer;color:var(--purple);font-weight:700;}
+.script-fold p{margin:4px 0;}
+.nav-btns .check-page{background:#fff;color:var(--purple);border:1.5px solid var(--purple);}
+.speak-img{max-width:760px;}
+.speak-tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:10px 0 4px;}
+.timer .small-btn{margin-top:0;}
+.rec{display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+.rec-btn{background:#b83a2b;color:#fff;border:none;border-radius:20px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;}
+.rec-btn.on{background:var(--black);}
+.rec audio{max-width:100%;height:36px;}
+.rec-note{font-size:.78rem;color:var(--muted);}
+.rec-status{font-weight:700;margin-top:6px;}
+.src-tag{font-style:normal;font-size:.68rem;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:4px;white-space:nowrap;}
+.src-made{background:var(--card-tint);color:var(--muted);}
+
+@media (hover:none) and (pointer:coarse){input,select,textarea{font-size:16px!important;}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="bg-photo"></div><div class="bg-wash"></div>
+  <header class="topbar"><div class="topbar-inner">
+    <div class="brand-row">
+      <span class="lesson-title">Wiseman Teens A2 · Homework 1</span>
+      <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your name" autocomplete="off"><span class="save-indicator" id="saveIndicator"></span>
+        <a href="#" class="topbar-reset" onclick="clearProgress();return false;" style="font-size:.78rem;color:var(--muted);margin-left:4px;white-space:nowrap;" title="Delete all saved answers on this page and start over">↺ Start over</a></div>
+    </div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel"></span></div>
+    <div class="page-dots" id="pageDots"></div>
+  </div></header>
+  <div class="scroll-area" id="scrollArea"><div class="page-wrap">
+    <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button type="button" onclick="clearProgress()">Start over (clear saved answers)</button></div>
+<section class="page" data-label="Start"><div class="card"><h2>Wiseman Teens A2 · Homework 1</h2>
+<p>Homework after our lesson on 9 November, in the Wiseman Teens A2 format: your own sentences from the lesson, <b>Writing</b> (an email and a story), <b>Listening</b> (Tasks 1–5, real exam recordings) and <b>Reading</b> (Tasks 1–5). The listening and reading texts come from a Cambridge A2 Key for Schools practice test, arranged in the Wiseman task order.</p><div class="tip"><b>Do it in two sittings:</b> Lesson sentences + Writing + Listening one day, Reading the next day. Your answers are saved, so you can come back.</div>
+<div class="outcome"><b>After this homework you can:</b><ul>
+<li>write an email of 35–50 words that answers all three points, with correct Present Perfect and Past Simple;</li>
+<li>write a story of 45–60 words from a first sentence, in the past, with linking words;</li>
+<li>find the line in a text that <b>proves</b> your answer instead of choosing the option with the same words.</li></ul></div>
+<div class="tip"><b>Reading tip:</b> before you choose A, B or C, find the sentence in the text that proves it. Be careful with <i>some / most / all</i> and with <i>but more importantly</i>.</div>
+<p class="instr">Type your name at the top (your real name 🙂). Your answers are saved on this device; press <b>Check &amp; Submit</b> on the last page to send everything to your teacher.</p>
+<div class="nav-btns"><span></span><button type="button" onclick="nextPage()">Start →</button></div></div></section>
+<section class="page" data-label="Fix"><div class="card"><h2>Language · Your sentences from the lesson</h2><p class="instr">These are real sentences from our lesson. Write the correct version of the <u>underlined</u> part only.</p><div class="item"><p class="q gapline"><span class="qnum">1</span> It’s good to hear <u>you</u>.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="from you" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">2</span> Yesterday we <u>are went</u> to Starbucks.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="went" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">3</span> When we <u>come</u> home, we decided to stay in.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="came" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">4</span> We didn’t have money, so we walked home <u>on food</u>.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="on foot" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">5</span> Every day I <u>am going</u> to school in Samara.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="go" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">6</span> <u>In</u> the weekend I like chatting with my friends.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="at|on" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">7</span> There <u>are</u> fresh air in the mountains.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="is" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">8</span> I can see a woman who <u>chilling</u> in the pool.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="is chilling|’s chilling|'s chilling" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">9</span> Two men are playing <u>the volleyball</u>.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="volleyball" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="item"><p class="q gapline"><span class="qnum">10</span> Next week I <u>am be</u> free all the time.<br><span class="fixline">Correct: <input type="text" class="fib wide" data-answer="will be|’ll be|'ll be|am" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span></p></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check answers</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="W6"><div class="card"><h2>Writing · Task 6</h2><p class="instr">Write <b>an email</b> in <b>35–50 words</b>.</p>
+<p>Your English friend Tom is going to stay with you next weekend. Write an email to Tom.</p>
+<ul class="checklist"><li>Say what you have planned for the weekend</li><li>Tell him what clothes to bring and why</li><li>Ask what food he likes</li></ul>
+<div class="email-frame"><div class="email-bar">New message · To: Tom</div>
+<textarea class="written" data-label="Homework 1 · Task 6 — Email to Tom (35–50 words)" data-min="35" data-max="50" placeholder="Hi Tom, …"></textarea><div class="word-count">0 words</div></div>
+<div class="checklist-box"><b>My checklist before I finish</b><ul><li>I answered <b>all three</b> points.</li><li>Past: <i>went, came, bought</i> — not <i>are went / come</i>. Present Perfect: <i>I have already…</i></li><li>Every sentence starts with a capital letter and ends with a full stop.</li><li>Greeting, paragraphs and a sign-off (email).</li><li>Word count is inside the limit.</li></ul></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="W7"><div class="card"><h2>Writing · Task 7</h2><p class="instr">Write <b>a story</b> in <b>45–60 words</b>.</p>
+<p>Write a story with this beginning:</p><div class="tip"><i>Last Saturday my friend and I found a strange box in the park.</i></div>
+<p class="instr">Plan in 1 minute: What was in the box? What did you do? How did it end?</p>
+<textarea class="written" data-label="Homework 1 · Task 7 — Story (45–60 words)" data-min="45" data-max="60" placeholder="Last Saturday my friend and I found a strange box in the park. …"></textarea><div class="word-count">0 words</div>
+<div class="checklist-box"><b>My checklist before I finish</b><ul><li>I answered <b>all three</b> points.</li><li>Past: <i>went, came, bought</i> — not <i>are went / come</i>. Present Perfect: <i>I have already…</i></li><li>Every sentence starts with a capital letter and ends with a full stop.</li><li>Greeting, paragraphs and a sign-off (email).</li><li>Word count is inside the limit.</li></ul></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Go to Listening →</button></div></div></section>
+<section class="page" data-label="L1"><div class="card"><h2>Listening · Task 1</h2><p class="instr">You will hear 5 conversations. For each conversation, choose the correct picture (A–C).</p><div class="audio-box"><span class="audio-label">🎧 Listening · Task 1</span><audio controls preload="none" src="audio/track-65.mp3"></audio><p class="audio-note">The recording includes the instructions and plays each text twice, as in the exam. Try not to pause it.</p></div><div class="item"><p class="q"><span class="qnum">1</span> How will Luciana invite her friends to her birthday party?</p><img class="task-img" src="img/l1-q1.jpg" alt="Pictures A, B and C for question 1" loading="lazy"><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b></button><button type="button" class="opt" data-val="B"><b>B</b></button><button type="button" class="opt" data-val="C"><b>C</b></button></div></div><div class="item"><p class="q"><span class="qnum">2</span> What does Charlie want to borrow from his brother, James?</p><img class="task-img" src="img/l1-q2.jpg" alt="Pictures A, B and C for question 2" loading="lazy"><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b></button><button type="button" class="opt" data-val="B"><b>B</b></button><button type="button" class="opt" data-val="C"><b>C</b></button></div></div><div class="item"><p class="q"><span class="qnum">3</span> How will Carol get to her dance class?</p><img class="task-img" src="img/l1-q3.jpg" alt="Pictures A, B and C for question 3" loading="lazy"><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b></button><button type="button" class="opt" data-val="B"><b>B</b></button><button type="button" class="opt" data-val="C"><b>C</b></button></div></div><div class="item"><p class="q"><span class="qnum">4</span> Which film do they decide to watch first?</p><img class="task-img" src="img/l1-q4.jpg" alt="Pictures A, B and C for question 4" loading="lazy"><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b></button><button type="button" class="opt" data-val="B"><b>B</b></button><button type="button" class="opt" data-val="C"><b>C</b></button></div></div><div class="item"><p class="q"><span class="qnum">5</span> Which T-shirt does the girl like best?</p><img class="task-img" src="img/l1-q5.jpg" alt="Pictures A, B and C for question 5" loading="lazy"><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b></button><button type="button" class="opt" data-val="B"><b>B</b></button><button type="button" class="opt" data-val="C"><b>C</b></button></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="L2"><div class="card"><h2>Listening · Task 2</h2><p class="instr">You will hear a boy leaving a message for a friend about some homework. Fill in the gaps with <b>one word, number, date or time</b>.</p><div class="audio-box"><span class="audio-label">🎧 Listening · Task 2</span><audio controls preload="none" src="audio/track-66.mp3"></audio><p class="audio-note">The recording includes the instructions and plays each text twice, as in the exam. Try not to pause it.</p></div><div class="item example"><p class="q">Homework — Subject: <b>English</b> <span class="ex-tag">example</span></p></div><div class="item"><p class="q gapline"><span class="qnum">1</span> What to write: <input type="text" class="fib" data-answer="story" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> </p></div><div class="item"><p class="q gapline"><span class="qnum">2</span> Number of words: <input type="text" class="fib" data-answer="250|two hundred and fifty|two hundred fifty" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> </p></div><div class="item"><p class="q gapline"><span class="qnum">3</span> Remember to add a <input type="text" class="fib" data-answer="photo|photograph|photos" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> </p></div><div class="item"><p class="q gapline"><span class="qnum">4</span> Get ideas from: www. <input type="text" class="fib" data-answer="collatra" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> .com</p></div><div class="item"><p class="q gapline"><span class="qnum">5</span> Date to give to teacher: <input type="text" class="fib" data-answer="22nd may|22 may|may 22|may 22nd|22.05|22/05|22nd of may|the 22nd of may|22.5" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span> </p></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check answers</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="L3"><div class="card"><h2>Listening · Task 3</h2><p class="instr">You will hear a boy talking to a classmate about the things he is going to do next week. What is he going to do on each day? Choose the correct answer (A–H). You will not need two of the letters.</p><div class="audio-box"><span class="audio-label">🎧 Listening · Task 3</span><audio controls preload="none" src="audio/track-69.mp3"></audio><p class="audio-note">The recording includes the instructions and plays each text twice, as in the exam. Try not to pause it.</p></div><ul class="letter-list"><li><b>A</b> finish a school project</li><li><b>B</b> go on a trip</li><li><b>C</b> go to a party</li><li><b>D</b> help a neighbour</li><li><b>E</b> make a meal</li><li><b>F</b> send emails</li><li><b>G</b> take money to school</li><li><b>H</b> visit the city library</li></ul><div class="item example"><p class="q"><span class="qnum">0</span> Monday — <b>C</b> (go to a party) <span class="ex-tag">example</span></p></div><div class="item"><p class="q"><span class="qnum">1</span> Tuesday <select class="sel" data-answer="G" data-label="Tuesday"><option value="">— choose —</option><option value="A">A — finish a school project</option><option value="B">B — go on a trip</option><option value="C">C — go to a party</option><option value="D">D — help a neighbour</option><option value="E">E — make a meal</option><option value="F">F — send emails</option><option value="G">G — take money to school</option><option value="H">H — visit the city library</option></select><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">2</span> weekend <select class="sel" data-answer="B" data-label="weekend"><option value="">— choose —</option><option value="A">A — finish a school project</option><option value="B">B — go on a trip</option><option value="C">C — go to a party</option><option value="D">D — help a neighbour</option><option value="E">E — make a meal</option><option value="F">F — send emails</option><option value="G">G — take money to school</option><option value="H">H — visit the city library</option></select><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">3</span> Wednesday <select class="sel" data-answer="A" data-label="Wednesday"><option value="">— choose —</option><option value="A">A — finish a school project</option><option value="B">B — go on a trip</option><option value="C">C — go to a party</option><option value="D">D — help a neighbour</option><option value="E">E — make a meal</option><option value="F">F — send emails</option><option value="G">G — take money to school</option><option value="H">H — visit the city library</option></select><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">4</span> Thursday <select class="sel" data-answer="D" data-label="Thursday"><option value="">— choose —</option><option value="A">A — finish a school project</option><option value="B">B — go on a trip</option><option value="C">C — go to a party</option><option value="D">D — help a neighbour</option><option value="E">E — make a meal</option><option value="F">F — send emails</option><option value="G">G — take money to school</option><option value="H">H — visit the city library</option></select><span class="key"></span></p></div><div class="item"><p class="q"><span class="qnum">5</span> Friday <select class="sel" data-answer="E" data-label="Friday"><option value="">— choose —</option><option value="A">A — finish a school project</option><option value="B">B — go on a trip</option><option value="C">C — go to a party</option><option value="D">D — help a neighbour</option><option value="E">E — make a meal</option><option value="F">F — send emails</option><option value="G">G — take money to school</option><option value="H">H — visit the city library</option></select><span class="key"></span></p></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check answers</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="L4"><div class="card"><h2>Listening · Task 4</h2><p class="instr">You will hear Dan talking to a shop assistant in a sports shop. For each question (1–5), choose the correct answer (A–C).</p><div class="audio-box"><span class="audio-label">🎧 Listening · Task 4</span><audio controls preload="none" src="audio/track-67.mp3"></audio><p class="audio-note">The recording includes the instructions and plays each text twice, as in the exam. Try not to pause it.</p></div><div class="item"><p class="q"><span class="qnum">1</span> Dan thinks plastic skateboards are</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> cheap.</button><button type="button" class="opt" data-val="B"><b>B</b> popular.</button><button type="button" class="opt" data-val="C"><b>C</b> light.</button></div></div><div class="item"><p class="q"><span class="qnum">2</span> What colour skateboard does Dan prefer?</p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> purple</button><button type="button" class="opt" data-val="B"><b>B</b> yellow</button><button type="button" class="opt" data-val="C"><b>C</b> grey</button></div></div><div class="item"><p class="q"><span class="qnum">3</span> The shop assistant says the best skateboard for Dan is about</p><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b> 16 cm wide.</button><button type="button" class="opt" data-val="B"><b>B</b> 18 cm wide.</button><button type="button" class="opt" data-val="C"><b>C</b> 20 cm wide.</button></div></div><div class="item"><p class="q"><span class="qnum">4</span> What free gift can Dan get from the shop?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> a backpack</button><button type="button" class="opt" data-val="B"><b>B</b> some gloves</button><button type="button" class="opt" data-val="C"><b>C</b> a scarf</button></div></div><div class="item"><p class="q"><span class="qnum">5</span> When will Dan buy a skateboard?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> on Wednesday</button><button type="button" class="opt" data-val="B"><b>B</b> on Friday</button><button type="button" class="opt" data-val="C"><b>C</b> on Saturday</button></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="L5"><div class="card"><h2>Listening · Task 5</h2><p class="instr">You will hear 5 dialogues or monologues. For each question (1–5), choose the correct answer.</p><div class="audio-box"><span class="audio-label">🎧 Listening · Task 5</span><audio controls preload="none" src="audio/track-68.mp3"></audio><p class="audio-note">The recording includes the instructions and plays each text twice, as in the exam. Try not to pause it.</p></div><div class="item"><p class="q"><span class="qnum">1</span> You will hear two friends talking about eating healthy food. Why are they talking about eating healthy food?</p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> They’ve just read about it.</button><button type="button" class="opt" data-val="B"><b>B</b> They’ve just watched a video about it.</button><button type="button" class="opt" data-val="C"><b>C</b> They’ve just listened to a talk about it.</button></div></div><div class="item"><p class="q"><span class="qnum">2</span> You will hear a boy talking about his history project. Who gave him some information about it?</p><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b> a person who works as a guide</button><button type="button" class="opt" data-val="B"><b>B</b> a woman who lives near him</button><button type="button" class="opt" data-val="C"><b>C</b> a teacher he knows</button></div></div><div class="item"><p class="q"><span class="qnum">3</span> You will hear a girl talking about her clothes. Why does she want to buy some new clothes?</p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> to look nice at a party</button><button type="button" class="opt" data-val="B"><b>B</b> to go on holiday</button><button type="button" class="opt" data-val="C"><b>C</b> to play a new sport</button></div></div><div class="item"><p class="q"><span class="qnum">4</span> You will hear a teacher talking about a problem. Where is there a problem?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> in the playground</button><button type="button" class="opt" data-val="B"><b>B</b> in the sports hall</button><button type="button" class="opt" data-val="C"><b>C</b> in the cafeteria</button></div></div><div class="item"><p class="q"><span class="qnum">5</span> You will hear a brother and sister talking about their pet rabbit. What don’t they like about having pets?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> talking to them</button><button type="button" class="opt" data-val="B"><b>B</b> brushing them</button><button type="button" class="opt" data-val="C"><b>C</b> giving them food</button></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Go to Reading →</button></div></div></section>
+<section class="page" data-label="R1"><div class="card"><h2>Reading · Task 1</h2><p class="instr">Read the text messages. For each number 1–6, choose True (T) or False (F).</p><h3>Message 1</h3><div class="chat"><div class="chat-head"><span class="avatar">L</span>Lucy</div><div class="chat-body"><div class="bubble me">Max, are you coming to the cinema tonight?</div><div class="bubble them">I can’t. I have a maths test tomorrow.</div><div class="bubble me">Oh no! What about Saturday?</div><div class="bubble them">Saturday is perfect. Which film?</div><div class="bubble me">The new animal one. My brother saw it and loved it.</div><div class="bubble them">Great, I’ll buy the tickets online.</div></div></div><div class="item"><p class="q"><span class="qnum">1</span> Max is going to the cinema tonight.</p><div class="mcq" data-correct="F"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: “I can’t. I have a maths test tomorrow.”</div></div><div class="item"><p class="q"><span class="qnum">2</span> Lucy’s brother has already seen the film.</p><div class="mcq" data-correct="T"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: “My brother saw it and loved it.”</div></div><h3>Message 2</h3><div class="chat"><div class="chat-head"><span class="avatar">A</span>Anna</div><div class="chat-body"><div class="bubble me">Kim, did you find my scarf? I left it at your house.</div><div class="bubble them">Yes! It was under the sofa. My cat was sleeping on it 😄</div><div class="bubble me">Haha. Can you bring it to school tomorrow?</div><div class="bubble them">Sure, I’ll put it in my bag now.</div><div class="bubble me">Thanks! I’ll buy you a hot chocolate.</div><div class="bubble them">Deal!</div></div></div><div class="item"><p class="q"><span class="qnum">3</span> Anna’s scarf was in Kim’s bag.</p><div class="mcq" data-correct="F"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: It was <b>under the sofa</b>. Kim is only going to put it in her bag now.</div></div><div class="item"><p class="q"><span class="qnum">4</span> Kim will bring the scarf to school.</p><div class="mcq" data-correct="T"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: “Sure, I’ll put it in my bag now.”</div></div><h3>Message 3</h3><div class="chat"><div class="chat-head"><span class="avatar">D</span>Dan</div><div class="chat-body"><div class="bubble me">Leo, how was your first piano lesson?</div><div class="bubble them">Hard! My fingers hurt, but the teacher was really kind.</div><div class="bubble me">Will you go again?</div><div class="bubble them">Yes, every Tuesday. Mum says I can practise on Grandma’s piano.</div><div class="bubble me">Cool. Play something for me next time!</div><div class="bubble them">Only when I’m better 😅</div></div></div><div class="item"><p class="q"><span class="qnum">5</span> Leo didn’t like his piano teacher.</p><div class="mcq" data-correct="F"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: “…the teacher was <b>really kind</b>.” The lesson was hard, not the teacher.</div></div><div class="item"><p class="q"><span class="qnum">6</span> Leo is going to practise on his grandmother’s piano.</p><div class="mcq" data-correct="T"><button type="button" class="opt" data-val="T"><b>T</b> True</button><button type="button" class="opt" data-val="F"><b>F</b> False</button></div><div class="explain">Proof: “I can practise on Grandma’s piano.”</div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="R2"><div class="card"><h2>Reading · Task 2</h2><p class="instr">Read the texts below. For each question (1–7), choose the correct answer (A, B, C). Find the words in the text that prove your answer — the question and the text usually say the same thing in <b>different</b> words.</p><h3 style="margin-top:0">Three teenage business people</h3><div class="review"><b><span class="ltr">A</span> Noa Mintz</b><p>Noa started a business when she was 8, holding art classes for children. Two years later, she began a party planning business for children. She doesn’t think that went very well. She thinks that because she was very young, the business wasn’t exactly perfect. These days, she is sure that she knows what she’s doing, as she has a business that finds staff to look after other people’s children. She also pays someone to help her with the business.</p></div><div class="review"><b><span class="ltr">B</span> Mikaila Ulmer</b><p>Mikaila has opened a company called Me and the Bees. It sells lemonade, which is made with local honey. The drink is sold in several shops in Mikaila’s home town and online, and some of the money is given to nature groups that work with bees and other insects. Mikaila also shows children and their families how to get ideas to make money. She says, ‘I think I’ve got lots of good advice for them.’</p></div><div class="review"><b><span class="ltr">C</span> Jessie Chong</b><p>When Jessie was really young, her parents told her that she should find something that she loved doing. She’s happy she did because she thinks everyone should love their work. Jessie makes jewellery and sells it online. She looks at flowers and plants, and then uses the shapes and colours she sees in her jewellery.</p></div><p class="q" style="margin-top:14px">Which person…</p><div class="item"><p class="q"><span class="qnum">1</span> is helping wildlife?</p><select class="sel" data-answer="B" data-label="is helping wildlife?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">2</span> has given someone a job?</p><select class="sel" data-answer="A" data-label="has given someone a job?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">3</span> gets ideas for her business from nature?</p><select class="sel" data-answer="C" data-label="gets ideas for her business from nature?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">4</span> wants to teach children about business?</p><select class="sel" data-answer="B" data-label="wants to teach children about business?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">5</span> has opened other companies before?</p><select class="sel" data-answer="A" data-label="has opened other companies before?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">6</span> is pleased that she took some good advice?</p><select class="sel" data-answer="C" data-label="is pleased that she took some good advice?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="item"><p class="q"><span class="qnum">7</span> thinks she has improved as a business person?</p><select class="sel" data-answer="A" data-label="thinks she has improved as a business person?"><option value="">— choose —</option><option value="A">A — Noa Mintz</option><option value="B">B — Mikaila Ulmer</option><option value="C">C — Jessie Chong</option></select><span class="key"></span></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check answers</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="R3"><div class="card"><h2>Reading · Task 3</h2><p class="instr">Read the email. Write <b>ONE</b> word that best fills each gap. Number 0 is an example.</p><div class="email-frame"><div class="email-bar">From: Joanna · To: Emma</div><div class="text-box letter" style="border:none">
+<p>Hi Emma,</p>
+<p>At school, you said that you don’t have any plans for the weekend. Well, how <b>(0) about</b> meeting on Saturday morning? I thought maybe we could go <span class="gapwrap"><span class="gnum">1</span><input type="text" class="fib narrow" data-answer="for|on" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> a bike ride. We can go to Moreton-on-Sea, and get something <span class="gapwrap"><span class="gnum">2</span><input type="text" class="fib narrow" data-answer="to" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> eat. I went there by bike last year. In fact, there were six <span class="gapwrap"><span class="gnum">3</span><input type="text" class="fib narrow" data-answer="of" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> us, and we had <span class="gapwrap"><span class="gnum">4</span><input type="text" class="fib narrow" data-answer="a" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> really amazing day. I don’t think it will take more <span class="gapwrap"><span class="gnum">5</span><input type="text" class="fib narrow" data-answer="than" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> four hours to get there and back. Can you let <span class="gapwrap"><span class="gnum">6</span><input type="text" class="fib narrow" data-answer="me|us" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="key"></span></span> know if you can come?</p>
+<p>Hopefully, I’ll see you then!</p><p>Cheers,<br>Joanna</p></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" class="check-page" onclick="checkPage(this)">Check answers</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="R4"><div class="card"><h2>Reading · Task 4</h2><p class="instr">Read the text. For each question (1–5), choose the correct answer (A–C). Before you click, find the sentence that proves your answer.</p><div class="text-box"><h3 style="margin-top:0">Where playing video games is real life</h3>
+<p>Seo-yun Cho doesn’t have time for hobbies because she spends all her time playing video games. ‘I practise as much as I can so I will improve,’ she says. ‘This is what I really need to do.’</p>
+<p>Seo-yun and her friends are members of KS Fireflies 6, a video game team. She and the other members share a flat in Seoul’s business district. Since they all left school, they have managed to make playing video games their life.</p>
+<p>Every day, Seo-yun gets up after a good night’s sleep at 10 a.m. and goes for a jog for an hour, before sitting down at her computer and starting to play. She and her friends have a few breaks to eat and relax during the day and the evening, but Seo-yun thinks that after midnight is when she has more fun playing than at any other time. She usually goes to bed at 3 a.m.</p>
+<p>Seo-yun and the rest of the team need to train hard and keep fit, as top players need to do about 500 mouse-clicks a minute. Video games are big business in South Korea, and the best players (like KS Fireflies 6) usually become even better-known than top baseball or volleyball players.</p>
+<p>Some people might get bored after playing video games for an hour or two. But these guys are actually getting paid to do something they love as a job. Many of them would even like to do it for free!</p></div><div class="item"><p class="q"><span class="qnum">1</span> What is the most important thing for Seo-yun Cho?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> trying new video games</button><button type="button" class="opt" data-val="B"><b>B</b> getting better at video games</button><button type="button" class="opt" data-val="C"><b>C</b> finding enough time to play video games</button></div><div class="explain">Proof: Paragraph 1: “I practise as much as I can so I will <b>improve</b>… This is what I really need to do.” <i>Improve</i> = <i>get better</i>. She says she has no time for hobbies, but time is not what matters most.</div></div><div class="item"><p class="q"><span class="qnum">2</span> Seo-yun and her friends</p><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b> live together.</button><button type="button" class="opt" data-val="B"><b>B</b> went to school together.</button><button type="button" class="opt" data-val="C"><b>C</b> have a business together.</button></div><div class="explain">Proof: Paragraph 2: “She and the other members <b>share a flat</b>.” Share a flat = live together. “Since they all left school” does not say they were at the same school; “big business” is about the country, not their company.</div></div><div class="item"><p class="q"><span class="qnum">3</span> What does Seo-yun say about playing games at night?</p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> It’s when she feels happiest.</button><button type="button" class="opt" data-val="B"><b>B</b> It’s the time that she most enjoys playing.</button><button type="button" class="opt" data-val="C"><b>C</b> It sometimes makes her tired.</button></div><div class="explain">Proof: Paragraph 3: “after midnight is when she has <b>more fun playing</b> than at any other time.” The text is about enjoying <i>playing</i>, not about being happiest in general.</div></div><div class="item"><p class="q"><span class="qnum">4</span> What does the writer say about sports?</p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> Seo-yun and her friends play a lot of sports video games.</button><button type="button" class="opt" data-val="B"><b>B</b> Seo-yun and her friends play sports to get fit.</button><button type="button" class="opt" data-val="C"><b>C</b> Seo-yun and her friends are more famous than some sports players.</button></div><div class="explain">Proof: Paragraph 4: the best players “usually become even <b>better-known than</b> top baseball or volleyball players.” Better-known = more famous. They keep fit, but the text doesn’t say they play sports.</div></div><div class="item"><p class="q"><span class="qnum">5</span> Why does the writer think that Seo-yun and her friends are lucky?</p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> because they earn a lot of money</button><button type="button" class="opt" data-val="B"><b>B</b> because they don’t need to look for another job</button><button type="button" class="opt" data-val="C"><b>C</b> because they are doing something that they love</button></div><div class="explain">Proof: Paragraph 5: “getting paid to do <b>something they love</b>… Many of them would even like to do it for free!” Money is mentioned, but the point is that they love it.</div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Next →</button></div></div></section>
+<section class="page" data-label="R5"><div class="card"><h2>Reading · Task 5</h2><p class="instr">Read the text. For each blank (1–6), choose the option (A–C) that fits best.</p><div class="text-box"><h3 style="margin-top:0">Preparing to go camping with the school</h3>
+<p><i>From choosing the right equipment to remembering to take spare socks, campers need to be prepared! Keen camper, Jody Watterson, 16, explains why.</i></p>
+<p>Most pupils are really excited when they are taken on a school camping <span class="gnum">1</span><span class="blank">______</span>. They’re becoming really popular these days. For example, my class goes camping at <span class="gnum">2</span><span class="blank">______</span> once a year. It’s usually just for one night, but it’s sometimes <span class="gnum">3</span><span class="blank">______</span>.</p>
+<p>Parents and children need to work together to <span class="gnum">4</span><span class="blank">______</span> sure that everything goes well. Part of this is deciding what to take — this is a really important <span class="gnum">5</span><span class="blank">______</span>. It’s a good idea to take more clothes than you think you will <span class="gnum">6</span><span class="blank">______</span>. So, if you’re going for two nights, take three pairs of socks. And don’t forget your toothbrush or a charger for your phone!</p></div><div class="cloze-grid"><div class="item"><p class="q"><span class="qnum">1</span> </p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> way</button><button type="button" class="opt" data-val="B"><b>B</b> journey</button><button type="button" class="opt" data-val="C"><b>C</b> trip</button></div></div><div class="item"><p class="q"><span class="qnum">2</span> </p><div class="mcq" data-correct="B"><button type="button" class="opt" data-val="A"><b>A</b> little</button><button type="button" class="opt" data-val="B"><b>B</b> least</button><button type="button" class="opt" data-val="C"><b>C</b> low</button></div></div><div class="item"><p class="q"><span class="qnum">3</span> </p><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b> longer</button><button type="button" class="opt" data-val="B"><b>B</b> bigger</button><button type="button" class="opt" data-val="C"><b>C</b> higher</button></div></div><div class="item"><p class="q"><span class="qnum">4</span> </p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> get</button><button type="button" class="opt" data-val="B"><b>B</b> do</button><button type="button" class="opt" data-val="C"><b>C</b> make</button></div></div><div class="item"><p class="q"><span class="qnum">5</span> </p><div class="mcq" data-correct="A"><button type="button" class="opt" data-val="A"><b>A</b> job</button><button type="button" class="opt" data-val="B"><b>B</b> work</button><button type="button" class="opt" data-val="C"><b>C</b> occupation</button></div></div><div class="item"><p class="q"><span class="qnum">6</span> </p><div class="mcq" data-correct="C"><button type="button" class="opt" data-val="A"><b>A</b> have</button><button type="button" class="opt" data-val="B"><b>B</b> like</button><button type="button" class="opt" data-val="C"><b>C</b> need</button></div></div></div><div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button><button type="button" onclick="nextPage()">Finish →</button></div></div></section>
+<section class="page" data-label="Finish"><div class="card"><h2>Finish &amp; send</h2>
+<p>Check that you have answered every question and written both texts. Then press the button: your answers are checked, and your score, both texts and a list of mistakes go to your teacher.</p>
+<p class="instr">The email and the story are marked by your teacher, so they are not part of the score you see here.</p>
+<div style="text-align:center;margin:16px 0"><button type="button" class="btn btn-main" id="submitBtn" onclick="submitAll()">Check &amp; Submit</button></div>
+<div class="results" id="results" hidden>
+  <div class="big-score" id="bigScore"></div><p id="scoreLine"></p>
+  <div class="completion-stickers" id="completionStickers"></div><p id="resultCaption" class="result-caption"></p>
+  <div class="breakdown" id="breakdown"></div>
+  <p class="instr">All answers are now marked on every page: green = right, red = your wrong answer. Go back and look at them.</p>
+  <div id="submitStatus"></div>
+</div>
+<div class="nav-btns"><button type="button" class="ghost" onclick="prevPage()">← Back</button></div></div></section>
+  </div></div>
+</div>
+<div class="angle-badge"><svg class="wordmark" viewBox="0 0 2190 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANGLE">
+  <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="currentColor">
+    <path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/>
+  </g>
+</svg><div class="credit">by Viktoria Syuzyova</div></div>
+<script src="/assets/sticker-data.js"></script>
+<script src="/assets/sticker-logic.js"></script>
+<script>
+const COURSE_NAME = "A2 Key for Schools";
+const PROGRESS_KEY = "angle_progress::a2key-wiseman-teens-a2-homework1";
+const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
+let current = 0, isRestoring = false, submitted = false;
+
+function normalize(s){ return (s||'').toString().toLowerCase().replace(/[‘’`´]/g,"'").replace(/[−–—]/g,'-').replace(/\s+/g,' ').trim().replace(/[.!?,]+$/,''); }
+function answers(el){ return (el.dataset.answerList || el.dataset.answer || '').split('|'); }
+function isRight(el){ const v = normalize(el.value); return v !== '' && answers(el).some(a => normalize(a) === v); }
+function exTitle(el){ const c = el.closest('.card'); const h = c ? c.querySelector('h2') : null; return h ? h.textContent.trim() : ''; }
+function qNum(el){ const it = el.closest('.item'); const n = it ? it.querySelector('.qnum') : null; if(n) return 'Q' + n.textContent.trim();
+  const g = el.closest('.gapwrap'); const gn = g ? g.querySelector('.gnum') : null; return gn ? 'gap ' + gn.textContent.trim() : ''; }
+function describeWrong(el, said, correct){ return `${exTitle(el)} ${qNum(el)} → answered "${said && said.trim() ? said.trim() : '(blank)'}", correct "${correct}"`; }
+function section(el){ const t = exTitle(el); return /^Listening/.test(t) ? 'Listening' : /^Reading/.test(t) ? 'Reading' : 'Language'; }
+
+
+/* timer (prototype component) */
+let timerIv = null;
+function startTimer(btn, minutes){
+  clearInterval(timerIv);
+  const box = btn.closest('.timer'); const out = box.querySelector('.t'); let t = minutes*60;
+  box.classList.remove('done'); btn.textContent='Restart';
+  const draw=()=>{ out.textContent = `${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`; };
+  draw();
+  timerIv = setInterval(()=>{ t--; draw(); if(t<=0){ clearInterval(timerIv); box.classList.add('done'); out.textContent="Time's up"; } },1000);
+}
+/* local self-recording: stays in the browser, never uploaded */
+let recState = null;
+async function toggleRec(btn){
+  if(recState && recState.btn === btn){ recState.mr.stop(); return; }
+  if(recState) recState.mr.stop();
+  if(!navigator.mediaDevices || !window.MediaRecorder){ alert('Recording is not supported in this browser.'); return; }
+  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ alert('Please allow the microphone to record yourself.'); return; }
+  const mime = ['audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+  const mr = new MediaRecorder(stream, mime ? {mimeType:mime} : undefined), chunks = [];
+  mr.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
+  mr.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); const box = btn.parentElement, a = box.querySelector('audio');
+    const type = mr.mimeType || 'audio/webm', blob = new Blob(chunks, {type});
+    a.src = URL.createObjectURL(blob); a.hidden = false;
+    RECORDINGS[box.id] = { blob, ext: /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm', sent:false, label: box.dataset.label };
+    btn.classList.remove('on'); btn.textContent = '● Record again'; recState = null; };
+  mr.start(); recState = {mr, btn}; btn.classList.add('on'); btn.textContent = '■ Stop';
+}
+function stopSpeakingTools(){ clearInterval(timerIv); if(recState){ try{ recState.mr.stop(); }catch(e){} } }
+
+/* Speaking recordings: Basin (Web3Forms does not accept files) — same address as the ЕГЭ speaking pages */
+const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
+const RECORDINGS = {};
+async function sendRecordings(student){
+  const items = Object.entries(RECORDINGS).filter(([id, r])=>r.blob && !r.sent);
+  if(!items.length) return 0;
+  const title = (document.querySelector('meta[name="ws:title"]')||{}).content || document.title;
+  const slug = student.toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40) || 'student';
+  const fd = new FormData();
+  fd.append('course', COURSE_NAME);
+  fd.append('exercise', title + ' — Speaking recordings (partial)');
+  fd.append('subject', `${COURSE_NAME} — ${document.title} — Speaking — ${student}`);
+  fd.append('student', student);
+  fd.append('recordings_list', items.map(([id, r])=>r.label).join('\n'));
+  fd.append('timestamp', new Date().toISOString());
+  items.forEach(([id, r])=>fd.append('recording_' + id, r.blob, `${slug}_${id}.${r.ext}`));
+  const res = await fetch(BASIN_URL, {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+  items.forEach(([id, r])=>{ r.sent = true; });
+  return items.length;
+}
+
+/* pages */
+function buildDots(){
+  const wrap = document.getElementById('pageDots');
+  document.querySelectorAll('.page').forEach((p,i)=>{ const d=document.createElement('div'); d.className='page-dot'; d.textContent=p.dataset.label||(i+1); d.title=p.dataset.label||('Page '+(i+1)); d.onclick=()=>showPage(i); wrap.appendChild(d); });
+}
+function showPage(n){
+  document.querySelectorAll('audio').forEach(a=>{ try{ a.pause(); }catch(e){} }); stopSpeakingTools();
+  const pages = document.querySelectorAll('.page');
+  current = Math.max(0, Math.min(pages.length-1, n));
+  pages.forEach((p,i)=>p.classList.toggle('active', i===current));
+  document.getElementById('progressFill').style.width = `${(current+1)/pages.length*100}%`;
+  document.getElementById('progressLabel').textContent = `Page ${current+1} / ${pages.length}`;
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active', i===current));
+  const act = document.querySelector('.page-dot.active'), pd = document.getElementById('pageDots'); if(act && pd) pd.scrollLeft = act.offsetLeft - pd.offsetLeft - (pd.clientWidth - act.offsetWidth) / 2; /* scroll only the dots strip, never the page */
+  const sa = document.getElementById('scrollArea'); if(sa) sa.scrollTo({top:0, behavior:'smooth'});
+  scheduleSave();
+}
+function nextPage(){ showPage(current+1); }
+function prevPage(){ showPage(current-1); }
+
+/* MCQ — instant feedback (standard ANGLE rule): right/wrong shown on click, changeable */
+function markMcq(group){
+  const correct = group.dataset.correct, chosen = group.querySelector('.opt.chosen');
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  const c = group.querySelector(`.opt[data-val="${correct}"]`); if(c) c.classList.add('correct');
+  if(chosen && chosen.dataset.val !== correct) chosen.classList.add('wrong');
+  const ex = group.parentElement.querySelector('.explain'); if(ex && chosen) ex.classList.add('show');
+}
+function chooseMcq(group, btn){
+  group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen','correct','wrong'));
+  btn.classList.add('chosen');
+  markMcq(group);
+}
+function initMcq(){ document.querySelectorAll('.mcq .opt').forEach(b=>{ b.onclick=()=>{ chooseMcq(b.closest('.mcq'), b); scheduleSave(); }; }); }
+
+function markField(el){
+  const ok = isRight(el);
+  el.classList.toggle('is-correct', ok); el.classList.toggle('is-wrong', !ok);
+  const key = el.nextElementSibling;
+  if(key && key.classList.contains('key')){ key.textContent = ok ? '' : '→ ' + answers(el)[0]; key.classList.toggle('show', !ok); }
+  return ok;
+}
+function checkPage(btn){ btn.closest('.page').querySelectorAll('.fib,.sel').forEach(markField); scheduleSave(); }
+function clearMarks(el){ el.classList.remove('is-correct','is-wrong'); const k=el.nextElementSibling; if(k&&k.classList.contains('key')) k.classList.remove('show'); }
+function markAll(){ document.querySelectorAll('.fib,.sel').forEach(markField); document.querySelectorAll('.mcq[data-correct]').forEach(markMcq); }
+
+/* writing */
+function countWords(t){ t=(t||'').trim(); return t ? t.split(/\s+/).length : 0; }
+function initWritten(){
+  document.querySelectorAll('textarea.written').forEach(ta=>{
+    const wc = ta.parentElement.querySelector('.word-count'), mn=+ta.dataset.min||0, mx=+ta.dataset.max||0;
+    const upd=()=>{ const n=countWords(ta.value); if(!wc) return; wc.textContent = n + ' words' + (mn ? ` · needed ${mn}–${mx}` : '');
+      wc.classList.toggle('ok', n>=mn && n<=mx); wc.classList.toggle('bad', n>0 && (n<mn || n>mx)); };
+    ta.addEventListener('input', upd); upd();
+  });
+}
+
+/* save & resume */
+function saveProgress(){
+  if(isRestoring) return;
+  try{
+    const st = { savedAt:new Date().toISOString(), page:current, submitted };
+    st.name = document.getElementById('studentName').value || '';
+    st.fib = [...document.querySelectorAll('.fib')].map(e=>e.value);
+    st.sel = [...document.querySelectorAll('.sel')].map(e=>e.value);
+    st.mcq = [...document.querySelectorAll('.mcq')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c?c.dataset.val:null; });
+    st.ta = [...document.querySelectorAll('textarea')].map(e=>e.value);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(st));
+    const el = document.getElementById('saveIndicator');
+    if(el){ el.textContent='✓ Saved '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2200); }
+  }catch(e){}
+}
+let saveTimer=null;
+function scheduleSave(){ if(isRestoring) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveProgress,400); }
+function restoreProgress(){
+  let st; try{ const raw=localStorage.getItem(PROGRESS_KEY); if(!raw) return; st=JSON.parse(raw); }catch(e){ return; }
+  isRestoring = true;
+  if(st.name) document.getElementById('studentName').value = st.name;
+  const f=document.querySelectorAll('.fib'); (st.fib||[]).forEach((v,i)=>{ if(f[i]&&v) f[i].value=v; });
+  const s=document.querySelectorAll('.sel'); (st.sel||[]).forEach((v,i)=>{ if(s[i]&&v) s[i].value=v; });
+  const g=document.querySelectorAll('.mcq'); (st.mcq||[]).forEach((v,i)=>{ if(v==null||!g[i]) return; const b=g[i].querySelector(`.opt[data-val="${v}"]`); if(b){ b.classList.add('chosen'); markMcq(g[i]); } });
+  const t=document.querySelectorAll('textarea'); (st.ta||[]).forEach((v,i)=>{ if(t[i]&&v){ t[i].value=v; t[i].dispatchEvent(new Event('input')); } });
+  if(st.submitted){ submitted = true; markAll(); }
+  const has = (st.fib||[]).some(v=>v)||(st.sel||[]).some(v=>v)||(st.mcq||[]).some(v=>v!=null)||(st.ta||[]).some(v=>v);
+  if(has){ const n=document.getElementById('restoreNote'); document.getElementById('restoreNoteText').textContent=`We found saved answers from ${st.savedAt?new Date(st.savedAt).toLocaleString():'an earlier session'} — they've been filled back in.`; n.hidden=false; }
+  if(typeof st.page==='number') showPage(st.page);
+  isRestoring = false;
+}
+function clearProgress(){ if(!confirm('This will erase all your saved answers on this device. Continue?')) return; try{ localStorage.removeItem(PROGRESS_KEY); }catch(e){} location.reload(); }
+document.addEventListener('input', e=>{ if(e.target.matches('.fib,.sel,textarea,#studentName')){ if(!submitted) clearMarks(e.target); else if(e.target.matches('.fib,.sel')) markField(e.target); scheduleSave(); } });
+document.addEventListener('change', e=>{ if(e.target.matches('.sel')){ if(submitted) markField(e.target); else clearMarks(e.target); scheduleSave(); } });
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') saveProgress(); });
+window.addEventListener('pagehide', saveProgress);
+
+/* stickers (shared /assets/sticker-logic.js) */
+const FALLBACK_TIERS=[{min:90,label:'Eggcellent!'},{min:75,label:'On fire!'},{min:60,label:'Good vibes!'},{min:40,label:'Off to a good start'},{min:0,label:'Try again!'}];
+function tierLabel(pct){ try{ if(typeof getResultTier==='function') return getResultTier(pct).label; }catch(e){} return FALLBACK_TIERS.find(t=>pct>=t.min).label; }
+function showSticker(pct){ try{ if(typeof renderResultSticker==='function') renderResultSticker(pct); }catch(e){} }
+
+/* submit */
+async function submitAll(){
+  const ni = document.getElementById('studentName');
+  if(!ni.value.trim()){ ni.focus(); alert('Please type your name at the top before submitting.'); return; }
+  let correct=0, total=0; const wrong=[]; const parts={Language:[0,0], Listening:[0,0], Reading:[0,0]}; const tasks={};
+  const add=(el,ok)=>{ const sct=section(el), t=exTitle(el); parts[sct][1]++; if(ok) parts[sct][0]++; tasks[t]=tasks[t]||[0,0]; tasks[t][1]++; if(ok) tasks[t][0]++; total++; if(ok) correct++; };
+  document.querySelectorAll('.page .fib, .page .sel, .page .mcq[data-correct]').forEach(el=>{
+    if(el.classList.contains('mcq')){
+      const c=el.querySelector('.opt.chosen'); const ok=!!c && c.dataset.val===el.dataset.correct; add(el, ok);
+      if(!ok){ const cb=el.querySelector(`.opt[data-val="${el.dataset.correct}"]`); wrong.push(describeWrong(el, c?c.textContent.trim():'', cb?cb.textContent.trim():el.dataset.correct)); }
+      return;
+    }
+    const ok = isRight(el); add(el, ok);
+    if(!ok){ const said = el.tagName==='SELECT' ? (el.value ? el.options[el.selectedIndex].text : '') : el.value; wrong.push(describeWrong(el, said, el.tagName==='SELECT' ? [...el.options].find(o=>o.value===answers(el)[0]).text : answers(el)[0])); }
+  });
+  const first = !submitted; submitted = true; markAll(); saveProgress();
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const panel = document.getElementById('results'); panel.hidden=false;
+  document.getElementById('bigScore').textContent = pct+'%';
+  document.getElementById('scoreLine').textContent = `${ni.value.trim()} — ${correct} / ${total} · Lesson sentences ${parts.Language[0]}/${parts.Language[1]} · Listening ${parts.Listening[0]}/${parts.Listening[1]} · Reading ${parts.Reading[0]}/${parts.Reading[1]}`;
+  document.getElementById('breakdown').innerHTML = Object.entries(tasks).map(([k,v])=>`<div><span>${k}</span><b>${v[0]} / ${v[1]}</b></div>`).join('');
+  showSticker(pct);
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+
+  const studentName = ni.value.trim();
+  const topicLabel = document.title;
+  const subjectLine = topicLabel.startsWith(COURSE_NAME) ? `${topicLabel} — ${studentName}` : `${COURSE_NAME} — ${topicLabel} — ${studentName}`;
+  const status = document.getElementById('submitStatus'); status.textContent='Sending…';
+  try{
+    const fd = new FormData();
+    fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+    fd.append('subject', subjectLine);
+    fd.append('course', COURSE_NAME);
+    fd.append('lesson', topicLabel);
+    fd.append('student', studentName);
+    fd.append('score', `${correct} / ${total} (${pct}%)`);
+    fd.append('lesson_sentences_score', `${parts.Language[0]} / ${parts.Language[1]}`);
+    fd.append('listening_score', `${parts.Listening[0]} / ${parts.Listening[1]}`);
+    fd.append('reading_score', `${parts.Reading[0]} / ${parts.Reading[1]}`);
+    fd.append('result_tier', tierLabel(pct));
+    if(!first) fd.append('note', 'Repeat send after the answers were shown — the first submission is the result.');
+    document.querySelectorAll('textarea.written').forEach((ta,i)=>{
+      fd.append(`written_${i+1}_task`, ta.dataset.label || `Written task ${i+1}`);
+      fd.append(`written_${i+1}_text`, ta.value.trim() || '(not written)');
+      fd.append(`written_${i+1}_words`, String(countWords(ta.value)));
+    });
+    fd.append('breakdown', Object.entries(tasks).map(([k,v])=>`${k}: ${v[0]}/${v[1]}`).join('\n'));
+    fd.append('mistakes', wrong.length ? wrong.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('timestamp', new Date().toISOString());
+    const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+    status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
+  }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
+  if(Object.values(RECORDINGS).some(x=>x.blob && !x.sent)){
+    const st2 = document.createElement('div'); st2.className = 'rec-status'; st2.textContent = 'Sending your Speaking recordings…'; status.after(st2);
+    try{ const n = await sendRecordings(studentName); st2.textContent = `Speaking recordings sent ✓ (${n})`; }
+    catch(e){ st2.textContent = 'Recordings could not be sent — press Check & Submit again (do not reload the page).'; }
+  }
+}
+
+function initAll(){ buildDots(); initMcq(); initWritten(); isRestoring=true; showPage(0); isRestoring=false; restoreProgress(); }
+document.addEventListener('DOMContentLoaded', initAll);
+</script>
+</body>
+</html>
