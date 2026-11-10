@@ -644,8 +644,7 @@ const shareTitle = (title,emoji='') => [emoji,String(title).replace(/^\s*\d+[.)]
 const shareButton = (url,title,emoji='') => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(shareTitle(title,emoji))}">Поделиться</button>`;
 // Keep the material's topic-specific icon; do not replace it with an unrelated mascot.
 const SUBMISSION_GROUPS = [['as2','Starters','AS2 · 1st edition'],['as3','Movers','AS3 · 1st edition'],['as5','Flyers','AS5 · 2nd edition']];
-const submissionsTile = (courseId='',label='Homework submissions',detail='Карточки уроков · фото домашней работы',teacher=false) => `<a class="tile tile-submissions" href="${BASE}${teacher?'/homework-submissions/teacher/':courseId?'/'+courseId+'/homework/':'/homework-submissions/'}"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="56" height="56"></span><span class="tile-name">${esc(label)}</span><span class="tile-count">${esc(detail)}</span></a>`;
-const submissionsBlock = (teacher=false) => `<section class="tile-family homework-submissions-block"><h2><a href="${BASE}/homework-submissions/" style="color:inherit;text-decoration:none"><img src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="32" height="32" style="vertical-align:middle;margin-right:8px">Homework submissions</a></h2><div class="tile-grid">${SUBMISSION_GROUPS.map(([id,label,description])=>submissionsTile(id,label,description)).join('')}${teacher?submissionsTile('','Журнал учителя','Отправленные фото · проверка',true):''}</div></section>`;
+const submissionsTile = (courseId='',label='Homework submissions',detail='Фото домашней работы',teacher=false) => `<a class="tile tile-submissions" href="${BASE}${teacher?'/homework-submissions/teacher/':courseId?'/'+courseId+'/homework/':'/homework-submissions/'}"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="56" height="56"></span><span class="tile-name">${esc(label)}</span><span class="tile-count">${esc(detail)}</span></a>`;
 
 const materialIcon = (m) => m.audience === 'teacher' ? `<img src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="24" height="24" style="vertical-align:middle;margin-right:6px">` : m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
@@ -1271,7 +1270,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), page({
   heading: 'ANGLE Student',
   headingIcon: '/assets/brand/heading-student.png',
   sub: '',
-  body: `${submissionsBlock(false)}${landingFamilyBlocks}
+  body: `${landingFamilyBlocks}
 ${landingStandaloneBlock}`,
 }));
 
@@ -2000,7 +1999,6 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
   <div id="courseTilesWrap">
-${submissionsBlock(true)}
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
   </div>
