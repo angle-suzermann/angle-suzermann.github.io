@@ -70,6 +70,8 @@ if (!fs.existsSync(configPath)) {
 }
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 const courses = config.courses ?? [];
+// Hidden courses retain their generated pages and files; omit only catalog navigation.
+const visibleCourses = courses.filter((c) => !c.hidden);
 const staffPath = (config.staffPath || 'staff').replace(/^\/+|\/+$/g, '');
 
 /* Префикс подпапки. Пусто для сайта в корне домена (репозиторий ЛОГИН.github.io),
@@ -1113,7 +1115,7 @@ const familyOrder = [];
 const familyCourses = new Map(); // famId -> [course, ...]
 const familyId = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 const standaloneCourses = [];
-for (const c of courses) {
+for (const c of visibleCourses) {
   if (c.family) {
     const fid = familyId(c.family);
     if (!familyCourses.has(fid)) { familyCourses.set(fid, []); familyOrder.push([fid, c.family]); }
@@ -1161,7 +1163,7 @@ const LOGO_MAP = {
    видимый размер. Рамка ограничивает и высоту, и максимальную ширину —
    картинка сама вписывается по большей стороне (см. .tile-logo в catalog.css). */
 const tileIconFor = (course) => LOGO_MAP[course.id]
-  ? `<span class="tile-icon"><img class="tile-logo" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
+  ? `<span class="tile-icon"><img class="tile-logo${['placement-tests', 'a2-key-for-schools'].includes(course.id) ? ' tile-logo-cambridge' : ''}" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
   : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
 /* Иконка перед названием семьи курсов (заголовок «🌟 Academy Stars» и т.п.,
@@ -1406,7 +1408,7 @@ const familyMapJson = JSON.stringify(
    учитывают. */
 const personalFoldersByCourse = new Map(); // courseId -> [{name, tree}, ...]
 const courseGroupsMap = new Map(); // courseId -> [group, ...]
-for (const c of courses) {
+for (const c of visibleCourses) {
   const groups = [...new Set(
     materials.filter((m) => m['course-id'] === c.id && m.group).map((m) => m.group)
   )].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
@@ -1980,7 +1982,8 @@ ${standaloneCourses.map((c) => staffTileFor(c, c.name)).join('\n')}
    по карточкам. Строится один раз при сборке, не зависит от выбранного в
    панели фильтра. (Раньше сюда же добавлялся счётчик «сдано N из M» —
    убран вместе со всей функцией статуса сдачи, см. коммит с откатом.) */
-const staffDraftCount = materials.filter((m) => m.status === 'draft').length;
+const visibleStaffMaterials = materials.filter((m) => !m.courseCfg?.hidden);
+const staffDraftCount = visibleStaffMaterials.filter((m) => m.status === 'draft').length;
 const staffSummary = [
   `Всего: ${materials.length} ${pluralRu(materials.length, 'материал', 'материала', 'материалов')}`,
   staffDraftCount ? `из них ${staffDraftCount} ${pluralRu(staffDraftCount, 'черновик', 'черновика', 'черновиков')}` : null,
@@ -2016,7 +2019,7 @@ ${courseGroupRows}
   <button type="button" class="link-copy" id="courseLinkBtn" data-copy="" hidden>🔗 Скопировать ссылку на страницу курса</button>
 ${sortToolbar(true)}
   <div class="staff-list" id="staffList">
-${[...materials.filter(isTrackerM), ...materials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
+${[...visibleStaffMaterials.filter(isTrackerM), ...visibleStaffMaterials.filter((m) => !isTrackerM(m))].map(staffCard).join('\n')}
 ${courses.flatMap((c) => (personalFoldersByCourse.get(c.id) || []).map((f) => personalFolderStaffCard(c, f))).join('\n')}
   </div>`,
   extraScript: copyScript + staffScript + sortScript('#staffList', '.staff-card'),

@@ -85,14 +85,16 @@
       "name": "Oxford Phonics World 1",
       "family": "Oxford Phonics",
       "emoji": "🔊",
-      "formspree": "mlgqqwpk"
+      "formspree": "mlgqqwpk",
+      "hidden": true
     },
     {
       "id": "oxford-phonics/2",
       "name": "Oxford Phonics World 2",
       "family": "Oxford Phonics",
       "emoji": "🔊",
-      "formspree": "mlgqqwpk"
+      "formspree": "mlgqqwpk",
+      "hidden": true
     },
     {
       "id": "oxford-phonics/3",
@@ -100,21 +102,24 @@
       "family": "Oxford Phonics",
       "emoji": "🔊",
       "formspree": "mlgqqwpk",
-      "textbookUrl": "https://drive.google.com/drive/folders/1afVCJ3pAgdCQ2A5ODf9hmHQuZZios4c0?usp=sharing"
+      "textbookUrl": "https://drive.google.com/drive/folders/1afVCJ3pAgdCQ2A5ODf9hmHQuZZios4c0?usp=sharing",
+      "hidden": true
     },
     {
       "id": "oxford-phonics/4",
       "name": "Oxford Phonics World 4",
       "family": "Oxford Phonics",
       "emoji": "🔊",
-      "formspree": "mlgqqwpk"
+      "formspree": "mlgqqwpk",
+      "hidden": true
     },
     {
       "id": "oxford-phonics/5",
       "name": "Oxford Phonics World 5",
       "family": "Oxford Phonics",
       "emoji": "🔊",
-      "formspree": "mlgqqwpk"
+      "formspree": "mlgqqwpk",
+      "hidden": true
     },
     {
       "id": "a2-key-for-schools",
@@ -126,7 +131,8 @@
       "id": "expert-advanced",
       "name": "Expert Advanced",
       "emoji": "🎯",
-      "formspree": "mdaqrvdd"
+      "formspree": "mdaqrvdd",
+      "hidden": true
     }
   ],
   "_formspree": "Куда приходят результаты тестов. У каждого курса свой ярлык в почте.",
