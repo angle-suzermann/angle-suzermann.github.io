@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#453458">
+<meta name="ws:type"      content="worksheet">
+<meta name="ws:course"    content="Academy Stars 3">
+<meta name="ws:course-id" content="as3">
+<meta name="ws:unit"      content="9">
+<meta name="ws:title"     content="01. Homework 10 Nov — Sport for all (WB p.92 + Phonics ea/ear)">
+<meta name="ws:emoji"     content="🏠">
+<meta name="ws:date"      content="2026-11-10">
+<meta name="ws:status"    content="published">
+<meta name="ws:formspree" content="xwleolev">
+<meta name="ws:tags"      content="homework card, Movers, sports equipment, phonics ea ear">
+<meta name="robots"       content="noindex, nofollow">
+<title>Movers · Homework · Unit 9 Lesson 1</title>
+<style>
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
+:root{--purple:#5E4877;--purple-dark:#453458;--black:#2D2926;--yellow:#FED500;--card:#fff;--card-tint:#f6f2fa;--text:#2D2926;--correct:#3fa66b;--border:#e2dbea;--muted:#7a7288;
+  --wb:#F5A623;--ph:#2BA88A;--ws:#5E4877;--test:#E2574C;}
+*{box-sizing:border-box;}
+html,body{margin:0;background-color:#42304f;}
+body{font-family:'Nunito','Apercu Pro',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:var(--text);min-height:100vh;position:relative;}
+.bg-photo{position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none;background-color:#3a2a4a;
+  background-image:url("img/bg-pattern.svg");}
+.bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,25,.55),rgba(45,25,60,.9));pointer-events:none;}
+.app{position:relative;z-index:2;}
+.topbar{background:rgba(255,255,255,.88);}
+.topbar-inner{max-width:760px;margin:0 auto;padding:10px 16px 10px;}
+.lesson-title{display:inline-block;font-weight:800;color:var(--purple);font-size:15px;line-height:1.25;background:var(--yellow);clip-path:polygon(0 0,100% 0,96% 100%,0 100%);padding:4px 18px 4px 10px;}
+.lesson-sub{display:block;font-size:12px;color:var(--purple-dark);margin-top:3px;}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.progress-track{flex:1;height:10px;background:#eee8f3;border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--yellow));transition:width .3s;}
+.progress-label{font-size:13px;font-weight:800;color:var(--purple-dark);white-space:nowrap;}
+.page-wrap{max-width:760px;margin:0 auto;padding:16px 14px 150px;}
+.card{background:var(--card);border-radius:16px;padding:18px 18px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,10,30,.25);}
+.intro{display:flex;gap:12px;align-items:flex-start;}
+.intro-ico{font-size:30px;line-height:1;}
+.intro h2{margin:0 0 4px;color:var(--purple);font-size:1.15rem;}
+.intro p{margin:2px 0;font-size:.95rem;line-height:1.45;}
+.due{display:inline-block;background:var(--yellow);color:var(--black);font-weight:800;border-radius:8px;padding:2px 8px;font-size:.9rem;}
+/* step */
+.step-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.step-num{flex:0 0 46px;height:46px;border-radius:50%;color:#fff;font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center;}
+.step-title{flex:1;}
+.step-kind{font-size:.72rem;font-weight:900;letter-spacing:.6px;text-transform:uppercase;}
+.step-title h2{margin:0;font-size:1.25rem;color:var(--black);line-height:1.2;}
+.step-title .book{font-size:.85rem;color:var(--muted);}
+.step.wb .step-num{background:var(--wb);} .step.wb .step-kind{color:#b9740a;} .step.wb{border-top:6px solid var(--wb);}
+.step.ph .step-num{background:var(--ph);} .step.ph .step-kind{color:#1d7d66;} .step.ph{border-top:6px solid var(--ph);}
+.step.done{opacity:.92;}
+.step.done .step-num{background:var(--correct);}
+.thumb{display:block;width:100%;border:1.5px solid var(--border);border-radius:12px;cursor:zoom-in;background:#fafafa;margin:4px 0 6px;max-height:360px;object-fit:contain;}
+.zoom-hint{font-size:.78rem;color:var(--muted);text-align:center;margin:0 0 10px;}
+.task{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-top:1px dashed var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.task:first-of-type{border-top:none;}
+.chk{flex:0 0 34px;height:34px;border-radius:10px;border:2.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:transparent;transition:all .15s;}
+.task.on .chk{background:var(--correct);border-color:var(--correct);color:#fff;}
+.task-body{flex:1;}
+.ex{display:inline-block;background:var(--card-tint);color:var(--purple);font-weight:900;border-radius:6px;padding:1px 7px;font-size:.85rem;margin-right:4px;}
+.en{font-weight:800;font-size:1.02rem;}
+.ru{font-size:.9rem;color:var(--muted);margin-top:3px;line-height:1.4;}
+.task.on .en{text-decoration:line-through;text-decoration-color:rgba(63,166,107,.6);}
+.hint{background:#fffbe6;border:1px solid #f0dd8a;border-radius:10px;padding:9px 12px;font-size:.9rem;margin:10px 0 2px;line-height:1.45;}
+.hint b{color:var(--purple-dark);}
+/* media */
+.media-card h2{margin:0 0 4px;color:var(--purple);font-size:1.1rem;}
+.media-card .sub{margin:0 0 10px;color:var(--muted);font-size:.9rem;}
+.media{border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;margin:8px 0;}
+.media-label{font-weight:800;font-size:.95rem;margin-bottom:6px;}
+.media-label small{font-weight:600;color:var(--muted);}
+.media audio,.media video{width:100%;display:block;}
+.media.in-step{background:#faf8fc;margin:2px 0 10px;}
+.media-group{font-size:.74rem;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:14px 0 2px;}
+.media.empty{border-style:dashed;background:#faf8fc;}
+.media.empty .slot{font-size:.82rem;color:var(--muted);}
+details.cw{background:var(--card);border-radius:16px;box-shadow:0 6px 24px rgba(20,10,30,.25);margin-bottom:16px;}
+details.cw summary{cursor:pointer;padding:16px 18px;font-weight:800;color:var(--purple);list-style:none;display:flex;justify-content:space-between;align-items:center;}
+details.cw summary::-webkit-details-marker{display:none;}
+details.cw summary::after{content:'▾';font-size:1.1rem;transition:transform .2s;}
+details.cw[open] summary::after{transform:rotate(180deg);}
+.cw-body{padding:0 18px 16px;}
+.cw-body p{font-size:.9rem;color:var(--muted);margin:0 0 8px;}
+/* done */
+.done-card{text-align:center;display:none;}
+.done-card.show{display:block;animation:pop .4s ease;}
+.done-card img{width:220px;max-width:70%;height:auto;}
+.done-card h2{margin:6px 0 4px;color:var(--purple);}
+.done-card p{margin:2px 0;}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.reset{display:block;margin:0 auto;background:none;border:none;color:rgba(255,255,255,.7);font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;}
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:10000;background:rgba(15,10,20,.92);display:none;align-items:center;justify-content:center;padding:12px;overflow:auto;}
+.lb.show{display:flex;}
+.lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff;}
+.lb-close{position:fixed;top:12px;right:12px;background:var(--yellow);border:none;border-radius:20px;padding:8px 14px;font:inherit;font-weight:800;cursor:pointer;}
+/* Academy Stars sticker: bottom right (rule 01.11.2026) */
+.as-sticker{position:fixed;right:16px;bottom:14px;z-index:9999;pointer-events:none;width:80px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));}
+.as-sticker img{width:100%;height:auto;display:block;}
+@media (max-width:600px){.as-sticker{width:62px;right:10px;bottom:10px;}}
+/* badge */
+.angle-badge{position:fixed;left:18px;bottom:14px;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;opacity:.9;color:var(--yellow);}
+.angle-badge .wordmark{width:96px;height:auto;display:block;}
+.angle-badge .wordmark path{stroke:none;}
+.angle-badge .credit{margin-top:3px;margin-left:3px;font-family:'Apercu Pro',Arial,sans-serif;font-weight:400;font-size:10px;}
+</style>
+</head>
+<body>
+<div class="bg-photo"></div><div class="bg-wash"></div>
+<div class="app">
+  <header class="topbar"><div class="topbar-inner">
+    <span class="lesson-title">Homework · Unit 9 Sport for all</span>
+    <span class="lesson-sub">Movers · урок 10 ноября · сдать до 12 ноября</span>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="pfill"></div></div><span class="progress-label" id="plabel">0 / 6 ✓</span></div>
+  </div></header>
+
+  <main class="page-wrap">
+    <section class="card intro">
+      <div class="intro-ico">🏠</div>
+      <div>
+        <h2>Домашка: 2 шага</h2>
+        <p>Делай по порядку: <b>шаг 1</b>, потом <b>шаг 2</b>. Сделал упражнение — нажми на него, появится <b style="color:var(--correct)">✓</b>.</p>
+        <p>Принеси обе рабочие тетради на урок. <span class="due">Сдать до 12 ноября</span></p>
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="card step wb" data-step="1">
+      <div class="step-head">
+        <div class="step-num">1</div>
+        <div class="step-title">
+          <div class="step-kind">✏️ Workbook</div>
+          <h2>Workbook · page 92</h2>
+          <div class="book">Academy Stars · Unit 9 · Lesson 1</div>
+        </div>
+      </div>
+      <img class="thumb" src="img/wb-p92.jpg" alt="Workbook page 92" data-zoom>
+      <p class="zoom-hint">Нажми на картинку, чтобы увеличить</p>
+      <div class="media in-step"><div class="media-label">🎧 Сначала послушай слова <small>3.1 · PB p.108</small></div><audio controls preload="none" src="audio/as-3-1.mp3"></audio></div>
+      <div class="task" data-id="wb1">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">Ex 1</span><span class="en">Circle the word.</span>
+          <div class="ru">Посмотри на картинку и обведи её название: a, b или c.</div></div>
+      </div>
+      <div class="task" data-id="wb2">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">Ex 2</span><span class="en">Write the words.</span>
+          <div class="ru">Подпиши картинки словами из рамки. Первое слово уже написано.</div></div>
+      </div>
+      <div class="task" data-id="wb3">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">Ex 3</span><span class="en">I've got… / I haven't got…</span>
+          <div class="ru">Какие из 10 вещей у тебя есть? Запиши слева. Каких нет — справа.</div></div>
+      </div>
+      <div class="hint"><b>Подсказка к Ex 3:</b> I've got <b>a towel</b>. I haven't got <b>a helmet</b>.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="card step ph" data-step="2">
+      <div class="step-head">
+        <div class="step-num">2</div>
+        <div class="step-title">
+          <div class="step-kind">🔤 Phonics</div>
+          <h2>Phonics · ea / ear</h2>
+          <div class="book">Oxford Phonics World · Workbook · Unit 4</div>
+        </div>
+      </div>
+      <img class="thumb" src="img/phonics-wb-ea-ear.jpg" alt="Phonics workbook page ea / ear" data-zoom>
+      <p class="zoom-hint">Нажми на картинку, чтобы увеличить</p>
+      <div class="media in-step"><div class="media-label">🎬 Сначала посмотри видео <small>ea</small></div><video controls preload="metadata" playsinline poster="img/ph-ea.jpg" src="video/ph-ea.mp4"></video></div>
+      <div class="media in-step"><div class="media-label">🎬 И это видео <small>ear</small></div><video controls preload="metadata" playsinline poster="img/ph-ear.jpg" src="video/ph-ear.mp4"></video></div>
+      <div class="task" data-id="ph1">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">A</span><span class="en">Write and say.</span>
+          <div class="ru">Впиши буквы <b>ea</b> и <b>ear</b> в слова и прочитай их вслух.</div></div>
+      </div>
+      <div class="task" data-id="ph2">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">B</span><span class="en">Say and circle.</span>
+          <div class="ru">Назови картинки вслух. Обведи ту, в которой есть звук из рамки (ea или ear).</div></div>
+      </div>
+      <div class="task" data-id="ph3">
+        <div class="chk">✓</div>
+        <div class="task-body"><span class="ex">C</span><span class="en">Unscramble, write and say.</span>
+          <div class="ru">Собери слово из перепутанных букв, запиши и прочитай.</div></div>
+      </div>
+      <div class="hint"><b>Слова урока:</b> ea — <b>bread, head</b> · ear — <b>bear, pear</b></div>
+    </section>
+
+    <section class="card done-card" id="doneCard">
+      <img src="/assets/brand/eggdog-rings/67_eggdog_eggcellent_rings.png" alt="Egg-cellent!">
+      <h2>Well done!</h2>
+      <p>Вся домашка сделана. Покажи тетради маме или папе.</p>
+      <p>Не забудь принести их на урок.</p>
+    </section>
+
+    <!-- REVISION MEDIA -->
+    <section class="card media-card">
+      <h2>🎧 Повтори слова с урока</h2>
+      <p class="sub">Если забыл слово или как оно звучит — послушай.</p>
+      <div class="media-group">Academy Stars · Unit 9</div><div class="media"><div class="media-label">🎧 3.1 · Listen, point and say <small>PB p.108</small></div><audio controls preload="none" src="audio/as-3-1.mp3"></audio></div><div class="media"><div class="media-label">🎧 3.2 · Before or after? Game <small>PB p.108</small></div><audio controls preload="none" src="audio/as-3-2.mp3"></audio></div><div class="media"><div class="media-label">🎧 3.3 · Song: It's time for sport! <small>PB p.109</small></div><audio controls preload="none" src="audio/as-3-3.mp3"></audio></div><div class="media-group">Phonics · ea / ear</div><div class="media"><div class="media-label">🎧 53 · Listen and learn <small>p.34</small></div><audio controls preload="none" src="audio/ph-53.mp3"></audio></div><div class="media"><div class="media-label">🎧 54 · Listen, point and read <small>p.34</small></div><audio controls preload="none" src="audio/ph-54.mp3"></audio></div><div class="media"><div class="media-label">🎧 55 · Listen, write and match <small>p.35</small></div><audio controls preload="none" src="audio/ph-55.mp3"></audio></div><div class="media"><div class="media-label">🎧 56 · Chant: The bear has a pear… <small>p.35</small></div><audio controls preload="none" src="audio/ph-56.mp3"></audio></div>
+    </section>
+
+    <details class="cw">
+      <summary>📚 Что мы делали на уроке</summary>
+      <div class="cw-body">
+        <p>Pupil's Book стр. 108–109: слова про спорт и песня «It's time for sport!»</p>
+        <img class="thumb" src="img/pb-p108-109.jpg" alt="Pupil's Book pages 108-109" data-zoom>
+        <p>Phonics стр. 34–35: ea / ear</p>
+        <img class="thumb" src="img/phonics-p34-35.jpg" alt="Phonics pages 34-35" data-zoom>
+      </div>
+    </details>
+
+    <button class="reset" type="button" id="resetBtn">↺ Снять все галочки</button>
+  </main>
+</div>
+
+<div class="lb" id="lb"><button class="lb-close" type="button">✕ Закрыть</button><img alt=""></div>
+
+<div class="as-sticker"><img src="img/as3-sticker.png" alt="Academy Stars 3"></div>
+<div class="angle-badge"><svg class="wordmark" xmlns="http://www.w3.org/2000/svg" width="2190" height="640" viewBox="0 0 2190 640"><g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#FED500"><path d="M4253 6000 c-18 -4 -49 -20 -69 -36 -39 -30 -101 -79 -230 -179 -43 -33 -94 -73 -115 -90 -41 -33 -162 -127 -243 -190 -96 -73 -200 -154 -267 -208 -68 -54 -406 -318 -508 -397 -32 -25 -96 -74 -141 -110 -46 -36 -106 -83 -135 -105 -50 -38 -81 -62 -225 -176 -36 -28 -96 -75 -135 -105 -38 -30 -101 -79 -140 -109 -38 -30 -101 -79 -140 -109 -38 -30 -99 -77 -135 -106 -128 -101 -148 -116 -221 -172 -41 -31 -103 -80 -139 -108 -36 -28 -96 -75 -135 -105 -38 -30 -99 -77 -135 -106 -36 -28 -89 -70 -119 -92 -188 -146 -276 -215 -391 -307 -41 -33 -100 -78 -131 -99 -57 -40 -119 -104 -119 -122 0 -42 21 -51 190 -79 36 -6 110 -24 165 -39 55 -16 164 -41 241 -56 165 -31 177 -29 290 61 34 27 92 73 130 102 69 53 110 84 239 186 101 80 111 80 364 18 113 -28 246 -58 294 -67 48 -9 113 -25 144 -36 30 -10 128 -32 217 -49 88 -17 204 -43 256 -59 52 -16 165 -42 250 -59 85 -17 200 -43 255 -57 55 -14 120 -30 145 -35 83 -19 104 -67 75 -165 -8 -27 -23 -92 -31 -145 -9 -52 -25 -121 -35 -153 -25 -79 -11 -117 52 -140 89 -32 218 -66 356 -93 192 -38 210 -29 238 122 9 43 26 112 39 154 13 41 31 118 40 170 9 52 37 173 61 269 25 96 45 184 45 196 0 12 13 69 30 126 16 57 45 183 64 279 20 96 45 204 56 240 11 35 32 127 46 205 15 77 37 174 49 215 13 41 35 136 49 211 15 75 39 183 56 240 16 57 34 136 40 174 7 39 29 140 51 225 21 85 50 209 63 275 14 66 32 139 40 163 9 24 25 91 36 150 11 59 28 137 36 173 32 134 0 165 -211 203 -77 14 -176 37 -220 50 -71 22 -182 46 -270 59 -16 2 -45 1 -62 -3z m-65 -974 c2 -15 -10 -70 -27 -124 -16 -53 -44 -168 -61 -255 -17 -87 -40 -186 -50 -220 -11 -34 -29 -111 -41 -172 -11 -60 -38 -177 -59 -260 -22 -82 -46 -189 -54 -237 -18 -108 -50 -213 -76 -256 -32 -52 -57 -58 -147 -34 -43 11 -123 28 -178 38 -55 9 -145 29 -200 45 -55 15 -143 35 -195 44 -52 9 -153 31 -225 50 -127 33 -202 48 -298 60 -124 16 -110 95 32 196 63 44 120 88 201 154 58 48 132 105 250 195 40 30 118 91 174 135 168 133 226 178 276 215 26 19 84 64 129 100 45 36 95 75 111 86 44 33 147 114 199 159 159 135 230 159 239 81z M5488 5700 c-39 -30 -54 -72 -82 -230 -15 -80 -40 -194 -57 -253 -17 -60 -34 -134 -39 -165 -8 -51 -61 -280 -135 -582 -14 -58 -43 -189 -64 -291 -22 -103 -49 -216 -60 -253 -11 -36 -34 -141 -51 -232 -17 -91 -40 -191 -51 -222 -11 -31 -29 -106 -41 -167 -11 -60 -33 -162 -50 -225 -16 -63 -40 -167 -53 -231 -13 -64 -35 -156 -49 -205 -13 -49 -39 -161 -56 -248 -17 -88 -40 -185 -52 -215 -69 -190 -35 -234 216 -276 50 -9 137 -29 194 -46 170 -51 195 -30 243 204 16 79 35 163 44 186 8 23 28 113 45 199 17 86 44 204 59 262 16 58 42 170 57 250 15 80 37 175 50 212 12 36 27 99 33 140 6 40 31 154 56 253 24 99 49 209 55 245 7 36 23 103 36 150 14 47 38 153 55 235 16 83 38 179 48 215 11 36 25 94 31 130 16 90 33 120 70 120 34 0 56 -27 90 -115 13 -33 45 -103 71 -155 26 -52 86 -174 134 -270 47 -96 95 -191 106 -210 11 -19 33 -64 49 -100 17 -36 39 -81 51 -100 11 -19 32 -60 45 -90 50 -109 125 -266 144 -302 47 -89 69 -133 258 -518 110 -223 308 -623 440 -890 132 -267 252 -510 265 -541 43 -97 90 -122 317 -163 78 -15 195 -42 259 -60 190 -56 266 -59 296 -12 8 12 26 80 40 151 13 70 33 156 44 189 11 34 36 140 56 237 19 96 41 195 50 218 8 23 22 82 30 129 14 79 58 266 146 627 17 72 46 203 65 293 18 90 42 193 53 230 12 37 34 139 51 227 16 88 39 187 50 220 12 33 30 107 41 165 10 58 33 159 50 225 16 66 43 184 60 262 16 79 34 154 39 168 5 14 23 86 40 161 46 207 34 234 -116 260 -49 8 -147 31 -219 51 -273 75 -273 76 -350 -340 -9 -49 -27 -125 -41 -169 -13 -44 -33 -131 -44 -192 -30 -163 -39 -203 -65 -286 -14 -41 -31 -118 -40 -170 -9 -52 -34 -162 -55 -245 -21 -82 -41 -170 -45 -195 -4 -25 -24 -112 -45 -195 -21 -82 -51 -210 -65 -284 -14 -74 -32 -149 -40 -167 -7 -18 -30 -117 -50 -220 -46 -238 -68 -309 -101 -330 -33 -22 -69 -6 -88 38 -55 126 -316 674 -357 748 -46 84 -340 681 -359 731 -12 29 -35 76 -51 103 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -39 71 -50 100 -11 28 -34 73 -50 100 -17 26 -38 69 -49 95 -10 25 -36 77 -59 116 -23 38 -41 74 -41 79 0 5 -23 57 -51 115 -71 145 -295 598 -319 641 -10 19 -48 96 -85 170 -94 188 -81 178 -277 215 -73 13 -160 34 -193 45 -33 11 -96 27 -140 35 -44 7 -93 19 -108 24 -46 18 -111 13 -139 -9z M11020 4450 c-189 -30 -353 -70 -430 -104 -41 -19 -93 -39 -115 -46 -117 -36 -405 -219 -550 -350 -233 -210 -442 -499 -526 -728 -17 -48 -42 -108 -55 -133 -22 -45 -83 -327 -102 -479 -31 -234 26 -703 107 -888 16 -37 40 -94 52 -127 81 -217 315 -548 503 -710 142 -123 334 -256 412 -287 24 -10 62 -29 85 -43 22 -15 86 -42 142 -62 56 -19 113 -41 127 -48 83 -42 468 -95 660 -91 165 4 425 44 530 80 98 35 229 93 270 120 20 13 58 35 85 49 28 14 84 52 125 86 95 76 123 88 151 60 24 -24 21 -60 -17 -204 -13 -49 -36 -135 -50 -189 -49 -185 -31 -201 285 -255 115 -20 175 -46 186 -81 5 -15 15 -20 43 -20 62 1 118 109 158 310 18 85 46 208 63 272 16 64 37 159 46 210 9 51 27 127 40 168 13 42 33 130 45 195 11 66 34 167 50 225 16 58 45 182 64 276 19 94 41 187 50 208 57 137 3 179 -299 236 -88 16 -187 39 -220 50 -33 11 -112 30 -175 41 -63 12 -164 34 -225 50 -60 16 -164 40 -230 53 -66 14 -183 41 -260 62 -288 78 -302 71 -345 -167 -11 -64 -34 -156 -50 -205 -65 -192 -39 -219 275 -279 355 -68 379 -103 207 -305 -233 -276 -562 -418 -912 -394 -143 9 -438 86 -516 134 -19 12 -61 35 -94 51 -168 81 -437 345 -520 509 -13 24 -33 61 -46 80 -43 65 -121 297 -139 415 -44 277 16 642 139 845 19 30 43 73 54 95 70 139 331 399 472 470 19 10 54 31 77 46 49 34 268 114 368 135 198 41 537 23 674 -35 37 -16 94 -36 126 -46 124 -36 349 -189 481 -326 68 -72 156 -184 203 -262 43 -70 83 -78 226 -48 50 10 161 27 249 36 135 15 162 21 184 40 40 35 35 87 -17 173 -22 37 -41 73 -41 79 0 38 -210 322 -330 446 -178 186 -494 402 -665 457 -22 7 -74 28 -116 46 -226 99 -692 149 -969 104z M21320 3909 c-74 -4 -840 -7 -1701 -8 -1527 -1 -1567 -1 -1590 -20 -24 -19 -24 -19 -29 -1863 -5 -1800 -5 -1845 14 -1931 20 -87 20 -87 1786 -87 1765 0 1765 0 1778 65 16 84 16 519 1 565 -23 64 61 61 -1459 60 -865 -1 -1386 3 -1397 9 -48 25 -55 44 -63 188 -15 238 -16 665 -2 690 31 57 -46 54 1428 54 1472 -1 1402 -3 1440 54 15 24 17 56 17 293 0 266 0 266 -27 289 -15 13 -37 23 -49 23 -12 0 -636 2 -1387 3 -1307 2 -1366 3 -1392 20 -40 27 -39 23 -40 456 0 431 0 428 55 461 31 19 63 20 1420 20 1527 0 1433 -4 1456 61 15 44 15 519 0 553 -21 46 -70 54 -259 45z M14548 3809 c-27 -15 -35 -37 -58 -150 -12 -57 -30 -135 -42 -174 -11 -38 -33 -131 -49 -205 -16 -74 -40 -178 -54 -230 -14 -52 -34 -142 -46 -200 -11 -58 -31 -139 -44 -180 -12 -41 -37 -148 -55 -238 -17 -90 -40 -189 -51 -220 -11 -31 -29 -104 -40 -162 -10 -58 -30 -148 -44 -200 -14 -52 -34 -138 -46 -190 -12 -52 -41 -174 -64 -270 -24 -96 -50 -214 -59 -261 -9 -47 -25 -112 -36 -143 -11 -32 -35 -135 -54 -229 -19 -95 -42 -192 -51 -217 -9 -25 -27 -99 -40 -165 -13 -66 -31 -151 -39 -190 -9 -38 -16 -96 -16 -128 0 -57 0 -57 1947 -55 1946 3 1946 3 1965 68 20 74 27 515 8 565 -22 58 52 56 -1533 55 -799 0 -1462 0 -1474 0 -68 1 -79 72 -34 219 16 53 43 166 60 251 17 86 39 181 50 213 11 32 32 118 46 192 14 73 39 180 55 237 17 57 37 142 45 190 9 48 24 116 35 150 23 78 53 206 74 319 9 47 25 112 36 143 10 31 35 138 55 237 19 99 44 202 55 228 10 27 28 100 40 162 29 154 55 260 81 333 25 71 21 108 -15 131 -30 20 -206 70 -277 80 -30 4 -96 16 -148 26 -103 21 -157 23 -183 8z"/></g></svg><div class="credit">by Viktoria Syuzyova</div></div>
+
+<script>
+(function(){
+  var KEY='angle-hw::as3::u9::2026-11-10';
+  var tasks=[].slice.call(document.querySelectorAll('.task'));
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function render(){
+    var n=0;
+    tasks.forEach(function(t){var on=!!state[t.dataset.id];t.classList.toggle('on',on);if(on)n++;});
+    document.querySelectorAll('.step').forEach(function(s){
+      var ts=s.querySelectorAll('.task'),all=true;
+      ts.forEach(function(t){if(!state[t.dataset.id])all=false;});
+      s.classList.toggle('done',all);
+      s.querySelector('.step-num').textContent=all?'✓':s.dataset.step;
+    });
+    document.getElementById('pfill').style.width=(n/tasks.length*100)+'%';
+    document.getElementById('plabel').textContent=n+' / '+tasks.length+' ✓';
+    var dc=document.getElementById('doneCard'),was=dc.classList.contains('show');
+    dc.classList.toggle('show',n===tasks.length);
+    return !was && n===tasks.length;
+  }
+  tasks.forEach(function(t){t.addEventListener('click',function(){
+    state[t.dataset.id]=!state[t.dataset.id];save();
+    if(render())document.getElementById('doneCard').scrollIntoView({behavior:'smooth',block:'center'});
+  });});
+  document.getElementById('resetBtn').addEventListener('click',function(){state={};save();render();window.scrollTo({top:0,behavior:'smooth'});});
+  var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+  document.querySelectorAll('[data-zoom]').forEach(function(im){im.addEventListener('click',function(){lbi.src=im.src;lb.classList.add('show');});});
+  lb.addEventListener('click',function(){lb.classList.remove('show');});
+  render();
+})();
+</script>
+</body>
+</html>
