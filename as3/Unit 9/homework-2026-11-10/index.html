@@ -255,6 +255,8 @@ details.cw[open] summary::after{transform:rotate(180deg);}
   var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function(im){im.addEventListener('click',function(){lbi.src=im.src;lb.classList.add('show');});});
   lb.addEventListener('click',function(){lb.classList.remove('show');});
+  var players=[].slice.call(document.querySelectorAll('audio,video'));
+  players.forEach(function(m){m.addEventListener('play',function(){players.forEach(function(o){if(o!==m&&!o.paused)o.pause();});});});
   render();
 })();
 </script>
