@@ -188,7 +188,14 @@ function copyRecursive(src, dest, attempt = 1) {
 
 for (const entry of fs.readdirSync(ROOT)) {
   if (SKIP.has(entry) || entry.endsWith('.md')) continue;
-  copyRecursive(path.join(ROOT, entry), path.join(OUT, entry));
+  // Keep local sticker source archives out of release artifacts as well as Git.
+  if (entry === 'logos') {
+    fs.mkdirSync(path.join(OUT, entry), { recursive: true });
+    for (const logo of fs.readdirSync(path.join(ROOT, entry))) {
+      if (logo === 'stickers-hq') continue;
+      copyRecursive(path.join(ROOT, entry, logo), path.join(OUT, entry, logo));
+    }
+  } else copyRecursive(path.join(ROOT, entry), path.join(OUT, entry));
 }
 
 /* Подставляем префикс подпапки в скопированные html и css.

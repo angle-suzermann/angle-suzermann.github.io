@@ -13,3 +13,6 @@ _site/
 Thumbs.db
 desktop.ini
 /Claude outputs
+
+# Локальные исходники стикеров; рабочие PNG — assets/brand/gateway-stickers/.
+/logos/stickers-hq/
