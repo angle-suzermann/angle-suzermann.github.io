@@ -230,7 +230,7 @@ function taskCard(pl,bi,t,number){
   const l=STUDENT&&t.status==='N/A'?'':safeLink(t.link);
   const name=cleanTaskTitle(t.task);
   const title=l?`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(name)}</a>`:esc(name);
-  const sub=[t.mode,t.unit,t.points+(STUDENT?' баллов':' pts')].filter(Boolean).map(esc).join(' · ');
+  const sub=[t.mode,t.unit,t.due?'Сдать до '+fmtDay(t.due):'',t.points+(STUDENT?' баллов':' pts')].filter(Boolean).map(esc).join(' · ');
   const s=stateOf(t);
   const tag=s==='partial'?'<span class="tag partial">Начато — продолжить</span>':s==='sug'?`<span class="tag sug">${STUDENT?'Ожидает проверки':'Suggested'}${t.suggested&&t.suggested.length===10?' · '+esc(fmtDay(t.suggested)):''}</span>`:s==='ok'?`<span class="tag ok">${STUDENT?'Подтверждено':'Confirmed'}</span>`:'';
   let note='';
@@ -246,7 +246,7 @@ function taskCard(pl,bi,t,number){
     <div class="c-full"><label>Дата задания</label><select data-tgroup><option value="__new" selected>Изменить даты этого задания</option>${gopts.replace('<option value="__new">New date…</option>','').replace(/ selected/g,'')}</select></div>
     <div class="c-full tnew"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly value="${esc(t.week||'')}" placeholder="Week 5"><label style="margin-top:8px">Даты этого задания</label><div class="dgrid">${dateInputs(dateParts(t.date),'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
-    <div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
+    <div><label>Срок сдачи</label><input type="date" data-f="due" value="${esc(t.due||'')}"></div><div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
     <p class="erow"><button class="btn" data-tsave="1">Save</button><button class="btn ghost" data-tcancel="1">Cancel</button><button class="btn danger" data-tdel="1">Delete task</button></p></div>`;
   }

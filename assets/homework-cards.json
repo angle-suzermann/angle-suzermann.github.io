@@ -1,0 +1,202 @@
+[
+  {
+    "id": "7446b8b4-57f5-5fc7-bdf9-455e28004941",
+    "path": "/as2/Unit 3/homework-2026-11-13/",
+    "courseId": "as2",
+    "course": "Starters",
+    "lesson": "2026-11-13",
+    "due": "2026-11-20",
+    "title": "01. Homework 13 Nov — Our house + Phonics sp/sw",
+    "parts": [
+      {
+        "id": "grammar-start",
+        "label": "Our house · Grammar start",
+        "taskIds": [
+          "gs1",
+          "gs2",
+          "gs3",
+          "gs4"
+        ]
+      },
+      {
+        "id": "grammar-practice",
+        "label": "Our house · Practice",
+        "taskIds": [
+          "gp1",
+          "gp2",
+          "gp3",
+          "gp4"
+        ]
+      },
+      {
+        "id": "phonics-sb",
+        "label": "Phonics · sp / sw",
+        "taskIds": [
+          "psa",
+          "psb",
+          "psc",
+          "psd",
+          "pse"
+        ]
+      },
+      {
+        "id": "phonics-wb",
+        "label": "Phonics · Workbook page 13",
+        "taskIds": [
+          "pwa",
+          "pwb",
+          "pwc"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "06367c34-cbc6-5451-934a-368b912f8bc4",
+    "path": "/as3/Unit 9/homework-2026-11-10/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-10",
+    "due": "2026-11-12",
+    "title": "01. Homework 10 Nov — Sport for all (WB p.92 + Phonics ea/ear)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 92",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · ea / ear",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      },
+      {
+        "id": "unit8-test",
+        "label": "Сдай тест Unit 8",
+        "taskIds": [
+          "unit8-test-submitted"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3a45fccd-3a24-5ccf-ade7-29c3bfca5fc7",
+    "path": "/as3/Unit 9/homework-2026-11-12/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-12",
+    "due": "2026-11-17",
+    "title": "02. Homework 12 Nov — Sport for all (WB p.93 + Phonics ear/eer)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 93",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · ear / eer",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      },
+      {
+        "id": "unit8-test",
+        "label": "Сдай тест Unit 8",
+        "taskIds": [
+          "unit8-test-submitted"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6a148c85-b43d-5853-80b2-6e4f6581511e",
+    "path": "/as5/Unit 1/homework-2026-11-10/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-10",
+    "due": "2026-11-12",
+    "title": "08. Homework 10 Nov — The Trick · к 12 ноября",
+    "parts": [
+      {
+        "id": "reading",
+        "label": "The Trick",
+        "taskIds": [
+          "read"
+        ]
+      },
+      {
+        "id": "activities",
+        "label": "Разбери историю",
+        "taskIds": [
+          "questions",
+          "themes",
+          "discuss",
+          "imagine"
+        ]
+      },
+      {
+        "id": "video",
+        "label": "Другая концовка",
+        "taskIds": [
+          "video"
+        ]
+      },
+      {
+        "id": "practice",
+        "label": "Повтори и потренируйся",
+        "taskIds": [
+          "game",
+          "fixit"
+        ]
+      },
+      {
+        "id": "test",
+        "label": "Сдай тест",
+        "taskIds": [
+          "test"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4159738f-51e3-542c-a8f2-79feb5d081c2",
+    "path": "/as5/Unit 2/homework-2026-11-12/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-12",
+    "due": "2026-11-17",
+    "title": "01. Homework 12 Nov — Life in the past (WB p.18 + test)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Life in the past · page 18",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "test",
+        "label": "Сдай тест",
+        "taskIds": [
+          "test-submitted"
+        ]
+      }
+    ]
+  }
+]

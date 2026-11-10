@@ -83,7 +83,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
    число на 1, и у всех, включая учеников, подтянется новая иконка. */
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
-const SW_VERSION = 9;
+const SW_VERSION = 10;
 const WT_VERSION = 11;
 const WX_VERSION = 4;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
@@ -529,7 +529,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
 <script src="${BASE}/assets/catalog-share.js?v=4" defer></script>
 <script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>
-<script src="${BASE}/assets/assign-task.js?v=5" defer></script>
+<script src="${BASE}/assets/assign-task.js?v=6" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">

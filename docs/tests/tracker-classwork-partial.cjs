@@ -49,7 +49,7 @@ const root=process.cwd();
   await page.locator('[data-tk="0|1"]').click();await flush();assert.equal(plan.blocks[0].tasks[0].status,'N/A');await page.locator('[data-tk="0|1"]').click();await flush();assert.equal(plan.blocks[0].tasks[0].status,'');
   await page.locator('[data-tk="0|2"]').click();await flush();assert.equal(plan.blocks[0].tasks[1].status,'✓','homework keeps original cycle');
   await page.locator('[data-tk="0|1"]').click();await flush();
-  await page.goto('https://tracker.test/ege-2027/0-homework-tracker/?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent-key');await page.locator('button.st.partial').waitFor();assert.match(await page.locator('.tag.partial').innerText(),/Начато/);
+  await page.goto('https://tracker.test/ege-2027/0-homework-tracker/?a=https%3A%2F%2Fsheet.test%2Fexec&p=fixture-parent-key');await page.locator('[data-tab="b0"]').click();await page.locator('button.st.partial').waitFor();assert.match(await page.locator('.tag.partial').innerText(),/Начато/);
   console.log('PASS: Classwork empty→partial→confirmed→not assigned→empty, persisted reload, visible to student, incomplete earns zero points, score ring cannot obscure partial icon; homework unchanged.');
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
