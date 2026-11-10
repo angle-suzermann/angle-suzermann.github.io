@@ -107,6 +107,8 @@ details.cw[open] summary::after{transform:rotate(180deg);}
 .angle-badge .wordmark{width:96px;height:auto;display:block;}
 .angle-badge .wordmark path{stroke:none;}
 .angle-badge .credit{margin-top:3px;margin-left:3px;font-family:'Apercu Pro',Arial,sans-serif;font-weight:400;font-size:10px;}
+/* UNIT8-TEST-REMINDER */
+.test-reminder{background:var(--yellow);border:3px solid var(--purple);color:var(--purple-dark);padding:18px;border-radius:16px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,10,30,.25)}.test-reminder h2{margin:0 0 6px;font-size:1.25rem;line-height:1.25}.test-reminder p{margin:6px 0;line-height:1.4}.unit8-btn{display:block;text-align:center;background:var(--purple);color:#fff;border-radius:10px;padding:14px 16px;font-weight:800;line-height:1.3;text-decoration:none;margin-top:12px}.unit8-btn:hover{background:var(--purple-dark)}.unit8-btn:focus-visible{outline:3px solid var(--black);outline-offset:3px}.step.test{border-top:6px solid #E2574C}.step.test .step-num{background:#E2574C}.step.test .step-kind{color:#bb3730}.unit8-note{font-size:.9rem;line-height:1.4;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -115,15 +117,15 @@ details.cw[open] summary::after{transform:rotate(180deg);}
   <header class="topbar"><div class="topbar-inner">
     <span class="lesson-title">Homework · Unit 9 Sport for all</span>
     <span class="lesson-sub">Movers · урок 10 ноября · сдать до 12 ноября</span>
-    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="pfill"></div></div><span class="progress-label" id="plabel">0 / 6 ✓</span></div>
+    <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="pfill"></div></div><span class="progress-label" id="plabel">0 / 7 ✓</span></div>
   </div></header>
 
-  <main class="page-wrap">
+  <main class="page-wrap"><aside class="test-reminder" aria-label="Напоминание о тесте Unit 8"><h2>⭐ Не забудь сдать тест Unit 8!</h2><p><b>Back in Time</b> — тест тоже входит в домашнюю работу.</p><p>Выполни тест и отправь результат Виктории.</p><a class="unit8-btn" href="https://angle-suzermann.github.io/as3/Unit%208/test/" target="_blank" rel="noopener">Открыть тест Unit 8 ↗</a></aside>
     <section class="card intro">
       <div class="intro-ico">🏠</div>
       <div>
-        <h2>Домашка: 2 шага</h2>
-        <p>Делай по порядку: <b>шаг 1</b>, потом <b>шаг 2</b>. Сделал упражнение — нажми на него, появится <b style="color:var(--correct)">✓</b>.</p>
+        <h2>Домашка: 3 шага</h2>
+        <p>Делай по порядку: <b>шаг 1</b>, потом <b>шаг 2</b> и <b>тест Unit 8</b>. Сделал упражнение — нажми на него, появится <b style="color:var(--correct)">✓</b>.</p>
         <p>Когда всё готово: <b>📸 сфотографируй страницы и пришли фото Виктории</b>. Тетради принеси на урок. <span class="due">Сдать до 12 ноября</span></p>
       </div>
     </section>
@@ -191,7 +193,7 @@ details.cw[open] summary::after{transform:rotate(180deg);}
       <div class="hint"><b>Слова урока:</b> ea — <b>bread, head</b> · ear — <b>bear, pear</b></div>
     </section>
 
-    <section class="card done-card" id="doneCard">
+    <section class="card step test" data-step="3"><div class="step-head"><div class="step-num">3</div><div class="step-title"><div class="step-kind">⭐ Unit test</div><h2>Сдай тест Unit 8</h2><div class="book">Academy Stars 3 · Back in Time</div></div></div><a class="unit8-btn" href="https://angle-suzermann.github.io/as3/Unit%208/test/" target="_blank" rel="noopener">Пройти тест Unit 8 ↗</a><p class="unit8-note">Открой тест, выполни задания и отправь результат Виктории кнопкой в самом тесте. Потом вернись сюда и отметь сдачу.</p><div class="task" data-id="unit8-test-submitted" role="checkbox" tabindex="0" aria-checked="false"><div class="chk">✓</div><div class="task-body"><span class="ex">Test</span><span class="en">Take the Unit 8 test.</span><div class="ru">Тест выполнен, результат отправлен Виктории.</div></div></div></section><section class="card done-card" id="doneCard">
       <img src="/assets/brand/eggdog-rings/67_eggdog_eggcellent_rings.png" alt="Egg-cellent!">
       <h2>Well done!</h2>
       <p>Вся домашка сделана. Покажи тетради маме или папе.</p>
@@ -234,7 +236,7 @@ details.cw[open] summary::after{transform:rotate(180deg);}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
   function render(){
     var n=0;
-    tasks.forEach(function(t){var on=!!state[t.dataset.id];t.classList.toggle('on',on);if(on)n++;});
+    tasks.forEach(function(t){var on=!!state[t.dataset.id];t.classList.toggle('on',on);if(t.hasAttribute('aria-checked'))t.setAttribute('aria-checked',String(on));if(on)n++;});
     document.querySelectorAll('.step').forEach(function(s){
       var ts=s.querySelectorAll('.task'),all=true;
       ts.forEach(function(t){if(!state[t.dataset.id])all=false;});
@@ -251,6 +253,7 @@ details.cw[open] summary::after{transform:rotate(180deg);}
     state[t.dataset.id]=!state[t.dataset.id];save();
     if(render())document.getElementById('doneCard').scrollIntoView({behavior:'smooth',block:'center'});
   });});
+  document.querySelector('[data-id="unit8-test-submitted"]').addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();this.click();}});
   document.getElementById('resetBtn').addEventListener('click',function(){state={};save();render();window.scrollTo({top:0,behavior:'smooth'});});
   var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function(im){im.addEventListener('click',function(){lbi.src=im.src;lb.classList.add('show');});});
@@ -260,5 +263,6 @@ details.cw[open] summary::after{transform:rotate(180deg);}
   render();
 })();
 </script>
+<script src="/assets/homework-submit.js?v=1" defer></script>
 </body>
 </html>

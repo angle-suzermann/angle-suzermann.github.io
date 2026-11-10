@@ -296,7 +296,7 @@ function studentCardBody(s,n,readonly){
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${dot(c,s.id,'ex',x.id,'ex',true,readonly)}</div>`).join('')}`:''}
    ${meeBlock(meeFor(c,s),s,!readonly)}
-   ${readonly?parentReport(s):''}
+   ${readonly?homeworkStudentStatus(s)+parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn" data-show-report="${esc(s.id)}">Посмотреть отчёт</button>${parentShare(s)}<button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
 }
 function openReport(sid){
@@ -379,7 +379,7 @@ function render(){
   renderCourses();renderTabs();
   $('#sub').textContent=ui.course+' · teacher panel';
   const t=ui.tab;
-  $('#view').innerHTML=t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1)));
+  $('#view').innerHTML=homeworkQueue()+(t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1))));
 }
 
 /* Universal for ALL groups/pupils: outer = handed in / all assigned, including future
@@ -498,6 +498,7 @@ function renderParent(){
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
+  const homeworkDecision=e.target.closest('[data-hw-decision]');if(homeworkDecision){reviewHomeworkClick(homeworkDecision);return;}
   const reportButton=e.target.closest('[data-show-report]');
   if(reportButton){openReport(reportButton.dataset.showReport);return}
   if(e.target.closest('[data-hidett]')){const t=$('#ttools');if(t)t.style.display='none';toast('Tools hidden. Close and reopen the card to show them again');return}
@@ -605,7 +606,7 @@ document.addEventListener('input',e=>{const f=e.target.closest('[data-xf]');if(!
 // Never replace local edits or an open student/settings dialog.
 let submissionRefreshBusy=false;
 function canRefreshSubmissions(){
-  return (live||PARENT)&&!document.hidden&&!flushing&&!pending.length&&!extraDrafts.size
+  return (live||PARENT)&&!document.hidden&&!flushing&&!pending.length&&!extraDrafts.size&&!document.querySelector('.hw-review-item[open]')
     &&!document.querySelector('dialog[open]')&&!document.activeElement?.matches('input,textarea,select,[contenteditable="true"]');
 }
 async function refreshSubmissions(){
@@ -631,3 +632,30 @@ document.addEventListener('click',e=>{
   root.querySelectorAll('[data-mee-tab]').forEach(b=>{const active=b===tab;b.classList.toggle('on',active);b.setAttribute('aria-pressed',String(active))});
   root.querySelectorAll('[data-mee-unit]').forEach(panel=>panel.hidden=panel.dataset.meeUnit!==tab.dataset.meeTab);
 });
+
+// Homework cards only create pending claims. Teacher-selected existing targets get the green ticks.
+function homeworkTargetOptions(r){
+  const cc=D.courses[r.course];if(!cc)return [];
+  const out=[];const add=(scope,item,label)=>{if(st(r.course,r.studentId,scope,item)!=='N/A')out.push({scope,item,label});};
+  for(const x of cc.extras||[])if(x.date&&extraAssigned(x,String(r.studentId)))add('ex',x.id,'Extras · '+x.topic);
+  for(const u of cc.units||[])for(const sec of cc.sections||[])add('u'+u.n,sec.id,'Unit '+u.n+' · '+sec.name);
+  for(const p of cc.phonics||[])add('ph',p.id,'Phonics · '+p.unit+' · '+p.lesson);
+  return out;
+}
+function homeworkQueue(){
+  const list=(D.homework||[]).filter(r=>r.course===ui.course&&r.status==='pending');if(!list.length)return '';
+  const canonical=x=>{try{return decodeURIComponent(String(x||'').replace(/^https?:\/\/[^/]+/,'').split(/[?#]/)[0]).replace(/\/index\.html$/,'').replace(/\/+$/,'');}catch(_){return '';}};
+  return `<section class="card hw-review-queue"><h2>📨 На проверку: домашние карточки (${list.length})</h2><p class="sub">Это заявки учеников. Баллы и зелёные галочки меняются только после вашего подтверждения выбранных пунктов.</p>${list.map(r=>{const targets=homeworkTargetOptions(r),cc=D.courses[r.course],matching=(cc.extras||[]).filter(x=>extraAssigned(x,String(r.studentId))&&canonical(x.link)===canonical(r.url));return `<details class="hw-review-item" data-homework="${esc(r.id)}"><summary><b>${esc(r.student)}</b> · ${esc(r.title)} <span class="hw-pending">Ожидает проверки</span></summary><p><a href="${esc(r.url)}" target="_blank" rel="noopener">Открыть карточку ↗</a> · ${esc(r.submitted)}</p><ul>${(r.details||[]).map(t=>`<li>${esc(t.label)}</li>`).join('')}</ul>${r.comment?`<p class="hw-review-comment">${esc(r.comment)}</p>`:''}<label>Какие пункты подтвердить в трекере?<select multiple size="7" data-hw-targets aria-label="Пункты трекера для подтверждения">${targets.map(t=>`<option value="${esc(JSON.stringify({scope:t.scope,item:t.item}))}" ${t.scope==='ex'&&matching.length===1&&String(matching[0].id)===String(t.item)?'selected':''}>${esc(t.label)}${st(r.course,r.studentId,t.scope,t.item)==='✓'?' · уже ✓':''}</option>`).join('')}</select></label><p class="sub">Выберите один или несколько существующих пунктов. Новые задания и повторные баллы автоматически не добавляются.</p><label>Комментарий ученику<textarea data-hw-note rows="2" maxlength="2000"></textarea></label><p><button type="button" class="btn" data-hw-decision="confirmed">✓ Подтвердить выбранное</button> <button type="button" class="btn ghost" data-hw-decision="returned">Вернуть на доработку</button></p><p data-hw-review-status role="status"></p></details>`;}).join('')}</section>`;
+}
+async function reviewHomeworkClick(button){
+  if(PARENT||!live)return;const box=button.closest('[data-homework]'),message=box.querySelector('[data-hw-review-status]');
+  if(pending.length||flushing){message.textContent='Дождитесь сохранения предыдущих изменений.';return;}
+  const targets=[...box.querySelector('[data-hw-targets]').selectedOptions].map(o=>JSON.parse(o.value));
+  if(button.dataset.hwDecision==='confirmed'&&!targets.length){message.textContent='Выберите пункты трекера, которые нужно подтвердить.';return;}
+  box.querySelectorAll('button').forEach(b=>b.disabled=true);message.textContent='Сохраняем…';
+  try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'reviewHomework',token:cfg.token,id:box.dataset.homework,decision:button.dataset.hwDecision,targets,note:box.querySelector('[data-hw-note]').value}),signal:AbortSignal.timeout(45000)});const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Не удалось сохранить');D=await Store.load();render();toast(button.dataset.hwDecision==='confirmed'?'Подтверждено: зелёные галочки сохранены':'Работа возвращена ученику');}catch(e){message.textContent=e.message+' Проверьте соединение и повторите.';box.querySelectorAll('button').forEach(b=>b.disabled=false);}
+}
+function homeworkStudentStatus(s){
+  const list=(D.homework||[]).filter(r=>r.course===ui.course&&String(r.studentId)===String(s.id));if(!list.length)return '';
+  return `<h2 style="font-size:16px">Отправленная домашняя работа</h2>${list.map(r=>`<div class="secrow"><div class="t">${esc(r.title)}${r.reviewNote?`<small>${esc(r.reviewNote)}</small>`:''}</div><span class="tag">${r.status==='confirmed'?'✓ Проверено':r.status==='returned'?'На доработку':'Ожидает проверки'}</span></div>`).join('')}`;
+}

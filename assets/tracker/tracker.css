@@ -258,3 +258,5 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .report-teacher-actions > .tracker-menu{position:static}
 .report-teacher-actions > .tracker-menu > .erow{position:absolute;z-index:30;left:0;top:calc(100% + 6px);box-sizing:border-box;width:min(420px,100%);max-width:100%;margin:0;padding:12px!important;display:flex;flex-wrap:wrap!important;gap:8px;border:1px solid #d9cde2;border-radius:12px;background:#faf7f2;box-shadow:0 5px 18px #21172b33}
 .report-teacher-actions > .tracker-menu > .erow > *{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box}
+
+.hw-review-queue{border:3px solid #FED500}.hw-review-item{padding:12px 0;border-top:1px solid #e2dbea}.hw-review-item summary{cursor:pointer;line-height:1.5}.hw-pending{color:#775b00;background:#fff5bb;border-radius:6px;padding:3px 6px;font-size:12px}.hw-review-item select,.hw-review-item textarea{box-sizing:border-box;width:100%;font:inherit;font-size:16px;margin:6px 0 10px}.hw-review-item ul,.hw-review-comment{white-space:pre-line;overflow-wrap:anywhere}.hw-review-item label{display:block;font-weight:700}
