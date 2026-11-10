@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Фото домашек 10.11: [имя сверху, камера/галерея, email attachments, Flyers app и журнал учителя; Apps Script v29](handoffs/2026-11-10-homework-photos.md). Новый homework-submit.js?v=4 + homework-photos.js?v=1. Web3Forms бесплатный: остаётся для текста, фото через MailApp; тема письма курс — задание — имя. Обучение Kimi/Claude добавлено в общий файл.
+
 Связи домашки 10.11: [Assigned, срок, постоянные части, частичная проверка и персональные ссылки; Apps Script v27](handoffs/2026-11-10-homework-links-and-partial-review.md). Актуальный homework-submit.js?v=3; уточняет v26 ниже. Flyers12.11: напоминание ПЕРЕД классной.
 
 Домашние карточки 10.11: [заявка ученика → проверка учителем → выбранные зелёные галочки; Apps Script v26](handoffs/2026-11-10-homework-card-review.md). Для новых карточек подключать assets/homework-submit.js; не использовать автоматический зачёт worksheetSubmission. Дополняет пилот карточек ниже.

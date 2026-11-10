@@ -163,9 +163,11 @@ details.cw[open] summary::after{transform:rotate(180deg);}
   lb.addEventListener('click',function(){lb.classList.remove('show');});
   var players=[].slice.call(document.querySelectorAll('audio,video'));
   players.forEach(function(m){m.addEventListener('play',function(){players.forEach(function(o){if(o!==m&&!o.paused)o.pause();});});});
+  var baseStudentKey=KEY;window.addEventListener('angle:homeworkIdentity',function(e){var who=String(e.detail&&e.detail.name||'').trim().toLowerCase();if(!who)return;var next=baseStudentKey+'::student::'+who;if(next===KEY)return;var owner='';try{owner=localStorage.getItem(baseStudentKey+'::lastIdentity')||'';var old=localStorage.getItem(next);state=old?JSON.parse(old):(!owner?state:{});KEY=next;localStorage.setItem(baseStudentKey+'::lastIdentity',who);save();}catch(_){state={};KEY=next;}render();});
   render();
 })();
 </script>
-<script src="/assets/homework-submit.js?v=3" defer></script>
+<script src="/assets/homework-photos.js?v=1" defer></script>
+<script src="/assets/homework-submit.js?v=4" defer></script>
 </body>
 </html>

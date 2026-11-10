@@ -302,7 +302,8 @@ function injectHead(dir) {
     const scopeTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>\n`:'';
     const submissionTag = isMaterial && !isTracker && !/<script\b[^>]*submission-hook\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/tracker/submission-hook.js?v=5"></script>\n` : '';
-    const tags = `${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const photoTag=isMaterial&&!isTracker&&!/<script\b[^>]*homework-photos\.js/i.test(cleaned)&&/<meta\b[^>]*name=["']ws:course-id["'][^>]*content=["'](?:ege-2027|a2-key-for-schools)["']/i.test(cleaned)?`<script src="${BASE}/assets/homework-photos.js?v=1" defer></script>\n`:'';
+    const tags = `${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
