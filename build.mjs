@@ -1166,8 +1166,17 @@ const LOGO_MAP = {
    почти квадратный), поэтому просто высота+object-fit давала им разный
    видимый размер. Рамка ограничивает и высоту, и максимальную ширину —
    картинка сама вписывается по большей стороне (см. .tile-logo в catalog.css). */
-const tileIconFor = (course) => LOGO_MAP[course.id]
-  ? `<span class="tile-icon"><img class="tile-logo${['placement-tests', 'a2-key-for-schools'].includes(course.id) ? ' tile-logo-cambridge' : ''}" src="${esc(`${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`)}" alt=""></span>`
+const GATEWAY_STICKERS = {
+  'gateway/gateway-to-the-world-b1':'gateway-b1-v2.png',
+  'gateway/gateway-to-the-world-b1-plus':'gateway-b1-plus-v2.png',
+  'gateway/gateway-to-the-world-b2':'gateway-b2-v2.png',
+  'gateway/gw-b2':'gateway-b2-plus-v2.png',
+};
+const courseLogoPath = (course) => GATEWAY_STICKERS[course.id]
+  ? `${BASE}/assets/brand/gateway-stickers/${GATEWAY_STICKERS[course.id]}`
+  : `${BASE}/assets/brand/logos/${LOGO_MAP[course.id]}`;
+const tileIconFor = (course) => (GATEWAY_STICKERS[course.id] || LOGO_MAP[course.id])
+  ? `<span class="tile-icon"><img class="tile-logo${['placement-tests', 'a2-key-for-schools'].includes(course.id) ? ' tile-logo-cambridge' : ''}" src="${esc(courseLogoPath(course))}" alt=""></span>`
   : `<span class="tile-icon"><span class="tile-emoji">${esc(course.emoji || '📁')}</span></span>`;
 
 /* Иконка перед названием семьи курсов (заголовок «🌟 Academy Stars» и т.п.,
@@ -1319,7 +1328,7 @@ for (const course of courses) {
   const showFolderNav = hasGroups || personalFolders.length > 0;
   const hasAnyContent = list.length > 0 || personalFolders.length > 0;
   const cardsHtml = list.map(card).join('\n') + (personalFolders.length ? '\n' + personalFolders.map((f) => personalFolderCard(course, f)).join('\n') : '');
-  const headingIconPath = COURSE_HEADING_ICON_MAP[course.id]
+  const headingIconPath = GATEWAY_STICKERS[course.id] ? `/assets/brand/gateway-stickers/${GATEWAY_STICKERS[course.id]}` : COURSE_HEADING_ICON_MAP[course.id]
     ? `/assets/brand/course/${COURSE_HEADING_ICON_MAP[course.id]}` : '';
   fs.writeFileSync(path.join(dir, 'index.html'), page({
     title: `${course.name} — материалы`,
