@@ -272,6 +272,7 @@ function injectHead(dir) {
     const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
     if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
     const cleaned = src
+      .replace(/(\/assets\/student-picker\.js)(?:\?v=[^"']*)?/g, '$1?v=2')
       .replace(/(\/assets\/ws-tools\.js)(?:\?v=[^"']*)?/g, `$1?v=${WT_VERSION}`)
       .replace(/(\/assets\/ws-extras\.js)(?:\?v=[^"']*)?/g, `$1?v=${WX_VERSION}`)
       .replace(/(\/assets\/tracker\/)(tracker|individual)\.js(?:\?v=[^"']*)?/g, (_,prefix,name)=>`${prefix}${name}.js?v=${TRACKER_JS_VERSIONS[name]}`)
@@ -305,7 +306,8 @@ function injectHead(dir) {
     const submissionTag = isMaterial && !isTracker && !/<script\b[^>]*submission-hook\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/tracker/submission-hook.js?v=5"></script>\n` : '';
     const photoTag=isMaterial&&!isTracker&&!/<script\b[^>]*homework-photos\.js/i.test(cleaned)&&/<meta\b[^>]*name=["']ws:course-id["'][^>]*content=["'](?:ege-2027|a2-key-for-schools)["']/i.test(cleaned)?`<script src="${BASE}/assets/homework-photos.js?v=1" defer></script>\n`:'';
-    const tags = `${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const pickerTag=isMaterial&&!isTracker&&!/<script\b[^>]*student-picker\.js/i.test(cleaned)?`<script src="${BASE}/assets/student-picker.js?v=2" defer></script>\n`:'';
+    const tags = `${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
@@ -535,7 +537,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <link rel="stylesheet" href="${BASE}/assets/catalog-share.css?v=1">
 <script src="${BASE}/assets/catalog-share.js?v=4" defer></script>
 <script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>
-<script src="${BASE}/assets/assign-task.js?v=7" defer></script>
+<script src="${BASE}/assets/assign-task.js?v=8" defer></script>
 <link rel="icon" href="${BASE}/favicon.ico?v=${ICON_VERSION}" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${BASE}/assets/brand/favicon-32.png?v=${ICON_VERSION}">
 <link rel="apple-touch-icon" sizes="180x180" href="${BASE}/apple-touch-icon.png?v=${ICON_VERSION}">
