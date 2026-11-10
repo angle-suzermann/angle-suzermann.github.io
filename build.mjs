@@ -450,7 +450,9 @@ for (const course of courses) {
        затрёт человекочитаемое название из ws:course. */
     /* группа — подпапка внутри курса (unit 9, module 3, 1.Путешествие…),
        если материал лежит не прямо в папке курса, а на уровень глубже */
-    const group = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : null;
+    const rawGroup = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : null;
+    const group = rawGroup && course.unitFolderPrefix
+      ? rawGroup.replace(/^Unit\s+(\d+)/i, `${course.unitFolderPrefix} Unit $1`) : rawGroup;
 
     /* реальный адрес доставки определяем по коду страницы, а не по ws:formspree —
        этот тег остался только меткой курса в письме и легко расходится с правдой
@@ -1153,7 +1155,7 @@ const LOGO_MAP = {
   'oxford-phonics/4': 'oxford-phonics.png',
   'oxford-phonics/5': 'oxford-phonics.png',
   'expert-advanced': 'expert-advanced-sticker.png',
-  'gateway/gw-b2': 'gw-b2.png',
+  'gateway/gw-b2': 'gateway-to-the-world-b2-plus.svg',
   'a2-key-for-schools': 'a2-key-for-schools.png',
   'placement-tests': 'placement-tests-cambridge.png',
 };

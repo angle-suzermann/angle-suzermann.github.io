@@ -69,10 +69,11 @@
     },
     {
       "id": "gateway/gw-b2",
-      "name": "GW B2",
+      "name": "B2+",
       "family": "Gateway",
       "emoji": "🌍",
-      "formspree": "xoeaqeyz"
+      "formspree": "xoeaqeyz",
+      "unitFolderPrefix": "GW B2"
     },
     {
       "id": "placement-tests",
