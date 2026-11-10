@@ -326,6 +326,7 @@ function findMaterialSlugs(dir, prefix = '') {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
     const sub = path.join(dir, entry.name);
+    if (fs.existsSync(path.join(sub, '.site-tool'))) continue; // navigation apps are not assignable worksheets
     const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
     if (fs.existsSync(path.join(sub, 'index.html'))) {
       out.push(slug);
@@ -642,6 +643,10 @@ ${extraScript}
 const shareTitle = (title,emoji='') => [emoji,String(title).replace(/^\s*\d+[.)]\s*/, '').trim()].filter(Boolean).join(' ');
 const shareButton = (url,title,emoji='') => `<button type="button" data-share-url="${esc(url)}" data-share-title="${esc(shareTitle(title,emoji))}">Поделиться</button>`;
 // Keep the material's topic-specific icon; do not replace it with an unrelated mascot.
+const SUBMISSION_GROUPS = [['as2','Starters','AS2 · 1st edition'],['as3','Movers','AS3 · 1st edition'],['as5','Flyers','AS5 · 2nd edition']];
+const submissionsTile = (courseId='',label='Homework submissions',detail='Карточки уроков · фото домашней работы',teacher=false) => `<a class="tile tile-submissions" href="${BASE}${teacher?'/homework-submissions/teacher/':courseId?'/'+courseId+'/homework/':'/homework-submissions/'}"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="56" height="56"></span><span class="tile-name">${esc(label)}</span><span class="tile-count">${esc(detail)}</span></a>`;
+const submissionsBlock = (teacher=false) => `<section class="tile-family homework-submissions-block"><h2><a href="${BASE}/homework-submissions/" style="color:inherit;text-decoration:none"><img src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="32" height="32" style="vertical-align:middle;margin-right:8px">Homework submissions</a></h2><div class="tile-grid">${SUBMISSION_GROUPS.map(([id,label,description])=>submissionsTile(id,label,description)).join('')}${teacher?submissionsTile('','Журнал учителя','Отправленные фото · проверка',true):''}</div></section>`;
+
 const materialIcon = (m) => m.audience === 'teacher' ? `<img src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="24" height="24" style="vertical-align:middle;margin-right:6px">` : m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
@@ -1266,7 +1271,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), page({
   heading: 'ANGLE Student',
   headingIcon: '/assets/brand/heading-student.png',
   sub: '',
-  body: `${landingFamilyBlocks}
+  body: `${submissionsBlock(false)}${landingFamilyBlocks}
 ${landingStandaloneBlock}`,
 }));
 
@@ -1320,7 +1325,7 @@ for (const course of courses) {
     parent: parentOf(course.id),
     sub: `${list.length} ${list.length === 1 ? 'материал' : list.length < 5 ? 'материала' : 'материалов'}`,
     body: hasAnyContent
-      ? `${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`
+      ? `${SUBMISSION_GROUPS.some(([id])=>id===course.id)?'<div class="tile-grid" style="margin-bottom:20px">'+submissionsTile(course.id)+'</div>':''}${courseLinkRow(course)}${showFolderNav ? groupFolderNav(list, personalFolders) : ''}${sortToolbar(showFolderNav)}<div class="course-block"${showFolderNav ? ' id="groupMaterials" hidden' : ''}>\n${cardsHtml}\n</div>`
       : `${courseLinkRow(course)}  <p class="empty">Пока пусто.</p>`,
     extraScript: copyScript + (showFolderNav ? groupFolderScript : '') + (hasAnyContent ? sortScript('.course-block', '.card') + resumeScript : ''),
   }));
@@ -1439,6 +1444,7 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
     );
   });
   topTiles.unshift(...trackerTiles);
+  if(SUBMISSION_GROUPS.some(([id])=>id===courseId))topTiles.unshift(submissionsTile(courseId));
   if (ungroupedCount) {
     topTiles.push(groupTileHtml(` data-group-tile="" data-course-tile="${esc(courseId)}"`, '📁', 'Без юнита', ungroupedCount));
   }
@@ -1994,6 +2000,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
   <div id="courseTilesWrap">
+${submissionsBlock(true)}
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}
   </div>
