@@ -427,3 +427,5 @@ GitHub Actions сам собирает и публикует, примерно �
 
 - `handoffs/2026-11-02-gateway-b2-unit4-writing.md` — работа над письмом Gateway B2.
 - `handoffs/2026-11-04-weekly-inventory.md` — исторический снимок инвентаризации; статусы сервера и публикации могли измениться после его составления. Перед действиями проверять текущее состояние.
+
+MEE rewards v33 (11.11.2026): see docs/homework-rewards.md. MEE done is not acceptance: require mapped Unit ✓; due or final tick date. Teacher sync returns course-scoped read-only meeUnmatched diagnostics. Never use a live awarding sync for QA; preview:true is read-only. Private server remains outside this repository.
