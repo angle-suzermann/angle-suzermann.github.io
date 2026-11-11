@@ -1,7 +1,7 @@
 /* Shared homework-card background: match the cabinet on each device. */
-.bg-photo{position:fixed;inset:0;z-index:0;opacity:1;background:#e8e3dc url('/assets/photos/angle-cozy-desktop-20261111.png') center top/cover no-repeat;pointer-events:none}
+.bg-photo{position:fixed;inset:0;z-index:0;opacity:1;background:#e8e3dc url('/assets/photos/angle-cozy-desktop-zones-20261111.png') center top/cover no-repeat;pointer-events:none}
 .bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,25,.64),rgba(45,25,60,.80) 40%,rgba(20,14,25,.97));pointer-events:none}
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-20261111.png');background-position:center}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-zones-20261111.png');background-position:center}}
 @media print{.bg-photo,.bg-wash{display:none}}
 
 /* Device-composed generated photo: clear center for app cards. */

@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:#42304f;color:var(--black);font-family:'Apercu Pro','Inter',Arial,sans-serif;-webkit-text-size-adjust:100%}
 body{min-height:100vh;position:relative}
-.bg-photo{position:fixed;inset:0;z-index:0;background:#e8e3dc url('/assets/photos/angle-cozy-desktop-20261111.png') center top/cover no-repeat;pointer-events:none;transform:translateZ(0)}
+.bg-photo{position:fixed;inset:0;z-index:0;background:#e8e3dc url('/assets/photos/angle-cozy-desktop-zones-20261111.png') center top/cover no-repeat;pointer-events:none;transform:translateZ(0)}
 .bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,25,.46),rgba(45,25,60,.66) 40%,rgba(20,14,25,.94));pointer-events:none}
 @media(max-width:799px){.bg-photo{background-position:center}}
 .app{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding-bottom:40px}
@@ -269,7 +269,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .secrow .t{min-width:0;overflow-wrap:anywhere;}
 
 /* Responsive generated desktop and phone backgrounds. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-20261111.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-zones-20261111.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
 
 /* Device-composed generated photo: clear center for app cards. */
 @media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-cup-up-20261111.png');background-position:center;background-size:cover}}
