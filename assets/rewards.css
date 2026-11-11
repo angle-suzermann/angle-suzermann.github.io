@@ -12,3 +12,20 @@
 .rewards-heading h2{font-size:16px}.rewards-heading b{font-size:21px}.angle-rewards p{font-size:13px;line-height:1.35;margin:5px 0}.angle-rewards small{display:block;font-size:11px;line-height:1.35}
 .reward-progress{gap:6px;margin:6px 0}.reward-progress .angle-reward-star{width:24px;height:24px;padding:0;min-width:24px;max-width:24px;flex:0 0 24px}
 .reward-album summary{padding:6px 0;min-height:34px;font-size:14px}.reward-stickers{max-width:420px}.reward-replay{margin-top:6px;padding:8px 10px;min-height:36px}
+
+/* v3: image star (transparent PNG), twinkle glints, glitter flight */
+.angle-reward-star{display:inline-block;position:relative;fill:none;stroke:none}.angle-reward-star img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none}
+.rewards-heading h2 .angle-reward-star{width:28px;height:28px;flex:none}
+.reward-progress .angle-reward-star{width:30px;height:30px;min-width:30px;max-width:30px;flex:0 0 30px}
+.angle-reward-star.reward-star-empty{background:none}.angle-reward-star.reward-star-empty img{filter:grayscale(1) brightness(1.25) contrast(.8);opacity:.28}
+.angle-reward-star .glint{position:absolute;width:34%;height:34%;pointer-events:none;opacity:0;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 3px #fff)}
+.angle-reward-star .g1{left:14%;top:12%}.angle-reward-star .g2{right:8%;bottom:20%;width:26%;height:26%}
+.reward-star-filled .glint{animation:angle-twinkle 2.6s ease-in-out infinite}.reward-star-filled .g2{animation-delay:1.3s}
+@keyframes angle-twinkle{0%,70%,100%{opacity:0;transform:scale(.3) rotate(0)}85%{opacity:1;transform:scale(1) rotate(45deg)}}
+.reward-celebration{position:fixed}.reward-glitter{position:absolute;left:0;top:0;pointer-events:none;z-index:2}
+.reward-flying{height:150px;display:grid;place-items:center;overflow:visible}.reward-flying>.reward-stage{width:120px;height:120px;will-change:transform}
+.reward-flying .angle-reward-star{width:100%;height:100%;animation:none;filter:drop-shadow(0 6px 14px #5e487755)}.reward-flying .glint{animation-duration:1.6s}
+.reward-stage.landed .angle-reward-star{animation:angle-landing .5s ease-out}
+@keyframes angle-landing{0%{transform:scale(1.18)}60%{transform:scale(.94)}100%{transform:scale(1)}}
+.reward-celebration h2,.reward-celebration p,.reward-celebration button,.reward-unlock{position:relative;z-index:3}
+@media(prefers-reduced-motion:reduce){.angle-reward-star .glint{animation:none!important;opacity:0}.reward-glitter{display:none}}
