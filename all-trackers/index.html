@@ -14,7 +14,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#42304f;font-family:'Apercu Pro',system-ui,Arial,sans-serif;color:#2D2926}
 body{display:flex;flex-direction:column;height:100dvh}
-.bar{flex:none;background:#fff;border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;box-shadow:0 2px 10px rgba(45,25,60,.12);z-index:2}
+.bar{flex:none;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;box-shadow:0 2px 10px rgba(45,25,60,.12);z-index:2}
 .bar-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .bar h1{margin:0;font-size:15px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--purple)}
 .bar h1:after{content:"";display:block;height:3px;width:100%;margin-top:2px;border-radius:2px;background:linear-gradient(90deg,var(--yellow),#c58bff 60%,var(--purple))}
@@ -45,7 +45,7 @@ const COURSES=[
  ['b2p','B2+','Gateway','/gateway/gw-b2/0-homework-tracker/'],
  ['ege','ЕГЭ 2027','','/ege-2027/0-homework-tracker/'],
  ['emp','Empower B1+','','/empower-b1/0-homework-tracker/'],
- ['exp','Expert','Advanced','/expert-advanced/0-homework-tracker/']
+ // Expert Advanced на паузе: чтобы вернуть, добавить ['exp','Expert','Advanced','/expert-advanced/0-homework-tracker/']
 ];
 const chips=document.getElementById('chips'),stage=document.getElementById('stage'),loading=document.getElementById('loading');
 const frames={};let current='';
