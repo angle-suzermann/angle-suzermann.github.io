@@ -39,7 +39,7 @@ html, body{
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url('/assets/photos/angle-yellow-desk-final.png');
+  background-image: url('/assets/photos/angle-cozy-desktop-20261111.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -600,10 +600,10 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 @media(max-width:799px){.bg-photo{background-size:cover;background-position:center}}
 
 /* Responsive generated desktop and phone backgrounds. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-yellow-desk-final.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-20261111.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
 
 /* Device-composed generated photo: clear center for app cards. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-yellow-mobile-final.png');background-position:center;background-size:cover}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-20261111.png');background-position:center;background-size:cover}}
 
 /* Keep the composed edge details visible on narrow screens. */
 .bg-photo{bottom:0}

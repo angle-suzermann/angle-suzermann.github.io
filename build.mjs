@@ -588,7 +588,9 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
     var f = document.createElement('iframe');
     f.src = href;
     f.setAttribute('allow', 'microphone; camera; autoplay; clipboard-write; fullscreen');
-    f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:calc(100% - 120px);border:0;background:#2b1d33;';
+    f.style.cssText = 'position:absolute;top:var(--angle-shell-safe-top,0px);left:0;width:100%;height:calc(100% - 120px - var(--angle-shell-safe-top,0px));border:0;background:#2b1d33;';
+    if (matchMedia('(max-width:600px)').matches) overlay.style.setProperty('--angle-shell-safe-top','calc(env(safe-area-inset-top,0px) + 12px)');
+    f.addEventListener('load', function () { try { f.contentDocument.documentElement.style.setProperty('--angle-hw-safe-top','0px'); } catch (_) {} });
     var b = document.createElement('button');
     b.type = 'button';
     b.textContent = '← Go back';
