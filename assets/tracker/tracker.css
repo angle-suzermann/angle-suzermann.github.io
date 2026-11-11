@@ -267,3 +267,6 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 /* Equal-sized assignment link buttons, independent of neighbouring title length. */
 .secrow [data-hw-copy]{flex:0 0 148px;width:148px;min-height:52px;box-sizing:border-box;white-space:normal;}
 .secrow .t{min-width:0;overflow-wrap:anywhere;}
+
+/* Phone-only portrait background; desktop photo stays unchanged. */
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-mobile.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
