@@ -5,7 +5,7 @@
 @media print{.bg-photo,.bg-wash{display:none}}
 
 /* Device-composed generated photo: clear center for app cards. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-arc-20261111.png');background-position:center;background-size:cover}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-cup-up-20261111.png');background-position:center;background-size:cover}}
 
 /* Keep the composed edge details visible on narrow screens. */
 .bg-photo{bottom:0}
