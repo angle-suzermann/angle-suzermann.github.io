@@ -39,15 +39,17 @@ html, body{
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url('/assets/photos/catalog-bg.jpg');
-  background-size: cover;
+  background-image: url('/assets/photos/catalog-yellow-desk.jpg');
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
+  background-color: #e8e3dc;
 }
 .bg-wash{
   position: fixed;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(20,14,25,.02) 0%, rgba(45,25,60,.38) 35%, rgba(20,14,25,.88) 100%);
+  background: linear-gradient(180deg, rgba(20,14,25,.46), rgba(45,25,60,.66) 40%, rgba(20,14,25,.94));
 }
 
 .angle-badge{
@@ -591,3 +593,8 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 
 /* Both Cambridge exam tiles use the same portrait logo box. */
 .tile-logo.tile-logo-cambridge{width:22px;height:32px;max-width:22px;max-height:32px;object-fit:contain;}
+
+/* Approved yellow desk preview: full photo on desktop, fill phone screen. */
+@media(min-width:800px){.bg-photo{background-position:center calc(50% + 70px)}}
+@media(min-width:1000px){.page{left:clamp(0px,calc((100vw - 920px)/2),100px)}}
+@media(max-width:799px){.bg-photo{background-size:cover;background-position:center}}
