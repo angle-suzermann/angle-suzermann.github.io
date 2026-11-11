@@ -596,7 +596,7 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 
 /* Fill every viewport without exposed edges; preserve photo proportions. */
 @media(min-width:800px){.bg-photo{background-position:center top}}
-@media(min-width:1000px){.page{left:clamp(0px,calc((100vw - 920px)/2),100px)}}
+@media(min-width:1000px){.page{left:0}}
 @media(max-width:799px){.bg-photo{background-size:cover;background-position:center}}
 
 /* Responsive generated desktop and phone backgrounds. */
