@@ -291,5 +291,5 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 
 /* shown inside the All trackers hub */
 html.embedded .tracker-angle-badge{display:none!important}
-html.embedded .brand-row .title{display:none}
-html.embedded .brand-row{justify-content:flex-end}
+html.embedded .brand-row{display:none}
+html.embedded .topbar{padding-top:0;padding-bottom:6px}
