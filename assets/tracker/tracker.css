@@ -293,3 +293,4 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 html.embedded .tracker-angle-badge{display:none!important}
 html.embedded .brand-row{display:none}
 html.embedded .topbar{padding-top:0;padding-bottom:6px}
+html.embedded .topbar:not(:has(#courses:not(:empty))){display:none}
