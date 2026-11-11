@@ -110,7 +110,7 @@ async function flush(){
   if(flushing)return;flushing=true;setSync('busy','Saving…');
   try{
     while(pending.length){await Sheets.write(pending[0]);pending.shift();LS.set('angleTracker.queue',pending)}
-    setSync('ok','Saved');
+    setSync('ok','Saved');scheduleRewardRefresh();
   }catch(e){setSync('err','Not saved ('+pending.length+')');toast('Could not save: '+e.message+'. Will retry.');setTimeout(flush,8000)}
   flushing=false;
 }
@@ -299,7 +299,7 @@ function studentCardBody(s,n,readonly){
   const x=exScore(c,s.id);extra.push(`<span class="${pcClass(x.r)}"><em>Extras</em>${fmt(x.r)}</span>`);
   const rows=cc.sections.map(sec=>{const v=st(c,s.id,'u'+u.n,sec.id);
     return `<div class="secrow g-${grp(sec.name)}"><div class="t">${esc(sec.name)}<small>${sec.points} ${readonly?'баллов':'pts'}</small></div>${readonly?`<span class="dot ${dotCls(v)}" style="cursor:default">${dotTxt(v)}</span>`:dot(c,s.id,'u'+u.n,sec.id,'u',unitOn(c,s.id,u.n))}</div>`}).join('');
-  return `${ringsTop(c,s,o,readonly)}
+  return `${window.AngleRewards?.panel(window.AngleRewards.fromRows(D.rewards,c,s.id,D.rewardVersion))||''}${ringsTop(c,s,o,readonly)}
    <div class="mini">${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
    ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)&&homeworkInUnit(x,u.n)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)&&homeworkInUnit(x,u.n)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(homeworkLinkFor(x,s))}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)}${x.due?' · Сдать до '+esc(homeworkDay(x.due)):''} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${dot(c,s.id,'ex',x.id,'ex',true,readonly)}</div>`).join('')}`:''}
@@ -387,7 +387,7 @@ function render(){
   renderCourses();renderTabs();
   $('#sub').textContent=ui.course+' · teacher panel';
   const t=ui.tab;
-  $('#view').innerHTML=homeworkQueue()+(t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1))));
+  $('#view').innerHTML=rewardOverview()+homeworkQueue()+(t==='ph'?viewPhonics():t==='ex'?viewExtras():t==='sum'?viewSummary():viewUnit(parseInt(t.slice(1))));
 }
 
 /* Universal for ALL groups/pupils: outer = handed in / all assigned, including future
@@ -679,3 +679,9 @@ document.addEventListener('click',async e=>{
  const reload=e.target.closest('[data-hw-reload]');if(reload){reload.disabled=true;try{D=await Store.load();render();}catch(err){toast(err.message);reload.disabled=false;}return;}
  const copy=e.target.closest('[data-hw-copy]');if(copy){if(PARENT)return;const a=(D.homeworkAssignments||[]).find(a=>a.id===copy.dataset.hwCopy&&a.course===ui.course);if(a)(navigator.clipboard?navigator.clipboard.writeText(a.accessUrl):Promise.reject()).then(()=>toast('Персональная ссылка скопирована'),()=>prompt('Ссылка ребёнку',a.accessUrl));}
 });
+
+/* Rewards use the authoritative ledger, never inferred from client-side ticks. */
+function rewardOverview(){if(!D.rewardVersion||!window.AngleRewards)return '';return '<div class="reward-roster">'+C().students.map(s=>{const r=window.AngleRewards.fromRows(D.rewards,ui.course,s.id,1);return '<button data-show-report="'+esc(s.id)+'" data-reward-roster="'+esc(s.id)+'">'+esc(s.name)+' · '+r.stars+' ★</button>';}).join('')+(live?'<button data-reward-sync>Обновить награды</button>':'')+'</div>';}
+let rewardRefreshTimer;
+function scheduleRewardRefresh(){if(!live||!D.rewardVersion)return;clearTimeout(rewardRefreshTimer);rewardRefreshTimer=setTimeout(async()=>{if(pending.length||flushing){scheduleRewardRefresh();return;}try{const fresh=await Store.load();D.rewards=fresh.rewards;D.rewardVersion=fresh.rewardVersion;for(const s of C().students){const summary=window.AngleRewards?.fromRows(D.rewards,ui.course,s.id,D.rewardVersion);window.AngleRewards?.refresh(summary);const b=document.querySelector('[data-reward-roster="'+CSS.escape(s.id)+'"]');if(b)b.textContent=s.name+' · '+summary.stars+' ★';}}catch(e){toast('Награды обновятся при следующей загрузке.');}},700);}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-reward-sync]');if(!b||!live||PARENT)return;if(pending.length||flushing){toast('Дождитесь сохранения изменений.');return;}b.disabled=true;try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();if(!result.ok)throw Error(result.error||'Ошибка синхронизации');D=await Store.load();render();toast('Награды обновлены: '+result.added);}catch(e){toast(e.message);b.disabled=false;}});

@@ -184,7 +184,7 @@ async function flush(){
       localStorage.setItem(key,JSON.stringify(archive)); // fail closed if backup cannot be saved
     }else await writeQueuedTask(op);
     pending.shift();LS.set(QK,pending)
-  }saveError='';setSync('ok','Saved');$('#sync').removeAttribute('title')}
+  }saveError='';setSync('ok','Saved');scheduleIndividualRewards();$('#sync').removeAttribute('title')}
   catch(e){saveError=e.message||String(e);setSync('err','Не сохранено ('+pending.length+') ⓘ');$('#sync').title=saveError;$('#sync').style.cursor='pointer';toast('Не удалось сохранить: '+saveError);setTimeout(flush,8000)}
   flushing=false;
 }
@@ -371,7 +371,7 @@ function render(){
   }
   if(PARENT){
     $('#courses').innerHTML='';$('#tabs').innerHTML='';$('#sub').textContent='Homework progress';
-    $('#view').innerHTML=`<div class="card">${parentProgressCard(pl)}</div>`;return;
+    $('#view').innerHTML=`<div class="card">${window.AngleRewards?.panel(pl.rewards)||''}${parentProgressCard(pl)}</div>`;return;
   }
   $('#courses').innerHTML=STUDENT||D.plans.length<2?'':D.plans.map(p=>`<button class="pill ${p.id===ui.plan?'on':''}" data-plan="${esc(p.id)}">${esc(p.student)} · ${esc(p.title)}</button>`).join('');
   const order=pl.blocks.map((_,i)=>i).reverse();            // newest block first
@@ -389,7 +389,7 @@ function render(){
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
   if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><button class="btn ghost" data-plan-assessment>Оценки</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
-  $('#view').innerHTML=html;
+  $('#view').innerHTML=(window.AngleRewards?.panel(pl.rewards)||'')+(!STUDENT&&pl.rewards?'<button class="btn ghost" data-reward-sync>Обновить награды</button>':'')+html;
 }
 
 /* ---------- events ---------- */
@@ -636,3 +636,7 @@ document.addEventListener('click',async e=>{
     const feedback=document.querySelector(modal?'#cardBody [data-plan-rating-status]':'#view [data-plan-rating-status]');if(feedback)feedback.textContent='Оценка сохранена.';
   }catch(err){status.textContent='Не удалось сохранить оценку. Попробуйте ещё раз.';root.querySelectorAll('button').forEach(b=>b.disabled=false)}
 });
+
+let individualRewardTimer;
+function scheduleIndividualRewards(){if(!live||!P()?.rewards)return;clearTimeout(individualRewardTimer);individualRewardTimer=setTimeout(async()=>{if(pending.length||flushing){scheduleIndividualRewards();return;}try{const fresh=await Store.load();for(const plan of D.plans){const server=fresh.plans.find(p=>p.id===plan.id);if(server?.rewards){plan.rewards=server.rewards;window.AngleRewards?.refresh(plan.rewards);}}}catch{}},700);}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-reward-sync]');if(!b||!live||STUDENT)return;if(pending.length||flushing){toast('Дождитесь сохранения изменений.');return;}b.disabled=true;try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();if(!result.ok)throw Error(result.error||'Ошибка синхронизации');scheduleIndividualRewards();toast('Награды обновлены: '+result.added);}catch(e){toast(e.message);}finally{b.disabled=false;}});

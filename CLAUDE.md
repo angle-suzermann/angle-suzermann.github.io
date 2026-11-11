@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Награды 11.11: [единый журнал звёзд и Eggdog для всех групп и индивидуальных планов](docs/homework-rewards.md). Использовать серверное начисление после принятия всего ДЗ к дате; localStorage — только для показанной анимации. Не начислять звёзды вручную по screenshot/проценту.
+
 Homework submissions10.11: [общий блок с учебником/фото, страницы Starters/Movers/Flyers, общий журнал и голосовые The Trick](handoffs/2026-11-10-homework-submissions-groups.md). Журнал теперь /homework-submissions/teacher/; старый адрес перенаправляет.
 
 Фото домашек 10.11: [имя сверху, камера/галерея, email attachments, Flyers app и журнал учителя; Apps Script v29](handoffs/2026-11-10-homework-photos.md). Новый homework-submit.js?v=4 + homework-photos.js?v=1. Web3Forms бесплатный: остаётся для текста, фото через MailApp; тема письма курс — задание — имя. Обучение Kimi/Claude добавлено в общий файл.
