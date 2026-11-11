@@ -1,0 +1,5 @@
+/* Shared homework-card background: match the cabinet on each device. */
+.bg-photo{position:fixed;inset:0;z-index:0;opacity:1;background:#e8e3dc url('/assets/photos/catalog-yellow-desk.jpg') center top/cover no-repeat;pointer-events:none}
+.bg-wash{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,25,.46),rgba(45,25,60,.66) 40%,rgba(20,14,25,.94));pointer-events:none}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-mobile.png');background-position:center}}
+@media print{.bg-photo,.bg-wash{display:none}}
