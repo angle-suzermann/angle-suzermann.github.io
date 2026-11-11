@@ -40,7 +40,7 @@ html, body{
   inset: 0;
   z-index: 0;
   background-image: url('/assets/photos/catalog-yellow-desk.jpg');
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: #e8e3dc;
@@ -594,7 +594,7 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 /* Both Cambridge exam tiles use the same portrait logo box. */
 .tile-logo.tile-logo-cambridge{width:22px;height:32px;max-width:22px;max-height:32px;object-fit:contain;}
 
-/* Approved yellow desk preview: full photo on desktop, fill phone screen. */
-@media(min-width:800px){.bg-photo{background-position:center calc(50% + 70px)}}
+/* Fill every viewport without exposed edges; preserve photo proportions. */
+@media(min-width:800px){.bg-photo{background-position:center top}}
 @media(min-width:1000px){.page{left:clamp(0px,calc((100vw - 920px)/2),100px)}}
 @media(max-width:799px){.bg-photo{background-size:cover;background-position:center}}
