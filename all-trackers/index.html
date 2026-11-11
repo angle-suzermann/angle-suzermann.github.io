@@ -65,7 +65,7 @@ COURSES.forEach(([id,name,sub])=>{const b=document.createElement('button');b.typ
 function show(id,fromHash){const c=COURSES.find(x=>x[0]===id)||COURSES[0];id=c[0];current=id;
  chips.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.id===id)));
  Object.entries(frames).forEach(([k,f])=>f.classList.toggle('on',k===id));
- if(!frames[id]){const f=document.createElement('iframe');f.title=c[1]+' tracker';f.src=c[3]+'?embed=1';f.loading='eager';loading.classList.remove('off');f.addEventListener('load',()=>{if(current===id)loading.classList.add('off');watch(id)});frames[id]=f;stage.append(f);f.classList.add('on')}else{loading.classList.add('off');mirror(id)}
+ if(!frames[id]){const f=document.createElement('iframe');f.title=c[1]+' tracker';f.src=c[3]+'?embed=1&hub=3';f.loading='eager';loading.classList.remove('off');f.addEventListener('load',()=>{if(current===id)loading.classList.add('off');watch(id)});frames[id]=f;stage.append(f);f.classList.add('on')}else{loading.classList.add('off');mirror(id)}
  store.set(id);if(!fromHash&&location.hash.slice(1)!==id)history.replaceState(null,'','#'+id);
  const sel=document.getElementById('tab-'+id);sel&&sel.scrollIntoView({block:'nearest',inline:'center'});document.title='ANGLE · '+c[1]+' · All trackers';}
 window.addEventListener('hashchange',()=>show(location.hash.slice(1),true));
