@@ -272,7 +272,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 @media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-desktop-20261111.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
 
 /* Device-composed generated photo: clear center for app cards. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-notebook-20261111.png');background-position:center;background-size:cover}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/angle-cozy-mobile-zones-20261111.png');background-position:center;background-size:cover}}
 
 /* Keep the composed edge details visible on narrow screens. */
 .bg-photo{bottom:0}
