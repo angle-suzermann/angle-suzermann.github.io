@@ -283,6 +283,14 @@ function refreshRatings(s,message){
   area.querySelectorAll('[data-rating-feedback]').forEach(el=>{if(el.dataset.ratingFeedback===s.id)el.textContent=message});
   toast(message);
 }
+function homeworkInUnit(row,n){
+ let url='';try{url=decodeURIComponent(String(row.url||row.link||''))}catch(_){}
+ const pathUnit=url.match(/\/Unit[\s_-]*(\d+)(?:\/|$)/i);
+ const label=String(row.title||row.topic||row.hw||'');
+ if(!pathUnit&&row.unit!==undefined&&/^\d+$/.test(String(row.unit)))return Number(row.unit)===Number(n);
+ const unit=pathUnit||label.match(/\bUnit[\s_-]*(\d+)\b/i);
+ return !!unit&&Number(unit[1])===Number(n);
+}
 function studentCardBody(s,n,readonly){
   const c=ui.course,cc=C(),u=cc.units.find(x=>x.n===n)||cc.units[0],o=overall(c,s.id);
   const minis=cc.units.filter(x=>!readonly||unitOn(c,s.id,x.n)||x.n===u.n||cardUnits(s.id).some(k=>k.n===x.n)).map(x=>{const sc=unitScore(c,s.id,x.n);return `<span class="${pcClass(sc.r)}"><em>${readonly?'Unit ':'U'}${x.n}</em>${fmt(sc.r)}</span>`}).join('');
@@ -294,9 +302,9 @@ function studentCardBody(s,n,readonly){
   return `${ringsTop(c,s,o,readonly)}
    <div class="mini">${extra.join('')}</div>
    <h2 style="font-size:16px;margin:6px 0 8px;color:var(--purple)">Unit ${u.n} · ${esc(u.title)}${unitOn(c,s.id,u.n)?'':` <span class="sub">${readonly?'(юнит не отмечен как начатый)':'(not started)'}</span>`}</h2>${rows}
-   ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(homeworkLinkFor(x,s))}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)}${x.due?' · Сдать до '+esc(homeworkDay(x.due)):''} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${dot(c,s.id,'ex',x.id,'ex',true,readonly)}</div>`).join('')}`:''}
-   ${homeworkAssignedCards(s,readonly)}${meeBlock(meeFor(c,s),s,!readonly)}
-   ${readonly?homeworkStudentStatus(s)+parentReport(s):''}
+   ${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)&&homeworkInUnit(x,u.n)).length?`<h2 style="font-size:16px;margin-top:18px">Назначенные задания</h2>${cc.extras.filter(x=>x.date&&extraAssigned(x,s.id)&&homeworkInUnit(x,u.n)).map(x=>`<div class="secrow"><div class="t"><a href="${esc(homeworkLinkFor(x,s))}" target="_blank" rel="noopener">${esc(x.topic)}</a><small>${esc(x.date)}${x.due?' · Сдать до '+esc(homeworkDay(x.due)):''} · ${esc(({homework:'Homework',classwork:'Classwork',before:'Before the lesson'})[x.kind]||'Worksheet')}</small></div>${dot(c,s.id,'ex',x.id,'ex',true,readonly)}</div>`).join('')}`:''}
+   ${homeworkAssignedCards(s,readonly,u.n)}${meeBlock(meeFor(c,s).filter(x=>homeworkInUnit(x,u.n)),s,!readonly)}
+   ${readonly?homeworkStudentStatus(s,u.n)+parentReport(s):''}
    ${readonly?'':`<p style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0"><button class="btn" data-show-report="${esc(s.id)}">Посмотреть отчёт</button>${parentShare(s)}<button class="btn ghost" data-card="${esc(s.id)}">Open parent card (for screenshot)</button><button class="btn ghost" data-plink="${esc(s.id)}">Copy parent link</button></p>`}`;
 }
 function openReport(sid){
@@ -662,8 +670,8 @@ async function reviewHomeworkClick(button){
 }
 function homeworkAssignmentsFor(s){return (D.homeworkAssignments||[]).filter(a=>a.course===ui.course&&String(a.studentId)===String(s.id));}
 function homeworkLinkFor(x,s){return homeworkAssignmentsFor(s).find(a=>homeworkCanonical(a.url)===homeworkCanonical(x.link))?.accessUrl||x.link;}
-function homeworkAssignedCards(s,readonly){const list=homeworkAssignmentsFor(s);if(!list.length)return '';return '<h2 style="font-size:16px">Домашние карточки</h2>'+list.map(a=>'<div class="secrow"><div class="t"><a href="'+esc(a.accessUrl)+'" target="_blank" rel="noopener">'+esc(a.title)+'</a><small>Урок '+esc(homeworkDay(a.date))+(a.due?' · Сдать до '+esc(homeworkDay(a.due)):'')+' · Частей: '+(a.partIds||[]).length+'</small></div>'+(!readonly?'<button type="button" class="btn ghost" data-hw-copy="'+esc(a.id)+'">Ссылка ребёнку</button>':'')+'</div>').join('');}
-function homeworkStudentStatus(s){const list=(D.homework||[]).filter(r=>r.course===ui.course&&String(r.studentId)===String(s.id));if(!list.length)return '';return '<h2 style="font-size:16px">Отправленная домашняя работа</h2>'+list.map(r=>'<div class="secrow"><div class="t">'+esc(r.title)+homeworkPartsOf(r).map(p=>'<small>'+esc(p.label||p.partId)+' · '+esc(({pending:'Ждёт проверки',confirmed:'Принято',returned:'Нужно исправить'})[p.status]||p.status)+(p.note?' · '+esc(p.note):'')+'</small>').join('')+'</div></div>').join('');}
+function homeworkAssignedCards(s,readonly,n){const list=homeworkAssignmentsFor(s).filter(a=>homeworkInUnit(a,n));if(!list.length)return '';return '<h2 style="font-size:16px">Домашние карточки</h2>'+list.map(a=>'<div class="secrow"><div class="t"><a href="'+esc(a.accessUrl)+'" target="_blank" rel="noopener">'+esc(a.title)+'</a><small>Урок '+esc(homeworkDay(a.date))+(a.due?' · Сдать до '+esc(homeworkDay(a.due)):'')+' · Частей: '+(a.partIds||[]).length+'</small></div>'+(!readonly?'<button type="button" class="btn ghost" data-hw-copy="'+esc(a.id)+'">Ссылка ребёнку</button>':'')+'</div>').join('');}
+function homeworkStudentStatus(s,n){const list=(D.homework||[]).filter(r=>r.course===ui.course&&String(r.studentId)===String(s.id)&&homeworkInUnit(r,n));if(!list.length)return '';return '<h2 style="font-size:16px">Отправленная домашняя работа</h2>'+list.map(r=>'<div class="secrow"><div class="t">'+esc(r.title)+homeworkPartsOf(r).map(p=>'<small>'+esc(p.label||p.partId)+' · '+esc(({pending:'Ждёт проверки',confirmed:'Принято',returned:'Нужно исправить'})[p.status]||p.status)+(p.note?' · '+esc(p.note):'')+'</small>').join('')+'</div></div>').join('');}
 document.addEventListener('change',e=>{const filter=e.target.closest('[data-hw-filter]');if(filter){ui[filter.dataset.hwFilter]=filter.value;LS.set('angleTracker.ui',ui);render();}});
 document.addEventListener('click',async e=>{
  const all=e.target.closest('[data-hw-accept-all]');if(all){const box=all.closest('[data-homework]');box.querySelectorAll('[data-hw-part-decision]').forEach(s=>s.value='confirmed');await reviewHomeworkClick(box.querySelector('[data-hw-save]'));return;}

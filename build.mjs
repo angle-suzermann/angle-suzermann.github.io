@@ -1058,8 +1058,7 @@ const copyScript = `<script>
   });
 </script>`;
 
-const courseLinkRow = (course) => `  <div class="course-link-row">${course.textbookUrl ? `
-    <a class="textbook-link" href="${esc(course.textbookUrl)}" target="_blank" rel="noopener">📘 Скачать учебник</a>` : ''}
+const courseLinkRow = (course) => `  <div class="course-link-row">
     <button type="button" class="link-copy" id="pageLinkBtn" data-copy="${esc(`${BASE}/${course.id}/`)}">🔗 Скопировать ссылку на эту страницу</button>
   </div>
 `;
