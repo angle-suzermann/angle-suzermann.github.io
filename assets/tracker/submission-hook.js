@@ -22,8 +22,11 @@
 
   function message(text, retry) {
     let el = document.getElementById('angleTrackerDelivery');
-    if (!el) { el = document.createElement('div'); el.id = 'angleTrackerDelivery'; el.setAttribute('role', 'status'); el.style.cssText = 'position:fixed;bottom:90px;left:12px;right:12px;z-index:10000;padding:12px;border-radius:12px;background:#fff;color:#453458;box-shadow:0 2px 16px #0003;font:16px sans-serif'; document.body.appendChild(el); }
+    if (!el) { el = document.createElement('div'); el.id = 'angleTrackerDelivery'; el.setAttribute('role', 'status'); el.style.cssText = 'position:fixed;bottom:90px;left:12px;right:12px;max-width:520px;margin:0 auto;z-index:10000;padding:12px;border-radius:12px;background:#fff;color:#453458;box-shadow:0 2px 16px #0003;font:16px sans-serif'; document.body.appendChild(el); }
     el.textContent = text;
+    el.style.pointerEvents = retry ? 'auto' : 'none';   // a plain notice never blocks taps on the page
+    clearTimeout(el._angleTimer);
+    if (!retry) el._angleTimer = setTimeout(() => { el.remove(); }, 6000);   // notices go away by themselves; the retry notice stays until handled
     if (retry) {
       const b = document.createElement('button');
       b.type = 'button'; b.textContent = 'Отправить ещё раз'; b.style.cssText = 'margin-left:10px;padding:8px 12px;border-radius:10px;border:1px solid #5E4877;background:#fff;color:#5E4877;font:16px sans-serif';
