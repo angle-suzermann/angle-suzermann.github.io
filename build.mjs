@@ -2035,6 +2035,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
+  <div class="tile-grid" style="margin-bottom:14px"><a class="tile tile-submissions" href="${BASE}/all-trackers/"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="44" height="44"></span><span class="tile-name">Все трекеры</span><span class="tile-count">Переключатель курсов</span></a></div>
   <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}

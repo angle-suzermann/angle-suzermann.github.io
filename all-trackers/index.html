@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="ws:audience" content="teacher">
+<meta name="robots" content="noindex, nofollow">
+<title>ANGLE · Все трекеры</title>
+<style>
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-display:swap}
+:root{--purple:#5E4877;--purple-dark:#453458;--yellow:#FED500;--line:#e4dcee}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#42304f;font-family:'Apercu Pro',system-ui,Arial,sans-serif;color:#2D2926}
+body{display:flex;flex-direction:column;height:100dvh}
+.bar{flex:none;background:#fff;border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;box-shadow:0 2px 10px rgba(45,25,60,.12);z-index:2}
+.bar-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.bar h1{margin:0;font-size:15px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--purple)}
+.bar h1:after{content:"";display:block;height:3px;width:100%;margin-top:2px;border-radius:2px;background:linear-gradient(90deg,var(--yellow),#c58bff 60%,var(--purple))}
+.bar a.back{margin-left:auto;font-size:12px;font-weight:700;color:var(--purple);text-decoration:none;padding:6px 10px;border-radius:999px;background:#efe8f7}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;font:inherit;font-size:13px;font-weight:700;min-height:36px;padding:4px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--purple-dark);cursor:pointer;white-space:nowrap}
+.chips button small{display:block;font-size:10px;font-weight:400;color:#8a7a9c;line-height:1}
+.chips button[aria-selected=true]{background:var(--purple);border-color:var(--purple);color:#fff}.chips button[aria-selected=true] small{color:#d9ccea}
+.chips button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.stage{flex:1;position:relative;min-height:0}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#42304f;display:none}.stage iframe.on{display:block}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:14px;pointer-events:none}.loading.off{display:none}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-top"><h1>Все трекеры</h1><a class="back" href="/" id="homeLink">← Панель</a></div>
+  <nav class="chips" id="chips" role="tablist" aria-label="Курсы"></nav>
+</header>
+<main class="stage" id="stage"><div class="loading" id="loading">Загружаем трекер…</div></main>
+<script>
+(()=>{'use strict';
+const COURSES=[
+ ['as2','Starters','AS2','/as2/0-homework-tracker/'],
+ ['as3','Movers','AS3','/as3/0-homework-tracker/'],
+ ['as5','Flyers','AS5','/as5/0-homework-tracker/'],
+ ['b1','B1','Gateway','/gateway/gateway-to-the-world-b1/0-homework-tracker/'],
+ ['b2p','B2+','Gateway','/gateway/gw-b2/0-homework-tracker/'],
+ ['ege','ЕГЭ 2027','','/ege-2027/0-homework-tracker/'],
+ ['emp','Empower B1+','','/empower-b1/0-homework-tracker/'],
+ ['exp','Expert','Advanced','/expert-advanced/0-homework-tracker/']
+];
+const chips=document.getElementById('chips'),stage=document.getElementById('stage'),loading=document.getElementById('loading');
+const frames={};let current='';
+const store={get(){try{return localStorage.getItem('angle.allTrackers.last')||''}catch{return ''}},set(v){try{localStorage.setItem('angle.allTrackers.last',v)}catch{}}};
+COURSES.forEach(([id,name,sub])=>{const b=document.createElement('button');b.type='button';b.id='tab-'+id;b.setAttribute('role','tab');b.dataset.id=id;b.innerHTML=name+(sub?'<small>'+sub+'</small>':'');b.onclick=()=>show(id);chips.append(b)});
+function show(id,fromHash){const c=COURSES.find(x=>x[0]===id)||COURSES[0];id=c[0];current=id;
+ chips.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.id===id)));
+ Object.entries(frames).forEach(([k,f])=>f.classList.toggle('on',k===id));
+ if(!frames[id]){const f=document.createElement('iframe');f.title=c[1]+' tracker';f.src=c[3]+'?embed=1';f.loading='eager';loading.classList.remove('off');f.addEventListener('load',()=>{if(current===id)loading.classList.add('off')});frames[id]=f;stage.append(f);f.classList.add('on')}else loading.classList.add('off');
+ store.set(id);if(!fromHash&&location.hash.slice(1)!==id)history.replaceState(null,'','#'+id);
+ const sel=document.getElementById('tab-'+id);sel&&sel.scrollIntoView({block:'nearest',inline:'center'});document.title='ANGLE · '+c[1]+' · Все трекеры';}
+window.addEventListener('hashchange',()=>show(location.hash.slice(1),true));
+const home=document.getElementById('homeLink');try{const s=document.referrer&&new URL(document.referrer);if(s&&s.origin===location.origin&&s.pathname!==location.pathname)home.href=s.pathname}catch{}
+show(location.hash.slice(1)||store.get()||COURSES[0][0],true);
+})();
+</script>
+</body>
+</html>

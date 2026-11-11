@@ -1,4 +1,5 @@
 'use strict';
+try{if(/[?&]embed=1/.test(location.search))document.documentElement.classList.add('embedded')}catch(_){}
 const SRC=document.currentScript.src;
 const STRUCTURE_URL=new URL('structure.json',SRC);
 STRUCTURE_URL.search=new URL(SRC).search;
