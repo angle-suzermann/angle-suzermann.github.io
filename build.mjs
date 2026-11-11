@@ -590,8 +590,19 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
     f.src = href;
     f.setAttribute('allow', 'microphone; camera; autoplay; clipboard-write; fullscreen');
     f.style.cssText = 'position:absolute;top:var(--angle-shell-safe-top,0px);left:0;width:100%;height:calc(100% - 120px - var(--angle-shell-safe-top,0px));border:0;background:#2b1d33;';
-    if (matchMedia('(max-width:600px)').matches) overlay.style.setProperty('--angle-shell-safe-top','calc(env(safe-area-inset-top,0px) + 12px)');
-    f.addEventListener('load', function () { try { f.contentDocument.documentElement.style.setProperty('--angle-hw-safe-top','0px'); } catch (_) {} });
+    if (matchMedia('(max-width:600px)').matches) overlay.style.setProperty('--angle-shell-safe-top','env(safe-area-inset-top,0px)');
+    f.addEventListener('load', function () {
+      try {
+        var doc = f.contentDocument;
+        doc.documentElement.style.setProperty('--angle-hw-safe-top','0px');
+        if (!doc.getElementById('angle-shell-header-inset')) {
+          var insetStyle = doc.createElement('style');
+          insetStyle.id = 'angle-shell-header-inset';
+          insetStyle.textContent = '.topbar-inner{padding-top:'+(doc.querySelector('.hw-name-top')?'4px':'8px')+'!important}header.topbar,.topbar{background:rgba(255,255,255,.9)!important}';
+          doc.head.appendChild(insetStyle);
+        }
+      } catch (_) {}
+    });
     var b = document.createElement('button');
     b.type = 'button';
     b.textContent = '← Go back';
