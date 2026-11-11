@@ -7,3 +7,5 @@ The portrait source is user supplied, 452x678. Imagegen enhancement failed with 
 QA: computed background image, opacity, viewport width for all eight cards/hubs at 390 and 1440 px. No student submissions or marks sent.
 
 Rewards confirmed: one star for ALL required homework parts accepted for a lesson date; five lifetime stars unlock a random existing positive Eggdog without duplicates until collection complete; start 2026-11-11, no earlier homework awards. Rewards implementation remains pending.
+
+UPDATE: User rejected the low-resolution portrait photo. All device backgrounds now use catalog-yellow-desk.jpg, including catalog, trackers and all homework cards/hubs. Keep the desktop image everywhere; do not re-enable the portrait asset.

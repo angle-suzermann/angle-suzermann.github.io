@@ -269,4 +269,4 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 .secrow .t{min-width:0;overflow-wrap:anywhere;}
 
 /* Phone-only portrait background; desktop photo stays unchanged. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-mobile.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-desk.jpg');background-position:center;background-size:cover;background-repeat:no-repeat}}

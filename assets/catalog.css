@@ -600,4 +600,4 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 @media(max-width:799px){.bg-photo{background-size:cover;background-position:center}}
 
 /* Phone-only portrait background; desktop photo stays unchanged. */
-@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-mobile.png');background-position:center;background-size:cover;background-repeat:no-repeat}}
+@media(max-width:799px){.bg-photo{background-image:url('/assets/photos/catalog-yellow-desk.jpg');background-position:center;background-size:cover;background-repeat:no-repeat}}
