@@ -86,7 +86,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
 const SW_VERSION = 10;
-const WT_VERSION = 11;
+const WT_VERSION = 12;
 const WX_VERSION = 4;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
@@ -539,7 +539,7 @@ const page = ({ title, heading, sub, body, extraScript = '', headingIcon = '', h
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="${BASE}/assets/catalog.css?v=${CSS_VERSION}">
@@ -579,6 +579,20 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
   if (!standalone) return;
   if (window.__angleShell) return;
   window.__angleShell = true;
+  /* Шапка не уезжает: iOS в приложении иногда сдвигает визуальный вьюпорт, а fixed-элементы остаются в layout-вьюпорте. */
+  (function () {
+    var vv = window.visualViewport;
+    function pin() {
+      var h = document.querySelector('.cat-header');
+      if (window.scrollY < 0) window.scrollTo(0, 0);
+      if (!h) return;
+      var dy = vv ? Math.round(vv.offsetTop) : 0;
+      h.style.transform = dy ? 'translate3d(0,' + dy + 'px,0)' : '';
+    }
+    if (vv) { vv.addEventListener('resize', pin); vv.addEventListener('scroll', pin); }
+    window.addEventListener('pageshow', pin); window.addEventListener('orientationchange', pin); window.addEventListener('resize', pin);
+    pin(); setTimeout(pin, 300); setTimeout(pin, 1200);
+  })();
   var inStaff = location.pathname.indexOf('${BASE}/${staffPath}/') === 0;
   var overlay = null;
   function closeOverlay() { if (overlay) { overlay.remove(); overlay = null; } }
@@ -674,7 +688,7 @@ const shareButton = (url,title,emoji='') => `<button type="button" data-share-ur
 const SUBMISSION_GROUPS = [['as2','Starters','AS2 · 1st edition'],['as3','Movers','AS3 · 1st edition'],['as5','Flyers','AS5 · 2nd edition']];
 const submissionsTile = (courseId='',label='Homework submissions',detail='Фото ДЗ',teacher=false) => `<a class="tile tile-submissions" href="${BASE}${teacher?'/homework-submissions/teacher/':courseId?'/'+courseId+'/homework/':'/homework-submissions/'}"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/homework-submissions.svg" alt="" width="44" height="44"></span><span class="tile-name">${esc(label)}</span><span class="tile-count">${esc(detail)}</span></a>`;
 
-const materialIcon = (m) => m.audience === 'teacher' ? `<img src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="24" height="24" style="vertical-align:middle;margin-right:6px">` : m.emoji ? esc(m.emoji) + ' ' : '';
+const materialIcon = (m) => m.audience === 'teacher' ? `<img src="${BASE}/assets/brand/material-icons/tracker-rings-3d.png?v=1" alt="" width="24" height="24" style="vertical-align:middle;margin-right:6px">` : m.emoji ? esc(m.emoji) + ' ' : '';
 const card = (m) => `  <article class="card" data-group="${esc(m.group || '')}"
      data-date="${esc(m.date)}" data-title="${esc(m.title)}" data-unit="${esc(m.unit)}"${m.progressKey ? ` data-progress-key="${esc(m.progressKey)}"` : ''}>
     <a class="material-open" href="${esc(m.url)}" target="_blank" rel="noopener"><div class="row">
@@ -1464,7 +1478,7 @@ const courseGroupRows = [...courseGroupsMap.keys()].map((courseId) => {
      есть хотя бы одна папка — теперь для них есть своя плитка. */
   const ungroupedCount = list.filter((m) => !m.group && m.audience !== 'teacher').length;
   const trackerTiles = list.filter((m) => m.audience === 'teacher').map((m) => `      <a class="tile tile-tracker" href="${esc(m.url)}" target="_blank" rel="noopener">
-        <span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="44" height="44"></span>
+        <span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/tracker-rings-3d.png?v=1" alt="" width="44" height="44"></span>
         <span class="tile-name">Homework tracker</span>
         <span class="tile-count">открыть трекер</span>
       </a>`);
@@ -2035,7 +2049,7 @@ fs.writeFileSync(path.join(staffDir, 'index.html'), page({
     <input type="search" id="q" placeholder="Поиск по названию, теме, юниту…" hidden>
   </div>
   <p class="count" id="staffSummary">${esc(staffSummary)}</p>
-  <div class="tile-grid" style="margin-bottom:14px"><a class="tile tile-submissions" href="${BASE}/all-trackers/" title="Все трекеры" aria-label="Все трекеры"><span class="tile-icon"><img class="tile-logo" src="${BASE}/assets/brand/material-icons/tracker-rings-sticker-v2.png" alt="" width="44" height="44"></span></a></div>
+  <div class="tile-grid" style="margin-bottom:14px"><a class="tracker-symbol" href="${BASE}/all-trackers/" title="Все трекеры" aria-label="Все трекеры"><img src="${BASE}/assets/brand/material-icons/tracker-rings-3d.png?v=1" alt="" width="84" height="84"></a></div>
   <div id="courseTilesWrap">
 ${staffTileFamilyBlocks}
 ${staffTileStandaloneBlock}

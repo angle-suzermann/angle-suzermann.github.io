@@ -4,6 +4,12 @@
    и не двигают страницу. Хранение — те же ключи localStorage, что и раньше (angle_ink::путь, angle_notes::путь). */
 (function () {
   'use strict';
+  /* 12.11: бейдж ANGLE закреплён внизу страницы, а не плавает поверх текста при прокрутке */
+  try {
+    var bs = document.createElement('style');
+    bs.textContent = '.angle-badge{position:absolute!important;top:auto!important}html{min-height:100%}body{position:relative;min-height:100vh;min-height:100dvh}';
+    document.head.appendChild(bs);
+  } catch (e) { }
   if (window.__wsTools || document.getElementById('inkToggle')) return;   // старая вшитая версия на странице — не дублируем
   window.__wsTools = true;
 
@@ -190,9 +196,9 @@
   }
   function defaultDock() {
     var badge = document.querySelector('.angle-badge');
-    var bTop = badge ? badge.getBoundingClientRect().top : window.innerHeight - 14;
+    var bTop = badge ? window.innerHeight - 18 - badge.offsetHeight : window.innerHeight - 14;
     var h = (dock.offsetHeight || 146) * uiScale;
-    var left = badge ? Math.max(8, badge.getBoundingClientRect().left) : 14;
+    var left = badge ? Math.max(8, parseFloat(getComputedStyle(badge).left) || 14) : 14;
     placeDock(left, bTop - h - 10);
   }
   var userMoved = false;

@@ -279,7 +279,7 @@ thead th[class*="g-"]{border-left:2px solid #fff;border-right:2px solid #fff;bor
 @media(max-width:799px){.bg-photo{background-size:cover}}
 
 /* ANGLE signature: keep bottom-left clear and visible during scrolling. */
-.tracker-angle-badge{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;color:#FED500}
+.tracker-angle-badge{position:absolute;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;color:#FED500}
 .tracker-angle-badge .wordmark{display:block;width:100px;height:auto}.tracker-angle-badge .credit{margin:4px 0 0 2px;font-family:'Apercu Pro',Arial,sans-serif;font-size:10px;line-height:1.2}.tracker-angle-badge.on-light{color:#2D2926}
 .app{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}@media(max-width:600px){.tracker-angle-badge .wordmark{width:84px}.tracker-angle-badge .credit{font-size:9px}}@media print{.tracker-angle-badge{display:none}}
 
@@ -294,3 +294,5 @@ html.embedded .tracker-angle-badge{display:none!important}
 html.embedded .brand-row{display:none}
 html.embedded .topbar{padding-top:0;padding-bottom:6px}
 html.embedded .topbar:not(:has(#courses:not(:empty))){display:none}
+
+body{position:relative;min-height:100vh;min-height:100dvh}

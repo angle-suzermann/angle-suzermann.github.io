@@ -53,7 +53,8 @@ html, body{
 }
 
 .angle-badge{
-  position: fixed;
+  /* 12.11: бейдж закреплён внизу страницы (а не поверх прокручиваемого текста) */
+  position: absolute;
   left: 20px; bottom: 18px;
   z-index: 9999;
   pointer-events: none;
@@ -611,3 +612,10 @@ body{ background: transparent; min-height: 100vh; min-height: 100dvh; }
 
 /* Mobile-only wash keeps the study objects visible; desktop stays unchanged. */
 @media(max-width:799px){.bg-wash{background:linear-gradient(180deg,rgba(20,14,25,.44),rgba(45,25,60,.52) 40%,rgba(20,14,25,.72))}}
+
+body{ position: relative; }
+
+/* Значок «Все трекеры» — просто символ, без плитки */
+.tracker-symbol{display:inline-block;margin:0 0 10px;line-height:0;-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 4px 8px rgba(30,15,45,.35));transition:transform .15s}
+.tracker-symbol img{display:block;width:84px;height:84px}
+.tracker-symbol:active{transform:scale(.94)}
