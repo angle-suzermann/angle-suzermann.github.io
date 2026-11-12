@@ -37,13 +37,13 @@ window.AngleRewards={panel,fromRows,scan,refresh,star};
 
 /* 12.11: объёмные кольца (как на значке «Все трекеры»): трубка с бликом, закруглённые концы, белая подложка-стикер */
 (function(){let n=0;
-const P={o:['#4b1d8f','#7a3ac8','#b78cf5','#e6d9f3'],m:['#c98200','#f5b90f','#ffe27a','#fbefc4'],i:['#0b5f5f','#1aa896','#7fe8d6','#cfe9e4']};
-function arc(v,R,w,c){const C=2*Math.PI*R,L=Math.max(0,Math.min(1,v||0))*C;
- const track=`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${c[3]}" stroke-width="${w}"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="rgba(60,30,90,.10)" stroke-width="${w*0.45}" transform="translate(.5,.7)"/>`;
+const P={o:['#43187f','#7433c4','#b685f5','#e3d4f3'],m:['#b87400','#f4b50a','#ffe784','#fbeebb'],i:['#0a5656','#17a393','#86efdc','#c9e7e1']};
+function arc(v,R,w,c,id){const C=2*Math.PI*R,L=Math.max(0,Math.min(1,v||0))*C;
+ const track=`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${c[3]}" stroke-width="${w}"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="rgba(70,35,100,.16)" stroke-width="${w*0.5}" transform="translate(.7,1)" filter="url(#${id}b)"/>`;
  if(L<0.5)return track;
- const d=`${L.toFixed(2)} ${C.toFixed(2)}`,s=(wd,col,ex='')=>`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-width="${wd.toFixed(2)}" stroke-linecap="round" stroke-dasharray="${d}" transform="rotate(-90 60 60)${ex}"/>`;
- return track+`<g filter="url(#SH)">${s(w,c[0])}</g>`+s(w*0.88,c[1])+s(w*0.55,c[2],'')+`<g filter="url(#BL)" opacity=".85">${s(w*0.2,'#fff')}</g>`.replace('rotate(-90 60 60)','translate(-1.1,-1.3) rotate(-90 60 60)')}
+ const d=`${L.toFixed(2)} ${C.toFixed(2)}`,s=(wd,col,dx,dy,f,op)=>`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${col}" stroke-width="${wd.toFixed(2)}" stroke-linecap="round" stroke-dasharray="${d}" transform="translate(${dx},${dy}) rotate(-90 60 60)"${f?` filter="url(#${f})"`:''}${op?` opacity="${op}"`:''}/>`;
+ return track+s(w,c[0],0,0,id+'s')+s(w*0.9,c[1],-.35,-.5)+s(w*0.62,c[2],-.9,-1.3,id+'b',.95)+s(w*0.2,'#fff',-1.7,-2.3,id+'t',.95)}
 window.AngleRings3D={svg(vals,o={}){const id='r3d'+(++n),size=o.size||132,lab=o.label||'Progress rings';
- const body=arc(vals[0],46,10,P.o)+arc(vals[1],31.5,9,P.m)+arc(vals[2],18,8,P.i);
- return `<svg viewBox="0 0 120 120" width="${size}" height="${size}" style="flex:none;overflow:visible" role="img" aria-label="${lab}"><defs><filter id="${id}s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.3" flood-color="#2a1245" flood-opacity=".38"/></filter><filter id="${id}b"><feGaussianBlur stdDeviation=".45"/></filter><filter id="${id}d" x="-10%" y="-10%" width="125%" height="125%"><feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#2a1245" flood-opacity=".3"/></filter></defs><circle cx="60" cy="60" r="58" fill="#fff" filter="url(#${id}d)"/><circle cx="60" cy="60" r="56" fill="#faf7fd"/>${body.replace(/url\(#SH\)/g,'url(#'+id+'s)').replace(/url\(#BL\)/g,'url(#'+id+'b)')}</svg>`}};
+ const body=arc(vals[0],45.5,12,P.o,id)+arc(vals[1],30.5,11,P.m,id)+arc(vals[2],16.5,10,P.i,id);
+ return `<svg viewBox="0 0 120 120" width="${size}" height="${size}" style="flex:none;overflow:visible" role="img" aria-label="${lab}"><defs><filter id="${id}s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.8" stdDeviation="1.4" flood-color="#2a1245" flood-opacity=".42"/></filter><filter id="${id}b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation=".9"/></filter><filter id="${id}t" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation=".35"/></filter><filter id="${id}d" x="-10%" y="-10%" width="125%" height="125%"><feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#2a1245" flood-opacity=".3"/></filter></defs><circle cx="60" cy="60" r="58" fill="#fff" filter="url(#${id}d)"/><circle cx="60" cy="60" r="56.2" fill="#faf7fd"/>${body}</svg>`}};
 })();
