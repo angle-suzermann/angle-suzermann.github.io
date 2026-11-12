@@ -4,10 +4,10 @@
    и не двигают страницу. Хранение — те же ключи localStorage, что и раньше (angle_ink::путь, angle_notes::путь). */
 (function () {
   'use strict';
-  /* 12.11: бейдж ANGLE закреплён внизу страницы, а не плавает поверх текста при прокрутке */
+  /* 12.11: бейдж ANGLE закреплён внизу страницы, а не плавает поверх текста при прокрутке; домашние карточки (.angle-badge--fixed) — наоборот, бейдж закреплён у нижнего края экрана */
   try {
     var bs = document.createElement('style');
-    bs.textContent = '.angle-badge{position:absolute!important;top:auto!important}html{min-height:100%}body{position:relative;min-height:100vh;min-height:100dvh}';
+    bs.textContent = '.angle-badge:not(.angle-badge--fixed){position:absolute!important;top:auto!important}html{min-height:100%}body{position:relative;min-height:100vh;min-height:100dvh}';
     document.head.appendChild(bs);
   } catch (e) { }
   if (window.__wsTools || document.getElementById('inkToggle')) return;   // старая вшитая версия на странице — не дублируем
