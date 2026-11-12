@@ -195,20 +195,6 @@ p{ line-height:1.5; }
 .cat-chip.placed-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); }
 .cat-chip.placed-wrong{ border-color:var(--wrong); background:#fdecea; color:var(--wrong); }
 
-/* voice recorder (records to Basin) */
-.recorder{ background:var(--card-tint); border:1.5px dashed var(--purple); border-radius:12px; padding:16px; margin-top:16px; }
-.rec-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-.rec-btn.rec-active{ background:var(--wrong); }
-.rec-timer{ font-weight:700; color:var(--purple-dark); font-variant-numeric:tabular-nums; }
-.rec-playback{ width:100%; margin-top:12px; }
-.rec-actions{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
-.rec-hint{ font-size:.78rem; color:var(--muted); margin:10px 0 0; }
-.rec-start-block{ text-align:center; }
-.rec-start-block .rec-hint{ text-align:left; }
-.task-audio{ display:none; }
-.task-audio.active{ display:block; width:100%; margin:10px 0 4px; }
-.rec-skip-btn{ font-size:.78rem; padding:6px 12px; }
-
 /* ---- tabs (switch between topics/variants within one page) ---- */
 .tab-bar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
 .tab-btn{ background:var(--card-tint); border:1.5px solid var(--border); color:var(--purple-dark); font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer; font-family:inherit; font-size:.86rem; }
@@ -410,7 +396,6 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <script>
 
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
-const BASIN_ENDPOINT = '';
 const COURSE_NAME = 'ЕГЭ — Ульяна (тренажёр)';
 const PROGRESS_KEY = 'angle_progress::uliana-perfect-aux';
 let isRestoring = false;
@@ -781,155 +766,6 @@ function clearProgress(){
 }
 document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
 document.addEventListener('click', e=>{ if(e.target.closest('.match, .cat-chip, .cat-zone')) scheduleSave(); });
-
-/* ---- voice recorder → Basin (real file upload; Web3Forms free tier can't accept files) ---- */
-const recorderState = new WeakMap();
-function fmtRecTime(s){ const m=Math.floor(s/60); const sec=s%60; return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
-
-async function toggleRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const st = recorderState.get(wrap);
-  if (st && st.recording){ st.mediaRecorder.stop(); return; }
-  const statusEl = wrap.querySelector('.send-status');
-  statusEl.textContent = '';
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
-    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
-    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
-    const chunks = [];
-    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
-    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
-    mr.onstop = ()=>{
-      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
-      const audioEl = wrap.querySelector('.rec-playback');
-      audioEl.src = URL.createObjectURL(blob);
-      audioEl.hidden = false;
-      wrap.querySelector('.rec-actions').hidden = false;
-      newState.blob = blob;
-      newState.recording = false;
-      clearInterval(newState.timerId);
-      stream.getTracks().forEach(t=>t.stop());
-      btn.textContent = '🎤 Start recording';
-      btn.classList.remove('rec-active');
-      const timerEl = wrap.querySelector('.rec-timer');
-      timerEl.hidden = true;
-    };
-    recorderState.set(wrap, newState);
-    mr.start();
-    btn.textContent = '⏹ Stop recording';
-    btn.classList.add('rec-active');
-    const timerEl = wrap.querySelector('.rec-timer');
-    timerEl.hidden = false; timerEl.textContent = '00:00';
-    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
-  } catch(e){
-    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
-  }
-}
-
-function reRecordAudio(btn){
-  const wrap = btn.closest('.recorder');
-  wrap.querySelector('.rec-playback').hidden = true;
-  wrap.querySelector('.rec-actions').hidden = true;
-  wrap.querySelector('.send-status').textContent = '';
-  const startBlock = wrap.querySelector('.rec-start-block');
-  if (startBlock) startBlock.hidden = false;
-  recorderState.delete(wrap);
-}
-
-/* ---- guided recording: plays a given task audio (e.g. an interview with built-in answer pauses)
-   and records the student's mic simultaneously, auto-stopping when that audio ends ---- */
-async function startGuidedRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const audioEl = wrap.querySelector('.task-audio');
-  const statusEl = wrap.querySelector('.send-status');
-  statusEl.textContent = '';
-  btn.disabled = true;
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
-    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
-    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
-    const chunks = [];
-    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
-    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
-    mr.onstop = ()=>{
-      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
-      const playbackEl = wrap.querySelector('.rec-playback');
-      playbackEl.src = URL.createObjectURL(blob);
-      playbackEl.hidden = false;
-      wrap.querySelector('.rec-actions').hidden = false;
-      newState.blob = blob;
-      newState.recording = false;
-      clearInterval(newState.timerId);
-      stream.getTracks().forEach(t=>t.stop());
-      wrap.querySelector('.rec-timer').hidden = true;
-      const skipBtn = wrap.querySelector('.rec-skip-btn');
-      if (skipBtn) skipBtn.hidden = true;
-      audioEl.classList.remove('active');
-      audioEl.removeAttribute('controls');
-      btn.disabled = false;
-    };
-    recorderState.set(wrap, newState);
-    mr.start();
-    const timerEl = wrap.querySelector('.rec-timer');
-    timerEl.hidden = false; timerEl.textContent = '00:00';
-    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
-    wrap.querySelector('.rec-start-block').hidden = true;
-    const skipBtn = wrap.querySelector('.rec-skip-btn');
-    if (skipBtn) skipBtn.hidden = false;
-    audioEl.currentTime = 0;
-    audioEl.setAttribute('controls', 'controls');
-    audioEl.classList.add('active');
-    audioEl.onended = ()=>{ if (newState.recording) mr.stop(); };
-    await audioEl.play();
-  } catch(e){
-    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
-    btn.disabled = false;
-  }
-}
-
-/* skip the guided task-audio forward by N seconds (e.g. to skip past the 40s answer pause) —
-   only affects playback, the mic recording underneath keeps running untouched */
-function skipAudioForward(btn, seconds){
-  const wrap = btn.closest('.recorder');
-  const audioEl = wrap.querySelector('.task-audio');
-  if (!audioEl) return;
-  const dur = isFinite(audioEl.duration) ? audioEl.duration : audioEl.currentTime + seconds;
-  audioEl.currentTime = Math.min(audioEl.currentTime + seconds, Math.max(dur - 0.25, 0));
-}
-
-async function sendRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const st = recorderState.get(wrap);
-  const statusEl = wrap.querySelector('.send-status');
-  const nameInput = document.getElementById('studentName');
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
-  if(!st || !st.blob){ statusEl.textContent = 'Сначала запишите ответ.'; return; }
-  if(!BASIN_ENDPOINT){ statusEl.textContent = 'Отправка пока не настроена — обратитесь к преподавателю.'; return; }
-  const taskLabel = wrap.dataset.label || document.title;
-  const studentName = nameInput.value.trim();
-  const subjBase = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
-  const fd = new FormData();
-  fd.append('subject', subjBase + ' — ' + taskLabel + ' — ' + studentName);
-  fd.append('course', COURSE_NAME);
-  fd.append('lesson', document.title + ' — ' + taskLabel);
-  fd.append('student', studentName);
-  fd.append('timestamp', new Date().toISOString());
-  const ext = (st.blob.type||'').includes('mp4') ? 'm4a' : 'webm';
-  const safeName = (studentName + ' - ' + taskLabel + '.' + ext).replace(/[\/:*?"<>|]/g,'_');
-  fd.append('audio', st.blob, safeName);
-  statusEl.textContent = 'Отправка…';
-  btn.disabled = true;
-  try{
-    await fetch(BASIN_ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
-    statusEl.textContent = 'Отправлено учителю ✓';
-  } catch(e){
-    statusEl.textContent = 'Не удалось отправить — проверьте интернет-соединение и попробуйте снова.';
-  } finally {
-    btn.disabled = false;
-  }
-}
 
 async function sendCompletion(){
   const studentName = document.getElementById('studentName')?.value.trim() || '(name not entered)';

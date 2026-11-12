@@ -350,44 +350,10 @@ function startTimer(btn, minutes){
 }
 /* local self-recording: stays in the browser, never uploaded */
 let recState = null;
-async function toggleRec(btn){
-  if(recState && recState.btn === btn){ recState.mr.stop(); return; }
-  if(recState) recState.mr.stop();
-  if(!navigator.mediaDevices || !window.MediaRecorder){ alert('Recording is not supported in this browser.'); return; }
-  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ alert('Please allow the microphone to record yourself.'); return; }
-  const mime = ['audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
-  const mr = new MediaRecorder(stream, mime ? {mimeType:mime} : undefined), chunks = [];
-  mr.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
-  mr.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); const box = btn.parentElement, a = box.querySelector('audio');
-    const type = mr.mimeType || 'audio/webm', blob = new Blob(chunks, {type});
-    a.src = URL.createObjectURL(blob); a.hidden = false;
-    RECORDINGS[box.id] = { blob, ext: /mp4/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm', sent:false, label: box.dataset.label };
-    btn.classList.remove('on'); btn.textContent = '● Record again'; recState = null; };
-  mr.start(); recState = {mr, btn}; btn.classList.add('on'); btn.textContent = '■ Stop';
-}
+async function toggleRec(btn){ return false; }
 function stopSpeakingTools(){ clearInterval(timerIv); if(recState){ try{ recState.mr.stop(); }catch(e){} } }
 
-/* Speaking recordings: Basin (Web3Forms does not accept files) — same address as the ЕГЭ speaking pages */
-const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
-const RECORDINGS = {};
-async function sendRecordings(student){
-  const items = Object.entries(RECORDINGS).filter(([id, r])=>r.blob && !r.sent);
-  if(!items.length) return 0;
-  const title = (document.querySelector('meta[name="ws:title"]')||{}).content || document.title;
-  const slug = student.toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'_').slice(0,40) || 'student';
-  const fd = new FormData();
-  fd.append('course', COURSE_NAME);
-  fd.append('exercise', title + ' — Speaking recordings (partial)');
-  fd.append('subject', `${COURSE_NAME} — ${document.title} — Speaking — ${student}`);
-  fd.append('student', student);
-  fd.append('recordings_list', items.map(([id, r])=>r.label).join('\n'));
-  fd.append('timestamp', new Date().toISOString());
-  items.forEach(([id, r])=>fd.append('recording_' + id, r.blob, `${slug}_${id}.${r.ext}`));
-  const res = await fetch(BASIN_URL, {method:'POST', headers:{'Accept':'application/json'}, body:fd});
-  if(!res.ok) throw new Error('HTTP ' + res.status);
-  items.forEach(([id, r])=>{ r.sent = true; });
-  return items.length;
-}
+/* Speaking recordings are not uploaded: students send a voice message to Viktoria in Telegram with a screenshot of the task */
 
 /* pages */
 function buildDots(){
@@ -540,11 +506,6 @@ async function submitAll(){
     const r = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body:fd});
     status.textContent = r.ok ? 'Sent to your teacher ✓' : 'Could not send — please try again.';
   }catch(e){ status.textContent='Could not send — check your internet connection and try again.'; }
-  if(Object.values(RECORDINGS).some(x=>x.blob && !x.sent)){
-    const st2 = document.createElement('div'); st2.className = 'rec-status'; st2.textContent = 'Sending your Speaking recordings…'; status.after(st2);
-    try{ const n = await sendRecordings(studentName); st2.textContent = `Speaking recordings sent ✓ (${n})`; }
-    catch(e){ st2.textContent = 'Recordings could not be sent — press Check & Submit again (do not reload the page).'; }
-  }
 }
 
 function initAll(){ buildDots(); initMcq(); initWritten(); isRestoring=true; showPage(0); isRestoring=false; restoreProgress(); }

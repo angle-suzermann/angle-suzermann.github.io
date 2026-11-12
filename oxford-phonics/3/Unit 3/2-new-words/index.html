@@ -393,13 +393,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
       </div>
     </div>
     <p class="hint">Tap the card itself to flip it.</p>
-  <div class="rec-box">
-        <div class="rec-label">🎤 Now record yourself reading the new words on the cards!</div>
-        <button class="rec-btn" id="voiceRec-recbtn" onclick="toggleVoiceRec()">🎤 Record</button>
-        <audio class="rec-playback" id="voiceRec-playback" controls></audio>
-        <button class="send-rec-btn" id="voiceRec-sendbtn" onclick="sendVoiceRecording()">📤 Send my recording</button>
-        <div class="rec-status" id="voiceRec-status"></div>
-      </div>
+  <div class="tg-voice" style="margin:14px 0;padding:14px 16px;background:#fff6c8;border:2px dashed #5E4877;border-radius:14px;color:#2D2926;font-weight:600;line-height:1.55;font-size:.95em;font-family:inherit">🎙️ <b>Голосовой ответ — в Telegram.</b> Запиши голосовое сообщение и отправь его Виктории в Telegram. <b>К голосовому обязательно приложи скриншот этого задания</b>: без скриншота голосовое не засчитывается.</div>
 </div>
         <div class="nav-btns"><div class="spacer"></div><button class="btn btn-primary" onclick="nextPage()">Next →</button></div>
 </section>
@@ -1058,77 +1052,11 @@ showPage(0);
 restoreProgress();
 </script>
 <script>
-/* Voice recording widget — read the task aloud, send via Basin (added by Claude) */
-const BASIN_ENDPOINT = 'https://usebasin.com/f/6e8f507d4a7d';
+/* Voice recording widget — read the task aloud, send via Telegram (added by Claude) */
 let voiceRecorder = null;
 let voiceBlob = null;
-async function toggleVoiceRec(){
-  const btn = document.getElementById('voiceRec-recbtn');
-  if(voiceRecorder && voiceRecorder.state==='recording'){
-    voiceRecorder.stop();
-    btn.textContent = '🎤 Record';
-    btn.classList.remove('recording');
-    return;
-  }
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const mr = new MediaRecorder(stream);
-    const chunks = [];
-    mr.ondataavailable = e=>{ if(e.data.size>0) chunks.push(e.data); };
-    mr.onstop = ()=>{
-      voiceBlob = new Blob(chunks, {type:'audio/webm'});
-      const url = URL.createObjectURL(voiceBlob);
-      const audioEl = document.getElementById('voiceRec-playback');
-      audioEl.src = url;
-      audioEl.style.display = 'inline-block';
-      stream.getTracks().forEach(t=>t.stop());
-    };
-    mr.start();
-    voiceRecorder = mr;
-    btn.textContent = '⏺ Recording… (tap to stop)';
-    btn.classList.add('recording');
-  }catch(err){
-    alert('Could not access the microphone: '+err.message+'\n\nTry a different browser, or ask your teacher for help.');
-  }
-}
-async function sendVoiceRecording(){
-  const nameInput = document.getElementById('studentName');
-  const name = (nameInput && nameInput.value.trim()) || '';
-  const status = document.getElementById('voiceRec-status');
-  const btn = document.getElementById('voiceRec-sendbtn');
-  if(!name){
-    if(nameInput) nameInput.focus();
-    alert('Please type your name at the top before sending your recording.');
-    return;
-  }
-  if(!voiceBlob){
-    status.textContent = 'Record your voice first — tap 🎤 Record above.';
-    status.style.color = 'var(--wrong)';
-    return;
-  }
-  btn.disabled = true;
-  status.style.color = 'var(--muted)';
-  status.textContent = 'Sending…';
-  try{
-    const fd = new FormData();
-    fd.append('course', 'Oxford Phonics World 3');
-    fd.append('exercise', document.title);
-    fd.append('student', name);
-    fd.append('date', new Date().toLocaleString('ru-RU'));
-    fd.append('reading_aloud', voiceBlob, name.replace(/\s+/g,'_')+'_reading_aloud.webm');
-    const res = await fetch(BASIN_ENDPOINT, { method:'POST', body:fd, headers:{'Accept':'application/json'} });
-    if(res.ok){
-      status.textContent = 'Sent to your teacher ✓';
-      status.style.color = 'var(--correct)';
-    } else {
-      throw new Error('bad response');
-    }
-  }catch(err){
-    status.textContent = 'Could not send — check your internet connection and try again.';
-    status.style.color = 'var(--wrong)';
-    btn.disabled = false;
-  }
-}
+async function toggleVoiceRec(){ return false; }
+async function sendVoiceRecording(){ return false; }
 </script>
 </body>
 </html>

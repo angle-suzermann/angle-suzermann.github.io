@@ -1,5 +1,5 @@
 /* Successful delivery -> existing group assignment or individual-plan task. Never includes teacher credentials.
- * v3 (04.11.2026): observes every transport the site uses (fetch, XHR, sendBeacon) to Web3Forms, Formspree and Basin;
+ * v3 (04.11.2026): observes every transport the site uses (fetch, XHR, sendBeacon) to Web3Forms and Formspree;
  * partial sends are recognised from the clicked "send this task" button, the label or the exercise name;
  * a record the tracker rejects is parked with its reason and can be re-sent; the latest scored attempt is recorded (first one kept in the note)
  * here and, authoritatively, on the server (so it survives reloads and other devices). */
@@ -8,7 +8,7 @@
   if (window.angleSubmissionHook || !window.fetch) return;
   window.angleSubmissionHook = true;
   const endpoint = 'https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec';
-  const MAIL = /^https:\/\/(?:api\.web3forms\.com\/submit|formspree\.io\/f\/|usebasin\.com\/f\/)/;
+  const MAIL = /^https:\/\/(?:api\.web3forms\.com\/submit|formspree\.io\/f\/)/;
   const original = window.fetch;
   const meta = key => document.querySelector('meta[name="ws:' + key + '"]')?.content || '';
   const queueKey = 'angle.pendingSubmissions.v1', rejectedKey = 'angle.rejectedSubmissions.v1', firstKey = 'angle.firstSubmissionScores.v1';
@@ -150,7 +150,7 @@
       if (result.success === false || result.ok === false || result.error || result.errors) return false;
       if (url.indexOf('web3forms.com') > -1 && result.success !== true) return false;
       return true;
-    }, () => !/web3forms|formspree/.test(url));   // Basin may answer without JSON; for the other providers JSON is required
+    }, () => !/web3forms|formspree/.test(url));   // JSON is required for the providers we use
   }
 
   window.fetch = function (url, options) {

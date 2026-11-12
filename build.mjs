@@ -469,7 +469,6 @@ for (const course of courses) {
        этот тег остался только меткой курса в письме и легко расходится с правдой
        (см. историю с mjgnbjkk). Так строка в панели не может протухнуть. */
     const backend =
-      /usebasin\.com\/f\//.test(html) ? 'Basin (файлы)' :
       /api\.web3forms\.com/.test(html) ? 'Web3Forms' :
       /test-engine\.js/.test(html) ? 'Web3Forms (через test-engine.js)' :
       /formspree\.io\/f\//.test(html) ? 'Formspree — ' + (meta.formspree || '?') :

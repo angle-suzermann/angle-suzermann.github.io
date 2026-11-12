@@ -194,20 +194,6 @@ p{ line-height:1.5; }
 .cat-chip.placed-correct{ border-color:var(--correct); background:#e8f7ee; color:var(--correct); }
 .cat-chip.placed-wrong{ border-color:var(--wrong); background:#fdecea; color:var(--wrong); }
 
-/* voice recorder (records to Basin) */
-.recorder{ background:var(--card-tint); border:1.5px dashed var(--purple); border-radius:12px; padding:16px; margin-top:16px; }
-.rec-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-.rec-btn.rec-active{ background:var(--wrong); }
-.rec-timer{ font-weight:700; color:var(--purple-dark); font-variant-numeric:tabular-nums; }
-.rec-playback{ width:100%; margin-top:12px; }
-.rec-actions{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
-.rec-hint{ font-size:.78rem; color:var(--muted); margin:10px 0 0; }
-.rec-start-block{ text-align:center; }
-.rec-start-block .rec-hint{ text-align:left; }
-.task-audio{ display:none; }
-.task-audio.active{ display:block; width:100%; margin:10px 0 4px; }
-.rec-skip-btn{ font-size:.78rem; padding:6px 12px; }
-
 @media(max-width:480px){
   .lesson-title{ font-size:.88rem; }
   .namebar input{ width:130px; }
@@ -367,23 +353,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <div class="scaffold-box" hidden>
       <ol style="margin:0; padding-left:20px;"><li>Have you already decided on your future career? What do you want to be?</li><li>Do you want to follow in the footsteps of some of your relatives concerning your career choice?</li><li>What is more important for you &ndash; the job which brings satisfaction or the one which brings more money?</li><li>Would you like to work in a team or individually, why?</li><li>What did you want to be when you were a child?</li></ol>
     </div>
-    <div class="recorder" data-label="Задание 3, Вариант 1">
-      <audio class="task-audio" preload="none" src="audio/variant-1.mp3"></audio>
-      <div class="rec-start-block">
-        <button class="btn btn-primary rec-btn" onclick="startGuidedRecording(this)">&#127911; Play audio &amp; record my answers</button>
-        <p class="rec-hint">Press play once. You'll hear the interviewer ask 5 questions, with a pause after each one &mdash; answer out loud during the pause. Recording starts with the audio and stops automatically when it ends (about 4&ndash;5 minutes total). Answered early? Use &ldquo;Skip 15s&rdquo; (or drag the player&rsquo;s own progress bar) to jump past the rest of a pause instead of waiting it out.</p>
-      </div>
-      <div class="rec-controls">
-        <span class="rec-timer" hidden>00:00</span>
-        <button class="btn btn-ghost rec-skip-btn" hidden onclick="skipAudioForward(this, 15)">&#9197; Skip 15s</button>
-      </div>
-      <audio class="rec-playback" controls hidden></audio>
-      <div class="rec-actions" hidden>
-        <button class="btn btn-ghost" onclick="reRecordAudio(this)">&#128257; Record again</button>
-        <button class="btn btn-send" onclick="sendRecording(this)">&#128228; Send recording to teacher</button>
-      </div>
-      <div class="send-status"></div>
-    </div>
+    <div class="tg-voice" style="margin:14px 0;padding:14px 16px;background:#fff6c8;border:2px dashed #5E4877;border-radius:14px;color:#2D2926;font-weight:600;line-height:1.55;font-size:.95em;font-family:inherit">🎙️ <b>Голосовой ответ — в Telegram.</b> Запишите голосовое сообщение и отправьте его Виктории в Telegram. <b>К голосовому обязательно приложите скриншот этого задания</b>: без скриншота голосовое не засчитывается.</div>
     <div class="nav-btns">
       <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
       <span class="spacer"></span>
@@ -403,23 +373,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <div class="scaffold-box" hidden>
       <ol style="margin:0; padding-left:20px;"><li>Do you think it is important to have higher education nowadays? Why?</li><li>What do you expect from studying at university?</li><li>What challenges can a university student face?</li><li>What makes a good university student in your opinion?</li><li>Do you think doing a part-time job can help a university student get valuable professional skills? Why?</li></ol>
     </div>
-    <div class="recorder" data-label="Задание 3, Вариант 2">
-      <audio class="task-audio" preload="none" src="audio/variant-2.mp3"></audio>
-      <div class="rec-start-block">
-        <button class="btn btn-primary rec-btn" onclick="startGuidedRecording(this)">&#127911; Play audio &amp; record my answers</button>
-        <p class="rec-hint">Press play once. You'll hear the interviewer ask 5 questions, with a pause after each one &mdash; answer out loud during the pause. Recording starts with the audio and stops automatically when it ends (about 4&ndash;5 minutes total). Answered early? Use &ldquo;Skip 15s&rdquo; (or drag the player&rsquo;s own progress bar) to jump past the rest of a pause instead of waiting it out.</p>
-      </div>
-      <div class="rec-controls">
-        <span class="rec-timer" hidden>00:00</span>
-        <button class="btn btn-ghost rec-skip-btn" hidden onclick="skipAudioForward(this, 15)">&#9197; Skip 15s</button>
-      </div>
-      <audio class="rec-playback" controls hidden></audio>
-      <div class="rec-actions" hidden>
-        <button class="btn btn-ghost" onclick="reRecordAudio(this)">&#128257; Record again</button>
-        <button class="btn btn-send" onclick="sendRecording(this)">&#128228; Send recording to teacher</button>
-      </div>
-      <div class="send-status"></div>
-    </div>
+    <div class="tg-voice" style="margin:14px 0;padding:14px 16px;background:#fff6c8;border:2px dashed #5E4877;border-radius:14px;color:#2D2926;font-weight:600;line-height:1.55;font-size:.95em;font-family:inherit">🎙️ <b>Голосовой ответ — в Telegram.</b> Запишите голосовое сообщение и отправьте его Виктории в Telegram. <b>К голосовому обязательно приложите скриншот этого задания</b>: без скриншота голосовое не засчитывается.</div>
     <div class="nav-btns">
       <button class="btn btn-ghost" onclick="prevPage()">&larr; Back</button>
       <span class="spacer"></span>
@@ -461,7 +415,6 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <script>
 
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
-const BASIN_ENDPOINT = 'https://usebasin.com/f/6e8f507d4a7d';
 const COURSE_NAME = 'ЕГЭ Высшая школа';
 const PROGRESS_KEY = 'angle_progress::uch3-zadanie3';
 let isRestoring = false;
@@ -797,155 +750,6 @@ function clearProgress(){
 }
 document.addEventListener('input', e=>{ if(e.target.matches('textarea, input.fib, #studentName')) scheduleSave(); });
 document.addEventListener('click', e=>{ if(e.target.closest('.match, .cat-chip, .cat-zone')) scheduleSave(); });
-
-/* ---- voice recorder → Basin (real file upload; Web3Forms free tier can't accept files) ---- */
-const recorderState = new WeakMap();
-function fmtRecTime(s){ const m=Math.floor(s/60); const sec=s%60; return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
-
-async function toggleRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const st = recorderState.get(wrap);
-  if (st && st.recording){ st.mediaRecorder.stop(); return; }
-  const statusEl = wrap.querySelector('.send-status');
-  statusEl.textContent = '';
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
-    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
-    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
-    const chunks = [];
-    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
-    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
-    mr.onstop = ()=>{
-      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
-      const audioEl = wrap.querySelector('.rec-playback');
-      audioEl.src = URL.createObjectURL(blob);
-      audioEl.hidden = false;
-      wrap.querySelector('.rec-actions').hidden = false;
-      newState.blob = blob;
-      newState.recording = false;
-      clearInterval(newState.timerId);
-      stream.getTracks().forEach(t=>t.stop());
-      btn.textContent = '🎤 Start recording';
-      btn.classList.remove('rec-active');
-      const timerEl = wrap.querySelector('.rec-timer');
-      timerEl.hidden = true;
-    };
-    recorderState.set(wrap, newState);
-    mr.start();
-    btn.textContent = '⏹ Stop recording';
-    btn.classList.add('rec-active');
-    const timerEl = wrap.querySelector('.rec-timer');
-    timerEl.hidden = false; timerEl.textContent = '00:00';
-    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
-  } catch(e){
-    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
-  }
-}
-
-function reRecordAudio(btn){
-  const wrap = btn.closest('.recorder');
-  wrap.querySelector('.rec-playback').hidden = true;
-  wrap.querySelector('.rec-actions').hidden = true;
-  wrap.querySelector('.send-status').textContent = '';
-  const startBlock = wrap.querySelector('.rec-start-block');
-  if (startBlock) startBlock.hidden = false;
-  recorderState.delete(wrap);
-}
-
-/* ---- guided recording: plays a given task audio (e.g. an interview with built-in answer pauses)
-   and records the student's mic simultaneously, auto-stopping when that audio ends ---- */
-async function startGuidedRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const audioEl = wrap.querySelector('.task-audio');
-  const statusEl = wrap.querySelector('.send-status');
-  statusEl.textContent = '';
-  btn.disabled = true;
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
-    const mimeType = candidates.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
-    const mr = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
-    const chunks = [];
-    mr.ondataavailable = e=>{ if (e.data && e.data.size) chunks.push(e.data); };
-    const newState = { mediaRecorder: mr, recording: true, seconds: 0 };
-    mr.onstop = ()=>{
-      const blob = new Blob(chunks, {type: mr.mimeType || 'audio/webm'});
-      const playbackEl = wrap.querySelector('.rec-playback');
-      playbackEl.src = URL.createObjectURL(blob);
-      playbackEl.hidden = false;
-      wrap.querySelector('.rec-actions').hidden = false;
-      newState.blob = blob;
-      newState.recording = false;
-      clearInterval(newState.timerId);
-      stream.getTracks().forEach(t=>t.stop());
-      wrap.querySelector('.rec-timer').hidden = true;
-      const skipBtn = wrap.querySelector('.rec-skip-btn');
-      if (skipBtn) skipBtn.hidden = true;
-      audioEl.classList.remove('active');
-      audioEl.removeAttribute('controls');
-      btn.disabled = false;
-    };
-    recorderState.set(wrap, newState);
-    mr.start();
-    const timerEl = wrap.querySelector('.rec-timer');
-    timerEl.hidden = false; timerEl.textContent = '00:00';
-    newState.timerId = setInterval(()=>{ newState.seconds++; timerEl.textContent = fmtRecTime(newState.seconds); }, 1000);
-    wrap.querySelector('.rec-start-block').hidden = true;
-    const skipBtn = wrap.querySelector('.rec-skip-btn');
-    if (skipBtn) skipBtn.hidden = false;
-    audioEl.currentTime = 0;
-    audioEl.setAttribute('controls', 'controls');
-    audioEl.classList.add('active');
-    audioEl.onended = ()=>{ if (newState.recording) mr.stop(); };
-    await audioEl.play();
-  } catch(e){
-    statusEl.textContent = 'Микрофон недоступен: разрешите доступ к микрофону в браузере и попробуйте снова.';
-    btn.disabled = false;
-  }
-}
-
-/* skip the guided task-audio forward by N seconds (e.g. to skip past the 40s answer pause) —
-   only affects playback, the mic recording underneath keeps running untouched */
-function skipAudioForward(btn, seconds){
-  const wrap = btn.closest('.recorder');
-  const audioEl = wrap.querySelector('.task-audio');
-  if (!audioEl) return;
-  const dur = isFinite(audioEl.duration) ? audioEl.duration : audioEl.currentTime + seconds;
-  audioEl.currentTime = Math.min(audioEl.currentTime + seconds, Math.max(dur - 0.25, 0));
-}
-
-async function sendRecording(btn){
-  const wrap = btn.closest('.recorder');
-  const st = recorderState.get(wrap);
-  const statusEl = wrap.querySelector('.send-status');
-  const nameInput = document.getElementById('studentName');
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('Please type your name at the top before sending.'); return; }
-  if(!st || !st.blob){ statusEl.textContent = 'Сначала запишите ответ.'; return; }
-  if(!BASIN_ENDPOINT){ statusEl.textContent = 'Отправка пока не настроена — обратитесь к преподавателю.'; return; }
-  const taskLabel = wrap.dataset.label || document.title;
-  const studentName = nameInput.value.trim();
-  const subjBase = document.title.startsWith(COURSE_NAME) ? document.title : COURSE_NAME + ' — ' + document.title;
-  const fd = new FormData();
-  fd.append('subject', subjBase + ' — ' + taskLabel + ' — ' + studentName);
-  fd.append('course', COURSE_NAME);
-  fd.append('lesson', document.title + ' — ' + taskLabel);
-  fd.append('student', studentName);
-  fd.append('timestamp', new Date().toISOString());
-  const ext = (st.blob.type||'').includes('mp4') ? 'm4a' : 'webm';
-  const safeName = (studentName + ' - ' + taskLabel + '.' + ext).replace(/[\/:*?"<>|]/g,'_');
-  fd.append('audio', st.blob, safeName);
-  statusEl.textContent = 'Отправка…';
-  btn.disabled = true;
-  try{
-    await fetch(BASIN_ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd });
-    statusEl.textContent = 'Отправлено учителю ✓';
-  } catch(e){
-    statusEl.textContent = 'Не удалось отправить — проверьте интернет-соединение и попробуйте снова.';
-  } finally {
-    btn.disabled = false;
-  }
-}
 
 async function sendCompletion(){
   const studentName = document.getElementById('studentName')?.value.trim() || '(name not entered)';

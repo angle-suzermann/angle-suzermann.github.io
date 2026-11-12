@@ -401,19 +401,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <div class="nav-btns"><button type="button" class="btn btn-outline" onclick="prevPage()">← Back</button><button type="button" class="btn btn-purple" onclick="nextPage()">Next →</button></div>
 </section>
 <section class="page" data-page="9">
-<div class="card"><h2>Speaking: me and driving</h2><div class="instructions">Speak for about <b>1–2 minutes</b>. Look at the questions, make a few notes if you like, then record your answer.</div><div class="recorder" data-task="Speaking: me and driving" data-max="180">
-  <ul class="prompt-list"><li>Can you drive, or are you learning? How long have you been having lessons (or when would you like to start)?</li><li>What did you use to think about driving when you were younger?</li><li>Tell the story of a memorable journey (by car, bus, train or plane).</li><li>Give your opinion: should people learn to drive at 16? (<i>If you ask me… / I'm not so sure…</i>)</li></ul>
-  <div class="rec-controls">
-    <button type="button" class="btn btn-rec" onclick="recStart(this)">● Record</button>
-    <button type="button" class="btn btn-outline" onclick="recStop(this)" disabled>■ Stop</button>
-    <span class="rec-timer">0:00</span>
-  </div>
-  <audio class="rec-playback" controls hidden></audio>
-  <div class="rec-controls">
-    <button type="button" class="btn btn-purple rec-send" onclick="recSend(this)" disabled>Send my recording to my teacher</button>
-  </div>
-  <p class="rec-status">Tap <b>Record</b>, speak, then tap <b>Stop</b>. Listen back — if you're not happy, just record again. Then tap <b>Send</b>. (Recordings are not saved if you close the page, so send yours before you leave.)</p>
-</div><div class="item"><p class="q"><span class="qnum">✎.</span> Notes (optional, not marked)</p><textarea class="notes" data-label="Speaking notes" rows="3" placeholder="Key words for your answer…"></textarea></div></div>
+<div class="card"><h2>Speaking: me and driving</h2><div class="instructions">Speak for about <b>1–2 minutes</b>. Look at the questions, make a few notes if you like, then record your answer.</div><div class="tg-voice" style="margin:14px 0;padding:14px 16px;background:#fff6c8;border:2px dashed #5E4877;border-radius:14px;color:#2D2926;font-weight:600;line-height:1.55;font-size:.95em;font-family:inherit">🎙️ <b>Голосовой ответ — в Telegram.</b> Запиши голосовое сообщение и отправь его Виктории в Telegram. <b>К голосовому обязательно приложи скриншот этого задания</b>: без скриншота голосовое не засчитывается.</div><div class="item"><p class="q"><span class="qnum">✎.</span> Notes (optional, not marked)</p><textarea class="notes" data-label="Speaking notes" rows="3" placeholder="Key words for your answer…"></textarea></div></div>
 <div class="nav-btns"><button type="button" class="btn btn-outline" onclick="prevPage()">← Back</button><button type="button" class="btn btn-purple" onclick="nextPage()">Next →</button></div>
 </section>
 <section class="page" data-page="10">
@@ -523,7 +511,6 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 const PAGE_LABELS = ["Start", "Vocabulary", "Grammar 1", "Grammar 2", "Reading", "Listening", "Everyday English", "Your feedback", "Writing", "Speaking", "Finish"];
 const PROGRESS_KEY = 'angle_progress::empower-b1-revision-4-behind-the-wheel-lexical';
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
-const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
 const COURSE_NAME = 'B1+ Empower';
 let current = 0;
 
@@ -644,57 +631,7 @@ function showProofLive(key,btn){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeScript();});
 
-/* ---------- speaking recorder (→ Basin) ---------- */
-const REC={};
-function recOf(el){return el.closest('.recorder');}
 function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
-async function recStart(btn){
-  const box=recOf(btn), st=box.querySelector('.rec-status');
-  if(!navigator.mediaDevices||!window.MediaRecorder){st.textContent='Sorry, recording is not supported in this browser. Try Chrome or Safari, or record a voice message and send it to your teacher.'; st.className='rec-status err'; return;}
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))||'';
-    const mr=new MediaRecorder(stream, mime?{mimeType:mime}:undefined); const chunks=[];
-    const id=box.dataset.task; REC[id]={mr,chunks,stream,blob:null,sent:false,secs:0};
-    mr.ondataavailable=e=>{if(e.data.size) chunks.push(e.data);};
-    mr.onstop=()=>{
-      const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'}); REC[id].blob=blob;
-      stream.getTracks().forEach(t=>t.stop());
-      const a=box.querySelector('.rec-playback'); a.src=URL.createObjectURL(blob); a.hidden=false;
-      box.querySelector('.rec-send').disabled=false;
-      st.textContent='Recorded '+fmt(REC[id].secs)+'. Listen back, then tap Send (or Record again).'; st.className='rec-status';
-    };
-    mr.start();
-    btn.classList.add('recording'); btn.textContent='● Recording…'; btn.disabled=true;
-    box.querySelector('.rec-controls .btn-outline').disabled=false;
-    const max=parseInt(box.dataset.max||'180'); const timer=box.querySelector('.rec-timer');
-    REC[id].iv=setInterval(()=>{REC[id].secs++; timer.textContent=fmt(REC[id].secs); if(REC[id].secs>=max) recStop(btn);},1000);
-    st.textContent='Recording… speak now.'; st.className='rec-status';
-  }catch(err){st.textContent='Could not use the microphone. Please allow microphone access and try again.'; st.className='rec-status err';}
-}
-function recStop(btn){
-  const box=recOf(btn), id=box.dataset.task, r=REC[id]; if(!r||r.mr.state!=='recording') return;
-  clearInterval(r.iv); r.mr.stop();
-  const rb=box.querySelector('.btn-rec'); rb.classList.remove('recording'); rb.textContent='● Record again'; rb.disabled=false;
-  box.querySelector('.rec-controls .btn-outline').disabled=true;
-}
-async function sendRecording(box){
-  const id=box.dataset.task, r=REC[id], st=box.querySelector('.rec-status');
-  if(!r||!r.blob) return false;
-  const name=document.getElementById('studentName').value.trim();
-  if(!name){st.textContent='Please type your name at the top first.'; st.className='rec-status err'; document.getElementById('studentName').focus(); return false;}
-  const ext=(r.blob.type.includes('mp4')?'m4a':r.blob.type.includes('ogg')?'ogg':'webm');
-  const fd=new FormData();
-  fd.append('course',COURSE_NAME); fd.append('exercise',document.title+' — '+id); fd.append('student',name);
-  fd.append('duration',fmt(r.secs)); fd.append('recording',r.blob,`${name.replace(/[^\w\-]+/g,'_')}_${id.replace(/[^\w\-]+/g,'_')}.${ext}`);
-  st.textContent='Sending…'; st.className='rec-status';
-  try{
-    const res=await fetch(BASIN_URL,{method:'POST',headers:{'Accept':'application/json'},body:fd});
-    if(!res.ok) throw new Error(res.status);
-    r.sent=true; st.textContent='✓ Recording sent to your teacher.'; st.className='rec-status ok'; return true;
-  }catch(e){st.textContent='Could not send — check your internet connection and tap Send again.'; st.className='rec-status err'; return false;}
-}
-function recSend(btn){ sendRecording(recOf(btn)); }
 
 /* ---------- autosave ---------- */
 let isRestoring=false, saveTimer=null;
@@ -803,11 +740,7 @@ async function submitAll(){
   const st=document.getElementById('submitStatus'); st.textContent='Sending to your teacher…';
   // speaking recordings not yet sent
   let recInfo=[];
-  for(const box of document.querySelectorAll('.recorder')){
-    const r=REC[box.dataset.task];
-    if(r&&r.blob&&!r.sent){ await sendRecording(box); }
-    recInfo.push(`${box.dataset.task}: ${r&&r.sent?'sent via Basin ('+fmt(r.secs)+')':'not recorded / not sent'}`);
-  }
+  recInfo.push('Voice answers: the student sends them to Viktoria in Telegram with a screenshot of the task (not tracked on this page)');
   const topic=document.title;
   const subject=topic.startsWith(COURSE_NAME)?`${topic} — ${studentName}`:`${COURSE_NAME} — ${topic} — ${studentName}`;
   try{
