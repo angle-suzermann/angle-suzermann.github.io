@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const script=document.currentScript,base=new URL('./',script.src),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pool=['eggcellent-a','eggcellent-b','i_love_it','too_cool-a','too_cool-b','awesome','great_work','good_job'];
-const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('rewards.css?v=4',base);document.head.append(css);
+const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('rewards.css?v=5',base);document.head.append(css);
 const starSrc=new URL('brand/rewards/star.png?v=1',base).href,shineSrc=new URL('brand/rewards/star-shine.png?v=1',base).href;
 const star=(cls='')=>`<span class="angle-reward-star ${cls}" aria-hidden="true"><img src="${cls.includes('reward-star-empty')?starSrc:shineSrc}" alt="" draggable="false"><i class="glint g1"></i><i class="glint g2"></i></span>`;
 const image=k=>new URL('brand/rewards/'+encodeURIComponent(k)+'.png',base).href;
