@@ -1,4 +1,5 @@
 'use strict';
+try{if(/[?&]embed=1/.test(location.search))document.documentElement.classList.add('embedded')}catch(_){}
 /* ANGLE individual tracker: weekly task lists (ЕГЭ, Empower, Expert Advanced).
    Two levels of status:
      suggested  = the student says "I did it" (never counts)
