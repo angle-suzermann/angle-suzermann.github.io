@@ -461,7 +461,7 @@ function ringsTop(c,s,o,ru=false){
   const levelRu=(a,labels)=>a.length?labels[Math.max(1,Math.min(3,Math.round(a.reduce((x,r)=>x+Number(r.score),0)/a.length)))]+`; оценок: ${a.length}`:'оценка пока не добавлена';
   const ruSub=sub!=null?`${allAssigned.done} из ${allAssigned.assigned} заданных работ, включая будущие сроки`:'список заданных работ пока не внесён';
   const ruQuality=teacherQuality?levelRu(qa,qualRu):(m.q!=null?'средний результат сданных онлайн-заданий':levelRu(qa,qualRu));
-  const svg=`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${ru?'Показатели прогресса':'Progress rings'}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
+  const aria=ru?'Показатели прогресса':'Progress rings',svg=window.AngleRings3D?window.AngleRings3D.svg([sub,qual,actAvg(act)],{label:aria}):`<svg viewBox="0 0 120 120" width="132" height="132" role="img" aria-label="${aria}">${ring2(sub,50,'#6b21a8',11)}${ring2(qual,36,'#eab308',10)}${ring2(actAvg(act),22,'#0f766e',10)}</svg>`;
   return `<div class="scard-top">${svg}<div class="who"><h3>${esc(s.name)}</h3><div><b style="color:#6b21a8">●</b> ${ru?'Сдано заданий':'Handed in'}: <b>${pcT(sub)}</b> (${ru?ruSub:subTxt})</div><div><b style="color:#eab308">●</b> ${ru?'Качество работы':'Quality of work'}: <b>${pcT(qual)}</b> (${ru?ruQuality:qTxt})</div><div><b style="color:#0f766e">●</b> ${ru?'Работа на занятиях':'Activity in class'}: <b>${pcT(actAvg(act))}</b> (${ru?levelRu(act,actRu):lvl(act,ACT_LABELS)})</div></div></div>`}
 function rateBlock(s){
   const activity=actFor(ui.course,s).slice(-1)[0],quality=actFor(ui.course,s,'quality').slice(-1)[0];
