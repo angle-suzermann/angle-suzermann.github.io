@@ -15,7 +15,10 @@
 <meta name="ws:tags"      content="Wiseman Skills, Teens A2, A2 Key, listening, reading, writing, mock test">
 <meta name="robots"       content="noindex, nofollow">
 <style>@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}</style>
+@font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}.mcq.locked .opt{cursor:default}.mcq.locked .opt:not(.chosen):not(.correct){opacity:.55}
+.fib.locked,.sel.locked{opacity:1;color:inherit;-webkit-text-fill-color:currentColor;cursor:default}
+.check-page:disabled{opacity:.6;cursor:default}
+</style>
 <style>
 :root{
   --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
@@ -241,13 +244,13 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
     <div class="brand-row">
       <span class="lesson-title">Wiseman Teens A2 · Mock Test</span>
       <div class="namebar"><label for="studentName">Name:</label><input type="text" id="studentName" placeholder="Your name" autocomplete="off"><span class="save-indicator" id="saveIndicator"></span>
-        <a href="#" class="topbar-reset" onclick="clearProgress();return false;" style="font-size:.78rem;color:var(--muted);margin-left:4px;white-space:nowrap;" title="Delete all saved answers on this page and start over">↺ Start over</a></div>
+        </div>
     </div>
     <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-label" id="progressLabel"></span></div>
     <div class="page-dots" id="pageDots"></div>
   </div></header>
   <div class="scroll-area" id="scrollArea"><div class="page-wrap">
-    <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span><button type="button" onclick="clearProgress()">Start over (clear saved answers)</button></div>
+    <div class="restore-note" id="restoreNote" hidden><span id="restoreNoteText"></span></div>
 <section class="page" data-label="Start"><div class="card"><h2>Wiseman Teens A2 · Mock Test</h2>
 <p>This is a full practice test in the Wiseman Skills Teens A2 format: <b>Listening</b> (5 tasks, 25 questions) <b>Reading &amp; Writing</b> (7 tasks: 31 questions + an email and a story) and <b>Speaking</b> practice (3 pictures and a bar chart).</p>
 <div class="outcome"><b>After this test you will know:</b><ul>
@@ -393,6 +396,8 @@ function markMcq(group){
   if(chosen && chosen.dataset.val !== correct) chosen.classList.add('wrong');
 }
 function chooseMcq(group, btn){
+  if(group.querySelector('.opt.chosen')) return; /* answer is final: no changes */
+  group.classList.add('locked');
   group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen','correct','wrong'));
   btn.classList.add('chosen');
   markMcq(group);
@@ -406,8 +411,14 @@ function markField(el){
   if(key && key.classList.contains('key')){ key.textContent = ok ? '' : '→ ' + answers(el)[0]; key.classList.toggle('show', !ok); }
   return ok;
 }
-function checkPage(btn){ btn.closest('.page').querySelectorAll('.fib,.sel').forEach(markField); scheduleSave(); }
+function lockField(el){ el.classList.add('locked'); if(el.tagName==='SELECT') el.disabled=true; else el.readOnly=true; el.setAttribute('tabindex','-1'); }
+function lockPage(pg){ pg.querySelectorAll('.fib,.sel').forEach(el=>{ markField(el); lockField(el); }); const b=pg.querySelector('.check-page'); if(b){ b.disabled=true; b.textContent='✓ Checked'; } pg.dataset.checked='1'; }
+function checkPage(btn){ const pg=btn.closest('.page'); if(pg.dataset.checked) return;
+  const empty=[...pg.querySelectorAll('.fib,.sel')].filter(e=>!e.value.trim()).length;
+  if(!confirm((empty?`You have ${empty} empty answer(s). `:'')+'After checking you can’t change your answers on this page. Check now?')) return;
+  lockPage(pg); scheduleSave(); }
 function clearMarks(el){ el.classList.remove('is-correct','is-wrong'); const k=el.nextElementSibling; if(k&&k.classList.contains('key')) k.classList.remove('show'); }
+function lockAllFields(){ document.querySelectorAll('.page').forEach(pg=>{ if(pg.querySelector('.fib,.sel')) lockPage(pg); }); document.querySelectorAll('.mcq').forEach(g=>g.classList.add('locked')); }
 function markAll(){ document.querySelectorAll('.fib,.sel').forEach(markField); document.querySelectorAll('.mcq[data-correct]').forEach(markMcq); }
 
 /* writing */
@@ -431,6 +442,7 @@ function saveProgress(){
     st.sel = [...document.querySelectorAll('.sel')].map(e=>e.value);
     st.mcq = [...document.querySelectorAll('.mcq')].map(g=>{ const c=g.querySelector('.opt.chosen'); return c?c.dataset.val:null; });
     st.ta = [...document.querySelectorAll('textarea')].map(e=>e.value);
+    st.checked = [...document.querySelectorAll('.page')].map((pg,i)=>pg.dataset.checked?i:-1).filter(i=>i>=0);
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(st));
     const el = document.getElementById('saveIndicator');
     if(el){ el.textContent='✓ Saved '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2200); }
@@ -444,9 +456,10 @@ function restoreProgress(){
   if(st.name) document.getElementById('studentName').value = st.name;
   const f=document.querySelectorAll('.fib'); (st.fib||[]).forEach((v,i)=>{ if(f[i]&&v) f[i].value=v; });
   const s=document.querySelectorAll('.sel'); (st.sel||[]).forEach((v,i)=>{ if(s[i]&&v) s[i].value=v; });
-  const g=document.querySelectorAll('.mcq'); (st.mcq||[]).forEach((v,i)=>{ if(v==null||!g[i]) return; const b=g[i].querySelector(`.opt[data-val="${v}"]`); if(b){ b.classList.add('chosen'); markMcq(g[i]); } });
+  const g=document.querySelectorAll('.mcq'); (st.mcq||[]).forEach((v,i)=>{ if(v==null||!g[i]) return; const b=g[i].querySelector(`.opt[data-val="${v}"]`); if(b){ b.classList.add('chosen'); g[i].classList.add('locked'); markMcq(g[i]); } });
   const t=document.querySelectorAll('textarea'); (st.ta||[]).forEach((v,i)=>{ if(t[i]&&v){ t[i].value=v; t[i].dispatchEvent(new Event('input')); } });
-  if(st.submitted){ submitted = true; markAll(); }
+  const pgs=document.querySelectorAll('.page'); (st.checked||[]).forEach(i=>{ if(pgs[i]) lockPage(pgs[i]); });
+  if(st.submitted){ submitted = true; markAll(); lockAllFields(); }
   const has = (st.fib||[]).some(v=>v)||(st.sel||[]).some(v=>v)||(st.mcq||[]).some(v=>v!=null)||(st.ta||[]).some(v=>v);
   if(has){ const n=document.getElementById('restoreNote'); document.getElementById('restoreNoteText').textContent=`We found saved answers from ${st.savedAt?new Date(st.savedAt).toLocaleString():'an earlier session'} — they've been filled back in.`; n.hidden=false; }
   if(typeof st.page==='number') showPage(st.page);
@@ -478,7 +491,7 @@ async function submitAll(){
     const ok = isRight(el); add(el, ok);
     if(!ok){ const said = el.tagName==='SELECT' ? (el.value ? el.options[el.selectedIndex].text : '') : el.value; wrong.push(describeWrong(el, said, el.tagName==='SELECT' ? [...el.options].find(o=>o.value===answers(el)[0]).text : answers(el)[0])); }
   });
-  const first = !submitted; submitted = true; markAll(); saveProgress();
+  const first = !submitted; submitted = true; markAll(); lockAllFields(); saveProgress();
   const pct = total ? Math.round(correct/total*100) : 0;
   const panel = document.getElementById('results'); panel.hidden=false;
   document.getElementById('bigScore').textContent = pct+'%';
