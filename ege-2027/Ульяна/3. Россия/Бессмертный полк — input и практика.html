@@ -202,6 +202,14 @@ select.dq:disabled{ -webkit-text-fill-color:currentColor; }
 }
 
 
+
+.live-chips{background:var(--card-tint);border-radius:10px;padding:10px 12px;margin:8px 0;}
+.live-group{margin:2px 0 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.live-group-title{width:100%;margin:2px 0 0;font-size:.74rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.live-chip{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:4px 10px;font-size:.82rem;font-weight:700;color:var(--purple-dark);transition:all .2s;}
+.live-chip.on{background:#eaf7f0;border-color:var(--correct);color:var(--correct);} .live-chip.on::before{content:'✓ ';}
+.live-count{font-size:.8rem;font-weight:800;color:var(--muted);} .live-count.ok{color:var(--correct);}
+.live-warn{margin:6px 0 0;padding-left:20px;font-size:.86rem;color:#8a5a00;line-height:1.5;} .live-warn:empty{display:none;}
 </style>
 <style id="angle-v2">
 /* ANGLE header v2: compact topbar (as in sample) + unified badge */
@@ -286,7 +294,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
       </div>
       <div class="progress-row">
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <span class="progress-label" id="progressLabel">Page 1 / 9</span>
+        <span class="progress-label" id="progressLabel">Page 1 / 10</span>
       </div>
       <div class="page-dots" id="pageDots"></div>
     </div>
@@ -375,6 +383,21 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 </div>
 </section>
 <section class="page" data-page="5">
+<div class="card" id="u8" data-lock="1">
+  <div class="eyebrow">Словообразование · формат заданий 25–29</div>
+  <h2>Семья слов вокруг одного блока</h2>
+  <p>Слова из этого воркшита меняют форму: <b>participate → participants</b>, <b>remember → remembrance</b>. Перед каждым пропуском определи, какая часть речи нужна (<b>существительное</b>, после <i>of, the, a, terrible</i>), и число (<b>one</b> или <b>thousands</b>). Потом измени слово в скобках.</p>
+  <div class="reminder">Пиши только нужную форму слова, без пробелов и лишних слов.</div>
+  <div class="gap-item"><div class="gtext"><p><b>The Immortal Regiment</b></p><p>Every year thousands of <input class="gap" data-q="u8_1" data-ans="participants" data-show="participants" data-section="Задания 25–29: словообразование" data-label="25–29 · 1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="25–29 · 1" style="width:150px"> (<b>PARTICIPATE</b>) walk through the city centre on 9 May, carrying portraits of their relatives.</p><p>The march is a day of national <input class="gap" data-q="u8_2" data-ans="remembrance" data-show="remembrance" data-section="Задания 25–29: словообразование" data-label="25–29 · 2" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="25–29 · 2" style="width:150px"> (<b>REMEMBER</b>).</p><p>Almost every family suffered a terrible <input class="gap" data-q="u8_3" data-ans="loss" data-show="loss" data-section="Задания 25–29: словообразование" data-label="25–29 · 3" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="25–29 · 3" style="width:150px"> (<b>LOSE</b>) in the war.</p><p>Stories about the war are passed down from one <input class="gap" data-q="u8_4" data-ans="generation" data-show="generation" data-section="Задания 25–29: словообразование" data-label="25–29 · 4" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="25–29 · 4" style="width:150px"> (<b>GENERATE</b>) to the next.</p><p>After the march many people lay flowers at the war <input class="gap" data-q="u8_5" data-ans="memorial" data-show="memorial" data-section="Задания 25–29: словообразование" data-label="25–29 · 5" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="25–29 · 5" style="width:150px"> (<b>MEMORY</b>).</p></div><div class="gap-explain" id="explain-u8_1"><b>1 participants</b> — после thousands of нужно существительное во множественном числе: participate → participant → participants. <b>2 remembrance</b> — a day of remembrance, после прилагательного national нужно существительное. <b>3 loss</b> — lose → loss (корень меняется: lose, но loss), a terrible loss. <b>4 generation</b> — одно поколение, единственное число: from one generation to the next. <b>5 memorial</b> — war memorial, мемориал; memory — это «память».</div></div>
+  <div class="check-row">
+    <button type="button" class="btn" data-check-gaps="u8">Проверить страницу</button>
+    <span class="page-status"></span>
+  </div>
+  <div class="nav-btns"><button type="button" class="btn ghost" onclick="prevPage()">← Назад</button><button type="button" class="btn" onclick="nextPage()">Далее →</button></div>
+</div>
+</section>
+
+<section class="page" data-page="6">
 <div class="card" id="u5">
   <div class="eyebrow">Recall · без подсказок</div>
   <h2>Вспомни блок по-русски</h2>
@@ -384,7 +407,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="nav-btns"><button type="button" class="btn ghost" onclick="prevPage()">← Назад</button><button type="button" class="btn" onclick="nextPage()">Далее →</button></div>
 </div>
 </section>
-<section class="page" data-page="6">
+<section class="page" data-page="7">
 <div class="card" id="u6">
   <div class="eyebrow">Говорение · образец</div>
   <h2>Сравни три ответа</h2>
@@ -394,12 +417,12 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="nav-btns"><button type="button" class="btn ghost" onclick="prevPage()">← Назад</button><button type="button" class="btn" onclick="nextPage()">Далее →</button></div>
 </div>
 </section>
-<section class="page" data-page="7">
+<section class="page" data-page="8">
 <div class="card" id="u7">
   <div class="eyebrow">Использование · задание 3</div>
   <h2>Твои ответы</h2>
-  <p>Ответь на каждый вопрос 2–3 предложениями: ответ, причина, пример. Постарайся не смотреть на предыдущие страницы и взять блоки по памяти. Когда допишешь, подчеркни в своих ответах блоки, которые вспомнила сама.</p>
-  <p style="margin:14px 0 6px"><b>1. What is the Immortal Regiment? Have you ever taken part in it?</b></p><textarea class="prod" data-label="Ответ 1: What is the Immortal Regiment? Have you ever taken part in it?" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea><p style="margin:14px 0 6px"><b>2. Why do you think it is important to remember the history of the war?</b></p><textarea class="prod" data-label="Ответ 2: Why do you think it is important to remember the history of the war?" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea><p style="margin:14px 0 6px"><b>3. How does your family celebrate Victory Day?</b></p><textarea class="prod" data-label="Ответ 3: How does your family celebrate Victory Day?" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea>
+  <p>Ответь на каждый вопрос 2–3 предложениями: ответ, причина, пример. Постарайся не смотреть на предыдущие страницы и взять блоки по памяти. Блоки над окном загораются зелёным, когда ты их используешь; оранжевая заметка появится, если вернулась русская привычка. Связки (because, so that) тоже загораются, но в счёт не идут.</p>
+  <div class="live-item"><p style="margin:14px 0 6px"><b>1. What is the Immortal Regiment? Have you ever taken part in it?</b></p><div class="live-chips"><div class="live-group"><p class="live-group-title">Describing the event</p><span class="live-chip" data-id="tp">take part in</span><span class="live-chip" data-id="ann">annual / every year</span><span class="live-chip" data-id="car">carry portraits of</span><span class="live-chip" data-id="who">relatives who fought</span></div><div class="live-group"><p class="live-group-title">Linking (don&#x27;t count)</p><span class="live-chip" data-id="li1">because / so that</span></div><div class="live-count"></div></div><textarea class="prod prod-live" data-label="Ответ 1: What is the Immortal Regiment? Have you ever taken part in it?" data-min-chunks="3" data-chunks="[{&quot;id&quot;: &quot;tp&quot;, &quot;label&quot;: &quot;take part in&quot;, &quot;re&quot;: &quot;\\b(take|takes|took|taken|taking) part in\\b|\\bparticipat(e|ed|es|ing) in\\b&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;ann&quot;, &quot;label&quot;: &quot;annual / every year&quot;, &quot;re&quot;: &quot;\\bannual(ly)?\\b|every year|each year&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;car&quot;, &quot;label&quot;: &quot;carry portraits of&quot;, &quot;re&quot;: &quot;carr(y|ies|ied|ying) (the |their |a |his |her |our )?(portraits?|photos?|pictures?) of&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;who&quot;, &quot;label&quot;: &quot;relatives who fought&quot;, &quot;re&quot;: &quot;who fought&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;li1&quot;, &quot;label&quot;: &quot;because / so that&quot;, &quot;re&quot;: &quot;because|so that&quot;, &quot;core&quot;: false}]" data-warn="[{&quot;re&quot;: &quot;great patriotic war (too|two)\\b&quot;, &quot;msg&quot;: &quot;Одна война: &lt;b&gt;the Great Patriotic War&lt;/b&gt;, без too / two.&quot;}, {&quot;re&quot;: &quot;i was in the immortal regiment&quot;, &quot;msg&quot;: &quot;Лучше: &lt;b&gt;I took part in&lt;/b&gt; the Immortal Regiment.&quot;}, {&quot;re&quot;: &quot;relatives that take part&quot;, &quot;msg&quot;: &quot;Воевали в прошлом: &lt;b&gt;relatives who fought in&lt;/b&gt; the war.&quot;}, {&quot;re&quot;: &quot;like a parade|is a parade&quot;, &quot;msg&quot;: &quot;Это &lt;b&gt;march&lt;/b&gt; (шествие), не parade.&quot;}]" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea><ul class="live-warn"></ul></div><div class="live-item"><p style="margin:14px 0 6px"><b>2. Why do you think it is important to remember the history of the war?</b></p><div class="live-chips"><div class="live-group"><p class="live-group-title">Giving a reason</p><span class="live-chip" data-id="pt">pay tribute to</span><span class="live-chip" data-id="lost">lost their lives / loved ones</span><span class="live-chip" data-id="nf">never forget</span><span class="live-chip" data-id="nha">never happens again</span><span class="live-chip" data-id="gen">from generation to generation</span></div><div class="live-group"><p class="live-group-title">Linking (don&#x27;t count)</p><span class="live-chip" data-id="li2">so that / that is why</span></div><div class="live-count"></div></div><textarea class="prod prod-live" data-label="Ответ 2: Why do you think it is important to remember the history of the war?" data-min-chunks="2" data-chunks="[{&quot;id&quot;: &quot;pt&quot;, &quot;label&quot;: &quot;pay tribute to&quot;, &quot;re&quot;: &quot;pay(s|ing)? tribute|in memory of|honou?r the memory&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;lost&quot;, &quot;label&quot;: &quot;lost their lives / loved ones&quot;, &quot;re&quot;: &quot;lost (their lives|their life|loved ones|a loved one|someone)&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;nf&quot;, &quot;label&quot;: &quot;never forget&quot;, &quot;re&quot;: &quot;never forget&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;nha&quot;, &quot;label&quot;: &quot;never happens again&quot;, &quot;re&quot;: &quot;never happens? again&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;gen&quot;, &quot;label&quot;: &quot;from generation to generation&quot;, &quot;re&quot;: &quot;generation to generation|passed? down&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;li2&quot;, &quot;label&quot;: &quot;so that / that is why&quot;, &quot;re&quot;: &quot;so that|that is why|that s why&quot;, &quot;core&quot;: false}]" data-warn="[{&quot;re&quot;: &quot;for (memorizing|doing)&quot;, &quot;msg&quot;: &quot;Цель: &lt;b&gt;so that&lt;/b&gt; + предложение, например &lt;b&gt;so that we never forget&lt;/b&gt;.&quot;}, {&quot;re&quot;: &quot;congratulat\\w* .{0,20}memory&quot;, &quot;msg&quot;: &quot;Память почитают: &lt;b&gt;pay tribute to&lt;/b&gt;. Congratulate — для живых.&quot;}]" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea><ul class="live-warn"></ul></div><div class="live-item"><p style="margin:14px 0 6px"><b>3. How does your family celebrate Victory Day?</b></p><div class="live-chips"><div class="live-group"><p class="live-group-title">Giving an example</p><span class="live-chip" data-id="par">watch / go to the parade</span><span class="live-chip" data-id="fl">lay flowers</span><span class="live-chip" data-id="mem">war memorial</span><span class="live-chip" data-id="min">minute of silence</span></div><div class="live-group"><p class="live-group-title">Linking (don&#x27;t count)</p><span class="live-chip" data-id="li3">for example / after that</span></div><div class="live-count"></div></div><textarea class="prod prod-live" data-label="Ответ 3: How does your family celebrate Victory Day?" data-min-chunks="2" data-chunks="[{&quot;id&quot;: &quot;par&quot;, &quot;label&quot;: &quot;watch / go to the parade&quot;, &quot;re&quot;: &quot;(watch|watches|watched|go to|goes to|went to|see) the parade&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;fl&quot;, &quot;label&quot;: &quot;lay flowers&quot;, &quot;re&quot;: &quot;lay(s|ing)? flowers|laid flowers&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;mem&quot;, &quot;label&quot;: &quot;war memorial&quot;, &quot;re&quot;: &quot;war memorial&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;min&quot;, &quot;label&quot;: &quot;minute of silence&quot;, &quot;re&quot;: &quot;minute of silence&quot;, &quot;core&quot;: true}, {&quot;id&quot;: &quot;li3&quot;, &quot;label&quot;: &quot;for example / after that&quot;, &quot;re&quot;: &quot;for example|for instance|after that|then we&quot;, &quot;core&quot;: false}]" data-warn="[{&quot;re&quot;: &quot;great patriotic war (too|two)\\b&quot;, &quot;msg&quot;: &quot;Одна война: &lt;b&gt;the Great Patriotic War&lt;/b&gt;, без too / two.&quot;}]" rows="4" placeholder="2–3 sentences…" style="width:100%"></textarea><ul class="live-warn"></ul></div>
   <div class="exam-card" style="background:var(--card-tint); color:var(--text); margin-top:14px;">
     <div class="exam-eyebrow" style="color:var(--purple);">Голосовое 🎙️</div>
     <p style="margin:0">Потом ответь на эти вопросы вслух, не подглядывая, по 40 секунд на ответ. Пришли голосовое мне в Telegram и обязательно прикрепи скриншот этой страницы.</p>
@@ -407,7 +430,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="nav-btns"><button type="button" class="btn ghost" onclick="prevPage()">← Назад</button><button type="button" class="btn" onclick="nextPage()">Далее →</button></div>
 </div>
 </section>
-<section class="page" data-page="8">
+<section class="page" data-page="9">
 
 <div class="card">
   <div class="eyebrow">Финал</div>
@@ -481,7 +504,7 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
 <script src="/assets/sticker-logic.js"></script>
 <script>
 const TRAINER_TITLE = "Бессмертный полк · input и практика";
-const PAGE_LABELS = ["Старт", "Noticing", "Чанки", "Upgrade", "19–24", "Recall", "Образец", "Ответы", "Результат"];
+const PAGE_LABELS = ["Старт", "Noticing", "Чанки", "Upgrade", "19–24", "25–29", "Recall", "Образец", "Ответы", "Результат"];
 const WEB3FORMS_ACCESS_KEY = "8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234";
 const COURSE_NAME = "ЕГЭ 2027";
 const COURSE_ID = "ege-2027";
@@ -714,6 +737,7 @@ async function submitResults(){
     score_fraction: `${correct}/${total}`,
     breakdown: breakdown,
     written_questions: Array.from(document.querySelectorAll('textarea.prod')).map(t=>(t.dataset.label||'Ответ')+':\n'+(t.value.trim()||'(не заполнено)')).join('\n\n'),
+    chunks_used: lexChunkReport(),
     mistakes: mistakes,
     submitted_at: new Date().toISOString()
   };
@@ -736,6 +760,28 @@ async function submitResults(){
 }
 
 document.addEventListener('change', e=>{ if(e.target.matches('select.dq[data-q]')) markSelect(e.target); });
+
+/* ---- live chunk detector (lexical layer) ---- */
+function lexNorm(s){return ' '+(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/'/g,' ').replace(/[−–]/g,'-').replace(/\s+/g,' ')+' ';}
+function liveScan(ta){
+  const data=JSON.parse(ta.dataset.chunks||'[]'), warn=JSON.parse(ta.dataset.warn||'[]');
+  const text=lexNorm(ta.value), box=ta.closest('.live-item'); const used=[], core=[];
+  data.forEach(c=>{ const on=new RegExp(c.re,'i').test(text); if(on){used.push(c.label); if(c.core!==false) core.push(c.label);}
+    const chip=box.querySelector('.live-chip[data-id="'+c.id+'"]'); if(chip) chip.classList.toggle('on',on); });
+  const min=parseInt(ta.dataset.minChunks||'0'), cnt=box.querySelector('.live-count');
+  if(cnt){cnt.textContent='Phrases from the list: '+core.length+' / '+min+(core.length>=min?' ✓':''); cnt.classList.toggle('ok',core.length>=min);}
+  const warns=warn.filter(w=>new RegExp(w.re,'i').test(text)).map(w=>w.msg);
+  box.querySelector('.live-warn').innerHTML=warns.map(m=>'<li>'+m+'</li>').join('');
+  return {used, core, notUsed:data.filter(c=>c.core!==false && !used.includes(c.label)).map(c=>c.label), warns};
+}
+document.addEventListener('input',e=>{ if(e.target.matches('textarea.prod-live')) liveScan(e.target); });
+function lexChunkReport(){
+  const out=[];
+  document.querySelectorAll('textarea.prod-live').forEach(ta=>{ const r=liveScan(ta);
+    out.push('### '+ta.dataset.label+'\nTarget phrases used ('+r.core.length+' / '+ta.dataset.minChunks+' needed): '+(r.core.join(', ')||'none')+'\nAll chips on ('+r.used.length+'): '+(r.used.join(', ')||'none')+'\nNot used: '+(r.notUsed.join(', ')||'none')+(r.warns.length?'\nWatch-out notes shown: '+r.warns.map(w=>w.replace(/<[^>]+>/g,'')).join(' | '):'')); });
+  return out.join('\n\n')||'(none)';
+}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{ document.querySelectorAll('textarea.prod-live').forEach(liveScan); },50));
 document.addEventListener('input', e=>{ if(e.target.matches('.gap[data-q], textarea.prod, #studentName, #studentGroup') && !isRestoring) scheduleSave(); });
 document.addEventListener('click', e=>{
   const opt = e.target.closest('.mcq[data-q] .opt'); if(opt){ markMcqOpt(opt); return; }
