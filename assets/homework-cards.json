@@ -82,7 +82,8 @@
         "label": "Сдай тест Unit 8",
         "taskIds": [
           "unit8-test-submitted"
-        ]
+        ],
+        "photo": false
       }
     ]
   },
@@ -118,7 +119,8 @@
         "label": "Сдай тест Unit 8",
         "taskIds": [
           "unit8-test-submitted"
-        ]
+        ],
+        "photo": false
       }
     ]
   },
@@ -136,7 +138,8 @@
         "label": "The Trick",
         "taskIds": [
           "read"
-        ]
+        ],
+        "photo": false
       },
       {
         "id": "activities",
@@ -146,14 +149,16 @@
           "themes",
           "discuss",
           "imagine"
-        ]
+        ],
+        "photo": false
       },
       {
         "id": "video",
         "label": "Другая концовка",
         "taskIds": [
           "video"
-        ]
+        ],
+        "photo": false
       },
       {
         "id": "practice",
@@ -161,14 +166,16 @@
         "taskIds": [
           "game",
           "fixit"
-        ]
+        ],
+        "photo": false
       },
       {
         "id": "test",
         "label": "Сдай тест",
         "taskIds": [
           "test"
-        ]
+        ],
+        "photo": false
       }
     ]
   },
@@ -195,7 +202,8 @@
         "label": "Сдай тест",
         "taskIds": [
           "test-submitted"
-        ]
+        ],
+        "photo": false
       }
     ]
   }
