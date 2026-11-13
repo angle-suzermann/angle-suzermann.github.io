@@ -51,7 +51,7 @@ function ensureStickerWrap(){
   else return null;
   return w;
 }
-function angleConfettiPop(){try{if(window.AngleConfetti){AngleConfetti.burst();return}if(window.__angleConfettiLoading)return;window.__angleConfettiLoading=1;var s=document.createElement('script');s.src='/assets/confetti.js?v=1';s.onload=function(){window.__angleConfettiLoading=0;window.AngleConfetti&&AngleConfetti.burst()};s.onerror=function(){window.__angleConfettiLoading=0};document.head.appendChild(s)}catch(e){}}
+function angleConfettiPop(){try{if(window.AngleConfetti){AngleConfetti.burst();return}if(window.__angleConfettiLoading)return;window.__angleConfettiLoading=1;var s=document.createElement('script');s.src='/assets/confetti.js?v=2';s.onload=function(){window.__angleConfettiLoading=0;window.AngleConfetti&&AngleConfetti.burst()};s.onerror=function(){window.__angleConfettiLoading=0};document.head.appendChild(s)}catch(e){}}
 function renderResultSticker(pct, wrap, capEl){
   if(typeof angleConfettiPop==='function') angleConfettiPop();
   wrap = wrap || ensureStickerWrap();

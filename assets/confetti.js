@@ -66,5 +66,5 @@ function burst(){
   }
   requestAnimationFrame(frame);
 }
-window.AngleConfetti={burst:burst};
+window.AngleConfetti={burst:burst,recent:function(ms){return Date.now()-last<ms}};
 })();
