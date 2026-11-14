@@ -306,7 +306,7 @@ function injectHead(dir) {
       ? `<script src="${BASE}/assets/ws-tools.js?v=${WT_VERSION}" defer></script>\n` : '';
     /* трекеры: непрозрачная строка состояния (iOS 26 размывает верх страницы под прозрачной) */
     const isTracker = /name=["']ws:audience["'][^>]*content=["']teacher["']|content=["']teacher["'][^>]*name=["']ws:audience["']/i.test(src);
-    const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"').replace(`${BASE}/apple-touch-icon.png?v=${ICON_VERSION}`, `${BASE}/assets/brand/apple-touch-icon-tracker.png?v=${ICON_VERSION}t3`).replace('name="apple-mobile-web-app-title" content="ANGLE"', 'name="apple-mobile-web-app-title" content="ANGLE Tracker"') : ICON_TAGS;
+    const iconTags = isTracker ? ICON_TAGS.replace('content="black-translucent"', 'content="default"').replace('content="#453458"', 'content="#ffffff"').replace(`${BASE}/apple-touch-icon.png?v=${ICON_VERSION}`, `${BASE}/assets/brand/apple-touch-icon-tracker.png?v=${ICON_VERSION}t4`).replace('name="apple-mobile-web-app-title" content="ANGLE"', 'name="apple-mobile-web-app-title" content="ANGLE Tracker"') : ICON_TAGS;
     const worksheetUi = isMaterial && !isTracker
       ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=2">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
     const scopeTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>\n`:'';
