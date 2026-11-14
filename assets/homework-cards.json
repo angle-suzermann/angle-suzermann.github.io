@@ -279,5 +279,105 @@
         "photo": false
       }
     ]
+  },
+  {
+    "id": "ca9f6d6e-a5a5-5272-9508-e630e5c1105f",
+    "path": "/as3/Unit 9/homework-2026-11-17/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-17",
+    "due": "2026-11-19",
+    "title": "03. Homework 17 Nov — Sport for all (WB p.94 + Phonics p.19)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 94",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3",
+          "wb4"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Workbook page 19",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1e060e73-f988-569a-b11c-49c5d7d07945",
+    "path": "/as3/Unit 9/homework-2026-11-19/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-19",
+    "due": "2026-11-24",
+    "title": "04. Homework 19 Nov — have to (WB p.95 + Phonics Review 2)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 95",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3",
+          "wb4"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Review 2 · page 20",
+        "taskIds": [
+          "ph1",
+          "ph2"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bf9cccc0-84ac-5835-a090-1d4308a438d0",
+    "path": "/as5/Unit 2/homework-2026-11-17/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-17",
+    "due": "2026-11-19",
+    "title": "02. Homework 17 Nov — Daniel’s diary (WB p.19)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 19",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3",
+          "wb4"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "67c4af5c-94b8-5a91-9951-2c4516e40b84",
+    "path": "/as5/Unit 2/homework-2026-11-19/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-19",
+    "due": "2026-11-24",
+    "title": "03. Homework 19 Nov — used to (WB p.20)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 20",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      }
+    ]
   }
 ]
