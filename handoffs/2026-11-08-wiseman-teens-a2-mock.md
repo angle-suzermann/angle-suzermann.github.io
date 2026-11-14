@@ -91,3 +91,22 @@
   - Реализация: `stampSize()` = `size / ui × uiScale / scale` привязки. При постановке стикера сохраняется `ui` (текущий `uiScale`, тот же коэффициент, что держит размер панели инструментов). Старые стикеры без `ui` считаются поставленными при `ui = 1`.
   - Линии, фигуры и текст масштабируются как прежде.
   - Проверено: крестик 33 px на экране и при DPR 1, и при DPR 2.
+
+## 14.11 — Homework 2 после урока 14.11
+
+- Новая страница `a2-key-for-schools/Wiseman Teens A2/homework-2/` («05. Wiseman Teens A2 — Homework 2», published): 18 страниц, 80 автопроверяемых пунктов, два текста, одно голосовое в Telegram.
+  - Language: 12 фраз ученицы с урока 14.11 (*is play, have, are came, there are a lot of snow, there is four floors, she coming, don't interested, I see* (о прошлом), *scared this, am stay, everybody do, didn't understood*) и 8 слов урока.
+  - Writing: email Alfie (Trainer Test 4, Part 6) на 35–50 слов и рассказ по картинкам Part 7 с заданным началом на 45–60 слов. Чек-лист по ошибкам урока, лимит слов не больше +5.
+  - Listening:
+    - LT — Mock Test Task 2 ещё раз (на уроке не расслышала 3 и 5);
+    - L1–L5 — Cambridge A2 Key for Schools Trainer 1, **Test 4**: L1 = Part 1 (трек 60), L2 = Part 2 (61), L3 = Part 5 (64), L4 = Part 3 (62), L5 = Part 4 (63).
+  - Reading:
+    - R1 — переписки True/False про её неделю, написал ANGLE;
+    - R2–R5 — Test 4: R2 = Part 2, R3 = Part 5, R4 = Part 3 с доказательствами, R5 = Part 4.
+  - Ключи по ключу Trainer (Test 4, стр. 193 книги). Адрес сайта в Listening Q8 — *jittersea*, сверено по картинке ключа.
+  - Speaking: диаграмма из Mock Test (описывать без причин; *in most cases people stay at home*), голосовое в Telegram со скриншотом.
+- Ответ окончательный (движок Homework 1 с `patch_lock`). Проверено Playwright на 390 px:
+  - 18 страниц без горизонтального сдвига;
+  - при всех верных 80/80, неверный ответ не меняется;
+  - письмо Web3Forms с разбивкой Lesson sentences / Listening / Reading, ошибок нет.
+- Скрипт: `wiseman mock yp87/_build/build_homework2.py`; исходники (кадры PDF, треки) — `_build/hw2_src/`.
