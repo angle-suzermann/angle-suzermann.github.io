@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Иконка iOS для трекеров 14.11: [отдельная apple-touch-icon с Eggdog и кольцами только на страницах трекеров, название «ANGLE Tracker»](handoffs/2026-11-14-tracker-ios-icon.md).
+
 Карточки ДЗ 17–27.11 и бейдж 14.11: [шесть карточек Starters/Movers/Flyers; бейдж ANGLE на карточках — в конце страницы, без angle-badge--fixed](handoffs/2026-11-14-homework-cards-17-27-nov.md). Заменяет «бейдж закреплён внизу экрана» из заметок 13.11.
 
 Части ДЗ без фото 13.11: [тест, голосовые, чтение отправляются без фото, Виктории — текстовое письмо и заявка «На проверку»; homework-submit v9, флаг photo в homework-cards.json; Apps Script v36 выложен 13.11](handoffs/2026-11-13-homework-no-photo-parts.md). Дополняет строку о фото домашек 10.11.
