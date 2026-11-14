@@ -206,5 +206,78 @@
         "photo": false
       }
     ]
+  },
+  {
+    "id": "72a10fed-51d8-507a-8f40-cb35a9aa9447",
+    "path": "/as2/Unit 3/homework-2026-11-20/",
+    "courseId": "as2",
+    "course": "Starters",
+    "lesson": "2026-11-20",
+    "due": "2026-11-27",
+    "title": "02. Homework 20 Nov — Tablets (WB p.31 + Phonics st)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 31",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · st",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      },
+      {
+        "id": "reading-voice",
+        "label": "Прочитай отрывок на диктофон",
+        "taskIds": [
+          "read1"
+        ],
+        "photo": false
+      }
+    ]
+  },
+  {
+    "id": "9fe745bb-d749-56af-80f8-768c1f1f8e36",
+    "path": "/as2/Unit 3/homework-2026-11-27/",
+    "courseId": "as2",
+    "course": "Starters",
+    "lesson": "2026-11-27",
+    "due": "2026-12-04",
+    "title": "03. Homework 27 Nov — Whose is this? (WB p.32–33)",
+    "parts": [
+      {
+        "id": "wb-sounds",
+        "label": "Workbook · page 32 · br/fr/tr",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "wb-whose",
+        "label": "Workbook · page 33 · Whose",
+        "taskIds": [
+          "wb4",
+          "wb5"
+        ]
+      },
+      {
+        "id": "dialogue-voice",
+        "label": "Прочитай диалог на диктофон",
+        "taskIds": [
+          "read1"
+        ],
+        "photo": false
+      }
+    ]
   }
 ]
