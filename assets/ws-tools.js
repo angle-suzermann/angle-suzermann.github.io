@@ -412,6 +412,8 @@
     var scale = r.font / (a.font || r.font);
     return { scale: scale, x: r.x - a.x * scale, y: r.y - a.y * scale };
   }
+  /* Стикеры не растут вместе со шрифтом страницы: размер стикера — экранный, позиция по-прежнему привязана к тексту. */
+  function stampSize(s) { var t = shapeTransform(s); return (s.size || 40) / (s.ui || 1) * uiScale / (t.scale || 1); }
   function screenPoint(s, p) { var t = shapeTransform(s); return [p[0] * t.scale + t.x, p[1] * t.scale + t.y]; }
   function reanchor(s) {
     var t = shapeTransform(s);
@@ -420,7 +422,7 @@
     else if (s.x1 != null) { var a = point([s.x1, s.y1]), b = point([s.x2, s.y2]); s.x1 = a[0]; s.y1 = a[1]; s.x2 = b[0]; s.y2 = b[1]; }
     else { var p = point([s.x, s.y]); s.x = p[0]; s.y = p[1]; }
     if (s.w) s.w *= t.scale;
-    if (s.size) s.size *= t.scale;
+    if (s.size && s.type !== 'stamp') s.size *= t.scale;
     s.anchor = makeAnchor(shapeOrigin(s));
   }
   function resize() {
@@ -468,18 +470,19 @@
         ctx.stroke();
       }
     } else if (s.type === 'stamp') {
+      var ssz = stampSize(s);
       if (s.cross) {
-        var r = s.size * .34;
-        ctx.strokeStyle = RED; ctx.lineWidth = Math.max(4, s.size / 6); ctx.lineCap = 'round';
+        var r = ssz * .34;
+        ctx.strokeStyle = RED; ctx.lineWidth = Math.max(4 / (transform.scale || 1), ssz / 6); ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(s.x - r, s.y - r); ctx.lineTo(s.x + r, s.y + r); ctx.moveTo(s.x + r, s.y - r); ctx.lineTo(s.x - r, s.y + r); ctx.stroke();
       } else if (s.img) {
         var im = stickerImg(s.img);
         if (im && im.complete && im.naturalWidth) {
-          var k = Math.min(s.size / im.naturalWidth, s.size / im.naturalHeight), dw = im.naturalWidth * k, dh = im.naturalHeight * k;
+          var k = Math.min(ssz / im.naturalWidth, ssz / im.naturalHeight), dw = im.naturalWidth * k, dh = im.naturalHeight * k;
           ctx.drawImage(im, s.x - dw / 2, s.y - dh / 2, dw, dh);
         }
       } else if (s.emoji) {
-        ctx.font = Math.round(s.size * .9) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(s.emoji, s.x, s.y);
+        ctx.font = Math.round(ssz * .9) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(s.emoji, s.x, s.y);
       }
     } else if (s.type === 'text') {
       var size = s.size || 20; ctx.fillStyle = s.color; ctx.font = size + 'px "Apercu Pro","Helvetica Neue",Arial,sans-serif'; ctx.textBaseline = 'top';
@@ -517,7 +520,7 @@
       var ls = String(s.text || '').split('\n'), w = 0; ls.forEach(function (l) { w = Math.max(w, ctx.measureText(l).width); }); ctx.restore();
       return [s.x - 4, s.y - 4, s.x + w + 4, s.y + ls.length * Math.round(sz * 1.25) + 4];
     }
-    var r = (s.size || 40) / 2; return [s.x - r, s.y - r, s.x + r, s.y + r];
+    var r = (s.type === 'stamp' ? stampSize(s) : (s.size || 40)) / 2; return [s.x - r, s.y - r, s.x + r, s.y + r];
   }
   function bbox(s) { var b = localBBox(s), a = screenPoint(s, [b[0], b[1]]), z = screenPoint(s, [b[2], b[3]]); return [a[0], a[1], z[0], z[1]]; }
   var strokeBase = null, strokeFrame = 0, strokePointer = null;
@@ -666,7 +669,7 @@
     var p = pt(e);
     if (tool === 'sticker') {
       if (!stamp) return;
-      var s = { type: 'stamp', x: p[0], y: p[1], size: 40 };
+      var s = { type: 'stamp', x: p[0], y: p[1], size: 40 * uiScale, ui: uiScale };
       if (stamp.cross) s.cross = true; else if (stamp.emoji) s.emoji = stamp.emoji; else s.img = stamp.img;
       s.anchor = makeAnchor(p); list().push(s); push({ k: 'add', s: s });
       setTool(lastDrawTool); draw(); return;   // один стикер на выбор: дальше карандаш снова рисует, а не ставит стикеры
