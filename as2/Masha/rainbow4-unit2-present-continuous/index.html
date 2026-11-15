@@ -145,6 +145,7 @@ table.forms td{ padding:3px 12px 3px 0; }
 .textbox p{ margin:6px 0 0; }
 .rule s, .hero s{ color:var(--wrong); }
 @media (max-width:560px){ .grid2{ grid-template-columns:1fr; } }
+.fib.wide{ width:100%; max-width:420px; margin-top:4px; }
 </style>
 <meta name="theme-color" content="#453458">
 </head>
@@ -167,7 +168,7 @@ table.forms td{ padding:3px 12px 3px 0; }
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">Page 1 / 8</span>
+      <span class="progress-label" id="progressLabel">Page 1 / 9</span>
     </div>
     <div class="page-dots" id="pageDots"></div>
   </div>
@@ -276,8 +277,43 @@ table.forms td{ padding:3px 12px 3px 0; }
 <div class="nav-btns"><button class="btn-nav" onclick="prevPage()">← Back</button><button class="btn-nav primary" onclick="nextPage()">Next →</button></div>
 </section>
 
-<!-- PAGE 5: questions -->
+<!-- PAGE: more negatives -->
 <section class="page" data-page="4">
+<div class="rule"><div class="rule-h">Ещё раз: как сделать отрицание</div>
+<p>Берём предложение и ставим <b>not</b> сразу после <b>am / is / are</b>. Глагол с -ing не меняется.</p>
+<p>Tom <b>is</b> swimming. → Tom <b>is not</b> (<b>isn’t</b>) swimming.</p>
+<p><span class="no">Tom not is swimming.</span> <span class="no">Tom don’t swimming.</span> <span class="no">Tom isn’t swim.</span> → <span class="ok">Tom isn’t swimming.</span></p></div>
+<div class="card"><h2>Exercise 6a. Сделай предложение отрицательным</h2><p class="instr">Напиши всё предложение целиком. Подходят и полная (is not), и краткая форма (isn’t).</p>
+<div class="item"><p class="q">1. Tom is swimming. →<br><input class="fib wide" data-answer="Tom isn’t swimming.|Tom is not swimming.|Tom’s not swimming." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">2. I am reading. →<br><input class="fib wide" data-answer="I’m not reading.|I am not reading." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">3. The girls are dancing. →<br><input class="fib wide" data-answer="The girls aren’t dancing.|The girls are not dancing." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">4. Mum is cooking dinner. →<br><input class="fib wide" data-answer="Mum isn’t cooking dinner.|Mum is not cooking dinner.|Mum’s not cooking dinner." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">5. We are having breakfast. →<br><input class="fib wide" data-answer="We aren’t having breakfast.|We are not having breakfast.|We’re not having breakfast." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">6. He is taking a shower. →<br><input class="fib wide" data-answer="He isn’t taking a shower.|He is not taking a shower.|He’s not taking a shower." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">7. The cat is drinking milk. →<br><input class="fib wide" data-answer="The cat isn’t drinking milk.|The cat is not drinking milk." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="item"><p class="q">8. You are listening to music. →<br><input class="fib wide" data-answer="You aren’t listening to music.|You are not listening to music.|You’re not listening to music." autocomplete="off" autocapitalize="off" spellcheck="false"></p></div>
+<div class="card-actions"><button class="btn-check" type="button" onclick="checkCard(this)">Check ✓</button><span class="card-score"></span></div></div>
+<div class="card"><h2>Exercise 6b. Найди правильное отрицание</h2><p class="instr">В каждом вопросе верно только одно предложение.</p>
+<div class="item"><p class="q">1. Какое предложение правильное?</p><div class="mcq" data-correct="b"><button class="opt" data-val="a">She not is reading.</button><button class="opt" data-val="b">She isn’t reading.</button><button class="opt" data-val="c">She don’t reading.</button></div></div>
+<div class="item"><p class="q">2. Какое предложение правильное?</p><div class="mcq" data-correct="c"><button class="opt" data-val="a">I amn’t sleeping.</button><button class="opt" data-val="b">I not sleeping.</button><button class="opt" data-val="c">I’m not sleeping.</button></div></div>
+<div class="item"><p class="q">3. Какое предложение правильное?</p><div class="mcq" data-correct="b"><button class="opt" data-val="a">They isn’t playing.</button><button class="opt" data-val="b">They aren’t playing.</button><button class="opt" data-val="c">They not are playing.</button></div></div>
+<div class="item"><p class="q">4. Какое предложение правильное?</p><div class="mcq" data-correct="a"><button class="opt" data-val="a">Dad isn’t washing the car.</button><button class="opt" data-val="b">Dad isn’t wash the car.</button><button class="opt" data-val="c">Dad not washing the car.</button></div></div>
+<div class="item"><p class="q">5. Какое предложение правильное?</p><div class="mcq" data-correct="a"><button class="opt" data-val="a">We aren’t going to school.</button><button class="opt" data-val="b">We don’t going to school.</button><button class="opt" data-val="c">We aren’t go to school.</button></div></div>
+<div class="item"><p class="q">6. Какое предложение правильное?</p><div class="mcq" data-correct="a"><button class="opt" data-val="a">It’s not raining now.</button><button class="opt" data-val="b">It not raining now.</button><button class="opt" data-val="c">It doesn’t raining now.</button></div></div>
+<div class="card-actions"><button class="btn-check" type="button" onclick="checkCard(this)">Check ✓</button><span class="card-score"></span></div></div>
+<div class="card"><h2>Exercise 6c. Это неправда! Исправь</h2><p class="instr">Посмотри на картинки на странице 3 и скажи, чего люди <b>не</b> делают. Пример: Mum is playing tennis. → Mum <b>isn’t playing</b> tennis. She’s cooking.</p>
+<div class="item"><p class="q">1. Betty is cooking. → Betty <input class="fib" data-answer="isn’t cooking|is not cooking" autocomplete="off" autocapitalize="off" spellcheck="false">. She’s playing tennis.</p></div>
+<div class="item"><p class="q">2. Tom is reading. → Tom <input class="fib" data-answer="isn’t reading|is not reading" autocomplete="off" autocapitalize="off" spellcheck="false">. He’s writing.</p></div>
+<div class="item"><p class="q">3. Jane and Nick are going home. → They <input class="fib" data-answer="aren’t going|are not going" autocomplete="off" autocapitalize="off" spellcheck="false"> home. They’re going to school.</p></div>
+<div class="item"><p class="q">4. Ben is playing the piano. → Ben <input class="fib" data-answer="isn’t playing|is not playing" autocomplete="off" autocapitalize="off" spellcheck="false"> the piano. He’s playing the guitar.</p></div>
+<div class="item"><p class="q">5. The girls are playing football. → They <input class="fib" data-answer="aren’t playing|are not playing" autocomplete="off" autocapitalize="off" spellcheck="false"> football. They’re playing basketball.</p></div>
+<div class="item"><p class="q">6. I’m sleeping. → I <input class="fib" data-answer="am not sleeping|’m not sleeping" autocomplete="off" autocapitalize="off" spellcheck="false">. I’m doing this worksheet!</p></div>
+<div class="card-actions"><button class="btn-check" type="button" onclick="checkCard(this)">Check ✓</button><span class="card-score"></span></div></div>
+<div class="nav-btns"><button class="btn-nav" onclick="prevPage()">← Back</button><button class="btn-nav primary" onclick="nextPage()">Next →</button></div>
+</section>
+
+<!-- PAGE 5: questions -->
+<section class="page" data-page="5">
 <div class="rule"><div class="rule-h">Правило 4. Вопросы: am / is / are ставим на первое место</div>
 <p>She <b>is</b> reading. → <b>Is</b> she reading? — Yes, she <b>is</b>. / No, she <b>isn’t</b>.</p>
 <p><b>Are</b> you cooking? — Yes, I <b>am</b>. / No, I’<b>m not</b>. &nbsp;·&nbsp; <b>Are</b> they swimming? — Yes, they <b>are</b>. / No, they <b>aren’t</b>.</p>
@@ -301,7 +337,7 @@ table.forms td{ padding:3px 12px 3px 0; }
 </section>
 
 <!-- PAGE 6: build questions -->
-<section class="page" data-page="5">
+<section class="page" data-page="6">
 <div class="card"><h2>Exercise 9. Собери вопрос</h2><p class="instr">Нажимай на слова по порядку. Ошиблась — нажми ↺ и собери заново.</p>
 <div class="item build"><p class="q">1.</p><div class="build-row"><input class="fib build-out" readonly data-answer="Is Jim feeding his cat?" placeholder="нажимай на слова"><button class="mini" type="button" onclick="clearBuild(this)">↺</button></div><div class="tiles"><span class="tile">feeding</span><span class="tile">Jim</span><span class="tile">cat?</span><span class="tile">Is</span><span class="tile">his</span></div></div>
 <div class="item build"><p class="q">2.</p><div class="build-row"><input class="fib build-out" readonly data-answer="Are you having lunch?" placeholder="нажимай на слова"><button class="mini" type="button" onclick="clearBuild(this)">↺</button></div><div class="tiles"><span class="tile">having</span><span class="tile">lunch?</span><span class="tile">Are</span><span class="tile">you</span></div></div>
@@ -313,7 +349,7 @@ table.forms td{ padding:3px 12px 3px 0; }
 </section>
 
 <!-- PAGE 7: Present Simple vs Continuous -->
-<section class="page" data-page="6">
+<section class="page" data-page="7">
 <div class="rule"><div class="rule-h">Правило 5. Обычно или сейчас?</div>
 <p><b>Обычно, часто, каждый день</b> → простое настоящее время: John <b>gets up</b> at 7 every day. They <b>go</b> to the swimming pool on Sundays.</p>
 <p><b>Сейчас, в этот момент</b> → am / is / are + -ing: Look! John <b>is getting up</b>. They <b>are swimming</b> now.</p>
@@ -347,7 +383,7 @@ table.forms td{ padding:3px 12px 3px 0; }
 </section>
 
 <!-- PAGE 8: reading + correct + finish -->
-<section class="page" data-page="7">
+<section class="page" data-page="8">
 <div class="textbox"><div class="rule-h">Read: Liza’s Sunday</div>
 <p>Hi! I’m Liza. Today is Sunday, and it’s eleven o’clock in the morning. I’m not at school today. My family is at home. My mum is in the kitchen. She is cooking lunch. My dad isn’t watching television. He is washing his car in the garden. My brother Pete is in his bedroom. He is playing computer games. He isn’t doing his homework! And what am I doing? I’m sitting in my room, and I’m writing a letter to my granny. On weekdays I get up at seven and go to school, but on Sundays I get up at nine.</p></div>
 <div class="card"><h2>Exercise 12. True or False?</h2><p class="instr">Прочитай текст и нажми <b>True</b> (верно) или <b>False</b> (неверно).</p>
@@ -389,7 +425,7 @@ table.forms td{ padding:3px 12px 3px 0; }
   <div class="credit">by Viktoria Syuzyova</div>
 </div>
 
-<script>const PAGE_LABELS=["-ing", "am / is / are", "Pictures", "Not", "Questions", "Build questions", "Usually or now?", "Reading & finish"]; const PROGRESS_KEY='angle_progress::as2-masha-rainbow4-unit2-present-continuous';</script>
+<script>const PAGE_LABELS=["-ing", "am / is / are", "Pictures", "Not", "More not", "Questions", "Build questions", "Usually or now?", "Reading & finish"]; const PROGRESS_KEY='angle_progress::as2-masha-rainbow4-unit2-present-continuous';</script>
 <script>
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
 const COURSE_NAME = 'Rainbow English 4';
