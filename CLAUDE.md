@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Задача Codex 15.11: [выяснить, откуда 7 звёзд у ученицы с планом 2025-26 при ДЗ до 11.11 (preview:true, без изменения журнала)](handoffs/2026-11-15-codex-task-unexpected-stars.md).
+
 Увеличение стикера 15.11: [клик по стикеру в альбоме Eggdog открывает его крупно; rewards.js v=8](handoffs/2026-11-15-sticker-zoom.md).
 
 Иконка iOS для трекеров 14.11: [отдельная apple-touch-icon с Eggdog и кольцами только на страницах трекеров, название «ANGLE Tracker»](handoffs/2026-11-14-tracker-ios-icon.md).
