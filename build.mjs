@@ -86,7 +86,7 @@ const BASE = (config.basePath || '').replace(/\/+$/, '');
 const ICON_VERSION = 9;
 /* версия assets/save-writing.js: поднять на 1 при правке скрипта, чтобы обновился кэш */
 const SW_VERSION = 10;
-const WT_VERSION = 14;
+const WT_VERSION = 15;
 const WX_VERSION = 4;
 /* метка версии для catalog.css: приложение с экрана «Домой» на iOS долго держит старый файл в кэше */
 const CSS_VERSION = crypto.createHash('md5').update(fs.readFileSync(new URL('./assets/catalog.css', import.meta.url))).digest('hex').slice(0, 8);
@@ -316,7 +316,8 @@ function injectHead(dir) {
     const pickerTag=isMaterial&&!isTracker&&!/<script\b[^>]*student-picker\.js/i.test(cleaned)?`<script src="${BASE}/assets/student-picker.js?v=2" defer></script>\n`:'';
     const rewardTag=/assets\/(?:tracker\/(?:tracker|individual)|homework-submit)\.js/.test(src)&&!src.includes('/assets/rewards.js')?`<script src="${BASE}/assets/rewards.js?v=8" defer></script>\n`:'';
     const trackerBadgeTag=/assets\/tracker\/(?:tracker|individual)\.js/.test(src)&&!src.includes('/assets/tracker/badge.js')?`<script src="${BASE}/assets/tracker/badge.js?v=1" defer></script>\n`:'';
-    const tags = `${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=1" defer></script>\n`;
+    const tags = `${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)

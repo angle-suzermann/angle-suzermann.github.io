@@ -53,8 +53,8 @@ html, body{
 }
 
 .angle-badge{
-  /* 12.11: бейдж закреплён внизу страницы (а не поверх прокручиваемого текста) */
-  position: absolute;
+  /* 15.11: подпись всегда внизу экрана, независимо от прокрутки. */
+  position: fixed;
   left: 20px; bottom: 18px;
   z-index: 9999;
   pointer-events: none;
