@@ -27,7 +27,7 @@ const OUT  = path.join(ROOT, '_site');
 const SKIP = new Set([
   '_site', '_templates', '.github', '.claude', '.git', '.gitignore',
   'build.mjs', 'site.config.json', '.DS_Store', 'node_modules',
-  'docs',   // внутренняя документация, в интернет не выкладываем
+  'docs', 'handoffs', 'Claude outputs', '_tmp_badge_snippet.txt', 'Текстовый документ.txt', // internal files stay off the public site
 ]);
 
 const REQUIRED = ['type', 'course', 'course-id', 'unit', 'title', 'date', 'status'];
@@ -319,7 +319,7 @@ function injectHead(dir) {
     const rewardTag=/assets\/(?:tracker\/(?:tracker|individual)|homework-submit)\.js/.test(src)&&!src.includes('/assets/rewards.js')?`<script src="${BASE}/assets/rewards.js?v=9" defer></script>\n`:'';
     const trackerBadgeTag=/assets\/tracker\/(?:tracker|individual)\.js/.test(src)&&!src.includes('/assets/tracker/badge.js')?`<script src="${BASE}/assets/tracker/badge.js?v=1" defer></script>\n`:'';
     const celebrationTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/confetti.js?v=4" defer></script>\n`:'';
-    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=1" defer></script>\n`;
+    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=2" defer></script>\n`;
     const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`

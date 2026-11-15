@@ -16,3 +16,7 @@ desktop.ini
 
 # Локальные исходники стикеров; рабочие PNG — assets/brand/gateway-stickers/.
 /logos/stickers-hq/
+
+# Local scratch exports; never publish or recommit them.
+/_tmp_badge_snippet.txt
+/Текстовый документ.txt
