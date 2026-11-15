@@ -279,7 +279,8 @@ function injectHead(dir) {
     const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
     if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
     const cleaned = src
-      .replace(/(\/assets\/(?:confetti|homework-submit|test-engine|sticker-logic|tracker\/submission-hook)\.js)(?:\?v=[^"']*)?/g, '$1?v=celebrate3')
+      .replace(/(\/assets\/rewards\.js)(?:\?v=[^"']*)?/g, '$1?v=9')
+      .replace(/(\/assets\/(?:confetti|homework-submit|test-engine|sticker-logic|tracker\/submission-hook)\.js)(?:\?v=[^"']*)?/g, '$1?v=celebrate4')
       .replace(/(\/assets\/student-picker\.js)(?:\?v=[^"']*)?/g, '$1?v=2')
       .replace(/(\/assets\/ws-tools\.js)(?:\?v=[^"']*)?/g, `$1?v=${WT_VERSION}`)
       .replace(/(\/assets\/ws-extras\.js)(?:\?v=[^"']*)?/g, `$1?v=${WX_VERSION}`)
@@ -312,13 +313,14 @@ function injectHead(dir) {
       ? `<link rel="stylesheet" href="${BASE}/assets/worksheet-ui.css?v=2">\n<script src="${BASE}/assets/worksheet-ui.js?v=1" defer></script>\n` : '';
     const scopeTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/assignment-parts.js?v=1" defer></script>\n`:'';
     const submissionTag = isMaterial && !isTracker && !/<script\b[^>]*submission-hook\.js/i.test(cleaned)
-      ? `<script src="${BASE}/assets/tracker/submission-hook.js?v=celebrate3"></script>\n` : '';
+      ? `<script src="${BASE}/assets/tracker/submission-hook.js?v=celebrate4"></script>\n` : '';
     const photoTag=isMaterial&&!isTracker&&!/<script\b[^>]*homework-photos\.js/i.test(cleaned)&&/<meta\b[^>]*name=["']ws:course-id["'][^>]*content=["'](?:ege-2027|a2-key-for-schools)["']/i.test(cleaned)?`<script src="${BASE}/assets/homework-photos.js?v=1" defer></script>\n`:'';
     const pickerTag=isMaterial&&!isTracker&&!/<script\b[^>]*student-picker\.js/i.test(cleaned)?`<script src="${BASE}/assets/student-picker.js?v=2" defer></script>\n`:'';
-    const rewardTag=/assets\/(?:tracker\/(?:tracker|individual)|homework-submit)\.js/.test(src)&&!src.includes('/assets/rewards.js')?`<script src="${BASE}/assets/rewards.js?v=8" defer></script>\n`:'';
+    const rewardTag=/assets\/(?:tracker\/(?:tracker|individual)|homework-submit)\.js/.test(src)&&!src.includes('/assets/rewards.js')?`<script src="${BASE}/assets/rewards.js?v=9" defer></script>\n`:'';
     const trackerBadgeTag=/assets\/tracker\/(?:tracker|individual)\.js/.test(src)&&!src.includes('/assets/tracker/badge.js')?`<script src="${BASE}/assets/tracker/badge.js?v=1" defer></script>\n`:'';
+    const celebrationTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/confetti.js?v=4" defer></script>\n`:'';
     const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=1" defer></script>\n`;
-    const tags = `${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)

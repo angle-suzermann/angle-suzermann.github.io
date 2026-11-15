@@ -28,7 +28,7 @@ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cv.width,cv.height);
 parts=parts.filter(q=>{q.life+=dt;if(q.life>q.max)return false;q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=.0004*dt;q.rot+=q.vr*dt;const k=1-q.life/q.max;spark(q.x,q.y,q.r*(.5+k*.7),q.rot,q.c,Math.min(1,k*1.6));return true;});
 if(p<1||parts.length)requestAnimationFrame(frame);else ctx.clearRect(0,0,cv.width,cv.height);}
 requestAnimationFrame(frame);}
-function scan(){document.querySelectorAll('[data-angle-rewards]').forEach(el=>{if(!el.getClientRects().length)return;const id=el.dataset.rewardLatest;if(!id)return;const key='angle.rewardSeen.v1:'+el.dataset.angleRewards;let seen=seenMemory.get(key);try{seen=localStorage.getItem(key)||seen;}catch{}if(seen!==id){seenMemory.set(key,id);try{localStorage.setItem(key,id)}catch{}celebrate(el)}});}
+function scan(){document.querySelectorAll('[data-angle-rewards]').forEach(el=>{if(!el.getClientRects().length)return;const id=el.dataset.rewardLatest;if(!id)return;const key='angle.rewardSeen.v1:'+el.dataset.angleRewards+(el.dataset.rewardSeenScope?':'+el.dataset.rewardSeenScope:'');let seen=seenMemory.get(key);try{seen=localStorage.getItem(key)||seen;}catch{}if(seen!==id){seenMemory.set(key,id);try{localStorage.setItem(key,id)}catch{}celebrate(el)}});}
 document.addEventListener('click',e=>{const button=e.target.closest('.reward-replay');if(button)celebrate(button.closest('[data-angle-rewards]'));});
 function closeZoom(){const z=document.getElementById('angle-sticker-zoom');if(z){z.remove();document.removeEventListener('keydown',zoomKey,true);}}
 function zoomKey(e){if(e.key==='Escape'){e.stopPropagation();closeZoom();}}

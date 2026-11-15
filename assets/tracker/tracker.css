@@ -296,3 +296,6 @@ html.embedded .topbar{background:transparent;border-radius:0;box-shadow:none;pad
 html.embedded .topbar:not(:has(#courses:not(:empty))){display:none}
 
 body{position:relative;min-height:100vh;min-height:100dvh}
+
+/* Only dropdowns and teacher-to-student comments use regular weight. */
+select,select option,.tnote,.tnote-in,[data-hw-part-note],.hw-part-note{font-weight:400!important}

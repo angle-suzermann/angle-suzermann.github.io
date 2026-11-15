@@ -228,7 +228,7 @@
 
     resetSendUI();
     if(typeof angleConfettiPop==='function') angleConfettiPop();
-    else { try{ var cs=document.createElement('script'); cs.src='/assets/confetti.js?v=3'; cs.onload=function(){ window.AngleConfetti && AngleConfetti.burst(); }; document.head.appendChild(cs); }catch(e){} }
+    else { try{ var cs=document.createElement('script'); cs.src='/assets/confetti.js?v=4'; cs.onload=function(){ window.AngleConfetti && AngleConfetti.burst(); }; document.head.appendChild(cs); }catch(e){} }
     $('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
