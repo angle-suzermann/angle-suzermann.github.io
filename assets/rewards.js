@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const script=document.currentScript,base=new URL('./',script.src),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pool=['eggcellent-a','eggcellent-b','i_love_it','too_cool-a','too_cool-b','awesome','great_work','good_job','eggdog-angle-star','eggdog-angle-reader','eggdog-angle-homework','eggdog-angle-rocket','eggdog-angle-trophy','eggdog-angle-magic','eggdog-angle-artist','eggdog-angle-celebration'];
-const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('rewards.css?v=5',base);document.head.append(css);
+const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('rewards.css?v=9',base);document.head.append(css);
 const starSrc=new URL('brand/rewards/star.png?v=1',base).href,shineSrc=new URL('brand/rewards/star-shine.png?v=1',base).href;
 const star=(cls='')=>`<span class="angle-reward-star ${cls}" aria-hidden="true"><img src="${cls.includes('reward-star-empty')?starSrc:shineSrc}" alt="" draggable="false"><i class="glint g1"></i><i class="glint g2"></i></span>`;
 const image=k=>new URL('brand/rewards/'+encodeURIComponent(k)+'.png',base).href;
@@ -30,6 +30,10 @@ if(p<1||parts.length)requestAnimationFrame(frame);else ctx.clearRect(0,0,cv.widt
 requestAnimationFrame(frame);}
 function scan(){document.querySelectorAll('[data-angle-rewards]').forEach(el=>{if(!el.getClientRects().length)return;const id=el.dataset.rewardLatest;if(!id)return;const key='angle.rewardSeen.v1:'+el.dataset.angleRewards;let seen=seenMemory.get(key);try{seen=localStorage.getItem(key)||seen;}catch{}if(seen!==id){seenMemory.set(key,id);try{localStorage.setItem(key,id)}catch{}celebrate(el)}});}
 document.addEventListener('click',e=>{const button=e.target.closest('.reward-replay');if(button)celebrate(button.closest('[data-angle-rewards]'));});
+function closeZoom(){const z=document.getElementById('angle-sticker-zoom');if(z){z.remove();document.removeEventListener('keydown',zoomKey,true);}}
+function zoomKey(e){if(e.key==='Escape'){e.stopPropagation();closeZoom();}}
+function openZoom(src,alt){closeZoom();const z=document.createElement('div');z.id='angle-sticker-zoom';z.className='sticker-zoom';z.setAttribute('role','dialog');z.setAttribute('aria-modal','true');z.setAttribute('aria-label','Eggdog sticker');z.innerHTML='<button type="button" class="sticker-zoom-close" aria-label="Close">×</button><img alt="">';const img=z.querySelector('img');img.src=src;img.alt=alt||'Eggdog';z.addEventListener('click',closeZoom);document.body.appendChild(z);document.addEventListener('keydown',zoomKey,true);z.querySelector('button').focus();}
+document.addEventListener('click',e=>{const tile=e.target.closest('.reward-sticker.earned');if(!tile)return;const img=tile.querySelector('img');if(img){e.preventDefault();openZoom(img.currentSrc||img.src,img.alt);}});
 let frame=0;new MutationObserver(()=>{if(!frame)frame=requestAnimationFrame(()=>{frame=0;scan()})}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
 function refresh(summary){if(!summary)return;const key=summary.course+'|'+summary.studentId;document.querySelectorAll('[data-angle-rewards]').forEach(el=>{if(el.dataset.angleRewards===key)el.outerHTML=panel(summary)});}
 window.AngleRewards={panel,fromRows,scan,refresh,star};
