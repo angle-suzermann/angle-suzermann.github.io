@@ -144,7 +144,7 @@
     /* Confetti for the child once the teacher's copy was accepted; skipped if it already fired in the last minute (test result). */
     try {
       const pop = () => { if (window.AngleConfetti && !window.AngleConfetti.recent(60000)) window.AngleConfetti.burst(); };
-      if (window.AngleConfetti) pop(); else { const cs = document.createElement('script'); cs.src = '/assets/confetti.js?v=2'; cs.onload = pop; document.head.appendChild(cs); }
+      if (window.AngleConfetti) pop(); else { const cs = document.createElement('script'); cs.src = '/assets/confetti.js?v=3'; cs.onload = pop; document.head.appendChild(cs); }
     } catch (_) {}
     write(read().concat([{ id: String(Date.now()) + '-' + Math.random().toString(36).slice(2), payload: item }]).slice(-60));
     flush();
