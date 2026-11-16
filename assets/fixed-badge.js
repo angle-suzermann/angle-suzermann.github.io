@@ -6,7 +6,7 @@ const css=document.createElement('style');css.textContent=`
 .angle-badge[data-angle-managed]{transform:none!important;translate:none!important;margin:0!important;pointer-events:none!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important}
 .angle-badge[data-angle-mode="fixed"]{position:fixed!important;inset:auto auto calc(14px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-left,0px))!important;z-index:9999!important}
 .angle-badge[data-angle-mode="end"]{position:relative!important;inset:auto!important;z-index:auto!important;float:none!important}
-.angle-badge-footer{box-sizing:border-box!important;display:block!important;clear:both;flex:0 0 auto!important;grid-column:1/-1;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px))!important;min-height:88px;position:relative!important;z-index:2!important}
+.angle-badge-footer{background:transparent!important;border:0!important;box-shadow:none!important;box-sizing:border-box!important;display:block!important;clear:both;flex:0 0 auto!important;grid-column:1/-1;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px))!important;min-height:88px;position:relative!important;z-index:2!important}
 .angle-badge[data-angle-created]{color:#FED500}
 .angle-badge[data-angle-created] svg{width:100px;height:auto;display:block}
 .angle-badge[data-angle-created] .credit{font-family:AngleBadgeApercu,Arial,sans-serif;font-size:10px;line-height:1.2;margin-top:4px}
@@ -19,17 +19,6 @@ function scrollHost(){
  const items=[...document.querySelectorAll('body *')].filter(e=>{if(e.closest('.angle-badge,.angle-badge-footer,dialog')||/^(TEXTAREA|SELECT|INPUT)$/.test(e.tagName))return false;const s=getComputedStyle(e),r=e.getBoundingClientRect();return /^(auto|scroll)$/.test(s.overflowY)&&r.width>=innerWidth*.6&&r.height>=innerHeight*.35&&r.height<=innerHeight*1.1&&r.width<=innerWidth*1.1&&r.top<innerHeight&&r.bottom>0&&e.scrollHeight>=e.clientHeight;});
  return items.sort((a,b)=>b.clientWidth*b.clientHeight-a.clientWidth*a.clientHeight)[0]||document.body;
 }
-function overlapsLane(){
- const r=badge.getBoundingClientRect();
- for(const e of document.querySelectorAll('.card,.task,p,li,h1,h2,h3,h4,table,img,video,audio,button,input,textarea,select,iframe,canvas')){
-  if(e===badge||e.closest('.angle-badge,.angle-badge-footer,dialog,[hidden]'))continue;
-  const s=getComputedStyle(e);if(s.display==='none'||s.visibility==='hidden'||Number(s.opacity)===0)continue;
-  let fixed=false;for(let a=e;a&&a!==document.body;a=a.parentElement){const z=getComputedStyle(a);if(z.position==='fixed'){const bounds=a.getBoundingClientRect();if(bounds.width<innerWidth*.6||bounds.height<innerHeight*.5){fixed=true;break;}}}
-  if(fixed)continue;
-  for(const q of e.getClientRects())if(q.width>0&&q.height>0&&q.right>r.left-8&&q.left<r.right+8)return true;
- }
- return false;
-}
 function apply(reset){
  if(!document.body)return;
  const all=[...document.querySelectorAll('.angle-badge')];badge=all[0]||badge;
@@ -37,7 +26,8 @@ function apply(reset){
  for(const duplicate of all.slice(1))duplicate.remove();
  badge.dataset.angleManaged='';badge.removeAttribute('data-angle-fixed');badge.classList.remove('angle-badge--fixed');
  if(reset||!mode){mode='fixed';badge.dataset.angleMode=mode;badge.style.setProperty('position','fixed','important');document.body.append(badge);footer?.remove();viewKey=String(innerWidth);}
- if(mode==='fixed'&&(innerWidth<=600||overlapsLane()))mode='end';
+ mode=innerWidth<=600?'end':'fixed';
+ if(mode==='fixed')footer?.remove();
  if(badge.dataset.angleMode!==mode)badge.dataset.angleMode=mode;
  const position=mode==='fixed'?'fixed':'relative';if(badge.style.getPropertyValue('position')!==position||badge.style.getPropertyPriority('position')!=='important')badge.style.setProperty('position',position,'important');
  if(mode==='end'){
