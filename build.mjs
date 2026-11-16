@@ -319,7 +319,7 @@ function injectHead(dir) {
     const rewardTag=/assets\/(?:tracker\/(?:tracker|individual)|homework-submit)\.js/.test(src)&&!src.includes('/assets/rewards.js')?`<script src="${BASE}/assets/rewards.js?v=9" defer></script>\n`:'';
     const trackerBadgeTag=/assets\/tracker\/(?:tracker|individual)\.js/.test(src)&&!src.includes('/assets/tracker/badge.js')?`<script src="${BASE}/assets/tracker/badge.js?v=1" defer></script>\n`:'';
     const celebrationTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/confetti.js?v=4" defer></script>\n`:'';
-    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=4" defer></script>\n`;
+    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=5" defer></script>\n`;
     const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
@@ -582,15 +582,12 @@ ${parent ? `<div class="up-row" id="upRow"><a class="link-copy" id="upLink" href
   if (!standalone) return;
   if (window.__angleShell) return;
   window.__angleShell = true;
-  /* Шапка не уезжает: iOS в приложении иногда сдвигает визуальный вьюпорт, а fixed-элементы остаются в layout-вьюпорте. */
+  /* Use native fixed positioning: applying visualViewport.offsetTop again moves the header across iOS content. */
   (function () {
     var vv = window.visualViewport;
     function pin() {
       var h = document.querySelector('.cat-header');
-      if (window.scrollY < 0) window.scrollTo(0, 0);
-      if (!h) return;
-      var dy = vv ? Math.round(vv.offsetTop) : 0;
-      h.style.transform = dy ? 'translate3d(0,' + dy + 'px,0)' : '';
+      if (h) h.style.removeProperty('transform');
     }
     if (vv) { vv.addEventListener('resize', pin); vv.addEventListener('scroll', pin); }
     window.addEventListener('pageshow', pin); window.addEventListener('orientationchange', pin); window.addEventListener('resize', pin);

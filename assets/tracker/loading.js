@@ -1,14 +1,14 @@
 /* Fast read-only preview while the authoritative sheet is loading. */
-export async function loadWithPreview({identity,load,preview,enabled=true}){
- const request=Promise.resolve().then(load);
+export async function loadWithPreview({identity,load,preview,enabled=true,timeoutMs=90000}){
+ let deadline;const request=Promise.race([Promise.resolve().then(load),new Promise((_,reject)=>{deadline=setTimeout(()=>reject(new Error('Не удалось загрузить задания за 90 секунд. Проверьте соединение и нажмите Try again.')),timeoutMs);})]);
  // Attach a rejection handler immediately while deriving the private cache key.
  request.catch(()=>{});
  let key=null,cached=null,notice=null;
  const regions=['view','tabs','courses'].map(id=>document.getElementById(id)).filter(Boolean);
  function lock(value){regions.forEach(el=>{el.inert=value;});}
  try{
-  if(enabled&&globalThis.crypto?.subtle){
-   const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(identity)));
+  try{if(enabled&&globalThis.crypto?.subtle){
+   const digest=await Promise.race([crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(identity))),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Cache unavailable')),1500))]);
    key='angleTracker.snapshot.v1.'+Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
    try{cached=JSON.parse(localStorage.getItem(key)||'null');}catch{}
    if(cached?.data&&Date.now()-cached.time<7*86400000){
@@ -20,6 +20,9 @@ export async function loadWithPreview({identity,load,preview,enabled=true}){
     }catch{cached=null;lock(false);}
    }else cached=null;
   }
+  }catch{cached=null;lock(false);}
+  const view=document.getElementById('view');
+  if(view&&!view.children.length)view.innerHTML='<div class="card tracker-loading" role="status"><b>Загружаем задания…</b><p>Подключаемся к таблице.</p></div>';
   const fresh=await request;
   if(key)try{localStorage.setItem(key,JSON.stringify({time:Date.now(),data:fresh}));}catch{}
   notice?.remove();lock(false);return fresh;
@@ -30,5 +33,5 @@ export async function loadWithPreview({identity,load,preview,enabled=true}){
    error.previewShown=true;
   }else lock(false);
   throw error;
- }
+ }finally{clearTimeout(deadline);}
 }

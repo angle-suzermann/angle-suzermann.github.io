@@ -50,10 +50,10 @@ const Sheets={
 const QP=new URLSearchParams(location.search);
 const PARENT=!!(QP.get('a')&&QP.get('p'));
 let parentTab=QP.get('u')?'u'+Number(QP.get('u')):null;
-/* data requests: 45 s limit, one automatic retry, then a clear error with a Try again button */
-async function fetchT(url,opts,ms){ms=ms||45000;let err;
-  for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
-    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});clearTimeout(t);return r}
+/* data requests: 90 s total limit including JSON body, then an explicit retry button */
+async function fetchT(url,opts,ms){ms=ms||90000;let err;
+  for(let i=0;i<1;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
+    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});const data=await r.json();clearTimeout(t);return {ok:r.ok,status:r.status,json:async()=>data}}
     catch(e){clearTimeout(t);err=e.name==='AbortError'?new Error('The server did not answer in time.'):new Error('No connection to the server.')}}
   throw err}
 const retryBtn='<p style="margin-top:12px"><button class="btn" onclick="location.reload()">Try again</button></p>';
@@ -72,7 +72,7 @@ const baseStore=PARENT?ParentStore:(live?Sheets:Demo);
 const Store={
   async load(){
     if(baseStore===Demo)return baseStore.load();
-    const [data,structure]=await Promise.all([baseStore.load(),fetch(STRUCTURE_URL).then(r=>{if(!r.ok)throw new Error('Could not load course structure');return r.json()})]);
+    const [data,structure]=await Promise.all([baseStore.load(),fetchT(STRUCTURE_URL).then(r=>{if(!r.ok)throw new Error('Could not load course structure');return r.json()})]);
     // Keep an offline/failed deletion hidden on reload until its queued write succeeds.
     for(const op of PARENT?[]:pending){
       if(op.a!=='updateExtra'||op.field!=='purpose'||!String(op.value||'').startsWith(EXTRA_DELETED_PREFIX))continue;
@@ -592,11 +592,11 @@ document.addEventListener('change',e=>{
   if(PARENT){document.body.classList.add('parent')}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);try{
+    $('#view').innerHTML='<div class="card tracker-loading" role="status"><b>Загружаем задания…</b><p>Подключаемся к таблице. Сохранённые данные появятся сразу, если они есть на этом устройстве.</p></div>';setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);try{
       const initialRequest=Store.load();initialRequest.catch(()=>{});
       if(!live&&!PARENT)D=await initialRequest;
       else{
-        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=1');
+        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=2');
         D=await loadWithPreview({identity:['group',PARENT?'parent':'teacher',PARENT?QP.get('a'):cfg.url,PARENT?QP.get('p'):cfg.token,LOCK],load:()=>initialRequest,preview:d=>{D=d;if(PARENT)renderParent();else render();}});
       }
     }finally{clearTimeout(slow)}

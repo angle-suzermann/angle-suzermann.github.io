@@ -85,10 +85,10 @@ const Demo={
   },
   async write(){LS.set('angleTracker.idemo2',Object.fromEntries(D.plans.map(p=>[p.id,p.blocks])))}
 };
-/* data requests: 45 s limit, one automatic retry, then a clear error with a Try again button */
-async function fetchT(url,opts,ms){ms=ms||45000;let err;
-  for(let i=0;i<2;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
-    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});clearTimeout(t);return r}
+/* data requests: 90 s total limit including JSON body, then an explicit retry button */
+async function fetchT(url,opts,ms){ms=ms||90000;let err;
+  for(let i=0;i<1;i++){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
+    try{const r=await fetch(url,{...(opts||{}),signal:ac.signal});const data=await r.json();clearTimeout(t);return {ok:r.ok,status:r.status,json:async()=>data}}
     catch(e){clearTimeout(t);err=e.name==='AbortError'?new Error('The server did not answer in time.'):new Error('No connection to the server.')}}
   throw err}
 const retryBtn='<p style="margin-top:12px"><button class="btn" onclick="location.reload()">Try again</button></p>';
@@ -524,11 +524,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
   if(STUDENT){document.body.classList.add('parent');document.documentElement.lang='ru';document.title='ANGLE · Homework progress';if($('.title')?.firstChild)$('.title').firstChild.textContent='Homework tracker';}
   else if(!live)$('#banner').innerHTML='<div class="banner">Demo data. Nothing is saved to Google Sheets. Open ⚙ to connect your sheet.</div>';
   try{
-    setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{
+    $('#view').innerHTML='<div class="card tracker-loading" role="status"><b>Загружаем задания…</b><p>Подключаемся к таблице. Сохранённые данные появятся сразу, если они есть на этом устройстве.</p></div>';setSync('busy','Loading…');const slow=setTimeout(()=>setSync('busy','Still loading…'),6000);let d;try{
       const initialRequest=Store.load();initialRequest.catch(()=>{});
       if(!live&&!STUDENT)d=await initialRequest;
       else{
-        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=1');
+        const {loadWithPreview}=await import('/assets/tracker/loading.js?v=2');
         d=await loadWithPreview({identity:['individual',STUDENT?'student':'teacher',STUDENT?QP.get('a'):cfg.url,STUDENT?QP.get('p'):cfg.token,WANT],load:()=>initialRequest,preview:data=>{D={reports:data.reports||[],plans:newestFirst((data.plans||[]).filter(p=>STUDENT||!WANT.length||WANT.includes(p.id)))};render();}});
       }
     }finally{clearTimeout(slow)}

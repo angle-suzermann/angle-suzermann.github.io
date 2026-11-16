@@ -15,6 +15,7 @@ const css=document.createElement('style');css.textContent=`
 html.embedded:not(.angle-hub-mobile) .angle-badge[data-angle-managed],html.embedded:not(.angle-hub-mobile) .angle-badge-footer{display:none!important}
 html.embedded.angle-hub-mobile .angle-badge[data-angle-managed]{display:flex!important}
 .angle-badge[data-angle-hub-hidden]{display:none!important}
+html.angle-tracker-loading .angle-badge[data-angle-managed],html.angle-tracker-loading .angle-badge-footer{display:none!important}
 `;document.head.append(css);
 let badge,footer,viewKey='',mode='',queued=false;
 function scrollHost(){
@@ -23,6 +24,7 @@ function scrollHost(){
 }
 function apply(reset){
  if(!document.body)return;
+ const view=document.getElementById('view');document.documentElement.classList.toggle('angle-tracker-loading',!!view&&(!view.children.length||!!view.querySelector('.tracker-loading')));
  const phone=innerWidth<=600;document.documentElement.classList.toggle('angle-hub-mobile',phone&&new URLSearchParams(location.search).get('hub')==='11');
  const all=[...document.querySelectorAll('.angle-badge')];badge=all[0]||badge;
  if(!badge){badge=document.createElement('div');badge.className='angle-badge';badge.dataset.angleCreated='';badge.innerHTML=svg+'<div class="credit">by Viktoria Syuzyova</div>';}
