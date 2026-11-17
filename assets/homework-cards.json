@@ -287,7 +287,7 @@
     "course": "Movers",
     "lesson": "2026-11-17",
     "due": "2026-11-19",
-    "title": "03. Homework 17 Nov — Sport for all (WB p.94 + Phonics p.19)",
+    "title": "03. Homework 17 Nov — Sport for all (WB p.94)",
     "parts": [
       {
         "id": "workbook",
@@ -297,15 +297,6 @@
           "wb2",
           "wb3",
           "wb4"
-        ]
-      },
-      {
-        "id": "phonics",
-        "label": "Phonics · Workbook page 19",
-        "taskIds": [
-          "ph1",
-          "ph2",
-          "ph3"
         ]
       }
     ]
@@ -317,7 +308,7 @@
     "course": "Movers",
     "lesson": "2026-11-19",
     "due": "2026-11-24",
-    "title": "04. Homework 19 Nov — have to (WB p.95 + Phonics Review 2)",
+    "title": "04. Homework 19 Nov — have to (WB p.95 + Phonics p.19)",
     "parts": [
       {
         "id": "workbook",
@@ -334,7 +325,8 @@
         "label": "Phonics · Review 2 · page 20",
         "taskIds": [
           "ph1",
-          "ph2"
+          "ph2",
+          "ph3"
         ]
       }
     ]
@@ -376,6 +368,25 @@
           "wb1",
           "wb2",
           "wb3"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5b770172-37d9-4dad-b1b9-dedcc2dc7fe0",
+    "path": "/as3/Unit 9/homework-2026-11-24/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-24",
+    "due": "2026-11-26",
+    "title": "05. Homework 24 Nov — Phonics Review 2",
+    "parts": [
+      {
+        "id": "phonics",
+        "label": "Phonics · Review 2 · page 20",
+        "taskIds": [
+          "ph1",
+          "ph2"
         ]
       }
     ]
