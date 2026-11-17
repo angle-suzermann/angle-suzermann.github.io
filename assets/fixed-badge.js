@@ -19,7 +19,7 @@ html.angle-tracker-loading .angle-badge[data-angle-managed],html.angle-tracker-l
 `;document.head.append(css);
 let badge,footer,viewKey='',mode='',queued=false;
 function scrollHost(){
- const items=[...document.querySelectorAll('body *')].filter(e=>{if(e.closest('.angle-badge,.angle-badge-footer,dialog')||/^(TEXTAREA|SELECT|INPUT)$/.test(e.tagName))return false;const s=getComputedStyle(e),r=e.getBoundingClientRect();return /^(auto|scroll)$/.test(s.overflowY)&&r.width>=innerWidth*.6&&r.height>=innerHeight*.35&&r.height<=innerHeight*1.1&&r.width<=innerWidth*1.1&&r.top<innerHeight&&r.bottom>0&&e.scrollHeight>=e.clientHeight;});
+ const items=[...document.querySelectorAll('body *')].filter(e=>{if(e.closest('.angle-badge,.angle-badge-footer,dialog,.lb,.lightbox,.angle-photo-lightbox,[role=dialog]')||/^(TEXTAREA|SELECT|INPUT)$/.test(e.tagName))return false;const s=getComputedStyle(e),r=e.getBoundingClientRect();return /^(auto|scroll)$/.test(s.overflowY)&&r.width>=innerWidth*.6&&r.height>=innerHeight*.35&&r.height<=innerHeight*1.1&&r.width<=innerWidth*1.1&&r.top<innerHeight&&r.bottom>0&&e.scrollHeight>=e.clientHeight;});
  return items.sort((a,b)=>b.clientWidth*b.clientHeight-a.clientWidth*a.clientHeight)[0]||document.body;
 }
 function apply(reset){
