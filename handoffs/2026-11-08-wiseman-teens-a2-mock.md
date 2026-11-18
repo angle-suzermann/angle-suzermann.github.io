@@ -110,3 +110,16 @@
   - при всех верных 80/80, неверный ответ не меняется;
   - письмо Web3Forms с разбивкой Lesson sentences / Listening / Reading, ошибок нет.
 - Скрипт: `wiseman mock yp87/_build/build_homework2.py`; исходники (кадры PDF, треки) — `_build/hw2_src/`.
+
+## 18.11 — план следующего урока (Writing + Speaking)
+
+- Только локально, сайт не менялся. План на 60 минут и два новых материала лежат в `Courses/Pause/A2 Key for schools/<папка ученицы>/следующий урок/`:
+  - `holidays-picture.jpg` — Trainer 1, Test 5 visuals: картинка вместо Clearwater Resort для Today, Yesterday и Tomorrow;
+  - `bar-chart-after-school.png` — новая тренировочная диаграмма ANGLE в стиле Wiseman.
+- Структура урока:
+  - мок Speaking 10 минут без подсказок, затем разбор «Было → Правильно»;
+  - разбор письма из ДЗ 3;
+  - Task 6 на время: письмо Kate, отказ от приглашения;
+  - Task 7 на время, начало *When I opened the door, I couldn't believe my eyes*;
+  - повтор слабой части Speaking и правила дня экзамена.
+- Учтено Homework 3 от Codex: там email Sam, story *I was ready to leave…* и устная репетиция. Новые задания урока с ними не повторяются.
