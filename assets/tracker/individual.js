@@ -390,7 +390,7 @@ function render(){
   }else if(ui.tab==='sum'){html=(STUDENT?'':addBar(pl,-1))+viewSummary(pl)}
   else{const bi=parseInt(ui.tab.slice(1));html=(STUDENT?`<div class="card hint">Нажмите на кружок после выполнения задания. Преподаватель проверит работу и подтвердит сдачу.</div>`:addBar(pl,bi))+legend()+viewBlock(pl,bi,false)}
   if(!STUDENT)html=`<div class="report-teacher-actions"><button class="btn" data-student-reports>Личный фидбек</button><button class="btn ghost" data-plan-assessment>Оценки</button><details class="tracker-menu"><summary class="btn ghost">Ссылки и отчёты</summary><div class="erow" style="padding:12px;display:flex;gap:8px;flex-wrap:wrap"> ${individualShare(pl)} <button class="btn ghost" data-plink="1">Копировать ссылку ученице</button>${personalOnly(pl)?'':` <button class="btn ghost" data-parent-card>Отчёт для родителей</button> <button class="btn ghost" data-parent-link="${esc(pl.id)}">Копировать ссылку родителям</button>`}</div></details></div>`+html;
-  $('#view').innerHTML=(window.AngleRewards?.panel(pl.rewards)||'')+(!STUDENT&&pl.rewards?'<button class="btn ghost" data-reward-sync>Обновить награды</button>':'')+html;
+  $('#view').innerHTML=(window.AngleRewards?.panel(pl.rewards)||'')+(!STUDENT&&pl.rewards?'<button class="btn ghost" data-reward-sync>Обновить награды</button><button class="btn ghost" data-reward-manual>Выдать звезду</button>':'')+html;
 }
 
 /* ---------- events ---------- */
@@ -539,6 +539,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[d
     if(!PARENT&&(live||STUDENT)&&pending.length)flush();
   }catch(e){if(e.previewShown){setSync('err','Offline · saved copy');return}$('#view').innerHTML=`<div class="card empty"><b>Could not load data.</b><br>${esc(e.message)}${STUDENT?'':'<br><br>Check the URL and token in ⚙.'}${retryBtn}</div>`;setSync('err','Offline');return}
   render();
+document.addEventListener('click',e=>{if(!e.target.closest('[data-reward-manual]')||!live||STUDENT)return;const pl=P();window.AngleManualReward?.open({students:[{id:pl.id,name:pl.student}],course:'plan',url:cfg.url,token:cfg.token,onSaved:scheduleIndividualRewards});});
 })();
 // Independent of Safari showPicker support: an explicit, touch-friendly month grid.
 function openTrackerCalendar(input){
