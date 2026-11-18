@@ -123,3 +123,15 @@
   - Task 7 на время, начало *When I opened the door, I couldn't believe my eyes*;
   - повтор слабой части Speaking и правила дня экзамена.
 - Учтено Homework 3 от Codex: там email Sam, story *I was ready to leave…* и устная репетиция. Новые задания урока с ними не повторяются.
+- 18.11, по просьбе Виктории план оформлен классной работой и опубликован: `a2-key-for-schools/Wiseman Teens A2/lesson-writing-speaking-exam/` («08. Wiseman Teens A2 — Writing & Speaking exam practice», worksheet, `ws:kind` classwork). 12 экранов:
+  - разогрев;
+  - Speaking S1–S4 (holidays-picture: Today, Yesterday, Tomorrow; диаграмма after school) с таймером на 1 минуту;
+  - «Было → Правильно» (три поля);
+  - разбор прошлого письма;
+  - Task 6, email Kate, 10 минут: счётчик слов, чек-лист и запасное задание;
+  - Task 7 с началом *When I opened the door…*, 10 минут, запасное начало;
+  - повтор Speaking;
+  - правила дня экзамена: 6 вопросов True/False.
+- Проверено Playwright на 390 px и 1200 px: сдвигов нет, таймер и счётчик работают, ошибок нет.
+- Скрипт сборки: `_build/build_lesson08.py`. Копия одним файлом лежит в папке ученицы `следующий урок/`.
+- В `make_standalone.py` добавлено встраивание PNG, прежняя версия сохранена как `.before-png.py.bak`.
