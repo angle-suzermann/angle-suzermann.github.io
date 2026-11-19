@@ -352,8 +352,8 @@ function markMcq(group){
   const ex = group.parentElement.querySelector('.explain'); if(ex && chosen) ex.classList.add('show');
 }
 function chooseMcq(group, btn){
-  if(!submitted) rememberFirst(group,btn.dataset.val);
-  if(submitted) return;
+  if(submitted || group.querySelector('.opt.chosen')) return; /* answer is final: no changes */
+  rememberFirst(group,btn.dataset.val);
   group.classList.add('locked');
   group.querySelectorAll('.opt').forEach(o=>o.classList.remove('chosen','correct','wrong'));
   btn.classList.add('chosen');
@@ -444,7 +444,7 @@ async function submitAll(){
   document.querySelectorAll('.page .fib, .page .sel, .page .mcq[data-correct]').forEach(el=>{
     if(el.classList.contains('mcq')){
       const c=el.querySelector('.opt.chosen'); rememberFirst(el,c?c.dataset.val:''); const ok=firstRight(el); add(el, ok);
-      if(!ok){ const cb=el.querySelector(`.opt[data-val="${el.dataset.correct}"]`); wrong.push(describeWrong(el, c?c.textContent.trim():'', cb?cb.textContent.trim():el.dataset.correct)); }
+      if(!ok){ const fv=firstResponses[firstId(el)]; const fb=fv?el.querySelector(`.opt[data-val="${fv}"]`):null; const cb=el.querySelector(`.opt[data-val="${el.dataset.correct}"]`); wrong.push(describeWrong(el, fb?fb.textContent.trim():(c?c.textContent.trim():''), cb?cb.textContent.trim():el.dataset.correct)); }
       return;
     }
     rememberFirst(el,el.value); const ok = firstRight(el); add(el, ok);
