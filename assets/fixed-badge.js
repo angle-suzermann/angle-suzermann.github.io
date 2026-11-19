@@ -25,22 +25,26 @@ function scrollHost(){
 function apply(reset){
  if(!document.body)return;
  const view=document.getElementById('view');document.documentElement.classList.toggle('angle-tracker-loading',!!view&&(!view.children.length||!!view.querySelector('.tracker-loading')));
- const phone=innerWidth<=600;document.documentElement.classList.toggle('angle-hub-mobile',false);
+ const phone=innerWidth<=600;document.documentElement.classList.toggle('angle-hub-mobile',new URLSearchParams(location.search).get('hub')==='11');
  const all=[...document.querySelectorAll('.angle-badge')];badge=all[0]||badge;
  if(!badge){badge=document.createElement('div');badge.className='angle-badge';badge.dataset.angleCreated='';badge.innerHTML=svg+'<div class="credit">by Viktoria Syuzyova</div>';}
  for(const duplicate of all.slice(1))duplicate.remove();
  badge.dataset.angleManaged='';badge.removeAttribute('data-angle-fixed');badge.classList.remove('angle-badge--fixed');
  if(reset||!mode){mode='fixed';badge.dataset.angleMode=mode;badge.style.setProperty('position','fixed','important');document.body.append(badge);footer?.remove();viewKey=String(innerWidth);}
- const hubPhone=false;
+ const hubPhone=!!document.querySelector('.stage iframe');
  badge.toggleAttribute('data-angle-hub-hidden',hubPhone);
  if(hubPhone){footer?.remove();if(badge.parentElement!==document.body)document.body.append(badge);return;}
- mode='fixed';
+ const host=scrollHost(),scroller=host===document.body?(document.scrollingElement||document.documentElement):host;
+ if(footer)footer.style.setProperty('display','none','important');
+ const longPage=scroller.scrollHeight>scroller.clientHeight+2;
+ if(footer)footer.style.removeProperty('display');
+ mode=longPage?'end':'fixed';
  if(mode==='fixed')footer?.remove();
  if(badge.dataset.angleMode!==mode)badge.dataset.angleMode=mode;
  const position=mode==='fixed'?'fixed':'relative';if(badge.style.getPropertyValue('position')!==position||badge.style.getPropertyPriority('position')!=='important')badge.style.setProperty('position',position,'important');
  if(mode==='end'){
   if(!footer){footer=document.createElement('footer');footer.className='angle-badge-footer';}
-  const host=scrollHost();if(footer.parentElement!==host||host.lastElementChild!==footer)host.append(footer);
+  if(footer.parentElement!==host||host.lastElementChild!==footer)host.append(footer);
   if(badge.parentElement!==footer)footer.append(badge);
  }else if(badge.parentElement!==document.body)document.body.append(badge);
 }
