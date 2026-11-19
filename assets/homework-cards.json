@@ -322,12 +322,20 @@
       },
       {
         "id": "phonics",
-        "label": "Phonics · Review 2 · page 20",
+        "label": "Phonics · Workbook · page 19",
         "taskIds": [
           "ph1",
           "ph2",
           "ph3"
         ]
+      },
+      {
+        "id": "reading-voice",
+        "label": "Reading · Clark and Clare Start to Share · voice message",
+        "taskIds": [
+          "reading-voice-story"
+        ],
+        "photo": false
       }
     ]
   },
