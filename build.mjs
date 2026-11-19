@@ -278,7 +278,7 @@ function injectHead(dir) {
     /* у нескольких материалов нет <head> (файл начинается с <title>): им теги ставим в самое начало */
     const hasHead = /<head(?:\s[^>]*)?>/i.test(src);
     if (!hasHead && !/name=["']ws:course-id["']/i.test(src)) continue;
-    const cleaned = src
+    let cleaned = src
       .replace(/(\/assets\/rewards\.js)(?:\?v=[^"']*)?/g, '$1?v=9')
       .replace(/(\/assets\/(?:confetti|homework-submit|test-engine|sticker-logic|tracker\/submission-hook)\.js)(?:\?v=[^"']*)?/g, '$1?v=celebrate4')
       .replace(/(\/assets\/student-picker\.js)(?:\?v=[^"']*)?/g, '$1?v=2')
