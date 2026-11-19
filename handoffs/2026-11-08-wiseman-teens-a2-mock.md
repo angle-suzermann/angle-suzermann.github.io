@@ -145,3 +145,18 @@
   - на Start добавлен совет делать Listening + R&W за один раз с таймером и без словаря.
 - Проверено: 18 страниц, блокировка ответа работает, сдвигов нет. Копия одним файлом на компьютере пересобрана.
 - Правки внесены прямо в страницу. Скрипт `build_wiseman_mock.py` их не содержит и всё ещё собирает версию с Basin, поэтому не пересобирать из него без переноса.
+
+## 19.11 — разбор урока и Homework 4
+
+- Новая страница `a2-key-for-schools/Wiseman Teens A2/homework-4/` («09. Wiseman Teens A2 — Homework 4», published): мини-экзамен последней недели, 18 страниц, 75 автопроверяемых пунктов. Ответ окончательный (движок Homework 1/2).
+  - Language: 14 фраз ученицы с урока 19.11 (Past Simple на вопрос *What did you do?*; *usually* без *-ing*; *they / there are*; *sports … music lessons*; *left / forgot*; *next Wednesday* без *on*; *What present would you like?*; *are camping*; *I'd prefer*) и 6 «маленьких слов» (*looking forward to*, артикли, *birthday*).
+  - Writing: email Malcolm (Trainer 1 Test 3, Part 6) на 35–50 слов; рассказ с началом *My sister and I were walking home after school when we saw something on the street*, 45–60 слов.
+  - Listening: Trainer 1 **Test 3** — L1 = Part 1 (трек 55), L2 = Part 2 (56), L3 = Part 5 (59), L4 = Part 3 (57), L5 = Part 4 (58).
+  - Reading: R1 — переписки ANGLE; R2 = Part 2, R3 = Part 5, R4 = Part 3 с доказательствами, R5 = Part 4. Ключи по стр. 192 книги, сверены по картинке.
+  - Speaking:
+    - подборка «магазины» (Trainer Test 6 visuals): Today, Yesterday и Tomorrow одним голосовым;
+    - новая тренировочная диаграмма *How do students in our school get to school?*;
+    - голосовые в Telegram со скриншотом.
+- Проверено Playwright: при всех верных 75/75, неверный ответ не меняется, письмо с разбивкой по частям уходит, сдвигов на 390 px нет.
+- Локально лежат: разбор урока и копия одним файлом в `<папка ученицы>/19,11/`, скрипт `_build/build_homework4.py`, исходники `_build/hw4_src/`.
+- Использованные тесты Trainer 1: 3, 4, 5, 6 (6 — в Mock Test 6). Свободны Tests 1–2.
