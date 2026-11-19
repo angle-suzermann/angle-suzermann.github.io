@@ -161,3 +161,18 @@
 - Локально лежат: разбор урока и копия одним файлом в `<папка ученицы>/19,11/`, скрипт `_build/build_homework4.py`, исходники `_build/hw4_src/`.
 - Использованные тесты Trainer 1: 3, 4, 5, 6 (6 — в Mock Test 6). Свободны Tests 1–2.
 - 19.11: отчёт для родителя за 9–19.11. Это PDF в бланке ANGLE, сделан генератором `feedback_pdf.py` в оформлении отчёта от 08.11. Лежит только локально в `<папка ученицы>/19,11/`, на сайт не публиковался: ученица вне трекера.
+
+## 19.11 — источник материалов для обеих учениц
+
+Указание Виктории 19.11: все следующие материалы для подготовки к Wiseman Teens A2 (обе ученицы, экзамен 29.11) брать из папки `E:\Users\agenc\Downloads\course books 2020 update\1_Cambridge Exam Courses\A2 Key for schools` и адаптировать под порядок и лимиты Wiseman.
+- **Уже использовано:**
+  - Trainer 1, Tests 3–6: Test 6 — в Mock Test 6, Test 5 — в HW1, Test 4 — в HW2, Test 3 — в HW4;
+  - Trainer 1 Speaking visuals Test 5 (отдых) и Test 6 (магазины);
+  - вариант Wiseman yp87 (Mock Test 02, вторая ученица делает его как диагностику).
+- **Свободно:**
+  - Trainer 1, Tests 1–2;
+  - Trainer 2 (PDF, аудио в zip);
+  - `Cambridge/` — официальные A2 Key for Schools 1 и 2 с ответами, аудио, видео Speaking и sample papers (архивы rar/zip);
+  - Exam Booster;
+  - handbook 2020: критерии письма, образцы.
+- Порядок Wiseman: L1 = Part 1, L2 = Part 2, L3 = Part 5, L4 = Part 3, L5 = Part 4; R1 — переписки True/False (своё); R2 = Part 2, R3 = Part 5, R4 = Part 3, R5 = Part 4; W6 — email 35–50 слов, W7 — рассказ 45–60 слов с заданным началом; Speaking — интервью 1:1 с картинками и диаграммой.
