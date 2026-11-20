@@ -213,8 +213,8 @@
     "courseId": "as2",
     "course": "Starters",
     "lesson": "2026-11-20",
-    "due": "2026-11-27",
-    "title": "02. Homework 20 Nov — Tablets (WB p.31 + Phonics st)",
+    "due": "2026-11-26",
+    "title": "02. Homework 20 Nov — Tablets (WB p.31 + Phonics sh)",
     "parts": [
       {
         "id": "workbook",
@@ -227,7 +227,7 @@
       },
       {
         "id": "phonics",
-        "label": "Phonics · st",
+        "label": "Phonics · sh",
         "taskIds": [
           "ph1",
           "ph2",
@@ -249,9 +249,9 @@
     "path": "/as2/Unit 3/homework-2026-11-27/",
     "courseId": "as2",
     "course": "Starters",
-    "lesson": "2026-11-27",
+    "lesson": "2026-11-26",
     "due": "2026-12-04",
-    "title": "03. Homework 27 Nov — Whose is this? (WB p.32–33)",
+    "title": "03. Homework 26 Nov — Whose is this? (WB p.32–33 + Phonics st)",
     "parts": [
       {
         "id": "wb-sounds",
@@ -277,6 +277,15 @@
           "read1"
         ],
         "photo": false
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · st",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
       }
     ]
   },
