@@ -236,6 +236,8 @@ function ogTags(html, file) {
   const meta = readMeta(html);
   const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   let title = meta.title || (t ? unesc(t[1].replace(/\s+/g, ' ').trim()) : '') || 'ANGLE';
+  /* карточки ДЗ: название пересылаемой ссылки — группа + изучаемый раздел + срок (Виктория 20.11.2026) */
+  if (meta['share-title']) title = meta['share-title'];
   const rel = path.relative(OUT, file).split(path.sep).join('/');
   const relDir = rel.replace(/\/?index\.html?$/i, '');
   const coursePage = courses.find((c) => c.id === relDir);

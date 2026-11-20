@@ -5,7 +5,7 @@
 
 ## Последняя передача от Codex
 
-Карточки ДЗ 20.11: [в шапке каждой карточки — плашка «Раздел: Unit N · Lesson N …» (+ Phonics); homework-submit review13](handoffs/2026-11-20-homework-card-section-name.md). Постоянное правило для новых карточек.
+Карточки ДЗ 20.11: [в шапке каждой карточки — плашка «Раздел: Unit N · Lesson N …» (+ Phonics); homework-submit review13; название пересылаемой ссылки (og:title) — из ws:share-title с разделом](handoffs/2026-11-20-homework-card-section-name.md). Постоянное правило для новых карточек.
 
 16.11: [окно назначения ждёт roster до 90 секунд и позволяет повторить загрузку без закрытия](handoffs/2026-11-16-assignment-roster-timeout.md), assign-task.js v9. Прежние 30 секунд были меньше времени ответа backend.
 
