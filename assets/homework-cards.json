@@ -387,14 +387,103 @@
     "course": "Movers",
     "lesson": "2026-11-24",
     "due": "2026-11-26",
-    "title": "05. Homework 24 Nov — Phonics Review 2",
+    "title": "05. Homework 24 Nov — have to (Grammar Goals pp.62–63) + Phonics Review 2",
     "parts": [
+      {
+        "id": "grammar-goals",
+        "label": "Grammar Goals 3 · pages 62–63",
+        "taskIds": [
+          "gg1",
+          "gg2",
+          "gg3",
+          "gg4",
+          "gg5"
+        ]
+      },
       {
         "id": "phonics",
         "label": "Phonics · Review 2 · page 20",
         "taskIds": [
           "ph1",
           "ph2"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "95ef9290-2237-51f6-b74b-20660541b67d",
+    "path": "/as3/Unit 9/homework-2026-11-26/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-11-26",
+    "due": "2026-12-01",
+    "title": "06. Homework 26 Nov — Why…? Because… (WB p.96 + Phonics p.21)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 96",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Review 2 · page 21",
+        "taskIds": [
+          "ph1",
+          "ph2"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c468dec3-dafa-5447-aef0-32731daf3c53",
+    "path": "/as5/Unit 2/homework-2026-11-24/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-24",
+    "due": "2026-11-26",
+    "title": "04. Homework 24 Nov — used to (Grammar Goals 5 pp.12–13)",
+    "parts": [
+      {
+        "id": "grammar-goals",
+        "label": "Grammar Goals 5 · pages 12–13",
+        "taskIds": [
+          "gg1",
+          "gg2",
+          "gg3",
+          "gg4"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "282afa04-0d22-5a9d-8654-a4bdf809131b",
+    "path": "/as5/Unit 2/homework-2026-11-26/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-11-26",
+    "due": "2026-12-01",
+    "title": "05. Homework 26 Nov — questions with used to (WB p.21 + PB p.135)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 21",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "grammar-booster",
+        "label": "Grammar booster · page 135",
+        "taskIds": [
+          "gb1",
+          "gb2",
+          "gb3"
         ]
       }
     ]
