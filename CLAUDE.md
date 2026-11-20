@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Карточки ДЗ 24–26.11: [Movers GG3 pp.60–63 в карточке 24.11 + новая 26.11 (WB p.96, Phonics p.21); Flyers GG5 pp.10–13 (24.11) и PB p.26/135 + WB p.21 (26.11); все назначены](handoffs/2026-11-20-homework-cards-24-26-nov.md).
+
 Карточки ДЗ 20.11: [в шапке каждой карточки — плашка «Раздел: Unit N · Lesson N …» (+ Phonics); homework-submit review13; название пересылаемой ссылки (og:title) — из ws:share-title с разделом](handoffs/2026-11-20-homework-card-section-name.md). Постоянное правило для новых карточек.
 
 16.11: [окно назначения ждёт roster до 90 секунд и позволяет повторить загрузку без закрытия](handoffs/2026-11-16-assignment-roster-timeout.md), assign-task.js v9. Прежние 30 секунд были меньше времени ответа backend.
