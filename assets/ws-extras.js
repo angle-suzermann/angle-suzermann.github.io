@@ -134,6 +134,11 @@
     if (v == null) v = d.ansList;
     if (v == null) v = d.answerList;
     if (v == null) v = d.ans;
+    if (v == null && d.acc != null) {
+      /* поля с вписыванием слова: data-acc='["IS MARKED", ...]' — берём первый вариант */
+      try { var arr = JSON.parse(d.acc); if (arr && arr.length) return String(arr[0]); } catch (e) { }
+      return null;
+    }
     return v == null ? null : v.split('|')[0];
   }
   function mkBtn(fn) {
