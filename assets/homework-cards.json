@@ -420,6 +420,14 @@
     "title": "06. Homework 26 Nov — Why…? Because… (WB p.96 + Phonics p.21)",
     "parts": [
       {
+        "id": "dialogue-voice",
+        "label": "Прочитай диалог на диктофон",
+        "taskIds": [
+          "read1"
+        ],
+        "photo": false
+      },
+      {
         "id": "workbook",
         "label": "Workbook · page 96",
         "taskIds": [
@@ -468,6 +476,14 @@
     "due": "2026-12-01",
     "title": "05. Homework 26 Nov — questions with used to (WB p.21 + PB p.135)",
     "parts": [
+      {
+        "id": "dialogue-voice",
+        "label": "Прочитай диалог на диктофон",
+        "taskIds": [
+          "read1"
+        ],
+        "photo": false
+      },
       {
         "id": "workbook",
         "label": "Workbook · page 21",
