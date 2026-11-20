@@ -690,6 +690,25 @@ function rewardMeeDiagnostics(){if(PARENT||!live||rewardMeeUnmatched===null)retu
 function rewardOverview(){if(!D.rewardVersion||!window.AngleRewards)return '';return '<div class="reward-roster">'+C().students.map(s=>{const r=window.AngleRewards.fromRows(D.rewards,ui.course,s.id,1);return '<button data-card="'+esc(s.id)+'" title="Открыть коллекцию ученика" data-reward-roster="'+esc(s.id)+'">'+'<span class="rr-name">'+esc(s.name)+'</span><span class="rr-count">'+r.stars+window.AngleRewards.star('reward-star-filled')+'</span></button>';}).join('')+(live?'<button data-reward-sync>Обновить награды</button><button data-reward-manual>Выдать звезду</button>':'')+'</div>'+rewardMeeDiagnostics();}
 let rewardRefreshTimer;
 function scheduleRewardRefresh(){if(!live||!D.rewardVersion)return;clearTimeout(rewardRefreshTimer);rewardRefreshTimer=setTimeout(async()=>{if(pending.length||flushing){scheduleRewardRefresh();return;}try{const fresh=await Store.load();D.rewards=fresh.rewards;D.rewardVersion=fresh.rewardVersion;for(const s of C().students){const summary=window.AngleRewards?.fromRows(D.rewards,ui.course,s.id,D.rewardVersion);window.AngleRewards?.refresh(summary);const b=document.querySelector('[data-reward-roster="'+CSS.escape(s.id)+'"]');if(b)b.innerHTML='<span class="rr-name">'+esc(s.name)+'</span><span class="rr-count">'+summary.stars+window.AngleRewards.star('reward-star-filled')+'</span>';}}catch(e){toast('Награды обновятся при следующей загрузке.');}},700);}
-document.addEventListener('click',async e=>{const b=e.target.closest('[data-reward-sync]');if(!b||!live||PARENT)return;if(pending.length||flushing){toast('Дождитесь сохранения изменений.');return;}b.disabled=true;try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();if(!result.ok)throw Error(result.error||'Ошибка синхронизации');rewardMeeUnmatched=Array.isArray(result.meeUnmatched)?result.meeUnmatched:[];D=await Store.load();render();toast('Награды обновлены: '+result.added);}catch(e){toast(e.message);b.disabled=false;}});
+document.addEventListener('click',async e=>{
+ const b=e.target.closest('[data-reward-sync]');if(!b||!live||PARENT||b.disabled)return;
+ let status=document.querySelector('[data-reward-sync-status]');
+ if(!status){status=document.createElement('p');status.dataset.rewardSyncStatus='';status.setAttribute('role','status');status.setAttribute('aria-live','polite');b.parentElement.insertAdjacentElement('afterend',status);}
+ if(pending.length||flushing){status.textContent='Дождитесь сохранения изменений и нажмите ещё раз.';return;}
+ const label=b.textContent;b.disabled=true;b.textContent='Обновляем…';b.setAttribute('aria-busy','true');
+ status.textContent='Обновляем награды. Сервер может отвечать около минуты…';
+ let synced=false;
+ try{
+  const response=await fetchT(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();
+  if(!result.ok)throw Error(result.error||'Ошибка синхронизации');synced=true;
+  status.textContent='Награды проверены. Загружаем свежие звёзды…';
+  rewardMeeUnmatched=Array.isArray(result.meeUnmatched)?result.meeUnmatched:[];D=await Store.load();render();
+  const message='Награды обновлены. Новых звёзд: '+Number(result.added||0)+'.';
+  const current=document.querySelector('[data-reward-sync]');
+  if(current&&!status.isConnected)current.parentElement.insertAdjacentElement('afterend',status);
+  status.textContent=message;toast(message);
+ }catch(err){status.textContent=synced?'Награды проверены, но свежие данные не загрузились. Нажмите ещё раз.':'Не удалось получить ответ сервера. Нажмите ещё раз: повторных звёзд не будет.';toast(status.textContent);}
+ finally{b.disabled=false;b.textContent=label;b.removeAttribute('aria-busy');}
+});
 
 document.addEventListener('click',e=>{if(!e.target.closest('[data-reward-manual]')||!live||PARENT)return;window.AngleManualReward?.open({students:C().students,course:ui.course,url:cfg.url,token:cfg.token,onSaved:scheduleRewardRefresh});});

@@ -641,4 +641,23 @@ document.addEventListener('click',async e=>{
 
 let individualRewardTimer;
 function scheduleIndividualRewards(){if(!live||!P()?.rewards)return;clearTimeout(individualRewardTimer);individualRewardTimer=setTimeout(async()=>{if(pending.length||flushing){scheduleIndividualRewards();return;}try{const fresh=await Store.load();for(const plan of D.plans){const server=fresh.plans.find(p=>p.id===plan.id);if(server?.rewards){plan.rewards=server.rewards;window.AngleRewards?.refresh(plan.rewards);}}}catch{}},700);}
-document.addEventListener('click',async e=>{const b=e.target.closest('[data-reward-sync]');if(!b||!live||STUDENT)return;if(pending.length||flushing){toast('Дождитесь сохранения изменений.');return;}b.disabled=true;try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();if(!result.ok)throw Error(result.error||'Ошибка синхронизации');scheduleIndividualRewards();toast('Награды обновлены: '+result.added);}catch(e){toast(e.message);}finally{b.disabled=false;}});
+document.addEventListener('click',async e=>{
+ const b=e.target.closest('[data-reward-sync]');if(!b||!live||STUDENT||b.disabled)return;
+ let status=document.querySelector('[data-reward-sync-status]');
+ if(!status){status=document.createElement('p');status.dataset.rewardSyncStatus='';status.setAttribute('role','status');status.setAttribute('aria-live','polite');b.parentElement.insertAdjacentElement('afterend',status);}
+ if(pending.length||flushing){status.textContent='Дождитесь сохранения изменений и нажмите ещё раз.';return;}
+ const label=b.textContent;b.disabled=true;b.textContent='Обновляем…';b.setAttribute('aria-busy','true');
+ status.textContent='Обновляем награды. Сервер может отвечать около минуты…';
+ let synced=false;
+ try{
+  const response=await fetchT(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'syncHomeworkRewards',token:cfg.token})}),result=await response.json();
+  if(!result.ok)throw Error(result.error||'Ошибка синхронизации');synced=true;
+  status.textContent='Награды проверены. Загружаем свежие звёзды…';
+  const fresh=await Store.load();for(const plan of D.plans){const server=fresh.plans.find(p=>p.id===plan.id);if(server?.rewards){plan.rewards=server.rewards;window.AngleRewards?.refresh(plan.rewards);}}render();
+  const message='Награды обновлены. Новых звёзд: '+Number(result.added||0)+'.';
+  const current=document.querySelector('[data-reward-sync]');
+  if(current&&!status.isConnected)current.parentElement.insertAdjacentElement('afterend',status);
+  status.textContent=message;toast(message);
+ }catch(err){status.textContent=synced?'Награды проверены, но свежие данные не загрузились. Нажмите ещё раз.':'Не удалось получить ответ сервера. Нажмите ещё раз: повторных звёзд не будет.';toast(status.textContent);}
+ finally{b.disabled=false;b.textContent=label;b.removeAttribute('aria-busy');}
+});
