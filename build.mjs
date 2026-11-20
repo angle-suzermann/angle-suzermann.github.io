@@ -305,6 +305,9 @@ function injectHead(dir) {
     /* глаз «показать ответ» + цвета пар в matching: assets/ws-extras.js, на каждый материал */
     const wxTag = isMaterial && !/<script\b[^>]*ws-extras\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/ws-extras.js?v=${WX_VERSION}" defer></script>\n` : '';
+    /* подсказки меток-источников по клику/касанию (ЕГЭ «Россия»): assets/tag-tips.js */
+    const ttTag = isMaterial && /class="(?:vb-tag|src)[" ][^>]*title=|title="[^"]*"[^>]*class="(?:vb-tag|src)/i.test(cleaned) && !/<script\b[^>]*tag-tips\.js/i.test(cleaned)
+      ? `<script src="${BASE}/assets/tag-tips.js?v=1" defer></script>\n` : '';
     /* док инструментов (заметки + рисование): assets/ws-tools.js, на каждый материал; страницы со старой вшитой копией (#inkToggle) скрипт пропускает */
     const wtTag = isMaterial && !/<script\b[^>]*ws-tools\.js/i.test(cleaned)
       ? `<script src="${BASE}/assets/ws-tools.js?v=${WT_VERSION}" defer></script>\n` : '';
@@ -323,7 +326,7 @@ function injectHead(dir) {
     const celebrationTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/confetti.js?v=4" defer></script>\n`:'';
     cleaned=cleaned.replace(/homework-photos\.js\?v=1/g,'homework-photos.js?v=2').replace(/homework-submit\.js\?v=[^"'\s<]+/g,'homework-submit.js?v=review14');
     const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=8" defer></script>\n`;
-    const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${wtTag}${worksheetUi}`;
+    const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${ttTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
       : /<meta\s+charset=[^>]*>/i.test(cleaned)
