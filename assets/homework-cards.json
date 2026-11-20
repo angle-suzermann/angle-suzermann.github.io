@@ -250,8 +250,8 @@
     "courseId": "as2",
     "course": "Starters",
     "lesson": "2026-11-26",
-    "due": "2026-12-04",
-    "title": "03. Homework 26 Nov — Whose is this? (WB p.32–33 + Phonics st)",
+    "due": "2026-12-03",
+    "title": "03. Homework 26 Nov — Whose is this? (WB p.32–33)",
     "parts": [
       {
         "id": "wb-sounds",
@@ -277,15 +277,6 @@
           "read1"
         ],
         "photo": false
-      },
-      {
-        "id": "phonics",
-        "label": "Phonics · st",
-        "taskIds": [
-          "ph1",
-          "ph2",
-          "ph3"
-        ]
       }
     ]
   },
