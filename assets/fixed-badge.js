@@ -38,7 +38,7 @@ function apply(reset){
  if(footer)footer.style.setProperty('display','none','important');
  const longPage=scroller.scrollHeight>scroller.clientHeight+2;
  if(footer)footer.style.removeProperty('display');
- mode=longPage?'end':'fixed';
+ mode=phone&&longPage?'end':'fixed';
  if(mode==='fixed')footer?.remove();
  if(badge.dataset.angleMode!==mode)badge.dataset.angleMode=mode;
  const position=mode==='fixed'?'fixed':'relative';if(badge.style.getPropertyValue('position')!==position||badge.style.getPropertyPriority('position')!=='important')badge.style.setProperty('position',position,'important');
