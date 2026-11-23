@@ -1,6 +1,33 @@
 /* Normalise service controls only; never translate exercise text or rewrite answers. */
 (function(){
  'use strict';
+
+ /* 23.11.2026: пока кнопки «Восстановить» удалялись сразу, страница не могла восстановить ответы
+    (её restoreProgress ждёт нажатия #restoreYes). Теперь кнопки скрыты, а восстановление
+    нажимается автоматически, как только страница его предложит. */
+ function autoRestore(){
+  var note=document.getElementById('restoreNote'); if(!note) return;
+  note.querySelectorAll('button').forEach(function(b){b.style.display='none';});
+  var done=false;
+  function finish(){note.querySelectorAll('button').forEach(function(b){b.remove();});}
+  function tryRestore(){
+   if(done) return;
+   var yes=document.getElementById('restoreYes');
+   if(note.hidden||!yes) return;
+   if(typeof yes.onclick!=='function'){return;}
+   done=true; obs.disconnect();
+   try{yes.click();}catch(_){}
+   finish();
+   var text=document.getElementById('restoreNoteText');
+   note.hidden=false; if(text) text.textContent='Найдена сохранённая работа. Ответы восстановлены в этом браузере.';
+   setTimeout(function(){note.hidden=true;},6000);
+  }
+  var obs=new MutationObserver(function(){setTimeout(tryRestore,0);});
+  obs.observe(note,{attributes:true,attributeFilter:['hidden'],childList:true,subtree:true,characterData:true});
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(tryRestore,0);});
+  window.addEventListener('load',function(){setTimeout(tryRestore,0);setTimeout(function(){if(!done){obs.disconnect();finish();}},4000);});
+  setTimeout(tryRestore,0);
+ }
  function init(){
   if(!document.querySelector('#scrollArea .page, #restoreNote')) return;
   document.body.classList.add('angle-worksheet');
@@ -13,7 +40,7 @@
   document.querySelectorAll('.topbar,.nav-btns,.reset-link,#restoreNote,.sw-bar').forEach(translate);
   var name=document.getElementById('studentName');if(name)name.placeholder='Ваше имя';
   var reset=document.querySelector('.topbar-reset');
-  if(reset){reset.title='Удалить сохранённые ответы этого задания в этом браузере';document.querySelectorAll('#restoreNote button,.reset-link').forEach(function(el){el.remove();});}
+  if(reset){reset.title='Удалить сохранённые ответы этого задания в этом браузере';document.querySelectorAll('.reset-link').forEach(function(el){el.remove();});autoRestore();}
   var status=document.getElementById('saveIndicator');
   function localStatus(){if(!status)return;var text=status.textContent;if(/Saved/.test(text))status.textContent=text.replace('Saved','Сохранено в этом браузере');}
   if(status){status.setAttribute('role','status');status.setAttribute('aria-live','polite');new MutationObserver(localStatus).observe(status,{childList:true,subtree:true,characterData:true});localStatus();}
