@@ -491,26 +491,78 @@ async function submitAll(){
   document.getElementById('resultsPanel').classList.add('show');
   renderResultSticker(pct);
 
+  const statusEl = document.getElementById('submitStatus');
+  const checkBtn = document.getElementById('checkBtn');
+  const studentName = nameInput.value.trim();
+  const scoreText = `${correct} / ${total} (${pct}%) auto-checked; Writing and Speaking marked by teacher (10 + 10)`;
+  const writingStatus = words ? `Ex 12 email written, ${words} words (task asks for 100-125) - to be marked out of 10` : 'Ex 12 email NOT written';
+  const mistakesText = wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.';
+  // Plain-text copy of the result: the fallback when the mail service cannot be reached.
+  const reportText = [document.title, 'Student: ' + studentName, 'Score: ' + scoreText, writingStatus, '', 'Writing:', essay.trim() || '(empty)', '', 'Mistakes:', mistakesText].join('\n');
+  hideCopyResult();
+  statusEl.textContent = 'Sending…';
+  if (checkBtn) checkBtn.disabled = true;
+  let failure = '';
   try{
     const fd = new FormData();
     fd.append('access_key', WEB3FORMS_ACCESS_KEY);
     fd.append('course', COURSE_NAME);
-    fd.append('subject', (document.title) + ' — ' + (nameInput.value.trim()));
+    fd.append('subject', (document.title) + ' — ' + studentName);
     fd.append('lesson', document.title);
-    fd.append('student', nameInput.value.trim());
-    fd.append('score', `${correct} / ${total} (${pct}%) auto-checked; Writing and Speaking marked by teacher (10 + 10)`);
+    fd.append('student', studentName);
+    fd.append('score', scoreText);
     fd.append('result_tier', getResultTier(pct).label);
-    fd.append('writing_status', words ? `Ex 12 email written, ${words} words (task asks for 100-125) - to be marked out of 10` : 'Ex 12 email NOT written');
+    fd.append('writing_status', writingStatus);
     fd.append('writing', essay.trim() || '(empty)');
-    fd.append('mistakes', wrongList.length ? wrongList.join('\n') : 'No mistakes — all auto-checked items correct.');
+    fd.append('mistakes', mistakesText);
     fd.append('timestamp', new Date().toISOString());
-    await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd });
-    try{ const mm=/\((\d+)%\)/.exec(String(fd.get('score')||'')); if(mm){ const ms=String(fd.get('mistakes')||''); await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'B1', student:String(fd.get('student')||''), hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:+mm[1], note:/^No mistakes/.test(ms)?'':ms.split('\n').slice(0,12).join('\n') }) }); } }catch(_){}
-    document.getElementById('submitStatus').textContent = 'Sent to your teacher ✓';
+    const controller = ('AbortController' in window) ? new AbortController() : null;
+    const timer = controller ? setTimeout(()=>controller.abort(), 30000) : null;
+    let response;
+    try{
+      response = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd, signal: controller ? controller.signal : undefined });
+    } catch(e){
+      failure = 'network';
+    } finally { if (timer) clearTimeout(timer); }
+    if (!failure){
+      let delivery = null;
+      try{ delivery = await response.json(); } catch(_){ /* not JSON: e.g. a block or error page */ }
+      if (!response.ok || !delivery || delivery.success !== true) failure = 'server:' + response.status;
+    }
+    if (!failure){
+      try{ const mm=/\((\d+)%\)/.exec(scoreText); if(mm){ await fetch('https://script.google.com/macros/s/AKfycbxL4zwd1hopnl_97A_vknNYZJeMhzDa2_wIojqTjAcIiZsgbKVDRWzPXT8xqyv61U30Rg/exec', { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ a:'result', course:'B1', student:studentName, hw:((document.querySelector('meta[name="ws:title"]')||{}).content||document.title), pct:+mm[1], note:/^No mistakes/.test(mistakesText)?'':mistakesText.split('\n').slice(0,12).join('\n') }) }); } }catch(_){}
+      statusEl.textContent = 'Sent to your teacher ✓';
+    }
   } catch(e){
-    document.getElementById('submitStatus').textContent = 'Could not send — check your internet connection and try again.';
+    failure = failure || 'page';
+  }
+  if (checkBtn) checkBtn.disabled = false;
+  if (failure){
+    statusEl.textContent = failure === 'network'
+      ? 'Not sent: this browser could not reach the result service. Your answers are saved on this device. Try again on Wi-Fi or in another browser, or copy your result and send it to your teacher in Telegram.'
+      : 'Not sent: the result service did not accept it (' + failure.replace('server:','code ') + '). Your answers are saved on this device. Try again later, or copy your result and send it to your teacher in Telegram.';
+    showCopyResult(reportText);
   }
   scheduleSave();
+}
+
+// ---------- copy result when sending fails ----------
+function hideCopyResult(){ const b=document.getElementById('copyResultBtn'); if(b) b.hidden=true; }
+function showCopyResult(text){
+  let b=document.getElementById('copyResultBtn');
+  if(!b){
+    b=document.createElement('button'); b.type='button'; b.id='copyResultBtn'; b.className='btn'; b.style.marginTop='8px';
+    document.getElementById('submitStatus').insertAdjacentElement('afterend', b);
+  }
+  b.textContent='📋 Copy my result'; b.hidden=false;
+  b.onclick=async ()=>{
+    let ok=false;
+    try{ await navigator.clipboard.writeText(text); ok=true; }catch(_){
+      const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      try{ ok=document.execCommand('copy'); }catch(__){} ta.remove();
+    }
+    b.textContent = ok ? '✓ Copied — paste it in Telegram' : 'Copy did not work — please take a screenshot';
+  };
 }
 
 // ---------- progress persistence ----------
