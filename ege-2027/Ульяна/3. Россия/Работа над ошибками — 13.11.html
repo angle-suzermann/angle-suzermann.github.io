@@ -845,7 +845,9 @@ function restoreProgress(){
     const hasAnswers = (data.prod||[]).some(v=>v) || Object.keys(data.itemState||{}).length || Object.keys(data.gapValues||{}).length || Object.keys(data.selectValues||{}).length;
     if(!hasAnswers) return;
     const note = document.getElementById('restoreNote');
-    if(note){
+    applyRestore(data);
+    if(note){ note.hidden = false; const t = document.getElementById('restoreNoteText'); if(t) t.textContent = ('Твои ответы восстановлены' + (data.name ? ' — ' + data.name : '') + '.').replace(/\.\.$/, '.'); note.querySelectorAll('button').forEach(b=>b.remove()); setTimeout(()=>{ note.hidden = true; }, 6000); }
+    if(false){
       note.hidden = false;
       document.getElementById('restoreNoteText').textContent =
         `Найден сохранённый прогресс${data.name ? ' — ' + data.name : ''}. Восстановить ответы?`;
