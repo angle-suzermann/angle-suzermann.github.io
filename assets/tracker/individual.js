@@ -237,14 +237,14 @@ function taskCard(pl,bi,t,number){
   let note='';
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
   else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
-  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-task-date="${bi}|${t.n}">Дата задания</button><button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
+  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-task-date="${bi}|${t.n}">Task date</button><button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
   let ed='';
   if(!STUDENT&&ui.tedit===bi+'|'+t.n){
     const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
     const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,trackerDatesLabel(g.date)].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
-    <div class="c-full"><label>Дата задания</label><select data-tgroup><option value="__new" selected>Изменить даты этого задания</option>${gopts.replace('<option value="__new">New date…</option>','').replace(/ selected/g,'')}</select></div>
+    <div class="c-full"><label>Task date</label><select data-tgroup><option value="__new" selected>Изменить даты этого задания</option>${gopts.replace('<option value="__new">New date…</option>','').replace(/ selected/g,'')}</select></div>
     <div class="c-full tnew"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly value="${esc(t.week||'')}" placeholder="Week 5"><label style="margin-top:8px">Даты этого задания</label><div class="dgrid">${dateInputs(dateParts(t.date),'td')}</div></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
     <div><label>Срок сдачи</label><input type="date" data-f="due" value="${esc(t.due||'')}"></div><div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
@@ -474,7 +474,7 @@ document.addEventListener('click',e=>{
   if(gs){const box=gs.closest('[data-ge]'),[bi,k]=box.dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k);
     const date=readDates(box,'gd'),week=autoWeek(date);
     const targets=b.tasks.filter(t=>gKey(t)===key);
-    if(targets.length>1&&targets.some(t=>(t.date||'')!==date)&&!confirm('Изменить даты всех '+targets.length+' заданий этой группы? Для одного задания нажмите «Дата задания» в его строке.'))return;
+    if(targets.length>1&&targets.some(t=>(t.date||'')!==date)&&!confirm('Изменить даты всех '+targets.length+' заданий этой группы? Для одного задания нажмите «Task date» в его строке.'))return;
     targets.forEach(t=>{if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)});
     ui.gedit=null;toast('Saved');render();return}
   const gd=e.target.closest('[data-gdel]');
