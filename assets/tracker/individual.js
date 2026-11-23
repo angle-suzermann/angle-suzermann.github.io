@@ -237,7 +237,7 @@ function taskCard(pl,bi,t,number){
   let note='';
   if(STUDENT)note=t.note?`<div class="tnote">${esc(t.note)}</div>`:'';
   else if(t.note)note=`<div class="tnote">${esc(t.note)}</div>`;
-  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
+  const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-task-date="${bi}|${t.n}">Дата задания</button><button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
   let ed='';
   if(!STUDENT&&ui.tedit===bi+'|'+t.n){
     const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
@@ -269,9 +269,9 @@ function viewBlock(pl,bi,only){
   const blockEdit=canEdit&&ui.blockEdit===bi?`<div class="gedit" data-block-form="${bi}"><p class="sub">Новые даты будут применены ко всем ${b.tasks.length} заданиям блока. Содержание, баллы и отметки сохранятся.</p><label>Даты всего блока</label><div class="dgrid">${dateInputs(dates.length===1?dateParts(dates[0]):[],'block-new-date')}</div><p class="erow"><button type="button" class="btn" data-block-save="${bi}">Применить ко всему блоку</button><button type="button" class="btn ghost" data-block-cancel>Отмена</button></p></div>`:'';
   const body=groupWeeks(tasks).map((g,gi)=>{const gs=score(g.items),gk=bi+'|'+encodeURIComponent(g.key);
     const chips=dateParts(g.date).map(d=>`<span class="dchip">${esc(trackerDateLabel(d))}</span>`).join('')||(g.date?`<span class="dchip">${esc(trackerDatesLabel(g.date))}</span>`:'');
-    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" class="gw" readonly value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Save</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
+    const ge=canEdit&&ui.gedit===gk?`<div class="gedit" data-ge="${gk}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" class="gw" readonly value="${esc(g.week)}" placeholder="Week 5"></div></div><label style="margin-top:8px">Даты всех заданий этой группы</label><div class="dgrid">${dateInputs(dateParts(g.date),'gd')}</div><p class="erow"><button class="btn" data-gsave="1">Перенести все ${g.items.length} заданий</button><button class="btn ghost" data-gcancel="1">Cancel</button><button class="btn danger" data-gdel="1">Delete all ${g.items.length} tasks of this block</button></p></div>`:'';
     const gadd=canEdit?`<details style="padding:10px"><summary class="lnk">+ Задание на эту дату</summary><div class="gadd" data-gadd="${gk}"><input type="text" data-gaddt placeholder="+ add a task to this date"><input type="text" data-gaddl placeholder="link (optional)"><select data-gaddk>${kindOpts('homework')}</select><button class="btn ghost" data-gaddgo="1">Add</button></div></details>`:'';
-    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">✎ Даты</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
+    return `<section class="wgrp w${gi%2}"><div class="wk">${chips}${g.week?`<span class="wlab">${esc(blockLabel(g.week))}</span>`:''}<span class="wcnt">${STUDENT?`Подтверждено: ${gs.done} из ${gs.n}`:`${gs.done} of ${gs.n} confirmed`}</span>${canEdit?`<button class="lnk gedbtn" data-gedit="${gk}">Даты всех ${g.items.length} заданий</button>`:''}</div>${ge}${g.items.map((t,i)=>taskCard(pl,bi,t,i+1)).join('')}${gadd}</section>`}).join('');
   return `<div class="card blk"><div class="unit-head"><div><h2>${esc(blockLabel(b.name))}</h2><div class="sub">${STUDENT?`Подтверждено: ${sc.done} из ${sc.n}`:`${sc.done} of ${sc.n} confirmed`}${sc.wait?` · <b class="waitc">${sc.wait} ${STUDENT?'ожидает проверки':'waiting for review'}</b>`:''} · ${STUDENT?`${sc.e} из ${sc.p} баллов`:`${sc.e} of ${sc.p} points`}</div></div><span class="${pcClass(sc.r)} bigpc">${fmt(sc.r)}</span></div>${blockTools}${blockEdit}${body}</div>`;
 }
 function addBar(pl,bi){
@@ -282,7 +282,7 @@ function addBar(pl,bi){
   const form=open?`<div class="card addbox"><div class="xgrid">
     <div style="grid-column:1/-1"><label>Tasks (one per line; numbered automatically)</label><textarea id="ntTask" rows="3" placeholder="First task&#10;Second task"></textarea></div>
     <div><label>Add to</label><select id="ntGroup">${opts}</select></div><div><label>Kind</label><select id="ntKind">${kindOpts('homework')}</select></div>
-    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" id="ntWeek" readonly placeholder="Week 5"></div></div><label style="margin-top:8px">Dates of the lessons this block covers</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
+    <div id="ntNewBox" style="grid-column:1/-1;${groups.length?'display:none':''}"><div class="xgrid"><div><label>Неделя · от начала Block 1</label><input type="text" id="ntWeek" readonly placeholder="Week 5"></div></div><label style="margin-top:8px">Даты новых заданий</label><div class="dgrid">${dateInputs([], 'nd')}</div></div>
     <div style="grid-column:1/-1"><label>Link (optional; used for every task above that has no link of its own. Or write a link after a | on a line)</label><input type="text" id="ntLink" placeholder="https://"></div>
     <div><label>Points each</label><input type="number" id="ntPts" value="5" min="0"></div>
     <div style="grid-column:1/-1"><label>New block (optional)</label><input type="text" id="ntBlockNew" placeholder="${b?'leave empty: '+esc(b.name):'Block 1'}"></div></div>
@@ -448,6 +448,8 @@ document.addEventListener('click',e=>{
   const rt=e.target.closest('[data-ret]');
   if(rt&&!STUDENT){const {b,t}=find(rt.dataset.ret);setF(b,t,'suggested','');toast('Returned to the student');render();return}
   if(STUDENT){} else {
+  const taskDate=e.target.closest('[data-task-date]');
+  if(taskDate){ui.tedit=taskDate.dataset.taskDate;ui.gedit=null;render();const field=document.querySelector('[data-te="'+ui.tedit+'"] .td');field?.scrollIntoView({block:'center'});field?.focus({preventScroll:true});return}
   const en=e.target.closest('[data-en]');
   if(en){ui.tedit=ui.tedit===en.dataset.en?null:en.dataset.en;render();return}
   if(e.target.closest('[data-tcancel]')){ui.tedit=null;render();return}
@@ -469,7 +471,9 @@ document.addEventListener('click',e=>{
   const gs=e.target.closest('[data-gsave]');
   if(gs){const box=gs.closest('[data-ge]'),[bi,k]=box.dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k);
     const date=readDates(box,'gd'),week=autoWeek(date);
-    b.tasks.filter(t=>gKey(t)===key).forEach(t=>{if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)});
+    const targets=b.tasks.filter(t=>gKey(t)===key);
+    if(targets.length>1&&targets.some(t=>(t.date||'')!==date)&&!confirm('Изменить даты всех '+targets.length+' заданий этой группы? Для одного задания нажмите «Дата задания» в его строке.'))return;
+    targets.forEach(t=>{if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)});
     ui.gedit=null;toast('Saved');render();return}
   const gd=e.target.closest('[data-gdel]');
   if(gd){const [bi,k]=gd.closest('[data-ge]').dataset.ge.split('|'),b=P().blocks[+bi],key=decodeURIComponent(k),del=b.tasks.filter(t=>gKey(t)===key);
