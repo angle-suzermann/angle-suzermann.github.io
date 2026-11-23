@@ -41,7 +41,7 @@ const root=process.cwd();
   assert.deepEqual(await page.locator('.task-number').allTextContents(),['1.','1.'],'each date block starts from one');
   assert.deepEqual((await page.locator('.tt').allTextContents()).map(s=>s.trim()),['1. Task B','1. Task A'],'manual prefixes hidden, automatic numbers retained');
   assert.equal(await page.locator('[data-tk]').first().getAttribute('data-tk'),'0|2','display numbering does not change task IDs');
-  await page.locator('[data-task-date]').first().click();
+  await page.locator('[data-en]').first().click();
   await page.locator('[data-f="kind"][value="homework"]').check();
   await page.locator('[data-tgroup]').selectOption('__new');
   await page.locator('.tnew [data-calendar-open]').first().click();
