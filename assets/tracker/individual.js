@@ -451,7 +451,15 @@ document.addEventListener('click',e=>{
   if(rt&&!STUDENT){const {b,t}=find(rt.dataset.ret);setF(b,t,'suggested','');toast('Returned to the student');render();return}
   if(STUDENT){} else {
   const taskDate=e.target.closest('[data-task-date]');
-  if(taskDate){ui.tedit=taskDate.dataset.taskDate;ui.gedit=null;render();const field=document.querySelector('[data-te="'+ui.tedit+'"] .td');field?.scrollIntoView({block:'center'});field?.focus({preventScroll:true});return}
+  if(taskDate){
+    const {b,t}=find(taskDate.dataset.taskDate),dlg=document.createElement('dialog');
+    const current=dateParts(t.date),initial=current.length===1?trackerDateISO(current[0]):'';
+    dlg.style.cssText='width:min(420px,calc(100vw - 40px));box-sizing:border-box;border:1px solid #b7a7c7;border-radius:16px;padding:20px;background:#faf7ff;color:#42304f';
+    dlg.innerHTML=`<form method="dialog"><h2 style="margin-top:0">Move task</h2><p>${esc(cleanTaskTitle(t.task))}</p><p class="sub">Current dates: ${esc(trackerDatesLabel(t.date)||'Not set')}</p><label for="moveTaskDate">New date</label><input id="moveTaskDate" type="date" required value="${esc(initial)}" style="width:100%;box-sizing:border-box"><p class="erow"><button class="btn" type="submit">Move task</button><button class="btn ghost" type="button" data-move-cancel>Cancel</button></p></form>`;
+    dlg.querySelector('form').addEventListener('submit',event=>{event.preventDefault();const date=dlg.querySelector('input').value;if(!date)return;const week=autoWeek(date);if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date);dlg.close();render();toast('Task moved')});
+    dlg.querySelector('[data-move-cancel]').addEventListener('click',()=>dlg.close());
+    dlg.addEventListener('close',()=>dlg.remove(),{once:true});document.body.appendChild(dlg);dlg.showModal();dlg.querySelector('input').focus();return;
+  }
   const en=e.target.closest('[data-en]');
   if(en){ui.tedit=ui.tedit===en.dataset.en?null:en.dataset.en;render();return}
   if(e.target.closest('[data-tcancel]')){ui.tedit=null;render();return}
