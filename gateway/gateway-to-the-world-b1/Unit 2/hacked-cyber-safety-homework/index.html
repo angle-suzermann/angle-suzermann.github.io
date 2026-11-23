@@ -20,11 +20,12 @@
 @font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'Apercu Pro';src:url('/assets/fonts/apercu-pro-700.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
 .page-wrap{ padding-bottom:110px; }
-.topbar-reset{ font-size:.78rem; color:var(--muted); margin-left:4px; white-space:nowrap; text-decoration:none; }
-.angle-badge{ position:fixed; left:28px; bottom:calc(24px + env(safe-area-inset-bottom,0px)); z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:0.8; color:var(--yellow); }
-.angle-badge .wordmark{ width:120px; height:auto; display:block; }
-.angle-badge .credit{ margin-top:4px; margin-left:3px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:11px; }
-@media (max-width:600px){ .angle-badge .wordmark{ width:90px; } .angle-badge{ left:16px; } }
+.topbar-reset{ font-size:0; color:var(--muted); margin-left:2px; white-space:nowrap; text-decoration:none; }
+.topbar-reset::before{ content:'↺'; font-size:16px; line-height:1; }
+.angle-badge{ position:fixed; left:18px; bottom:calc(14px + env(safe-area-inset-bottom,0px)); z-index:9999; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; opacity:.9; color:var(--yellow); }
+.angle-badge .wordmark{ width:100px; height:auto; display:block; overflow:visible; }
+.angle-badge .credit{ margin-top:3px; margin-left:2px; font-family:'Apercu Pro',sans-serif; font-weight:400; font-size:10px; }
+@media (max-width:480px){ .angle-badge .wordmark{ width:74px; } .angle-badge{ left:10px; bottom:calc(8px + env(safe-area-inset-bottom,0px)); } .angle-badge .credit{ font-size:9px; } }
 
 
 :root{ --purple:#5E4877; --purple-dark:#453458; --black:#2D2926; --yellow:#FED500;
@@ -161,7 +162,6 @@ header.topbar,.topbar{background:linear-gradient(180deg,#453458 env(safe-area-in
   <div class="topbar-inner">
     <div class="brand-row">
       <span class="lesson-title">Unit 2 — Hacked! Cyber safety phrases
-        <span class="lesson-sub">Homework · Great Learners, Great Thinkers · Gateway to the world B1</span>
       </span>
       <div class="namebar">
         <label for="studentName">Name:</label>
