@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Empower B1+ 23.11: [домашка после урока 23.11 (5C, лексический подход: noticing → patterns → upgrade → recall → use), опубликована и назначена в трекере (emp-2627 n=12, срок 02.12)](handoffs/2026-11-23-empower-b1-5c-homework-2311.md). Продолжает заметку 21.11.
+
 Gateway B1 23.11: [домашка Unit 2 «Hacked! Cyber safety phrases» (SB pp. 22–23, видео GLGT): видео, пропуски, коллокации, плитки, Past Simple, Right/Wrong, письмо; прямой вызов трекера убран, пишет общий hook](handoffs/2026-11-23-gwb1-unit2-hacked-cyber-homework.md). Не закоммичено — push из Claude заблокирован.
 
 ЕГЭ «Россия» 22–23.11, «Разговоры о важном»: [урок 21 Heroes of Russia (Зорге, Ушаков, Маресьев, Донской, Хабаров); Russian salad вместо Olivier; What вместо Which в образцах задания 2; страница о науке, культуре и вере в classwork 07, 11, 15, 17 и recall-страница в homework 08, 12, 16, 18 — уроках, которых Ульяна ещё не делала](handoffs/2026-11-23-ege-russia-heroes-razgovory.md). Дополняет заметку 22.11 о ключах 37.
