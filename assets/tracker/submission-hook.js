@@ -165,12 +165,69 @@
     if (target === endpoint && toData(options && options.body)?.a === 'result') {
       return Promise.resolve(new Response(JSON.stringify({ok:true,deferred:true}),{status:200,headers:{'Content-Type':'application/json'}}));
     }
-    const sent = original.apply(this, arguments);
-    if (!MAIL.test(target)) return sent;
+    if (!MAIL.test(target)) return original.apply(this, arguments);
     const body = options && options.body;
-    sent.then(async response => { if (response && response.ok && await accepted(target, response)) delivered(body); }).catch(() => {});
-    return sent;
+    // v5 (23.11.2026): a send that never reaches the mail service, or that the service does not accept, must not look sent.
+    // The page gets a rejected promise (its own "not sent" branch runs) and the student gets a way to copy the result.
+    let opts = options;
+    if (!(options && options.signal) && window.AbortSignal && AbortSignal.timeout) opts = Object.assign({}, options, { signal: AbortSignal.timeout(30000) });
+    return original.call(this, url, opts).then(async response => {
+      if (response && response.ok && await accepted(target, response)) { delivered(body); hideSendFallback(); return response; }
+      const status = response ? response.status : 0;
+      showSendFallback(body, 'server', status);
+      const err = new Error('сервис не принял результат (код ' + status + ')');
+      err.angleDelivery = 'server'; err.angleStatus = status;
+      throw err;
+    }, error => {
+      showSendFallback(body, 'network', 0);
+      if (error && typeof error === 'object') { try { error.angleDelivery = 'network'; } catch (_) {} }
+      throw error;
+    });
   };
+
+  /* Fallback when the result could not be delivered: the answers stay on the page; the student can copy them for Telegram.
+     Pages with their own copy button set window.angleOwnSendFallback = true. */
+  function sendText(body) {
+    const skip = /^(access_key|botcheck|redirect|from_name|replyto|apikey|_.*)$/i, lines = [];
+    const add = (k, v) => { if (!skip.test(k) && v != null && typeof v !== 'object') lines.push(k + ': ' + String(v)); };
+    try {
+      if (body && typeof body.forEach === 'function' && typeof body.get === 'function') body.forEach((v, k) => add(k, v));
+      else if (typeof body === 'string' && body.trim().charAt(0) === '{') { const j = JSON.parse(body); Object.keys(j).forEach(k => add(k, j[k])); }
+      else if (typeof body === 'string') new URLSearchParams(body).forEach((v, k) => add(k, v));
+    } catch (_) {}
+    return [document.title, location.href, ''].concat(lines).join('\n');
+  }
+  function hideSendFallback() { const el = document.getElementById('angleSendFallback'); if (el) el.remove(); }
+  function showSendFallback(body, kind, status) {
+    if (window.angleOwnSendFallback) return;
+    hideSendFallback();
+    const text = sendText(body);
+    const el = document.createElement('div');
+    el.id = 'angleSendFallback'; el.setAttribute('role', 'alert');
+    el.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;z-index:10001;padding:14px 16px;border-radius:14px;background:#fff;color:#2D2926;border:2px solid #5E4877;box-shadow:0 8px 28px rgba(45,25,60,.28);font:15px/1.4 "Apercu Pro",system-ui,sans-serif';
+    const why = kind === 'network'
+      ? 'This browser could not reach the result service. · Браузер не смог связаться с сервисом отправки.'
+      : 'The result service did not accept it (code ' + status + '). · Сервис не принял результат (код ' + status + ').';
+    el.innerHTML = '<b style="color:#5E4877">The result was not sent · Результат не отправлен</b><div style="margin:6px 0 10px"></div>';
+    el.children[1].textContent = why + ' Your answers are still on this page: try again on Wi-Fi or in another browser, or copy the result and send it to your teacher in Telegram. · Ответы остались на странице: попробуйте ещё раз через Wi-Fi или в другом браузере либо скопируйте результат и отправьте учителю в Telegram.';
+    const copy = document.createElement('button'), close = document.createElement('button');
+    copy.type = close.type = 'button';
+    copy.textContent = '📋 Copy result · Скопировать';
+    copy.style.cssText = 'padding:9px 14px;border-radius:10px;border:0;background:#FED500;color:#2D2926;font:700 16px system-ui,sans-serif;cursor:pointer';
+    close.textContent = '✕'; close.setAttribute('aria-label', 'Close');
+    close.style.cssText = 'margin-left:8px;padding:9px 12px;border-radius:10px;border:1px solid #5E4877;background:#fff;color:#5E4877;font:16px system-ui,sans-serif;cursor:pointer';
+    copy.onclick = async () => {
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; } catch (_) {
+        const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (__) {} ta.remove();
+      }
+      copy.textContent = ok ? '✓ Copied · Скопировано' : 'Take a screenshot · Сделайте скриншот';
+    };
+    close.onclick = hideSendFallback;
+    el.appendChild(copy); el.appendChild(close);
+    document.body.appendChild(el);
+  }
   if (window.XMLHttpRequest) {
     const open = XMLHttpRequest.prototype.open, send = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.open = function (method, url) { this.__angleUrl = String(url); return open.apply(this, arguments); };

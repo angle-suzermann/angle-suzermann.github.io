@@ -452,6 +452,7 @@ function itemContext(el){
 }
 function wordCount(s){ const m = (s||'').trim().match(/\S+/g); return m ? m.length : 0; }
 
+window.angleOwnSendFallback = true;   // this page shows its own copy button
 async function submitAll(){
   const nameInput = document.getElementById('studentName');
   if(!nameInput.value.trim()){ nameInput.focus(); showPage(0); alert('Please type your name at the top before submitting.'); return; }
@@ -522,7 +523,7 @@ async function submitAll(){
     try{
       response = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Accept':'application/json'}, body: fd, signal: controller ? controller.signal : undefined });
     } catch(e){
-      failure = 'network';
+      failure = (e && e.angleDelivery === 'server') ? 'server:' + e.angleStatus : 'network';
     } finally { if (timer) clearTimeout(timer); }
     if (!failure){
       let delivery = null;
