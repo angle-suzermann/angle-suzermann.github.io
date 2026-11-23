@@ -256,7 +256,9 @@ function taskCard(pl,bi,t,number){
 }
 function groupWeeks(tasks){
   const g=[],ix={};for(const t of tasks){const key=gKey(t);if(ix[key]==null){ix[key]=g.length;g.push({key,week:autoWeek(groupDate(t))||t.week||'',date:groupDate(t),items:[]})}g[ix[key]].items.push(t)}
-  return g.reverse();                       // newest week first (a task added later joins its date's group)
+  // Sort by lesson date, never by task insertion order (which changes after a move).
+  const firstDate=group=>dateParts(group.date).map(trackerDateISO).filter(Boolean).sort()[0]||'';
+  return g.sort((a,b)=>{const ad=firstDate(a),bd=firstDate(b);if(ad&&bd)return bd.localeCompare(ad);if(ad||bd)return ad?-1:1;return (Number((b.week||'').match(/\d+/)?.[0])||0)-(Number((a.week||'').match(/\d+/)?.[0])||0)});
 }
 function viewBlock(pl,bi,only){
   const b=pl.blocks[bi];if(!b)return '';
