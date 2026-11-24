@@ -46,7 +46,7 @@ const root=process.cwd();
   const dates=()=>page.locator('.wgrp .dchip').allTextContents();
   assert.deepEqual(await dates(),['November, 23','November, 16','November, 11','November, 4']);
   await page.locator('[data-task-date="0|2"]').click();
-  assert.equal(await page.locator('dialog[open] input').count(),1);await page.locator('#moveTaskDate').fill('2026-11-30');await page.locator('dialog[open] button[type=submit]').click();
+  assert.equal(await page.locator('dialog[open] input').count(),1);assert(await page.locator('#moveTaskDate').evaluate(el=>{const r=el.getBoundingClientRect(),d=el.closest('dialog').getBoundingClientRect();return r.left>=d.left+19&&r.right<=d.right-19}),'date field respects both dialog insets');await page.locator('#moveTaskDate').fill('2026-11-30');await page.locator('dialog[open] button[type=submit]').click();
   await page.waitForFunction(()=>JSON.parse(localStorage.getItem('angleTracker.iqueue')||'[]').length===0);
   assert(writes.length>0&&writes.every(w=>w.n===2),'only selected task changes');
   assert.deepEqual(await dates(),['November, 30','November, 23','November, 16','November, 4']);
