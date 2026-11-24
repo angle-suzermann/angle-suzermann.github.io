@@ -240,12 +240,9 @@ function taskCard(pl,bi,t,number){
   const tools=STUDENT?'':`<span class="tools-sm">${s==='sug'?`<button class="lnk" data-ret="${bi}|${t.n}">Return</button>`:''}<button class="lnk" data-task-date="${bi}|${t.n}">Task date</button><button class="lnk" data-en="${bi}|${t.n}" title="Edit or delete this task">✎ Edit</button></span>`;
   let ed='';
   if(!STUDENT&&ui.tedit===bi+'|'+t.n){
-    const gl=groupWeeks(pl.blocks[bi].tasks),ck=gKey(t);
-    const gopts=gl.map(g=>`<option value="${esc(g.key)}"${g.key===ck?' selected':''}>${esc([g.week,trackerDatesLabel(g.date)].filter(Boolean).join(' · ')||'(no date)')}</option>`).join('')+'<option value="__new">New date…</option>';
     ed=`<div class="tedit" data-te="${bi}|${t.n}"><div class="tegrid"><div class="c-full"><label>Task</label><input type="text" data-f="task" value="${esc(cleanTaskTitle(t.task))}"></div>
     <div class="c-full"><label>Тип задания</label><div class="tracker-kinds">${Object.keys(KINDS).map(kind=>`<label><input type="radio" name="task-kind" data-f="kind" value="${kind}"${kind===k?' checked':''}> ${KINDS[kind]}</label>`).join('')}</div></div><div><label>Points</label><input type="number" data-f="points" min="0" value="${esc(t.points)}"></div>
-    <div class="c-full"><label>Task date</label><select data-tgroup><option value="__new" selected>Изменить даты этого задания</option>${gopts.replace('<option value="__new">New date…</option>','').replace(/ selected/g,'')}</select></div>
-    <div class="c-full tnew"><label>Неделя · от начала Block 1</label><input type="text" class="tw" readonly value="${esc(t.week||'')}" placeholder="Week 5"><label style="margin-top:8px">Даты этого задания</label><div class="dgrid">${dateInputs(dateParts(t.date),'td')}</div></div>
+    <div class="c-full"><p class="sub">Current dates: ${esc(trackerDatesLabel(t.date)||'Not set')}</p><label>New date <span class="sub">(optional)</span><input type="date" data-single-task-date></label></div>
     <div class="c-full"><label>Link</label><input type="text" data-f="link" value="${esc(t.link)}" placeholder="https://"></div>
     <div><label>Срок сдачи</label><input type="date" data-f="due" value="${esc(t.due||'')}"></div><div class="c-full"><label>Mode</label><input type="text" data-f="mode" value="${esc(t.mode)}"></div>
     <div class="c-full"><label>Note for the student</label><input type="text" data-f="note" value="${esc(t.note)}"></div></div>
@@ -466,9 +463,8 @@ document.addEventListener('click',e=>{
   const ts=e.target.closest('[data-tsave]');
   if(ts){const box=ts.closest('[data-te]'),{b,t}=find(box.dataset.te);
     box.querySelectorAll('[data-f]').forEach(inp=>{if(inp.type==='radio'&&!inp.checked)return;const f=inp.dataset.f;let v=inp.value.trim();if(f==='points')v=+v||0;if(f==='task')v=cleanTaskTitle(v);if(f==='task'&&!v){toast('The task cannot be empty');return}if(String(t[f]??'')!==String(v))setF(b,t,f,v)});
-    const sel=box.querySelector('[data-tgroup]');
-    if(sel&&sel.value!==gKey(t)){let w,d;if(sel.value==='__new'){d=readDates(box,'td');w=autoWeek(d);if(!d){toast('Enter the date(s) for the new block');return}}else{[w,d]=[sel.value.split('|')[0],sel.value.slice(sel.value.indexOf('|')+1)]}
-      if((t.week||'')!==w)setF(b,t,'week',w);if((t.date||'')!==d)setF(b,t,'date',d)}
+    const date=box.querySelector('[data-single-task-date]')?.value;
+    if(date){const week=autoWeek(date);if((t.week||'')!==week)setF(b,t,'week',week);if((t.date||'')!==date)setF(b,t,'date',date)}
     ui.tedit=null;toast('Saved');render();return}
   const td=e.target.closest('[data-tdel]');
   if(td){const {b,t}=find(td.closest('[data-te]').dataset.te);if(!confirm('Delete this task? This cannot be undone.'))return;
