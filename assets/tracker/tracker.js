@@ -120,10 +120,10 @@ const pk=(c,s,scope,item)=>[c,s,scope,item].join('|');
 // B1, 25.11.2026: one Developing Vocabulary + Listening homework per unit.
 // Keep both historical backend IDs and every existing result; combine only the presentation.
 const B1_DEVELOPING='developing-vocab-listening';
-function b1DevelopingStructure(data){const cc=data.courses?.B1;if(!cc)return data;const parts=cc.sections.filter(x=>['sec4','sec6'].includes(x.id));if(parts.length!==2)return data;cc.sections=cc.sections.filter(x=>x.id!=='sec6').map(x=>x.id==='sec4'?{id:B1_DEVELOPING,name:'Developing Vocabulary + Developing Listening',points:parts.reduce((n,p)=>n+Number(p.points||0),0)}:x);return data;}
+function b1DevelopingStructure(data){const cc=data.courses?.B1;if(!cc)return data;const parts=cc.sections.filter(x=>['sec4','sec6'].includes(x.id));if(parts.length!==2)return data;cc.sections=cc.sections.filter(x=>x.id!=='sec6').map(x=>x.id==='sec4'?{id:B1_DEVELOPING,name:'Developing Vocabulary and Listening',points:parts.reduce((n,p)=>n+Number(p.points||0),0)}:x);return data;}
 function b1DevelopingState(progress,c,s,scope,item){if(c!=='B1'||item!==B1_DEVELOPING)return progress[[c,s,scope,item].join('|')]||'';const values=['sec4','sec6'].map(id=>progress[[c,s,scope,id].join('|')]||'').filter(v=>v!=='N/A');if(!values.length)return 'N/A';if(values.every(v=>v==='✓'))return '✓';if(values.some(v=>v==='✓'||v==='Done'))return 'Done';if(values.some(v=>v==='Assigned'))return 'Assigned';return '';}
 function b1DevelopingTargets(c,t){return c==='B1'&&t.item===B1_DEVELOPING?['sec4','sec6'].map(item=>({...t,item})):[t];}
-function b1DevelopingRows(c,rows){if(c!=='B1')return rows;const groups=new Map(),out=[];for(const r of rows){const h=String(r.hw||'').toLowerCase(),n=unitNo(r.hw);if(n===null||r.source==='worksheet'||/backlog/.test(h)||!(/\bdev(?:elop\w*)?\.?\s+voc/.test(h)||/listening/.test(h))){out.push(r);continue;}const key=String(n);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r);}for(const [n,all] of groups){const types=new Set(all.flatMap(r=>{const h=String(r.hw).toLowerCase();return [/\bdev(?:elop\w*)?\.?\s+voc/.test(h)?'v':'',/listening/.test(h)?'l':''].filter(Boolean)}));if(types.size<2){out.push(...all);continue;}const required=all.filter(r=>r.status!=='na'),done=required.length&&required.every(r=>r.status==='done'),numeric=x=>x!==''&&x!=null&&Number.isFinite(Number(x)),scored=done&&required.every(r=>numeric(r.pts)&&numeric(r.max)&&Number(r.max)>0);const pts=scored?required.reduce((a,r)=>a+Number(r.pts),0):'',max=scored?required.reduce((a,r)=>a+Number(r.max),0):'';out.push({...all[0],hw:'Unit '+n+' — Developing Vocabulary + Developing Listening',status:!required.length?'na':done?'done':required.some(r=>r.status==='missing')?'missing':'pending',pts,max,pct:scored?Math.round(pts/max*100):'',_developingParts:all});}return out;}
+function b1DevelopingRows(c,rows){if(c!=='B1')return rows;const groups=new Map(),out=[];for(const r of rows){const h=String(r.hw||'').toLowerCase(),n=unitNo(r.hw);if(n===null||r.source==='worksheet'||/backlog/.test(h)||!(/\bdev(?:elop\w*)?\.?\s+voc/.test(h)||/listening/.test(h))){out.push(r);continue;}const key=String(n);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r);}for(const [n,all] of groups){const types=new Set(all.flatMap(r=>{const h=String(r.hw).toLowerCase();return [/\bdev(?:elop\w*)?\.?\s+voc/.test(h)?'v':'',/listening/.test(h)?'l':''].filter(Boolean)}));if(types.size<2){out.push(...all);continue;}const required=all.filter(r=>r.status!=='na'),done=required.length&&required.every(r=>r.status==='done'),numeric=x=>x!==''&&x!=null&&Number.isFinite(Number(x)),scored=done&&required.every(r=>numeric(r.pts)&&numeric(r.max)&&Number(r.max)>0);const pts=scored?required.reduce((a,r)=>a+Number(r.pts),0):'',max=scored?required.reduce((a,r)=>a+Number(r.max),0):'';out.push({...all[0],hw:'Unit '+n+' — Developing Vocabulary and Listening',status:!required.length?'na':done?'done':required.some(r=>r.status==='missing')?'missing':'pending',pts,max,pct:scored?Math.round(pts/max*100):'',_developingParts:all});}return out;}
 'use strict';
 try{if(/[?&]embed=1/.test(location.search))document.documentElement.classList.add('embedded')}catch(_){}
 const st=(c,s,scope,item)=>b1DevelopingState(D.progress,c,s,scope,item);
@@ -189,6 +189,11 @@ function worksheetScore(c,sid,item){
   if(rows.length!==1)return null;
   return worksheetPercent(rows[0]);
 }
+function greatLearnersWorksheetScore(c,sid,n){
+ if(c!=='B1'||sid!=='b111')return null;
+ const cc=D.courses[c],xs=(cc?.extras||[]).filter(x=>{let link;try{link=decodeURIComponent(String(x.link||''));}catch{return false;}const m=link.match(/\/Unit (\d+)\/hacked-cyber-safety-homework\//i);return m&&Number(m[1])===n&&extraAssigned(x,sid)});
+ if(xs.length!==1)return null;const student=cc.students.find(s=>s.id===sid);if(!student)return null;const norm=x=>String(x||'').trim().replace(/^\d+[.)]\s*/,'').replace(/\s+/g,' ').toLowerCase();const rows=(D.mee||[]).filter(r=>r.course===c&&norm(r.student)===norm(student.name)&&norm(r.hw)===norm(xs[0].topic)&&worksheetPercent(r)!==null);const scores=new Set(rows.map(r=>JSON.stringify([worksheetPercent(r),String(r.pts??''),String(r.max??'')])));return rows.length&&scores.size===1?worksheetPercent(rows[0]):null;
+}
 function worksheetScoreAttrs(pct){return `class="worksheet-score" style="--p:${pct};--rc:${pct>=80?'#4f9d52':pct>=50?'#d9a900':'#c7586a'}" title="Результат воркшита: ${pct}%" aria-label="Результат воркшита: ${pct}%"`}
 /* MEE result on a unit circle (08.11.2026, Viktoria): the MEE assignment name is matched
    to unit sections by the same rules agents use for ticks (vocab -> Vocabulary, developing vocab ->
@@ -227,7 +232,7 @@ function sectionMeeScore(c,sid,n,secId){
   return{pct:Math.round(100*pts/max),src:rows.map(r=>r.hw)};
 }
 function dot(c,sid,scope,item,kind,missing,readonly=false){
-  const v=st(c,sid,scope,item),ws=scope==='ex'&&v!=='N/A'?worksheetScore(c,sid,item):null;
+  const v=st(c,sid,scope,item),ws=v==='N/A'?null:scope==='ex'?worksheetScore(c,sid,item):/^u\d+$/.test(scope)&&item==='sec5'?greatLearnersWorksheetScore(c,sid,Number(scope.slice(1))):null;
   const ms=ws===null&&/^u\d+$/.test(scope)&&v!=='N/A'?sectionMeeScore(c,sid,Number(scope.slice(1)),item):null;
   const pct=ws!==null?ws:ms?ms.pct:null,what=ms?'Результат MEE ('+ms.src.join(', ')+')':'Результат воркшита';
   const classes=`dot ${dotCls(v)}`;
@@ -719,4 +724,6 @@ document.addEventListener('click',async e=>{
 });
 
 document.addEventListener('click',e=>{if(!e.target.closest('[data-reward-manual]')||!live||PARENT)return;window.AngleManualReward?.open({students:C().students,course:ui.course,url:cfg.url,token:cfg.token,onSaved:scheduleRewardRefresh});});
+
+
 
