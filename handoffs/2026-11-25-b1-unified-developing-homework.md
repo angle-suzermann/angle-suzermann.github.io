@@ -1,0 +1,5 @@
+# B1 unified developing homework · 25.11.2026
+
+Teacher explicitly requested all B1 units and the whole group: Developing Vocabulary + Developing Listening are one homework item, accepted together. Tracker presents one composite section; historical sec4/sec6 data is preserved. A partial historical credit is pending, not full ✓. N/A parts remain exempt. A teacher action on the combined circle writes only the original non-exempt IDs. Homework-review target selection expands to those IDs for server compatibility. MEE developing/listening rows of the same unit are grouped for submission counts; combined numeric score only when all required parts have points/max, using total earned/possible. Worksheets and other courses are excluded. No production batch migration or historical grades/rewards rewrite.
+
+Validation: dedicated combined-state/results fixtures, existing MEE-circle/submission tests, mocked local UI action verifies the two legacy writes and no virtual-ID write. Existing tracker-unit-per-pupil test still encodes older stray-tick behavior and fails against the already-existing unitOn rule; this unrelated rule was not changed.

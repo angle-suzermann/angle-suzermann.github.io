@@ -1,5 +1,3 @@
-'use strict';
-try{if(/[?&]embed=1/.test(location.search))document.documentElement.classList.add('embedded')}catch(_){}
 const SRC=document.currentScript.src;
 const STRUCTURE_URL=new URL('structure.json',SRC);
 STRUCTURE_URL.search=new URL(SRC).search;
@@ -25,7 +23,8 @@ const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clea
 
 const Demo={
   async load(){
-    const st=await (await fetch(STRUCTURE_URL)).json();
+    
+const st=await (await fetch(STRUCTURE_URL)).json();
     const demoNames={Starters:['Demo A.','Demo B.'],Movers:['Demo C.','Demo D.'],Flyers:['Demo E.','Demo F.','Demo G.'],B1:['Demo H. 🐬','Demo I. 🐬','Demo J. 🐼','Demo K. 🐙']};
     const courses={};
     for(const [c,v] of Object.entries(st)){
@@ -71,7 +70,7 @@ const ParentStore={
 const baseStore=PARENT?ParentStore:(live?Sheets:Demo);
 const Store={
   async load(){
-    if(baseStore===Demo)return baseStore.load();
+    if(baseStore===Demo)return b1DevelopingStructure(await baseStore.load());
     const [data,structure]=await Promise.all([baseStore.load(),fetchT(STRUCTURE_URL).then(r=>{if(!r.ok)throw new Error('Could not load course structure');return r.json()})]);
     // Keep an offline/failed deletion hidden on reload until its queued write succeeds.
     for(const op of PARENT?[]:pending){
@@ -97,7 +96,7 @@ const Store={
         }else cc.sections.push(s);
       }
     }
-    return data;
+    return b1DevelopingStructure(data);
   },
   write(op){return baseStore.write(op)}
 };
@@ -118,7 +117,16 @@ async function flush(){
 
 /* ---------- scoring (same rules as the Excel workbooks) ---------- */
 const pk=(c,s,scope,item)=>[c,s,scope,item].join('|');
-const st=(c,s,scope,item)=>D.progress[pk(c,s,scope,item)]||'';
+// B1, 25.11.2026: one Developing Vocabulary + Listening homework per unit.
+// Keep both historical backend IDs and every existing result; combine only the presentation.
+const B1_DEVELOPING='developing-vocab-listening';
+function b1DevelopingStructure(data){const cc=data.courses?.B1;if(!cc)return data;const parts=cc.sections.filter(x=>['sec4','sec6'].includes(x.id));if(parts.length!==2)return data;cc.sections=cc.sections.filter(x=>x.id!=='sec6').map(x=>x.id==='sec4'?{id:B1_DEVELOPING,name:'Developing Vocabulary + Developing Listening',points:parts.reduce((n,p)=>n+Number(p.points||0),0)}:x);return data;}
+function b1DevelopingState(progress,c,s,scope,item){if(c!=='B1'||item!==B1_DEVELOPING)return progress[[c,s,scope,item].join('|')]||'';const values=['sec4','sec6'].map(id=>progress[[c,s,scope,id].join('|')]||'').filter(v=>v!=='N/A');if(!values.length)return 'N/A';if(values.every(v=>v==='✓'))return '✓';if(values.some(v=>v==='✓'||v==='Done'))return 'Done';if(values.some(v=>v==='Assigned'))return 'Assigned';return '';}
+function b1DevelopingTargets(c,t){return c==='B1'&&t.item===B1_DEVELOPING?['sec4','sec6'].map(item=>({...t,item})):[t];}
+function b1DevelopingRows(c,rows){if(c!=='B1')return rows;const groups=new Map(),out=[];for(const r of rows){const h=String(r.hw||'').toLowerCase(),n=unitNo(r.hw);if(n===null||r.source==='worksheet'||/backlog/.test(h)||!(/\bdev(?:elop\w*)?\.?\s+voc/.test(h)||/listening/.test(h))){out.push(r);continue;}const key=String(n);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r);}for(const [n,all] of groups){const types=new Set(all.flatMap(r=>{const h=String(r.hw).toLowerCase();return [/\bdev(?:elop\w*)?\.?\s+voc/.test(h)?'v':'',/listening/.test(h)?'l':''].filter(Boolean)}));if(types.size<2){out.push(...all);continue;}const required=all.filter(r=>r.status!=='na'),done=required.length&&required.every(r=>r.status==='done'),numeric=x=>x!==''&&x!=null&&Number.isFinite(Number(x)),scored=done&&required.every(r=>numeric(r.pts)&&numeric(r.max)&&Number(r.max)>0);const pts=scored?required.reduce((a,r)=>a+Number(r.pts),0):'',max=scored?required.reduce((a,r)=>a+Number(r.max),0):'';out.push({...all[0],hw:'Unit '+n+' — Developing Vocabulary + Developing Listening',status:!required.length?'na':done?'done':required.some(r=>r.status==='missing')?'missing':'pending',pts,max,pct:scored?Math.round(pts/max*100):'',_developingParts:all});}return out;}
+'use strict';
+try{if(/[?&]embed=1/.test(location.search))document.documentElement.classList.add('embedded')}catch(_){}
+const st=(c,s,scope,item)=>b1DevelopingState(D.progress,c,s,scope,item);
 const C=()=>D.courses[ui.course];
 function ratio(e,p){return p>0?e/p:null}
 // A unit counts when switched on, explicitly assigned/confirmed in the teacher table,
@@ -395,7 +403,7 @@ function render(){
    deadlines. Never substitute the unit checklist, syllabus size or weighted points.
    No assigned list = unknown (–), not 0% or 100%. */
 const isTest=r=>/\btest\b/i.test(String(r.hw||''));
-function meeFor(c,s){const n=String(s.name).toLowerCase(),byTask=new Map();for(const r of D.mee||[]){if(String(r.course)===c&&String(r.student).toLowerCase()===n)byTask.set(String(r.hw||'').trim().toLowerCase(),r)}return [...byTask.values()]}
+function meeFor(c,s){const n=String(s.name).toLowerCase(),byTask=new Map();for(const r of D.mee||[]){if(String(r.course)===c&&String(r.student).toLowerCase()===n)byTask.set(String(r.hw||'').trim().toLowerCase(),r)}return b1DevelopingRows(c,[...byTask.values()])}
 function assignedWorkFor(c,s){
   const first=firstScoredUnit(c,s.id);
   return meeFor(c,s).filter(r=>{const n=unitNo(r.hw);return first===null||n===null||n>=first});
@@ -537,9 +545,8 @@ document.addEventListener('click',e=>{
   const pt=e.target.closest('[data-ptab]');
   if(pt){parentTab=pt.dataset.ptab;renderParent();return}
   const d=e.target.closest('.dot[data-t]');
-  if(d){const [c,sid,scope,item,kind]=d.dataset.t.split('\u0001');const k=pk(c,sid,scope,item);const nv=next(D.progress[k]||'',kind);
-    if(nv)D.progress[k]=nv;else delete D.progress[k];
-    send({a:'setStatus',course:c,student:sid,scope,item,status:nv});
+  if(d){const [c,sid,scope,item,kind]=d.dataset.t.split('\u0001');const k=pk(c,sid,scope,item);const nv=next(st(c,sid,scope,item),kind);
+    for(const t of b1DevelopingTargets(c,{scope,item})){const key=pk(c,sid,t.scope,t.item);if(st(c,sid,t.scope,t.item)==='N/A')continue;if(nv)D.progress[key]=nv;else delete D.progress[key];send({a:'setStatus',course:c,student:sid,...t,status:nv});}
     const y=window.scrollY,tx=$('.matrix')?.scrollLeft,ty=$('.matrix')?.scrollTop;render();window.scrollTo(0,y);const m=$('.matrix');if(m){m.scrollLeft=tx;m.scrollTop=ty}
     return}
   const co=e.target.closest('[data-course]');if(co){ui.course=co.dataset.course;ui.tab='u1';ui.student=null;render();return}
@@ -666,7 +673,7 @@ function homeworkQueue(){
 }
 async function reviewHomeworkClick(button){
  if(PARENT||!live)return;const box=button.closest('[data-homework]'),message=box.querySelector('[data-hw-review-status]');if(pending.length||flushing){message.textContent='Дождитесь сохранения предыдущих изменений.';return;}
- const decisions=[...box.querySelectorAll('[data-hw-part]')].flatMap(p=>{const select=p.querySelector('[data-hw-part-decision]'),note=p.querySelector('[data-hw-part-note]');const status=select.value||((note.value!==note.dataset.originalNote&&['confirmed','returned'].includes(p.dataset.hwOriginalStatus))?p.dataset.hwOriginalStatus:'');return status?[{partId:p.dataset.hwPart,status,note:note.value,targets:[...p.querySelector('[data-hw-targets]').selectedOptions].map(o=>JSON.parse(o.value))}]:[];});
+ const decisions=[...box.querySelectorAll('[data-hw-part]')].flatMap(p=>{const select=p.querySelector('[data-hw-part-decision]'),note=p.querySelector('[data-hw-part-note]');const status=select.value||((note.value!==note.dataset.originalNote&&['confirmed','returned'].includes(p.dataset.hwOriginalStatus))?p.dataset.hwOriginalStatus:'');return status?[{partId:p.dataset.hwPart,status,note:note.value,targets:[...p.querySelector('[data-hw-targets]').selectedOptions].flatMap(o=>b1DevelopingTargets(ui.course,JSON.parse(o.value)).filter(t=>st(ui.course,String((D.homework||[]).find(r=>String(r.id)===box.dataset.homework)?.studentId||''),t.scope,t.item)!=='N/A'))}]:[];});
  if(!decisions.length){message.textContent='Выберите решение хотя бы для одной части.';return;}if(decisions.some(d=>d.status==='confirmed'&&!d.targets.length)){message.textContent='Для принимаемых частей выберите пункты трекера.';return;}
  box.querySelectorAll('button').forEach(b=>b.disabled=true);message.textContent='Сохраняем…';
  try{const response=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({a:'reviewHomework',token:cfg.token,id:box.dataset.homework,expectedVersion:Number(box.dataset.hwVersion),saveBindings:box.querySelector('[data-hw-save-bindings]').checked,decisions}),signal:AbortSignal.timeout(45000)});const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Не удалось сохранить');D=await Store.load();render();toast('Проверка сохранена. Принятые части подтверждены в трекере.');}catch(e){message.textContent=e.message;box.querySelectorAll('button').forEach(b=>b.disabled=false);}
@@ -712,3 +719,4 @@ document.addEventListener('click',async e=>{
 });
 
 document.addEventListener('click',e=>{if(!e.target.closest('[data-reward-manual]')||!live||PARENT)return;window.AngleManualReward?.open({students:C().students,course:ui.course,url:cfg.url,token:cfg.token,onSaved:scheduleRewardRefresh});});
+
