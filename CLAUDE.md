@@ -9,7 +9,7 @@ Starters 26.11: [в домашку урока 26.11 (`as2/Unit 3/homework-2026-1
 
 Flyers 24.11: [в классную работу карточки 24.11 добавлен Warm-up Wordwall Unjumble «used to» — без новой части ДЗ, назначение не менялось](handoffs/2026-11-24-flyers-wordwall-warmup.md).
 
-Gateway B1 26.11: [Unit 7 «A job application» — classwork (SB p.93) с совместным письмом в комнате gwb1-u7-job-application и homework (WB pp.64–65, письмо ~130 слов); ключи из Answer Key; submission-hook больше не падает в <head> при отклонённых записях (celebrate6)](handoffs/2026-11-26-gwb1-unit7-job-application.md). Не назначено.
+Gateway B1 26.11: [Unit 7 «A job application» — classwork (SB p.93) с совместным письмом в комнате gwb1-u7-job-application и homework (WB pp.64–65, письмо ~130 слов); ключи из Answer Key; submission-hook больше не падает в <head> при отклонённых записях (celebrate6)](handoffs/2026-11-26-gwb1-unit7-job-application.md). Homework назначен 🐙 (26.11 → 03.12, Unit 7 · Writing = Assigned); комнаты письма: 🐼🐬 по умолчанию, 🐙 `?room=gwb1-u7-job-application-octopus`.
 
 Wiseman Teens A2 26.11: [финальная классная работа к уроку 28.11 для второй ученицы — «11. Final practice before the exam» (Speaking по Trainer Test 4 visuals + новая диаграмма, Reading с доказательствами, email и рассказ на время, правила бланков TEENS A2); опубликована, не назначалась](handoffs/2026-11-26-a2-final-practice.md). Там же 24.11: [домашка «10. After the Mock Test»](handoffs/2026-11-24-a2-mock-follow-up.md) — строка не была добавлена из-за конфликта CLAUDE.md.
 
