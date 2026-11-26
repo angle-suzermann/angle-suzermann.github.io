@@ -69,8 +69,6 @@ body{font-family:'Apercu Pro','Helvetica Neue',Arial,sans-serif;color:var(--text
 .btn[disabled]{opacity:.45;cursor:default;}
 .btn-purple{background:var(--purple);color:#fff;} .btn-yellow{background:var(--yellow);color:var(--black);}
 .btn-outline{background:#fff;border:1.5px solid var(--purple);color:var(--purple);}
-.btn-rec{background:var(--wrong);color:#fff;}
-.btn-rec.recording{animation:pulse 1s infinite;}
 @keyframes pulse{50%{opacity:.6;}}
 .nav-btns{display:flex;justify-content:space-between;margin-top:18px;gap:10px;}
 .nav-btns button{min-width:110px;}
@@ -133,14 +131,6 @@ mark.ev.lit{background:var(--yellow);border-radius:3px;padding:0 2px;}
 .review-block{margin-top:16px;text-align:left;}
 .review-block summary{cursor:pointer;font-weight:800;color:var(--purple);padding:10px 0;min-height:44px;}
 .review-block .script-box mark.ev{background:#fff3a6;border-radius:3px;padding:0 2px;}
-/* recorder */
-.recorder{background:var(--card-tint);border-radius:12px;padding:14px;margin:10px 0;}
-.rec-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0;}
-.rec-timer{font-weight:800;color:var(--purple);font-variant-numeric:tabular-nums;}
-.rec-playback{width:100%;margin-top:6px;}
-.rec-playback[hidden]{display:none;}
-.rec-status{font-size:.84rem;color:var(--muted);margin:4px 0 0;line-height:1.5;}
-.rec-status.ok{color:var(--correct);font-weight:700;} .rec-status.err{color:var(--wrong);font-weight:700;}
 .prompt-list{margin:6px 0;padding-left:20px;line-height:1.6;}
 /* results */
 .results-panel{text-align:center;}
@@ -431,7 +421,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}@media(hover:none) and
 const PAGE_LABELS = ["Speak first", "What do you remember?", "Reasons & results", "Time to think", "Pronunciation", "Speaking", "Exit", "Finish"];
 const PROGRESS_KEY = 'angle_progress::empower-b1-5c-everyday-english-classwork';
 const WEB3FORMS_ACCESS_KEY = '8af30ecf-0d8b-4e1f-aa4b-2b3b76fe8234';
-const BASIN_URL = 'https://usebasin.com/f/6e8f507d4a7d';
 const COURSE_NAME = 'B1+ Empower';
 let current = 0;
 
@@ -552,58 +541,6 @@ function showProofLive(key,btn){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeScript();});
 
-/* ---------- speaking recorder (→ Basin) ---------- */
-const REC={};
-function recOf(el){return el.closest('.recorder');}
-function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
-async function recStart(btn){
-  const box=recOf(btn), st=box.querySelector('.rec-status');
-  if(!navigator.mediaDevices||!window.MediaRecorder){st.textContent='Sorry, recording is not supported in this browser. Try Chrome or Safari, or record a voice message and send it to your teacher.'; st.className='rec-status err'; return;}
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))||'';
-    const mr=new MediaRecorder(stream, mime?{mimeType:mime}:undefined); const chunks=[];
-    const id=box.dataset.task; REC[id]={mr,chunks,stream,blob:null,sent:false,secs:0};
-    mr.ondataavailable=e=>{if(e.data.size) chunks.push(e.data);};
-    mr.onstop=()=>{
-      const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'}); REC[id].blob=blob;
-      stream.getTracks().forEach(t=>t.stop());
-      const a=box.querySelector('.rec-playback'); a.src=URL.createObjectURL(blob); a.hidden=false;
-      box.querySelector('.rec-send').disabled=false;
-      st.textContent='Recorded '+fmt(REC[id].secs)+'. Listen back, then tap Send (or Record again).'; st.className='rec-status';
-    };
-    mr.start();
-    btn.classList.add('recording'); btn.textContent='● Recording…'; btn.disabled=true;
-    box.querySelector('.rec-controls .btn-outline').disabled=false;
-    const max=parseInt(box.dataset.max||'180'); const timer=box.querySelector('.rec-timer');
-    REC[id].iv=setInterval(()=>{REC[id].secs++; timer.textContent=fmt(REC[id].secs); if(REC[id].secs>=max) recStop(btn);},1000);
-    st.textContent='Recording… speak now.'; st.className='rec-status';
-  }catch(err){st.textContent='Could not use the microphone. Please allow microphone access and try again.'; st.className='rec-status err';}
-}
-function recStop(btn){
-  const box=recOf(btn), id=box.dataset.task, r=REC[id]; if(!r||r.mr.state!=='recording') return;
-  clearInterval(r.iv); r.mr.stop();
-  const rb=box.querySelector('.btn-rec'); rb.classList.remove('recording'); rb.textContent='● Record again'; rb.disabled=false;
-  box.querySelector('.rec-controls .btn-outline').disabled=true;
-}
-async function sendRecording(box){
-  const id=box.dataset.task, r=REC[id], st=box.querySelector('.rec-status');
-  if(!r||!r.blob) return false;
-  const name=document.getElementById('studentName').value.trim();
-  if(!name){st.textContent='Please type your name at the top first.'; st.className='rec-status err'; document.getElementById('studentName').focus(); return false;}
-  const ext=(r.blob.type.includes('mp4')?'m4a':r.blob.type.includes('ogg')?'ogg':'webm');
-  const fd=new FormData();
-  fd.append('course',COURSE_NAME); fd.append('exercise',document.title+' — '+id); fd.append('student',name);
-  fd.append('duration',fmt(r.secs)); fd.append('recording',r.blob,`${name.replace(/[^\w\-]+/g,'_')}_${id.replace(/[^\w\-]+/g,'_')}.${ext}`);
-  st.textContent='Sending…'; st.className='rec-status';
-  try{
-    const res=await fetch(BASIN_URL,{method:'POST',headers:{'Accept':'application/json'},body:fd});
-    if(!res.ok) throw new Error(res.status);
-    r.sent=true; st.textContent='✓ Recording sent to your teacher.'; st.className='rec-status ok'; return true;
-  }catch(e){st.textContent='Could not send — check your internet connection and tap Send again.'; st.className='rec-status err'; return false;}
-}
-function recSend(btn){ sendRecording(recOf(btn)); }
-
 /* ---------- autosave ---------- */
 let isRestoring=false, saveTimer=null;
 function saveProgress(){
@@ -709,13 +646,7 @@ async function submitAll(){
   const tier=renderResultSticker(pct, document.querySelector('.completion-stickers'));
   window.__submitted=true;
   const st=document.getElementById('submitStatus'); st.textContent='Sending to your teacher…';
-  // speaking recordings not yet sent
   let recInfo=[];
-  for(const box of document.querySelectorAll('.recorder')){
-    const r=REC[box.dataset.task];
-    if(r&&r.blob&&!r.sent){ await sendRecording(box); }
-    recInfo.push(`${box.dataset.task}: ${r&&r.sent?'sent via Basin ('+fmt(r.secs)+')':'not recorded / not sent'}`);
-  }
   const topic=document.title;
   const subject=topic.startsWith(COURSE_NAME)?`${topic} — ${studentName}`:`${COURSE_NAME} — ${topic} — ${studentName}`;
   try{
