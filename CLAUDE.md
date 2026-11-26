@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+ЕГЭ, индивидуальная ученица (26.11): [фидбек после урока 26.11 (задания 30–36) и «Работа над ошибками · 26.11» опубликованы; в трекер ничего не записано](handoffs/2026-11-26-ege-individual-feedback-2611.md). Отдельная тема.
+
 Навыки фидбека 26.11: [правила отбора фидбека в angle-voice, ICELT, точные пути и блокировка в angle-student-reports](handoffs/2026-11-26-feedback-rules-skills.md). Только библиотека навыков, сайт не менялся.
 
 Basin 26.11: [остатки удалены из Empower 5C classwork и homework (мёртвый код, адрес); движок Empower `shared.py` очищен и падает на `usebasin`; `build_wiseman_mock.py` остановлен — живую страницу Mock Test править напрямую](handoffs/2026-11-26-basin-leftovers-empower-5c.md). Дополняет заметку 12.11.
