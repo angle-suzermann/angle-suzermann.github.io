@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Навыки фидбека 26.11: [правила отбора фидбека в angle-voice, ICELT, точные пути и блокировка в angle-student-reports](handoffs/2026-11-26-feedback-rules-skills.md). Только библиотека навыков, сайт не менялся.
+
 Basin 26.11: [остатки удалены из Empower 5C classwork и homework (мёртвый код, адрес); движок Empower `shared.py` очищен и падает на `usebasin`; `build_wiseman_mock.py` остановлен — живую страницу Mock Test править напрямую](handoffs/2026-11-26-basin-leftovers-empower-5c.md). Дополняет заметку 12.11.
 
 Starters 26.11: [в домашку урока 26.11 (`as2/Unit 3/homework-2026-11-27/`) добавлена необязательная игра Wordwall Anagram Unit 3 — без новой части ДЗ, назначение не менялось](handoffs/2026-11-26-starters-wordwall-game.md).
