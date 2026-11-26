@@ -325,7 +325,7 @@ function injectHead(dir) {
     const trackerBadgeTag=/assets\/tracker\/(?:tracker|individual)\.js/.test(src)&&!src.includes('/assets/tracker/badge.js')?`<script src="${BASE}/assets/tracker/badge.js?v=1" defer></script>\n`:'';
     const celebrationTag=isMaterial&&!isTracker?`<script src="${BASE}/assets/confetti.js?v=4" defer></script>\n`:'';
     cleaned=cleaned.replace(/homework-photos\.js\?v=1/g,'homework-photos.js?v=2').replace(/homework-submit\.js\?v=[^"'\s<]+/g,'homework-submit.js?v=review14');
-    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=9" defer></script>\n`;
+    const fixedBadgeTag=`<script src="${BASE}/assets/fixed-badge.js?v=10" defer></script>\n`;
     const tags = `${celebrationTag}${fixedBadgeTag}${trackerBadgeTag}${rewardTag}${pickerTag}${photoTag}${submissionTag}${scopeTag}${iconTags}${ogTags(cleaned, p)}${swTag}${wxTag}${ttTag}${wtTag}${worksheetUi}`;
     const out = !hasHead
       ? `${tags}${cleaned}`
