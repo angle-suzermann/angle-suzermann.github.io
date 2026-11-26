@@ -265,6 +265,13 @@ input.typed.is-wrong, .wbank .fib.is-wrong{ color:var(--wrong); border-color:var
 @media (max-width:600px){ .letter{ padding:14px; font-size:.93rem; } .card{ padding:20px 18px; } }
 .letter input.typed{ min-width:0; width:110px; font-family:'Apercu Pro',sans-serif; }
 @media (max-width:600px){ .letter input.typed{ width:92px; } }
+.group-pick{ background:var(--card-tint); border-radius:12px; padding:12px 14px; margin:0 0 14px; }
+.group-pick[hidden]{ display:none; }
+.gp-q{ font-weight:700; color:var(--purple-dark); margin-bottom:8px; }
+.gp-btns{ display:flex; flex-wrap:wrap; gap:8px; }
+.gp-btns button{ font-family:inherit; font-weight:700; font-size:.95rem; padding:9px 16px; min-height:44px; border-radius:22px; border:2px solid var(--purple); background:#fff; color:var(--purple); cursor:pointer; }
+.gp-btns button.on{ background:var(--purple); color:#fff; }
+.gp-now{ margin-top:8px; font-size:.85rem; color:var(--muted); }
 
 </style>
 <meta name="theme-color" content="#453458">
@@ -438,9 +445,37 @@ input.typed.is-wrong, .wbank .fib.is-wrong{ color:var(--wrong); border-color:var
         <div class="role"><b>Part 5</b>I look forward to hearing from you. Yours sincerely, + full name.</div>
       </div>
       <p class="hint">The email is <b>a.daly@fasterfood.com</b>. We know the surname, but not if A. Daly is a man or a woman, so you can begin <i>Dear A. Daly,</i>. You know the name, so finish with <i>Yours sincerely,</i>. Remember: full forms (<i>I am, I would</i>), no contractions.</p>
-      <div class="collab-wrap">
-        <div class="collab" data-room="gwb1-u7-job-application" data-mode="shared" data-prompt="Write ONE formal application for the Faster Food waiter job together. Part 1: Dear A. Daly, + I am writing in response to your advertisement… (which job, where you saw it). Part 2: your experience. Part 3: your personal qualities with examples. Part 4: a polite question (Could you tell me…?). Part 5: I look forward to hearing from you. Yours sincerely, + full name. No contractions."></div>
+      <div class="group-pick" id="groupPick">
+        <div class="gp-q">Which group are you in?</div>
+        <div class="gp-btns">
+          <button type="button" data-group="pd">🐼🐬 Pandas &amp; Dolphins</button>
+          <button type="button" data-group="oc">🐙 Octopuses</button>
+        </div>
+        <div class="gp-now" id="groupNow" hidden></div>
       </div>
+      <div class="collab-wrap">
+        <div class="collab" id="collabBox" data-room-for-pd="gwb1-u7-job-application" data-room-for-oc="gwb1-u7-job-application-octopus" data-mode="shared" data-prompt="Write ONE formal application for the Faster Food waiter job together. Part 1: Dear A. Daly, + I am writing in response to your advertisement… (which job, where you saw it). Part 2: your experience. Part 3: your personal qualities with examples. Part 4: a polite question (Could you tell me…?). Part 5: I look forward to hearing from you. Yours sincerely, + full name. No contractions."></div>
+      </div>
+      <script>
+      /* One material, a separate writing room for each group. The choice is remembered on this device. */
+      (function(){
+        var KEY='gwb1-u7-collab-group', box=document.getElementById('collabBox'), pick=document.getElementById('groupPick'), now=document.getElementById('groupNow');
+        var NAMES={pd:'🐼🐬 Pandas & Dolphins', oc:'🐙 Octopuses'};
+        var urlRoom=new URLSearchParams(location.search).get('room');
+        var g=null; try{ g=localStorage.getItem(KEY); }catch(e){}
+        if(urlRoom){ box.setAttribute('data-room', urlRoom); pick.hidden=true; return; }
+        pick.querySelectorAll('button[data-group]').forEach(function(b){
+          b.classList.toggle('on', b.dataset.group===g);
+          b.onclick=function(){ try{ localStorage.setItem(KEY, b.dataset.group); }catch(e){} location.reload(); };
+        });
+        if(g && box.getAttribute('data-room-for-'+g)){
+          box.setAttribute('data-room', box.getAttribute('data-room-for-'+g));
+          now.hidden=false; now.textContent='You are writing in the '+NAMES[g]+' room. Wrong group? Click the other button.';
+        } else {
+          box.innerHTML='<div class="cb-msg">Choose your group above to open your group\'s writing room.</div>';
+        }
+      })();
+      </script>
       <p class="hint" style="margin-top:10px;">When you finish, press “Send to teacher”. Your teacher can leave a comment under each part.</p>
     </div>
     <div class="nav-btns"><button class="back-btn" onclick="prevPage()">← Back</button><button class="next-btn" onclick="nextPage()">Next →</button></div>
