@@ -464,7 +464,7 @@
     if (s.type === 'path') {
       if (s.points && s.points.length > 1) {
         var ps = pathStyle(s.tool, s.w);
-        ctx.globalCompositeOperation = ps.comp; ctx.globalAlpha = ps.a; ctx.strokeStyle = s.color; ctx.lineWidth = ps.w * uiScale / (transform.scale || 1); ctx.lineCap = ps.cap; ctx.lineJoin = 'round';
+        ctx.globalCompositeOperation = ps.comp; ctx.globalAlpha = ps.a; ctx.strokeStyle = s.color; ctx.lineWidth = ps.w; ctx.lineCap = ps.cap; ctx.lineJoin = 'round';
         ctx.beginPath(); ctx.moveTo(s.points[0][0], s.points[0][1]);
         for (var i = 1; i < s.points.length; i++) ctx.lineTo(s.points[i][0], s.points[i][1]);
         ctx.stroke();
@@ -488,7 +488,7 @@
       var size = s.size || 20; ctx.fillStyle = s.color; ctx.font = size + 'px "Apercu Pro","Helvetica Neue",Arial,sans-serif'; ctx.textBaseline = 'top';
       String(s.text || '').split('\n').forEach(function (ln, i) { ctx.fillText(ln, s.x, s.y + i * Math.round(size * 1.25)); });
     } else {  // shape
-      ctx.strokeStyle = s.color; ctx.lineWidth = (s.w || 3) * uiScale / (transform.scale || 1); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.strokeStyle = s.color; ctx.lineWidth = s.w || 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       var x = Math.min(s.x1, s.x2), y = Math.min(s.y1, s.y2), w = Math.abs(s.x2 - s.x1), h = Math.abs(s.y2 - s.y1);
       if (s.tool === 'rect') { shapeFill(s, function () { ctx.beginPath(); ctx.rect(x, y, w, h); }); ctx.strokeRect(x, y, w, h); }
       else if (s.tool === 'ellipse') { ctx.beginPath(); ctx.ellipse(x + w / 2, y + h / 2, Math.max(w / 2, 1), Math.max(h / 2, 1), 0, 0, Math.PI * 2); shapeFillNow(s); ctx.stroke(); }
