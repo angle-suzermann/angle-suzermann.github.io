@@ -448,21 +448,23 @@ input.typed.is-wrong, .wbank .fib.is-wrong{ color:var(--wrong); border-color:var
       <div class="group-pick" id="groupPick">
         <div class="gp-q">Which group are you in?</div>
         <div class="gp-btns">
-          <button type="button" data-group="pd">🐼🐬 Pandas &amp; Dolphins</button>
+          <button type="button" data-group="pa">🐼 Pandas</button>
+          <button type="button" data-group="do">🐬 Dolphins</button>
           <button type="button" data-group="oc">🐙 Octopuses</button>
         </div>
         <div class="gp-now" id="groupNow" hidden></div>
       </div>
       <div class="collab-wrap">
-        <div class="collab" id="collabBox" data-room-for-pd="gwb1-u7-job-application" data-room-for-oc="gwb1-u7-job-application-octopus" data-mode="shared" data-prompt="Write ONE formal application for the Faster Food waiter job together. Part 1: Dear A. Daly, + I am writing in response to your advertisement… (which job, where you saw it). Part 2: your experience. Part 3: your personal qualities with examples. Part 4: a polite question (Could you tell me…?). Part 5: I look forward to hearing from you. Yours sincerely, + full name. No contractions."></div>
+        <div class="collab" id="collabBox" data-room-for-pa="gwb1-u7-job-application-pandas" data-room-for-do="gwb1-u7-job-application-dolphins" data-room-for-oc="gwb1-u7-job-application-octopus" data-mode="shared"></div>
       </div>
       <script>
       /* One material, a separate writing room for each group. The choice is remembered on this device. */
       (function(){
         var KEY='gwb1-u7-collab-group', box=document.getElementById('collabBox'), pick=document.getElementById('groupPick'), now=document.getElementById('groupNow');
-        var NAMES={pd:'🐼🐬 Pandas & Dolphins', oc:'🐙 Octopuses'};
+        var NAMES={pa:'🐼 Pandas', do:'🐬 Dolphins', oc:'🐙 Octopuses'};
         var urlRoom=new URLSearchParams(location.search).get('room');
         var g=null; try{ g=localStorage.getItem(KEY); }catch(e){}
+        if(g==='pd') g=null;
         if(urlRoom){ box.setAttribute('data-room', urlRoom); pick.hidden=true; return; }
         pick.querySelectorAll('button[data-group]').forEach(function(b){
           b.classList.toggle('on', b.dataset.group===g);
@@ -470,7 +472,7 @@ input.typed.is-wrong, .wbank .fib.is-wrong{ color:var(--wrong); border-color:var
         });
         if(g && box.getAttribute('data-room-for-'+g)){
           box.setAttribute('data-room', box.getAttribute('data-room-for-'+g));
-          now.hidden=false; now.textContent='You are writing in the '+NAMES[g]+' room. Wrong group? Click the other button.';
+          now.hidden=false; now.textContent='You are writing in the '+NAMES[g]+' room. Wrong group? Choose another group above.';
         } else {
           box.innerHTML='<div class="cb-msg">Choose your group above to open your group\'s writing room.</div>';
         }
