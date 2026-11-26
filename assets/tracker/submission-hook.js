@@ -21,6 +21,7 @@
   let flushing = false;
 
   function message(text, retry) {
+    if (!document.body) { document.addEventListener('DOMContentLoaded', () => message(text, retry), { once: true }); return; }   // called from <head> before <body> exists
     let el = document.getElementById('angleTrackerDelivery');
     if (!el) { el = document.createElement('div'); el.id = 'angleTrackerDelivery'; el.setAttribute('role', 'status'); el.style.cssText = 'position:fixed;bottom:90px;left:12px;right:12px;max-width:520px;margin:0 auto;z-index:10000;padding:12px;border-radius:12px;background:#fff;color:#453458;box-shadow:0 2px 16px #0003;font:16px sans-serif'; document.body.appendChild(el); }
     el.textContent = text;

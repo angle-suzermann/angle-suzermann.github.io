@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Gateway B1 26.11: [Unit 7 «A job application» — classwork (SB p.93) с совместным письмом в комнате gwb1-u7-job-application и homework (WB pp.64–65, письмо ~130 слов); ключи из Answer Key; submission-hook больше не падает в <head> при отклонённых записях (celebrate6)](handoffs/2026-11-26-gwb1-unit7-job-application.md). Не назначено.
+
 Wiseman Teens A2 26.11: [финальная классная работа к уроку 28.11 для второй ученицы — «11. Final practice before the exam» (Speaking по Trainer Test 4 visuals + новая диаграмма, Reading с доказательствами, email и рассказ на время, правила бланков TEENS A2); опубликована, не назначалась](handoffs/2026-11-26-a2-final-practice.md). Там же 24.11: [домашка «10. After the Mock Test»](handoffs/2026-11-24-a2-mock-follow-up.md) — строка не была добавлена из-за конфликта CLAUDE.md.
 
 ЕГЭ 24.11, «40 things» EGE Clinic: [тренажёр «Russian names in English» (британское произношение с озвучиванием), Достоевский, Станиславский, Суриков, Стравинский, гусли, Терешкова в уроках 11–16, новый урок 22 «Russia in the 20th Century»](handoffs/2026-11-24-ege-clinic-40-things.md). Продолжает заметку 22–23.11 о «Разговорах о важном».
