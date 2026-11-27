@@ -5,6 +5,8 @@
 
 ## Последняя передача от Codex
 
+Письма в заданиях (27.11): [внутренний отступ текста в email-frame, включая Finishing line; общая правка и desktop/mobile QA](handoffs/2026-11-27-email-body-padding.md).
+
 ЕГЭ, индивидуальная ученица (26.11): [фидбек после урока 26.11 (задания 30–36) и «Работа над ошибками · 26.11» опубликованы, воркшит назначен ДЗ в блок 26.11 (срок 03.12)](handoffs/2026-11-26-ege-individual-feedback-2611.md). Отдельная тема.
 
 Wiseman Teens A2 26.11: [классная работа «12. The finishing line» к уроку 27.11 для первой ученицы — ловушки Listening T3–T5 с цитатами расшифровки, open cloze и Reading T4 по Trainer Test 1, три пункта email, короткий Speaking; опубликована, не назначалась](handoffs/2026-11-26-a2-sonya-finishing-line.md).

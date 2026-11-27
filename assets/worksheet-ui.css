@@ -1,2 +1,6 @@
 /* Functional visibility fix; original worksheet appearance is preserved. */
 body.angle-worksheet [hidden]{display:none!important}
+
+/* Keep reading text inset from the email frame, including cloze emails. */
+.email-frame > .text-box{padding:14px 16px}
+.email-frame > .text-box > :last-child{margin-bottom:0}
