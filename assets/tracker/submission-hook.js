@@ -19,6 +19,13 @@
   const rejected = () => load(rejectedKey, []), writeRejected = q => save(rejectedKey, q.slice(-60));
   const update = (id, change) => write(read().map(x => x.id === id ? Object.assign({}, x, change) : x));
   let flushing = false;
+  /* v8 (27.11.2026): AbortSignal.timeout is missing in older browsers (iOS Safari < 16); calling it threw inside flush(),
+     so the tracker write could never be sent although the mail went out. The server finishes a write even if we stop waiting. */
+  function timeoutSignal(ms) {
+    try { if (window.AbortSignal && AbortSignal.timeout) return AbortSignal.timeout(ms); } catch (_) {}
+    try { if (window.AbortController) { const c = new AbortController(); setTimeout(() => c.abort(), ms); return c.signal; } } catch (_) {}
+    return undefined;
+  }
 
   function message(text, retry) {
     if (!document.body) { document.addEventListener('DOMContentLoaded', () => message(text, retry), { once: true }); return; }   // called from <head> before <body> exists
@@ -55,7 +62,7 @@
       for (const item of read()) {
         let r, result;
         try {
-          r = await original(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item.payload), signal: AbortSignal.timeout(20000) });
+          r = await original(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item.payload), signal: timeoutSignal(45000) });
           result = await r.json();
         } catch (_) { message('Работа отправлена учителю. Трекер временно недоступен; повторим запись автоматически.'); break; }   // network problem: keep everything, try later
         if (!r.ok || !result || !result.ok) {
@@ -120,7 +127,11 @@
       const label = (clicked && clicked.label) || lesson.replace(/\s*\((?:частичн|partial)[^)]*\)\s*$/i, '').replace(title, '').replace(/^\s*[—–-]\s*/, '').trim();
       hw = label ? title + ' — ' + label : title + ' — part';
     }
-    const open = Array.from(document.querySelectorAll('textarea')).some(t => t.value.trim().length > 20) || Object.keys(data).some(k => /written|essay|story|answer_text|text$/i.test(k) && String(data[k]).trim().length > 20);
+    /* v8: when the page has answer boxes, they decide. A mail field like written_questions is long even when every box is
+       "(не заполнено)", which marked empty open answers as submitted. */
+    const boxes = Array.from(document.querySelectorAll('textarea')).filter(t => !t.closest('#angleSendFallback,#angleTrackerDelivery,.ws-notes,[id^="ws"]'));
+    const open = boxes.length ? boxes.some(t => t.value.trim().length > 20)
+      : Object.keys(data).some(k => /written|essay|story|answer_text|text$/i.test(k) && String(data[k]).replace(/\(не заполнено\)/g, '').replace(/^[^\n]*:\s*$/gm, '').trim().length > 20);
     let note = score ? 'Submitted score: ' + score + '. ' : '';
     /* The latest scored attempt is the result (Viktoria, 08.11.2026); the first one is kept in the note. */
     if (pct !== null && !partial) {
