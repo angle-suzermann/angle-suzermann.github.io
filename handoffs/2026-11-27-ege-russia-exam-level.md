@@ -17,7 +17,18 @@
 - Локальные копии изменены (`0. Лексика/Праздники России`, `Выдающиеся люди`, `6. Итоговый тест/02…`), прежние — `_предыдущие версии/Exam level (до 27.11)`. Скрипты: `Claude outputs/exam/` (content_exam.py, insert_exam.py, fix_dots.py, demo_up.py).
 - QA Playwright: 16 уроков — все новые пункты засчитываются (6/6+4/4 или 5/5+3/3), 390/1280 без горизонтальной прокрутки и ошибок JS; демо 42/42.
 
+## Дополнение 27.11 (решение Виктории «1–2 да»)
+- **Уроки 19–22** получили страницу «Exam level» (19–24 + 30–36; в Unity Day — 19–24 + 25–29):
+  - 20 Immortal Regiment — как начался марш (Томск 2012, Conditional II, the most moving);
+  - 21 Heroes — Александр Невский (1240, 1242, Conditional III, орден);
+  - 22 20th Century — Московское метро (1935, бомбоубежища, busiest, had);
+  - 19 Unity Day — Казанская икона и собор (1579, 1636, 1936, 1990-е) + словообразование (officially, dissatisfied, widely, exhibitions, diversity).
+  Движок heroes: новая страница data-page=9, итоговая стала 10, PAGE_LABELS +«Exam level»; поля по ключам data-q (x_N, y_N) — сохранения не сдвигаются. Unity: страница 9, Finish → 10, labels дополнены, поля с новыми id gx-a19…gx-b29, кнопки type="button".
+- **Итоговый тест «01. Russia — Final Test»** усложнён, но **другими** текстами, чем демо: заголовки 10 — другой абстрактный набор (ключ прежний); 12–18 — другие вопросы ЕГЭ-типов (вывод, перефраз, NOT mentioned, TRUE, смена отношения, главная мысль); 19–24 Lake Baikal (deepest, was formed, have studied, are found, its, were); 25–29 Novosibirsk (originally, unbelievably, scientific, researchers, probably); 30–36 The Russian banya (keep, produced, circulation, regardless of, provided, relax, essential), позиции ответов перемешаны. QA 58/58.
+- Локальные копии (`0. Лексика/20–22`, `unity day/National Unity Day - Lesson.html`, `6. Итоговый тест/01…`) изменены, прежние — `_предыдущие версии/Exam level (до 27.11)`. Скрипты `Claude outputs/exam/content_b.py`, `insert_b.py`, `final_up.py`.
+- QA 390/1280: 19–22 — все пункты засчитываются, 11 точек навигации, без ошибок JS и прокрутки.
+
 ## Открыто
-- Уроки 01–02 (Holidays lexis input), 19 Unity Day, 20–22 (Immortal Regiment, Heroes, 20th Century) — другой движок, страница Exam level не добавлялась.
+- Уроки 01–02 (Holidays lexis input) — страница Exam level не добавлялась.
 - 2-я часть демо (37–38) и устная часть не менялись; задание 11 демо не усложнялось.
 - Ульяне ничего не назначалось; 05/06 State (назначены на 29.11) получили новую страницу.
