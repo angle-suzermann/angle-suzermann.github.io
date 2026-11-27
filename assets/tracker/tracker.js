@@ -550,7 +550,7 @@ document.addEventListener('click',e=>{
   const pt=e.target.closest('[data-ptab]');
   if(pt){parentTab=pt.dataset.ptab;renderParent();return}
   const d=e.target.closest('.dot[data-t]');
-  if(d){const [c,sid,scope,item,kind]=d.dataset.t.split('\u0001');const k=pk(c,sid,scope,item);const current=st(c,sid,scope,item),nv=next(current,kind); const pupil=D.courses[c]?.students.find(s=>s.id===sid); if(!window.confirm('Изменить отметку: '+(pupil?.name||sid)+'?\n'+statusLabel(current)+' → '+statusLabel(nv)+'\nСохранённый процент может скрыться при выборе «Не задано».'))return;
+  if(d){const [c,sid,scope,item,kind]=d.dataset.t.split('\u0001');const k=pk(c,sid,scope,item);const current=st(c,sid,scope,item),nv=next(current,kind);
     for(const t of b1DevelopingTargets(c,{scope,item})){const key=pk(c,sid,t.scope,t.item);if(st(c,sid,t.scope,t.item)==='N/A')continue;if(nv)D.progress[key]=nv;else delete D.progress[key];send({a:'setStatus',course:c,student:sid,...t,status:nv});}
     const y=window.scrollY,tx=$('.matrix')?.scrollLeft,ty=$('.matrix')?.scrollTop;render();window.scrollTo(0,y);const m=$('.matrix');if(m){m.scrollLeft=tx;m.scrollTop=ty}
     return}
