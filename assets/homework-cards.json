@@ -669,5 +669,26 @@
         ]
       }
     ]
+  },
+  {
+    "id": "02850d83-1ffb-5a35-a70b-ab56a49177ae",
+    "path": "/as5/Unit 2/homework-2026-12-08/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-12-08",
+    "due": "2026-12-10",
+    "title": "08. Homework 8 Dec — Grammar Goals Review 1 (pp.16–17)",
+    "parts": [
+      {
+        "id": "grammar-review",
+        "label": "Grammar Goals · pages 16–17 · Review 1",
+        "taskIds": [
+          "rv1",
+          "rv2",
+          "rv3",
+          "rv4"
+        ]
+      }
+    ]
   }
 ]
