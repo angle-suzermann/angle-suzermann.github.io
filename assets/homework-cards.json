@@ -503,5 +503,181 @@
         ]
       }
     ]
+  },
+  {
+    "id": "221236d0-45ce-511c-9bbf-18f3a24be32b",
+    "path": "/as2/Unit 3/homework-2026-12-03/",
+    "courseId": "as2",
+    "course": "Starters",
+    "lesson": "2026-12-03",
+    "due": "2026-12-10",
+    "title": "04. Homework 3 Dec — What a cool phone! (WB pp.34–35 + Grammar Goals p.23 + Phonics st)",
+    "parts": [
+      {
+        "id": "wb-functional",
+        "label": "Workbook · page 34",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "wb-check",
+        "label": "Workbook · page 35 · How am I doing?",
+        "taskIds": [
+          "wb4",
+          "wb5"
+        ]
+      },
+      {
+        "id": "grammar-goals",
+        "label": "Grammar Goals · page 23",
+        "taskIds": [
+          "gg1"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Workbook page 14",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "40fba3a4-2499-5e47-b8ef-ac420faca599",
+    "path": "/as3/Unit 9/homework-2026-12-01/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-12-01",
+    "due": "2026-12-03",
+    "title": "07. Homework 1 Dec — Sports camp (WB p.97 + Grammar Goals p.65 + Phonics a)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · page 97",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3"
+        ]
+      },
+      {
+        "id": "grammar-goals",
+        "label": "Grammar Goals · page 65",
+        "taskIds": [
+          "gg1",
+          "gg2"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Workbook page 22",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "b331d95f-ac2c-520f-8c4b-74d75fa8a19f",
+    "path": "/as3/Unit 9/homework-2026-12-03/",
+    "courseId": "as3",
+    "course": "Movers",
+    "lesson": "2026-12-03",
+    "due": "2026-12-08",
+    "title": "08. Homework 3 Dec — An email: and, also, too (WB pp.98–99 + Phonics e, i)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · pages 98–99",
+        "taskIds": [
+          "wb1",
+          "wb2",
+          "wb3",
+          "wb4"
+        ]
+      },
+      {
+        "id": "phonics",
+        "label": "Phonics · Workbook page 23",
+        "taskIds": [
+          "ph1",
+          "ph2",
+          "ph3"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cc164788-9676-588b-8fec-6d1e443e66b5",
+    "path": "/as5/Unit 2/homework-2026-12-01/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-12-01",
+    "due": "2026-12-03",
+    "title": "06. Homework 1 Dec — An old-time school (WB pp.22–23 ex 1 + Grammar Goals p.15)",
+    "parts": [
+      {
+        "id": "workbook",
+        "label": "Workbook · pages 22–23 · Exam practice",
+        "taskIds": [
+          "wb1"
+        ]
+      },
+      {
+        "id": "grammar-goals",
+        "label": "Grammar Goals · page 15",
+        "taskIds": [
+          "gg1",
+          "gg2"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9c5d8ec4-1471-5371-99d0-c228c321b84a",
+    "path": "/as5/Unit 2/homework-2026-12-03/",
+    "courseId": "as5",
+    "course": "Flyers",
+    "lesson": "2026-12-03",
+    "due": "2026-12-08",
+    "title": "07. Homework 3 Dec — A diary entry (WB pp.23–25 + Grammar Goals Review 1)",
+    "parts": [
+      {
+        "id": "learning-to-learn",
+        "label": "Workbook · page 23 · Learning to learn",
+        "taskIds": [
+          "ll1",
+          "ll2"
+        ]
+      },
+      {
+        "id": "workbook",
+        "label": "Workbook · pages 24–25 · Writing",
+        "taskIds": [
+          "wr1",
+          "wr2",
+          "wr3",
+          "wr4"
+        ]
+      },
+      {
+        "id": "grammar-review",
+        "label": "Grammar Goals · pages 16–17 · Review 1",
+        "taskIds": [
+          "rv1",
+          "rv2",
+          "rv3",
+          "rv4"
+        ]
+      }
+    ]
   }
 ]
