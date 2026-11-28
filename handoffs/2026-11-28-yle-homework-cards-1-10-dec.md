@@ -22,3 +22,11 @@
 `node build.mjs` PASS; Chrome 390/1440 — без ошибок JS и горизонтальной прокрутки, все медиа отдаются, части/taskIds в HTML = manifest, при запуске второго плеера первый ставится на паузу, карточки в списках /as2|as3|as5/homework/. Реальную отправку не проверяли.
 
 Локальные копии: `Courses/Academy Stars/AS2/unit 3/homework-2026-12-03` (прежний черновик — `_previous/before-cards-2026-11-28`), `AS3/unit 9/homework-2026-12-01|03`, `AS5/unit 2/homework-2026-12-01|03`.
+
+## Назначение (28.11, assignWorksheet ok, сверено read-only по Homework_Assignments / Homework_Bindings)
+- Starters st1, st2 (3.12 → 10.12): wb-functional → u3 sec8+sec9 (Listening, Speaking), wb-check → u3 sec11 Extra, grammar-goals → u3 sec5, phonics → ph12.
+- Movers mo1, mo2 (1.12 → 3.12): workbook → u9 sec8+sec9, grammar-goals → u9 sec5, phonics → ph19 (Unit 5 a).
+- Movers mo1, mo2 (3.12 → 8.12): workbook → u9 sec10 Writing, phonics → ph20 (Unit 5 e i).
+- Flyers fl1–fl5 (1.12 → 3.12): workbook → u2 sec9 Listening, grammar-goals → u2 sec5.
+- Flyers fl1–fl5 (3.12 → 8.12): learning-to-learn → u2 sec10, workbook → u2 sec10, grammar-review (Review 1) → u2 sec5.
+Секции выбраны по уроку учебника (как в прежних привязках: урок N → секция урока, Grammar Goals → Extra/More Grammar Practice). Если Виктория хочет другие кружки — переназначить с новыми привязками.
