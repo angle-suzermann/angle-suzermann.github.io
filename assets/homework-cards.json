@@ -648,7 +648,7 @@
     "course": "Flyers",
     "lesson": "2026-12-03",
     "due": "2026-12-08",
-    "title": "07. Homework 3 Dec — A diary entry (WB pp.23–25 + Grammar Goals Review 1)",
+    "title": "07. Homework 3 Dec — A diary entry (WB pp.23–25)",
     "parts": [
       {
         "id": "learning-to-learn",
@@ -666,16 +666,6 @@
           "wr2",
           "wr3",
           "wr4"
-        ]
-      },
-      {
-        "id": "grammar-review",
-        "label": "Grammar Goals · pages 16–17 · Review 1",
-        "taskIds": [
-          "rv1",
-          "rv2",
-          "rv3",
-          "rv4"
         ]
       }
     ]
